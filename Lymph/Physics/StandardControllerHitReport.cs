@@ -2,7 +2,7 @@
 using Mogre.PhysX;
 using System;
 
-namespace Lymph.Phys {
+namespace Ponykart.Phys {
 	/// <summary>
 	/// Standard controller hit reporter. Push around 
 	/// </summary>

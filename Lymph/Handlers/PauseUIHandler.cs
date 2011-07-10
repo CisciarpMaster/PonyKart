@@ -1,10 +1,10 @@
-﻿using Lymph.Core;
-using Lymph.UI;
+﻿using Ponykart.Core;
+using Ponykart.UI;
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 
-namespace Lymph.Handlers {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class hooks up to whenever the game is paused and displays the pause UI.
 	/// At the moment it's just a big label that says "PAUSED" but hey it's a start.

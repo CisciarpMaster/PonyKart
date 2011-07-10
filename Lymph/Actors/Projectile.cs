@@ -1,5 +1,5 @@
 ﻿
-namespace Lymph.Actors
+namespace Ponykart.Actors
 {
 	///<summary> A projectile. Basically an thing with no face and a ribbon attached. </summary>
 	public abstract class Projectile : DynamicThing

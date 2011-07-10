@@ -6,7 +6,7 @@ using Mogre;
 using MOIS;
 using Type = MOIS.Type;
 
-namespace Lymph {
+namespace Ponykart {
 	/// <summary>
 	/// Class that handles all of the input. This acts as a "layer" between the input library and the rest of the program.
 	/// This makes it easier to change libraries and stuff, since you'd only need to change this class instead of everything

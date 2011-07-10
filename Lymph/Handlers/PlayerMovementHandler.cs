@@ -1,9 +1,9 @@
 ﻿using System;
-using Lymph.Actors;
-using Lymph.Handlers.NotReallyHandlers;
+using Ponykart.Actors;
+using Ponykart.Handlers.NotReallyHandlers;
 using Mogre;
 
-namespace Lymph.Handlers
+namespace Ponykart.Handlers
 {
 	/// <summary>
 	/// This class manages stuff to do with player movement, such as responding to WASD key presses and applying forces to the player.

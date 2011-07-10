@@ -1,7 +1,7 @@
 ﻿using LuaNetInterface;
-using Lymph.UI;
+using Ponykart.UI;
 
-namespace Lymph.Lua {
+namespace Ponykart.Lua {
 	[LuaPackage("Dialogue", "This manages the dialogue for speech and stuff. If you were looking for popup windows, you'll want Miyagi's DialogBox.Show.")]
 	public class DialogueWrapper {
 

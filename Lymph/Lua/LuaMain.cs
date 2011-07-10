@@ -2,9 +2,9 @@
 using System.Collections;
 using LuaInterface;
 using LuaNetInterface;
-using Lymph.Levels;
+using Ponykart.Levels;
 
-namespace Lymph.Lua
+namespace Ponykart.Lua
 {
 	public delegate void LuaEventHandler();
 

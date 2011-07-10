@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Lymph.IO
+namespace Ponykart.IO
 {
 	///<summary/>
 	public class ParserException: Exception

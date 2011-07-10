@@ -1,6 +1,6 @@
 ﻿using Mogre;
 
-namespace Lymph.Stuff {
+namespace Ponykart.Stuff {
 	public class DebugOverlayManager {
 		/// <summary>
 		/// The Ogre DebugOverlay.

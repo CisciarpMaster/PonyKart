@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Lymph.Actors;
-using Lymph.Core;
-using Lymph.Levels;
+using Ponykart.Actors;
+using Ponykart.Core;
+using Ponykart.Levels;
 using Mogre;
 using Mogre.PhysX;
 using Actor = Mogre.PhysX.Actor;
 
-namespace Lymph.Phys {
+namespace Ponykart.Phys {
     public partial class PhysXMain : IDisposable {
         private Physics physics;
         private Scene scene;

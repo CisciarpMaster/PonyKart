@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
-namespace Lymph {
+namespace Ponykart {
 	/// <summary>
 	/// This class manages the splash screen you see when you start up the game.
 	/// </summary>
@@ -85,7 +85,7 @@ namespace Lymph {
 			// Splash
 			// 
 			this.BackColor = SystemColors.Window;
-			this.BackgroundImage = global::Lymph.Properties.Resources.Splash;
+			this.BackgroundImage = Ponykart.Properties.Resources.Splash;
 			this.BackgroundImageLayout = ImageLayout.None;
 			this.ClientSize = new Size(899, 742);
 			this.Controls.Add(this.Progress);
@@ -100,7 +100,7 @@ namespace Lymph {
 			this.UseWaitCursor = true;
 			this.ResumeLayout(false);
 
-			base.Icon = Lymph.Properties.Resources.Icon_1;
+			base.Icon = Ponykart.Properties.Resources.Icon_1;
 		}
 
 		new public void Show() {

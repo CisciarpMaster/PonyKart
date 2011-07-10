@@ -1,7 +1,7 @@
 ﻿using LuaNetInterface;
-using Lymph.Core;
+using Ponykart.Core;
 
-namespace Lymph.Lua {
+namespace Ponykart.Lua {
 	
 	[LuaPackage("Pauser", "A wrapper for the pauser class")]
 	public class PauserWrapper {

@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
 using System.IO;
-using Lymph.Levels;
+using Ponykart.Levels;
 using Mogre;
 
-namespace Lymph.IO {
+namespace Ponykart.IO {
 	/// <summary>
 	/// Imports worlds from a file.
 	/// </summary>

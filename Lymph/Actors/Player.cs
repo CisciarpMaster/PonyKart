@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Lymph.Handlers;
-using Lymph.Phys;
-using Lymph.Stuff;
+using Ponykart.Handlers;
+using Ponykart.Phys;
+using Ponykart.Stuff;
 using Mogre;
 
-namespace Lymph.Actors {
+namespace Ponykart.Actors {
 	/// <summary>
 	/// This class represents the player! Yay!
 	/// </summary>

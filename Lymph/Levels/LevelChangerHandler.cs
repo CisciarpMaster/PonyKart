@@ -1,7 +1,7 @@
 ﻿using System;
 using MOIS;
 
-namespace Lymph.Levels {
+namespace Ponykart.Levels {
 	/// <summary>
 	/// this is hooked up to the keyboard events and tells the level manager to change levels when certain keys are pressed
 	/// </summary>
@@ -27,16 +27,6 @@ namespace Lymph.Levels {
 				case KeyCode.KC_0:
 					s = Settings.Default.FirstLevelName; break;
 				case KeyCode.KC_1:
-					s = "Level1"; break;
-				case KeyCode.KC_2:
-					s = "Level1"; break;
-				case KeyCode.KC_3:
-					s = "LargeFlat"; break;
-				case KeyCode.KC_4:
-					s = "Vessel"; break;
-				case KeyCode.KC_5:
-					s = "Fat"; break;
-				case KeyCode.KC_6:
 					s = "shittyterrain"; break;
 			}
 			if (s != "")

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Lymph {
+namespace Ponykart {
 	/// <summary>
 	/// "Swallowing" input is when we only give input to one particular thing. For example, if we have WASD as movement keys,
 	/// if we have a text box come up asking us for our name or something, we don't want to start moving while we're doing that.

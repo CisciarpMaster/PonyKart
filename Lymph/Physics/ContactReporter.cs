@@ -1,7 +1,7 @@
 ﻿using System;
 using Mogre.PhysX;
 
-namespace Lymph.Phys {
+namespace Ponykart.Phys {
 
 	public delegate void ContactReportHandler(ContactPair pair, ContactPairFlags flags);
 

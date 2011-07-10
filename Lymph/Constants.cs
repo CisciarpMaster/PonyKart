@@ -1,6 +1,6 @@
 ﻿using Mogre;
 
-namespace Lymph {
+namespace Ponykart {
 	public static class Constants {
 		// Window 
 		/// <summary> The width of the window, in pixels </summary>

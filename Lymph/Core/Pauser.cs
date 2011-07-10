@@ -1,6 +1,6 @@
 ﻿using MOIS;
 
-namespace Lymph.Core {
+namespace Ponykart.Core {
 	public delegate void PauseEventHandler(bool isPaused);
 
 	public class Pauser {

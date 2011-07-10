@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lymph.Levels;
-using Lymph.Phys;
-using Lymph.Stuff;
+using Ponykart.Levels;
+using Ponykart.Phys;
+using Ponykart.Stuff;
 using Mogre;
 
-namespace Lymph.Actors {
+namespace Ponykart.Actors {
 	/// <summary>
 	/// Base class for all game objects.
 	/// </summary>

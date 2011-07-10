@@ -1,7 +1,7 @@
 ﻿using System;
-using Lymph.Core;
+using Ponykart.Core;
 
-namespace Lymph.Levels
+namespace Ponykart.Levels
 {
 	public delegate void LevelEventHandler(LevelChangedEventArgs eventArgs);
 

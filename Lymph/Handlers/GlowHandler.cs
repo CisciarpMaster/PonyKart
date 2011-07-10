@@ -1,6 +1,6 @@
 ﻿using Mogre;
 
-namespace Lymph.Handlers {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class just adds glow to things. I'm not entirely sure how it works but it's best not to touch it unless you know what you're doing
 	/// </summary>

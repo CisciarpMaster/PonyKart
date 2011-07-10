@@ -1,12 +1,12 @@
 ﻿using System;
-using Lymph.Actors;
-using Lymph.Core;
-using Lymph.Lua;
-using Lymph.Phys;
-using Lymph.Stuff;
+using Ponykart.Actors;
+using Ponykart.Core;
+using Ponykart.Lua;
+using Ponykart.Phys;
+using Ponykart.Stuff;
 using MOIS;
 
-namespace Lymph.Handlers
+namespace Ponykart.Handlers
 {
 	/// <summary>
 	/// This class is hooked up to the keyboard events and does miscellaneous things depending on what keys are pressed.

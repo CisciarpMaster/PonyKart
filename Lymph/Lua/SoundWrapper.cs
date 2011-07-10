@@ -1,9 +1,9 @@
 ﻿using IrrKlang;
 using LuaNetInterface;
-using Lymph.Sound;
+using Ponykart.Sound;
 using Mogre;
 
-namespace Lymph.Lua {
+namespace Ponykart.Lua {
 	[LuaPackage("Sounds", "The wrapper for the SoundMain class")]
 	public class SoundWrapper {
 		public SoundWrapper() {

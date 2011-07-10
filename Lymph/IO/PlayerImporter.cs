@@ -1,5 +1,5 @@
 ﻿
-namespace Lymph.IO {
+namespace Ponykart.IO {
 	public class PlayerImporter {
 
 		public PlayerImporter() {

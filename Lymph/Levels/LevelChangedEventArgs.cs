@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lymph.Levels
+namespace Ponykart.Levels
 {
 	public class LevelChangedEventArgs : EventArgs
 	{

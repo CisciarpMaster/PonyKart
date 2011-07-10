@@ -1,5 +1,5 @@
 ﻿
-namespace Lymph.Stuff {
+namespace Ponykart.Stuff {
 	/// <summary>
 	/// RenderQueueGroup... L-something.
 	/// Enum to represent different render queue groups we stick things in so they're rendered correctly.

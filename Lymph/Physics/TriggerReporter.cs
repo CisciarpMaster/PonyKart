@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lymph.Actors;
-using Lymph.Levels;
+using Ponykart.Actors;
+using Ponykart.Levels;
 using Mogre.PhysX;
 
-namespace Lymph.Phys {
+namespace Ponykart.Phys {
 
 	public delegate void TriggerReportHandler(Shape triggerShape, Shape otherShape, TriggerFlags flags);
 

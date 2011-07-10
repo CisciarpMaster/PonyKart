@@ -1,5 +1,5 @@
 ﻿
-namespace Lymph.UI {
+namespace Ponykart.UI {
 	/// <summary>
 	/// special properties for UI objects go here
 	/// 

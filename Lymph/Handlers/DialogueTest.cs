@@ -1,8 +1,8 @@
-﻿using Lymph.Phys;
-using Lymph.UI;
+﻿using Ponykart.Phys;
+using Ponykart.UI;
 using Mogre.PhysX;
 
-namespace Lymph.Handlers {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// a little test for the dialogue system
 	/// </summary>

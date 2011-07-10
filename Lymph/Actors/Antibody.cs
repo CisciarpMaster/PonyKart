@@ -1,9 +1,9 @@
-﻿using Lymph.Phys;
-using Lymph.Stuff;
+﻿using Ponykart.Phys;
+using Ponykart.Stuff;
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Actors
+namespace Ponykart.Actors
 {
 	///<summary> Antibody projectile, shot by Lymphy. </summary>
 	public class Antibody : Projectile

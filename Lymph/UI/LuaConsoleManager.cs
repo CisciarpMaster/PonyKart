@@ -1,5 +1,5 @@
 ﻿using System;
-using Lymph.Lua;
+using Ponykart.Lua;
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Events;
@@ -8,7 +8,7 @@ using Miyagi.UI.Controls;
 using MOIS;
 using KeyEvent = MOIS.KeyEvent;
 
-namespace Lymph.UI {
+namespace Ponykart.UI {
 	/// <summary>
 	/// This class manages our lua console, since now we can type things into lua and make it do stuff, all without changing windows! :D
 	/// Note that this console only outputs stuff from lua - it doesn't output anything else from the program.

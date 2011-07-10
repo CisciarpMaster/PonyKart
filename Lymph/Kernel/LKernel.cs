@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Lymph {
+namespace Ponykart {
 	public static partial class LKernel {
 		private static IDictionary<Type, object> GlobalObjects;
 		private static IDictionary<Type, object> LevelObjects;

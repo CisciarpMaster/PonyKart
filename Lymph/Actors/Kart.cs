@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Lymph.Phys;
-using Lymph.Stuff;
+using Ponykart.Phys;
+using Ponykart.Stuff;
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Actors {
+namespace Ponykart.Actors {
 	public class Kart : DynamicThing {
 		
 		protected override ShapeDesc ShapeDesc {

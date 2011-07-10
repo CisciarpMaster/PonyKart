@@ -1,7 +1,7 @@
 ﻿using IrrKlang;
-using Lymph.Actors;
-using Lymph.Levels;
-using Lymph.Phys;
+using Ponykart.Actors;
+using Ponykart.Levels;
+using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
 using Math = Mogre.Math;
@@ -14,7 +14,7 @@ using Math = Mogre.Math;
  *   SoundObject's volume starts decreasing, and the Maximum Distance is the distance
  *   from the camera at which the SoundObject will be at its quietest.
  */
-namespace Lymph.Sound {
+namespace Ponykart.Sound {
 	public class SoundMain {
 		bool quit = false;
 		ISound music;

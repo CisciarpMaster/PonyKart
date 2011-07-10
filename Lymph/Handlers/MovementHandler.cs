@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Lymph.Actors;
-using Lymph.Core;
-using Lymph.Levels;
-using Lymph.Phys;
-using Lymph.Stuff;
+using Ponykart.Actors;
+using Ponykart.Core;
+using Ponykart.Levels;
+using Ponykart.Phys;
+using Ponykart.Stuff;
 using Mogre;
 
-namespace Lymph.Handlers {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles movement of all NPCs. Currently it's kinda crude but it works for now.
 	/// </summary>

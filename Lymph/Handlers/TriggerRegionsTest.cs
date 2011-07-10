@@ -1,9 +1,9 @@
 ﻿using System;
-using Lymph.Phys;
+using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Handlers {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// just a little test for the trigger regions
 	/// </summary>

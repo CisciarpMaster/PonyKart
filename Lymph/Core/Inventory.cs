@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Lymph.Core {
+namespace Ponykart.Core {
 	public class Inventory {
 		/// <summary>
 		/// The items in this inventory

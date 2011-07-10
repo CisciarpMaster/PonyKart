@@ -1,9 +1,9 @@
 ﻿using LuaNetInterface;
-using Lymph.Phys;
+using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Lua {
+namespace Ponykart.Lua {
 	[LuaPackage("Triggers", "A wrapper for the TriggerReporter.")]
 	public class TriggerWrapper {
 

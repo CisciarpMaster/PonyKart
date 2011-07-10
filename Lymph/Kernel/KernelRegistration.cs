@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Lymph.Core;
-using Lymph.Handlers;
-using Lymph.IO;
-using Lymph.Levels;
-using Lymph.Lua;
-using Lymph.Phys;
-using Lymph.Sound;
-using Lymph.Stuff;
-using Lymph.UI;
 using Mogre;
+using Ponykart.Core;
+using Ponykart.Handlers;
+using Ponykart.IO;
+using Ponykart.Levels;
+using Ponykart.Lua;
+using Ponykart.Phys;
+using Ponykart.Sound;
+using Ponykart.Stuff;
+using Ponykart.UI;
 
-namespace Lymph {
+namespace Ponykart {
 	public static partial class LKernel {
 
 		/// <summary>

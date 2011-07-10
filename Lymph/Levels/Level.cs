@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Lymph.Actors;
-using Lymph.Core;
-using Lymph.IO;
-using Lymph.Lua;
-using Lymph.Phys;
-using Lymph.Stuff;
+using Ponykart.Actors;
+using Ponykart.Core;
+using Ponykart.IO;
+using Ponykart.Lua;
+using Ponykart.Phys;
+using Ponykart.Stuff;
 using Mogre;
 
-namespace Lymph.Levels
+namespace Ponykart.Levels
 {
 	/// <summary>
 	/// Represents a level or world in our game.

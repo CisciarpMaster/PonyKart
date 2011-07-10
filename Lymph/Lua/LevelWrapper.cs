@@ -1,7 +1,7 @@
 ﻿using LuaNetInterface;
-using Lymph.Levels;
+using Ponykart.Levels;
 
-namespace Lymph.Lua {
+namespace Ponykart.Lua {
 	[LuaPackage("Level", "Wrapper for an actual level. Some of the functions here are duplicated in LevelManager.")]
 	public class LevelWrapper {
 		public LevelWrapper() {

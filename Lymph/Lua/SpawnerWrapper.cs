@@ -1,8 +1,8 @@
 ﻿using LuaNetInterface;
-using Lymph.Core;
+using Ponykart.Core;
 using Mogre;
 
-namespace Lymph.Lua
+namespace Ponykart.Lua
 {
 	[LuaPackage("Spawner", "This is a wrapper for the Spawner. Use it to spawn game objects.")]
 	public class SpawnerWrapper {

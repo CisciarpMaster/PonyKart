@@ -1,7 +1,7 @@
-﻿using Lymph.Levels;
+﻿using Ponykart.Levels;
 using Mogre.PhysX;
 
-namespace Lymph.Phys {
+namespace Ponykart.Phys {
 	public class Groups {
 		// these are also actor groups
 		#region GroupIDs

@@ -8,8 +8,8 @@
     <ProjectGuid>{E42E240A-99DB-4375-BCA3-187AA990C15C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lymph</RootNamespace>
-    <AssemblyName>Lymph</AssemblyName>
+    <RootNamespace>Ponykart</RootNamespace>
+    <AssemblyName>Ponykart</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationManifest>Properties\Lymph.exe.manifest</ApplicationManifest>
@@ -25,7 +25,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <PublishUrl>C:\Users\Pyritie\Desktop\Lymph\</PublishUrl>
+    <PublishUrl>C:\Users\Pyritie\Desktop\Ponykart\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -37,7 +37,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -50,6 +50,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -134,6 +136,7 @@
     <Compile Include="IO\ThingTemplate.cs" />
     <Compile Include="IO\WorldExporter.cs" />
     <Compile Include="Physics\StandardControllerHitReport.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Stuff\IDs.cs" />
     <Compile Include="UI\LuaConsoleManager.cs" />

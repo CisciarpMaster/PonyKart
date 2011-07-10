@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using Lymph.Phys;
+using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Actors {
+namespace Ponykart.Actors {
 	/// <summary>
 	/// Kinematic things are another one of those weird things physx offers that doesn't actually exist in real life.
 	/// Basically a kinematic actor is one that can exert force on others, but any force exerted on it does nothing.

@@ -1,11 +1,11 @@
-﻿using Lymph.Levels;
-using Lymph.UI;
+﻿using Ponykart.Levels;
+using Ponykart.UI;
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 using Mogre;
 
-namespace Lymph.Handlers {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles the progress bar and label that show on loading screens
 	/// </summary>

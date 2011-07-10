@@ -6,7 +6,7 @@ using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Texture = Miyagi.Common.Resources.Texture;
 
-namespace Lymph.UI {
+namespace Ponykart.UI {
 	/// <summary>
 	/// This class manages the speech dialogue thingies. If you were looking for the popup windows with questions, use Miyagi's DialogBox.Show.
 	/// </summary>

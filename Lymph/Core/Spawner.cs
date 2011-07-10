@@ -1,8 +1,8 @@
 ﻿using System;
-using Lymph.Actors;
+using Ponykart.Actors;
 using Mogre;
 
-namespace Lymph.Core {
+namespace Ponykart.Core {
 	public delegate void OnThingCreation(Thing cell);
 
 	public class Spawner {

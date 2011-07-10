@@ -1,7 +1,7 @@
 ﻿using Mogre;
 using Math = System.Math;
 
-namespace Lymph {
+namespace Ponykart {
 	/// <summary>
 	/// Some extension methods 
 	/// </summary>

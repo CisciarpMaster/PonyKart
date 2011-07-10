@@ -1,10 +1,10 @@
 ﻿using System;
-using Lymph.Actors;
-using Lymph.Levels;
+using Ponykart.Actors;
+using Ponykart.Levels;
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Core {
+namespace Ponykart.Core {
 	public class PlayerCamera : IDisposable {
 		Actor cameraActor;
 

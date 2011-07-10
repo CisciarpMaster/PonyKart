@@ -5,7 +5,7 @@ using Miyagi.Common.Data;
 using Miyagi.Common.Resources;
 using Miyagi.UI;
 
-namespace Lymph.UI {
+namespace Ponykart.UI {
 	/// <summary>
 	/// this just has a few methods to load resources for the UI. Everything is static so you shouldn't need to instantiate this class
 	/// </summary>

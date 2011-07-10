@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Xml;
 using Mogre;
 
-namespace Lymph.Stuff {
+namespace Ponykart.Stuff {
 	/// <summary>
 	/// Class for loading a .scene file! :D
 	/// Not made by me. This is pretty much a copy and paste job from something someone made on the ogre wiki.

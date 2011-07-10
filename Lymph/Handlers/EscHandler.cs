@@ -1,7 +1,7 @@
-﻿using Lymph.UI;
+﻿using Ponykart.UI;
 using MOIS;
 
-namespace Lymph.Handlers {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// Just a small handler to do stuff when we press Esc
 	/// If the console is up, we hide the console. If the console isn't up, we quit.

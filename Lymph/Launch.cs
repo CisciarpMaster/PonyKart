@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Mogre;
 
-namespace Lymph {
+namespace Ponykart {
 	public static class Launch {
 	
 		[STAThread]

@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using Lymph.Phys;
+using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Actors {
+namespace Ponykart.Actors {
 	/// <summary>
 	/// Dynamic things are basically what you have in real life. If something hits something else, both of them will be affected.
 	/// You don't really want dynamic things for NPCs and so on, but they work well for movable scenery.

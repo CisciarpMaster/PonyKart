@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Mogre;
 
-namespace Lymph {
+namespace Ponykart {
 	/// <summary>
 	/// "Template" for a Thing
 	/// </summary>

@@ -1,7 +1,7 @@
 ﻿using System;
-using Lymph.Actors;
+using Ponykart.Actors;
 
-namespace Lymph.Core {
+namespace Ponykart.Core {
 	public class Item {
 		/// <summary>
 		/// What item is it?

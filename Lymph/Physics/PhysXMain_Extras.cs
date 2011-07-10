@@ -2,7 +2,7 @@
 using Mogre;
 using Mogre.PhysX;
 
-namespace Lymph.Phys {
+namespace Ponykart.Phys {
 	public partial class PhysXMain {
 
 		/// <summary>

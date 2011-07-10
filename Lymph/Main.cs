@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using Lymph.UI;
 using Mogre;
+using Ponykart.UI;
 
-namespace Lymph {
+namespace Ponykart {
 	/// <summary>
 	/// The startup class/window.
 	/// </summary>
@@ -35,7 +35,7 @@ namespace Lymph {
 			this.Text = "Lymph";
 			this.ResumeLayout(false);
 
-			base.Icon = Lymph.Properties.Resources.Icon_1;
+			base.Icon = Ponykart.Properties.Resources.Icon_1;
 		}
 
 		/// <summary>

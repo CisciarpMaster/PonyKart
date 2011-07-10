@@ -1,7 +1,7 @@
 ﻿using LuaNetInterface;
-using Lymph.Levels;
+using Ponykart.Levels;
 
-namespace Lymph.Lua {
+namespace Ponykart.Lua {
 	/// <summary>
 	/// A wrapper class for input and output
 	/// </summary>
