@@ -1,0 +1,10 @@
+Verdana
+{
+	// Verdana! :D
+	type 		truetype
+	source 		verdana.ttf
+	size 		16
+	resolution 	96
+}
+
+

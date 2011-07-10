@@ -1,0 +1,10 @@
+VerdanaItalic
+{
+	// Verdana! :D
+	type 		truetype
+	source 		verdanaitalic.ttf
+	size 		16
+	resolution 	96
+}
+
+

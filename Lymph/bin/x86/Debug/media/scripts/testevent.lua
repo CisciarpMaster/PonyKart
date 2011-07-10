@@ -1,0 +1,1 @@
+print("=== file event hook test successful!")
