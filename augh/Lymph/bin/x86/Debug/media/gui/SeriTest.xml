@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<Miyagi Version="1.2.0.3488">
+  <Manager Type="GUI">
+    <Cursor Type="Miyagi.UI.Cursor">
+      <Hotspots>
+        <Hotspot>
+          <Key>Main</Key>
+          <Value>0,0</Value>
+        </Hotspot>
+      </Hotspots>
+      <Size>16,16</Size>
+      <Skin>Skins/CursorSkin</Skin>
+      <Visible>True</Visible>
+    </Cursor>
+    <GUIs>
+      <GUI Type="Miyagi.UI.GUI">
+        <Controls>
+          <Control Type="Miyagi.UI.Controls.Button">
+            <Skin>Skins/ButtonSkin</Skin>
+            <Rectangle>400,370,330,400</Rectangle>
+          </Control>
+        </Controls>
+      </GUI>
+    </GUIs>
+  </Manager>
+  <Redirects>
+    <Skins>
+      <CursorSkin Type="Miyagi.Common.Resources.Skin">
+        <Skin Name="CursorSkin">
+          <SubSkins>
+            <SubSkin Name="CursorSkin">
+              <Frames>
+                <Frame>
+                  <FileName>Cursor.png</FileName>
+                  <Duration>0</Duration>
+                  <UV>
+                    <X>0</X>
+                    <Y>0</Y>
+                    <Width>0.125</Width>
+                    <Height>1</Height>
+                  </UV>
+                </Frame>
+              </Frames>
+              <GpuPrograms/>
+              <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+              <ScrollVector>
+                <X>0</X>
+                <Y>0</Y>
+              </ScrollVector>
+            </SubSkin>
+          </SubSkins>
+        </Skin>
+      </CursorSkin>
+      <ButtonSkin Type="Miyagi.Common.Resources.Skin">  
+		<Skin Name="ButtonSkin">
+			<SubSkins>
+				<SubSkin Name="ButtonSkin">
+					<Frames>
+						<Frame>
+							<FileName>texture.png</FileName>
+							<Duration>0</Duration>
+							<UV>
+							  <X>0.500976563</X>
+							  <Y>0.06347656</Y>
+							  <Width>0.25</Width>
+							  <Height>0.0625</Height>
+							</UV>
+						</Frame>
+					</Frames>
+					<GpuPrograms />
+					<FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+					<ScrollVector>
+						<X>0</X>
+						<Y>0</Y>
+					</ScrollVector>
+				</SubSkin>
+			</SubSkins>
+		</Skin>
+       </ButtonSkin>
+    </Skins>
+  </Redirects>
+</Miyagi>
