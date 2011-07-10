@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Ponykart.Levels;
-using Ponykart.UI;
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
+using Ponykart.Levels;
+using Ponykart.UI;
 
 namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles making the UI for both the levels and the main menu (because the main menu is considered to be a level
 	/// </summary>
 	public class LevelUIHandler {
-		private Button commandsButton, level1Button, level2Button, level3Button, level4Button, level5Button, level6Button, quitButton;
+		private Button commandsButton, level1Button, quitButton;
 		private Label commandsLabel;
 		private ICollection<Control> levelControls, mainMenuControls;
 

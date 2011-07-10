@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Mogre;
+using Mogre.PhysX;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Mogre;
-using Mogre.PhysX;
 using Actor = Mogre.PhysX.Actor;
 
 namespace Ponykart.Phys {
@@ -88,8 +88,6 @@ namespace Ponykart.Phys {
 
                 Actor levelActor = scene.CreateActor(levelActorDesc);
                 levelActor.Name = levelNode.Name;
-
-                //TODO: make this static. maybe that'll make a difference?
             }
         }
 
