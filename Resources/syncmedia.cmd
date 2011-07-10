@@ -1,1 +1,0 @@
-xcopy "..\..\..\..\Resources\media\*" ".\media" /S /C /Q /Y
