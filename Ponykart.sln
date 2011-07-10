@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16F64517-BCB9-4DE9-91A6-4E833D23ED86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lymph", "Lymph\Lymph.csproj", "{E42E240A-99DB-4375-BCA3-187AA990C15C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponykart", "Lymph\Ponykart.csproj", "{E42E240A-99DB-4375-BCA3-187AA990C15C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
