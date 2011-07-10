@@ -1,13 +1,10 @@
 ﻿using System;
+using Mogre;
 using Ponykart.Actors;
 using Ponykart.Levels;
-using Mogre;
-using Mogre.PhysX;
 
 namespace Ponykart.Core {
 	public class PlayerCamera : IDisposable {
-		Actor cameraActor;
-
 		public PlayerCamera() {
 			var manager = LKernel.Get<SceneManager>();
 			Launch.Log("[Loading] First Get<PlayerCamera>");
