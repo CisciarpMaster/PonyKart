@@ -1,1 +1,0 @@
-print("Test of startup level scripts successful!")
