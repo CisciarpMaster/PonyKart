@@ -21,12 +21,14 @@ material Fat
 			depth_check on
 			lighting on
 			
-			vertex_program_ref fresnel_vs {
+			vertex_program_ref glowBalloon_vs {
+				param_named Inflate_add float 0
+				param_named Inflate_mult float 0.02
 			}
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0.847 0.827 0.337
 				param_named GlowExpon float  2.5
-				param_named Alpha     float  1
+				//param_named Alpha     float  1
 			}
 		}
 
