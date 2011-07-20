@@ -5,10 +5,10 @@ using System.Windows.Forms;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Handlers;
-using Ponykart.IO;
 using Ponykart.Levels;
 using Ponykart.Lua;
 using Ponykart.Phys;
+using Ponykart.Players;
 using Ponykart.Sound;
 using Ponykart.Stuff;
 using Ponykart.UI;
@@ -44,13 +44,10 @@ namespace Ponykart {
 			AddGlobalObject(new SoundMain());
 
 			splash.Increment("Creating level...");
-			var sceneManager = AddGlobalObject(InitSceneManager(root));
-			var levelNode = sceneManager.RootSceneNode.CreateChildSceneNode("RootLevelNode", new Vector3(0, 0, 0));
-			var DSL = AddLevelObject(new DotSceneLoader());
-			DSL.ParseDotScene(Settings.Default.FirstLevelName + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, levelNode);
+			AddGlobalObject(InitSceneManager(root));
 
 			splash.Increment("Loading first level physics...");
-			physx.LoadPhysicsLevel(Settings.Default.FirstLevelName);
+			physx.LoadPhysicsLevel(Settings.Default.MainMenuName);
 
 			splash.Increment("Creating player camera and viewport...");
 			var playerCamera = AddLevelObject(new PlayerCamera());
@@ -58,6 +55,7 @@ namespace Ponykart {
 
 			splash.Increment("Starting input system...");
 			AddGlobalObject(new InputMain());
+			AddGlobalObject(new KeyBindingManager());
 			AddGlobalObject(new InputSwallowerManager());
 			AddGlobalObject(new Pauser());
 
@@ -83,10 +81,9 @@ namespace Ponykart {
 			lua.RunRegisterEvent();
 
 			// this is a bit of a hack but it shouldn't matter much since we're only doing it once at the beginning
-			splash.Increment("Spawning player...");
-			// the player adds itself to the kernel
-			var playerImporter = new PlayerImporter();
-			spawner.Spawn(playerImporter.Parse());
+			splash.Increment("Spawning players...");
+			AddGlobalObject(new PlayerManager());
+			AddGlobalObject(new KartSpawnPositions());
 
 			splash.Increment("Starting handlers...");
 			AddLevelObject(new DialogueTest());
@@ -96,8 +93,8 @@ namespace Ponykart {
 			AddGlobalObject(new LoadingUIHandler());
 			AddGlobalObject(new MiscKeyboardHandler());
 			AddLevelObject(new MovementHandler());
-			AddLevelObject(new PlayerMovementHandler());
 			AddGlobalObject(new PauseUIHandler());
+			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());
 
 			levelManager.RunPostInitEvents();
@@ -109,12 +106,7 @@ namespace Ponykart {
 		/// </summary>
 		public static void LoadLevelObjects(LevelChangedEventArgs eventArgs) {
 
-			// this has to be in the kernel because multiple things use it
-			AddLevelObject(new DotSceneLoader());
-
-			Launch.Log("[Loading] Creating player...");
-			var playerCamera = AddLevelObject(new PlayerCamera());
-			Get<Viewport>().Camera = playerCamera.Camera;
+			
 		}
 
 		/// <summary>
@@ -125,8 +117,13 @@ namespace Ponykart {
 			Launch.Log("[Loading] Initialising per-level handlers...");
 			AddLevelObject(new DialogueTest());
 			AddLevelObject(new MovementHandler());
-			AddLevelObject(new PlayerMovementHandler());
+			//AddLevelObject(new PlayerMovementHandler());
+			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());
+
+			Launch.Log("[Loading] Creating camera...");
+			var playerCamera = AddLevelObject(new PlayerCamera());
+			Get<Viewport>().Camera = playerCamera.Camera;
 		}
 
 		/// <summary>
@@ -140,6 +137,29 @@ namespace Ponykart {
 			}
 			CleanSceneManagerThings();
 			LevelObjects.Clear();
+		}
+
+		/// <summary>
+		/// destroys everything in the scene manager so it's as good as new without destroying the scene manager itself
+		/// </summary>
+		private static void CleanSceneManagerThings() {
+			Launch.Log("Cleaning SceneManager...");
+			var sceneMgr = Get<SceneManager>();
+
+			sceneMgr.DestroyAllAnimations();
+			sceneMgr.DestroyAllAnimationStates();
+			sceneMgr.DestroyAllBillboardChains();
+			sceneMgr.DestroyAllBillboardSets();
+			sceneMgr.DestroyAllCameras();
+			sceneMgr.DestroyAllEntities();
+			sceneMgr.DestroyAllInstancedGeometry();
+			sceneMgr.DestroyAllLights();
+			sceneMgr.DestroyAllManualObjects();
+			sceneMgr.DestroyAllMovableObjects();
+			sceneMgr.DestroyAllParticleSystems();
+			sceneMgr.DestroyAllRibbonTrails();
+			sceneMgr.DestroyAllStaticGeometry();
+			sceneMgr.RootSceneNode.RemoveAndDestroyAllChildren(); // how morbid
 		}
 
 		#region special initialisers
@@ -180,10 +200,6 @@ namespace Ponykart {
 
 		private static SceneManager InitSceneManager(Root root) {
 			Launch.Log("[Loading] First Get<SceneManager>");
-			/*try {
-				var currentSceneManager = root.GetSceneManager("sceneMgr");
-				root.DestroySceneManager(currentSceneManager);
-			} catch { }*/
 			return root.CreateSceneManager(SceneType.ST_GENERIC, "sceneMgr");
 		}
 
@@ -192,29 +208,6 @@ namespace Ponykart {
 			return window.AddViewport(playerCamera.Camera);
 		}
 		#endregion
-
-		/// <summary>
-		/// destroys everything in the scene manager so it's as good as new without destroying the scene manager itself
-		/// </summary>
-		private static void CleanSceneManagerThings() {
-			Launch.Log("Cleaning SceneManager...");
-			var sceneMgr = Get<SceneManager>();
-
-			sceneMgr.DestroyAllAnimations();
-			sceneMgr.DestroyAllAnimationStates();
-			sceneMgr.DestroyAllBillboardChains();
-			sceneMgr.DestroyAllBillboardSets();
-			sceneMgr.DestroyAllCameras();
-			sceneMgr.DestroyAllEntities();
-			sceneMgr.DestroyAllInstancedGeometry();
-			sceneMgr.DestroyAllLights();
-			sceneMgr.DestroyAllManualObjects();
-			sceneMgr.DestroyAllMovableObjects();
-			sceneMgr.DestroyAllParticleSystems();
-			sceneMgr.DestroyAllRibbonTrails();
-			sceneMgr.DestroyAllStaticGeometry();
-			sceneMgr.RootSceneNode.RemoveAndDestroyAllChildren(); // how morbid
-		}
 
 		/// <summary>
 		/// Basically adds all of the resource locations but doesn't actually load anything.

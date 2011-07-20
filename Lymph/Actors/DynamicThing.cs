@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
+using Ponykart.Phys;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -12,7 +12,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// The physx body that the Node is attached to
 		/// </summary>
-		public Actor Actor { get; private set; }
+		public Actor Actor { get; protected set; }
 		/// <summary>
 		/// ShapeDesc for the "main" body. This should be slightly larger than that of the Actor's.
 		/// </summary>
@@ -21,7 +21,9 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public DynamicThing(ThingTemplate tt) : base(tt) {}
+		public DynamicThing(ThingTemplate tt) : base(tt) { }
+
+		protected virtual float Density { get { return 1f; } }
 
 
 		#region Physics
@@ -46,8 +48,8 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Here you create your Actor and assign it.
 		/// </summary>
-		protected void CreateActor() {
-			ActorDesc ad = new ActorDesc(new BodyDesc(), 1, ShapeDesc);
+		protected virtual void CreateActor() {
+			ActorDesc ad = new ActorDesc(new BodyDesc(), Density, ShapeDesc);
 			Actor = LKernel.Get<PhysXMain>().Scene.CreateActor(ad);
 			Actor.Name = Node.Name;
 		}
@@ -55,7 +57,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Assigns the collision group ID defined in CollisionGroupID to the shapes of the thing.
 		/// </summary>
-		protected void AssignCollisionGroupIDToShapes() {
+		protected virtual void AssignCollisionGroupIDToShapes() {
 			ReadOnlyCollection<Shape> shapes = Actor.Shapes;
 			foreach (Shape s in shapes)
 				s.Group = CollisionGroupID;
@@ -65,7 +67,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Attaches the Actor to the Node and sets the position and orientation of the Actor to match that of the Node.
 		/// </summary>
-		protected void AttachToSceneNode() {
+		protected virtual void AttachToSceneNode() {
 			if (Actor != null && Node != null) {
 				Actor.GlobalPosition = Node.Position;
 				Actor.GlobalOrientationQuaternion = Node.Orientation;
@@ -75,7 +77,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Sets the Actor's UserData to this class so we can easily get to it.
 		/// </summary>
-		protected void SetBodyUserData() {
+		protected virtual void SetBodyUserData() {
 			if (Actor != null)
 				Actor.UserData = this;
 		}
@@ -86,11 +88,10 @@ namespace Ponykart.Actors {
 		/// - Sets linear and angular damping
 		/// - activates the sleep thingy
 		/// </summary>
-		protected void SetDefaultActorProperties() {
-			//Actor.BodyFlags.FrozenPosY = true;
+		protected virtual void SetDefaultActorProperties() {
 			Actor.LinearDamping = 0.1f;
 			Actor.AngularDamping = 0.1f;
-			Actor.BodyFlags.EnergySleepTest = true;
+			//Actor.BodyFlags.EnergySleepTest = true;
 		}
 		#endregion Physics
 

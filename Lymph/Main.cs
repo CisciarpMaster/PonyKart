@@ -76,6 +76,8 @@ namespace Ponykart {
 		// ====================================================================
 
 		protected override void Dispose(bool disposing) {
+			if (LKernel.Get<UIMain>() != null)
+				LKernel.Get<UIMain>().Dispose();
 			base.Dispose(disposing);
 		}
 

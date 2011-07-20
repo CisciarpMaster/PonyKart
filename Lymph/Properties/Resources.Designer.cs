@@ -67,9 +67,16 @@ namespace Ponykart.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Splash {
+        internal static System.Drawing.Bitmap LymphSplash {
             get {
-                object obj = ResourceManager.GetObject("Splash", resourceCulture);
+                object obj = ResourceManager.GetObject("LymphSplash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap PonykartSplash {
+            get {
+                object obj = ResourceManager.GetObject("PonykartSplash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

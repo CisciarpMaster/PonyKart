@@ -1,10 +1,11 @@
 ﻿using LuaNetInterface;
-using Ponykart.Core;
 using Mogre;
+using Ponykart.Core;
 
 namespace Ponykart.Lua
 {
-	[LuaPackage("Spawner", "This is a wrapper for the Spawner. Use it to spawn game objects.")]
+	//[LuaPackage("Spawner", "This is a wrapper for the Spawner. Use it to spawn game objects.")]
+	[LuaPackage(null, null)]
 	public class SpawnerWrapper {
 
 		public SpawnerWrapper() {

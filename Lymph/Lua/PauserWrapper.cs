@@ -3,7 +3,8 @@ using Ponykart.Core;
 
 namespace Ponykart.Lua {
 	
-	[LuaPackage("Pauser", "A wrapper for the pauser class")]
+	//[LuaPackage("Pauser", "A wrapper for the pauser class")]
+	[LuaPackage(null, null)]
 	public class PauserWrapper {
 
 		public PauserWrapper() {
@@ -27,7 +28,7 @@ namespace Ponykart.Lua {
 
 			Pauser p = LKernel.Get<Pauser>();
 			if (p != null)
-				p.PauseWithEvent();
+				p.InvokePauseEvent();
 		}
 
 		[LuaFunction("unpauseWithEvent", "Unauses the game and fires an event.")]
@@ -37,7 +38,7 @@ namespace Ponykart.Lua {
 
 			Pauser p = LKernel.Get<Pauser>();
 			if (p != null)
-				p.PauseWithEvent();
+				p.InvokePauseEvent();
 		}
 
 		[LuaFunction("isPaused", "Returns whether the game is currently paused or not.")]

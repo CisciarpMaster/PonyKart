@@ -6,8 +6,6 @@ using Ponykart.Core;
 using Ponykart.IO;
 using Ponykart.Lua;
 using Ponykart.Phys;
-using Ponykart.Stuff;
-using Mogre;
 
 namespace Ponykart.Levels
 {
@@ -58,9 +56,6 @@ namespace Ponykart.Levels
 		/// Parses a .scene file and tells PhysX about it
 		/// </summary>
 		public void CreateEnvironment() {
-			var levelNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode("RootLevelNode", new Vector3(0, 0, 0));
-
-			LKernel.Get<DotSceneLoader>().ParseDotScene(Name + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, levelNode);
 
 			LKernel.Get<PhysXMain>().LoadPhysicsLevel(Name);
 		}
@@ -72,9 +67,6 @@ namespace Ponykart.Levels
 		public void CreateEntities() {
 			// load up everything into this world
 			new WorldImporter().Parse(this);
-			// load up the player
-			ThingTemplate playerTemplate = new PlayerImporter().Parse();
-			Templates[playerTemplate.StringTokens["Name"]] = playerTemplate;
 
 			var spawner = LKernel.Get<Spawner>();
 			foreach (ThingTemplate tt in Templates.Values) {

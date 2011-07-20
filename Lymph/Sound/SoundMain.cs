@@ -1,9 +1,10 @@
 ﻿using IrrKlang;
+using Mogre;
+using Mogre.PhysX;
 using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Phys;
-using Mogre;
-using Mogre.PhysX;
+using Ponykart.Players;
 using Math = Mogre.Math;
 
 /* http://www.ogre3d.org/tikiwiki/MogreFreeSL
@@ -44,12 +45,13 @@ namespace Ponykart.Sound {
 		#region Level un/loading stuff
 		/// <summary>
 		/// Runs whenever a new level is loaded.
+		/// TODO: use that sounddata.birddog file
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (LKernel.Get<LevelManager>().CurrentLevel.Name == "Level1")
-				music = CreateAmbientSound("media/sound/Casey LaLonde - Danced In The Alleyway.ogg", "bgmusic", true);
+			if (LKernel.Get<LevelManager>().CurrentLevel.Name == "Level0")
+				music = CreateAmbientSound("media/sound/Kil - MLP Main Theme JRPG Battle Mix.ogg", "bgmusic", true);
 			else
-				music = CreateAmbientSound("media/sound/Renard - Breathe In Time.ogg", "bgmusic", true);
+				music = CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 		}
 		#endregion
 
@@ -65,7 +67,7 @@ namespace Ponykart.Sound {
 			timesince += evt.timeSinceLastFrame;
 			if (timesince > 0.5f) {
 				timesince = 0;
-				pos = LKernel.Get<Player>().Node.Position;
+				pos = LKernel.Get<PlayerManager>().MainPlayer.Position;
 				Engine.SetListenerPosition(pos.x, pos.y, pos.z, lookDir.x, lookDir.y, lookDir.z);
 				Engine.Update();
 			}
@@ -73,7 +75,7 @@ namespace Ponykart.Sound {
 		}
 
 		/// <summary>
-		/// responds to the enemy-projectile event
+		/// responds to collidable-pushable colliding with collidable-nonpushable
 		/// </summary>
 		void HandleAntibodyCollision(ContactPair pair, ContactPairFlags flags) {
 			int rand = (int) Math.RangeRandom(0, 10) + 1;

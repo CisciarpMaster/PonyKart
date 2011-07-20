@@ -50,12 +50,12 @@ namespace Ponykart {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Level0")]
-        public string FirstLevelName {
+        public string MainMenuName {
             get {
-                return ((string)(this["FirstLevelName"]));
+                return ((string)(this["MainMenuName"]));
             }
             set {
-                this["FirstLevelName"] = value;
+                this["MainMenuName"] = value;
             }
         }
         

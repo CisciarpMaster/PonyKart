@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.IO;
-using Ponykart.Levels;
 using Mogre;
+using Ponykart.Levels;
 
 namespace Ponykart.IO {
 	/// <summary>
@@ -9,13 +9,13 @@ namespace Ponykart.IO {
 	/// </summary>
 	public class WorldImporter {
 		RuleInstance root;
-		CultureInfo culture = System.Globalization.CultureInfo.InvariantCulture;
+		CultureInfo culture = CultureInfo.InvariantCulture;
 
 
 		/// <summary>
 		/// Imports a world from the given file.
 		/// </summary>
-		// TODO: We'll need something to see if the save file exists or not, and if it doesn't, to load the "new world" version
+		/// TODO: We'll need something to see if the save file exists or not, and if it doesn't, to load the "new world" version
 		public void Parse(Level level) {
 
 			string fileContents = "";
@@ -107,7 +107,7 @@ namespace Ponykart.IO {
 				// loop through the list of properties for that entity
 				for (int b = 5; b < ent.Children.Length - 1; b++)
 				{
-					RuleInstance prop = (ent.Children[b] as RuleInstance)/*.Children[0] as RuleInstance*/;
+					RuleInstance prop = (ent.Children[b] as RuleInstance);
 					
 
 					if (prop.Type == NodeType.Rule_EntityProperty)

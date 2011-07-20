@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
+using Ponykart.Phys;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -63,6 +63,7 @@ namespace Ponykart.Actors {
 		protected void CreateActor() {
 			BodyDesc bd = new BodyDesc();
 			bd.BodyFlags.Kinematic = true;
+
 			ActorDesc ad = new ActorDesc(bd, 1, ShapeDesc);
 			Actor = LKernel.Get<PhysXMain>().Scene.CreateActor(ad);
 			Actor.Name = Node.Name;

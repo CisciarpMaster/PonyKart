@@ -1,5 +1,5 @@
-﻿using Ponykart.UI;
-using MOIS;
+﻿using MOIS;
+using Ponykart.UI;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -12,10 +12,10 @@ namespace Ponykart.Handlers {
 			LKernel.Get<InputMain>().OnKeyboardPress_Escape += OnEscPress;
 		}
 
-		/*
-		 * Eventually we'll probably want something so if there's a panel open, pressing escape closes the topmost one,
-		 * and when you've closed all of them, this should pause, and not quit. But oh well this is temporary really.
-		 */
+		/// <summary>
+		/// Eventually we'll probably want something so if there's a panel open, pressing escape closes the topmost one,
+		/// and when you've closed all of them, this should pause, and not quit. But oh well this is temporary really.
+		/// </summary>
 		void OnEscPress(KeyEvent eventArgs) {
 			var lcm = LKernel.Get<LuaConsoleManager>();
 

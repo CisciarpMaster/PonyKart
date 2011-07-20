@@ -1,7 +1,8 @@
 ﻿using System;
 using MOIS;
+using Ponykart.Levels;
 
-namespace Ponykart.Levels {
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// this is hooked up to the keyboard events and tells the level manager to change levels when certain keys are pressed
 	/// </summary>
@@ -25,9 +26,11 @@ namespace Ponykart.Levels {
 			string s = "";
 			switch (ke.key) {
 				case KeyCode.KC_0:
-					s = Settings.Default.FirstLevelName; break;
+					s = Settings.Default.MainMenuName; break;
 				case KeyCode.KC_1:
 					s = "shittyterrain"; break;
+				case KeyCode.KC_2:
+					s = "flat"; break;
 			}
 			if (s != "")
 				LKernel.Get<LevelManager>().LoadLevel(s);

@@ -7,7 +7,6 @@
 	public enum ThingEnum {
 		Antibody,
 		Kart,
-		Player,
 		Obstacle
 	}
 }

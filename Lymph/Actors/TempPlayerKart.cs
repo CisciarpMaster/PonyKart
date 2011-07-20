@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Mogre;
 using Ponykart.Handlers;
 using Ponykart.Phys;
 using Ponykart.Stuff;
-using Mogre;
 
 namespace Ponykart.Actors {
 	/// <summary>
 	/// This class represents the player! Yay!
 	/// </summary>
-	public class Player : DynamicThing {
+	public class TempPlayerKart : Kart {
 
 		protected override string DefaultModel {
 			get { return "LymphyNucleus.mesh"; }
@@ -38,11 +38,11 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Sets up the player, including mogre stuff and physics. Also adds the player to the kernel.
 		/// </summary>
-		public Player(ThingTemplate tt) : base(tt)
+		public TempPlayerKart(ThingTemplate tt) : base(tt)
 		{
-			Launch.Log("[Loading] First Get<Player>");
+			Launch.Log("[Loading] First Get<TempPlayerKart>");
 
-			LKernel.AddLevelObject<Player>(this);
+			LKernel.AddLevelObject<TempPlayerKart>(this);
 		}
 
 		protected override void CreateMoreMogreStuff() {

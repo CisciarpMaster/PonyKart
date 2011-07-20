@@ -13,7 +13,7 @@ namespace Ponykart.Handlers {
 	/// This class handles making the UI for both the levels and the main menu (because the main menu is considered to be a level
 	/// </summary>
 	public class LevelUIHandler {
-		private Button commandsButton, level1Button, quitButton;
+		private Button commandsButton, level1Button, level2Button, quitButton;
 		private Label commandsLabel;
 		private ICollection<Control> levelControls, mainMenuControls;
 
@@ -64,9 +64,10 @@ namespace Ponykart.Handlers {
 				Visible = false,
 				Text =
 					"[W A S D] Move\r\n" +
-					"[0 1 2 3 4 5 6] Change level\r\n" +
-					"[Z X] Spawn generic enemy\r\n" +
-					"[Esc] Exit\r\n" +
+					"[Space] Brake\r\n" + 
+					"[0 1 2] Change level\r\n" +
+					"[Z] Spawn another kart\r\n" +
+					"[Esc] Exit / Close lua console\r\n" +
 					"[-] Toggle OGRE debug box\r\n" +
 					"[M] Turn music on or off (requires level reload)\r\n" +
 					"[P] Turn sounds on or off\r\n" +
@@ -74,7 +75,7 @@ namespace Ponykart.Handlers {
 					"[L] Run a test lua script\r\n" +
 					"[C] Syncs the media folder and restarts Lua.\r\n" + 
 					"[backtick] Pause\r\n" +
-					"[enter] Toggle Lua console",
+					"[enter] Open Lua console",
 			};
 			levelControls.Add(commandsLabel);
 
@@ -89,11 +90,11 @@ namespace Ponykart.Handlers {
 			GUI Gui = LKernel.Get<UIMain>().Gui;
 			mainMenuControls.Clear();
 
-			level1Button = new Button("Level 1") {
+			level1Button = new Button("shittyterrain") {
 				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 50), // the 100 is half of 200, which makes sure the button is centered
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
-				Text = "Level 1",
+				Text = "shittyterrain",
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,
 					ForegroundColour = Colours.White
@@ -102,8 +103,21 @@ namespace Ponykart.Handlers {
 			mainMenuControls.Add(level1Button);
 			level1Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("shittyterrain");
 
+			level2Button = new Button("flat") {
+				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 100), // the 100 is half of 200, which makes sure the button is centered
+				Size = new Size(200, 40),
+				Skin = UIResources.Skins["ButtonSkin"],
+				Text = "flat",
+				TextStyle = {
+					Alignment = Alignment.MiddleCenter,
+					ForegroundColour = Colours.White
+				},
+			};
+			mainMenuControls.Add(level2Button);
+			level2Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("flat");
+
 			quitButton = new Button("Quit") {
-				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 100), // the 100 is half of 200, which makes sure the button is centered
+				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 150), // the 100 is half of 200, which makes sure the button is centered
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "Quit",
@@ -124,12 +138,12 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			//Launch.Log("LevelUIHandler level load: old level: " + eventArgs.OldLevelId.Id + " new level: " + eventArgs.NewLevelId.Id);
-			if (eventArgs.NewLevelId.Name == Settings.Default.FirstLevelName)
+			if (eventArgs.NewLevelId.Name == Settings.Default.MainMenuName)
 			{
 				// when going to the menu
 				MakeMainMenuUI();
 			}
-			else if (eventArgs.OldLevelId.Name == Settings.Default.FirstLevelName)
+			else if (eventArgs.OldLevelId.Name == Settings.Default.MainMenuName)
 			{
 				// when going from the menu to something else
 				MakeLevelUI();
@@ -143,14 +157,14 @@ namespace Ponykart.Handlers {
 		/// <param name="eventArgs"></param>
 		private void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			//Launch.Log("LevelUIHandler level unload: old level: " + eventArgs.OldLevelId.Id + " new level: " + eventArgs.NewLevelId.Id);
-			if (eventArgs.OldLevelId.Name == Settings.Default.FirstLevelName)
+			if (eventArgs.OldLevelId.Name == Settings.Default.MainMenuName)
 			{
 				foreach (Control c in mainMenuControls) {
 					c.Dispose();
 				}
 				mainMenuControls.Clear();
 			}
-			else if (eventArgs.NewLevelId.Name == Settings.Default.FirstLevelName)
+			else if (eventArgs.NewLevelId.Name == Settings.Default.MainMenuName)
 			{
 				foreach (Control c in levelControls) {
 					c.Dispose();

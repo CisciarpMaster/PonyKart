@@ -1,22 +1,23 @@
 ﻿using LuaNetInterface;
-using Ponykart.Phys;
 using Mogre;
 using Mogre.PhysX;
+using Ponykart.Phys;
 
 namespace Ponykart.Lua {
-	[LuaPackage("Triggers", "A wrapper for the TriggerReporter.")]
+	//[LuaPackage("Triggers", "A wrapper for the TriggerReporter.")]
+	[LuaPackage(null, null)]
 	public class TriggerWrapper {
 
 		public TriggerWrapper() {
 			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
 		}
 
-		[LuaFunction("isEnterFlag", "Determines whether the given flag is an 'enter' flag.", "TriggerFlags tf - The flags you want to check.")]
+		[LuaFunction("isTriggerEnterFlag", "Determines whether the given flag is an 'enter' flag.", "TriggerFlags tf - The flags you want to check.")]
 		public static bool IsEnterFlag(TriggerFlags tf) {
 			return TriggerReporter.IsEnterFlag(tf);
 		}
 
-		[LuaFunction("isLeaveFlag", "Determines whether the given flag is a 'leave' flag.", "TriggerFlags tf - The flags you want to check.")]
+		[LuaFunction("isTriggerLeaveFlag", "Determines whether the given flag is a 'leave' flag.", "TriggerFlags tf - The flags you want to check.")]
 		public static bool IsLeaveFlag(TriggerFlags tf) {
 			return TriggerReporter.IsLeaveFlag(tf);
 		}

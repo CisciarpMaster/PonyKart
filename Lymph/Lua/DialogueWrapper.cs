@@ -2,7 +2,8 @@
 using Ponykart.UI;
 
 namespace Ponykart.Lua {
-	[LuaPackage("Dialogue", "This manages the dialogue for speech and stuff. If you were looking for popup windows, you'll want Miyagi's DialogBox.Show.")]
+	//[LuaPackage("Dialogue", "This manages the dialogue for speech and stuff. If you were looking for popup windows, you'll want Miyagi's DialogBox.Show.")]
+	[LuaPackage(null, null)]
 	public class DialogueWrapper {
 
 		public DialogueWrapper() {

@@ -13,6 +13,8 @@ namespace Ponykart {
 		private ProgressBar Progress;
 		private int maximum;
 
+		public readonly Bitmap Picture = Properties.Resources.LymphSplash;
+
 		/// <summary>
 		/// Sets up the splash screen
 		/// </summary>
@@ -65,19 +67,19 @@ namespace Ponykart {
 			this.LoadingText.AutoEllipsis = true;
 			this.LoadingText.BackColor = Color.Transparent;
 			this.LoadingText.Dock = DockStyle.Bottom;
-			this.LoadingText.Location = new Point(0, 722);
+			this.LoadingText.Location = new Point(0, Picture.Height + 22);
 			this.LoadingText.Name = "LoadingText";
-			this.LoadingText.Size = new Size(899, 20);
+			this.LoadingText.Size = new Size(Picture.Width - 1, 20);
 			this.LoadingText.TabIndex = 0;
 			this.LoadingText.Text = "Loading...";
 			this.LoadingText.UseWaitCursor = true;
 			// 
 			// Progress
 			// 
-			this.Progress.Location = new Point(0, 699);
+			this.Progress.Location = new Point(0, Picture.Height - 1);
 			this.Progress.Maximum = this.maximum;
 			this.Progress.Name = "Progress";
-			this.Progress.Size = new Size(899, 23);
+			this.Progress.Size = new Size(Picture.Width - 1, 23);
 			this.Progress.Step = 1;
 			this.Progress.TabIndex = 1;
 			this.Progress.UseWaitCursor = true;
@@ -85,9 +87,9 @@ namespace Ponykart {
 			// Splash
 			// 
 			this.BackColor = SystemColors.Window;
-			this.BackgroundImage = Ponykart.Properties.Resources.Splash;
+			this.BackgroundImage = Picture;
 			this.BackgroundImageLayout = ImageLayout.None;
-			this.ClientSize = new Size(899, 742);
+			this.ClientSize = new Size(Picture.Width, Picture.Height + 42);
 			this.Controls.Add(this.Progress);
 			this.Controls.Add(this.LoadingText);
 			this.DoubleBuffered = true;
@@ -100,7 +102,7 @@ namespace Ponykart {
 			this.UseWaitCursor = true;
 			this.ResumeLayout(false);
 
-			base.Icon = Ponykart.Properties.Resources.Icon_1;
+			base.Icon = Properties.Resources.Icon_1;
 		}
 
 		new public void Show() {

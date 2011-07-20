@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using Mogre;
 using Ponykart.Actors;
 using Ponykart.Levels;
-using Mogre;
 
 namespace Ponykart.IO {
 	/// <summary>
@@ -43,7 +43,7 @@ namespace Ponykart.IO {
 				foreach (KeyValuePair<string, Thing> kvp in level.Things)
 				{
 					// don't want to save the player! That goes somewhere else~
-					if (kvp.Value.GetType() == typeof(Player))
+					if (kvp.Value.GetType() == typeof(Kart))
 						continue;
 
 					// normally the type gives us "Lymph.Actors.Thing", for example, and we only want the last bit

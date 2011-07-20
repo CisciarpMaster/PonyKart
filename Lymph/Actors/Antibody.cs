@@ -1,7 +1,6 @@
-﻿using Ponykart.Phys;
-using Ponykart.Stuff;
-using Mogre;
+﻿using Mogre;
 using Mogre.PhysX;
+using Ponykart.Phys;
 
 namespace Ponykart.Actors
 {
@@ -19,14 +18,14 @@ namespace Ponykart.Actors
 			get { return Groups.CollidablePushableID; }
 		}
 		protected override string DefaultModel {
-			get { return "antibody.mesh"; }
+			get { return "primitives/ellipsoid.mesh"; }
 		}
-		protected override float DefaultMoveSpeed {
+		/*protected override float DefaultMoveSpeed {
 			get { return 0.003f; }
 		}
 		protected override MoveBehaviour DefaultMoveBehaviour {
 			get { return MoveBehaviour.IGNORE; }
-		}
+		}*/
 		protected override string DefaultMaterial {
 			get { return null; }
 		}
@@ -46,6 +45,10 @@ namespace Ponykart.Actors
 
 			CreateRibbon(4, 20, ColourValue.Red, 0.2f);
 			HasBeenAttached = false;
+		}
+
+		protected override void CreateMoreMogreStuff() {
+			Node.SetScale(new Vector3(0.2f));
 		}
 	}
 }

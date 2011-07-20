@@ -1,65 +1,272 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Ponykart.Phys;
-using Ponykart.Stuff;
-using Mogre;
+﻿using Mogre;
 using Mogre.PhysX;
+using Ponykart.Core;
+using Ponykart.Levels;
+using Ponykart.Phys;
+using Math = Mogre.Math;
 
 namespace Ponykart.Actors {
+	/// <summary>
+	/// Base class for karts. Eventually this'll be abstract.
+	/// Z is forwards!
+	/// </summary>
 	public class Kart : DynamicThing {
 		
 		protected override ShapeDesc ShapeDesc {
-			get { return new CapsuleShapeDesc(0.3f, 0.001f); }
+			get { return new BoxShapeDesc(new Vector3(1.5f, 0.5f, 1.4f)); }
 		}
-		protected override uint DefaultCollisionGroupID {
+		protected override sealed uint DefaultCollisionGroupID {
 			get { return Groups.CollidablePushableID; }
 		}
 		protected override string DefaultModel {
-			get { return "primitives/box.mesh"; }
+			get { return "kart/KartChassis.mesh"; }
 		}
-		protected override MoveBehaviour DefaultMoveBehaviour {
-			get { return MoveBehaviour.TOWARDS_PLAYER; }
+		protected override sealed string DefaultMaterial {
+			get { return "redbrick"; }
 		}
-		protected override float DefaultMoveSpeed {
-			get { return 0.08f; }
+		protected override float Density {
+			get { return 10f; }
 		}
-		protected override string DefaultMaterial {
-			get { return null; }
+
+		public virtual float ForwardSpeed {
+			get { return 3000f; }
+		}
+		public virtual float ReverseSpeed {
+			get { return -3000f; }
+		}
+		public virtual float TurnAngle {
+			get { return Math.PI / 12f; }
+		}
+		public float BrakeForce = 10000;
+
+		//														 0.02f										   0.01f
+		public static float ExtremumSlip = 1.0f, ExtremumValue = 0.02f, AsymptoteSlip = 2.0f, AsymptoteValue = 0.01f, StiffnessFactor = 1000000f;
+
+
+		public WheelShape WheelFR { get; protected set; }
+		public WheelShape WheelFL { get; protected set; }
+		public WheelShape WheelBR { get; protected set; }
+		public WheelShape WheelBL { get; protected set; }
+		private SceneNode WheelNodeFR, WheelNodeFL, WheelNodeBR, WheelNodeBL;
+		private Entity WheelEntFR, WheelEntFL, WheelEntBR, WheelEntBL;
+
+
+		public Kart(ThingTemplate tt) : base(tt) {
+			Launch.Log("Creating Kart #" + ID + " with name \"" + tt.StringTokens["Name"] + "\"");
+
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
+		}
+
+		// degrees
+		float currentRoll;
+		bool FrameStarted(FrameEvent evt) {
+			if (!LKernel.Get<LevelManager>().IsValidLevel || WheelFR == null || WheelFR.IsDisposed || Actor.IsSleeping || Pauser.Paused)
+				return true;
+
+			currentRoll += WheelFR.AxleSpeed / 3f;
+			currentRoll %= 360f;
+
+			Quaternion frontOrient = new Quaternion().FromEuler(new Degree(currentRoll), WheelFR.SteerAngle, 0);
+			Quaternion backOrient = new Quaternion().FromEuler(new Degree(currentRoll), 0, 0);
+			WheelNodeFR.Orientation = frontOrient;
+			WheelNodeFL.Orientation = frontOrient;
+			WheelNodeBR.Orientation = backOrient;
+			WheelNodeBL.Orientation = backOrient;
+
+			return true;
+		}
+
+
+
+
+		protected override void CreateMoreMogreStuff() {
+			// add a ribbon
+			Node.SetScale(new Vector3(1, 1, 1));
+			CreateRibbon(10, 20, ColourValue.Blue, 2f);
+
+			// wheels
+			var sceneMgr = LKernel.Get<SceneManager>();
+
+			WheelNodeFR = Node.CreateChildSceneNode("wheelNodeFR" + ID, new Vector3(-1.7f, 0f, 0.75f));
+			WheelEntFR = sceneMgr.CreateEntity("wheelNodeFR" + ID, "kart/KartWheel.mesh");
+			WheelNodeFR.AttachObject(WheelEntFR);
+
+			WheelNodeFL = Node.CreateChildSceneNode("wheelNodeFL" + ID, new Vector3(1.7f, 0f, 0.75f));
+			WheelEntFL = sceneMgr.CreateEntity("wheelNodeFL" + ID, "kart/KartWheel.mesh");
+			WheelNodeFL.AttachObject(WheelEntFL);
+
+			WheelNodeBR = Node.CreateChildSceneNode("wheelNodeBR" + ID, new Vector3(-1.7f, 0f, -1.33f));
+			WheelEntBR = sceneMgr.CreateEntity("wheelNodeBR" + ID, "kart/KartWheel.mesh");
+			WheelNodeBR.AttachObject(WheelEntBR);
+
+			WheelNodeBL = Node.CreateChildSceneNode("wheelNodeBL" + ID, new Vector3(1.7f, 0f, -1.33f));
+			WheelEntBL = sceneMgr.CreateEntity("wheelNodeBL" + ID, "kart/KartWheel.mesh");
+			WheelNodeBL.AttachObject(WheelEntBL);
+		}
+
+		protected override void SetUpPhysics() {
+			CreateActor();
+			CreateFunnyAngledBitInTheFront();
+			WheelFR = CreateWheel(new Vector3(-1.7f, 0f, 0.75f));
+			WheelFL = CreateWheel(new Vector3(1.7f, 0f, 0.75f));
+			WheelBR = CreateWheel(new Vector3(-1.7f, 0f, -1.33f));
+			WheelBL = CreateWheel(new Vector3(1.7f, 0f, -1.33f));
+			AssignCollisionGroupIDToShapes();
+			AttachToSceneNode();
+			SetBodyUserData();
+			SetDefaultActorProperties();
+		}
+
+		protected void CreateFunnyAngledBitInTheFront() {
+			var frontAngledShape = Actor.CreateShape(new BoxShapeDesc(new Vector3(1, 0.2f, 1), new Vector3(0, 0.3f, 1.33f)));
+			frontAngledShape.GlobalOrientation = new Vector3(0, 45, 0).DegreeVectorToRadianVector().ToQuaternion().ToRotationMatrix();
 		}
 
 		/// <summary>
-		/// Things we will be disposing at the end
+		/// Makes a wheel at the given position
 		/// </summary>
-		Collection<IDisposable> toDispose = new Collection<IDisposable>();
+		protected WheelShape CreateWheel(Vector3 position) {
+			WheelShapeDesc wsd = new WheelShapeDesc();
+			// default properties
+			float radius = 0.5f,
+				suspension = 0.5f, // how "long" is the suspension spring?
+				springRestitution = 7000, // how much force it'll absorb
+				springDamping = 800f, // bounciness: bigger = less bouncy
+				springBias = 0f;
 
-		public Kart(ThingTemplate tt) : base(tt)
-		{
-			Launch.Log("Creating GenericEnemy #" + ID + " with name \"" + tt.StringTokens["Name"] + "\"");
+			// kinda a hack for now
+			//wsd.MaterialIndex = PhysXMain.noFrictionMaterial.Index;
+
+			// position and orientation
+			wsd.LocalPosition = position;
+			/*Quaternion q = new Quaternion();
+			q.FromAngleAxis(new Degree(90), Vector3.UNIT_Y);
+			wsd.LocalOrientation = q.ToRotationMatrix();*/
+
+			// suspension
+			float heightModifier = (suspension + radius) / suspension;
+			wsd.Suspension.Spring = springRestitution * heightModifier;
+			wsd.Suspension.Damper = springDamping * heightModifier;
+			wsd.Suspension.TargetValue = springBias * heightModifier;
+
+			// other stuff
+			wsd.Radius = radius;
+			wsd.SuspensionTravel = suspension;
+			wsd.InverseWheelMass = 0.1f; // physx docs say "not given!? TODO", whatever that means
+
+			// tyre... things. Something to do with gripping surfaces at different velocities
+			// this one has to do with sideways grip for things like handling
+			wsd.LateralTireForceFunction.ExtremumSlip = ExtremumSlip;
+			wsd.LateralTireForceFunction.ExtremumValue = ExtremumValue;
+			wsd.LateralTireForceFunction.AsymptoteSlip = AsymptoteSlip;
+			wsd.LateralTireForceFunction.AsymptoteValue = AsymptoteValue;
+			wsd.LateralTireForceFunction.StiffnessFactor = StiffnessFactor;
+			// this one has to do with forwards grip for things like acceleration
+			wsd.LongitudalTireForceFunction.ExtremumSlip = ExtremumSlip;
+			wsd.LongitudalTireForceFunction.ExtremumValue = ExtremumValue;
+			wsd.LongitudalTireForceFunction.AsymptoteSlip = AsymptoteSlip;
+			wsd.LongitudalTireForceFunction.AsymptoteValue = AsymptoteValue;
+			wsd.LongitudalTireForceFunction.StiffnessFactor = StiffnessFactor;
+
+			return Actor.CreateShape(wsd) as WheelShape;
 		}
 
-		protected override void CreateMoreMogreStuff()
-		{
-			// the box mesh is too big, so we have to scale it down a bit
-			Node.SetScale(0.3f, 0.3f, 0.3f);
+		protected override void SetDefaultActorProperties() {
+			// lower the center of mass to make it not flip over very easily
+			Actor.CMassOffsetLocalPosition = new Vector3(0, -1f, 0);
+			Actor.AngularDamping = 0.5f;
+			Actor.LinearDamping = 0.1f;
+		}
 
-			// Outer glow
-			Entity alphaGlowEntity = LKernel.Get<SceneManager>().CreateEntity("GE_OuterGlow" + ID, "primitives/ellipsoid.mesh");
-			alphaGlowEntity.SetMaterialName("GE_BalloonGlow_red");
-			SceneNode alphaGlowNode = Node.CreateChildSceneNode("GE_OuterGlowNode" + ID);
-			alphaGlowNode.AttachObject(alphaGlowEntity);
+		/// <summary>
+		/// Sets the torque of both rear wheels to <paramref name="speed"/> and sets their brake torque to 0.
+		/// TODO: Limit the maximum speed by not applying torque when we're going faster than the maximum speed
+		/// </summary>
+		public void Accelerate(float speed) {
+			if (Actor.IsSleeping)
+				Actor.WakeUp();
+			WheelBR.MotorTorque = speed;
+			WheelBR.BrakeTorque = 0;
+			WheelBL.MotorTorque = speed;
+			WheelBL.BrakeTorque = 0;
+			WheelFR.MotorTorque = speed;
+			WheelFR.BrakeTorque = 0;
+			WheelFL.MotorTorque = speed;
+			WheelFL.BrakeTorque = 0;
+		}
 
-			// add a ribbon
-			CreateRibbon(4, 10, ColourValue.Red, 0.6f);
+		/// <summary>
+		/// Sets the motor torque of both rear wheels to 0 and applies a brake torque.
+		/// </summary>
+		public void Brake() {
+			WheelBR.MotorTorque = 0;
+			WheelBR.BrakeTorque = BrakeForce;
+			WheelBL.MotorTorque = 0;
+			WheelBL.BrakeTorque = BrakeForce;
+			WheelFR.MotorTorque = 0;
+			WheelFR.BrakeTorque = BrakeForce;
+			WheelFL.MotorTorque = 0;
+			WheelFL.BrakeTorque = BrakeForce;
+		}
 
-			// and then make sure we dispose this stuff when we're done
-			toDispose.Add(alphaGlowEntity);
-			toDispose.Add(alphaGlowNode);
+		/// <summary>
+		/// Turns the front wheels to <paramref name="angle"/>
+		/// </summary>
+		/// <param name="angle">This is in radians</param>
+		public void Turn(float angle) {
+			if (Actor.IsSleeping)
+				Actor.WakeUp();
+			WheelFR.SteerAngle = angle;
+			WheelFL.SteerAngle = angle;
 		}
 
 		public override void Dispose() {
-			foreach (var v in toDispose) {
-				v.Dispose();
+			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+
+			var sceneMgr = LKernel.Get<SceneManager>();
+			bool valid = LKernel.Get<LevelManager>().IsValidLevel;
+
+			if (WheelNodeFR != null) {
+				if (valid) {
+					sceneMgr.DestroyEntity(WheelEntFR);
+					sceneMgr.DestroySceneNode(WheelNodeFR);
+				}
+				WheelEntFR.Dispose();
+				WheelNodeFR.Dispose();
+				WheelEntFR = null;
+				WheelNodeFR = null;
 			}
+			if (WheelNodeFL != null) {
+				if (valid) {
+					sceneMgr.DestroyEntity(WheelEntFL);
+					sceneMgr.DestroySceneNode(WheelNodeFL);
+				}
+				WheelEntFL.Dispose();
+				WheelNodeFL.Dispose();
+				WheelEntFL = null;
+				WheelNodeFL = null;
+			}
+			if (WheelNodeBR != null) {
+				if (valid) {
+					sceneMgr.DestroyEntity(WheelEntBR);
+					sceneMgr.DestroySceneNode(WheelNodeBR);
+				}
+				WheelEntBR.Dispose();
+				WheelNodeBR.Dispose();
+				WheelEntBR = null;
+				WheelNodeBR = null;
+			}
+			if (WheelNodeBL != null) {
+				if (valid) {
+					sceneMgr.DestroyEntity(WheelEntBL);
+					sceneMgr.DestroySceneNode(WheelNodeBL);
+				}
+				WheelEntBL.Dispose();
+				WheelNodeBL.Dispose();
+				WheelEntBL = null;
+				WheelNodeBL = null;
+			}
+
 			base.Dispose();
 		}
 	}

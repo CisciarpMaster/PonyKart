@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mogre;
 using Ponykart.Levels;
 using Ponykart.Phys;
-using Ponykart.Stuff;
-using Mogre;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -46,16 +45,6 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected abstract string DefaultMaterial { get; }
 		/// <summary>
-		/// How fast this thing moves.
-		/// </summary>
-		protected abstract float DefaultMoveSpeed { get; }
-		/// <summary>
-		/// How does it move around? Does it move towards the player, move around randomly, or just stand there?
-		/// Eventually I think I'll want to define a way for things to move via scripts (like making something
-		/// move around on a certain path), but I can get to that later.
-		/// </summary>
-		protected abstract MoveBehaviour DefaultMoveBehaviour { get; }
-		/// <summary>
 		/// Collision group
 		/// </summary>
 		protected abstract uint DefaultCollisionGroupID { get; }
@@ -82,13 +71,14 @@ namespace Ponykart.Actors {
 		 * optional tokens
 		 */
 		/// <summary>
-		/// "Behaviour" - default is IGNORE
+		/// "Rotation" - default is 0, 0, 0
 		/// </summary>
-		public MoveBehaviour MoveBehaviour { get; private set; }
+		public Vector3 SpawnRotation { get; private set; }
 		/// <summary>
-		/// "Orientation" - default is 0
+		/// "Scale" - default is 0, 0, 0. Note that you can't scale physics bodies after they've been created (or even in the Desc)
+		/// so if you want the Actors to be affected by scale, you'll need to do something in 
 		/// </summary>
-		public float SpawnOrientation { get; private set; }
+		public Vector3 SpawnScale { get; private set; }
 		/// <summary>
 		/// "Script" - default is null
 		/// </summary>
@@ -104,7 +94,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// "Speed"
 		/// </summary>
-		public float MoveSpeed { get; private set; }
+		//public float MoveSpeed { get; private set; }
 		/// <summary>
 		/// "CollisionGroup"
 		/// </summary>
@@ -126,12 +116,19 @@ namespace Ponykart.Actors {
 			SpawnPosition = tt.VectorTokens["Position"];
 
 			// get out optional ones
-			// orientation
-			float orient;
-			if (tt.FloatTokens.TryGetValue("Orientation", out orient))
-				SpawnOrientation = orient;
+			// rotation
+			Vector3 rot;
+			if (tt.VectorTokens.TryGetValue("Rotation", out rot))
+				SpawnRotation = rot;
 			else
-				SpawnOrientation = 0;
+				SpawnRotation = Vector3.ZERO;
+
+			// scale
+			Vector3 scale;
+			if (tt.VectorTokens.TryGetValue("Scale", out scale))
+				SpawnScale = scale;
+			else
+				SpawnScale = Vector3.ZERO;
 
 			// run a lua script?
 			string script;
@@ -155,11 +152,11 @@ namespace Ponykart.Actors {
 				Material = DefaultMaterial;
 
 			// move speed
-			float move;
+			/*float move;
 			if (tt.FloatTokens.TryGetValue("Speed", out move))
 				MoveSpeed = move;
 			else
-				MoveSpeed = DefaultMoveSpeed;
+				MoveSpeed = DefaultMoveSpeed;*/
 
 			// collision group
 			float f;
@@ -167,15 +164,6 @@ namespace Ponykart.Actors {
 				CollisionGroupID = (uint)f;
 			else
 				CollisionGroupID = DefaultCollisionGroupID;
-
-			// enums are a little more annoying
-			string mbs; MoveBehaviour mb;
-			if (!tt.StringTokens.TryGetValue("Behaviour", out mbs)) {
-				if (Enum.TryParse<MoveBehaviour>(mbs, true, out mb))
-					MoveBehaviour = mb;
-				else
-					MoveBehaviour = DefaultMoveBehaviour;
-			}
 
 			// ==========================================
 
@@ -206,6 +194,9 @@ namespace Ponykart.Actors {
 			var sceneMgr = LKernel.Get<SceneManager>();
 			// Create the node that the entities will be attached to
 			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(Name + ID, SpawnPosition);
+			Node.Orientation = SpawnRotation.DegreeVectorToRadianVector().ToQuaternion();
+			Node.SetScale(SpawnScale);
+
 			Entity = sceneMgr.CreateEntity(Name + ID, Model);
 			if (DefaultMaterial != null) {
 				Entity.SetMaterialName(Material);
@@ -243,7 +234,6 @@ namespace Ponykart.Actors {
 				Ribbon.SetInitialColour(0, colour);
 				Ribbon.SetColourChange(0, new ColourValue(0, 0, 0, 3));
 				Ribbon.SetInitialWidth(0, width);
-				Ribbon.RenderQueueGroup = (byte)RQGL.RIBBONS;
 				// attach it to the node
 				RibbonNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID + "RibbonNode");
 				Ribbon.AddNode(Node);
@@ -257,7 +247,6 @@ namespace Ponykart.Actors {
 		/// Override this with the method you use to setup physics stuff
 		/// </summary>
 		protected abstract void SetUpPhysics();
-
 		#endregion
 
 		#region Lua stuff
@@ -283,10 +272,8 @@ namespace Ponykart.Actors {
 		/// Gets an enumerable of all of the number properties that are optional and are not the default.
 		/// </summary>
 		public virtual IEnumerable<KeyValuePair<string, float>> GetOptionalNumbers() {
-			if (SpawnOrientation != 0)
-				yield return new KeyValuePair<string, float>("Orientation", SpawnOrientation);
-			if (MoveSpeed != DefaultMoveSpeed)
-				yield return new KeyValuePair<string, float>("Speed", MoveSpeed);
+			//if (MoveSpeed != DefaultMoveSpeed)
+			//	yield return new KeyValuePair<string, float>("Speed", MoveSpeed);
 			if (CollisionGroupID != DefaultCollisionGroupID)
 				yield return new KeyValuePair<string, float>("CollisionGroup", CollisionGroupID);
 		}
@@ -301,8 +288,8 @@ namespace Ponykart.Actors {
 				yield return new KeyValuePair<string, string>("Model", Model);
 			if (Material != DefaultMaterial)
 				yield return new KeyValuePair<string, string>("Material", Material);
-			if (MoveBehaviour != DefaultMoveBehaviour)
-				yield return new KeyValuePair<string, string>("Behaviour", this.MoveBehaviour.ToString());
+			//if (MoveBehaviour != DefaultMoveBehaviour)
+			//	yield return new KeyValuePair<string, string>("Behaviour", this.MoveBehaviour.ToString());
 			// Name is not optional
 		}
 		
@@ -310,8 +297,10 @@ namespace Ponykart.Actors {
 		/// Gets an enumerable of all of the vector properties that are optional and are not the default.
 		/// </summary>
 		public virtual IEnumerable<KeyValuePair<string, Vector3>> GetOptionalVectors() {
-			// Position is not optional
-			yield break;
+			if (SpawnRotation != Vector3.ZERO)
+				yield return new KeyValuePair<string, Vector3>("Rotation", SpawnRotation);
+			if (SpawnScale != Vector3.ZERO)
+				yield return new KeyValuePair<string, Vector3>("Scale", SpawnScale);
 		}
 		#endregion
 
@@ -330,24 +319,26 @@ namespace Ponykart.Actors {
 		/// This should be overridden if your thing has more fields it needs to destroy.
 		/// </summary>
 		public virtual void Dispose() {
+			var sceneMgr = LKernel.Get<SceneManager>();
+			bool valid = LKernel.Get<LevelManager>().IsValidLevel;
 			
 			if (Entity != null) {
-				if (LKernel.Get<LevelManager>().IsValidLevel)
-					LKernel.Get<SceneManager>().DestroyEntity(Entity);
+				if (valid)
+					sceneMgr.DestroyEntity(Entity);
 				Entity.Dispose();
 				Entity = null;
 			}
 			if (Node != null) {
-				if (LKernel.Get<LevelManager>().IsValidLevel)
-					LKernel.Get<SceneManager>().DestroySceneNode(Node);
+				if (valid)
+					sceneMgr.DestroySceneNode(Node);
 				Node.Dispose();
 			}
 			if (Ribbon != null && RibbonNode != null) {
 				RibbonNode.DetachObject(Ribbon);
 				foreach (SceneNode n in Ribbon.GetNodeIterator())
 					Ribbon.RemoveNode(n);
-				if (LKernel.Get<LevelManager>().IsValidLevel)
-					LKernel.Get<SceneManager>().DestroyRibbonTrail(Ribbon);
+				if (valid)
+					sceneMgr.DestroyRibbonTrail(Ribbon);
 				Ribbon.Dispose();
 				Ribbon = null;
 				RibbonNode = null;

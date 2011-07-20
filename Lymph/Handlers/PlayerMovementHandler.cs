@@ -1,7 +1,7 @@
 ﻿using System;
-using Ponykart.Actors;
-using Ponykart.Handlers.NotReallyHandlers;
 using Mogre;
+using Ponykart.Handlers.NotReallyHandlers;
+using Ponykart.Players;
 
 namespace Ponykart.Handlers
 {
@@ -38,9 +38,9 @@ namespace Ponykart.Handlers
 			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
 				return true;
 
-			Player player = LKernel.Get<Player>();
+			var player = LKernel.Get<PlayerManager>().MainPlayer;
 			if (player != null) {
-				player.Actor.AddForceAtLocalPos(keyboardHandler.MovementVector * player.MoveSpeed, Vector3.ZERO);
+				player.Actor.AddForceAtLocalPos(keyboardHandler.MovementVector * player.Kart.MoveSpeed, Vector3.ZERO);
 			}
 
 			return true;

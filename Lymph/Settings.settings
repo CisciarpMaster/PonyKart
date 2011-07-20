@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Lymph" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ponykart" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="MiyagiResources_file_location" Type="System.String" Scope="User">
@@ -8,7 +8,7 @@
     <Setting Name="SaveFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/worlds/</Value>
     </Setting>
-    <Setting Name="FirstLevelName" Type="System.String" Scope="User">
+    <Setting Name="MainMenuName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Level0</Value>
     </Setting>
     <Setting Name="SaveFileExtension" Type="System.String" Scope="User">

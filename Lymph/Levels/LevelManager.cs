@@ -28,7 +28,7 @@ namespace Ponykart.Levels
 			if (hasRunPostInitEvents)
 				throw new ApplicationException("The LevelManager has already run its post-initialisation events!");
 
-			CurrentLevel = new Level(Settings.Default.FirstLevelName);
+			CurrentLevel = new Level(Settings.Default.MainMenuName);
 
 			// run level loading events
 			if (OnLevelLoad != null)
@@ -111,7 +111,7 @@ namespace Ponykart.Levels
 			}
 
 			// if we're on the main menu, pause it
-			if (newLevel.Name == Settings.Default.FirstLevelName)
+			if (newLevel.Name == Settings.Default.MainMenuName)
 				Pauser.Paused = true;
 
 			// get rid of the old level and clean up
@@ -123,6 +123,15 @@ namespace Ponykart.Levels
 		/// Tells whether this level is valid or not.
 		/// </summary>
 		public bool IsValidLevel { get; private set; }
+
+		/// <summary>
+		/// Returns true if the current level is valid and not a main menu
+		/// </summary>
+		public bool IsPlayableLevel {
+			get {
+				return CurrentLevel != null && CurrentLevel.Name != Settings.Default.MainMenuName;
+			}
+		}
 	}
 
 }

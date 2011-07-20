@@ -1,10 +1,11 @@
 ﻿using IrrKlang;
 using LuaNetInterface;
-using Ponykart.Sound;
 using Mogre;
+using Ponykart.Sound;
 
 namespace Ponykart.Lua {
-	[LuaPackage("Sounds", "The wrapper for the SoundMain class")]
+	//[LuaPackage("Sounds", "The wrapper for the SoundMain class")]
+	[LuaPackage(null, null)]
 	public class SoundWrapper {
 		public SoundWrapper() {
 			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
@@ -40,7 +41,6 @@ namespace Ponykart.Lua {
 			return false;
 		}
 
-		#region properties
 		[LuaFunction("setDefaultMinDistance", "Sets the default minimum distance you have to be from the sound to hear it. I think.",
 			"number num - The new minimum distance")]
 		public static void SetDefaultMinDistance(float num) {
@@ -87,7 +87,5 @@ namespace Ponykart.Lua {
 				return s.RolloffFactor;
 			return -1;
 		}
-
-		#endregion
 	}
 }

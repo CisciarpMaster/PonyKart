@@ -1,5 +1,4 @@
-﻿using Mogre;
-
+﻿
 namespace Ponykart {
 	public static class Constants {
 		// Window 
@@ -10,7 +9,12 @@ namespace Ponykart {
 
 		// Scene
 		/// <summary> The distance the camera is along the Y axis from the XZ plane </summary>
-		public static readonly float CAMERA_DISTANCE = 8f;
+		public static readonly float CAMERA_HEIGHT = 4f;
+		/// <summary> The distance the camera follows the player kart </summary>
+		public static readonly float CAMERA_DISTANCE = 24f;
+
+
+		public static readonly int NUMBER_OF_PLAYERS = 8;
 
 		// Input
 		/// <summary>
@@ -21,10 +25,7 @@ namespace Ponykart {
 		// Physics
 		/// <summary> The desired framerate. Must be between 60 and 600 </summary>
 		public static readonly int PH_FRAMERATE = 60;
-		/// <summary> The "maximum" point of the world. The world is defined by two points and a box is created using them. </summary>
-		public static readonly Vector3 PH_WORLD_DEFAULT_MAX = new Vector3(1000, 200, 1000);
-		/// <summary> The "minimum" point of the world. The world is defined by two points and a box is created using them. </summary>
-		public static readonly Vector3 PH_WORLD_DEFAULT_MIN = new Vector3(-1000, -500, -1000);
+		public static readonly float GRAVITY = -25f;
 		
 		// Settings
 		/// <summary> Ribbons enable/disable </summary>

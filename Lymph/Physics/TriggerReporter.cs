@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mogre.PhysX;
 using Ponykart.Actors;
 using Ponykart.Levels;
-using Mogre.PhysX;
+using Ponykart.Players;
 
 namespace Ponykart.Phys {
 
@@ -27,6 +28,7 @@ namespace Ponykart.Phys {
 		// trigger areas should have no body
 
 		public TriggerReporter() {
+			Launch.Log("[Loading] First Get<TriggerReporter>");
 			perShapeReports = new Dictionary<string, TriggerReportHandler>();
 
 			LKernel.Get<LevelManager>().OnLevelUnload += (ea) => perShapeReports.Clear();
@@ -61,7 +63,7 @@ namespace Ponykart.Phys {
 		// for example we don't give a crap about projectiles
 		private bool IsShapeImportant(Shape shape) {
 			// the player is important
-			if (shape.Actor == LKernel.Get<Player>().Actor)
+			if (shape.Actor == LKernel.Get<PlayerManager>().MainPlayer.Actor)
 				return true;
 
 			// cells are important

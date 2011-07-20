@@ -1,10 +1,12 @@
 ﻿using System;
+using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Lua;
 using Ponykart.Phys;
+using Ponykart.Players;
 using Ponykart.Stuff;
-using MOIS;
+using Vector3 = Mogre.Vector3;
 
 namespace Ponykart.Handlers
 {
@@ -37,10 +39,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<PhysXMain>().ShootBox();
 					break;
 				case KeyCode.KC_Z:
-					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<Player>().Node.Position);
-					break;
-				case KeyCode.KC_X:
-					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<Player>().Node.Position);
+					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.Position);
 					break;
 				case KeyCode.KC_M:
 					Constants.MUSIC = !Constants.MUSIC;
@@ -49,10 +48,10 @@ namespace Ponykart.Handlers
 					Constants.SOUNDS = !Constants.SOUNDS;
 					break;
 				case KeyCode.KC_N:
-					LKernel.Get<Sound.SoundMain>().CreateAmbientSound("media/sound/Casey LaLonde - Danced In The Alleyway.ogg", "bgmusic", true);
+					LKernel.Get<Sound.SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 					break;
 				case KeyCode.KC_F2:
-					//LKernel.Get<Player>().Move(new Vector3(1000, 1000, 1000));
+					LKernel.Get<PlayerManager>().MainPlayer.Actor.AddForce(new Vector3(0, 100000, 0));
 					break;
 				case KeyCode.KC_F:
 					//LKernel.Get<Player>().Move(new Vector3(50000, 0, 0));

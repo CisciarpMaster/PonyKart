@@ -13,7 +13,6 @@ namespace Ponykart.Stuff {
 	/// This needs to be in the kernel because multiple things use it during loading!
 	/// </summary>
 	public class DotSceneLoader {
-		#region Fields
 
 		public List<string> DynamicObjects; //String
 		public List<string> StaticObjects; //String
@@ -24,17 +23,10 @@ namespace Ponykart.Stuff {
 		protected String prependNode;
 		protected string sceneFileName;
 
-		#endregion Fields
-
-		#region Constructors
 
 		public DotSceneLoader() {
 			Launch.Log("[Loading] First Get<DotSceneLoader>");
 		}
-
-		#endregion Constructors
-
-		#region Methods
 
 		public void ParseDotScene(String SceneName, String groupName) {
 			ParseDotScene(SceneName, groupName, null, "");
@@ -568,9 +560,7 @@ namespace Ponykart.Stuff {
 		}
 
 		protected void processUserDataReference(XmlElement XMLNode, SceneNode pNode) {
-			// TODO
+			// TODO if you have any other attributes in your .scene files, you can put code to interpret them here!
 		}
-
-		#endregion Methods
 	}
 }

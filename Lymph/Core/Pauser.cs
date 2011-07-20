@@ -1,4 +1,5 @@
 ﻿using MOIS;
+using Ponykart.Levels;
 
 namespace Ponykart.Core {
 	public delegate void PauseEventHandler(bool isPaused);
@@ -19,13 +20,27 @@ namespace Ponykart.Core {
 			Launch.Log("[Loading] Creating Pauser");
 
 			// if we press `, then pause
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything += (ke) => {
-				if (ke.key == KeyCode.KC_GRAVE)
-					PauseWithEvent();
-			};
+			LKernel.Get<InputMain>().OnKeyboardPress_Anything += InvokePauseEvent;
 
 			LKernel.Get<InputSwallowerManager>().AddSwallower(() => Paused, this);
 		}
+
+		/// <summary>
+		/// Checks to make sure the key pressed matches the pause key (`) then checks to make sure we aren't on the main menu
+		/// </summary>
+		public void InvokePauseEvent(KeyEvent ke) {
+			if (ke.key == KeyCode.KC_GRAVE)
+				InvokePauseEvent();
+		}
+
+		/// <summary>
+		/// Checks to make sure we aren't on the main menu (don't want to unpause that!). This is a separate method so we can call it from e.g. Lua.
+		/// </summary>
+		public void InvokePauseEvent() {
+			if (LKernel.Get<LevelManager>().IsPlayableLevel)
+				PauseWithEvent();
+		}
+
 		/// <summary>
 		/// Use this to pause things but it also fires off a pause event, which may cause other things to happen that you don't want.
 		/// </summary>

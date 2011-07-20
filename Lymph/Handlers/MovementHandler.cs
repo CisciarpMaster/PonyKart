@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Phys;
-using Ponykart.Stuff;
-using Mogre;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -23,8 +22,9 @@ namespace Ponykart.Handlers {
 
 			thingsToMove = new Collection<Thing>();
 
-			LKernel.Get<Spawner>().OnThingCreation += AddActor;
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+			// commented out until we can get something working
+			//LKernel.Get<Spawner>().OnThingCreation += AddActor;
+			//LKernel.Get<Root>().FrameStarted += FrameStarted;
 
 			// for things that were created via the save file
 			if (LKernel.Get<LevelManager>().CurrentLevel != null) {
@@ -60,10 +60,9 @@ namespace Ponykart.Handlers {
 			if (!LKernel.Get<LevelManager>().IsValidLevel)
 				return;
 
-			Player player = LKernel.Get<Player>();
 			PhysXMain physics = LKernel.Get<PhysXMain>();
 			// since thingsToMove holds two types of Things, we have to loop over them all and then cast them to see which they are
-			foreach (Thing thing in thingsToMove)
+			/*foreach (Thing thing in thingsToMove)
 			{
 				KinematicThing kt = thing as KinematicThing;
 				if (kt != null) {
@@ -74,11 +73,11 @@ namespace Ponykart.Handlers {
 					}
 					switch (kt.MoveBehaviour)
 					{
-						case MoveBehaviour.TOWARDS_PLAYER:
+						case MoveBehaviour.TOWARDS_NEXT_KART:
 							break;
 					}
 				}
-			}
+			}*/
 		}
 		
 		/// <summary>
@@ -87,8 +86,8 @@ namespace Ponykart.Handlers {
 		/// <param name="thing"></param>
 		public void AddActor(Thing thing) {
 			// If you try to add an thing that should be ignored, then it doesn't get added
-			if (thing.MoveBehaviour != MoveBehaviour.IGNORE)
-				thingsToMove.Add(thing);
+			/*if (thing.MoveBehaviour != MoveBehaviour.IGNORE)
+				thingsToMove.Add(thing);*/
 		}
 
 

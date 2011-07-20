@@ -1,9 +1,9 @@
 ﻿using System;
-using Ponykart.Levels;
 using Miyagi.Common;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Mogre;
+using Ponykart.Levels;
 
 namespace Ponykart.UI {
 	/// <summary>
@@ -35,7 +35,7 @@ namespace Ponykart.UI {
 			MiyagiSys = new MiyagiSystem("Mogre");
 			//, new LoggerSettings { File = "Miyagi.log", Level = LoggerLevel.Debug }
 			// load the MOIS plugin
-			MiyagiSys.PluginManager.LoadPlugin("Miyagi.Plugin.Input.Mois.dll", input.inputKeyboard, input.inputMouse);
+			MiyagiSys.PluginManager.LoadPlugin("Miyagi.Plugin.Input.Mois.dll", input.InputKeyboard, input.InputMouse);
 
 			// load the resources
 			UIResources.Create(MiyagiSys);
@@ -66,6 +66,7 @@ namespace Ponykart.UI {
 		}
 
 		public void Dispose() {
+			// TODO: figure out how to stop miyagi from throwing errors whenever we shut down the program
 			MiyagiSys.Dispose();
 		}
 
