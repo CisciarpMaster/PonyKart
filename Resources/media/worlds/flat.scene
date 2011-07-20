@@ -6,8 +6,8 @@
     </environment>
     <nodes>
         <node name="shittyterrain">
-            <position x="0" y="-2" z="0" />
-            <scale x="1" y="1" z="1" />
+            <position x="0" y="-1" z="0" />
+            <scale x="2" y="0.001" z="2" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
             <entity name="shittyterrain" static="true" castShadows="true" receiveShadows="true" meshFile="shittyterrain.mesh">
                 <subentities>

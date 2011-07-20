@@ -1,0 +1,49 @@
+<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.6" author="OgreMax Scene Exporter (www.ogremax.com)">
+    <environment>
+        <colourAmbient r="1" g="1" b="1" />
+        <colourBackground r="0" g="0" b="0" />
+        <clipping near="0" far="100000" />
+    </environment>
+    <nodes>
+        <node name="plane01">
+            <position x="0" y="0" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="plane01" static="true" castShadows="true" receiveShadows="true" meshFile="Plane01.mesh">
+                <subentities>
+                    <subentity index="0" materialName="cell_background" />
+                </subentities>
+            </entity>
+        </node>
+		<node name="line01">
+            <position x="-53.95017" y="0" z="9.445486" /> 
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="line01" static="true" castShadows="true" receiveShadows="true" meshFile="Line01.mesh">
+                <subentities>
+                    <subentity index="0" materialName="yellowbrick" />
+                </subentities>
+            </entity>
+        </node>
+		<node name="line02">
+            <position x="11.00762" y="-90.69157" z="29.06669" /> 
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="line02" static="true" castShadows="true" receiveShadows="true" meshFile="Line02.mesh">
+                <subentities>
+                    <subentity index="0" materialName="yellowbrick" />
+                </subentities>
+            </entity>
+        </node>
+		<node name="axes">
+            <position x="0" y="0" z="0" />
+            <scale x="0.1" y="0.1" z="0.1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="axes" static="false" castShadows="true" receiveShadows="true" meshFile="axes.mesh">
+                <subentities>
+                    <subentity index="0" materialName="Core/NodeMaterial" />
+                </subentities>
+            </entity>
+        </node>
+    </nodes>
+</scene>

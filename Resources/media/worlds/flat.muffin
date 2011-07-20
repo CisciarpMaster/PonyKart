@@ -1,0 +1,66 @@
+Flags:
+Numbers:
+Entities:
+	// two big squares
+	Actor (Obstacle) {
+		Name = "obs1"
+		Position = 20, -1, 0
+		Rotation = 45, 0, 0
+		Scale = 10, 10, 10
+	}
+	Actor (Obstacle) {
+		Name = "obs2"
+		Position = 20, -1, 16
+		Rotation = 45, 0, 0
+		Scale = 10, 10, 10
+	}
+	// a more rounded ramp
+	Actor (Obstacle) {
+		Name = "obs3"
+		Position = 20, -5, -40
+		Rotation = -10, 0, 0
+		Scale = 10, 10, 10
+	}
+	Actor (Obstacle) {
+		Name = "obs4"
+		Position = 20, -3, -35
+		Rotation = -30, 0, 0
+		Scale = 10, 10, 10
+	}
+	Actor (Obstacle) {
+		Name = "obs5"
+		Position = 20, -1, -32
+		Rotation = -50, 0, 0
+		Scale = 10, 10, 10
+	}
+	// a bunch of low ramps
+	Actor (Obstacle) {
+		Name = "obs6"
+		Position = -20, -5, 40
+		Rotation = -10, 0, 0
+		Scale = 10, 10, 10
+	}
+	Actor (Obstacle) {
+		Name = "obs7"
+		Position = -20, -5, 20
+		Rotation = -10, 0, 0
+		Scale = 10, 10, 10
+	}
+	Actor (Obstacle) {
+		Name = "obs8"
+		Position = -20, -5, 0
+		Rotation = -10, 0, 0
+		Scale = 10, 10, 10
+	}
+	Actor (Obstacle) {
+		Name = "obs9"
+		Position = -20, -5, -20
+		Rotation = -10, 0, 0
+		Scale = 10, 10, 10
+	}
+	Actor (Obstacle) {
+		Name = "obs10"
+		Position = -20, -5, -40
+		Rotation = -10, 0, 0
+		Scale = 10, 10, 10
+	}
