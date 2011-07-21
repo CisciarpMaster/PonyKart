@@ -130,6 +130,7 @@
     <Compile Include="Actors\Thing.cs" />
     <Compile Include="Actors\Antibody.cs" />
     <Compile Include="Actors\Kart.cs" />
+    <Compile Include="Handlers\AxesHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="Players\ComputerPlayer.cs" />
     <Compile Include="Players\HumanPlayer.cs" />

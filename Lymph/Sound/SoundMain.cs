@@ -67,7 +67,7 @@ namespace Ponykart.Sound {
 			timesince += evt.timeSinceLastFrame;
 			if (timesince > 0.5f) {
 				timesince = 0;
-				pos = LKernel.Get<PlayerManager>().MainPlayer.Position;
+				pos = LKernel.Get<PlayerManager>().MainPlayer.ActorPosition;
 				Engine.SetListenerPosition(pos.x, pos.y, pos.z, lookDir.x, lookDir.y, lookDir.z);
 				Engine.Update();
 			}

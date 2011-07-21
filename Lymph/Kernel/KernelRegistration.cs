@@ -86,6 +86,7 @@ namespace Ponykart {
 			AddGlobalObject(new KartSpawnPositions());
 
 			splash.Increment("Starting handlers...");
+			AddLevelObject(new AxesHandler());
 			AddLevelObject(new DialogueTest());
 			AddGlobalObject(new EscHandler());
 			AddGlobalObject(new LevelChangerHandler());
@@ -115,9 +116,9 @@ namespace Ponykart {
 		/// </summary>
 		public static void LoadLevelHandlers() {
 			Launch.Log("[Loading] Initialising per-level handlers...");
+			AddLevelObject(new AxesHandler());
 			AddLevelObject(new DialogueTest());
 			AddLevelObject(new MovementHandler());
-			//AddLevelObject(new PlayerMovementHandler());
 			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());
 

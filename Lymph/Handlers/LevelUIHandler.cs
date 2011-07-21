@@ -13,7 +13,7 @@ namespace Ponykart.Handlers {
 	/// This class handles making the UI for both the levels and the main menu (because the main menu is considered to be a level
 	/// </summary>
 	public class LevelUIHandler {
-		private Button commandsButton, level1Button, level2Button, quitButton;
+		private Button commandsButton, level1Button, level2Button, level3Button, quitButton;
 		private Label commandsLabel;
 		private ICollection<Control> levelControls, mainMenuControls;
 
@@ -116,8 +116,21 @@ namespace Ponykart.Handlers {
 			mainMenuControls.Add(level2Button);
 			level2Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("flat");
 
+			level3Button = new Button("testlevel") {
+				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 150), // the 100 is half of 200, which makes sure the button is centered
+				Size = new Size(200, 40),
+				Skin = UIResources.Skins["ButtonSkin"],
+				Text = "testlevel",
+				TextStyle = {
+					Alignment = Alignment.MiddleCenter,
+					ForegroundColour = Colours.White
+				},
+			};
+			mainMenuControls.Add(level3Button);
+			level3Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("testlevel");
+
 			quitButton = new Button("Quit") {
-				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 150), // the 100 is half of 200, which makes sure the button is centered
+				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 200), // the 100 is half of 200, which makes sure the button is centered
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "Quit",

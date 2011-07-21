@@ -83,17 +83,40 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Sets default thing properties.
-		/// - Aligns it to the XZ plane
-		/// - Sets linear and angular damping
-		/// - activates the sleep thingy
+		/// Sets default thing properties, like linear and angular damping
 		/// </summary>
 		protected virtual void SetDefaultActorProperties() {
 			Actor.LinearDamping = 0.1f;
 			Actor.AngularDamping = 0.1f;
-			//Actor.BodyFlags.EnergySleepTest = true;
 		}
 		#endregion Physics
+
+		#region helpers
+		public Vector3 LocalXAxis {
+			get {
+				return Actor.GlobalOrientation.GetLocalXAxis();
+			}
+			set {
+				Actor.GlobalOrientation.SetLocalXAxis(value);
+			}
+		}
+		public Vector3 LocalYAxis {
+			get {
+				return Actor.GlobalOrientation.GetLocalYAxis();
+			}
+			set {
+				Actor.GlobalOrientation.SetLocalYAxis(value);
+			}
+		}
+		public Vector3 LocalZAxis {
+			get {
+				return Actor.GlobalOrientation.GetLocalZAxis();
+			}
+			set {
+				Actor.GlobalOrientation.SetLocalZAxis(value);
+			}
+		}
+		#endregion
 
 		public override void Dispose() {
 			if (Actor != null) {

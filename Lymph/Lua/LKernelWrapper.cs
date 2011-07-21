@@ -21,22 +21,22 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("eslip", "", "f")]
 		public static void ExtremumSlip(float f) {
-			Kart.ExtremumSlip = f;
+			Kart.LatExtremumSlip = f;
 		}
 
 		[LuaFunction("evalue", "", "f")]
 		public static void ExtremumValue(float f) {
-			Kart.ExtremumValue = f;
+			Kart.LatExtremumValue = f;
 		}
 
 		[LuaFunction("aslip", "", "f")]
 		public static void AsymptoteSlip(float f) {
-			Kart.AsymptoteSlip = f;
+			Kart.LatAsymptoteSlip = f;
 		}
 
 		[LuaFunction("avalue", "", "f")]
 		public static void AsymptoteValue(float f) {
-			Kart.AsymptoteValue = f;
+			Kart.LatAsymptoteValue = f;
 		}
 	}
 }

@@ -13,17 +13,17 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("pause", "Pauses the game but does not fire any events.")]
 		public static void Pause() {
-			Pauser.Paused = true;
+			Pauser.IsPaused = true;
 		}
 
 		[LuaFunction("unpause", "Unpauses the game but does not fire any events.")]
 		public static void Unpause() {
-			Pauser.Paused = false;
+			Pauser.IsPaused = false;
 		}
 
 		[LuaFunction("pauseWithEvent", "Pauses the game and fires an event.")]
 		public static void PauseWithEvent() {
-			if (Pauser.Paused) // don't call this if it's already paused
+			if (Pauser.IsPaused) // don't call this if it's already paused
 				return;
 
 			Pauser p = LKernel.Get<Pauser>();
@@ -33,7 +33,7 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("unpauseWithEvent", "Unauses the game and fires an event.")]
 		public static void UnpauseWithEvent() {
-			if (!Pauser.Paused) // don't call this if it's already unpaused
+			if (!Pauser.IsPaused) // don't call this if it's already unpaused
 				return;
 
 			Pauser p = LKernel.Get<Pauser>();
@@ -43,7 +43,7 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("isPaused", "Returns whether the game is currently paused or not.")]
 		public static bool IsPaused() {
-			return Pauser.Paused;
+			return Pauser.IsPaused;
 		}
 
 		[LuaFunction("hookScriptToPauseEvent", "Hook up a lua script so it will run whenever the pause event fires.",

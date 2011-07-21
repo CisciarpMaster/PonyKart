@@ -43,7 +43,7 @@ namespace Ponykart.Handlers {
 		}
 
 		bool FrameStarted(FrameEvent evt) {
-			if (Pauser.Paused || !LKernel.Get<LevelManager>().IsValidLevel)
+			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsValidLevel)
 				return true;
 
 			time += evt.timeSinceLastFrame;

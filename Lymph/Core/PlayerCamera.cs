@@ -5,10 +5,13 @@ using Ponykart.Levels;
 using Ponykart.Players;
 
 namespace Ponykart.Core {
+	/// <summary>
+	/// I need to do a decent third person camera at some point. This one's just a "good enough for now" one
+	/// </summary>
 	public class PlayerCamera : IDisposable {
 		public Camera Camera { get; private set; }
 		/// <summary> This camera's scene node </summary>
-		public SceneNode Node { get; private set; }
+		//public SceneNode Node { get; private set; }
 		/// <summary> The scene node that this camera follows </summary>
 		SceneNode followNode;
 		/// <summary> Is the current level not the main menu? </summary>
@@ -24,13 +27,13 @@ namespace Ponykart.Core {
 			Camera.NearClipDistance = 0.01f;
 			Camera.FarClipDistance = 1000f;
 
-			Camera.Position = new Vector3(0f, Constants.CAMERA_HEIGHT, Constants.CAMERA_HEIGHT);
+			Camera.Position = new Vector3(0f, Constants.CAMERA_HEIGHT, -Constants.CAMERA_DISTANCE);
 			Camera.LookAt(new Vector3(0, 0, 0));
 			Camera.AspectRatio = ((float)Constants.WINDOW_WIDTH) / ((float)Constants.WINDOW_HEIGHT);
 
-			Node = manager.CreateSceneNode("CameraNode");
+			/*Node = manager.CreateSceneNode("CameraNode");
 			Node.SetPosition(0, 0, 0);
-			Node.AttachObject(Camera);
+			Node.AttachObject(Camera);*/
 
 			// don't want to do any camera shenanigans on the first level
 			if (isPlayableLevel)
@@ -45,6 +48,7 @@ namespace Ponykart.Core {
 
 		void OnKartCreation(Kart kart) {
 			followNode = kart.Node;
+			followNode.AttachObject(Camera);
 		}
 
 		/*Vector3 camPos;
@@ -60,7 +64,7 @@ namespace Ponykart.Core {
 		/// Updates the cameraNode so it's pointing at the player
 		/// </summary>
 		public void UpdateCamera(FrameEvent evt) {
-			if (LKernel.Get<LevelManager>().IsValidLevel) {
+			//if (LKernel.Get<LevelManager>().IsValidLevel) {
 				/*Player player = LKernel.Get<PlayerManager>().MainPlayer;
 
 				cameraDistance = player.Node.Position - camPos;
@@ -78,11 +82,14 @@ namespace Ponykart.Core {
 				Node.Position = camPos;*/
 
 				// this is a pretty crappy camera but it'll work for now
-				Node.Position = followNode.ConvertLocalToWorldPosition(new Vector3(0, Constants.CAMERA_HEIGHT, -Constants.CAMERA_DISTANCE));
-				Node.Translate(0f, 0f, -Constants.CAMERA_DISTANCE);
+				//Node.Position = followNode.ConvertLocalToWorldPosition(new Vector3(0, Constants.CAMERA_HEIGHT, -Constants.CAMERA_DISTANCE));
+				/*Node.Translate(followNode.Position.x, followNode.Position.y - 30, followNode.Position.z);
+				Node.Translate(Math.Cos(followNode.Orientation.Yaw) * -Constants.CAMERA_DISTANCE,
+					0f,
+					Math.Sin(followNode.Orientation.Yaw) * -Constants.CAMERA_DISTANCE);
 				Node.SetPosition(Node.Position.x, Constants.CAMERA_HEIGHT, Node.Position.z);
-				Camera.LookAt(followNode._getDerivedPosition());
-			}
+				Camera.LookAt(followNode._getDerivedPosition());*/
+			//}
 		}
 
 		public void Dispose() {
@@ -91,8 +98,8 @@ namespace Ponykart.Core {
 
 			LKernel.Get<SceneManager>().DestroyCamera(Camera);
 			Camera.Dispose();
-			LKernel.Get<SceneManager>().DestroySceneNode(Node);
-			Node.Dispose();
+			//LKernel.Get<SceneManager>().DestroySceneNode(Node);
+			//Node.Dispose();
 		}
 	}
 }

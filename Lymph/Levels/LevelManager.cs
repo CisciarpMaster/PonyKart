@@ -39,7 +39,7 @@ namespace Ponykart.Levels
 			// make sure this won't run again
 			hasRunPostInitEvents = true;
 			// pause it for the main menu
-			Pauser.Paused = true;
+			Pauser.IsPaused = true;
 			// we don't want any input to go while we're in the middle of changing levels
 			LKernel.Get<InputSwallowerManager>().AddSwallower(() => !IsValidLevel, this);
 		}
@@ -74,7 +74,7 @@ namespace Ponykart.Levels
 		/// <param name="newLevelName">The name of the level to load</param>
 		public void LoadLevel(string newLevelName)
 		{
-			Pauser.Paused = false;
+			Pauser.IsPaused = false;
 			Level oldLevel = CurrentLevel;
 			Level newLevel = new Level(newLevelName);
 			var eventArgs = new LevelChangedEventArgs(newLevel, oldLevel);
@@ -112,7 +112,7 @@ namespace Ponykart.Levels
 
 			// if we're on the main menu, pause it
 			if (newLevel.Name == Settings.Default.MainMenuName)
-				Pauser.Paused = true;
+				Pauser.IsPaused = true;
 
 			// get rid of the old level and clean up
 			oldLevel.Dispose();

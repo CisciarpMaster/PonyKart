@@ -11,7 +11,7 @@ namespace Ponykart {
 		/// <summary> The distance the camera is along the Y axis from the XZ plane </summary>
 		public static readonly float CAMERA_HEIGHT = 4f;
 		/// <summary> The distance the camera follows the player kart </summary>
-		public static readonly float CAMERA_DISTANCE = 24f;
+		public static readonly float CAMERA_DISTANCE = 16f;
 
 
 		public static readonly int NUMBER_OF_PLAYERS = 8;
@@ -36,7 +36,8 @@ namespace Ponykart {
 #if DEBUG
 		public static bool MUSIC = false;
 #else
-		public static bool MUSIC = true;
+		// change this when we're doing more public releases
+		public static bool MUSIC = false; //true;
 #endif
 	}
 }

@@ -14,7 +14,7 @@ namespace Ponykart.Core {
 		/// Setting this to true will pause the spawner, physics engine, level changer, movement managers, etc.
 		/// It won't pause animations, UI, scripts, cameras, and so on.
 		/// </summary>
-		public static bool Paused = false;
+		public static bool IsPaused = false;
 
 		public Pauser() {
 			Launch.Log("[Loading] Creating Pauser");
@@ -22,7 +22,7 @@ namespace Ponykart.Core {
 			// if we press `, then pause
 			LKernel.Get<InputMain>().OnKeyboardPress_Anything += InvokePauseEvent;
 
-			LKernel.Get<InputSwallowerManager>().AddSwallower(() => Paused, this);
+			LKernel.Get<InputSwallowerManager>().AddSwallower(() => IsPaused, this);
 		}
 
 		/// <summary>
@@ -46,9 +46,9 @@ namespace Ponykart.Core {
 		/// </summary>
 		public void PauseWithEvent() {
 			Launch.Log("Pause!");
-			Paused = !Paused;
+			IsPaused = !IsPaused;
 			if (PauseEvent != null)
-				PauseEvent(Paused);
+				PauseEvent(IsPaused);
 		}
 	}
 }

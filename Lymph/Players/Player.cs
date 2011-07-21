@@ -48,11 +48,18 @@ namespace Ponykart.Players {
 		/// </summary>
 		public Actor Actor { get { return Kart.Actor; } }
 		/// <summary>
-		/// Gets/sets the kart's SceneNode's position
+		/// Gets/sets the kart's Actor's position
 		/// </summary>
-		public Vector3 Position {
+		public Vector3 ActorPosition {
+			get { return Kart.Actor.GlobalPosition; }
+			set { Kart.Actor.GlobalPosition = value; }
+		}
+		/// <summary>
+		/// Gets the kart's Node's position. No setter because it's automatically changed to whatever the position of its
+		/// actor - use <see cref="ActorPosition"/> if you want to change the kart's position!
+		/// </summary>
+		public Vector3 NodePosition {
 			get { return Kart.Node.Position; }
-			set { Kart.Node.Position = value; }
 		}
 		/// <summary>
 		/// Gets the kart's SceneNode's orientation

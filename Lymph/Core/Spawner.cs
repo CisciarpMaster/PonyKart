@@ -27,7 +27,7 @@ namespace Ponykart.Core {
         /// <exception cref="ArgumentException">If 'type' is not a valid ActorEnum</exception>
         /// <returns>The thing you just spawned. Returns null if you are paused.</returns>
         public Thing Spawn(ThingEnum type, ThingTemplate template) {
-            if (Pauser.Paused) {
+            if (Pauser.IsPaused) {
                 Launch.Log("[Spawner] WARNING: Attempted to spawn something while paused!");
                 return null;
             }

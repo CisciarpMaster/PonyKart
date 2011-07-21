@@ -156,7 +156,7 @@ namespace Ponykart.Phys {
 		/// Also has the speed limiting for lymph and camera updating.
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
-			if (Pauser.Paused || !LKernel.Get<LevelManager>().IsValidLevel)
+			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsValidLevel)
 				return true;
 
 			elapsed += evt.timeSinceLastFrame;
@@ -228,7 +228,7 @@ namespace Ponykart.Phys {
 		}
 		
 		public void ShootBox() {
-			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.Position;
+			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.ActorPosition;
 
 			BoxShapeDesc bsd = new BoxShapeDesc(new Vector3(0.5f, 0.5f, 0.5f));
 			bsd.Group = Groups.CollidablePushableID;

@@ -39,7 +39,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<PhysXMain>().ShootBox();
 					break;
 				case KeyCode.KC_Z:
-					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.Position);
+					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.ActorPosition);
 					break;
 				case KeyCode.KC_M:
 					Constants.MUSIC = !Constants.MUSIC;
