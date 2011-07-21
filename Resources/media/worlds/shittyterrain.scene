@@ -15,15 +15,5 @@
                 </subentities>
             </entity>
         </node>
-		<node name="axes">
-            <position x="0" y="0" z="0" />
-            <scale x="0.1" y="0.1" z="0.1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="axes" static="false" castShadows="true" receiveShadows="true" meshFile="axes.mesh">
-                <subentities>
-                    <subentity index="0" materialName="Core/NodeMaterial" />
-                </subentities>
-            </entity>
-        </node>
     </nodes>
 </scene>

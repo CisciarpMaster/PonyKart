@@ -1,47 +1,77 @@
-<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.6" author="OgreMax Scene Exporter (www.ogremax.com)">
+<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.7" ogreMaxVersion="2.3.14" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
     <environment>
         <colourAmbient r="1" g="1" b="1" />
         <colourBackground r="0" g="0" b="0" />
         <clipping near="0" far="100000" />
     </environment>
     <nodes>
-        <node name="plane01">
+        <node name="Plane01">
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="plane01" static="true" castShadows="true" receiveShadows="true" meshFile="Plane01.mesh">
+            <entity name="Plane01" castShadows="true" receiveShadows="true" meshFile="Plane01.mesh">
                 <subentities>
                     <subentity index="0" materialName="cell_background" />
                 </subentities>
             </entity>
         </node>
-		<node name="line01">
-            <position x="-53.95017" y="0" z="9.445486" /> 
+        <node name="Line01">
+            <position x="-57.0986" y="16.148" z="-7.0585e-007" />
             <scale x="1" y="1" z="1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="line01" static="true" castShadows="true" receiveShadows="true" meshFile="Line01.mesh">
+            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
+            <entity name="Line01" castShadows="true" receiveShadows="true" meshFile="Line01.mesh">
                 <subentities>
                     <subentity index="0" materialName="yellowbrick" />
                 </subentities>
             </entity>
         </node>
-		<node name="line02">
-            <position x="11.00762" y="-90.69157" z="29.06669" /> 
-            <scale x="1" y="1" z="1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="line02" static="true" castShadows="true" receiveShadows="true" meshFile="Line02.mesh">
+        <node name="Line02">
+            <position x="7.80922e-005" y="52.9614" z="87.3136" />
+            <scale x="2.03522" y="2.03522" z="2.03522" />
+            <rotation qx="0.477712" qy="-0.477716" qz="0.521332" qw="0.521336" />
+            <entity name="Line02" castShadows="true" receiveShadows="true" meshFile="Line02.mesh">
                 <subentities>
                     <subentity index="0" materialName="yellowbrick" />
                 </subentities>
             </entity>
         </node>
-		<node name="axes">
-            <position x="0" y="0" z="0" />
-            <scale x="0.1" y="0.1" z="0.1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="axes" static="false" castShadows="true" receiveShadows="true" meshFile="axes.mesh">
+        <node name="Box01">
+            <position x="104.891" y="28.1383" z="-1.22996e-006" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0.211309" qy="0.116293" qz="0.182543" qw="0.953154" />
+            <entity name="Box01" castShadows="true" receiveShadows="true" meshFile="Box01.mesh">
                 <subentities>
-                    <subentity index="0" materialName="Core/NodeMaterial" />
+                    <subentity index="0" materialName="yellowbrick" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Box02">
+            <position x="23.9989" y="-3.04944e-006" z="-69.763" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Box02" castShadows="true" receiveShadows="true" meshFile="Box02.mesh">
+                <subentities>
+                    <subentity index="0" materialName="yellowbrick" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="GeoSphere01">
+            <position x="-179.999" y="48.3564" z="-2.11372e-006" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
+            <entity name="GeoSphere01" castShadows="true" receiveShadows="true" meshFile="GeoSphere01.mesh">
+                <subentities>
+                    <subentity index="0" materialName="yellowbrick" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Line03">
+            <position x="0" y="71.3492" z="-113.171" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0.5" qy="-0.5" qz="0.5" qw="0.5" />
+            <entity name="Line03" castShadows="true" receiveShadows="true" meshFile="Line03.mesh">
+                <subentities>
+                    <subentity index="0" materialName="yellowbrick" />
                 </subentities>
             </entity>
         </node>
