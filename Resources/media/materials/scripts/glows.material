@@ -1,152 +1,110 @@
-material GE_BalloonGlow {
-	technique {
-		pass {
-			ambient 1.0 1.0 1.0
-			diffuse 1.0 1.0 1.0
+// ****************************************************************************************
+// remember to set your entity's render queue group to the correct group in GlowHandler.cs!
+// ****************************************************************************************
 
-			texture_unit {
-				texture grey.png
-				filtering linear linear linear
-			}
-		}
+material BalloonGlow {
+	technique {
 		pass {
 			scene_blend add
 			depth_check on
 			lighting on
 			
-			vertex_program_ref fresnel_vs {
+			vertex_program_ref glowBalloon_vs {
+				param_named Inflate_add float 0
+				param_named Inflate_mult float 0
 			}
-			fragment_program_ref fresnel_ps {
-				param_named GlowColor float3 1 1 1
+			fragment_program_ref glowBalloon_ps {
+				//param_named GlowColor float3 1 1 1
 				param_named GlowExpon float  2.5
-				param_named Alpha     float  1
 			}
 		}
 	}
 }
-material GE_BalloonGlow_red : GE_BalloonGlow {
+material BalloonGlow_red : BalloonGlow {
 	technique {
 		pass {
-			ambient 1 0 0
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 1 0 0
 			}
 		}
 	}
 }
-material GE_BalloonGlow_blue : GE_BalloonGlow {
+material BalloonGlow_blue : BalloonGlow {
 	technique {
 		pass {
-			ambient 0 0.4 1
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0 0.4 1
 			}
 		}
 	}
 }
-material GE_BalloonGlow_yellow : GE_BalloonGlow {
+material BalloonGlow_yellow : BalloonGlow {
 	technique {
 		pass {
-			ambient 1 1 0
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 1 1 0
 			}
 		}
 	}
 }
-material GE_BalloonGlow_green : GE_BalloonGlow {
+material BalloonGlow_green : BalloonGlow {
 	technique {
 		pass {
-			ambient 0 0.95 0
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0 0.95 0
 			}
 		}
 	}
 }
-material GE_BalloonGlow_orange : GE_BalloonGlow {
+material BalloonGlow_orange : BalloonGlow {
 	technique {
 		pass {
-			ambient 1 0.6 0
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 1 0.6 0
 			}
 		}
 	}
 }
-material GE_BalloonGlow_magenta : GE_BalloonGlow {
+material BalloonGlow_magenta : BalloonGlow {
 	technique {
 		pass {
-			ambient 1 0 1
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 1 0 1
 			}
 		}
 	}
 }
-material GE_BalloonGlow_purple : GE_BalloonGlow {
+material BalloonGlow_purple : BalloonGlow {
 	technique {
 		pass {
-			ambient 0.65 0 1
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0.65 0 1
 			}
 		}
 	}
 }
-material GE_BalloonGlow_cyan : GE_BalloonGlow {
+material BalloonGlow_cyan : BalloonGlow {
 	technique {
 		pass {
-			ambient 0 1 1
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0 1 1
 			}
 		}
 	}
 }
-material GE_BalloonGlow_white : GE_BalloonGlow {
+material BalloonGlow_white : BalloonGlow {
 	technique {
 		pass {
-			ambient 1 1 1
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
+			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 1 1 1
 			}
 		}
 	}
 }
-material GE_BalloonGlow_black : GE_BalloonGlow {
-	technique {
-		pass {
-			ambient 0.2 0.2 0.2
-		}
-		pass {
-			fragment_program_ref fresnel_ps {
-				param_named GlowColor float3 0 0 0
-			}
-		}
-	}
-}
+
 // ====================================================
-// the glow overlay
-material GE_InnerGlow {
+// the flat glow overlay
+material FlatGlow {
 	technique {
 		pass {
 			scene_blend alpha_blend
@@ -156,7 +114,7 @@ material GE_InnerGlow {
 	}
 }
 
-material GE_InnerGlow_red : GE_InnerGlow {
+material FlatGlow_red : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -169,7 +127,7 @@ material GE_InnerGlow_red : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_blue : GE_InnerGlow {
+material FlatGlow_blue : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -182,7 +140,7 @@ material GE_InnerGlow_blue : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_yellow : GE_InnerGlow {
+material FlatGlow_yellow : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -195,7 +153,7 @@ material GE_InnerGlow_yellow : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_green : GE_InnerGlow {
+material FlatGlow_green : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -208,7 +166,7 @@ material GE_InnerGlow_green : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_orange : GE_InnerGlow {
+material FlatGlow_orange : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -221,7 +179,7 @@ material GE_InnerGlow_orange : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_magenta : GE_InnerGlow {
+material FlatGlow_magenta : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -234,7 +192,7 @@ material GE_InnerGlow_magenta : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_purple : GE_InnerGlow {
+material FlatGlow_purple : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -247,7 +205,7 @@ material GE_InnerGlow_purple : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_cyan : GE_InnerGlow {
+material FlatGlow_cyan : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -260,7 +218,7 @@ material GE_InnerGlow_cyan : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_white : GE_InnerGlow {
+material FlatGlow_white : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
@@ -273,7 +231,7 @@ material GE_InnerGlow_white : GE_InnerGlow {
 		}
 	}
 }
-material GE_InnerGlow_black : GE_InnerGlow {
+material FlatGlow_black : FlatGlow {
 	technique {
 		pass {
 			vertex_program_ref glow_vs_cg {
