@@ -10,6 +10,9 @@ namespace Ponykart.Phys {
 
 	public delegate void TriggerReportHandler(Shape triggerShape, Shape otherShape, TriggerFlags flags);
 
+	// TODO: if you have something made up of multiple shapes (such as the karts), the events fire whenever ANY of the shapes
+	// enter/leave the trigger region. This might lead to a dialogue being destroyed before the shape has completely left or something.
+
 	/// <summary>
 	/// The main thing of this you use is AddEvent. Stick in the name of the trigger region actor and the method you want
 	/// to run when something enters/leaves it, and you're good to go. The method you give it can check stuff like which actors

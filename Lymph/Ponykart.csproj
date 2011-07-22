@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\DynamicThing.cs" />
+    <Compile Include="Actors\Extras\Wheel.cs" />
     <Compile Include="Actors\KinematicThing.cs" />
     <Compile Include="Actors\Obstacle.cs" />
     <Compile Include="Actors\ThingEnum.cs" />

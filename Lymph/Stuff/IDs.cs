@@ -2,7 +2,7 @@
 	/// <summary>
 	/// Handles getting ID numbers
 	/// </summary>
-	public class IDs {
+	public abstract class IDs {
 		private static int Counter = 0;
 
 		/// <summary>

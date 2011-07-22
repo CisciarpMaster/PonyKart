@@ -25,7 +25,7 @@ namespace Ponykart {
 		// Physics
 		/// <summary> The desired framerate. Must be between 60 and 600 </summary>
 		public static readonly int PH_FRAMERATE = 60;
-		public static readonly float GRAVITY = -25f;
+		public static readonly float GRAVITY = -35f;
 		
 		// Settings
 		/// <summary> Ribbons enable/disable </summary>

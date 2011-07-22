@@ -88,6 +88,8 @@ namespace Ponykart.Actors {
 		protected virtual void SetDefaultActorProperties() {
 			Actor.LinearDamping = 0.1f;
 			Actor.AngularDamping = 0.1f;
+			Actor.SleepLinearVelocity = 0.1f;
+			Actor.BodyFlags.EnergySleepTest = true;
 		}
 		#endregion Physics
 

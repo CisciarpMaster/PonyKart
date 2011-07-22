@@ -70,7 +70,7 @@ namespace Ponykart.Phys {
 			defaultMaterial.DynamicFriction = 0.6f;
 			defaultMaterial.StaticFriction = 0.6f;
 
-			// TODO
+			// TODO: make a material manager
 			var tyreMaterialDesc = new MaterialDesc();
 			tyreMaterialDesc.Flags |= MaterialFlags.DisableFriction;
 			noFrictionMaterial = scene.CreateMaterial(tyreMaterialDesc);

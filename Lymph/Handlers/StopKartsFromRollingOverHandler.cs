@@ -37,28 +37,30 @@ namespace Ponykart.Handlers {
 					// TODO: check that the hit shape is either static or kinematic
 					Shape closestShape = LKernel.Get<PhysXMain>().Scene.RaycastClosestShape(ray, ShapesTypes.All, out hit);
 					
-					// if the ray collided with something
-					if (closestShape != null) {
-						//Vector3 impact = hit.WorldImpact;
-						float dist = hit.Distance;
+					// if the ray either didn't collide with anything or if the closest thing is >2 away, then make the kart upright
+					if (closestShape == null || hit.Distance > 2f) {
+						// stop it spinning
+						kart.Actor.AngularVelocity = Vector3.ZERO;
 
-						if (dist > 2f) {
-							// stop it spinning
-							kart.Actor.AngularVelocity = Vector3.ZERO;
+						// oh god this took forever to figure out, fucking quaternions
+						// so first we get the kart's orientation
+						Matrix3 matrix = kart.Actor.GlobalOrientation;
+						// then we basically get its local Y axis and average it with the global Y axis to make more of a smooth transition
+						Vector3 avgY;
+						Vector3 locY = matrix.GetLocalYAxis();
+						// are we upside down?
+						if (locY.DirectionEquals(Vector3.NEGATIVE_UNIT_Y, new Degree(5)))
+							// if we are upside down, doing too many midpoints makes stuff go screwy
+							avgY = Vector3.UNIT_Y.MidPoint(locY);
+						else
+							// more midpoints means more smoothing
+							avgY = Vector3.UNIT_Y.MidPoint(locY).MidPoint(locY).MidPoint(locY);
+						// then set the matrix's Y axis to the averaged axis
+						matrix.SetColumn(1, avgY);
+						// and then update the actor with the new matrix
+						kart.Actor.GlobalOrientation = matrix;
 
-							// oh god this took forever to figure out, fucking quaternions
-							// so first we get the kart's orientation
-							Matrix3 matrix = kart.Actor.GlobalOrientation;
-							// then we basically get its local Y axis and average it with the global Y axis to make more of a smooth transition
-							Vector3 avgY = (matrix.GetLocalYAxis() + Vector3.UNIT_Y) / 2f;
-							// then set the matrix's Y axis to the averaged axis
-							matrix.SetColumn(1, avgY);
-							// and then update the actor with the new matrix
-							kart.Actor.GlobalOrientation = matrix;
-							
-							// we can kinda combine this all into one line with our handy dandy extension methods
-							//kart.LocalYAxis = (kart.LocalYAxis + Vector3.UNIT_Y) / 2f;
-						}
+						// we can kinda combine this all into one line with our handy dandy extension methods, but it's left like this for clarity
 					}
 				}
 			//}
