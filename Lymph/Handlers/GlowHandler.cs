@@ -2,12 +2,15 @@
 
 namespace Ponykart.Handlers {
 	/// <summary>
-	/// This class just adds glow to things. I'm not entirely sure how it works but it's best not to touch it unless you know what you're doing
+	/// This class just adds glow to things. I'm not entirely sure how it works but it's best not to touch it unless you know what you're doing.
+	/// If you want something to have the nice transparency when glowing, just set the entity's render queue group to one of the two groups
+	/// defined here.
 	/// </summary>
 	public class GlowHandler {
 
-		public GlowHandler(SceneManager sceneMgr)
+		public GlowHandler()
 		{
+			var sceneMgr = LKernel.Get<SceneManager>();
 			sceneMgr.RenderQueueStarted += new RenderQueueListener.RenderQueueStartedHandler(RenderQueueStarted);
 			sceneMgr.RenderQueueEnded += new RenderQueueListener.RenderQueueEndedHandler(RenderQueueEnded);
 		}
@@ -20,10 +23,8 @@ namespace Ponykart.Handlers {
 		//                                                                                //
 		////////////////////////////////////////////////////////////////////////////////////
 
-		public const byte RENDER_QUEUE_OUTER_GLOW = (byte)RenderQueueGroupID.RENDER_QUEUE_MAIN + 4;
-		public const byte RENDER_QUEUE_INNER_GLOW = (byte)RenderQueueGroupID.RENDER_QUEUE_MAIN + 3;
-		public const byte LAST_STENCIL_OP_RENDER_QUEUE = RENDER_QUEUE_INNER_GLOW;
-		//public const byte RENDER_QUEUE_GLOW_OBJECTS = (byte)RenderQueueGroupID.RENDER_QUEUE_MAIN + 1;
+		public const byte RENDER_QUEUE_BUBBLE_GLOW = (byte)RenderQueueGroupID.RENDER_QUEUE_MAIN + 4;
+		public const byte RENDER_QUEUE_FLAT_GLOW = (byte)RenderQueueGroupID.RENDER_QUEUE_MAIN + 3;
 		public const int STENCIL_VALUE_FOR_FULL_GLOW = 2;
 		public const int STENCIL_VALUE_FOR_OUTLINE_GLOW = 1;
 		public const uint STENCIL_FULL_MASK = 0xFFFFFFFF;
@@ -31,7 +32,7 @@ namespace Ponykart.Handlers {
 		public void RenderQueueEnded(byte queueGroupId, string invocation, out bool skipThisInvocation)
 		{
 			skipThisInvocation = false;
-			if (queueGroupId == LAST_STENCIL_OP_RENDER_QUEUE)
+			if (queueGroupId == RENDER_QUEUE_FLAT_GLOW)
 			{
 				RenderSystem rendersys = Root.Singleton.RenderSystem;
 				rendersys.SetStencilCheckEnabled(false);
@@ -44,21 +45,7 @@ namespace Ponykart.Handlers {
 			skipThisInvocation = false;
 			RenderSystem rendersys = Root.Singleton.RenderSystem;
 
-			/*if (queueGroupId == RENDER_QUEUE_GLOW_OBJECTS) // outline glow object
-			{
-				Launch.Log("Render_Queue_Glow_Objects");
-				rendersys.ClearFrameBuffer((uint)FrameBufferType.FBT_STENCIL);
-				rendersys.SetStencilCheckEnabled(true);
-				rendersys.SetStencilBufferParams(CompareFunction.CMPF_ALWAYS_PASS,
-												 STENCIL_VALUE_FOR_OUTLINE_GLOW,
-												 STENCIL_FULL_MASK,
-												 StencilOperation.SOP_KEEP,
-												 StencilOperation.SOP_KEEP,
-												 StencilOperation.SOP_REPLACE,
-												 false);
-			}*/
-
-			if (queueGroupId == RENDER_QUEUE_OUTER_GLOW)  // full glow - alpha glow
+			if (queueGroupId == RENDER_QUEUE_BUBBLE_GLOW)  // full glow - alpha glow
 			{
 				rendersys.SetStencilCheckEnabled(true);
 				rendersys.SetStencilBufferParams(CompareFunction.CMPF_ALWAYS_PASS,
@@ -70,7 +57,7 @@ namespace Ponykart.Handlers {
 												 false);
 			}
 
-			if (queueGroupId == RENDER_QUEUE_INNER_GLOW)  // full glow - glow
+			if (queueGroupId == RENDER_QUEUE_FLAT_GLOW)  // full glow - glow
 			{
 				rendersys.SetStencilCheckEnabled(true);
 				rendersys.SetStencilBufferParams(CompareFunction.CMPF_EQUAL,

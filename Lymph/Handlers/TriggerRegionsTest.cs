@@ -26,7 +26,8 @@ namespace Ponykart.Handlers {
 			// make some mogre objects so we can see what we're doing
 			var sceneMgr = LKernel.Get<SceneManager>();
 			Entity e = sceneMgr.CreateEntity("test trigger area entity", "primitives/ellipsoid.mesh");
-			e.SetMaterialName("GE_BalloonGlow_orange");
+			e.SetMaterialName("BalloonGlow_orange");
+			e.RenderQueueGroup = GlowHandler.RENDER_QUEUE_BUBBLE_GLOW;
 			SceneNode sn = sceneMgr.RootSceneNode.CreateChildSceneNode("test trigger area node");
 			sn.AttachObject(e);
 			sn.Position = a.GlobalPosition;

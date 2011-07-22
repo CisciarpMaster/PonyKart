@@ -102,6 +102,7 @@ namespace Ponykart.Levels
 				// then put Things into our world
 				newLevel.CreateEntities();
 				// then load the rest of the handlers
+				LKernel.CreateCamera();
 				LKernel.LoadLevelHandlers();
 
 				IsValidLevel = true;

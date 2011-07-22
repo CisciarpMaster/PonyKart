@@ -83,7 +83,7 @@ namespace Ponykart.Actors {
 		protected override void CreateMoreMogreStuff() {
 			// add a ribbon
 			Node.SetScale(new Vector3(1, 1, 1));
-			CreateRibbon(10, 20, ColourValue.Blue, 2f);
+			CreateRibbon(15, 30, ColourValue.Blue, 2f);
 		}
 
 		/// <summary>

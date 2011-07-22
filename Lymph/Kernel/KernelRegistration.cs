@@ -86,17 +86,14 @@ namespace Ponykart {
 			AddGlobalObject(new KartSpawnPositions());
 
 			splash.Increment("Starting handlers...");
-			AddLevelObject(new AxesHandler());
-			AddLevelObject(new DialogueTest());
 			AddGlobalObject(new EscHandler());
+			AddGlobalObject(new GlowHandler());
 			AddGlobalObject(new LevelChangerHandler());
 			AddGlobalObject(new LevelUIHandler());
 			AddGlobalObject(new LoadingUIHandler());
 			AddGlobalObject(new MiscKeyboardHandler());
-			AddLevelObject(new MovementHandler());
 			AddGlobalObject(new PauseUIHandler());
-			AddLevelObject(new StopKartsFromRollingOverHandler());
-			AddLevelObject(new TriggerRegionsTest());
+			LoadLevelHandlers();
 
 			levelManager.RunPostInitEvents();
 		}
@@ -107,7 +104,6 @@ namespace Ponykart {
 		/// </summary>
 		public static void LoadLevelObjects(LevelChangedEventArgs eventArgs) {
 
-			
 		}
 
 		/// <summary>
@@ -121,7 +117,13 @@ namespace Ponykart {
 			AddLevelObject(new MovementHandler());
 			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());
+		}
 
+		/// <summary>
+		/// The camera's a bit weird - it has to be created right at startup because the viewport needs it, but it also depends on
+		/// the main player's kart, which is created much later.
+		/// </summary>
+		public static void CreateCamera() {
 			Launch.Log("[Loading] Creating camera...");
 			var playerCamera = AddLevelObject(new PlayerCamera());
 			Get<Viewport>().Camera = playerCamera.Camera;

@@ -98,7 +98,7 @@ namespace Ponykart {
 			this.MaximizeBox = false;
 			this.Name = "Splash";
 			this.StartPosition = FormStartPosition.CenterScreen;
-			this.Text = "Loading Lymph...";
+			this.Text = "Loading Ponykart...";
 			this.UseWaitCursor = true;
 			this.ResumeLayout(false);
 

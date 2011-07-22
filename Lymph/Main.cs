@@ -32,7 +32,7 @@ namespace Ponykart {
 			this.MaximizeBox = false;
 			this.Name = "Main";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Lymph";
+			this.Text = "Ponykart";
 			this.ResumeLayout(false);
 
 			base.Icon = Ponykart.Properties.Resources.Icon_1;
@@ -47,7 +47,11 @@ namespace Ponykart {
 			try
 			{
 				LKernel.LoadInitialObjects(splash);
-				base.Disposed += (sender, ea) => LKernel.Get<Root>().Dispose();
+				base.Disposed += (sender, ea) => {
+					LKernel.Get<UIMain>().Dispose();
+					if (LKernel.Get<Root>() != null)
+						LKernel.Get<Root>().Shutdown();
+				};
 				GC.Collect();
 			}
 			finally {

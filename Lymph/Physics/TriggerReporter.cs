@@ -61,9 +61,13 @@ namespace Ponykart.Phys {
 			}
 		}
 
-		// can extend this to do more stuff later. Maybe have a flag or something?
-		// basically instead of firing events willy nilly, check to see if the thing that entered here is even worth worrying about
-		// for example we don't give a crap about projectiles
+		/// <summary>
+		/// can extend this to do more stuff later. Maybe have a flag or something?
+		/// basically instead of firing events willy nilly, check to see if the thing that entered here is even worth worrying about
+		/// for example we don't give a crap about projectiles
+		/// </summary>
+		/// <param name="shape"></param>
+		/// <returns></returns>
 		private bool IsShapeImportant(Shape shape) {
 			// the player is important
 			if (shape.Actor == LKernel.Get<PlayerManager>().MainPlayer.Actor)

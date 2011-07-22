@@ -1,6 +1,6 @@
-﻿using Ponykart.Phys;
+﻿using Mogre.PhysX;
+using Ponykart.Phys;
 using Ponykart.UI;
-using Mogre.PhysX;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -16,7 +16,7 @@ namespace Ponykart.Handlers {
 			var d = LKernel.Get<DialogueManager>();
 
 			if (Phys.TriggerReporter.IsEnterFlag(tf))
-				d.CreateDialogue("media/gui/epic.png", oshape.Actor.Name, "I have entered " + tshape.Actor.Name);
+				d.CreateDialogue("media/gui/lyra.jpg", oshape.Actor.Name, "I have entered " + tshape.Actor.Name);
 			else
 				d.DestroyDialogue();
 		}
