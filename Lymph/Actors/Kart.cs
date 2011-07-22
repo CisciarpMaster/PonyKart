@@ -28,6 +28,7 @@ namespace Ponykart.Actors {
 			get { return 20f; }
 		}
 
+
 		public virtual float ForwardSpeed {
 			get { return 3000f; }
 		}

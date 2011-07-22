@@ -49,6 +49,8 @@ namespace Ponykart.Handlers {
 			// are we upside down?
 			if (locY.DirectionEquals(Vector3.NEGATIVE_UNIT_Y, new Degree(90))) {
 				// if we are upside down, doing too many midpoints makes stuff go screwy
+				Vector3 locX = matrix.GetLocalXAxis();
+				matrix.SetColumn(0, Vector3.UNIT_X.MidPoint(locX).MidPoint(locX).MidPoint(locX));
 				avgY = Vector3.UNIT_Y.MidPoint(locY);
 			}
 			else {
