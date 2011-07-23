@@ -34,57 +34,96 @@ namespace Ponykart {
 			InitResources();
 			LoadResourceGroups();
 
+			// physx stuff
 			splash.Increment("Initialising physics engine, collision groups, and trigger area and contact reporters...");
-			var physx = AddGlobalObject(new PhysXMain());
+			try {
+				AddGlobalObject(new PhysXMain());
+			}
+			catch {
+				Launch.Log("**** ERROR: Problem when loading PhysX! ****");
+				MessageBox.Show("Error when loading PhysX DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
+			}
 			AddGlobalObject(new TriggerReporter());
 			AddGlobalObject(new ContactReporter());
 			AddGlobalObject(new Groups());
 
+			// sound stuff
 			splash.Increment("Setting up sound system...");
-			AddGlobalObject(new SoundMain());
+			try {
+				AddGlobalObject(new SoundMain());
+			}
+			catch {
+				Launch.Log("**** ERROR: Problem when loading IrrKlang! ****");
+				MessageBox.Show("Error when loading IrrKlang DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
+			}
 
+			// level
 			splash.Increment("Creating level...");
 			AddGlobalObject(InitSceneManager(root));
 
 			splash.Increment("Loading first level physics...");
-			physx.LoadPhysicsLevel(Settings.Default.MainMenuName);
+			Get<PhysXMain>().LoadPhysicsLevel(Settings.Default.MainMenuName);
 
 			splash.Increment("Creating player camera and viewport...");
 			var playerCamera = AddLevelObject(new PlayerCamera());
 			AddGlobalObject(InitViewport(renderWindow, playerCamera));
 
+			// MOIS and input stuff
 			splash.Increment("Starting input system...");
-			AddGlobalObject(new InputMain());
+			try {
+				AddGlobalObject(new InputMain());
+			}
+			catch {
+				Launch.Log("**** ERROR: Problem when loading MOIS! ****");
+				MessageBox.Show("Error when loading MOIS DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
+			}
 			AddGlobalObject(new KeyBindingManager());
 			AddGlobalObject(new InputSwallowerManager());
 			AddGlobalObject(new Pauser());
 
+			// spawner
 			splash.Increment("Creating spawner...");
 			var spawner = AddGlobalObject(new Spawner());
 
+			// Miyagi and stuff
 			splash.Increment("Initialising UI...");
 			AddGlobalObject(new DebugOverlayManager());
-			AddGlobalObject(new UIMain());
+			try {
+				AddGlobalObject(new UIMain());
+			}
+			catch {
+				Launch.Log("**** ERROR: Problem when loading Miyagi! ****");
+				MessageBox.Show("Error when loading Miyagi DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
+			}
+
 			AddGlobalObject(new DialogueManager());
 			AddGlobalObject(new LuaConsoleManager());
 
+			// lua
 			splash.Increment("Setting up scripting engine...");
-			var lua = AddGlobalObject(new LuaMain());
-			AddGlobalObject(new LKernelWrapper());
-			AddGlobalObject(new PauserWrapper());
-			AddGlobalObject(new LevelManagerWrapper());
-			AddGlobalObject(new TriggerWrapper());
-			AddGlobalObject(new SoundWrapper());
-			AddGlobalObject(new SpawnerWrapper());
-			AddGlobalObject(new LevelWrapper());
-			AddGlobalObject(new IOWrapper());
-			lua.RunRegisterEvent();
+			try {
+				var lua = AddGlobalObject(new LuaMain());
+				AddGlobalObject(new LKernelWrapper());
+				AddGlobalObject(new PauserWrapper());
+				AddGlobalObject(new LevelManagerWrapper());
+				AddGlobalObject(new TriggerWrapper());
+				AddGlobalObject(new SoundWrapper());
+				AddGlobalObject(new SpawnerWrapper());
+				AddGlobalObject(new LevelWrapper());
+				AddGlobalObject(new IOWrapper());
+				lua.RunRegisterEvent();
+			}
+			catch {
+				Launch.Log("**** ERROR: Problem when loading LuaNetInterface!");
+				MessageBox.Show("Error when loading LuaNetInterface DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
+			}
 
 			// this is a bit of a hack but it shouldn't matter much since we're only doing it once at the beginning
 			splash.Increment("Spawning players...");
 			AddGlobalObject(new PlayerManager());
 			AddGlobalObject(new KartSpawnPositions());
 
+			// handlers
 			splash.Increment("Starting handlers...");
 			AddGlobalObject(new EscHandler());
 			AddGlobalObject(new GlowHandler());
