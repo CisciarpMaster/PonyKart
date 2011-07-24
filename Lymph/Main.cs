@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Mogre;
 using Ponykart.UI;
@@ -13,10 +14,10 @@ namespace Ponykart {
 		/// Should only be run once, right when you start up. This is what Launch calls.
 		/// </summary>
 		public void Go() {
-			this.InitializeComponent();
-			this.InitializeOgre();
+			InitializeComponent();
+			InitializeOgre();
 			base.Show();
-			this.StartRendering();
+			StartRendering();
 		}
 
 		/// <summary>
@@ -27,15 +28,15 @@ namespace Ponykart {
 			// 
 			// Main
 			// 
-			this.ClientSize = new System.Drawing.Size(1008, 730);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+			this.ClientSize = new Size(1008, 730);
+			this.FormBorderStyle = FormBorderStyle.Fixed3D;
 			this.MaximizeBox = false;
 			this.Name = "Main";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.StartPosition = FormStartPosition.CenterScreen;
 			this.Text = "Ponykart";
 			this.ResumeLayout(false);
 
-			base.Icon = Ponykart.Properties.Resources.Icon_1;
+			base.Icon = new Icon("Icon 1.ico");
 		}
 
 		/// <summary>

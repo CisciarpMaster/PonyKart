@@ -13,7 +13,10 @@ namespace Ponykart {
 		private ProgressBar Progress;
 		private int maximum;
 
-		public readonly Bitmap Picture = Properties.Resources.LymphSplash;
+		static readonly string LymphLoadingPicture = "media/gui/17wzuc.png";
+		static readonly string DashBikeLoadingPicture = "media/gui/548dash bike.png";
+
+		public readonly Bitmap Picture = new Bitmap(LymphLoadingPicture);
 
 		/// <summary>
 		/// Sets up the splash screen
@@ -102,7 +105,7 @@ namespace Ponykart {
 			this.UseWaitCursor = true;
 			this.ResumeLayout(false);
 
-			base.Icon = Properties.Resources.Icon_1;
+			base.Icon = new Icon("Icon 1.ico");
 		}
 
 		new public void Show() {
