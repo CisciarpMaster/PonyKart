@@ -9,7 +9,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="Plane01" castShadows="true" receiveShadows="true" meshFile="Plane01.mesh">
+            <entity name="Plane01" castShadows="false" receiveShadows="true" meshFile="Plane01.mesh">
                 <subentities>
                     <subentity index="0" materialName="cell_background" />
                 </subentities>

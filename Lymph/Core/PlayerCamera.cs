@@ -7,6 +7,8 @@ using Ponykart.Players;
 namespace Ponykart.Core {
 	/// <summary>
 	/// I need to do a decent third person camera at some point. This one's just a "good enough for now" one
+	/// 
+	/// here's a mogre sample for camera splines when we get to doing those: A:\Program Files\MOgre\MogreSDK\Samples\CameraTrack
 	/// </summary>
 	public class PlayerCamera : IDisposable {
 		public Camera Camera { get; private set; }

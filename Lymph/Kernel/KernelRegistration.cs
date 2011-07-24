@@ -36,33 +36,21 @@ namespace Ponykart {
 
 			// physx stuff
 			splash.Increment("Initialising physics engine, collision groups, and trigger area and contact reporters...");
-			try {
-				AddGlobalObject(new PhysXMain());
-			}
-			catch {
-				Launch.Log("**** ERROR: Problem when loading PhysX! ****");
-				MessageBox.Show("Error when loading PhysX DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
-			}
+			var physx = AddGlobalObject(new PhysXMain());
 			AddGlobalObject(new TriggerReporter());
 			AddGlobalObject(new ContactReporter());
 			AddGlobalObject(new Groups());
 
 			// sound stuff
 			splash.Increment("Setting up sound system...");
-			try {
-				AddGlobalObject(new SoundMain());
-			}
-			catch {
-				Launch.Log("**** ERROR: Problem when loading IrrKlang! ****");
-				MessageBox.Show("Error when loading IrrKlang DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
-			}
+			AddGlobalObject(new SoundMain());
 
 			// level
 			splash.Increment("Creating level...");
 			AddGlobalObject(InitSceneManager(root));
 
 			splash.Increment("Loading first level physics...");
-			Get<PhysXMain>().LoadPhysicsLevel(Settings.Default.MainMenuName);
+			physx.LoadPhysicsLevel(Settings.Default.MainMenuName);
 
 			splash.Increment("Creating player camera and viewport...");
 			var playerCamera = AddLevelObject(new PlayerCamera());
@@ -70,13 +58,7 @@ namespace Ponykart {
 
 			// MOIS and input stuff
 			splash.Increment("Starting input system...");
-			try {
-				AddGlobalObject(new InputMain());
-			}
-			catch {
-				Launch.Log("**** ERROR: Problem when loading MOIS! ****");
-				MessageBox.Show("Error when loading MOIS DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
-			}
+			AddGlobalObject(new InputMain());
 			AddGlobalObject(new KeyBindingManager());
 			AddGlobalObject(new InputSwallowerManager());
 			AddGlobalObject(new Pauser());
@@ -88,35 +70,23 @@ namespace Ponykart {
 			// Miyagi and stuff
 			splash.Increment("Initialising UI...");
 			AddGlobalObject(new DebugOverlayManager());
-			try {
-				AddGlobalObject(new UIMain());
-			}
-			catch {
-				Launch.Log("**** ERROR: Problem when loading Miyagi! ****");
-				MessageBox.Show("Error when loading Miyagi DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
-			}
-
+			AddGlobalObject(new UIMain());
 			AddGlobalObject(new DialogueManager());
 			AddGlobalObject(new LuaConsoleManager());
 
 			// lua
 			splash.Increment("Setting up scripting engine...");
-			try {
-				var lua = AddGlobalObject(new LuaMain());
-				AddGlobalObject(new LKernelWrapper());
-				AddGlobalObject(new PauserWrapper());
-				AddGlobalObject(new LevelManagerWrapper());
-				AddGlobalObject(new TriggerWrapper());
-				AddGlobalObject(new SoundWrapper());
-				AddGlobalObject(new SpawnerWrapper());
-				AddGlobalObject(new LevelWrapper());
-				AddGlobalObject(new IOWrapper());
-				lua.RunRegisterEvent();
-			}
-			catch {
-				Launch.Log("**** ERROR: Problem when loading LuaNetInterface!");
-				MessageBox.Show("Error when loading LuaNetInterface DLL!", "Unable to load DLL!", MessageBoxButtons.OK);
-			}
+			var lua = AddGlobalObject(new LuaMain());
+			AddGlobalObject(new LKernelWrapper());
+			AddGlobalObject(new PauserWrapper());
+			AddGlobalObject(new LevelManagerWrapper());
+			AddGlobalObject(new TriggerWrapper());
+			AddGlobalObject(new SceneEnvironmentHandler());
+			AddGlobalObject(new SoundWrapper());
+			AddGlobalObject(new SpawnerWrapper());
+			AddGlobalObject(new LevelWrapper());
+			AddGlobalObject(new IOWrapper());
+			lua.RunRegisterEvent();
 
 			// this is a bit of a hack but it shouldn't matter much since we're only doing it once at the beginning
 			splash.Increment("Spawning players...");
@@ -142,7 +112,6 @@ namespace Ponykart {
 		/// This is called from LevelManager
 		/// </summary>
 		public static void LoadLevelObjects(LevelChangedEventArgs eventArgs) {
-
 		}
 
 		/// <summary>
@@ -242,7 +211,8 @@ namespace Ponykart {
 
 		private static SceneManager InitSceneManager(Root root) {
 			Launch.Log("[Loading] First Get<SceneManager>");
-			return root.CreateSceneManager(SceneType.ST_GENERIC, "sceneMgr");
+			var sceneMgr = root.CreateSceneManager(SceneType.ST_GENERIC, "sceneMgr");
+			return sceneMgr;
 		}
 
 		private static Viewport InitViewport(RenderWindow window, PlayerCamera playerCamera) {
