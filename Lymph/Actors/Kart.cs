@@ -98,6 +98,8 @@ namespace Ponykart.Actors {
 			WheelFL = new Wheel(this, new Vector3(1.7f, 0f, 0.75f));
 			WheelBR = new Wheel(this, new Vector3(-1.7f, 0f, -1.33f));
 			WheelBL = new Wheel(this, new Vector3(1.7f, 0f, -1.33f));
+
+			
 		}
 
 		protected void CreateFunnyAngledBitInTheFront() {

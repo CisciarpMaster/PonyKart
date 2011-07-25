@@ -1,8 +1,13 @@
 Yeah I'm still working on getting it working without much fuss, but here are some things you can try to make it work:
 
 1) Do you have .NET 4.0 installed? If you don't, google it, it's on microsoft's site. You just want the runtime version.
-2) Do you have Directx9 installed? Directx10+ don't count, Ogre (the graphics engine) wants 9. Go and download that from somewhere on microsoft's site too.
-3) Is there an error message at the bottom of ogre.log?
+2) Do you have Directx9 installed, or at least a Directx9 component? Directx10+ don't count, Ogre (the graphics engine) wants 9. Go and download that from somewhere on microsoft's site too.
+3) Is PhysXLoader.dll in the main directory?
+4) Try installing the physx system software: http://www.nvidia.com/object/physx-9.10.0513-driver.html
+5) Try installing the VC++ redistributable: http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=29
+6) Check the Event Viewer application log on the machine that doesn't work right after starting the game. Maybe a message is added explaining which dll-s are missing.
+7) Download the util from http://www.dependencywalker.com/. Open eyecm.physx.dll and see if any of the dll-s can't be loaded (ignore IESHIMS.dll)
+8) Is there an error message at the bottom of ogre.log?
 
 Still not working?
 
