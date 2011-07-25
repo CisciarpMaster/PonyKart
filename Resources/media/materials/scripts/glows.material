@@ -8,8 +8,6 @@ material BalloonGlow {
 			scene_blend add
 			depth_check on
 			lighting on
-			casts_shadows false
-			receives_shadows false
 			
 			vertex_program_ref glowBalloon_vs {
 				param_named Inflate_add float 0
