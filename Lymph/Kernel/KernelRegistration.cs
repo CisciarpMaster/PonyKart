@@ -125,6 +125,8 @@ namespace Ponykart {
 			AddLevelObject(new MovementHandler());
 			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());
+
+			AddLevelObject(new FluctuatingGravityHandler());
 		}
 
 		/// <summary>

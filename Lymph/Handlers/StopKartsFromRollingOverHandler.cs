@@ -56,7 +56,9 @@ namespace Ponykart.Handlers {
 
 		public void Dispose() {
 			LKernel.Get<Root>().FrameStarted -= FrameStarted;
-			foreach (SelfRightingHandler h in SRHs.Values) {
+			SelfRightingHandler[] tempCollection = new SelfRightingHandler[SRHs.Count];
+			SRHs.Values.CopyTo(tempCollection, 0);
+			foreach (SelfRightingHandler h in tempCollection) {
 				h.Dispose();
 			}
 			SRHs.Clear();
