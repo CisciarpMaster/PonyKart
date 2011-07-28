@@ -128,7 +128,7 @@ namespace Ponykart.Actors {
 			if (tt.VectorTokens.TryGetValue("Scale", out scale))
 				SpawnScale = scale;
 			else
-				SpawnScale = Vector3.ZERO;
+				SpawnScale = new Vector3(1, 1, 1);
 
 			// run a lua script?
 			string script;

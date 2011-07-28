@@ -7,6 +7,7 @@
 	public enum ThingEnum {
 		Antibody,
 		Kart,
-		Obstacle
+		Obstacle,
+		ZergShip
 	}
 }

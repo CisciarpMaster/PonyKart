@@ -133,6 +133,7 @@
     <Compile Include="Actors\Thing.cs" />
     <Compile Include="Actors\Antibody.cs" />
     <Compile Include="Actors\Kart.cs" />
+    <Compile Include="Actors\ZergShip.cs" />
     <Compile Include="Handlers\AxesHandler.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\SelfRightingHandler.cs" />
