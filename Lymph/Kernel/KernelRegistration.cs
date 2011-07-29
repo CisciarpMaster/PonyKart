@@ -120,8 +120,7 @@ namespace Ponykart {
 		/// </summary>
 		public static void LoadLevelHandlers() {
 			Launch.Log("[Loading] Initialising per-level handlers...");
-			AddLevelObject(new AxesHandler());
-			
+
 			AddLevelObject(new MovementHandler());
 			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());

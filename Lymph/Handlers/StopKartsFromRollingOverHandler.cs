@@ -9,12 +9,15 @@ using Ponykart.Players;
 
 namespace Ponykart.Handlers {
 	/// <summary>
-	/// This'll be a class that stops karts from rolling over and spinning around when they're in the air,
-	/// but it isn't really working right now.
+	/// This handler finds karts that are flying in the air and turns them around so they are facing upwards.
+	/// This stops them from bouncing all over the place when they land.
 	/// At the moment it raycasts downwards and if the distance to the nearest thing is over than something, then we stop it from spinning in the air
 	/// </summary>
 	public class StopKartsFromRollingOverHandler : IDisposable {
 		public IDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
+
+		readonly float RAYCAST_TIME = 0.2f;
+		readonly float IN_AIR_MIN_DISTANCE = 2f;
 
 		public StopKartsFromRollingOverHandler() {
 			SRHs = new Dictionary<Kart, SelfRightingHandler>();
@@ -23,7 +26,7 @@ namespace Ponykart.Handlers {
 
 		float elapsed;
 		bool FrameStarted(FrameEvent evt) {
-			if (elapsed > 0.2f) {
+			if (elapsed > RAYCAST_TIME) {
 				elapsed = 0;
 
 				foreach (Player p in LKernel.Get<PlayerManager>().Players) {
@@ -44,7 +47,7 @@ namespace Ponykart.Handlers {
 					Shape closestShape = LKernel.Get<PhysXMain>().Scene.RaycastClosestShape(ray, ShapesTypes.All, out hit);
 
 					// if the ray either didn't collide with anything or if the closest thing is >2 away, then make the kart upright
-					if (closestShape == null || hit.Distance > 2f) {
+					if (closestShape == null || hit.Distance > IN_AIR_MIN_DISTANCE) {
 						SRHs.Add(kart, new SelfRightingHandler(kart));
 					}
 				}
@@ -56,6 +59,7 @@ namespace Ponykart.Handlers {
 
 		public void Dispose() {
 			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+			// have to do this because if we change levels while SRHs is being modified, we get an exception
 			SelfRightingHandler[] tempCollection = new SelfRightingHandler[SRHs.Count];
 			SRHs.Values.CopyTo(tempCollection, 0);
 			foreach (SelfRightingHandler h in tempCollection) {

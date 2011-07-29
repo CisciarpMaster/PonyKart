@@ -25,11 +25,12 @@ namespace Ponykart.Actors {
 
 			var sceneMgr = LKernel.Get<SceneManager>();
 
-			Node = kart.Node.CreateChildSceneNode("wheelNode" + ID, position);
+			Node = kart.Node.CreateChildSceneNode("wheelNode" + ID, position - new Vector3(0, 0.5f, 0));
 			Entity = sceneMgr.CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
 
 			CreateWheelShape(position);
+
 		}
 
 		/// <summary>

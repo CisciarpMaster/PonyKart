@@ -9,6 +9,7 @@ namespace Ponykart.Handlers {
 	public class EscHandler {
 
 		public EscHandler() {
+			Launch.Log("[Loading] Creating EscHandler");
 			LKernel.Get<InputMain>().OnKeyboardPress_Escape += OnEscPress;
 		}
 

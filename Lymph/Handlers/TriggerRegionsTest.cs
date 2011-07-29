@@ -14,7 +14,11 @@ namespace Ponykart.Handlers {
 			Launch.Log("[Loading] Creating TriggerRegionsTest");
 			tr = new TriggerRegion("test trigger area", new Vector3(5, 0, 5), new SphereShapeDesc(1));
 
-			new TriggerRegion("test trigger area 2", new Vector3(-5, 0, 5), new Vector3(45, 45, 45), new BoxShapeDesc(new Vector3(1, 1, 1)));
+#if DEBUG
+			new TriggerRegion("test trigger area 2", new Vector3(-5, 0, 5), new Vector3(45, 45, 45), new BoxShapeDesc(new Vector3(2, 1, 1)));
+
+			new TriggerRegion("test trigger area 3", new Vector3(-10, 0, 5), new Vector3(45, 0, 0), new CapsuleShapeDesc(1, 1));
+#endif
 
 			// attach the handler
 			tr.OnTrigger += doSomething;

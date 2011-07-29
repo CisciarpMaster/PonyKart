@@ -23,7 +23,6 @@ namespace Ponykart.Handlers
 		}
 
 		public void Dispose() {
-			Launch.Log("[Loading] Disposing MiscKeyboardHandler");
 			LKernel.Get<InputMain>().OnKeyboardPress_Anything -= OnKeyboardPress_Anything;
 		}
 

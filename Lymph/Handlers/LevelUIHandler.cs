@@ -29,6 +29,8 @@ namespace Ponykart.Handlers {
 		/// Make the level UI
 		/// </summary>
 		void MakeLevelUI() {
+			Launch.Log("[Loading] Creating LevelUIHandler");
+
 			GUI Gui = LKernel.Get<UIMain>().Gui;
 			levelControls.Clear();
 

@@ -14,7 +14,6 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Dispose() {
-			Launch.Log("[Loading] Disposing of LevelChangerHandler");
 			LKernel.Get<InputMain>().OnKeyboardPress_Anything -= OnKeyboardPress_Anything;
 		}
 

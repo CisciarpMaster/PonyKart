@@ -1,8 +1,8 @@
-﻿using Ponykart.Core;
-using Ponykart.UI;
-using Miyagi.Common;
+﻿using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
+using Ponykart.Core;
+using Ponykart.UI;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -15,6 +15,7 @@ namespace Ponykart.Handlers {
 		private Label pauseLabel;
 
 		public PauseUIHandler() {
+			Launch.Log("[Loading] Creating PauseUIHandler");
 			// create our label
 			var gui = LKernel.Get<UIMain>().Gui;
 

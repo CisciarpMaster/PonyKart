@@ -1,9 +1,9 @@
-﻿using Ponykart.Levels;
-using Ponykart.UI;
-using Miyagi.Common;
+﻿using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 using Mogre;
+using Ponykart.Levels;
+using Ponykart.UI;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -13,6 +13,7 @@ namespace Ponykart.Handlers {
 		Label label;
 
 		public LoadingUIHandler() {
+			Launch.Log("[Loading] Creating LoadingUIHandler");
 			LKernel.Get<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
 			LKernel.Get<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
 		}

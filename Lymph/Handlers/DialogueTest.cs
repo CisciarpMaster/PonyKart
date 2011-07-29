@@ -10,7 +10,7 @@ namespace Ponykart.Handlers {
 	public class DialogueTest : IDisposable {
 		public DialogueTest() {
 			Launch.Log("[Loading] Creating DialogueTest");
-			Launch.Log(LKernel.Get<TriggerReporter>().AddEvent("test trigger area", Test) + "");
+			LKernel.Get<TriggerReporter>().AddEvent("test trigger area", Test);
 		}
 
 		void Test(TriggerRegion region, Shape oshape, TriggerFlags tf) {
@@ -23,7 +23,7 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Dispose() {
-			Launch.Log(LKernel.Get<TriggerReporter>().RemoveEvent("test trigger area", Test) + "");
+			LKernel.Get<TriggerReporter>().RemoveEvent("test trigger area", Test);
 		}
 	}
 }
