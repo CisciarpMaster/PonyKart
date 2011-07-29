@@ -49,7 +49,8 @@ namespace Ponykart.Actors {
 		/// Here you create your Actor and assign it.
 		/// </summary>
 		protected virtual void CreateActor() {
-			ActorDesc ad = new ActorDesc(new BodyDesc(), Density, ShapeDesc);
+			BodyDesc bd = new BodyDesc();
+			ActorDesc ad = new ActorDesc(bd, Density, ShapeDesc);
 			Actor = LKernel.Get<PhysXMain>().Scene.CreateActor(ad);
 			Actor.Name = Node.Name;
 		}

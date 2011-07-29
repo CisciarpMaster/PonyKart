@@ -40,6 +40,7 @@ namespace Ponykart {
 			AddGlobalObject(new TriggerReporter());
 			AddGlobalObject(new ContactReporter());
 			AddGlobalObject(new Groups());
+			AddGlobalObject(new PhysXMaterials());
 
 			// sound stuff
 			splash.Increment("Setting up sound system...");

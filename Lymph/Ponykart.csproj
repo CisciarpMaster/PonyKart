@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="Actors\DynamicThing.cs" />
     <Compile Include="Actors\Extras\Wheel.cs" />
+    <Compile Include="Actors\Extras\WheelFactory.cs" />
     <Compile Include="Actors\KinematicThing.cs" />
     <Compile Include="Actors\Obstacle.cs" />
     <Compile Include="Actors\ThingEnum.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\SelfRightingHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="Physics\PhysXMaterials.cs" />
     <Compile Include="Physics\TriggerRegion.cs" />
     <Compile Include="Players\ComputerPlayer.cs" />
     <Compile Include="Players\HumanPlayer.cs" />

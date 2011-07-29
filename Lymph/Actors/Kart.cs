@@ -1,9 +1,6 @@
 ﻿using Mogre;
 using Mogre.PhysX;
-using Ponykart.Core;
-using Ponykart.Levels;
 using Ponykart.Phys;
-using Math = Mogre.Math;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -25,25 +22,10 @@ namespace Ponykart.Actors {
 			get { return "redbrick"; }
 		}
 		protected override float Density {
-			get { return 20f; }
+			get { return 40f; }
 		}
-
-
-		public virtual float ForwardSpeed {
-			get { return 3000f; }
-		}
-		public virtual float ReverseSpeed {
-			get { return -3000f; }
-		}
-		public virtual Radian TurnAngle {
-			get { return Math.PI / 12f; }
-		}
-		public float BrakeForce = 10000;
-
-		
 
 		// our wheelshapes
-		// TODO: maybe stick all of this wheel stuff in a separate class? it's making this kart class pretty big
 		public Wheel WheelFR { get; protected set; }
 		public Wheel WheelFL { get; protected set; }
 		public Wheel WheelBR { get; protected set; }
@@ -52,32 +34,6 @@ namespace Ponykart.Actors {
 
 		public Kart(ThingTemplate tt) : base(tt) {
 			Launch.Log("Creating Kart #" + ID + " with name \"" + tt.StringTokens["Name"] + "\"");
-
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
-		}
-
-		// degrees
-		float currentRoll;
-		/// <summary>
-		/// Update the wheel's orientation to match its steering angle and the kart's speed
-		/// </summary>
-		bool FrameStarted(FrameEvent evt) {
-			if (!LKernel.Get<LevelManager>().IsValidLevel || WheelFR == null || Actor.IsDisposed || Actor.IsSleeping || Pauser.IsPaused)
-				return true;
-
-			currentRoll += WheelFR.Shape.AxleSpeed / 3f;
-			currentRoll %= 360f;
-
-			Radian rollRad = new Degree(currentRoll);
-
-			Quaternion frontOrient = new Quaternion().FromGlobalEuler(rollRad, WheelFR.Shape.SteerAngle, 0);
-			Quaternion backOrient = new Quaternion().FromGlobalEuler(rollRad, 0, 0);
-			WheelFR.UpdateAngle(frontOrient);
-			WheelFL.UpdateAngle(frontOrient);
-			WheelBR.UpdateAngle(backOrient);
-			WheelBL.UpdateAngle(backOrient);
-
-			return true;
 		}
 
 		/// <summary>
@@ -95,14 +51,15 @@ namespace Ponykart.Actors {
 			base.CreateActor(); // the main box
 			CreateFunnyAngledBitInTheFront();
 
-			WheelFR = new Wheel(this, new Vector3(-1.7f, 0f, 0.75f));
-			WheelFL = new Wheel(this, new Vector3(1.7f, 0f, 0.75f));
-			WheelBR = new Wheel(this, new Vector3(-1.7f, 0f, -1.33f));
-			WheelBL = new Wheel(this, new Vector3(1.7f, 0f, -1.33f));
+			WheelFR = WheelFactory.CreateAltFrontWheel(this, new Vector3(-1.7f, 0f, 0.75f));
+			WheelFL = WheelFactory.CreateAltFrontWheel(this, new Vector3(1.7f, 0f, 0.75f));
+			WheelBR = WheelFactory.CreateAltBackWheel(this, new Vector3(-1.7f, 0f, -1.33f));
+			WheelBL = WheelFactory.CreateAltBackWheel(this, new Vector3(1.7f, 0f, -1.33f));
 		}
 
 		protected void CreateFunnyAngledBitInTheFront() {
 			var frontAngledShape = Actor.CreateShape(new BoxShapeDesc(new Vector3(1, 0.2f, 1), new Vector3(0, 0.3f, 1.33f)));
+			frontAngledShape.MaterialIndex = LKernel.Get<PhysXMaterials>().NoFrictionMaterial.Index;
 			frontAngledShape.GlobalOrientation = new Vector3(0, 45, 0).DegreeVectorToLocalQuaternion().ToRotationMatrix();
 		}
 
@@ -119,39 +76,39 @@ namespace Ponykart.Actors {
 		/// Sets the torque of both rear wheels to <paramref name="speed"/> and sets their brake torque to 0.
 		/// TODO: Limit the maximum speed by not applying torque when we're going faster than the maximum speed
 		/// </summary>
-		public void Accelerate(float speed) {
+		public void Accelerate(float multiplier) {
 			if (Actor.IsSleeping)
 				Actor.WakeUp();
-			WheelBR.Accelerate(speed);
-			WheelBL.Accelerate(speed);
-			WheelFR.Accelerate(speed);
-			WheelFL.Accelerate(speed);
+			WheelBR.Accelerate(multiplier);
+			WheelBL.Accelerate(multiplier);
+			WheelFR.Accelerate(multiplier);
+			WheelFL.Accelerate(multiplier);
 		}
 
 		/// <summary>
 		/// Sets the motor torque of both rear wheels to 0 and applies a brake torque.
 		/// </summary>
 		public void Brake() {
-			WheelBR.Brake(BrakeForce);
-			WheelBL.Brake(BrakeForce);
-			WheelFR.Brake(BrakeForce);
-			WheelFL.Brake(BrakeForce);
+			WheelBR.Brake();
+			WheelBL.Brake();
+			WheelFR.Brake();
+			WheelFL.Brake();
 		}
 
 		/// <summary>
-		/// Turns the front wheels to <paramref name="angle"/>
+		/// Turns the wheels
 		/// </summary>
-		public void Turn(Radian angle) {
+		public void Turn(float multiplier) {
 			if (Actor.IsSleeping)
 				Actor.WakeUp();
-			WheelFR.Turn(angle);
-			WheelFL.Turn(angle);
+			WheelFR.Turn(multiplier);
+			WheelFL.Turn(multiplier);
+			WheelBR.Turn(multiplier);
+			WheelBL.Turn(multiplier);
 		}
 
 		#region IDisposable stuff
 		public override void Dispose() {
-			// unhook from the event
-			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 
 			// then we have to dispose of all of the wheels
 			WheelFR.Dispose();

@@ -30,13 +30,13 @@ namespace Ponykart.Players {
 					Kart.Accelerate(0);
 				// otherwise go forwards
 				else
-					Kart.Accelerate(Kart.ForwardSpeed);
+					Kart.Accelerate(1);
 			}
 		}
 		protected void OnReleaseAccelerate(LKey k) {
 			// if reverse is still held down, then we start reversing
 			if (bindings.IsKeyPressed(LKey.Reverse))
-				Kart.Accelerate(Kart.ReverseSpeed);
+				Kart.Accelerate(-1);
 			// otherwise we just stop accelerating
 			else
 				Kart.Accelerate(0);
@@ -51,10 +51,10 @@ namespace Ponykart.Players {
 				if (bindings.IsKeyPressed(LKey.Reverse))
 					Kart.Accelerate(0);
 				else
-					Kart.Accelerate(Kart.ForwardSpeed);
+					Kart.Accelerate(1);
 			}
 			else if (bindings.IsKeyPressed(LKey.Reverse))
-				Kart.Accelerate(Kart.ReverseSpeed);
+				Kart.Accelerate(-1);
 			else
 				Kart.Accelerate(0);
 		}
@@ -68,13 +68,13 @@ namespace Ponykart.Players {
 					Kart.Accelerate(0);
 				// otherwise go backwards
 				else
-					Kart.Accelerate(Kart.ReverseSpeed);
+					Kart.Accelerate(-1);
 			}
 		}
 		protected void OnReleaseReverse(LKey k) {
 			// if forward is still held down, then we start going forwards
 			if (bindings.IsKeyPressed(LKey.Accelerate))
-				Kart.Accelerate(Kart.ForwardSpeed);
+				Kart.Accelerate(1);
 			// otherwise we just stop accelerating
 			else
 				Kart.Accelerate(0);
@@ -87,12 +87,12 @@ namespace Ponykart.Players {
 				Kart.Turn(0);
 			// otherwise go left
 			else
-				Kart.Turn(Kart.TurnAngle);
+				Kart.Turn(1);
 		}
 		protected void OnReleaseTurnLeft(LKey k) {
 			// if right is still pressed, turn right
 			if (bindings.IsKeyPressed(LKey.TurnRight))
-				Kart.Turn(-Kart.TurnAngle);
+				Kart.Turn(-1);
 			// otherwise go straight
 			else
 				Kart.Turn(0);
@@ -105,12 +105,12 @@ namespace Ponykart.Players {
 				Kart.Turn(0);
 			// otherwise go right
 			else
-				Kart.Turn(-Kart.TurnAngle);
+				Kart.Turn(-1);
 		}
 		protected void OnReleaseTurnRight(LKey k) {
 			// if left is still pressed, turn left
 			if (bindings.IsKeyPressed(LKey.TurnLeft))
-				Kart.Turn(Kart.TurnAngle);
+				Kart.Turn(1);
 			// otherwise go straight
 			else
 				Kart.Turn(0);

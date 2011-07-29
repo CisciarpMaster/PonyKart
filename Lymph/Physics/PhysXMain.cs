@@ -18,8 +18,6 @@ namespace Ponykart.Phys {
 		public ControllerManager ControllerManager { get; set; }
 
 		private float update, update10, elapsed;
-		// TODO: do something with this
-		public static Mogre.PhysX.Material noFrictionMaterial;
 
 		/// <summary>
 		/// our collection of things to dispose; these are processed after every "frame"
@@ -63,18 +61,8 @@ namespace Ponykart.Phys {
 
 			CreateScene(levelName);
 
-			// Sets default material
-			var defaultMaterial = scene.Materials[0];
-			// restitution = bounciness
-			defaultMaterial.Restitution = 0.5f;
-			defaultMaterial.DynamicFriction = 0.6f;
-			defaultMaterial.StaticFriction = 0.6f;
-
-			// TODO: make a material manager
-			var tyreMaterialDesc = new MaterialDesc();
-			tyreMaterialDesc.Flags |= MaterialFlags.DisableFriction;
-			noFrictionMaterial = scene.CreateMaterial(tyreMaterialDesc);
-
+			// set up the materials for each scene
+			LKernel.Get<PhysXMaterials>().SetupMaterialsForScene(scene);
 
 			// creates collision meshes out of static objects
 			// get the scene manager

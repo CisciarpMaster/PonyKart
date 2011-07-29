@@ -18,25 +18,5 @@ namespace Ponykart.Lua {
 			}
 			else return null;
 		}
-
-		[LuaFunction("eslip", "", "f")]
-		public static void ExtremumSlip(float f) {
-			Wheel.LatExtremumSlip = f;
-		}
-
-		[LuaFunction("evalue", "", "f")]
-		public static void ExtremumValue(float f) {
-			Wheel.LatExtremumValue = f;
-		}
-
-		[LuaFunction("aslip", "", "f")]
-		public static void AsymptoteSlip(float f) {
-			Wheel.LatAsymptoteSlip = f;
-		}
-
-		[LuaFunction("avalue", "", "f")]
-		public static void AsymptoteValue(float f) {
-			Wheel.LatAsymptoteValue = f;
-		}
 	}
 }
