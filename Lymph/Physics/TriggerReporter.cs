@@ -73,7 +73,7 @@ namespace Ponykart.Phys {
 			if (shape.Actor == LKernel.Get<PlayerManager>().MainPlayer.Actor)
 				return true;
 
-			// cells are important
+			// karts are important
 			Kart kart = shape.Actor.UserData as Kart;
 			if (kart != null)
 				return true;

@@ -138,6 +138,7 @@
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\SelfRightingHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="Physics\TriggerRegion.cs" />
     <Compile Include="Players\ComputerPlayer.cs" />
     <Compile Include="Players\HumanPlayer.cs" />
     <Compile Include="Core\InputSwallowerManager.cs" />
@@ -150,7 +151,6 @@
     <Compile Include="Lua\LevelWrapper.cs" />
     <Compile Include="IO\ThingTemplate.cs" />
     <Compile Include="IO\WorldExporter.cs" />
-    <Compile Include="Physics\StandardControllerHitReport.cs" />
     <Compile Include="Stuff\KartSpawnPositions.cs" />
     <Compile Include="Stuff\KeyBindingManager.cs" />
     <Compile Include="Settings.cs" />

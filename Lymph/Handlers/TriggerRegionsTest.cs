@@ -21,7 +21,6 @@ namespace Ponykart.Handlers {
 
 			Actor a = LKernel.Get<PhysXMain>().Scene.CreateActor(ad);
 			Shape shape = a.Shapes[0];
-			shape.Group = Groups.CollidableNonPushableID;
 
 			// make some mogre objects so we can see what we're doing
 			var sceneMgr = LKernel.Get<SceneManager>();
