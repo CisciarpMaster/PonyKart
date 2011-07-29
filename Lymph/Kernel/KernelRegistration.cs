@@ -121,10 +121,11 @@ namespace Ponykart {
 		public static void LoadLevelHandlers() {
 			Launch.Log("[Loading] Initialising per-level handlers...");
 			AddLevelObject(new AxesHandler());
-			AddLevelObject(new DialogueTest());
+			
 			AddLevelObject(new MovementHandler());
 			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());
+			AddLevelObject(new DialogueTest()); // this needs to come after TriggerRegionsTest
 		}
 
 		/// <summary>
@@ -138,7 +139,7 @@ namespace Ponykart {
 		}
 
 		/// <summary>
-		/// unload and dispose of the special per-level objects
+		/// Unload and dispose of the special per-level objects. This is run before the regular OnLevelUnload event.
 		/// </summary>
 		public static void UnloadLevelObjects() {
 			Launch.Log("[Loading] Destroying everything in scene...");
@@ -154,7 +155,7 @@ namespace Ponykart {
 		/// destroys everything in the scene manager so it's as good as new without destroying the scene manager itself
 		/// </summary>
 		private static void CleanSceneManagerThings() {
-			Launch.Log("Cleaning SceneManager...");
+			Launch.Log("[Loading] Cleaning SceneManager...");
 			var sceneMgr = Get<SceneManager>();
 
 			sceneMgr.DestroyAllAnimations();

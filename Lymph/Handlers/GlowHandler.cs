@@ -45,7 +45,7 @@ namespace Ponykart.Handlers {
 			skipThisInvocation = false;
 			RenderSystem rendersys = Root.Singleton.RenderSystem;
 
-			if (queueGroupId == RENDER_QUEUE_BUBBLE_GLOW)  // full glow - alpha glow
+			if (queueGroupId == RENDER_QUEUE_BUBBLE_GLOW)  // full glow - balloon glow
 			{
 				rendersys.SetStencilCheckEnabled(true);
 				rendersys.SetStencilBufferParams(CompareFunction.CMPF_ALWAYS_PASS,
@@ -57,7 +57,7 @@ namespace Ponykart.Handlers {
 												 false);
 			}
 
-			if (queueGroupId == RENDER_QUEUE_FLAT_GLOW)  // full glow - glow
+			if (queueGroupId == RENDER_QUEUE_FLAT_GLOW)  // full glow - flat glow
 			{
 				rendersys.SetStencilCheckEnabled(true);
 				rendersys.SetStencilBufferParams(CompareFunction.CMPF_EQUAL,
@@ -69,5 +69,40 @@ namespace Ponykart.Handlers {
 												 false);
 			}
 		}
+	}
+
+	/// <summary>
+	/// Colors available for balloon glow.
+	/// 
+	/// If you're using these, remember to put the entity into the RENDER_QUEUE_BUBBLE_GLOW render queue!
+	/// </summary>
+	public enum BalloonGlowColor {
+		red,
+		blue,
+		yellow,
+		green,
+		orange,
+		magenta,
+		purple,
+		cyan,
+		white
+	}
+
+	/// <summary>
+	/// Colors available for flat glow.
+	/// 
+	/// If you're using these, remember to put the entity into the RENDER_QUEUE_FLAT_GLOW render queue!
+	/// </summary>
+	public enum FlatGlowColor {
+		red,
+		blue,
+		yellow,
+		green,
+		orange,
+		magenta,
+		purple,
+		cyan,
+		white,
+		black
 	}
 }

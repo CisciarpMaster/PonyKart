@@ -68,8 +68,10 @@ namespace Ponykart.Actors {
 			currentRoll += WheelFR.Shape.AxleSpeed / 3f;
 			currentRoll %= 360f;
 
-			Quaternion frontOrient = new Quaternion().FromGlobalEuler(new Degree(currentRoll), WheelFR.Shape.SteerAngle, 0);
-			Quaternion backOrient = new Quaternion().FromGlobalEuler(new Degree(currentRoll), 0, 0);
+			Radian rollRad = new Degree(currentRoll);
+
+			Quaternion frontOrient = new Quaternion().FromGlobalEuler(rollRad, WheelFR.Shape.SteerAngle, 0);
+			Quaternion backOrient = new Quaternion().FromGlobalEuler(rollRad, 0, 0);
 			WheelFR.UpdateAngle(frontOrient);
 			WheelFL.UpdateAngle(frontOrient);
 			WheelBR.UpdateAngle(backOrient);
@@ -102,7 +104,7 @@ namespace Ponykart.Actors {
 
 		protected void CreateFunnyAngledBitInTheFront() {
 			var frontAngledShape = Actor.CreateShape(new BoxShapeDesc(new Vector3(1, 0.2f, 1), new Vector3(0, 0.3f, 1.33f)));
-			frontAngledShape.GlobalOrientation = new Quaternion().FromLocalEuler(new Vector3(0, 45, 0).DegreeVectorToRadianVector()).ToRotationMatrix();
+			frontAngledShape.GlobalOrientation = new Vector3(0, 45, 0).DegreeVectorToLocalQuaternion().ToRotationMatrix();
 		}
 
 		

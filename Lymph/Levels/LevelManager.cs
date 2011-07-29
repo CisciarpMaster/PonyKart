@@ -59,12 +59,12 @@ namespace Ponykart.Levels
 				IsValidLevel = false;
 
 				CurrentLevel.Save();
+
+				LKernel.UnloadLevelObjects();	
 				
 				// invoke the level unloading events
 				if (OnLevelUnload != null)
 					OnLevelUnload(eventArgs);
-
-				LKernel.UnloadLevelObjects();		
 			}
 		}
 

@@ -7,39 +7,32 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// just a little test for the trigger regions
 	/// </summary>
-	public class TriggerRegionsTest {
+	public class TriggerRegionsTest : IDisposable {
+		TriggerRegion tr;
 
 		public TriggerRegionsTest() {
+			Launch.Log("[Loading] Creating TriggerRegionsTest");
+			tr = new TriggerRegion("test trigger area", new Vector3(5, 0, 5), new SphereShapeDesc(1));
 
-			// make some physics objects
-			ShapeDesc sd = new SphereShapeDesc(1);
-			sd.ShapeFlags |= ShapeFlags.TriggerEnable;
-
-			ActorDesc ad = new ActorDesc(sd);
-			ad.Name = "test trigger area";
-			ad.GlobalPosition = new Vector3(5, 0, 5);
-
-			Actor a = LKernel.Get<PhysXMain>().Scene.CreateActor(ad);
-			Shape shape = a.Shapes[0];
-
-			// make some mogre objects so we can see what we're doing
-			var sceneMgr = LKernel.Get<SceneManager>();
-			Entity e = sceneMgr.CreateEntity("test trigger area entity", "primitives/ellipsoid.mesh");
-			e.SetMaterialName("BalloonGlow_orange");
-			e.RenderQueueGroup = GlowHandler.RENDER_QUEUE_BUBBLE_GLOW;
-			SceneNode sn = sceneMgr.RootSceneNode.CreateChildSceneNode("test trigger area node");
-			sn.AttachObject(e);
-			sn.Position = a.GlobalPosition;
+			new TriggerRegion("test trigger area 2", new Vector3(-5, 0, 5), new Vector3(45, 45, 45), new BoxShapeDesc(new Vector3(1, 1, 1)));
 
 			// attach the handler
-			LKernel.Get<TriggerReporter>().AddEvent(a.Name, doSomething);
+			tr.OnTrigger += doSomething;
 		}
 
-		private void doSomething(Shape triggerShape, Shape otherShape, TriggerFlags flags) {
-			if (TriggerReporter.IsEnterFlag(flags))
-				Console.WriteLine(otherShape.Actor.Name + " has entered trigger area \"" + triggerShape.Actor.Name + "\"");
-			if (TriggerReporter.IsLeaveFlag(flags))
-				Console.WriteLine(otherShape.Actor.Name + " has left trigger area \"" + triggerShape.Actor.Name + "\"");
+		void doSomething(TriggerRegion region, Shape otherShape, TriggerFlags flags) {
+			if (flags.IsEnterFlag()) {
+				Console.WriteLine(otherShape.Actor.Name + " has entered trigger area \"" + region.Name + "\"");
+				region.SetBalloonGlowColor(BalloonGlowColor.cyan);
+			}
+			else if (flags.IsLeaveFlag()) {
+				Console.WriteLine(otherShape.Actor.Name + " has left trigger area \"" + region.Name + "\"");
+				region.SetBalloonGlowColor(BalloonGlowColor.orange);
+			}
+		}
+
+		public void Dispose() {
+			tr.OnTrigger -= doSomething;
 		}
 	}
 }

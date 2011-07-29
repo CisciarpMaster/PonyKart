@@ -194,7 +194,7 @@ namespace Ponykart.Actors {
 			var sceneMgr = LKernel.Get<SceneManager>();
 			// Create the node that the entities will be attached to
 			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(Name + ID, SpawnPosition);
-			Node.Orientation = new Quaternion().FromGlobalEuler(SpawnRotation.DegreeVectorToRadianVector());
+			Node.Orientation = new Quaternion().FromGlobalEulerDegrees(SpawnRotation);
 			Node.SetScale(SpawnScale);
 
 			Entity = sceneMgr.CreateEntity(Name + ID, Model);
