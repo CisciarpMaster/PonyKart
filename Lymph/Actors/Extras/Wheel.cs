@@ -168,19 +168,6 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Dispose() {
 			LKernel.Get<Root>().FrameStarted -= FrameStarted;
-
-			/*var sceneMgr = LKernel.Get<SceneManager>();
-
-			if (Node != null) {
-				if (LKernel.Get<LevelManager>().IsValidLevel) {
-					sceneMgr.DestroyEntity(Entity);
-					sceneMgr.DestroySceneNode(Node);
-				}
-				Entity.Dispose();
-				Node.Dispose();
-				Entity = null;
-				Node = null;
-			}*/
 		}
 	}
 }
