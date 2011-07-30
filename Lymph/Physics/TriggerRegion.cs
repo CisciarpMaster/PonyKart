@@ -85,8 +85,12 @@ namespace Ponykart.Phys {
 		/// Run the enter event
 		/// </summary>
 		public void InvokeTrigger(Shape otherShape, TriggerFlags flags) {
-			if (OnTrigger != null)
-				OnTrigger(this, otherShape, flags);
+			// at the moment this only triggers when the "main" shape of an actor enters. Do we want to change this?
+			if (otherShape == otherShape.Actor.Shapes[0]) {
+
+				if (OnTrigger != null)
+					OnTrigger(this, otherShape, flags);
+			}
 		}
 
 		/// <summary>

@@ -10,8 +10,6 @@ using Math = Mogre.Math;
 namespace Ponykart.Actors {
 	// might want to make this abstract and make two more classes for front and back wheels
 	public class Wheel : IDisposable {
-		
-		
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 		public WheelShape Shape { get; protected set; }
@@ -40,6 +38,7 @@ namespace Ponykart.Actors {
 		public float LongAsymptoteValue { get; set; }
 		public float LongStiffnessFactor { get; set; }
 
+		// we use these three things to control the wheels
 		/// <summary>
 		/// 1 for forwards, -1 for backwards, 0 for no torque
 		/// </summary>
@@ -143,14 +142,14 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Apply some torque to the engine.
 		/// </summary>
-		public void Accelerate() {
+		protected void Accelerate() {
 			Shape.MotorTorque = MotorForce * AccelerateMultiplier;
 		}
 
 		/// <summary>
 		/// Apply some brake torque.
 		/// </summary>
-		public void Brake() {
+		protected void Brake() {
 			if (IsBrakeOn)
 				Shape.BrakeTorque = BrakeForce;
 			else
@@ -160,7 +159,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
-		public void Turn() {
+		protected void Turn() {
 			Shape.SteerAngle = TurnAngle.ValueRadians * TurnMultiplier;
 		}
 
@@ -170,7 +169,7 @@ namespace Ponykart.Actors {
 		public void Dispose() {
 			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 
-			var sceneMgr = LKernel.Get<SceneManager>();
+			/*var sceneMgr = LKernel.Get<SceneManager>();
 
 			if (Node != null) {
 				if (LKernel.Get<LevelManager>().IsValidLevel) {
@@ -181,7 +180,7 @@ namespace Ponykart.Actors {
 				Node.Dispose();
 				Entity = null;
 				Node = null;
-			}
+			}*/
 		}
 	}
 }
