@@ -179,13 +179,13 @@ namespace Ponykart.Actors {
 			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
 			float speedTurnMultiplier;
 			if (Shape.AxleSpeed < slowSpeed)
-				speedTurnMultiplier = 2;
+				speedTurnMultiplier = 1.5f;
 			else if (Shape.AxleSpeed > highSpeed)
 				speedTurnMultiplier = 1;
 			else {
 				float relativeSpeed = Shape.AxleSpeed - slowSpeed;
 				float maxRelativeSpeed = highSpeed - slowSpeed;
-				speedTurnMultiplier = 1 + Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2));
+				speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2)) / 2);
 			}
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 			
