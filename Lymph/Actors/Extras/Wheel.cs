@@ -4,6 +4,7 @@ using Mogre.PhysX;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Phys;
+using Ponykart.Stuff;
 using Math = Mogre.Math;
 
 namespace Ponykart.Actors {
@@ -39,6 +40,19 @@ namespace Ponykart.Actors {
 		public float LongAsymptoteValue { get; set; }
 		public float LongStiffnessFactor { get; set; }
 
+		/// <summary>
+		/// 1 for forwards, -1 for backwards, 0 for no torque
+		/// </summary>
+		public float AccelerateMultiplier { get; set; }
+		/// <summary>
+		/// 1 for left, -1 for right
+		/// </summary>
+		public float TurnMultiplier { get; set; }
+		/// <summary>
+		/// true for brake on, false for brake off
+		/// </summary>
+		public bool IsBrakeOn { get; set; }
+
 		Kart kart;
 
 		public Wheel(Kart owner, Vector3 position) {
@@ -49,6 +63,10 @@ namespace Ponykart.Actors {
 			Node = kart.Node.CreateChildSceneNode("wheelNode" + ID, position - new Vector3(0, 0.5f, 0));
 			Entity = LKernel.Get<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
+
+			AccelerateMultiplier = 0;
+			TurnMultiplier = 0;
+			IsBrakeOn = false;
 
 			LKernel.Get<Root>().FrameStarted += FrameStarted;
 		}
@@ -107,39 +125,43 @@ namespace Ponykart.Actors {
 
 			Node.Orientation = new Quaternion().FromGlobalEuler(spin, Shape.SteerAngle, 0);
 
+
+			if ((Shape.AxleSpeed > MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Accelerate))
+			   || Shape.AxleSpeed < -MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Reverse))
+			{
+				Shape.MotorTorque = 0;
+			}
+			else
+				Accelerate();
+
+			Brake();
+			Turn();
+
 			return true;
 		}
 
 		/// <summary>
 		/// Apply some torque to the engine.
 		/// </summary>
-		/// <param name="multiplier">
-		/// Use this to control its speed: 1 is normal forwards, -1 is reverse, 0 is stop. Can set it to 1.2f if you were using a powerup, for example.
-		/// </param>
-		public void Accelerate(float multiplier) {
-			if (Shape.AxleSpeed > MaxSpeed)
-				Shape.MotorTorque = 0;
-			else
-				Shape.MotorTorque = MotorForce * multiplier;
-			Shape.BrakeTorque = 0;
+		public void Accelerate() {
+			Shape.MotorTorque = MotorForce * AccelerateMultiplier;
 		}
 
 		/// <summary>
 		/// Apply some brake torque.
 		/// </summary>
 		public void Brake() {
-			Shape.MotorTorque = 0;
-			Shape.BrakeTorque = BrakeForce;
+			if (IsBrakeOn)
+				Shape.BrakeTorque = BrakeForce;
+			else
+				Shape.BrakeTorque = 0;
 		}
 
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
-		/// <param name="multiplier">
-		/// Looking downwards, 1 rotates counter-clockwise (left), -1 rotates clockwise (right).
-		/// </param>
-		public void Turn(float multiplier) {
-			Shape.SteerAngle = TurnAngle.ValueRadians * multiplier;
+		public void Turn() {
+			Shape.SteerAngle = TurnAngle.ValueRadians * TurnMultiplier;
 		}
 
 		/// <summary>

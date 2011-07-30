@@ -2,7 +2,7 @@
     <environment>
         <colourAmbient r="1" g="1" b="1" />
         <colourBackground r="0" g="0" b="0" />
-        <clipping near="0" far="100000" />
+        <clipping near="0.5" far="100" />
     </environment>
     <nodes>
         <node name="Level0">

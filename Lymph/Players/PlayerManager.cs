@@ -36,10 +36,13 @@ namespace Ponykart.Players {
 		/// Dispose of all of the players
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			foreach (Player p in Players) {
-				if (p != null)
-					p.Dispose();
+			for (int a = 0; a < Players.Length; a++) {
+				if (Players[a] != null) {
+					Players[a].Dispose();
+					Players[a] = null;
+				}
 			}
+			MainPlayer = null;
 		}
 	}
 

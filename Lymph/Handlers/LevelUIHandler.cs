@@ -76,6 +76,8 @@ namespace Ponykart.Handlers {
 					"[N] Play music now\r\n" +
 					"[L] Run a test lua script\r\n" +
 					"[C] Syncs the media folder and restarts Lua.\r\n" + 
+					"[F2] Apply an upwards force\r\n" + 
+					"[F3] Spawn a box\r\n" + 
 					"[backtick] Pause\r\n" +
 					"[enter] Open Lua console",
 			};

@@ -137,6 +137,7 @@
     <Compile Include="Actors\ZergShip.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\SelfRightingHandler.cs" />
+    <Compile Include="Handlers\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="Physics\PhysXMaterials.cs" />
     <Compile Include="Physics\TriggerRegion.cs" />

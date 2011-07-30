@@ -77,20 +77,20 @@ namespace Ponykart.Actors {
 				SpringBias = 0,
 
 				BrakeForce = 5000,
-				MotorForce = 4000,
+				MotorForce = 5000,
 				TurnAngle = Math.PI / 10f,
-				MaxSpeed = 85,
+				MaxSpeed = 65,
 
-				LatExtremumSlip = 0.01f,
+				LatExtremumSlip = 1f,
 				LatExtremumValue = 1,
-				LatAsymptoteSlip = 0.04f,
+				LatAsymptoteSlip = 2f,
 				LatAsymptoteValue = 0.4f,
 				LatStiffnessFactor = 4000,
 
-				LongExtremumSlip = 0.01f,
+				LongExtremumSlip = 1f,
 				LongExtremumValue = 1,
-				LongAsymptoteSlip = 0.04f,
-				LongAsymptoteValue = 0.3f,
+				LongAsymptoteSlip = 2f,
+				LongAsymptoteValue = 0.4f,
 				LongStiffnessFactor = 5000,
 			};
 			wheel.CreateWheelShape(position);
@@ -109,7 +109,7 @@ namespace Ponykart.Actors {
 				BrakeForce = 5000,
 				MotorForce = 4000,
 				TurnAngle = 0,
-				MaxSpeed = 85,
+				MaxSpeed = 65,
 
 				LatExtremumSlip = 0.01f,
 				LatExtremumValue = 1,

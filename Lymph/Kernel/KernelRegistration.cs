@@ -103,6 +103,7 @@ namespace Ponykart {
 			AddGlobalObject(new LoadingUIHandler());
 			AddGlobalObject(new MiscKeyboardHandler());
 			AddGlobalObject(new PauseUIHandler());
+			AddGlobalObject(new SpeedUIHandler());
 			LoadLevelHandlers();
 
 			levelManager.RunPostInitEvents();

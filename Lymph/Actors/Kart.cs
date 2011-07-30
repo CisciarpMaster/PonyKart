@@ -73,26 +73,22 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Sets the torque of both rear wheels to <paramref name="speed"/> and sets their brake torque to 0.
+		/// Sets the motor torque of all wheels and sets their brake torque to 0.
 		/// TODO: Limit the maximum speed by not applying torque when we're going faster than the maximum speed
 		/// </summary>
 		public void Accelerate(float multiplier) {
 			if (Actor.IsSleeping)
 				Actor.WakeUp();
-			WheelBR.Accelerate(multiplier);
-			WheelBL.Accelerate(multiplier);
-			WheelFR.Accelerate(multiplier);
-			WheelFL.Accelerate(multiplier);
+			WheelBR.AccelerateMultiplier = WheelBL.AccelerateMultiplier = WheelFR.AccelerateMultiplier = WheelFL.AccelerateMultiplier = multiplier;
+			WheelBR.IsBrakeOn = WheelBL.IsBrakeOn = WheelFR.IsBrakeOn = WheelFL.IsBrakeOn = false;
 		}
 
 		/// <summary>
-		/// Sets the motor torque of both rear wheels to 0 and applies a brake torque.
+		/// Sets the motor torque of all wheels to 0 and applies a brake torque.
 		/// </summary>
 		public void Brake() {
-			WheelBR.Brake();
-			WheelBL.Brake();
-			WheelFR.Brake();
-			WheelFL.Brake();
+			WheelBR.IsBrakeOn = WheelBL.IsBrakeOn = WheelFR.IsBrakeOn = WheelFL.IsBrakeOn = true;
+			WheelBR.AccelerateMultiplier = WheelBL.AccelerateMultiplier = WheelFR.AccelerateMultiplier = WheelFL.AccelerateMultiplier = 0;
 		}
 
 		/// <summary>
@@ -101,10 +97,7 @@ namespace Ponykart.Actors {
 		public void Turn(float multiplier) {
 			if (Actor.IsSleeping)
 				Actor.WakeUp();
-			WheelFR.Turn(multiplier);
-			WheelFL.Turn(multiplier);
-			WheelBR.Turn(multiplier);
-			WheelBL.Turn(multiplier);
+			WheelFR.TurnMultiplier = WheelFL.TurnMultiplier = WheelBR.TurnMultiplier = WheelBL.TurnMultiplier = multiplier;
 		}
 
 		#region IDisposable stuff
