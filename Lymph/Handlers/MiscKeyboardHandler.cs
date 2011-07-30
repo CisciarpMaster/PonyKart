@@ -40,6 +40,14 @@ namespace Ponykart.Handlers
 				case KeyCode.KC_Z:
 					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.ActorPosition);
 					break;
+#if DEBUG
+				case KeyCode.KC_X:
+					DebugDrawer.Singleton.Clear();
+					break;
+				case KeyCode.KC_I:
+					Wheel.drawLines = !Wheel.drawLines;
+					break;
+#endif
 				case KeyCode.KC_M:
 					Constants.MUSIC = !Constants.MUSIC;
 					break;

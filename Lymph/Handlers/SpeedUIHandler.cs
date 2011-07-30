@@ -15,7 +15,7 @@ namespace Ponykart.Handlers {
 			var gui = LKernel.Get<UIMain>().Gui;
 
 			label = new Label("speed label") {
-				Location = new Point(10, 200),
+				Location = new Point(10, 400),
 				Size = new Size(200, 200),
 				Visible = true,
 				TextStyle = {
@@ -41,8 +41,9 @@ namespace Ponykart.Handlers {
 				if (LKernel.Get<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Actor.IsDisposed) {
 					Kart kart = mainPlayer.Kart;
 					label.Text =
-						"FR: " + kart.WheelFR.Shape.AxleSpeed + "\r\n" +
-						"FL: " + kart.WheelFL.Shape.AxleSpeed + "\r\n" +
+						"    Speed    Angle\r\n" +
+						"FR: " + kart.WheelFR.Shape.AxleSpeed + " " + Math.RadiansToDegrees(kart.WheelFR.Shape.SteerAngle) + "\r\n" +
+						"FL: " + kart.WheelFL.Shape.AxleSpeed + " " + Math.RadiansToDegrees(kart.WheelFL.Shape.SteerAngle) + "\r\n" +
 						"BR: " + kart.WheelBR.Shape.AxleSpeed + "\r\n" +
 						"BL: " + kart.WheelBL.Shape.AxleSpeed + "\r\n" +
 						"Linear Velocity: " + kart.Actor.LinearVelocity.Length;

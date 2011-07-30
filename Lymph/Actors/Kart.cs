@@ -51,10 +51,10 @@ namespace Ponykart.Actors {
 			base.CreateActor(); // the main box
 			CreateFunnyAngledBitInTheFront();
 
-			WheelFR = WheelFactory.CreateAltFrontWheel(this, new Vector3(-1.7f, 0f, 0.75f));
-			WheelFL = WheelFactory.CreateAltFrontWheel(this, new Vector3(1.7f, 0f, 0.75f));
-			WheelBR = WheelFactory.CreateAltBackWheel(this, new Vector3(-1.7f, 0f, -1.33f));
-			WheelBL = WheelFactory.CreateAltBackWheel(this, new Vector3(1.7f, 0f, -1.33f));
+			WheelFR = WheelFactory.CreateFrontWheel(this, new Vector3(-1.7f, 0f, 0.75f));
+			WheelFL = WheelFactory.CreateFrontWheel(this, new Vector3(1.7f, 0f, 0.75f));
+			WheelBR = WheelFactory.CreateBackWheel(this, new Vector3(-1.7f, 0f, -1.33f));
+			WheelBL = WheelFactory.CreateBackWheel(this, new Vector3(1.7f, 0f, -1.33f));
 		}
 
 		protected void CreateFunnyAngledBitInTheFront() {

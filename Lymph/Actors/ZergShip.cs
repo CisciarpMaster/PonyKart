@@ -43,7 +43,7 @@ namespace Ponykart.Actors {
 
 		// this runs every frame
 		bool FrameStarted(FrameEvent evt) {
-			if (LKernel.Get<Levels.LevelManager>().IsValidLevel)
+			if (LKernel.Get<Levels.LevelManager>().IsValidLevel && Entity != null)
 				// advance our animation by the time since the last frame
 				animState.AddTime(evt.timeSinceLastFrame);
 			else {

@@ -119,12 +119,7 @@ namespace Ponykart.Actors {
 			if (!LKernel.Get<LevelManager>().IsValidLevel || Shape.IsDisposed || kart.Actor.IsSleeping || Pauser.IsPaused)
 				return true;
 
-			spin += (Shape.AxleSpeed * evt.timeSinceLastFrame) / Math.PI;
-			spin %= Math.TWO_PI;
-
-			Node.Orientation = new Quaternion().FromGlobalEuler(spin, Shape.SteerAngle, 0);
-
-
+			// temporary hack
 			if ((Shape.AxleSpeed > MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Accelerate))
 			   || Shape.AxleSpeed < -MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Reverse))
 			{
@@ -136,8 +131,25 @@ namespace Ponykart.Actors {
 			Brake();
 			Turn();
 
+			/////////////////
+
+			spin += (Shape.AxleSpeed * evt.timeSinceLastFrame) / Math.PI;
+			spin %= Math.TWO_PI;
+
+			Node.Orientation = new Quaternion().FromGlobalEuler(spin, Shape.SteerAngle, 0);
+
+			/////////////////
+#if DEBUG
+			if (drawLines && kart == LKernel.Get<Players.PlayerManager>().MainPlayer.Kart) {
+				DebugDrawer.Singleton.BuildLine(Shape.GlobalPosition, lastPos, ColourValue.Blue, 1);
+				lastPos = Shape.GlobalPosition;
+			}
+#endif
+
 			return true;
 		}
+		Vector3 lastPos = Vector3.ZERO;
+		public static bool drawLines = true;
 
 		/// <summary>
 		/// Apply some torque to the engine.
@@ -156,11 +168,40 @@ namespace Ponykart.Actors {
 				Shape.BrakeTorque = 0;
 		}
 
+		float slowSpeed = 0;
+		float highSpeed = 40;
+		float idealSteerAngle = 0;
+		static readonly float one_degree = Math.PI / 180;
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
 		protected void Turn() {
-			Shape.SteerAngle = TurnAngle.ValueRadians * TurnMultiplier;
+			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
+			float speedTurnMultiplier;
+			if (Shape.AxleSpeed < slowSpeed)
+				speedTurnMultiplier = 2;
+			else if (Shape.AxleSpeed > highSpeed)
+				speedTurnMultiplier = 1;
+			else {
+				float relativeSpeed = Shape.AxleSpeed - slowSpeed;
+				float maxRelativeSpeed = highSpeed - slowSpeed;
+				speedTurnMultiplier = 1 + Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2));
+			}
+			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
+			
+			// smooth out the turning
+			if (Shape.SteerAngle < idealSteerAngle) {
+				if (Shape.SteerAngle + one_degree <= idealSteerAngle)
+					Shape.SteerAngle += one_degree;
+				else if (Shape.SteerAngle + one_degree > idealSteerAngle)
+					Shape.SteerAngle = idealSteerAngle;
+			}
+			else if (Shape.SteerAngle > idealSteerAngle) {
+				if (Shape.SteerAngle - one_degree >= idealSteerAngle)
+					Shape.SteerAngle -= one_degree;
+				else if (Shape.SteerAngle - one_degree < idealSteerAngle)
+					Shape.SteerAngle = idealSteerAngle;
+			}
 		}
 
 		/// <summary>

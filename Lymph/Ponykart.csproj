@@ -153,6 +153,8 @@
     <Compile Include="Lua\LevelWrapper.cs" />
     <Compile Include="IO\ThingTemplate.cs" />
     <Compile Include="IO\WorldExporter.cs" />
+    <Compile Include="Stuff\DebugDrawer.cs" />
+    <Compile Include="Stuff\DebugDrawerHandler.cs" />
     <Compile Include="Stuff\KartSpawnPositions.cs" />
     <Compile Include="Stuff\KeyBindingManager.cs" />
     <Compile Include="Settings.cs" />

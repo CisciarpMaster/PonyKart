@@ -17,22 +17,23 @@ namespace Ponykart.Actors {
 				SpringDamping = 800,
 				SpringBias = 0,
 
-				BrakeForce = 5000,
+				BrakeForce = 4000,
 				MotorForce = 3000,
-				TurnAngle = Math.PI / 12f,
-				MaxSpeed = 85,
+				TurnAngle = Math.PI / 20f,
+				// the maximum axle speed a kart with these wheels reaches is only about 87ish anyway (40 linear vel)
+				MaxSpeed = 100,
 
 				LatExtremumSlip = 1.0f,
-				LatExtremumValue = 0.05f,
-				LatAsymptoteSlip = 5.0f,
-				LatAsymptoteValue = 0.002f,
-				LatStiffnessFactor = 1000000f,
+				LatExtremumValue = 1f,
+				LatAsymptoteSlip = 3.0f,
+				LatAsymptoteValue = 0.2f,
+				LatStiffnessFactor = 40000f,
 
 				LongExtremumSlip = 1.0f,
-				LongExtremumValue = 0.05f,
+				LongExtremumValue = 1f,
 				LongAsymptoteSlip = 2.0f,
-				LongAsymptoteValue = 0.01f,
-				LongStiffnessFactor = 1000000f
+				LongAsymptoteValue = 0.7f,
+				LongStiffnessFactor = 50000f
 			};
 			wheel.CreateWheelShape(position);
 			return wheel;
@@ -46,22 +47,22 @@ namespace Ponykart.Actors {
 				SpringDamping = 800,
 				SpringBias = 0,
 
-				BrakeForce = 5000,
+				BrakeForce = 4000,
 				MotorForce = 3000,
 				TurnAngle = 0,
-				MaxSpeed = 85,
+				MaxSpeed = 100,
 
 				LatExtremumSlip = 1.0f,
-				LatExtremumValue = 0.05f,
-				LatAsymptoteSlip = 5.0f,
-				LatAsymptoteValue = 0.002f,
-				LatStiffnessFactor = 1000000f,
+				LatExtremumValue = 1f,
+				LatAsymptoteSlip = 3.0f,
+				LatAsymptoteValue = 0.2f,
+				LatStiffnessFactor = 40000f,
 
 				LongExtremumSlip = 1.0f,
-				LongExtremumValue = 0.05f,
+				LongExtremumValue = 1f,
 				LongAsymptoteSlip = 2.0f,
-				LongAsymptoteValue = 0.01f,
-				LongStiffnessFactor = 1000000f
+				LongAsymptoteValue = 0.7f,
+				LongStiffnessFactor = 50000f
 			};
 			wheel.CreateWheelShape(position);
 			return wheel;
@@ -77,20 +78,20 @@ namespace Ponykart.Actors {
 				SpringBias = 0,
 
 				BrakeForce = 5000,
-				MotorForce = 5000,
+				MotorForce = 4000,
 				TurnAngle = Math.PI / 10f,
-				MaxSpeed = 65,
+				MaxSpeed = 100,
 
-				LatExtremumSlip = 1f,
+				LatExtremumSlip = 0.01f,
 				LatExtremumValue = 1,
-				LatAsymptoteSlip = 2f,
-				LatAsymptoteValue = 0.4f,
+				LatAsymptoteSlip = 0.04f,
+				LatAsymptoteValue = 0.8f,
 				LatStiffnessFactor = 4000,
 
-				LongExtremumSlip = 1f,
+				LongExtremumSlip = 0.01f,
 				LongExtremumValue = 1,
-				LongAsymptoteSlip = 2f,
-				LongAsymptoteValue = 0.4f,
+				LongAsymptoteSlip = 0.04f,
+				LongAsymptoteValue = 0.8f,
 				LongStiffnessFactor = 5000,
 			};
 			wheel.CreateWheelShape(position);
@@ -109,18 +110,18 @@ namespace Ponykart.Actors {
 				BrakeForce = 5000,
 				MotorForce = 4000,
 				TurnAngle = 0,
-				MaxSpeed = 65,
+				MaxSpeed = 100,
 
 				LatExtremumSlip = 0.01f,
 				LatExtremumValue = 1,
 				LatAsymptoteSlip = 0.04f,
-				LatAsymptoteValue = 0.6f,
-				LatStiffnessFactor = 5000,
+				LatAsymptoteValue = 0.8f,
+				LatStiffnessFactor = 4000,
 
 				LongExtremumSlip = 0.01f,
 				LongExtremumValue = 1,
 				LongAsymptoteSlip = 0.04f,
-				LongAsymptoteValue = 0.6f,
+				LongAsymptoteValue = 0.8f,
 				LongStiffnessFactor = 6000,
 			};
 			wheel.CreateWheelShape(position);

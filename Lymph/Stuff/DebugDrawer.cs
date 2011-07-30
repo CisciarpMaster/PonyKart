@@ -1,56 +1,40 @@
-using Microsoft.VisualBasic;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
 using Mogre;
-using Microsoft.CSharp;
 
-
-
-public class IcoSphere
-{
-	public class TriangleIndices
-	{
+public class IcoSphere {
+	public class TriangleIndices {
 		public int v1;
 		public int v2;
 
 		public int v3;
-		public TriangleIndices(int _v1, int _v2, int _v3)
-		{
+		public TriangleIndices(int _v1, int _v2, int _v3) {
 			v1 = _v1;
 			v2 = _v2;
 			v3 = _v3;
 		}
 
 
-		public static bool operator <(TriangleIndices ImpliedObject, TriangleIndices o)
-		{
+		public static bool operator <(TriangleIndices ImpliedObject, TriangleIndices o) {
 			return ImpliedObject.v1 > o.v1 && ImpliedObject.v2 < o.v2 && ImpliedObject.v3 < o.v3;
 		}
-		public static bool operator >(TriangleIndices ImpliedObject, TriangleIndices o)
-		{
+		public static bool operator >(TriangleIndices ImpliedObject, TriangleIndices o) {
 			return ImpliedObject.v1 > o.v1 && ImpliedObject.v2 > o.v2 && ImpliedObject.v3 > o.v3;
 		}
 	}
 
-	public class LineIndices
-	{
+	public class LineIndices {
 		public int v1;
 
 		public int v2;
-		public LineIndices(int _v1, int _v2)
-		{
+		public LineIndices(int _v1, int _v2) {
 			v1 = _v1;
 			v2 = _v2;
 		}
 
-		public static bool operator ==(LineIndices ImpliedObject, LineIndices o)
-		{
+		public static bool operator ==(LineIndices ImpliedObject, LineIndices o) {
 			return (ImpliedObject.v1 == o.v1 && ImpliedObject.v2 == o.v2) || (ImpliedObject.v1 == o.v2 && ImpliedObject.v2 == o.v1);
 		}
-		public static bool operator !=(LineIndices ImpliedObject, LineIndices o)
-		{
+		public static bool operator !=(LineIndices ImpliedObject, LineIndices o) {
 			return (ImpliedObject.v1 != o.v1 && ImpliedObject.v2 != o.v2) || (ImpliedObject.v1 != o.v2 && ImpliedObject.v2 != o.v1);
 		}
 	}
@@ -61,15 +45,12 @@ public class IcoSphere
 	private Dictionary<long, int> middlePointIndexCache = new Dictionary<long, int>();
 
 	private int index;
-	public IcoSphere()
-	{
+	public IcoSphere() {
 		index = 0;
 	}
-	public void Dispose()
-	{
+	public void Dispose() {
 	}
-	public void create(int recursionLevel)
-	{
+	public void create(int recursionLevel) {
 		vertices.Clear();
 		_lineIndices.Clear();
 		_triangleIndices.Clear();
@@ -180,34 +161,29 @@ public class IcoSphere
 			faces = faces2;
 		}
 	}
-	public void AddLineIndices(int index0, int index1)
-	{
+	public void AddLineIndices(int index0, int index1) {
 		_lineIndices.AddLast(new LineIndices(index0, index1));
 	}
-	public void removeLineIndices(int index0, int index1)
-	{
+	public void removeLineIndices(int index0, int index1) {
 		LinkedListNode<LineIndices> result = _lineIndices.Find(new LineIndices(index0, index1));
 		if (result != null) {
 			_lineIndices.Remove(result);
 		}
 
 	}
-	public void AddTriangleLines(int index0, int index1, int index2)
-	{
+	public void AddTriangleLines(int index0, int index1, int index2) {
 		AddLineIndices(index0, index1);
 		AddLineIndices(index1, index2);
 		AddLineIndices(index2, index0);
 	}
-	public int AddVertex(Vector3 vertex)
-	{
+	public int AddVertex(Vector3 vertex) {
 		float length = vertex.Length;
 		vertices.Add(new Vector3(vertex.x / length, vertex.y / length, vertex.z / length));
 
 		index += 1;
 		return index - 1;
 	}
-	public int GetMiddlePoint(int index0, int index1)
-	{
+	public int GetMiddlePoint(int index0, int index1) {
 		bool isFirstSmaller = index0 < index1;
 		long smallerIndex = isFirstSmaller ? index0 : index1;
 		long largerIndex = isFirstSmaller ? index1 : index0;
@@ -224,26 +200,24 @@ public class IcoSphere
 		int index = AddVertex(middle);
 		if (middlePointIndexCache.ContainsKey(key) == false) {
 			middlePointIndexCache.Add(key, index);
-		} else {
+		}
+		else {
 			middlePointIndexCache[key] = index;
 
 		}
 		return index;
 	}
-	public void AddFace(int index0, int index1, int index2)
-	{
+	public void AddFace(int index0, int index1, int index2) {
 		faces.AddLast(new TriangleIndices(index0, index1, index2));
 	}
-	public void AddToLineIndices(int baseIndex, LinkedList<int> tarGet)
-	{
+	public void AddToLineIndices(int baseIndex, LinkedList<int> tarGet) {
 		LinkedList<LineIndices>.Enumerator i = _lineIndices.GetEnumerator();
 		while (i.MoveNext()) {
 			tarGet.AddLast(baseIndex + i.Current.v1);
 			tarGet.AddLast(baseIndex + i.Current.v2);
 		}
 	}
-	public void AddToTriangleIndices(int baseIndex, LinkedList<int> tarGet)
-	{
+	public void AddToTriangleIndices(int baseIndex, LinkedList<int> tarGet) {
 		LinkedList<TriangleIndices>.Enumerator i = faces.GetEnumerator();
 		while (i.MoveNext()) {
 			tarGet.AddLast(baseIndex + i.Current.v1);
@@ -251,8 +225,7 @@ public class IcoSphere
 			tarGet.AddLast(baseIndex + i.Current.v3);
 		}
 	}
-	public int AddToVertices(LinkedList<KeyValuePair<Vector3, ColourValue>> tarGet, Vector3 position, ColourValue colour, float scale)
-	{
+	public int AddToVertices(LinkedList<KeyValuePair<Vector3, ColourValue>> tarGet, Vector3 position, ColourValue colour, float scale) {
 		Matrix4 transform = Matrix4.IDENTITY;
 		transform.SetTrans(position);
 		transform.SetScale(new Vector3(scale, scale, scale));
@@ -272,15 +245,13 @@ public class IcoSphere
 /// This is the port of the Ogre DebugDrawer from https://bitbucket.org/hasyimi/ogre-debug-drawing-utility/
 /// </summary>
 /// <remarks></remarks>
-public class DebugDrawer : System.IDisposable
-{
+public class DebugDrawer : System.IDisposable {
 	#region "Singleton"
 	private static DebugDrawer _Singleton;
 	public static DebugDrawer Singleton {
 		get { return _Singleton; }
 	}
-	public static void SetSingleton(DebugDrawer DebugDrawer)
-	{
+	public static void SetSingleton(DebugDrawer DebugDrawer) {
 		_Singleton = DebugDrawer;
 	}
 	#endregion
@@ -289,16 +260,13 @@ public class DebugDrawer : System.IDisposable
 		get { return GetEnabled(); }
 		set { SetEnabled(value); }
 	}
-	private bool GetEnabled()
-	{
+	private bool GetEnabled() {
 		return isEnabled;
 	}
-	private void SetEnabled(bool _isEnabled)
-	{
+	private void SetEnabled(bool _isEnabled) {
 		isEnabled = _isEnabled;
 	}
-	public void SwitchEnabled()
-	{
+	public void SwitchEnabled() {
 		isEnabled = !isEnabled;
 	}
 
@@ -318,8 +286,7 @@ public class DebugDrawer : System.IDisposable
 	private int linesIndex;
 
 	private int trianglesIndex;
-	public DebugDrawer(SceneManager _sceneManager, float _fillAlpha)
-	{
+	public DebugDrawer(SceneManager _sceneManager, float _fillAlpha) {
 		sceneManager = _sceneManager;
 		fillAlpha = _fillAlpha;
 		manualObject = null;
@@ -328,8 +295,7 @@ public class DebugDrawer : System.IDisposable
 		Initialise();
 	}
 
-	private void Initialise()
-	{
+	private void Initialise() {
 		manualObject = sceneManager.CreateManualObject("debug_object");
 		manualObject.CastShadows = false;
 
@@ -352,24 +318,20 @@ public class DebugDrawer : System.IDisposable
 		trianglesIndex = 0;
 		linesIndex = trianglesIndex;
 	}
-	public void SetIcoSphereRecursionLevel(int recursionLevel)
-	{
+	public void SetIcoSphereRecursionLevel(int recursionLevel) {
 		icoSphere.create(recursionLevel);
 	}
-	public void shutdown()
-	{
+	public void shutdown() {
 		sceneManager.DestroySceneNode("debug_object");
 		sceneManager.DestroyManualObject(manualObject);
 	}
-	public void BuildLine(Vector3 start, Vector3 end, ColourValue colour, float alpha)
-	{
+	public void BuildLine(Vector3 start, Vector3 end, ColourValue colour, float alpha) {
 		int i = AddLineVertex(start, new ColourValue(colour.r, colour.g, colour.b, alpha));
 		AddLineVertex(end, new ColourValue(colour.r, colour.g, colour.b, alpha));
 
 		AddLineIndices(i, i + 1);
 	}
-	public void BuildQuad(Vector3[] vertices, ColourValue colour, float alpha)
-	{
+	public void BuildQuad(Vector3[] vertices, ColourValue colour, float alpha) {
 		int index = AddLineVertex(vertices[0], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		AddLineVertex(vertices[1], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		AddLineVertex(vertices[2], new ColourValue(colour.r, colour.g, colour.b, alpha));
@@ -379,8 +341,7 @@ public class DebugDrawer : System.IDisposable
 			AddLineIndices(index + i, index + ((i + 1) % 4));
 		}
 	}
-	public void BuildCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, float alpha)
-	{
+	public void BuildCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, float alpha) {
 		int index = linesIndex;
 		float increment = 2 * Math.PI / segmentsCount;
 		float angle = 0f;
@@ -394,8 +355,7 @@ public class DebugDrawer : System.IDisposable
 			AddLineIndices(index + i, i + 1 < segmentsCount ? index + i + 1 : index);
 		}
 	}
-	public void BuildFilledCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, float alpha)
-	{
+	public void BuildFilledCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, float alpha) {
 		int index = trianglesIndex;
 		float increment = 2 * Math.PI / segmentsCount;
 		float angle = 0f;
@@ -411,15 +371,14 @@ public class DebugDrawer : System.IDisposable
 			AddTriangleIndices(i + 1 < segmentsCount ? index + i + 1 : index, index + i, index + segmentsCount);
 		}
 	}
-	public void BuildCylinder(Vector3 centre, float radius, int segmentsCount, float height, ColourValue colour, float alpha)
-	{
+	public void BuildCylinder(Vector3 centre, float radius, int segmentsCount, float height, ColourValue colour, float alpha) {
 		int index = linesIndex;
-		float increment = System.Convert.ToSingle( 2 * Math.PI / segmentsCount);
+		float increment = System.Convert.ToSingle(2 * Math.PI / segmentsCount);
 		float angle = 0f;
 
 		// Top circle
 		for (int i = 0; i <= segmentsCount - 1; i++) {
-			AddLineVertex(new Vector3( System.Convert.ToSingle( centre.x + radius * Math.Cos(angle)), System.Convert.ToSingle( centre.y + height / 2), System. Convert.ToSingle( centre.z + radius * Math.Sin(angle))), new ColourValue(colour.r, colour.g, colour.b, alpha));
+			AddLineVertex(new Vector3(System.Convert.ToSingle(centre.x + radius * Math.Cos(angle)), System.Convert.ToSingle(centre.y + height / 2), System.Convert.ToSingle(centre.z + radius * Math.Sin(angle))), new ColourValue(colour.r, colour.g, colour.b, alpha));
 			angle += increment;
 		}
 
@@ -437,8 +396,7 @@ public class DebugDrawer : System.IDisposable
 			AddLineIndices(index + i, segmentsCount + index + i);
 		}
 	}
-	public void BuildFilledCylinder(Vector3 centre, float radius, int segmentsCount, float height, ColourValue colour, float alpha)
-	{
+	public void BuildFilledCylinder(Vector3 centre, float radius, int segmentsCount, float height, ColourValue colour, float alpha) {
 		int index = trianglesIndex;
 		float increment = 2 * Math.PI / segmentsCount;
 		float angle = 0f;
@@ -469,8 +427,7 @@ public class DebugDrawer : System.IDisposable
 			AddQuadIndices(index + i, i + 1 < segmentsCount ? index + i + 1 : index, i + 1 < segmentsCount ? (segmentsCount + 1) + index + i + 1 : (segmentsCount + 1) + index, (segmentsCount + 1) + index + i);
 		}
 	}
-	public void BuildCuboid(Vector3[] vertices, ColourValue colour, float alpha)
-	{
+	public void BuildCuboid(Vector3[] vertices, ColourValue colour, float alpha) {
 		int index = AddLineVertex(vertices[0], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		for (int i = 1; i <= 7; i++) {
 			AddLineVertex(vertices[i], new ColourValue(colour.r, colour.g, colour.b, alpha));
@@ -487,8 +444,7 @@ public class DebugDrawer : System.IDisposable
 		AddLineIndices(index, index + 6);
 		AddLineIndices(index + 3, index + 7);
 	}
-	public void BuildFilledCuboid(Vector3[] vertices, ColourValue colour, float alpha)
-	{
+	public void BuildFilledCuboid(Vector3[] vertices, ColourValue colour, float alpha) {
 		int index = AddTriangleVertex(vertices[0], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		for (int i = 1; i <= 7; i++) {
 			AddTriangleVertex(vertices[i], new ColourValue(colour.r, colour.g, colour.b, alpha));
@@ -503,8 +459,7 @@ public class DebugDrawer : System.IDisposable
 		AddQuadIndices(index + 1, index, index + 6, index + 5);
 		AddQuadIndices(index + 4, index + 7, index + 3, index + 2);
 	}
-	public void BuildFilledQuad(Vector3[] vertices, ColourValue colour, float alpha)
-	{
+	public void BuildFilledQuad(Vector3[] vertices, ColourValue colour, float alpha) {
 		int index = AddTriangleVertex(vertices[0], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		AddTriangleVertex(vertices[1], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		AddTriangleVertex(vertices[2], new ColourValue(colour.r, colour.g, colour.b, alpha));
@@ -512,16 +467,14 @@ public class DebugDrawer : System.IDisposable
 
 		AddQuadIndices(index, index + 1, index + 2, index + 3);
 	}
-	public void BuildFilledTriangle(Vector3[] vertices, ColourValue colour, float alpha)
-	{
+	public void BuildFilledTriangle(Vector3[] vertices, ColourValue colour, float alpha) {
 		int index = AddTriangleVertex(vertices[0], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		AddTriangleVertex(vertices[1], new ColourValue(colour.r, colour.g, colour.b, alpha));
 		AddTriangleVertex(vertices[2], new ColourValue(colour.r, colour.g, colour.b, alpha));
 
 		AddTriangleIndices(index, index + 1, index + 2);
 	}
-	public void BuildTetrahedron(Vector3 centre, float scale, ColourValue colour, float alpha)
-	{
+	public void BuildTetrahedron(Vector3 centre, float scale, ColourValue colour, float alpha) {
 		int index = linesIndex;
 
 		// Distance from the centre
@@ -544,8 +497,7 @@ public class DebugDrawer : System.IDisposable
 		AddLineIndices(index + 2, index + 3);
 		AddLineIndices(index + 3, index + 1);
 	}
-	public void BuildFilledTetrahedron(Vector3 centre, float scale, ColourValue colour, float alpha)
-	{
+	public void BuildFilledTetrahedron(Vector3 centre, float scale, ColourValue colour, float alpha) {
 		int index = trianglesIndex;
 
 		// Distance from the centre
@@ -566,40 +518,34 @@ public class DebugDrawer : System.IDisposable
 
 		AddTriangleIndices(index + 1, index + 3, index + 2);
 	}
-	public void DrawLine(Vector3 start, Vector3 end, ColourValue colour)
-	{
+	public void DrawLine(Vector3 start, Vector3 end, ColourValue colour) {
 		BuildLine(start, end, colour, 1);
 	}
-	public void DrawCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, bool isFilled)
-	{
+	public void DrawCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, bool isFilled) {
 		BuildCircle(centre, radius, segmentsCount, colour, 1);
 		if (isFilled) {
 			BuildFilledCircle(centre, radius, segmentsCount, colour, fillAlpha);
 		}
 	}
-	public void DrawCylinder(Vector3 centre, float radius, int segmentsCount, float height, ColourValue colour, bool isFilled)
-	{
+	public void DrawCylinder(Vector3 centre, float radius, int segmentsCount, float height, ColourValue colour, bool isFilled) {
 		BuildCylinder(centre, radius, segmentsCount, height, colour, 1);
 		if (isFilled) {
 			BuildFilledCylinder(centre, radius, segmentsCount, height, colour, fillAlpha);
 		}
 	}
-	public void DrawQuad(Vector3[] vertices, ColourValue colour, bool isFilled)
-	{
+	public void DrawQuad(Vector3[] vertices, ColourValue colour, bool isFilled) {
 		BuildQuad(vertices, colour, 1);
 		if (isFilled) {
 			BuildFilledQuad(vertices, colour, fillAlpha);
 		}
 	}
-	public void DrawCuboid(Vector3[] vertices, ColourValue colour, bool isFilled)
-	{
+	public void DrawCuboid(Vector3[] vertices, ColourValue colour, bool isFilled) {
 		BuildCuboid(vertices, colour, 1);
 		if (isFilled) {
 			BuildFilledCuboid(vertices, colour, fillAlpha);
 		}
 	}
-	public void DrawSphere(Vector3 centre, float radius, ColourValue colour, bool isFilled)
-	{
+	public void DrawSphere(Vector3 centre, float radius, ColourValue colour, bool isFilled) {
 		int baseIndex = linesIndex;
 		linesIndex += icoSphere.AddToVertices(lineVertices, centre, colour, radius);
 		icoSphere.AddToLineIndices(baseIndex, lineIndices);
@@ -610,27 +556,25 @@ public class DebugDrawer : System.IDisposable
 			icoSphere.AddToTriangleIndices(baseIndex, triangleIndices);
 		}
 	}
-	public void DrawTetrahedron(Vector3 centre, float scale, ColourValue colour, bool isFilled)
-	{
+	public void DrawTetrahedron(Vector3 centre, float scale, ColourValue colour, bool isFilled) {
 		BuildTetrahedron(centre, scale, colour, 1);
 		if (isFilled) {
 			BuildFilledTetrahedron(centre, scale, colour, fillAlpha);
 		}
 	}
-	public void Build()
-	{
+	public void Build() {
 		manualObject.BeginUpdate(0);
 		if (lineVertices.Count > 0 && isEnabled) {
-			manualObject.EstimateVertexCount( System.Convert.ToUInt32( lineVertices.Count));
-			manualObject.EstimateIndexCount( System.Convert.ToUInt32(  lineIndices.Count));
+			manualObject.EstimateVertexCount(System.Convert.ToUInt32(lineVertices.Count));
+			manualObject.EstimateIndexCount(System.Convert.ToUInt32(lineIndices.Count));
 			LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = lineVertices.GetEnumerator();
 			while (i.MoveNext()) {
 				manualObject.Position(i.Current.Key);
 				manualObject.Colour(i.Current.Value);
 			}
-            LinkedList<int>.Enumerator i2 = lineIndices.GetEnumerator();
+			LinkedList<int>.Enumerator i2 = lineIndices.GetEnumerator();
 			while (i2.MoveNext()) {
-				manualObject.Index( System.Convert.ToUInt16( i2.Current));
+				manualObject.Index(System.Convert.ToUInt16(i2.Current));
 			}
 		}
 		manualObject.End();
@@ -638,21 +582,20 @@ public class DebugDrawer : System.IDisposable
 		manualObject.BeginUpdate(1);
 		if (triangleVertices.Count > 0 && isEnabled) {
 			manualObject.EstimateVertexCount(System.Convert.ToUInt16((triangleVertices.Count)));
-			manualObject.EstimateIndexCount( System.Convert.ToUInt16( triangleIndices.Count));
-            LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = triangleVertices.GetEnumerator();
+			manualObject.EstimateIndexCount(System.Convert.ToUInt16(triangleIndices.Count));
+			LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = triangleVertices.GetEnumerator();
 			while (i.MoveNext()) {
 				manualObject.Position(i.Current.Key);
 				manualObject.Colour(i.Current.Value.r, i.Current.Value.g, i.Current.Value.b, fillAlpha);
 			}
-            LinkedList <int>.Enumerator i2 = triangleIndices.GetEnumerator();
+			LinkedList <int>.Enumerator i2 = triangleIndices.GetEnumerator();
 			while (i2.MoveNext()) {
-				manualObject.Index( System.Convert.ToUInt16( i2.Current));
+				manualObject.Index(System.Convert.ToUInt16(i2.Current));
 			}
 		}
 		manualObject.End();
 	}
-	public void Clear()
-	{
+	public void Clear() {
 		lineVertices.Clear();
 		triangleVertices.Clear();
 		lineIndices.Clear();
@@ -660,33 +603,28 @@ public class DebugDrawer : System.IDisposable
 		trianglesIndex = 0;
 		linesIndex = trianglesIndex;
 	}
-	public int AddLineVertex(Vector3 vertex, ColourValue colour)
-	{
+	public int AddLineVertex(Vector3 vertex, ColourValue colour) {
 		lineVertices.AddLast(new KeyValuePair<Vector3, ColourValue>(vertex, colour));
 
 		linesIndex += 1;
 		return linesIndex - 1;
 	}
-	public void AddLineIndices(int index1, int index2)
-	{
+	public void AddLineIndices(int index1, int index2) {
 		lineIndices.AddLast(index1);
 		lineIndices.AddLast(index2);
 	}
-	public int AddTriangleVertex(Vector3 vertex, ColourValue colour)
-	{
+	public int AddTriangleVertex(Vector3 vertex, ColourValue colour) {
 		triangleVertices.AddLast(new KeyValuePair<Vector3, ColourValue>(vertex, colour));
 
 		trianglesIndex += 1;
 		return trianglesIndex - 1;
 	}
-	public void AddTriangleIndices(int index1, int index2, int index3)
-	{
+	public void AddTriangleIndices(int index1, int index2, int index3) {
 		triangleIndices.AddLast(index1);
 		triangleIndices.AddLast(index2);
 		triangleIndices.AddLast(index3);
 	}
-	public void AddQuadIndices(int index1, int index2, int index3, int index4)
-	{
+	public void AddQuadIndices(int index1, int index2, int index3, int index4) {
 		triangleIndices.AddLast(index1);
 		triangleIndices.AddLast(index2);
 		triangleIndices.AddLast(index3);
@@ -696,12 +634,11 @@ public class DebugDrawer : System.IDisposable
 		triangleIndices.AddLast(index4);
 	}
 	#region "IDisposable Support"
-		// So ermitteln Sie überflüssige Aufrufe
+	// So ermitteln Sie überflüssige Aufrufe
 	private bool disposedValue;
 
 	// IDisposable
-	protected virtual void Dispose(bool disposing)
-	{
+	protected virtual void Dispose(bool disposing) {
 		if (!this.disposedValue) {
 			if (disposing) {
 				// TODO: Verwalteten Zustand löschen (verwaltete Objekte).
@@ -721,8 +658,7 @@ public class DebugDrawer : System.IDisposable
 	//End Sub
 
 	// Dieser Code wird von Visual Basic hinzugefügt, um das Dispose-Muster richtig zu implementieren.
-	public void Dispose()
-	{
+	public void Dispose() {
 		// Ändern Sie diesen Code nicht. Fügen Sie oben in Dispose(ByVal disposing As Boolean) Bereinigungscode ein.
 		Dispose(true);
 		System.GC.SuppressFinalize(this);

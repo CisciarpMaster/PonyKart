@@ -78,6 +78,10 @@ namespace Ponykart.Handlers {
 					"[C] Syncs the media folder and restarts Lua.\r\n" + 
 					"[F2] Apply an upwards force\r\n" + 
 					"[F3] Spawn a box\r\n" + 
+#if DEBUG
+					"[X] Clears all lines\r\n" + 
+					"[I] Toggles drawing lines\r\n" +
+#endif
 					"[backtick] Pause\r\n" +
 					"[enter] Open Lua console",
 			};
