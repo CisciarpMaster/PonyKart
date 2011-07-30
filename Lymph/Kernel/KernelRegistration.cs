@@ -143,14 +143,20 @@ namespace Ponykart {
 		}
 
 		/// <summary>
-		/// Unload and dispose of the special per-level objects. This is run before the regular OnLevelUnload event.
+		/// Unload and dispose of the special per-level handlers. This is run before the regular OnLevelUnload event.
 		/// </summary>
-		public static void UnloadLevelObjects() {
-			Launch.Log("[Loading] Destroying everything in scene...");
+		public static void UnloadLevelHandlers() {
+			Launch.Log("[Loading] Disposing of level handlers...");
 			foreach (var obj in LevelObjects.Values.OfType<IDisposable>()) {
 				Console.WriteLine("[Loading] Disposing: " + obj.GetType().ToString());
 				obj.Dispose();
 			}
+		}
+
+		/// <summary>
+		/// This is run just after the OnLevelUnload event.
+		/// </summary>
+		public static void Cleanup() {
 			CleanSceneManagerThings();
 			LevelObjects.Clear();
 		}
