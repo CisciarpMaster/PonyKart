@@ -14,16 +14,10 @@ namespace Ponykart.Handlers {
 
 		public LoadingUIHandler() {
 			Launch.Log("[Loading] Creating LoadingUIHandler");
-			LKernel.Get<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
-			LKernel.Get<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
-		}
 
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (label != null)
-				label.Dispose();
-		}
+			LKernel.Get<LevelManager>().OnLevelLoad += OnLevelLoad;
+			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
 
-		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			label = new Label("loading label") {
 				Size = new Size((int) Constants.WINDOW_WIDTH, (int) Constants.WINDOW_HEIGHT),
 				Location = new Point(0, 0),
@@ -33,10 +27,16 @@ namespace Ponykart.Handlers {
 					Font = UIResources.Fonts["BlueHighwayHuge"],
 				},
 				Text = "Loading...",
+				Visible = false,
 			};
+		}
 
-			var gui = LKernel.Get<UIMain>().Gui;
-			gui.Controls.Add(label);
+		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
+			label.Visible = false;
+		}
+
+		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
+			label.Visible = true;
 			LKernel.Get<UIMain>().MiyagiSys.Update();
 			LKernel.Get<Root>().RenderOneFrame();
 		}

@@ -59,12 +59,14 @@ namespace Ponykart.Levels
 				IsValidLevel = false;
 
 				CurrentLevel.Save();
-
-				LKernel.UnloadLevelHandlers();
 				
 				// invoke the level unloading events
 				if (OnLevelUnload != null)
 					OnLevelUnload(eventArgs);
+
+				LKernel.UnloadLevelHandlers();
+
+				CurrentLevel.Dispose();
 
 				LKernel.Cleanup();
 			}
@@ -118,7 +120,7 @@ namespace Ponykart.Levels
 				Pauser.IsPaused = true;
 
 			// get rid of the old level and clean up
-			oldLevel.Dispose();
+			//oldLevel.Dispose();
 			GC.Collect();
 		}
 

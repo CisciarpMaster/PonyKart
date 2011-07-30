@@ -30,6 +30,9 @@ namespace Ponykart.Handlers {
 				elapsed = 0;
 
 				foreach (Player p in LKernel.Get<PlayerManager>().Players) {
+					if (p == null)
+						continue;
+
 					Kart kart = p.Kart;
 					// don't bother raycasting for karts that aren't moving, or if we're paused
 					if (kart == null || kart.Actor.IsDisposed || Pauser.IsPaused)

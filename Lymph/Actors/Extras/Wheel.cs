@@ -149,7 +149,7 @@ namespace Ponykart.Actors {
 			return true;
 		}
 		Vector3 lastPos = Vector3.ZERO;
-		public static bool drawLines = true;
+		public static bool drawLines = false;
 
 		/// <summary>
 		/// Apply some torque to the engine.

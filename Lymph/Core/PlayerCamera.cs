@@ -26,7 +26,7 @@ namespace Ponykart.Core {
 
 			Camera = manager.CreateCamera("Camera");
 
-			Camera.NearClipDistance = 0.01f;
+			Camera.NearClipDistance = 0.5f;
 			Camera.FarClipDistance = 1000f;
 
 			Camera.Position = new Vector3(0f, Constants.CAMERA_HEIGHT, -Constants.CAMERA_DISTANCE);

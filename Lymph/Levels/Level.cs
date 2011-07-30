@@ -106,10 +106,11 @@ namespace Ponykart.Levels
 
 		public void Dispose() {
 			LKernel.Get<Spawner>().OnThingCreation -= OnSpawnEvent;
-			Name = null;
 			Flags.Clear();
 			Numbers.Clear();
 			Templates.Clear();
+			foreach (Thing t in Things.Values)
+				t.Dispose();
 			Things.Clear();
 		}
 	}

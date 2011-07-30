@@ -54,11 +54,11 @@ namespace Ponykart.UI {
 		/// </summary>
 		bool FrameEnded(FrameEvent evt) {
 			var mgr = MiyagiSys.TwoDManager;
-			if (mgr.GetElement("FPS") != null) {
-				mgr.GetElement<Miyagi.TwoD.Layers.TextOverlay>("FPS").Text = "FPS: " + LKernel.Get<RenderWindow>().LastFPS;
+			//if (mgr.GetElement("FPS") != null) {
+				//mgr.GetElement<Miyagi.TwoD.Layers.TextOverlay>("FPS").Text = "FPS: " + LKernel.Get<RenderWindow>().LastFPS;
 				// guiMgr.GetControl<Miyagi.UI.Controls.Label>("Batch").Text = "Batch: " + root.RenderSystem._getBatchCount();
 				// guiMgr.GetControl<Miyagi.UI.Controls.Label>("Vertex").Text = "Vertex: " + root.RenderSystem._getVertexCount();
-			}
+			//}
 
 			if (MiyagiSys != null && !MiyagiSys.IsDisposed)
 				this.MiyagiSys.Update();

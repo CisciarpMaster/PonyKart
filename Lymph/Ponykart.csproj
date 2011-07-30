@@ -137,7 +137,7 @@
     <Compile Include="Actors\ZergShip.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\SelfRightingHandler.cs" />
-    <Compile Include="Handlers\SpeedUIHandler.cs" />
+    <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="Physics\PhysXMaterials.cs" />
     <Compile Include="Physics\TriggerRegion.cs" />
@@ -146,7 +146,7 @@
     <Compile Include="Core\InputSwallowerManager.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="Players\PlayerManager.cs" />
-    <Compile Include="Handlers\DialogueTest.cs" />
+    <Compile Include="Handlers\UI\DialogueTest.cs" />
     <Compile Include="Handlers\EscHandler.cs" />
     <Compile Include="Lua\DialogueWrapper.cs" />
     <Compile Include="Lua\IOWrapper.cs" />
@@ -172,9 +172,9 @@
     <Compile Include="Core\Pauser.cs" />
     <Compile Include="Lua\LKernelWrapper.cs" />
     <Compile Include="Physics\TriggerReporter.cs" />
-    <Compile Include="Handlers\LevelUIHandler.cs" />
-    <Compile Include="Handlers\LoadingUIHandler.cs" />
-    <Compile Include="Handlers\PauseUIHandler.cs" />
+    <Compile Include="Handlers\UI\LevelUIHandler.cs" />
+    <Compile Include="Handlers\UI\LoadingUIHandler.cs" />
+    <Compile Include="Handlers\UI\PauseUIHandler.cs" />
     <Compile Include="Handlers\TriggerRegionsTest.cs" />
     <Compile Include="Lua\PauserWrapper.cs" />
     <Compile Include="UI\UIUserData.cs" />

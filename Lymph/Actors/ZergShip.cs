@@ -43,14 +43,14 @@ namespace Ponykart.Actors {
 
 		// this runs every frame
 		bool FrameStarted(FrameEvent evt) {
-			if (LKernel.Get<Levels.LevelManager>().IsValidLevel && Entity != null)
+			//if (LKernel.Get<Levels.LevelManager>().IsValidLevel && Entity != null)
 				// advance our animation by the time since the last frame
 				animState.AddTime(evt.timeSinceLastFrame);
-			else {
+			/*else {
 				// this is not a valid level so destroy this
 				Dispose();
 				return true;
-			}
+			}*/
 			return true;
 		}
 
