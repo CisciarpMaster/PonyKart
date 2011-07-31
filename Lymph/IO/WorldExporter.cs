@@ -12,7 +12,7 @@ namespace Ponykart.IO {
 	/// so it saves Things from the world instead.
 	/// </summary>
 	public class WorldExporter {
-		CultureInfo culture = System.Globalization.CultureInfo.InvariantCulture;
+		CultureInfo culture = CultureInfo.InvariantCulture;
 
 		/// <summary>
 		/// Exports the current level's world state to a file using the world grammar.

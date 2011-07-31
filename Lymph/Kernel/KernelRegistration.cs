@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Mogre;
+using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Handlers;
 using Ponykart.Levels;
@@ -66,7 +67,8 @@ namespace Ponykart {
 
 			// spawner
 			splash.Increment("Creating spawner...");
-			var spawner = AddGlobalObject(new Spawner());
+			AddGlobalObject(new WheelFactory());
+			AddGlobalObject(new Spawner());
 
 			// Miyagi and stuff
 			splash.Increment("Initialising UI...");

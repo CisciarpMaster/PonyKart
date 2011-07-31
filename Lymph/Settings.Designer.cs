@@ -106,5 +106,17 @@ namespace Ponykart {
                 this["LevelScriptFolderExtension"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("media/wheels/")]
+        public string WheelFileLocation {
+            get {
+                return ((string)(this["WheelFileLocation"]));
+            }
+            set {
+                this["WheelFileLocation"] = value;
+            }
+        }
     }
 }

@@ -74,6 +74,7 @@ namespace Ponykart.Handlers
 					proc.WaitForExit();
 
 					LKernel.Get<LuaMain>().Restart();
+					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					break;
 			}
 		}

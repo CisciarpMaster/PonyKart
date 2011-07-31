@@ -32,6 +32,8 @@ namespace Ponykart.Handlers {
 					s = "flat"; break;
 				case KeyCode.KC_3:
 					s = "testlevel"; break;
+				case KeyCode.KC_4:
+					s = "SAA"; break;
 			}
 			if (s != "")
 				LKernel.Get<LevelManager>().LoadLevel(s);

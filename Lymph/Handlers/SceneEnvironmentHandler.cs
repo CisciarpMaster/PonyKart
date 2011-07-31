@@ -1,5 +1,4 @@
 ﻿using Mogre;
-using Ponykart.Core;
 using Ponykart.Levels;
 
 namespace Ponykart.Handlers {
@@ -37,7 +36,7 @@ namespace Ponykart.Handlers {
 			axesNode.SetScale(0.1f, 0.1f, 0.1f);
 
 			// for testing animation
-			LKernel.Get<Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
+			//LKernel.Get<Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
 #endif
 		}
 	}

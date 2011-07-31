@@ -51,10 +51,13 @@ namespace Ponykart.Actors {
 			base.CreateActor(); // the main box
 			CreateFunnyAngledBitInTheFront();
 
-			WheelFR = WheelFactory.CreateFrontWheel(this, new Vector3(-1.7f, 0f, 0.75f));
-			WheelFL = WheelFactory.CreateFrontWheel(this, new Vector3(1.7f, 0f, 0.75f));
-			WheelBR = WheelFactory.CreateBackWheel(this, new Vector3(-1.7f, 0f, -1.33f));
-			WheelBL = WheelFactory.CreateBackWheel(this, new Vector3(1.7f, 0f, -1.33f));
+			var wheelFac = LKernel.Get<WheelFactory>();
+
+			WheelFR = wheelFac.CreateWheel("FrontWheel", this, new Vector3(-1.7f, 0f, 0.75f));
+			WheelFL = wheelFac.CreateWheel("FrontWheel", this, new Vector3(1.7f, 0f, 0.75f));
+			WheelBR = wheelFac.CreateWheel("BackWheel", this, new Vector3(-1.7f, 0f, -1.33f));
+			WheelBL = wheelFac.CreateWheel("BackWheel", this, new Vector3(1.7f, 0f, -1.33f));
+			WheelBR.TurnAngle = WheelBL.TurnAngle = 0;
 		}
 
 		protected void CreateFunnyAngledBitInTheFront() {

@@ -1,0 +1,19 @@
+<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.7" ogreMaxVersion="2.3.14" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
+    <environment>
+        <colourAmbient r="0.333333" g="0.333333" b="0.333333" />
+        <colourBackground r="0" g="0" b="0" />
+        <clipping near="0" far="100000" />
+    </environment>
+    <nodes>
+        <node name="SAATrack">
+            <position x="-152.275" y="-3.12774" z="-43.801" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="1" qz="-4.37114e-008" qw="0" />
+            <entity name="SAATrack" castShadows="true" receiveShadows="true" meshFile="SAATrack.mesh">
+                <subentities>
+                    <subentity index="0" materialName="cell_background" />
+                </subentities>
+            </entity>
+        </node>
+    </nodes>
+</scene>

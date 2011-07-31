@@ -23,5 +23,8 @@
     <Setting Name="LevelScriptFolderExtension" Type="System.String" Scope="User">
       <Value Profile="(Default)">/init/</Value>
     </Setting>
+    <Setting Name="WheelFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">media/wheels/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
