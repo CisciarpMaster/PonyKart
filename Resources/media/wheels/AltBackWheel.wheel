@@ -13,7 +13,7 @@ LatExtremumSlip = 0.01
 LatExtremumValue = 1
 LatAsymptoteSlip = 0.04
 LatAsymptoteValue = 0.8
-LatStiffnessFactor = 4000
+LatStiffnessFactor = 10000
 
 LongExtremumSlip = 0.01
 LongExtremumValue = 1

@@ -1,24 +1,26 @@
 Radius = 0.5
 Suspension = 0.5
+//7000
 SpringRestitution = 2000
-SpringDamping = 8000
+SpringDamping = 800
 SpringBias = 0
 
 BrakeForce = 4000
-MotorForce = 3000
+//3000
+MotorForce = 0
 // degrees
-TurnAngle = 7.2
+TurnAngle = 30
 // the maximum axle speed a kart with these wheels reaches is only about 87ish anyway (40 linear vel)
 MaxSpeed = 100
 
 LatExtremumSlip = 1.0
 LatExtremumValue = 1.0
 LatAsymptoteSlip = 2.0
-LatAsymptoteValue = 0.2
-LatStiffnessFactor = 40000
+LatAsymptoteValue = 0.7
+LatStiffnessFactor = 10000
 
 LongExtremumSlip = 1.0
 LongExtremumValue = 1.0
 LongAsymptoteSlip = 2.0
-LongAsymptoteValue = 0.2
-LongStiffnessFactor = 50000
+LongAsymptoteValue = 0.7
+LongStiffnessFactor = 10000

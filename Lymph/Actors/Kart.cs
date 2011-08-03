@@ -22,7 +22,7 @@ namespace Ponykart.Actors {
 			get { return "redbrick"; }
 		}
 		protected override float Density {
-			get { return 40f; }
+			get { return 50f; }
 		}
 
 		// our wheelshapes
@@ -53,10 +53,10 @@ namespace Ponykart.Actors {
 
 			var wheelFac = LKernel.Get<WheelFactory>();
 
-			WheelFR = wheelFac.CreateWheel("FrontWheel", this, new Vector3(-1.7f, 0f, 0.75f));
-			WheelFL = wheelFac.CreateWheel("FrontWheel", this, new Vector3(1.7f, 0f, 0.75f));
-			WheelBR = wheelFac.CreateWheel("BackWheel", this, new Vector3(-1.7f, 0f, -1.33f));
-			WheelBL = wheelFac.CreateWheel("BackWheel", this, new Vector3(1.7f, 0f, -1.33f));
+			WheelFR = wheelFac.CreateWheel("AltFrontWheel", this, new Vector3(-1.7f, 0f, 0.75f));
+			WheelFL = wheelFac.CreateWheel("AltFrontWheel", this, new Vector3(1.7f, 0f, 0.75f));
+			WheelBR = wheelFac.CreateWheel("AltBackWheel", this, new Vector3(-1.7f, 0f, -1.33f));
+			WheelBL = wheelFac.CreateWheel("AltBackWheel", this, new Vector3(1.7f, 0f, -1.33f));
 			WheelBR.TurnAngle = WheelBL.TurnAngle = 0;
 		}
 
@@ -70,9 +70,9 @@ namespace Ponykart.Actors {
 
 		protected override void SetDefaultActorProperties() {
 			// lower the center of mass to make it not flip over very easily
-			Actor.CMassOffsetLocalPosition = new Vector3(0, -1f, 0);
+			Actor.CMassOffsetLocalPosition = new Vector3(0, -1, 0);
 			Actor.AngularDamping = 0.5f;
-			Actor.LinearDamping = 0.3f;
+			Actor.LinearDamping = 0.5f;
 		}
 
 		/// <summary>

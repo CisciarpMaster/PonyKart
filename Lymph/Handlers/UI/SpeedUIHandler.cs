@@ -46,7 +46,8 @@ namespace Ponykart.Handlers {
 						"FL: " + kart.WheelFL.Shape.AxleSpeed + " " + Math.RadiansToDegrees(kart.WheelFL.Shape.SteerAngle) + "\r\n" +
 						"BR: " + kart.WheelBR.Shape.AxleSpeed + "\r\n" +
 						"BL: " + kart.WheelBL.Shape.AxleSpeed + "\r\n" +
-						"Linear Velocity: " + kart.Actor.LinearVelocity.Length;
+						"Linear Velocity: " + kart.Actor.LinearVelocity.Length + "\r\n" +
+						"Mass: " + kart.Actor.Mass;
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

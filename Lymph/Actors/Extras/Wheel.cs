@@ -123,7 +123,7 @@ namespace Ponykart.Actors {
 			if ((Shape.AxleSpeed > MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Accelerate))
 			   || Shape.AxleSpeed < -MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Reverse))
 			{
-				Shape.MotorTorque = 0;
+				//Shape.MotorTorque = 0;
 			}
 			else
 				Accelerate();
@@ -177,8 +177,8 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void Turn() {
 			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
-			float speedTurnMultiplier;
-			if (Shape.AxleSpeed < slowSpeed)
+			float speedTurnMultiplier = 1;
+			/*if (Shape.AxleSpeed < slowSpeed)
 				speedTurnMultiplier = 1.5f;
 			else if (Shape.AxleSpeed > highSpeed)
 				speedTurnMultiplier = 1;
@@ -186,7 +186,7 @@ namespace Ponykart.Actors {
 				float relativeSpeed = Shape.AxleSpeed - slowSpeed;
 				float maxRelativeSpeed = highSpeed - slowSpeed;
 				speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2)) / 2);
-			}
+			}*/
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 			
 			// smooth out the turning
