@@ -8,9 +8,9 @@ namespace Ponykart {
 	
 		[STAThread]
 		public static void Main() {
-			#if !DEBUG
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-			#endif
+			//#if !DEBUG
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
+			//#endif
 
 			LKernel.Initialise();
 
@@ -21,7 +21,7 @@ namespace Ponykart {
 		/// <summary>
 		/// Fired whan an unhandled exception bubbles up to the AppDomain
 		/// </summary>
-		static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
 			if (OgreException.IsThrown)
 				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred!");
@@ -31,6 +31,12 @@ namespace Ponykart {
 				if (ex != null)
 					MessageBox.Show(ex.Message, ex.GetType().ToString());
 			}
+
+			ProcessStartInfo p = new ProcessStartInfo("notepad.exe Ogre.log");
+			Process proc = new Process();
+			proc.StartInfo = p;
+			proc.Start();
+			proc.WaitForExit();
 		}
 
 		/// <summary>

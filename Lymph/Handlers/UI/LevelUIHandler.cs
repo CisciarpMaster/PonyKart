@@ -112,7 +112,7 @@ namespace Ponykart.Handlers {
 			level1Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("shittyterrain");
 
 			level2Button = new Button("flat") {
-				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 100), // the 100 is half of 200, which makes sure the button is centered
+				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 100),
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "flat",
@@ -125,7 +125,7 @@ namespace Ponykart.Handlers {
 			level2Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("flat");
 
 			level3Button = new Button("testlevel") {
-				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 150), // the 100 is half of 200, which makes sure the button is centered
+				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 150),
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "testlevel",
@@ -138,7 +138,7 @@ namespace Ponykart.Handlers {
 			level3Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("testlevel");
 
 			level4Button = new Button("sweet apple acres") {
-				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 200), // the 100 is half of 200, which makes sure the button is centered
+				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 200),
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "sweet apple acres",
@@ -151,7 +151,7 @@ namespace Ponykart.Handlers {
 			level4Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("saa_0.7");
 
 			quitButton = new Button("Quit") {
-				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 250), // the 100 is half of 200, which makes sure the button is centered
+				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 250),
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "Quit",

@@ -58,7 +58,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<Sound.SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 					break;
 				case KeyCode.KC_F2:
-					LKernel.Get<PlayerManager>().MainPlayer.Actor.AddForce(new Vector3(0, 100000, 0));
+					LKernel.Get<PlayerManager>().MainPlayer.Actor.AddForce(new Vector3(0, 300000, 0));
 					break;
 				case KeyCode.KC_F:
 					//LKernel.Get<Player>().Move(new Vector3(50000, 0, 0));
