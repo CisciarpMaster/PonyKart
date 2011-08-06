@@ -49,14 +49,14 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected override void CreateActor() {
 			base.CreateActor(); // the main box
-			CreateFunnyAngledBitInTheFront();
+			//CreateFunnyAngledBitInTheFront();
 
 			var wheelFac = LKernel.Get<WheelFactory>();
 
-			WheelFR = wheelFac.CreateWheel("AltFrontWheel", this, new Vector3(-1.7f, 0f, 0.75f));
-			WheelFL = wheelFac.CreateWheel("AltFrontWheel", this, new Vector3(1.7f, 0f, 0.75f));
-			WheelBR = wheelFac.CreateWheel("AltBackWheel", this, new Vector3(-1.7f, 0f, -1.33f));
-			WheelBL = wheelFac.CreateWheel("AltBackWheel", this, new Vector3(1.7f, 0f, -1.33f));
+			WheelFR = wheelFac.CreateWheel("AltFrontWheel", this, new Vector3(-1.7f, -0.3f, 0.75f));
+			WheelFL = wheelFac.CreateWheel("AltFrontWheel", this, new Vector3(1.7f, -0.3f, 0.75f));
+			WheelBR = wheelFac.CreateWheel("AltBackWheel", this, new Vector3(-1.7f, -0.3f, -0.75f/*-1.33f*/));
+			WheelBL = wheelFac.CreateWheel("AltBackWheel", this, new Vector3(1.7f, -0.3f, -0.75f));
 			WheelBR.TurnAngle = WheelBL.TurnAngle = 0;
 		}
 

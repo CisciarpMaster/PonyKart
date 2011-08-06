@@ -87,6 +87,9 @@
     <StartupObject>Ponykart.Launch</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BulletSharp">
+      <HintPath>..\References\BulletSharp.dll</HintPath>
+    </Reference>
     <Reference Include="eyecm.PhysX, Version=0.1.4126.27517, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\References\eyecm.PhysX.dll</HintPath>
     </Reference>
@@ -139,6 +142,7 @@
     <Compile Include="Handlers\SelfRightingHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="IO\ThingParser.cs" />
     <Compile Include="Physics\PhysXMaterials.cs" />
     <Compile Include="Physics\TriggerRegion.cs" />
     <Compile Include="Players\ComputerPlayer.cs" />
