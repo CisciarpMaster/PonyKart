@@ -14,10 +14,6 @@ namespace Ponykart.Core {
 		/// Fires whenever a Kart is spawned.
 		/// </summary>
 		public event OnThingCreation<Kart> OnKartCreation;
-		/// <summary>
-		/// Fires whenever an Antibody is spawned.
-		/// </summary>
-		public event OnThingCreation<Antibody> OnAntibodyCreation;
 
 		/// <summary>
 		/// Spawns something!
@@ -34,10 +30,6 @@ namespace Ponykart.Core {
 			Thing actor;
 
 			switch (type) {
-				case ThingEnum.Antibody:
-					actor = new Antibody(template);
-					Invoke<Antibody>(OnAntibodyCreation, actor as Antibody);
-					break;
 				case ThingEnum.Kart:
 					actor = new Kart(template);
 					Invoke(OnKartCreation, actor as Kart);

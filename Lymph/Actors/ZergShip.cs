@@ -1,24 +1,16 @@
 ﻿using Mogre;
-using Mogre.PhysX;
-using Ponykart.Phys;
 
 namespace Ponykart.Actors {
 	/// <summary>
 	/// Just a class to test animated models
 	/// </summary>
-	public class ZergShip : KinematicThing {
+	public class ZergShip : Thing {
 
-		protected override uint DefaultCollisionGroupID {
-			get { return Groups.CollidableNonPushableID; }
-		}
 		protected override string DefaultModel {
 			get { return "zerg ship.mesh"; }
 		}
 		protected override string DefaultMaterial {
 			get { return "zerg"; }
-		}
-		protected override ShapeDesc ShapeDesc {
-			get { return new BoxShapeDesc(new Vector3(1, 1, 1)); }
 		}
 
 		AnimationState animState;

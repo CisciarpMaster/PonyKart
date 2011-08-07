@@ -5,7 +5,6 @@
 	/// all subclasses of Thing, match them via string, and then create one.
 	/// </summary>
 	public enum ThingEnum {
-		Antibody,
 		Kart,
 		Obstacle,
 		ZergShip
