@@ -94,6 +94,7 @@ namespace Ponykart.Sound {
 		/// <param name="name">The name of the node or whatever. Is optional.</param>
 		/// <param name="looping">Make this sound loop?</param>
 		/// <returns>The ISound you just created</returns>
+		// TODO: update the position of these sounds every frame - should that maybe go in MogreMotionState?
 		public ISound CreateObjectSound(string filePath, Vector3 pos, string name, bool looping) {
 			if (!Constants.SOUNDS || pos == null)
 				return null;

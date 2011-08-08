@@ -66,7 +66,7 @@ namespace Ponykart.Actors {
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
 
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+			LKernel.Get<Root>().FrameEnded += FrameEnded;
 		}
 
 		/// <summary>
@@ -114,7 +114,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Update our node's orientation. I'd still like a way to figure out how to update its position based on the suspension, but oh well.
 		/// </summary>
-		bool FrameStarted(FrameEvent evt) {
+		bool FrameEnded(FrameEvent evt) {
 			if (!LKernel.Get<LevelManager>().IsValidLevel || Shape.IsDisposed || kart.Actor.IsSleeping || Pauser.IsPaused)
 				return true;
 
@@ -207,7 +207,7 @@ namespace Ponykart.Actors {
 		/// clean up stuff
 		/// </summary>
 		public void Dispose() {
-			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+			LKernel.Get<Root>().FrameEnded -= FrameEnded;
 		}
 	}
 }

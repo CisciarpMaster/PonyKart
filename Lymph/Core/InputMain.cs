@@ -46,7 +46,7 @@ namespace Ponykart {
 			mouseState.width = LKernel.Get<Viewport>().ActualWidth;
 			mouseState.height = LKernel.Get<Viewport>().ActualHeight;
 
-			LKernel.Get<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
+			LKernel.Get<Root>().FrameEnded += new FrameListener.FrameEndedHandler(FrameEnded);
 
 			CreateEventHandlers();
 
@@ -75,7 +75,7 @@ namespace Ponykart {
 
 		float timeSinceLastFrame = 0;
 
-		bool FrameStarted(FrameEvent e) {
+		bool FrameEnded(FrameEvent e) {
 			if (!LKernel.Get<Levels.LevelManager>().IsValidLevel)
 				return true;
 

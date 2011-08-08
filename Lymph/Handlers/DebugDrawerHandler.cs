@@ -1,7 +1,7 @@
 ﻿using System;
 using Mogre;
 
-namespace Ponykart.Stuff {
+namespace Ponykart.Handlers {
 	public class DebugDrawerHandler : IDisposable {
 
 		public DebugDrawerHandler() {

@@ -104,7 +104,6 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// TODO
 		/// </summary>
-		/// <param name="levelName"></param>
 		void CreateWorld(string levelName)
 		{
 			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
@@ -112,9 +111,8 @@ namespace Ponykart.Physics {
 		}
 
 		/// <summary>
-		/// Runs every frame. Simulates one frame of physics and then updates mogre nodes and stuff.
-		/// 
-		/// Also has the speed limiting for lymph and camera updating.
+		/// Runs just before every frame. Simulates one frame of physics.
+		/// Physics simulation should be the only thing that's using FrameStarted!
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
 			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsValidLevel)
@@ -132,8 +130,6 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Dispose everything that's waiting to be disposed. We don't want to do this while the physics engine is in progress!
 		/// </summary>
-		/// <param name="evt"></param>
-		/// <returns></returns>
 		bool FrameEnded(FrameEvent evt) {
 			if (ThingsToDispose.Count > 0) {
 				foreach (Thing t in ThingsToDispose) {

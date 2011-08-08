@@ -14,13 +14,13 @@ namespace Ponykart.Handlers {
 		public SelfRightingHandler(Kart kartToFlip) {
 			kart = kartToFlip;
 
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+			LKernel.Get<Root>().FrameEnded += FrameEnded;
 		}
 
 		/// <summary>
 		/// oh god this took forever to figure out. Fucking quaternions, how do they work
 		/// </summary>
-		bool FrameStarted(FrameEvent evt) {
+		bool FrameEnded(FrameEvent evt) {
 			// if the kart's gone, then we can get rid of this handler too
 			if (kart == null || kart.Actor.IsDisposed) {
 				Dispose();
@@ -66,7 +66,7 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Dispose() {
-			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+			LKernel.Get<Root>().FrameEnded -= FrameEnded;
 			LKernel.Get<StopKartsFromRollingOverHandler>().SRHs.Remove(kart);
 			kart = null;
 		}

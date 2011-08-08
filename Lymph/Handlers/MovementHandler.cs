@@ -24,7 +24,7 @@ namespace Ponykart.Handlers {
 
 			// commented out until we can get something working
 			//LKernel.Get<Spawner>().OnThingCreation += AddActor;
-			//LKernel.Get<Root>().FrameStarted += FrameStarted;
+			//LKernel.Get<Root>().FrameEnded += FrameEnded;
 
 			// for things that were created via the save file
 			if (LKernel.Get<LevelManager>().CurrentLevel != null) {
@@ -38,11 +38,11 @@ namespace Ponykart.Handlers {
 			Launch.Log("[Loading] Disposing MovementHandler");
 
 			LKernel.Get<Spawner>().OnThingCreation -= AddActor;
-			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+			LKernel.Get<Root>().FrameEnded -= FrameEnded;
 			thingsToMove.Clear();
 		}
 
-		bool FrameStarted(FrameEvent evt) {
+		bool FrameEnded(FrameEvent evt) {
 			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsValidLevel)
 				return true;
 
