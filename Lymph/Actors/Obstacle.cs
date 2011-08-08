@@ -1,29 +1,29 @@
-﻿using Mogre.PhysX;
-using Ponykart.Phys;
+﻿using BulletSharp;
+using Ponykart.Physics;
 
 namespace Ponykart.Actors {
-	public class Obstacle : KinematicThing {
-		protected override uint DefaultCollisionGroupID {
-			get { return Groups.CollidableNonPushableID; }
-		}
+	public class Obstacle : DynamicThing {
 		protected override string DefaultMaterial {
 			get { return "yellowbrick"; }
 		}
 		protected override string DefaultModel {
 			get { return "primitives/box.mesh"; }
 		}
-		/*protected override MoveBehaviour DefaultMoveBehaviour {
-			get { return MoveBehaviour.IGNORE; }
+		protected override CollisionShape CollisionShape {
+			get { return new BoxShape(SpawnScale); }
 		}
-		protected override float DefaultMoveSpeed {
-			get { return 0; }
-		}*/
-		protected override ShapeDesc ShapeDesc {
-			get {
-				return new BoxShapeDesc(SpawnScale / 2f);
-			}
+		protected override float Mass {
+			get { return 0; } // immovable
+		}
+		protected override CollisionTypes CollisionType {
+			get { return CollisionTypes.Walls; }
+		}
+		protected override int CollidesWith {
+			get { return CollisionMasks.WallsCollideWith; }
 		}
 
+
 		public Obstacle(ThingTemplate tt) : base(tt) { }
+
 	}
 }

@@ -5,7 +5,7 @@ using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.IO;
 using Ponykart.Lua;
-using Ponykart.Phys;
+using Ponykart.Physics;
 
 namespace Ponykart.Levels
 {
@@ -57,7 +57,7 @@ namespace Ponykart.Levels
 		/// </summary>
 		public void CreateEnvironment() {
 
-			LKernel.Get<PhysXMain>().LoadPhysicsLevel(Name);
+			LKernel.Get<PhysicsMain>().LoadPhysicsLevel(Name);
 		}
 
 		/// <summary>

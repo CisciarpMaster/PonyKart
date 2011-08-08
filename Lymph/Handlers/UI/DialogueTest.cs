@@ -1,24 +1,23 @@
-﻿using System;
-using Mogre.PhysX;
-using Ponykart.Phys;
+﻿using BulletSharp;
+using Ponykart.Physics;
 using Ponykart.UI;
 
 namespace Ponykart.Handlers {
 	/// <summary>
 	/// a little test for the dialogue system
 	/// </summary>
-	public class DialogueTest : IDisposable {
+	public class DialogueTest : System.IDisposable {
 		public DialogueTest() {
 			Launch.Log("[Loading] Creating DialogueTest");
 			LKernel.Get<TriggerReporter>().AddEvent("test trigger area", Test);
 		}
 
-		void Test(TriggerRegion region, Shape oshape, TriggerFlags tf) {
+		void Test(TriggerRegion region, RigidBody body, bool isEntering) {
 			var d = LKernel.Get<DialogueManager>();
 
-			if (tf.IsEnterFlag())
-				d.CreateDialogue("media/gui/lyra.jpg", oshape.Actor.Name, "I have entered " + region.Name);
-			else if (tf.IsLeaveFlag())
+			if (isEntering)
+				d.CreateDialogue("media/gui/lyra.jpg", body.GetName(), "I have entered " + region.Name);
+			else 
 				d.DestroyDialogue();
 		}
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using Mogre;
-using Mogre.PhysX;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Stuff;

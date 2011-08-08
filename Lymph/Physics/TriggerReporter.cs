@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
-using Mogre.PhysX;
+using System.Collections.ObjectModel;
+using System.Linq;
+using BulletSharp;
+using Mogre;
 using Ponykart.Levels;
 
-namespace Ponykart.Phys {
+namespace Ponykart.Physics {
 	/// <summary>
 	/// The main thing of this you use is AddEvent. Stick in the name of the trigger region and the method you want
 	/// to run when something enters/leaves it, and you're good to go. The method you give it can check stuff like which actors
@@ -11,7 +14,7 @@ namespace Ponykart.Phys {
 	/// 
 	/// If you're using a handler class thingy, don't forget to add RemoveEvent in its Dispose method.
 	/// </summary>
-	public class TriggerReporter : IUserTriggerReport {
+	public class TriggerReporter {
 		public IDictionary<string, TriggerRegion> Regions { get; private set; }
 
 		// to make something a trigger area, use the shape desc's ShapeFlags -> TriggerEnable
@@ -22,6 +25,42 @@ namespace Ponykart.Phys {
 			Regions = new Dictionary<string, TriggerRegion>();
 
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LKernel.Get<Root>().FrameEnded += FrameEnded;
+		}
+
+		/// <summary>
+		/// go through each region and find bodies that have entered or left it
+		/// </summary>
+		bool FrameEnded(FrameEvent evt) {
+			foreach (TriggerRegion region in Regions.Values) {
+				// get our set of bodies that were inside the region from the previous frame
+				Collection<RigidBody> previousBodies = region.CurrentlyCollidingWith;
+				Collection<RigidBody> newBodies = new Collection<RigidBody>();
+
+				// get all of the objects that are inside the region and add them to the new collection
+				for (int a = 0; a < region.Ghost.NumOverlappingObjects; a++) {
+					RigidBody body = region.Ghost.GetOverlappingObject(a) as RigidBody;
+					// check to make sure this is actually a RigidBody - if it isn't, ignore it
+					if (body != null) {
+						newBodies.Add(body);
+					}
+				}
+
+				// get the bodies that have been removed and added (yay linq)
+				IEnumerable<RigidBody> added = newBodies.Except(previousBodies);
+				IEnumerable<RigidBody> removed = previousBodies.Except(newBodies);
+
+				// update the region's list of bodies that are inside it
+				region.CurrentlyCollidingWith = newBodies;
+
+				// then run our triggers
+				foreach (RigidBody addedBody in added)
+					region.InvokeTrigger(addedBody, true);
+				foreach (RigidBody removedBody in removed)
+					region.InvokeTrigger(removedBody, false);
+			}
+
+			return true;
 		}
 
 		/// <summary>
@@ -32,14 +71,6 @@ namespace Ponykart.Phys {
 				tr.Dispose();
 			}
 			Regions.Clear();
-		}
-
-		/// <summary>
-		/// This is the method that physX runs for us
-		/// </summary>
-		public void OnTrigger(Shape triggerShape, Shape otherShape, TriggerFlags flags) {
-			TriggerRegion tr = Regions[triggerShape.Name];
-			tr.InvokeTrigger(otherShape, flags);
 		}
 
 		/// <summary>

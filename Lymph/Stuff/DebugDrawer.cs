@@ -37,6 +37,14 @@ public class IcoSphere {
 		public static bool operator !=(LineIndices ImpliedObject, LineIndices o) {
 			return (ImpliedObject.v1 != o.v1 && ImpliedObject.v2 != o.v2) || (ImpliedObject.v1 != o.v2 && ImpliedObject.v2 != o.v1);
 		}
+
+		// to stop the warnings
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+		public override bool Equals(object obj) {
+			return this == obj;
+		}
 	}
 	private List<Vector3> vertices = new List<Vector3>();
 	private LinkedList<LineIndices> _lineIndices = new LinkedList<LineIndices>();

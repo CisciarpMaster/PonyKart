@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Mogre;
 using Ponykart.Levels;
-using Ponykart.Phys;
+using Ponykart.Physics;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -44,10 +44,6 @@ namespace Ponykart.Actors {
 		/// Set me to null if you just want to read the material from the model file
 		/// </summary>
 		protected abstract string DefaultMaterial { get; }
-		/// <summary>
-		/// Collision group
-		/// </summary>
-		protected abstract uint DefaultCollisionGroupID { get; }
 		#endregion
 
 		/*
@@ -71,7 +67,7 @@ namespace Ponykart.Actors {
 		 * optional tokens
 		 */
 		/// <summary>
-		/// "Rotation" - default is 0, 0, 0
+		/// "Rotation" - default is 0, 0, 0. In degrees.
 		/// </summary>
 		public Vector3 SpawnRotation { get; private set; }
 		/// <summary>
@@ -91,14 +87,6 @@ namespace Ponykart.Actors {
 		/// "Material"
 		/// </summary>
 		public string Material { get; private set; }
-		/// <summary>
-		/// "Speed"
-		/// </summary>
-		//public float MoveSpeed { get; private set; }
-		/// <summary>
-		/// "CollisionGroup"
-		/// </summary>
-		public uint CollisionGroupID { get; private set; }
 		#endregion
 
 		/// <summary>
@@ -311,7 +299,7 @@ namespace Ponykart.Actors {
 		/// after a physics "frame" and not during one.
 		/// </summary>
 		public void QueueDispose() {
-			LKernel.Get<PhysXMain>().ThingsToDispose.Add(this);
+			LKernel.Get<PhysicsMain>().ThingsToDispose.Add(this);
 		}
 
 		/// <summary>

@@ -1,6 +1,5 @@
 ﻿using Mogre;
-using Mogre.PhysX;
-using Ponykart.Phys;
+using Ponykart.Physics;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -13,7 +12,7 @@ namespace Ponykart.Actors {
 			get { return new BoxShapeDesc(new Vector3(1.5f, 0.5f, 1.4f)); }
 		}
 		protected override sealed uint DefaultCollisionGroupID {
-			get { return Groups.CollidablePushableID; }
+			get { return CollisionMasks.CollidablePushableID; }
 		}
 		protected override string DefaultModel {
 			get { return "kart/KartChassis.mesh"; }
@@ -47,8 +46,8 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Same as base class + that funny angled bit and the wheels
 		/// </summary>
-		protected override void CreateActor() {
-			base.CreateActor(); // the main box
+		protected override void CreateBody() {
+			base.CreateBody(); // the main box
 			//CreateFunnyAngledBitInTheFront();
 
 			var wheelFac = LKernel.Get<WheelFactory>();
@@ -62,7 +61,7 @@ namespace Ponykart.Actors {
 
 		protected void CreateFunnyAngledBitInTheFront() {
 			var frontAngledShape = Actor.CreateShape(new BoxShapeDesc(new Vector3(1, 0.2f, 1), new Vector3(0, 0.3f, 1.33f)));
-			frontAngledShape.MaterialIndex = LKernel.Get<PhysXMaterials>().NoFrictionMaterial.Index;
+			frontAngledShape.MaterialIndex = LKernel.Get<PhysicsMaterials>().NoFrictionMaterial.Index;
 			frontAngledShape.GlobalOrientation = new Vector3(0, 45, 0).DegreeVectorToLocalQuaternion().ToRotationMatrix();
 		}
 

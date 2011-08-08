@@ -1,19 +1,19 @@
-﻿using Mogre.PhysX;
+﻿using BulletSharp;
 
-namespace Ponykart.Phys {
-	public class PhysXMaterials {
+namespace Ponykart.Physics {
+	public class PhysicsMaterials {
 		public Material NoFrictionMaterial { get; private set; }
 
 		MaterialDesc noFrictionDesc;
 
-		public PhysXMaterials() {
+		public PhysicsMaterials() {
 			Launch.Log("[Loading] Creating PhysXMaterials");
 
 			noFrictionDesc = new MaterialDesc();
 			noFrictionDesc.Flags |= MaterialFlags.DisableFriction;
 		}
 
-		public void SetupMaterialsForScene(Scene scene) {
+		public void SetupMaterialsForWorld(DynamicsWorld scene) {
 			// Sets default material
 			var defaultMaterial = scene.Materials[0];
 			// restitution = bounciness

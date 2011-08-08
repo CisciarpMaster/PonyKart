@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using BulletSharp;
 using LuaNetInterface;
 using Mogre;
-using Mogre.PhysX;
 using Ponykart.Levels;
-using Ponykart.Phys;
+using Ponykart.Physics;
 
 namespace Ponykart.Lua {
 	//[LuaPackage("Triggers", "A wrapper for the TriggerReporter.")]
@@ -43,23 +43,6 @@ namespace Ponykart.Lua {
 		//-----------------------------------------------
 
 		/// <summary>
-		/// can lua use extension methods?
-		/// </summary>
-		[LuaFunction("isTriggerEnterFlag", "Determines whether the given flag is an 'enter' flag.", "TriggerFlags tf - The flags you want to check.")]
-		public static bool IsEnterFlag(TriggerFlags tf) {
-			return tf.IsEnterFlag();
-		}
-
-		/// <summary>
-		/// can lua use extension methods?
-		/// </summary>
-		[LuaFunction("isTriggerLeaveFlag", "Determines whether the given flag is a 'leave' flag.", "TriggerFlags tf - The flags you want to check.")]
-		public static bool IsLeaveFlag(TriggerFlags tf) {
-			return tf.IsLeaveFlag();
-		}
-
-
-		/// <summary>
 		/// create a box trigger region
 		/// </summary>
 		[LuaFunction("createBoxTriggerRegion", "Creates a box trigger region given a name and some info and a function to call.",
@@ -71,7 +54,7 @@ namespace Ponykart.Lua {
 			float posX, float posY, float posZ,
 			float rotX, float rotY, float rotZ)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ), new BoxShapeDesc(new Vector3(width, height, length)));
+			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ), new BoxShape(new Vector3(width, height, length)));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}
@@ -88,7 +71,7 @@ namespace Ponykart.Lua {
 			float posX, float posY, float posZ, 
 			float rotX, float rotY, float rotZ)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ), new CapsuleShapeDesc(radius, height));
+			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ), new CapsuleShape(radius, height));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}
@@ -104,7 +87,7 @@ namespace Ponykart.Lua {
 			float radius,
 			float posX, float posY, float posZ)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), Vector3.ZERO, new SphereShapeDesc(radius));
+			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), Vector3.ZERO, new SphereShape(radius));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}

@@ -1,14 +1,13 @@
 ﻿using System;
-using Mogre.PhysX;
 
-namespace Ponykart.Phys {
+namespace Ponykart.Physics {
 
 	public delegate void ContactReportHandler(ContactPair pair, ContactPairFlags flags);
 
 	/// <summary>
 	/// Use AddEvent() to hook into an event, don't hook into them directly!
 	/// </summary>
-	public class ContactReporter : IUserContactReport
+	public class ContactReporter
 	{
 		/// <summary>
 		/// our 2D array of contact report delegates
@@ -32,9 +31,9 @@ namespace Ponykart.Phys {
 		public void AddEvent(uint firstGroupID, uint secondGroupID, ContactReportHandler handler)
 		{
 			// check for invalid IDs
-			if (firstGroupID >= 7)
+			if (firstGroupID > 8)
 				throw new ArgumentOutOfRangeException("firstGroupID", firstGroupID, "firstGroupID must be less than or equal to 6");
-			if (secondGroupID >= 7)
+			if (secondGroupID > 8)
 				throw new ArgumentOutOfRangeException("secondGroupID", secondGroupID, "secondGroupID must be less than or equal to 6");
 
 			reporters[firstGroupID, secondGroupID] += handler;
@@ -52,9 +51,9 @@ namespace Ponykart.Phys {
 		public void RemoveEvent(uint firstGroupID, uint secondGroupID, ContactReportHandler handler)
 		{
 			// check for invalid IDs
-			if (firstGroupID >= 7)
+			if (firstGroupID > 8)
 				throw new ArgumentOutOfRangeException("firstGroupID", firstGroupID, "firstGroupID must be less than or equal to 6");
-			if (secondGroupID >= 7)
+			if (secondGroupID > 8)
 				throw new ArgumentOutOfRangeException("secondGroupID", secondGroupID, "secondGroupID must be less than or equal to 6");
 
 			reporters[firstGroupID, secondGroupID] -= handler;

@@ -1,5 +1,6 @@
-﻿using Mogre;
-using Mogre.PhysX;
+﻿using System.Collections.Generic;
+using BulletSharp;
+using Mogre;
 using Math = Mogre.Math;
 
 namespace Ponykart {
@@ -254,60 +255,28 @@ namespace Ponykart {
 		}
 		#endregion Node
 
-		#region Actor
-		/// <summary>
-		/// Get the local X axis of this actor, in radians.
-		/// </summary>
-		public static Vector3 GetLocalXAxis(this Actor actor) {
-			return actor.GlobalOrientation.GetLocalXAxis();
-		}
-		/// <summary>
-		/// Get the local Y axis of this actor, in radians.
-		/// </summary>
-		public static Vector3 GetLocalYAxis(this Actor actor) {
-			return actor.GlobalOrientation.GetLocalYAxis();
-		}
-		/// <summary>
-		/// Get the local Z axis of this actor, in radians.
-		/// </summary>
-		public static Vector3 GetLocalZAxis(this Actor actor) {
-			return actor.GlobalOrientation.GetLocalZAxis();
-		}
-
+		#region CollisionObject
+		private static IDictionary<CollisionObject, string> CollisionObjectNames = new Dictionary<CollisionObject, string>();
 
 		/// <summary>
-		/// Set the local X axis of this actor, in radians.
+		/// Hackish method for getting a name from a collision object
 		/// </summary>
-		public static void SetLocalXAxis(this Actor actor, Vector3 vec) {
-			actor.GlobalOrientation.SetLocalXAxis(vec);
+		/// <returns>The name of the collision object if it has one, or "(NoName)" if it doesn't</returns>
+		public static string GetName(this CollisionObject obj) {
+			string name;
+			if (CollisionObjectNames.TryGetValue(obj, out name)) {
+				return name;
+			}
+			return "(NoName)";
 		}
-		/// <summary>
-		/// Set the local Y axis of this actor, in radians.
-		/// </summary>
-		public static void SetLocalYAxis(this Actor actor, Vector3 vec) {
-			actor.GlobalOrientation.SetLocalYAxis(vec);
-		}
-		/// <summary>
-		/// Set the local Z axis of this actor, in radians.
-		/// </summary>
-		public static void SetLocalZAxis(this Actor actor, Vector3 vec) {
-			actor.GlobalOrientation.SetLocalZAxis(vec);
-		}
-		#endregion Actor
 
-		#region TriggerFlags
 		/// <summary>
-		/// Quick way to see if this has a TriggerOnEnter flag.
+		/// Hackish method for assigning a name to a collision object
 		/// </summary>
-		public static bool IsEnterFlag(this TriggerFlags flag) {
-			return ((flag & TriggerFlags.TriggerOnEnter) == TriggerFlags.TriggerOnEnter);
+		/// <param name="newName">The new name of the collision object</param>
+		public static void SetName(this CollisionObject obj, string newName) {
+			CollisionObjectNames[obj] = newName;
 		}
-		/// <summary>
-		/// Quick way to see if this has a TriggerOnLeave flag.
-		/// </summary>
-		public static bool IsLeaveFlag(this TriggerFlags flag) {
-			return ((flag & TriggerFlags.TriggerOnLeave) == TriggerFlags.TriggerOnLeave);
-		}
-		#endregion TriggerFlags
+		#endregion
 	}
 }

@@ -8,7 +8,7 @@ using Ponykart.Core;
 using Ponykart.Handlers;
 using Ponykart.Levels;
 using Ponykart.Lua;
-using Ponykart.Phys;
+using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Sound;
 using Ponykart.Stuff;
@@ -37,11 +37,11 @@ namespace Ponykart {
 
 			// physx stuff
 			splash.Increment("Initialising physics engine, collision groups, and trigger area and contact reporters...");
-			var physx = AddGlobalObject(new PhysXMain());
+			var physx = AddGlobalObject(new PhysicsMain());
 			AddGlobalObject(new TriggerReporter());
 			AddGlobalObject(new ContactReporter());
-			AddGlobalObject(new Groups());
-			AddGlobalObject(new PhysXMaterials());
+			AddGlobalObject(new CollisionMasks());
+			AddGlobalObject(new PhysicsMaterials());
 
 			// sound stuff
 			splash.Increment("Setting up sound system...");

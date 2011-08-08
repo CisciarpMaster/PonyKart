@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Mogre;
-using Mogre.PhysX;
 using Ponykart.Actors;
 using Ponykart.Core;
-using Ponykart.Phys;
+using Ponykart.Physics;
 using Ponykart.Players;
 
 namespace Ponykart.Handlers {
@@ -47,7 +46,7 @@ namespace Ponykart.Handlers {
 
 					RaycastHit hit;
 					// TODO: check that the hit shape is either static or kinematic
-					Shape closestShape = LKernel.Get<PhysXMain>().Scene.RaycastClosestShape(ray, ShapesTypes.All, out hit);
+					Shape closestShape = LKernel.Get<PhysicsMain>().Scene.RaycastClosestShape(ray, ShapesTypes.All, out hit);
 
 					// if the ray either didn't collide with anything or if the closest thing is >2 away, then make the kart upright
 					if (closestShape == null || hit.Distance > IN_AIR_MIN_DISTANCE) {

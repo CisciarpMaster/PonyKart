@@ -1,18 +1,18 @@
 ﻿using System;
+using BulletSharp;
 using Mogre;
-using Mogre.PhysX;
-using Ponykart.Phys;
+using Ponykart.Physics;
 
 namespace Ponykart.Handlers {
 	/// <summary>
 	/// just a little test for the trigger regions
 	/// </summary>
-	public class TriggerRegionsTest : IDisposable {
+	public class TriggerRegionsTest : System.IDisposable {
 		TriggerRegion tr;
 
 		public TriggerRegionsTest() {
 			Launch.Log("[Loading] Creating TriggerRegionsTest");
-			tr = new TriggerRegion("test trigger area", new Vector3(5, 0, 5), new SphereShapeDesc(1));
+			tr = new TriggerRegion("test trigger area", new Vector3(5, 0, 5), new SphereShape(1));
 
 #if DEBUG
 			//new TriggerRegion("test trigger area 2", new Vector3(-5, 0, 5), new Vector3(45, 45, 45), new BoxShapeDesc(new Vector3(2, 1, 1)));
@@ -24,13 +24,13 @@ namespace Ponykart.Handlers {
 			tr.OnTrigger += doSomething;
 		}
 
-		void doSomething(TriggerRegion region, Shape otherShape, TriggerFlags flags) {
-			if (flags.IsEnterFlag()) {
-				Console.WriteLine(otherShape.Actor.Name + " has entered trigger area \"" + region.Name + "\"");
+		void doSomething(TriggerRegion region, RigidBody otherBody, bool isEnter) {
+			if (isEnter) {
+				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
 				region.SetBalloonGlowColor(BalloonGlowColor.cyan);
 			}
-			else if (flags.IsLeaveFlag()) {
-				Console.WriteLine(otherShape.Actor.Name + " has left trigger area \"" + region.Name + "\"");
+			else {
+				Console.WriteLine(otherBody.GetName() + " has left trigger area \"" + region.Name + "\"");
 				region.SetBalloonGlowColor(BalloonGlowColor.orange);
 			}
 		}

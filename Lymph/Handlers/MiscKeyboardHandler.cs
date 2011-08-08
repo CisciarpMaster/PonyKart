@@ -3,7 +3,7 @@ using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Lua;
-using Ponykart.Phys;
+using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Stuff;
 using Vector3 = Mogre.Vector3;
@@ -35,7 +35,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<DebugOverlayManager>().ToggleDebugOverlay();
 					break;
 				case KeyCode.KC_F3:
-					LKernel.Get<PhysXMain>().ShootBox();
+					LKernel.Get<PhysicsMain>().ShootBox();
 					break;
 				case KeyCode.KC_Z:
 					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.ActorPosition);

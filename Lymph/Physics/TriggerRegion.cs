@@ -1,19 +1,19 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
+using BulletSharp;
 using Mogre;
-using Mogre.PhysX;
 using Ponykart.Handlers;
 using Ponykart.Levels;
 
-namespace Ponykart.Phys {
+namespace Ponykart.Physics {
 
-	public delegate void TriggerReportHandler(TriggerRegion region, Shape otherShape, TriggerFlags flags);
+	public delegate void TriggerReportHandler(TriggerRegion region, RigidBody otherBody, bool isEntering);
 
-	public class TriggerRegion : IDisposable {
-		public Actor Actor { get; protected set; }
-		public Shape Shape { get; protected set; }
+	public class TriggerRegion : System.IDisposable {
+		public GhostObject Ghost { get; protected set; }
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
+		public Collection<RigidBody> CurrentlyCollidingWith { get; set; }
 
 		/// <summary>
 		/// Invoked by TriggerReporter
@@ -23,45 +23,43 @@ namespace Ponykart.Phys {
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.
 		/// </summary>
-		public TriggerRegion(string name, Vector3 position, ShapeDesc desc) : this(name, position, Vector3.ZERO, desc) { }
+		public TriggerRegion(string name, Vector3 position, CollisionShape shape) : this(name, position, Vector3.ZERO, shape) { }
 
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.
 		/// </summary>
 		/// <param name="rotation">a degree vector</param>
-		public TriggerRegion(string name, Vector3 position, Vector3 rotation, ShapeDesc desc) {
+		public TriggerRegion(string name, Vector3 position, Vector3 rotation, CollisionShape shape) {
 			Name = name;
-
-			// physics
-			desc.ShapeFlags |= ShapeFlags.TriggerEnable | ShapeFlags.DisableRaycasting;
-
-			ActorDesc ad = new ActorDesc(name, desc);
-			ad.GlobalPosition = position;
-			ad.GlobalOrientation = rotation.DegreeVectorToGlobalQuaternion().ToRotationMatrix();
-
-			Actor = LKernel.Get<PhysXMain>().Scene.CreateActor(ad);
-			Shape = Actor.Shapes[0];
-			Shape.Name = name; // without this line, the reporter doesn't know how to find our trigger region object
+			CurrentlyCollidingWith = new Collection<RigidBody>();
 			
 			// mogre
 			var sceneMgr = LKernel.Get<SceneManager>();
 
 			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(name);
-			switch (desc.Type) {
-				case ShapeTypes.Box: 
+			// make a mesh for the region depending on what its type is
+			switch (shape.ShapeType) {
+				case BroadphaseNativeType.BoxShape: 
 					Entity = sceneMgr.CreateEntity(name, "primitives/box.mesh");
-					Node.SetScale((desc as BoxShapeDesc).Dimensions * 2);
+					Node.SetScale((shape as BoxShape).HalfExtentsWithoutMargin * 2);
 					break;
-				case ShapeTypes.Capsule:
+				case BroadphaseNativeType.CapsuleShape:
 					Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
 					Vector3 vec = new Vector3();
-					vec.y = (desc as CapsuleShapeDesc).Height;
-					vec.x = vec.z = (desc as CapsuleShapeDesc).Radius;
+					vec.y = (shape as CapsuleShape).HalfHeight * 2;
+					vec.x = vec.z = (shape as CapsuleShape).Radius;
 					Node.SetScale(vec);
 					break;
-				case ShapeTypes.Sphere:
+				case BroadphaseNativeType.CylinderShape:
+					Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
+					Vector3 vec2 = new Vector3();
+					vec2.y = (shape as CylinderShape).HalfExtentsWithoutMargin.y;
+					vec2.x = vec2.z = (shape as CylinderShape).Radius;
+					Node.SetScale(vec2);
+					break;
+				case BroadphaseNativeType.SphereShape:
 					Entity = sceneMgr.CreateEntity(name, "primitives/ellipsoid.mesh");
-					float dim = (desc as SphereShapeDesc).Radius;
+					float dim = (shape as SphereShape).Radius;
 					Node.SetScale(dim, dim, dim);
 					break;
 				default:
@@ -74,8 +72,19 @@ namespace Ponykart.Phys {
 			Entity.CastShadows = false;
 
 			Node.AttachObject(Entity);
-			Node.Position = Actor.GlobalPosition;
+			Node.Position = position;
 			Node.Rotate(rotation.DegreeVectorToGlobalQuaternion());
+
+			// physics
+			Matrix4 transform = new Matrix4(rotation.DegreeVectorToGlobalQuaternion());
+			transform.SetTrans(position);
+
+			// make our ghost object
+			Ghost = new GhostObject();
+			Ghost.CollisionFlags = CollisionFlags.NoContactResponse | CollisionFlags.StaticObject;
+			Ghost.CollisionShape = shape;
+			Ghost.WorldTransform = transform;
+			LKernel.Get<PhysicsMain>().World.AddCollisionObject(Ghost);
 
 			// then add this to the trigger reporter
 			LKernel.Get<TriggerReporter>().Regions.Add(name, this);
@@ -84,13 +93,10 @@ namespace Ponykart.Phys {
 		/// <summary>
 		/// Run the enter event
 		/// </summary>
-		public void InvokeTrigger(Shape otherShape, TriggerFlags flags) {
+		public void InvokeTrigger(RigidBody otherBody, bool isEntering) {
 			// at the moment this only triggers when the "main" shape of an actor enters. Do we want to change this?
-			if (otherShape == otherShape.Actor.Shapes[0]) {
-
-				if (OnTrigger != null)
-					OnTrigger(this, otherShape, flags);
-			}
+			if (OnTrigger != null)
+				OnTrigger(this, otherBody, isEntering);
 		}
 
 		/// <summary>

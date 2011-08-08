@@ -1,11 +1,7 @@
 ﻿using IrrKlang;
 using Mogre;
-using Mogre.PhysX;
-using Ponykart.Actors;
 using Ponykart.Levels;
-using Ponykart.Phys;
 using Ponykart.Players;
-using Math = Mogre.Math;
 
 /* http://www.ogre3d.org/tikiwiki/MogreFreeSL
  * 
@@ -31,9 +27,7 @@ namespace Ponykart.Sound {
 			levelManager.OnLevelLoad += OnLevelLoad;
 			levelManager.OnLevelUnload += (ea) => Engine.RemoveAllSoundSources();
 
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
-
-			LKernel.Get<ContactReporter>().AddEvent(Groups.CollidableNonPushableID, Groups.CollidablePushableID, HandleAntibodyCollision);
+			LKernel.Get<Root>().FrameEnded += FrameEnded;
 
 			Engine = new ISoundEngine();
 			Engine.Default3DSoundMinDistance = 2;
@@ -60,7 +54,7 @@ namespace Ponykart.Sound {
 		private float timesince = 0;
 
 		// only need to update this twice a second
-		bool FrameStarted(FrameEvent evt) {
+		bool FrameEnded(FrameEvent evt) {
 			if (!LKernel.Get<LevelManager>().IsValidLevel)
 				return true;
 
@@ -72,22 +66,6 @@ namespace Ponykart.Sound {
 				Engine.Update();
 			}
 			return !quit;
-		}
-
-		/// <summary>
-		/// responds to collidable-pushable colliding with collidable-nonpushable
-		/// </summary>
-		void HandleAntibodyCollision(ContactPair pair, ContactPairFlags flags) {
-			int rand = (int) Math.RangeRandom(0, 10) + 1;
-			// check to make sure one of these is an antibody
-			Antibody source = pair.ActorFirst.UserData as Antibody;
-			if (source == null)
-				// actorfirst is not an antibody, so lets try actorsecond
-				source = pair.ActorSecond.UserData as Antibody;
-			
-			if (source != null)
-				// actorsecond was the antibody
-				CreateObjectSound("media/sound/pop" + (rand > 10 ? 10 : rand) + ".wav", source.Node.Position, source.Node.Name, false);
 		}
 
 		#region Sound object creation

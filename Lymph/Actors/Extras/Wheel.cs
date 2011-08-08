@@ -1,9 +1,8 @@
 ﻿using System;
 using Mogre;
-using Mogre.PhysX;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Phys;
+using Ponykart.Physics;
 using Ponykart.Stuff;
 using Math = Mogre.Math;
 
@@ -78,7 +77,7 @@ namespace Ponykart.Actors {
 
 			// wheel friction is managed by its own functions, so this just stops other things from getting friction over the wheels.
 			// Also it speeds it up since physx doesn't have to calculate friction twice.
-			wsd.MaterialIndex = LKernel.Get<PhysXMaterials>().NoFrictionMaterial.Index;
+			wsd.MaterialIndex = LKernel.Get<PhysicsMaterials>().NoFrictionMaterial.Index;
 
 			// position and orientation
 			wsd.LocalPosition = position;

@@ -1,7 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using BulletSharp;
 using Mogre;
-using Mogre.PhysX;
-using Ponykart.Phys;
+using Ponykart.Physics;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -10,20 +9,34 @@ namespace Ponykart.Actors {
 	/// </summary>
 	public abstract class DynamicThing : Thing {
 		/// <summary>
-		/// The physx body that the Node is attached to
+		/// The bullet body that the Node is attached to
 		/// </summary>
-		public Actor Actor { get; protected set; }
+		public RigidBody Body { get; protected set; }
 		/// <summary>
-		/// ShapeDesc for the "main" body. This should be slightly larger than that of the Actor's.
+		/// TODO
+		/// From the wiki:
+		/// 
+		/// Each rigid body needs to reference a collision shape. The collision shape is for collisions only, and thus has no concept
+		/// of mass, inertia, restitution, etc. If you have many bodies that use the same collision shape [eg every spaceship in your
+		/// simulation is a 5-unit-radius sphere], it is good practice to have only one Bullet collision shape, and share it among all
+		/// those bodies.
 		/// </summary>
-		protected abstract ShapeDesc ShapeDesc { get; }
+		protected abstract CollisionShape CollisionShape { get; }
+
+		protected abstract CollisionTypes CollisionType { get; }
+		protected abstract int CollidesWith { get; }
+
+		/// <summary>
+		/// return 0 for a static body
+		/// </summary>
+		protected virtual float Mass { get { return 1f; } }
+
+		protected RigidBodyConstructionInfo info;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		public DynamicThing(ThingTemplate tt) : base(tt) { }
-
-		protected virtual float Density { get { return 1f; } }
 
 
 		#region Physics
@@ -38,94 +51,51 @@ namespace Ponykart.Actors {
 		/// This is called automatically from the constructor.
 		/// </summary>
 		protected override void SetUpPhysics() {
-			CreateActor();
-			AssignCollisionGroupIDToShapes();
-			AttachToSceneNode();
-			SetBodyUserData();
+			SetUpBodyInfo();
 			SetDefaultActorProperties();
+			CreateBody();
+			//AssignCollisionGroupIDToShapes(); // TODO
+			SetBodyUserData();
 		}
 
 		/// <summary>
 		/// Here you create your Actor and assign it.
 		/// </summary>
-		protected virtual void CreateActor() {
-			BodyDesc bd = new BodyDesc();
-			bd.MaxAngularVelocity = 1;
-			ActorDesc ad = new ActorDesc(bd, Density, ShapeDesc);
-			Actor = LKernel.Get<PhysXMain>().Scene.CreateActor(ad);
-			Actor.Name = Node.Name;
+		protected virtual void SetUpBodyInfo() {
+			Vector3 inertia;
+			CollisionShape.CalculateLocalInertia(Mass, out inertia);
+			info = new RigidBodyConstructionInfo(Mass, new MogreMotionState(SpawnPosition, SpawnRotation, Node), CollisionShape, inertia);
 		}
 
 		/// <summary>
-		/// Assigns the collision group ID defined in CollisionGroupID to the shapes of the thing.
+		/// Sets default info properties, like linear and angular damping.
+		/// Remember that we can't edit the Body itself! We need to edit the info object!
 		/// </summary>
-		protected virtual void AssignCollisionGroupIDToShapes() {
-			ReadOnlyCollection<Shape> shapes = Actor.Shapes;
-			foreach (Shape s in shapes)
-				s.Group = CollisionGroupID;
-			Actor.Group = CollisionGroupID;
+		protected virtual void SetDefaultActorProperties() {
+			info.LinearDamping = 0.1f;
+			info.AngularDamping = 0.1f;
 		}
 
-		/// <summary>
-		/// Attaches the Actor to the Node and sets the position and orientation of the Actor to match that of the Node.
-		/// </summary>
-		protected virtual void AttachToSceneNode() {
-			if (Actor != null && Node != null) {
-				Actor.GlobalPosition = Node.Position;
-				Actor.GlobalOrientationQuaternion = Node.Orientation;
-			}
+		protected void CreateBody() {
+			Body = new RigidBody(info);
+			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body/*, collisionGroup, whatWeCollideWith*/); // TODO
 		}
 
 		/// <summary>
 		/// Sets the Actor's UserData to this class so we can easily get to it.
 		/// </summary>
-		protected virtual void SetBodyUserData() {
-			if (Actor != null)
-				Actor.UserData = this;
+		protected void SetBodyUserData() {
+			Body.UserObject = this;
+			Body.SetName(Name);
 		}
 
-		/// <summary>
-		/// Sets default thing properties, like linear and angular damping
-		/// </summary>
-		protected virtual void SetDefaultActorProperties() {
-			Actor.LinearDamping = 0.1f;
-			Actor.AngularDamping = 0.1f;
-			Actor.SleepLinearVelocity = 0.1f;
-			Actor.BodyFlags.EnergySleepTest = true;
-		}
+
 		#endregion Physics
 
-		#region helpers
-		public Vector3 LocalXAxis {
-			get {
-				return Actor.GlobalOrientation.GetLocalXAxis();
-			}
-			set {
-				Actor.GlobalOrientation.SetLocalXAxis(value);
-			}
-		}
-		public Vector3 LocalYAxis {
-			get {
-				return Actor.GlobalOrientation.GetLocalYAxis();
-			}
-			set {
-				Actor.GlobalOrientation.SetLocalYAxis(value);
-			}
-		}
-		public Vector3 LocalZAxis {
-			get {
-				return Actor.GlobalOrientation.GetLocalZAxis();
-			}
-			set {
-				Actor.GlobalOrientation.SetLocalZAxis(value);
-			}
-		}
-		#endregion
-
 		public override void Dispose() {
-			if (Actor != null) {
-				Actor.Dispose();
-				Actor = null;
+			if (Body != null) {
+				Body.Dispose();
+				Body = null;
 			}
 			base.Dispose();
 		}

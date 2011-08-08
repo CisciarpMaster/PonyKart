@@ -1,9 +1,7 @@
-﻿using System.IO;
-using Mogre;
-using Mogre.PhysX;
+﻿using Mogre;
 
-namespace Ponykart.Phys {
-	public partial class PhysXMain {
+namespace Ponykart.Physics {
+	public partial class PhysicsMain {
 
 		/// <summary>
 		/// Get the mesh information for the given mesh.
@@ -98,7 +96,7 @@ namespace Ponykart.Phys {
 
 		}
 
-		public void MakeTriangleMesh(Entity levelEnt, SceneNode levelNode, out TriangleMeshShapeDesc tmsd, out ActorDesc levelActorDesc) {
+		/*public void MakeTriangleMesh(Entity levelEnt, SceneNode levelNode, out TriangleMeshShapeDesc tmsd, out ActorDesc levelActorDesc) {
 			uint vertex_count = 0;
 			uint index_count = 0;
 			Vector3[] vertices = new Vector3[0]; // these are [0] now but will be overwritten in GetMeshInformation
@@ -132,6 +130,6 @@ namespace Ponykart.Phys {
 			levelActorDesc.Body = null;
 			levelActorDesc.Density = 1;
 			levelActorDesc.Shapes.Add(tmsd);
-		}
+		}*/
 	}
 }

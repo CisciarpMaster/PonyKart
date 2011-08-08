@@ -5,7 +5,7 @@ using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Phys;
+using Ponykart.Physics;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -60,7 +60,7 @@ namespace Ponykart.Handlers {
 			if (!LKernel.Get<LevelManager>().IsValidLevel)
 				return;
 
-			PhysXMain physics = LKernel.Get<PhysXMain>();
+			PhysicsMain physics = LKernel.Get<PhysicsMain>();
 			// since thingsToMove holds two types of Things, we have to loop over them all and then cast them to see which they are
 			/*foreach (Thing thing in thingsToMove)
 			{
