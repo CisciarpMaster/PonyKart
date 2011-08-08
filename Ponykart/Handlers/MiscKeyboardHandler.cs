@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -38,7 +39,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<PhysicsMain>().ShootBox();
 					break;
 				case KeyCode.KC_Z:
-					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.ActorPosition);
+					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
 					break;
 #if DEBUG
 				case KeyCode.KC_X:
@@ -58,7 +59,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<Sound.SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 					break;
 				case KeyCode.KC_F2:
-					LKernel.Get<PlayerManager>().MainPlayer.Actor.AddForce(new Vector3(0, 300000, 0));
+					LKernel.Get<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 300000, 0), Vector3.ZERO);
 					break;
 				case KeyCode.KC_F:
 					//LKernel.Get<Player>().Move(new Vector3(50000, 0, 0));
@@ -67,8 +68,8 @@ namespace Ponykart.Handlers
 					LKernel.Get<LuaMain>().DoFile("media/scripts/test.lua");
 					break;
 				case KeyCode.KC_C:
-					System.Diagnostics.ProcessStartInfo p = new System.Diagnostics.ProcessStartInfo("syncmedia.cmd");
-					System.Diagnostics.Process proc = new System.Diagnostics.Process();
+					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
+					Process proc = new Process();
 					proc.StartInfo = p;
 					proc.Start();
 					proc.WaitForExit();

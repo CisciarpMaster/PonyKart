@@ -12,10 +12,10 @@ namespace Ponykart.Handlers {
 			LKernel.Get<TriggerReporter>().AddEvent("test trigger area", Test);
 		}
 
-		void Test(TriggerRegion region, RigidBody body, bool isEntering) {
+		void Test(TriggerRegion region, RigidBody body, TriggerReportFlags flags) {
 			var d = LKernel.Get<DialogueManager>();
 
-			if (isEntering)
+			if (flags.IsEnterFlag())
 				d.CreateDialogue("media/gui/lyra.jpg", body.GetName(), "I have entered " + region.Name);
 			else 
 				d.DestroyDialogue();

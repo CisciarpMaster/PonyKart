@@ -83,6 +83,7 @@ namespace Ponykart.Physics {
 
 				//http://forums.create.msdn.com/forums/p/35858/207315.aspx
 				//http://www.ogre3d.org/tikiwiki/tiki-index.php?page=Raycasting+to+the+polygon+level+-+Mogre#GetMeshInformation
+				
 
 				TriangleMeshShapeDesc tmsd = new TriangleMeshShapeDesc();
 				tmsd.Group = CollisionMasks.CollidableNonPushableID;

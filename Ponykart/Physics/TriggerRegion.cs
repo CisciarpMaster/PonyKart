@@ -6,7 +6,7 @@ using Ponykart.Levels;
 
 namespace Ponykart.Physics {
 
-	public delegate void TriggerReportHandler(TriggerRegion region, RigidBody otherBody, bool isEntering);
+	public delegate void TriggerReportHandler(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags);
 
 	public class TriggerRegion : System.IDisposable {
 		public GhostObject Ghost { get; protected set; }
@@ -93,10 +93,10 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Run the enter event
 		/// </summary>
-		public void InvokeTrigger(RigidBody otherBody, bool isEntering) {
+		public void InvokeTrigger(RigidBody otherBody, TriggerReportFlags flags) {
 			// at the moment this only triggers when the "main" shape of an actor enters. Do we want to change this?
 			if (OnTrigger != null)
-				OnTrigger(this, otherBody, isEntering);
+				OnTrigger(this, otherBody, flags);
 		}
 
 		/// <summary>

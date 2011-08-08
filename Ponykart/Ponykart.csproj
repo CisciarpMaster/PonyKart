@@ -137,8 +137,10 @@
     <Compile Include="Handlers\SelfRightingHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="Physics\CollisionReportInfo.cs" />
     <Compile Include="Physics\MogreMotionState.cs" />
     <Compile Include="Physics\PhysicsMaterials.cs" />
+    <Compile Include="Physics\TriggerReportFlags.cs" />
     <Compile Include="Physics\TriggerRegion.cs" />
     <Compile Include="Players\ComputerPlayer.cs" />
     <Compile Include="Players\HumanPlayer.cs" />
@@ -182,8 +184,8 @@
     <Compile Include="Core\Spawner.cs" />
     <Compile Include="Core\InputMain.cs" />
     <Compile Include="Handlers\LevelChangerHandler.cs" />
-    <Compile Include="Physics\ContactReporter.cs" />
-    <Compile Include="Physics\CollisionMasks.cs" />
+    <Compile Include="Physics\CollisionReporter.cs" />
+    <Compile Include="Physics\CollisionGroups.cs" />
     <Compile Include="Core\PlayerCamera.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelChangedEventArgs.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -8,7 +9,7 @@ namespace Ponykart.Players {
 	/// <summary>
 	/// Abstract class for players - each player controls a kart, and abstracting away the player will help when it comes to things like AI and/or networking
 	/// </summary>
-	public abstract class Player : IDisposable {
+	public abstract class Player : System.IDisposable {
 		/// <summary>
 		/// The kart that this player is driving
 		/// </summary>
@@ -43,19 +44,12 @@ namespace Ponykart.Players {
 		/// </summary>
 		public SceneNode Node { get { return Kart.Node; } }
 		/// <summary>
-		/// Gets the kart's Actor
+		/// Gets the kart's Body
 		/// </summary>
-		public Actor Actor { get { return Kart.Actor; } }
-		/// <summary>
-		/// Gets/sets the kart's Actor's position
-		/// </summary>
-		public Vector3 ActorPosition {
-			get { return Kart.Actor.GlobalPosition; }
-			set { Kart.Actor.GlobalPosition = value; }
-		}
+		public RigidBody Body { get { return Kart.Body; } }
 		/// <summary>
 		/// Gets the kart's Node's position. No setter because it's automatically changed to whatever the position of its
-		/// actor - use <see cref="ActorPosition"/> if you want to change the kart's position!
+		/// actor - use the <see cref="Body"/> if you want to change the kart's position!
 		/// </summary>
 		public Vector3 NodePosition {
 			get { return Kart.Node.Position; }

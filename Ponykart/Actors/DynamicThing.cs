@@ -17,14 +17,14 @@ namespace Ponykart.Actors {
 		/// From the wiki:
 		/// 
 		/// Each rigid body needs to reference a collision shape. The collision shape is for collisions only, and thus has no concept
-		/// of mass, inertia, restitution, etc. If you have many bodies that use the same collision shape [eg every spaceship in your
-		/// simulation is a 5-unit-radius sphere], it is good practice to have only one Bullet collision shape, and share it among all
+		/// of mass, inertia, restitution, etc. If you have many bodies that use the same collision shape (eg every spaceship in your
+		/// simulation is a 5-unit-radius sphere), it is good practice to have only one Bullet collision shape, and share it among all
 		/// those bodies.
 		/// </summary>
 		protected abstract CollisionShape CollisionShape { get; }
 
-		protected abstract CollisionTypes CollisionType { get; }
-		protected abstract int CollidesWith { get; }
+		protected abstract PonykartCollisionGroups CollisionGroup { get; }
+		protected abstract PonykartCollidesWithGroups CollidesWith { get; }
 
 		/// <summary>
 		/// return 0 for a static body
@@ -39,7 +39,6 @@ namespace Ponykart.Actors {
 		public DynamicThing(ThingTemplate tt) : base(tt) { }
 
 
-		#region Physics
 		/// <summary>
 		/// This method does the following:
 		/// - Creates an Actor
@@ -54,7 +53,6 @@ namespace Ponykart.Actors {
 			SetUpBodyInfo();
 			SetDefaultActorProperties();
 			CreateBody();
-			//AssignCollisionGroupIDToShapes(); // TODO
 			SetBodyUserData();
 		}
 
@@ -78,7 +76,7 @@ namespace Ponykart.Actors {
 
 		protected void CreateBody() {
 			Body = new RigidBody(info);
-			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body/*, collisionGroup, whatWeCollideWith*/); // TODO
+			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup.ToBullet(), CollidesWith.ToBullet());
 		}
 
 		/// <summary>
@@ -87,10 +85,10 @@ namespace Ponykart.Actors {
 		protected void SetBodyUserData() {
 			Body.UserObject = this;
 			Body.SetName(Name);
+			Body.SetCollisionGroup(CollisionGroup);
 		}
 
 
-		#endregion Physics
 
 		public override void Dispose() {
 			if (Body != null) {

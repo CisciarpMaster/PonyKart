@@ -24,8 +24,8 @@ namespace Ponykart.Handlers {
 			tr.OnTrigger += doSomething;
 		}
 
-		void doSomething(TriggerRegion region, RigidBody otherBody, bool isEnter) {
-			if (isEnter) {
+		void doSomething(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags) {
+			if (flags.IsEnterFlag()) {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
 				region.SetBalloonGlowColor(BalloonGlowColor.cyan);
 			}

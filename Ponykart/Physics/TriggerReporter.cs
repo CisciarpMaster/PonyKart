@@ -55,9 +55,9 @@ namespace Ponykart.Physics {
 
 				// then run our triggers
 				foreach (RigidBody addedBody in added)
-					region.InvokeTrigger(addedBody, true);
+					region.InvokeTrigger(addedBody, TriggerReportFlags.Enter);
 				foreach (RigidBody removedBody in removed)
-					region.InvokeTrigger(removedBody, false);
+					region.InvokeTrigger(removedBody, TriggerReportFlags.Leave);
 			}
 
 			return true;

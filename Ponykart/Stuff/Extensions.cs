@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
+using Ponykart.Physics;
 using Math = Mogre.Math;
 
 namespace Ponykart {
 	/// <summary>
 	/// Some extension methods 
 	/// </summary>
-	public static class Extensions {
+	static class Extensions {
 		#region Vector3
 		/// <summary>
 		/// If you have a vector to be used for rotation but it's in degrees and you want radians, use this!
@@ -276,6 +277,31 @@ namespace Ponykart {
 		/// <param name="newName">The new name of the collision object</param>
 		public static void SetName(this CollisionObject obj, string newName) {
 			CollisionObjectNames[obj] = newName;
+		}
+
+		///////////////////////////////////////////////////////////////////////////////
+
+		private static IDictionary<CollisionObject, PonykartCollisionGroups> CollisionGroups = new Dictionary<CollisionObject, PonykartCollisionGroups>();
+
+		/// <summary>
+		/// Hackish method for getting a collision group from a collision object
+		/// </summary>
+		/// <returns>The group of the collision object if it has one, or Default if it doesn't</returns>
+		public static PonykartCollisionGroups GetCollisionGroup(this CollisionObject obj) {
+			PonykartCollisionGroups group;
+			if (CollisionGroups.TryGetValue(obj, out group)) {
+				return group;
+			}
+			return PonykartCollisionGroups.Default;
+		}
+
+		/// <summary>
+		/// Hackish method for assigning a group to a collision object.
+		/// Note that this does NOT affect the object's actual collision group and should only be used to store its group for later reference!
+		/// </summary>
+		/// <param name="newGroup">The group to store in this collision object.</param>
+		public static void SetCollisionGroup(this CollisionObject obj, PonykartCollisionGroups newGroup) {
+			CollisionGroups[obj] = newGroup;
 		}
 		#endregion
 	}

@@ -39,7 +39,7 @@ namespace Ponykart {
 			splash.Increment("Initialising physics engine, collision groups, and trigger area and contact reporters...");
 			var physx = AddGlobalObject(new PhysicsMain());
 			AddGlobalObject(new TriggerReporter());
-			AddGlobalObject(new ContactReporter());
+			AddGlobalObject(new CollisionReporter());
 			AddGlobalObject(new CollisionMasks());
 			AddGlobalObject(new PhysicsMaterials());
 

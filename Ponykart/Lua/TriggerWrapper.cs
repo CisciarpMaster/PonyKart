@@ -42,6 +42,16 @@ namespace Ponykart.Lua {
 
 		//-----------------------------------------------
 
+		[LuaFunction("isEnterFlag", "Is this flag an enter flag?", "The flag you want to check")]
+		public static bool IsEnterFlag(TriggerReportFlags flag) {
+			return (flag & TriggerReportFlags.Enter) == TriggerReportFlags.Enter;
+		}
+
+		[LuaFunction("isLeaveFlag", "Is this flag an leave flag?", "The flag you want to check")]
+		public static bool IsLeaveFlag(TriggerReportFlags flag) {
+			return (flag & TriggerReportFlags.Leave) == TriggerReportFlags.Leave;
+		}
+
 		/// <summary>
 		/// create a box trigger region
 		/// </summary>
