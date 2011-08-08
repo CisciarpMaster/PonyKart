@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E42E240A-99DB-4375-BCA3-187AA990C15C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ponykart</RootNamespace>
+    <AssemblyName>Ponykart</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>3F5A32A5B74ABB5C265B127DB82F335CAFF0D755</ManifestCertificateThumbprint>
+    <ManifestKeyFile>Lymph_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationIcon>..\Resources\Icon 2.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <PublishUrl>C:\Users\Pyritie\Desktop\Ponykart\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <StartupObject>Ponykart.Launch</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BulletSharp">
+      <HintPath>..\References\BulletSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="irrKlang.NET4">
+      <HintPath>..\References\irrKlang.NET4.dll</HintPath>
+    </Reference>
+    <Reference Include="LuaInterface">
+      <HintPath>..\References\LuaInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="LuaNetInterface">
+      <HintPath>..\References\LuaNetInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="Miyagi">
+      <HintPath>..\References\Miyagi.dll</HintPath>
+    </Reference>
+    <Reference Include="Miyagi.Backend.Mogre, Version=1.0.4000.35754, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Miyagi.Backend.Mogre.dll</HintPath>
+    </Reference>
+    <Reference Include="Mogre, Version=1.7.1.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Mogre.dll</HintPath>
+    </Reference>
+    <Reference Include="MOIS, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\MOIS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actors\DynamicThing.cs" />
+    <Compile Include="Actors\Extras\Wheel.cs" />
+    <Compile Include="Actors\Extras\WheelFactory.cs" />
+    <Compile Include="Actors\Obstacle.cs" />
+    <Compile Include="Actors\ThingEnum.cs" />
+    <Compile Include="Actors\Thing.cs" />
+    <Compile Include="Actors\Kart.cs" />
+    <Compile Include="Actors\ZergShip.cs" />
+    <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
+    <Compile Include="Handlers\SelfRightingHandler.cs" />
+    <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
+    <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="Physics\MogreMotionState.cs" />
+    <Compile Include="Physics\PhysicsMaterials.cs" />
+    <Compile Include="Physics\TriggerRegion.cs" />
+    <Compile Include="Players\ComputerPlayer.cs" />
+    <Compile Include="Players\HumanPlayer.cs" />
+    <Compile Include="Core\InputSwallowerManager.cs" />
+    <Compile Include="Players\Player.cs" />
+    <Compile Include="Players\PlayerManager.cs" />
+    <Compile Include="Handlers\UI\DialogueTest.cs" />
+    <Compile Include="Handlers\EscHandler.cs" />
+    <Compile Include="Lua\DialogueWrapper.cs" />
+    <Compile Include="Lua\IOWrapper.cs" />
+    <Compile Include="Lua\LevelWrapper.cs" />
+    <Compile Include="Handlers\DebugDrawerHandler.cs" />
+    <Compile Include="Stuff\KartSpawnPositions.cs" />
+    <Compile Include="Stuff\KeyBindingManager.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Stuff\Extensions.cs" />
+    <Compile Include="Stuff\IDs.cs" />
+    <Compile Include="IO\ThingTemplate.cs" />
+    <Compile Include="UI\LuaConsoleManager.cs" />
+    <Compile Include="UI\DialogueManager.cs" />
+    <Compile Include="Lua\SpawnerWrapper.cs" />
+    <Compile Include="Lua\SoundWrapper.cs" />
+    <Compile Include="Lua\TriggerWrapper.cs" />
+    <Compile Include="Lua\LevelManagerWrapper.cs" />
+    <Compile Include="Lua\LuaMain.cs" />
+    <Compile Include="Kernel\KernelRegistration.cs" />
+    <Compile Include="Kernel\LKernel.cs" />
+    <Compile Include="Core\Pauser.cs" />
+    <Compile Include="Lua\LKernelWrapper.cs" />
+    <Compile Include="Physics\TriggerReporter.cs" />
+    <Compile Include="Handlers\UI\LevelUIHandler.cs" />
+    <Compile Include="Handlers\UI\LoadingUIHandler.cs" />
+    <Compile Include="Handlers\UI\PauseUIHandler.cs" />
+    <Compile Include="Handlers\TriggerRegionsTest.cs" />
+    <Compile Include="Lua\PauserWrapper.cs" />
+    <Compile Include="UI\UIUserData.cs" />
+    <Compile Include="UI\UIResources.cs" />
+    <Compile Include="Handlers\MovementHandler.cs" />
+    <Compile Include="Handlers\GlowHandler.cs" />
+    <Compile Include="UI\UIMain.cs" />
+    <Compile Include="Core\Spawner.cs" />
+    <Compile Include="Core\InputMain.cs" />
+    <Compile Include="Handlers\LevelChangerHandler.cs" />
+    <Compile Include="Physics\ContactReporter.cs" />
+    <Compile Include="Physics\CollisionMasks.cs" />
+    <Compile Include="Core\PlayerCamera.cs" />
+    <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\LevelChangedEventArgs.cs" />
+    <Compile Include="Levels\LevelManager.cs" />
+    <Compile Include="Physics\PhysicsMain.cs" />
+    <Compile Include="Physics\PhysicsMain_Extras.cs" />
+    <Compile Include="Handlers\MiscKeyboardHandler.cs" />
+    <Compile Include="Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Stuff\Constants.cs" />
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Launch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IO\WorldExporter.cs" />
+    <Compile Include="IO\WorldImporter.cs" />
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\app.manifest" />
+    <Compile Include="Sound\SoundMain.cs" />
+    <Compile Include="Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stuff\DebugOverlayManager.cs" />
+    <Compile Include="Stuff\DotSceneLoader.cs" />
+    <Compile Include="Stuff\MoveBehaviour.cs" />
+    <None Include="Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Lymph.exe.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DebugDrawer\DebugDrawer.csproj">
+      <Project>{51BD2EDB-5F37-4BA5-9DC6-5C9F267C1CA4}</Project>
+      <Name>DebugDrawer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LymphThing\LymphThing.csproj">
+      <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
+      <Name>LymphThing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>rmdir /S /Q "$(TargetDir)media"
+xcopy "$(SolutionDir)Resources\*" "$(TargetDir)" /S /C /Q /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>
