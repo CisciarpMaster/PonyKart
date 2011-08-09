@@ -191,7 +191,6 @@
     <Compile Include="Levels\LevelChangedEventArgs.cs" />
     <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Physics\PhysicsMain.cs" />
-    <Compile Include="Physics\PhysicsMain_Extras.cs" />
     <Compile Include="Handlers\MiscKeyboardHandler.cs" />
     <Compile Include="Settings.Designer.cs">
       <AutoGen>True</AutoGen>

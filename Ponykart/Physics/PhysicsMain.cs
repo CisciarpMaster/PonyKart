@@ -10,7 +10,7 @@ using Ponykart.Stuff;
 using IDisposable = System.IDisposable;
 
 namespace Ponykart.Physics {
-	public partial class PhysicsMain : IDisposable {
+	public class PhysicsMain : IDisposable {
 		private bool quit = false;
 
 		private float update, update10, elapsed;
@@ -42,7 +42,6 @@ namespace Ponykart.Physics {
 			dcc = new DefaultCollisionConfiguration();
 			dispatcher = new CollisionDispatcher(dcc);
 			solver = new SequentialImpulseConstraintSolver();
-
 
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
 			LKernel.Get<Root>().FrameStarted += FrameStarted;
@@ -88,18 +87,13 @@ namespace Ponykart.Physics {
 				Entity dslEnt = sceneMgr.GetEntity(s);
 				SceneNode dslNode = sceneMgr.GetSceneNode(s);
 
-				//http://forums.create.msdn.com/forums/p/35858/207315.aspx
-				//http://www.ogre3d.org/tikiwiki/tiki-index.php?page=Raycasting+to+the+polygon+level+-+Mogre#GetMeshInformation
-				
-
-				TriangleMeshShapeDesc tmsd = new TriangleMeshShapeDesc();
-				tmsd.Group = CollisionMasks.CollidableNonPushableID;
-				ActorDesc dslActorDesc = new ActorDesc();
-
-				MakeTriangleMesh(dslEnt, dslNode, out tmsd, out dslActorDesc);
-
-				Actor dslActor = scene.CreateActor(dslActorDesc);
-				dslActor.Name = dslNode.Name;
+				// not sure if entity.GetMesh().Name would work to get the filename of the mesh
+				Mesh mesh = MeshManager.Singleton.Load(dslEnt.GetMesh().Name, "General", HardwareBuffer.Usage.HBU_DYNAMIC);
+				var strider = new MogreMeshStrider(mesh);
+				var shape = new BvhTriangleMeshShape(strider, true, true);
+				var info = new RigidBodyConstructionInfo(0, new MogreMotionState(dslNode), shape);
+				var body = new RigidBody(info);
+				world.AddRigidBody(body);
 			}
 		}
 

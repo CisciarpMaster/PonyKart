@@ -25,6 +25,10 @@ namespace Ponykart.Physics {
 			: this(position, rotation.DegreeVectorToGlobalQuaternion(), node)
 		{ }
 
+		public MogreMotionState(SceneNode node)
+			: this(node.Position, node.Orientation, node)
+		{ }
+
 		public override Matrix4 WorldTransform {
 			get {
 				return transform;
