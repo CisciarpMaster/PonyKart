@@ -96,7 +96,7 @@ namespace Ponykart {
 			this.Controls.Add(this.Progress);
 			this.Controls.Add(this.LoadingText);
 			this.DoubleBuffered = true;
-			this.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, (byte)0);
+			this.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, (byte) 0);
 			this.FormBorderStyle = FormBorderStyle.Fixed3D;
 			this.MaximizeBox = false;
 			this.Name = "Splash";
@@ -105,7 +105,7 @@ namespace Ponykart {
 			this.UseWaitCursor = true;
 			this.ResumeLayout(false);
 
-			base.Icon = new Icon("Icon 2.ico");
+			base.Icon = new Icon(Settings.Default.Icon);
 		}
 
 		new public void Show() {

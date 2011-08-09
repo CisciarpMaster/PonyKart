@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Mogre;
@@ -36,7 +37,7 @@ namespace Ponykart {
 			this.Text = "Ponykart";
 			this.ResumeLayout(false);
 
-			base.Icon = new Icon("Icon 2.ico");
+			base.Icon = new Icon(Settings.Default.Icon);
 		}
 
 		/// <summary>
@@ -64,6 +65,7 @@ namespace Ponykart {
 		/// <summary>
 		/// Starts the render loop!
 		/// </summary>
+		[DebuggerStepThrough]
 		private void StartRendering() {
 			Root root = LKernel.Get<Root>();
 			root.RenderOneFrame();

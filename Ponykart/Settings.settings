@@ -2,7 +2,7 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ponykart" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MiyagiResources_file_location" Type="System.String" Scope="User">
+    <Setting Name="MiyagiResourcesFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/gui/</Value>
     </Setting>
     <Setting Name="SaveFileLocation" Type="System.String" Scope="User">
@@ -10,12 +10,6 @@
     </Setting>
     <Setting Name="MainMenuName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Level0</Value>
-    </Setting>
-    <Setting Name="SaveFileExtension" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.save</Value>
-    </Setting>
-    <Setting Name="DefaultSaveFileExtension" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.muffin</Value>
     </Setting>
     <Setting Name="LevelScriptLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/scripts/</Value>
@@ -25,6 +19,9 @@
     </Setting>
     <Setting Name="WheelFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/wheels/</Value>
+    </Setting>
+    <Setting Name="Icon" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Icon 2.ico</Value>
     </Setting>
   </Settings>
 </SettingsFile>

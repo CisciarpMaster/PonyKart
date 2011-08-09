@@ -26,12 +26,12 @@ namespace Ponykart {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/gui/")]
-        public string MiyagiResources_file_location {
+        public string MiyagiResourcesFileLocation {
             get {
-                return ((string)(this["MiyagiResources_file_location"]));
+                return ((string)(this["MiyagiResourcesFileLocation"]));
             }
             set {
-                this["MiyagiResources_file_location"] = value;
+                this["MiyagiResourcesFileLocation"] = value;
             }
         }
         
@@ -56,30 +56,6 @@ namespace Ponykart {
             }
             set {
                 this["MainMenuName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".save")]
-        public string SaveFileExtension {
-            get {
-                return ((string)(this["SaveFileExtension"]));
-            }
-            set {
-                this["SaveFileExtension"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".muffin")]
-        public string DefaultSaveFileExtension {
-            get {
-                return ((string)(this["DefaultSaveFileExtension"]));
-            }
-            set {
-                this["DefaultSaveFileExtension"] = value;
             }
         }
         
@@ -116,6 +92,18 @@ namespace Ponykart {
             }
             set {
                 this["WheelFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Icon 2.ico")]
+        public string Icon {
+            get {
+                return ((string)(this["Icon"]));
+            }
+            set {
+                this["Icon"] = value;
             }
         }
     }

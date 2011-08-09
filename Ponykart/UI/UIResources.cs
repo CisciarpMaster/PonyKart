@@ -34,10 +34,10 @@ namespace Ponykart.UI {
 			var fonts = new[]
 				{
 					// load ttf definitions from xml file
-					TrueTypeFont.CreateFromXml(Settings.Default.MiyagiResources_file_location + @"Fonts/TrueTypeFonts.xml", system)
+					TrueTypeFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"Fonts/TrueTypeFonts.xml", system)
 						.Cast<Font>().ToDictionary(f => f.Name),
 					// load image font definitions from xml file
-					ImageFont.CreateFromXml(Settings.Default.MiyagiResources_file_location + @"Fonts/ImageFonts.xml", system)
+					ImageFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"Fonts/ImageFonts.xml", system)
 						.Cast<Font>().ToDictionary(f => f.Name)
 				};
 
@@ -55,8 +55,8 @@ namespace Ponykart.UI {
 
 			var skins = new List<Skin>();
 
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResources_file_location + @"GUI/Skins.xml"));
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResources_file_location + @"Cursor/CursorSkin.xml"));
+			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"GUI/Skins.xml"));
+			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"Cursor/CursorSkin.xml"));
 
 			// manually create Skins
 			var logo = new Skin("Logo");
