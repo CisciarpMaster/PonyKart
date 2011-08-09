@@ -204,7 +204,6 @@
     </Compile>
     <Compile Include="Core\Launch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IO\WorldExporter.cs" />
     <Compile Include="IO\WorldImporter.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

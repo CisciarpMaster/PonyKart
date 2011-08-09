@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Mogre;
 using Ponykart.Levels;
 using Ponykart.Physics;
@@ -139,19 +138,6 @@ namespace Ponykart.Actors {
 			else
 				Material = DefaultMaterial;
 
-			// move speed
-			/*float move;
-			if (tt.FloatTokens.TryGetValue("Speed", out move))
-				MoveSpeed = move;
-			else
-				MoveSpeed = DefaultMoveSpeed;*/
-
-			// collision group
-			float f;
-			if (tt.FloatTokens.TryGetValue("CollisionGroup", out f))
-				CollisionGroupID = (uint)f;
-			else
-				CollisionGroupID = DefaultCollisionGroupID;
 
 			// ==========================================
 
@@ -248,49 +234,6 @@ namespace Ponykart.Actors {
 		}
 		#endregion
 
-		#region Methods to get optional properties
-		/// <summary>
-		/// Gets an Enumerable of all of the flag properties that are optional and are not the default.
-		/// </summary>
-		public virtual IEnumerable<KeyValuePair<string, bool>> GetOptionalFlags() {
-			yield break;
-		}
-
-		/// <summary>
-		/// Gets an enumerable of all of the number properties that are optional and are not the default.
-		/// </summary>
-		public virtual IEnumerable<KeyValuePair<string, float>> GetOptionalNumbers() {
-			//if (MoveSpeed != DefaultMoveSpeed)
-			//	yield return new KeyValuePair<string, float>("Speed", MoveSpeed);
-			if (CollisionGroupID != DefaultCollisionGroupID)
-				yield return new KeyValuePair<string, float>("CollisionGroup", CollisionGroupID);
-		}
-
-		/// <summary>
-		/// Gets an enumerable of all of the string properties that are optional and are not the default.
-		/// </summary>
-		public virtual IEnumerable<KeyValuePair<string, string>> GetOptionalStrings() {
-			if (Script != null)
-				yield return new KeyValuePair<string, string>("Script", Script);
-			if (Model != DefaultModel)
-				yield return new KeyValuePair<string, string>("Model", Model);
-			if (Material != DefaultMaterial)
-				yield return new KeyValuePair<string, string>("Material", Material);
-			//if (MoveBehaviour != DefaultMoveBehaviour)
-			//	yield return new KeyValuePair<string, string>("Behaviour", this.MoveBehaviour.ToString());
-			// Name is not optional
-		}
-		
-		/// <summary>
-		/// Gets an enumerable of all of the vector properties that are optional and are not the default.
-		/// </summary>
-		public virtual IEnumerable<KeyValuePair<string, Vector3>> GetOptionalVectors() {
-			if (SpawnRotation != Vector3.ZERO)
-				yield return new KeyValuePair<string, Vector3>("Rotation", SpawnRotation);
-			if (SpawnScale != Vector3.ZERO)
-				yield return new KeyValuePair<string, Vector3>("Scale", SpawnScale);
-		}
-		#endregion
 
 		#region IDisposable and ToString stuff
 		/// <summary>

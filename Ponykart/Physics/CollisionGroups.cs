@@ -7,9 +7,7 @@ namespace Ponykart.Physics {
 	/// We apparently have to use the built-in names for some reason. So that's what this class is for.
 	/// Remember to cast to <see cref="BulletSharp.CollisionFilterGroups"/> before using them.
 	/// 
-	/// TODO:
-	/// - set up these
-	/// - we'll probably need a custom NearCallback eventually for detecting when things collide, like when an item collides with a kart.
+	/// We can have a maximum of 15 different collision groups.
 	/// </summary>
 	/// <remarks>
 	/// more info here:
@@ -20,35 +18,35 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Everything!
 		/// </summary>
-		All = CollisionFilterGroups.AllFilter,
+		All = CollisionFilterGroups.AllFilter, // -1
 		/// <summary>
 		/// Collides with nothing. If you have one of these, why does it even have a physics object?
 		/// </summary>
-		None = CollisionFilterGroups.None,
+		None = CollisionFilterGroups.None, // 0
 		/// <summary>
 		/// Self-explanatory.
 		/// </summary>
-		Default = CollisionFilterGroups.DefaultFilter,
+		Default = CollisionFilterGroups.DefaultFilter, // 1
 		/// <summary>
 		/// Static bodies that don't move, so scenery, fences, ramps, etc.
 		/// </summary>
-		Environment = CollisionFilterGroups.StaticFilter,
+		Environment = CollisionFilterGroups.StaticFilter, // 2
 		/// <summary>
 		/// Bodies that move but can't be affected by anything else, for moving platforms etc.
 		/// </summary>
-		Kinematic = CollisionFilterGroups.KinematicFilter,
+		Kinematic = CollisionFilterGroups.KinematicFilter, // 4
 		/// <summary>
 		/// Junk on the track that we can bump into and push around
 		/// </summary>
-		Debris = CollisionFilterGroups.DebrisFilter,
+		Debris = CollisionFilterGroups.DebrisFilter, // 8
 		/// <summary>
 		/// Trigger regions and stuff
 		/// </summary>
-		Triggers = CollisionFilterGroups.SensorTrigger,
+		Triggers = CollisionFilterGroups.SensorTrigger, // 16
 		/// <summary>
 		/// Our karts!
 		/// </summary>
-		Karts = CollisionFilterGroups.CharacterFilter,
+		Karts = CollisionFilterGroups.CharacterFilter, // 32
 	}
 
 	/// <summary>
@@ -59,14 +57,15 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Collides with everything! Even things marked as "collides with nothing"! Use sparingly.
 		/// </summary>
-		All = PonykartCollisionGroups.All
+		All = /*PonykartCollisionGroups.All
 			| PonykartCollisionGroups.None
 			| PonykartCollisionGroups.Default
 			| PonykartCollisionGroups.Environment
 			| PonykartCollisionGroups.Kinematic
 			| PonykartCollisionGroups.Debris
 			| PonykartCollisionGroups.Triggers
-			| PonykartCollisionGroups.Karts,
+			| PonykartCollisionGroups.Karts,*/
+			-1, // -1 in binary is 111111111... so it's essentially the same as "everything"
 
 		/// <summary>
 		/// Collides with nothing.
