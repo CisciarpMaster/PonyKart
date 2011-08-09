@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using BulletSharp;
 using Mogre;
@@ -23,12 +22,21 @@ namespace Ponykart.Physics {
 		private DiscreteDynamicsWorld world;
 
 		/// <summary>
+		/// This is invoked after every physics "tick", which occur multiple times per frame.
+		/// Want to change a speed based on a maximum velocity or whatever? Do it with this.
+		/// </summary>
+		public DynamicsWorld.InternalTickCallback OnPostTick;
+
+		/// <summary>
 		/// our collection of things to dispose; these are processed after every "frame"
 		/// </summary>
 		public ICollection<Thing> ThingsToDispose { get; private set; }
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
 		public PhysicsMain() {
-			Launch.Log("[Loading] Creating PhysXMain...");
+			Launch.Log("[Loading] Creating PhysicsMain...");
 
 			broadphase = new DbvtBroadphase();
 			dcc = new DefaultCollisionConfiguration();
@@ -46,7 +54,7 @@ namespace Ponykart.Physics {
 
 			ThingsToDispose = new Collection<Thing>();
 
-			Launch.Log("[Loading] PhysXMain created!");
+			Launch.Log("[Loading] PhysicsMain created!");
 		}
 
 		/// <summary>
@@ -56,8 +64,7 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="eventArgs"></param>
 		public void LoadPhysicsLevel(string levelName) {
-			Launch.Log("[Loading] Setting up PhysX scene");
-			Launch.Log("*** If you get a PhysX error here about CUDA, ignore it! ***");
+			Launch.Log("[Loading] Setting up Physics scene");
 
 			CreateWorld(levelName);
 
@@ -103,12 +110,13 @@ namespace Ponykart.Physics {
 		}
 
 		/// <summary>
-		/// TODO
+		/// Creates the world
 		/// </summary>
 		void CreateWorld(string levelName)
 		{
 			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
 			world.Gravity = new Vector3(0, Constants.GRAVITY, 0);
+			world.SetInternalTickCallback(OnPostTick);
 		}
 
 		/// <summary>
@@ -143,7 +151,7 @@ namespace Ponykart.Physics {
 		}
 		
 		public void ShootBox() {
-			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.ActorPosition;
+			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition;
 			string name = "Box_" + IDs.New;
 
 			SceneManager sceneMgr = LKernel.Get<SceneManager>();
@@ -170,7 +178,6 @@ namespace Ponykart.Physics {
 			dcc.Dispose();
 			dispatcher.Dispose();
 			solver.Dispose();
-			Environment.Exit(0);
 		}
 	}
 }

@@ -306,6 +306,8 @@ namespace Ponykart.Actors {
 		/// Destroys this thing. Checks if all of its fields are null and if they aren't, runs their own destroy methods.
 		/// This should be overridden if your thing has more fields it needs to destroy.
 		/// </summary>
+		
+		// this might be useful: System.Runtime.ExceptionServices.HandleProcessCorruptedStateExceptionsAttribute
 		public virtual void Dispose() {
 			var sceneMgr = LKernel.Get<SceneManager>();
 			bool valid = LKernel.Get<LevelManager>().IsValidLevel;

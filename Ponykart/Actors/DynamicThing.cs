@@ -22,8 +22,13 @@ namespace Ponykart.Actors {
 		/// those bodies.
 		/// </summary>
 		protected abstract CollisionShape CollisionShape { get; }
-
+		/// <summary>
+		/// This actor's collision group
+		/// </summary>
 		protected abstract PonykartCollisionGroups CollisionGroup { get; }
+		/// <summary>
+		/// What does this actor collide with?
+		/// </summary>
 		protected abstract PonykartCollidesWithGroups CollidesWith { get; }
 
 		/// <summary>
