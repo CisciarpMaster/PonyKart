@@ -139,7 +139,9 @@
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="Physics\CollisionReportInfo.cs" />
     <Compile Include="Physics\MogreMotionState.cs" />
-    <Compile Include="Physics\PhysicsMaterials.cs" />
+    <Compile Include="Physics\PhysicsExtensions.cs" />
+    <Compile Include="Physics\PhysicsMaterial.cs" />
+    <Compile Include="Physics\PhysicsMaterialManager.cs" />
     <Compile Include="Physics\TriggerReportFlags.cs" />
     <Compile Include="Physics\TriggerRegion.cs" />
     <Compile Include="Players\ComputerPlayer.cs" />
