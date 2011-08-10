@@ -77,7 +77,7 @@ namespace Ponykart.Actors {
 
 			// wheel friction is managed by its own functions, so this just stops other things from getting friction over the wheels.
 			// Also it speeds it up since physx doesn't have to calculate friction twice.
-			wsd.MaterialIndex = LKernel.Get<PhysicsMaterials>().NoFrictionMaterial.Index;
+			wsd.MaterialIndex = LKernel.Get<PhysicsMaterialManager>().NoFrictionMaterial.Index;
 
 			// position and orientation
 			wsd.LocalPosition = position;

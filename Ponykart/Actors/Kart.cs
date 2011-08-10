@@ -61,7 +61,7 @@ namespace Ponykart.Actors {
 
 		protected void CreateFunnyAngledBitInTheFront() {
 			var frontAngledShape = Actor.CreateShape(new BoxShapeDesc(new Vector3(1, 0.2f, 1), new Vector3(0, 0.3f, 1.33f)));
-			frontAngledShape.MaterialIndex = LKernel.Get<PhysicsMaterials>().NoFrictionMaterial.Index;
+			frontAngledShape.MaterialIndex = LKernel.Get<PhysicsMaterialManager>().NoFrictionMaterial.Index;
 			frontAngledShape.GlobalOrientation = new Vector3(0, 45, 0).DegreeVectorToLocalQuaternion().ToRotationMatrix();
 		}
 

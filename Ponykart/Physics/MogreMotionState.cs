@@ -5,11 +5,15 @@ namespace Ponykart.Physics {
 	/// <summary>
 	/// Handy thing that bullet has to keep graphics stuff synched up with physics stuff!
 	/// Best thing is, it only updates the node when it's actually changed instead of every frame!
+	/// 
+	/// TODO: update sound components
+	/// TODO: #if DEBUG, draw our objects using the DebugDrawer
 	/// </summary>
 	public class MogreMotionState : MotionState {
 
 		protected SceneNode node;
 		protected Matrix4 transform;
+
 
 		public MogreMotionState(Matrix4 transform, SceneNode node) {
 			this.node = node;
@@ -28,6 +32,8 @@ namespace Ponykart.Physics {
 		public MogreMotionState(SceneNode node)
 			: this(node.Position, node.Orientation, node)
 		{ }
+
+
 
 		public override Matrix4 WorldTransform {
 			get {

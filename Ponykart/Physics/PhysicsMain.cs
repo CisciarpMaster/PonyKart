@@ -68,7 +68,7 @@ namespace Ponykart.Physics {
 			CreateWorld(levelName);
 
 			// set up the materials for each scene
-			LKernel.Get<PhysicsMaterials>().SetupMaterialsForWorld(world);
+			LKernel.Get<PhysicsMaterialManager>().SetupMaterialsForWorld(world);
 
 			// creates collision meshes out of static objects
 			// get the scene manager
@@ -106,11 +106,12 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Creates the world
 		/// </summary>
-		void CreateWorld(string levelName)
-		{
+		void CreateWorld(string levelName) {
 			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
+
 			world.Gravity = new Vector3(0, Constants.GRAVITY, 0);
 			world.SetInternalTickCallback(OnPostTick);
+
 		}
 
 		/// <summary>
@@ -140,10 +141,10 @@ namespace Ponykart.Physics {
 				}
 				ThingsToDispose.Clear();
 			}
-			
+
 			return !quit;
 		}
-		
+
 		public void ShootBox() {
 			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition;
 			string name = "Box_" + IDs.New;
