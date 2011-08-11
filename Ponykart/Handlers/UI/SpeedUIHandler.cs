@@ -38,16 +38,12 @@ namespace Ponykart.Handlers {
 
 				var mainPlayer = LKernel.Get<PlayerManager>().MainPlayer;
 
-				if (LKernel.Get<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Actor.IsDisposed) {
+				if (LKernel.Get<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Body.IsDisposed) {
 					Kart kart = mainPlayer.Kart;
 					label.Text =
-						"    Speed    Angle\r\n" +
-						"FR: " + kart.WheelFR.Shape.AxleSpeed + " " + Math.RadiansToDegrees(kart.WheelFR.Shape.SteerAngle) + "\r\n" +
-						"FL: " + kart.WheelFL.Shape.AxleSpeed + " " + Math.RadiansToDegrees(kart.WheelFL.Shape.SteerAngle) + "\r\n" +
-						"BR: " + kart.WheelBR.Shape.AxleSpeed + "\r\n" +
-						"BL: " + kart.WheelBL.Shape.AxleSpeed + "\r\n" +
-						"Linear Velocity: " + kart.Actor.LinearVelocity.Length + "\r\n" +
-						"Mass: " + kart.Actor.Mass;
+						"Speed: " + kart.Vehicle.CurrentSpeedKmHour + "\r\n" +
+						"Turn angle: " + kart.Vehicle.GetSteeringValue((int) WheelID.FrontLeft) + "\r\n" +
+						"Linear Velocity: " + kart.Body.LinearVelocity.Length + "\r\n";
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

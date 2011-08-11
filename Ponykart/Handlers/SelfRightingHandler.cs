@@ -19,10 +19,12 @@ namespace Ponykart.Handlers {
 
 		/// <summary>
 		/// oh god this took forever to figure out. Fucking quaternions, how do they work
+		/// 
+		/// TODO: use constraints to stop the karts from flipping
 		/// </summary>
 		bool FrameEnded(FrameEvent evt) {
 			// if the kart's gone, then we can get rid of this handler too
-			if (kart == null || kart.Actor.IsDisposed) {
+			if (kart == null || kart.Vehicle.IsDisposed) {
 				Dispose();
 				return true;
 			}
@@ -32,7 +34,7 @@ namespace Ponykart.Handlers {
 
 
 			// so first we get the kart's orientation
-			Matrix3 matrix = kart.Actor.GlobalOrientation;
+			Matrix3 matrix = kart.Body.Orientation.ToRotationMatrix();
 			// then we basically get its local Y axis and average it with the global Y axis to make more of a smooth transition
 			Vector3 avgY = matrix.GetLocalYAxis();
 			Vector3 locY = matrix.GetLocalYAxis();
@@ -44,7 +46,7 @@ namespace Ponykart.Handlers {
 			}
 
 			// stop it spinning
-			kart.Actor.AngularVelocity = Vector3.ZERO;
+			kart.Body.AngularVelocity = Vector3.ZERO;
 
 			// are we upside down?
 			if (locY.DirectionEquals(Vector3.NEGATIVE_UNIT_Y, new Degree(90))) {
@@ -60,7 +62,7 @@ namespace Ponykart.Handlers {
 			// then set the matrix's Y axis to the averaged axis
 			matrix.SetColumn(1, avgY);
 			// and then update the actor with the new matrix
-			kart.Actor.GlobalOrientation = matrix;
+			//kart.Body.Orientation = new Quaternion(matrix);
 
 			return true;
 		}

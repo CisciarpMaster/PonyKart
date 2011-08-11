@@ -1,12 +1,17 @@
 ﻿using BulletSharp;
 
 namespace Ponykart.Physics {
+	/// <summary>
+	/// Little class to hold materials and assign them to RigidBodies and RigidBodyConstructionInfos
+	/// </summary>
 	public class PhysicsMaterialManager {
 		public PhysicsMaterial NoFrictionNoBounceMaterial { get; private set; }
+		public PhysicsMaterial DefaultMaterial { get; private set; }
 
 		public PhysicsMaterialManager() {
 			Launch.Log("[Loading] Creating PhysicsMaterialManager");
 
+			DefaultMaterial = new PhysicsMaterial();
 			NoFrictionNoBounceMaterial = new PhysicsMaterial(0, 0);
 		}
 

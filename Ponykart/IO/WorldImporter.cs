@@ -21,10 +21,10 @@ namespace Ponykart.IO {
 			string fileContents = "";
 
 			// make the file path
-			string filePath = Settings.Default.SaveFileLocation + level.Name + Settings.Default.SaveFileExtension;
+			string filePath = Settings.Default.SaveFileLocation + level.Name + ".save";
 			// if we don't have a save file for this level yet, use the "default" one
 			if (!File.Exists(filePath)) {
-				filePath = Settings.Default.SaveFileLocation + level.Name + Settings.Default.DefaultSaveFileExtension;
+				filePath = Settings.Default.SaveFileLocation + level.Name + ".muffin";
 
 				// what if there is no default?!
 				if (!File.Exists(filePath)) {

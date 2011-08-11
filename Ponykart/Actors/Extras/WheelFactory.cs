@@ -89,14 +89,20 @@ namespace Ponykart.Actors {
 		/// <param name="wheelName">
 		/// The name of the wheel type you want to create. Should be the same as the filename, minus the extension. Case sensitive!
 		/// </param>
-		public Wheel CreateWheel(string wheelName, Kart owner, Vector3 position) {
+		public Wheel CreateWheel(string wheelName, WheelID ID, Kart owner, Vector3 position, bool isFrontWheel) {
 			IDictionary<string, float> dict = wheels[wheelName];
-			Wheel wheel = new Wheel(owner, position) {
+			Wheel wheel = new Wheel(owner, position, ID) {
 				Radius = dict["Radius"],
-				Suspension = dict["Suspension"],
-				SpringRestitution = dict["SpringRestitution"],
+				Width = dict["Width"],
+				ConnectionHeight = dict["ConnectionHeight"],
+				HalfExtents = dict["HalfExtents"],
+				SuspensionRestLength = dict["SuspensionRestLength"],
+
+				SpringStiffness = dict["SpringStiffness"],
+				SpringCompression = dict["SpringCompression"],
 				SpringDamping = dict["SpringDamping"],
-				SpringBias = dict["SpringBias"],
+				FrictionSlip = dict["FrictionSlip"],
+				RollInfluence = dict["RollInfluence"],
 
 				BrakeForce = dict["BrakeForce"],
 				MotorForce = dict["MotorForce"],
@@ -104,19 +110,9 @@ namespace Ponykart.Actors {
 				// the maximum axle speed a kart with these wheels reaches is only about 87ish anyway (40 linear vel)
 				MaxSpeed = dict["MaxSpeed"],
 
-				LatExtremumSlip = dict["LatExtremumSlip"],
-				LatExtremumValue = dict["LatExtremumValue"],
-				LatAsymptoteSlip = dict["LatAsymptoteSlip"],
-				LatAsymptoteValue = dict["LatAsymptoteValue"],
-				LatStiffnessFactor = dict["LatStiffnessFactor"],
 
-				LongExtremumSlip = dict["LongExtremumSlip"],
-				LongExtremumValue = dict["LongExtremumValue"],
-				LongAsymptoteSlip = dict["LongAsymptoteSlip"],
-				LongAsymptoteValue = dict["LongAsymptoteValue"],
-				LongStiffnessFactor = dict["LongStiffnessFactor"],
 			};
-			wheel.CreateWheelShape(position);
+			wheel.CreateWheel(position, isFrontWheel);
 			return wheel;
 		}
 	}

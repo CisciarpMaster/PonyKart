@@ -10,6 +10,8 @@ using Ponykart.Stuff;
 using IDisposable = System.IDisposable;
 
 namespace Ponykart.Physics {
+	public delegate void PhysicsEventHandler(DiscreteDynamicsWorld world);
+
 	public class PhysicsMain : IDisposable {
 		private bool quit = false;
 
@@ -26,6 +28,7 @@ namespace Ponykart.Physics {
 		/// Want to change a speed based on a maximum velocity or whatever? Do it with this.
 		/// </summary>
 		public DynamicsWorld.InternalTickCallback OnPostTick;
+		public PhysicsEventHandler OnPostCreateWorld;
 
 		/// <summary>
 		/// our collection of things to dispose; these are processed after every "frame"
@@ -67,9 +70,6 @@ namespace Ponykart.Physics {
 
 			CreateWorld(levelName);
 
-			// set up the materials for each scene
-			LKernel.Get<PhysicsMaterialManager>().SetupMaterialsForWorld(world);
-
 			// creates collision meshes out of static objects
 			// get the scene manager
 			SceneManager sceneMgr = LKernel.Get<SceneManager>();
@@ -79,10 +79,6 @@ namespace Ponykart.Physics {
 			DotSceneLoader dsl = new DotSceneLoader();
 			dsl.ParseDotScene(levelName + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, levelNode);
 			// then go through each of the static objects and turn them into trimeshes.
-			/*
-			 * TODO: neoaxis had some sort of file format just for these trimeshes - look into it? might speed up loading times
-			 * and make it easier to have a separate, more simple mesh just for the physics world.
-			 */
 			foreach (string s in dsl.StaticObjects) {
 				Entity dslEnt = sceneMgr.GetEntity(s);
 				SceneNode dslNode = sceneMgr.GetSceneNode(s);
@@ -95,6 +91,9 @@ namespace Ponykart.Physics {
 				var body = new RigidBody(info);
 				world.AddRigidBody(body);
 			}
+
+			if (OnPostCreateWorld != null)
+				OnPostCreateWorld(world);
 		}
 
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
@@ -123,7 +122,7 @@ namespace Ponykart.Physics {
 				return true;
 
 			// TODO: pass timeSinceLastFrame? is that in ms? StepSimulation wants it in seconds
-			world.StepSimulation(update, 10, update);
+			world.StepSimulation(evt.timeSinceLastFrame, 10, update);
 
 			// update the camera after all of the physics stuff happened
 			LKernel.Get<PlayerCamera>().UpdateCamera(evt);

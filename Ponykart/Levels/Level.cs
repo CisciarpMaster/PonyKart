@@ -90,7 +90,7 @@ namespace Ponykart.Levels
 		}
 
 		public void Save() {
-			new WorldExporter().Export(this);
+			// TODO
 		}
 
 		/// <summary>

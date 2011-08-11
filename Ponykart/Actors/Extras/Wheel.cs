@@ -1,41 +1,38 @@
-﻿using System;
+﻿using BulletSharp;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Physics;
 using Ponykart.Stuff;
 using Math = Mogre.Math;
 
 namespace Ponykart.Actors {
 	// might want to make this abstract and make two more classes for front and back wheels
-	public class Wheel : IDisposable {
+	public class Wheel : System.IDisposable {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
-		public WheelShape Shape { get; protected set; }
 		public int ID { get; protected set; }
 
-		public float Radius { get; set; }
-		public float Suspension { get; set; }
-		public float SpringRestitution { get; set; }
-		public float SpringDamping { get; set; }
-		public float SpringBias { get; set; }
+		public float Radius { get; set; } // 0.5 (lymph)
+		public float Width { get; set; } // 0.4 (demo)
+		public float ConnectionHeight { get; set; } // 1.2 (demo)
+		public float HalfExtents { get; set; } // 0.7 (lymph)
+		public float SuspensionRestLength { get; set; } // 0.6 (demo) // 0.3 (zg)
+
+		public float SpringStiffness { get; set; } // 100 (zg)
+		public float SpringCompression { get; set; } // 4.2 (zg)
+		public float SpringDamping { get; set; } // 20 (zg)
+		public float FrictionSlip { get; set; } // 1000 (demo)
+		public float RollInfluence { get; set; } // 1 (zg)
 
 		public float BrakeForce { get; set; }
 		public float MotorForce { get; set; }
-		public Radian TurnAngle { get; set; }
+		public Radian TurnAngle { get; set; } // 0.3 (demo)
 		public float MaxSpeed { get; set; }
 
-		public float LatExtremumSlip { get; set; }
-		public float LatExtremumValue { get; set; }
-		public float LatAsymptoteSlip { get; set; }
-		public float LatAsymptoteValue { get; set; }
-		public float LatStiffnessFactor { get; set; }
-
-		public float LongExtremumSlip { get; set; }
-		public float LongExtremumValue { get; set; }
-		public float LongAsymptoteSlip { get; set; }
-		public float LongAsymptoteValue { get; set; }
-		public float LongStiffnessFactor { get; set; }
+		protected Vector3 WheelDirection = Vector3.NEGATIVE_UNIT_Y;
+		protected Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
+		public float IsFrontWheel { get; set; }
+		public WheelID WheelID { get; private set; }
 
 		// we use these three things to control the wheels
 		/// <summary>
@@ -51,14 +48,15 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsBrakeOn { get; set; }
 
-		Kart kart;
+		Kart Kart;
 
-		public Wheel(Kart owner, Vector3 position) {
-			kart = owner;
+		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID) {
+			Kart = owner;
+			WheelID = wheelID;
 
 			ID = IDs.New;
 
-			Node = kart.Node.CreateChildSceneNode("wheelNode" + ID, position - new Vector3(0, 0.5f, 0));
+			Node = Kart.Node.CreateChildSceneNode("wheelNode" + ID, connectionPoint - new Vector3(0, 0.5f, 0));
 			Entity = LKernel.Get<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
 
@@ -70,91 +68,55 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Makes a wheel shape at the given position
+		/// Makes a wheel at the given position
 		/// </summary>
-		public void CreateWheelShape(Vector3 position) {
-			WheelShapeDesc wsd = new WheelShapeDesc();
+		public void CreateWheel(Vector3 connectionPoint, bool isFrontWheel) {
+			Kart.Vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, Kart.Tuning, isFrontWheel);
 
-			// wheel friction is managed by its own functions, so this just stops other things from getting friction over the wheels.
-			// Also it speeds it up since physx doesn't have to calculate friction twice.
-			wsd.MaterialIndex = LKernel.Get<PhysicsMaterialManager>().NoFrictionMaterial.Index;
-
-			// position and orientation
-			wsd.LocalPosition = position;
-
-			// suspension
-			float heightModifier = (Suspension + Radius) / Suspension;
-			wsd.Suspension.Spring = SpringRestitution * heightModifier;
-			wsd.Suspension.Damper = SpringDamping * heightModifier;
-			wsd.Suspension.TargetValue = SpringBias * heightModifier;
-
-			// other stuff
-			wsd.Radius = Radius;
-			wsd.SuspensionTravel = Suspension;
-			wsd.InverseWheelMass = 0.1f; // physx docs say "not given!? TODO", whatever that means
-
-			// tyre... things. Something to do with gripping surfaces at different velocities
-			// this one has to do with sideways grip for things like handling
-			wsd.LateralTireForceFunction.ExtremumSlip = LatExtremumSlip;
-			wsd.LateralTireForceFunction.ExtremumValue = LatExtremumValue;
-			wsd.LateralTireForceFunction.AsymptoteSlip = LatAsymptoteSlip;
-			wsd.LateralTireForceFunction.AsymptoteValue = LatAsymptoteValue;
-			wsd.LateralTireForceFunction.StiffnessFactor = LatStiffnessFactor;
-			// this one has to do with forwards grip for things like acceleration
-			wsd.LongitudalTireForceFunction.ExtremumSlip = LongExtremumSlip;
-			wsd.LongitudalTireForceFunction.ExtremumValue = LongExtremumValue;
-			wsd.LongitudalTireForceFunction.AsymptoteSlip = LongAsymptoteSlip;
-			wsd.LongitudalTireForceFunction.AsymptoteValue = LongAsymptoteValue;
-			wsd.LongitudalTireForceFunction.StiffnessFactor = LongStiffnessFactor;
-
-			Shape = kart.Actor.CreateShape(wsd) as WheelShape;
+			WheelInfo info = Kart.Vehicle.GetWheelInfo((int) WheelID);
+			info.SuspensionStiffness = SpringStiffness;
+			info.WheelDampingRelaxation = SpringDamping;
+			info.WheelDampingCompression = SpringCompression;
+			info.FrictionSlip = FrictionSlip;
+			info.RollInfluence = RollInfluence;
 		}
 
 		float spin = 0; // rads
+		Matrix4 previousTransform;
 		/// <summary>
 		/// Update our node's orientation. I'd still like a way to figure out how to update its position based on the suspension, but oh well.
 		/// </summary>
 		bool FrameEnded(FrameEvent evt) {
-			if (!LKernel.Get<LevelManager>().IsValidLevel || Shape.IsDisposed || kart.Actor.IsSleeping || Pauser.IsPaused)
+			if (!LKernel.Get<LevelManager>().IsValidLevel || Pauser.IsPaused)
 				return true;
 
-			// temporary hack
-			if ((Shape.AxleSpeed > MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Accelerate))
-			   || Shape.AxleSpeed < -MaxSpeed && LKernel.Get<KeyBindingManager>().IsKeyPressed(LKey.Reverse))
-			{
-				//Shape.MotorTorque = 0;
-			}
+			// only update the node if it changed
+			if (previousTransform != Kart.Vehicle.GetWheelTransformWS((int) WheelID))
+				previousTransform = Kart.Vehicle.GetWheelTransformWS((int) WheelID);
 			else
-				Accelerate();
+				return true;
 
-			Brake();
-			Turn();
-
-			/////////////////
-
-			spin += (Shape.AxleSpeed * evt.timeSinceLastFrame) / Math.PI;
-			spin %= Math.TWO_PI;
-
-			Node.Orientation = new Quaternion().FromGlobalEuler(spin, Shape.SteerAngle, 0);
+			Node.Position = previousTransform.GetTrans();
+			Node.Orientation = previousTransform.ExtractQuaternion();
 
 			/////////////////
 #if DEBUG
-			if (drawLines && kart == LKernel.Get<Players.PlayerManager>().MainPlayer.Kart) {
-				DebugDrawer.Singleton.BuildLine(Shape.GlobalPosition, lastPos, ColourValue.Blue, 1);
-				lastPos = Shape.GlobalPosition;
-			}
+			//if (drawLines && Kart == LKernel.Get<Players.PlayerManager>().MainPlayer.Kart) {
+				//DebugDrawer.Singleton.BuildLine(Shape.GlobalPosition, lastPos, ColourValue.Blue, 1);
+				//lastPos = Shape.GlobalPosition;
+			//}
 #endif
 
 			return true;
 		}
-		Vector3 lastPos = Vector3.ZERO;
+		//Vector3 lastPos = Vector3.ZERO;
 		public static bool drawLines = false;
 
 		/// <summary>
 		/// Apply some torque to the engine.
 		/// </summary>
 		protected void Accelerate() {
-			Shape.MotorTorque = MotorForce * AccelerateMultiplier;
+			Kart.Vehicle.ApplyEngineForce(MotorForce * AccelerateMultiplier, (int) WheelID);
 		}
 
 		/// <summary>
@@ -162,9 +124,9 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void Brake() {
 			if (IsBrakeOn)
-				Shape.BrakeTorque = BrakeForce;
+				Kart.Vehicle.SetBrake(BrakeForce, (int) WheelID);
 			else
-				Shape.BrakeTorque = 0;
+				Kart.Vehicle.SetBrake(0, (int) WheelID);
 		}
 
 		float slowSpeed = 0;
@@ -187,19 +149,21 @@ namespace Ponykart.Actors {
 				speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2)) / 2);
 			}*/
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
+
+			float currentAngle = Kart.Vehicle.GetSteeringValue((int) WheelID);
 			
 			// smooth out the turning
-			if (Shape.SteerAngle < idealSteerAngle) {
-				if (Shape.SteerAngle + one_degree <= idealSteerAngle)
-					Shape.SteerAngle += one_degree;
-				else if (Shape.SteerAngle + one_degree > idealSteerAngle)
-					Shape.SteerAngle = idealSteerAngle;
+			if (currentAngle < idealSteerAngle) {
+				if (currentAngle + one_degree <= idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(currentAngle + one_degree, (int) WheelID);
+				else if (currentAngle + one_degree > idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
-			else if (Shape.SteerAngle > idealSteerAngle) {
-				if (Shape.SteerAngle - one_degree >= idealSteerAngle)
-					Shape.SteerAngle -= one_degree;
-				else if (Shape.SteerAngle - one_degree < idealSteerAngle)
-					Shape.SteerAngle = idealSteerAngle;
+			else if (currentAngle > idealSteerAngle) {
+				if (currentAngle - one_degree >= idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(currentAngle - one_degree, (int) WheelID);
+				else if (currentAngle - one_degree < idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
 		}
 
@@ -208,6 +172,26 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Dispose() {
 			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+			// dispose of mogre stuff? I suppose we don't need to since we aren't going to be disposing karts in the middle of a level
 		}
+	}
+
+	public enum WheelID {
+		/// <summary>
+		/// 0
+		/// </summary>
+		FrontLeft = 0,
+		/// <summary>
+		/// 1
+		/// </summary>
+		FrontRight = 1,
+		/// <summary>
+		/// 2
+		/// </summary>
+		BackLeft = 2,
+		/// <summary>
+		/// 3
+		/// </summary>
+		BackRight = 3,
 	}
 }

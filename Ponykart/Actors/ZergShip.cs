@@ -33,6 +33,8 @@ namespace Ponykart.Actors {
 			base.CreateMoreMogreStuff();
 		}
 
+		protected override void SetUpPhysics() { }
+
 		// this runs every frame
 		bool FrameEnded(FrameEvent evt) {
 			//if (LKernel.Get<Levels.LevelManager>().IsValidLevel && Entity != null)

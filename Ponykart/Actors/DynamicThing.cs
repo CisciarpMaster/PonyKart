@@ -23,18 +23,21 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected abstract CollisionShape CollisionShape { get; }
 		/// <summary>
-		/// This actor's collision group
+		/// This thing's collision group
 		/// </summary>
 		protected abstract PonykartCollisionGroups CollisionGroup { get; }
 		/// <summary>
-		/// What does this actor collide with?
+		/// What does this thing collide with?
 		/// </summary>
 		protected abstract PonykartCollidesWithGroups CollidesWith { get; }
-
+		/// <summary>
+		/// What is the material that this thing has? If you don't override this, you get the default material.
+		/// </summary>
+		protected virtual PhysicsMaterial PhysicsMaterial { get { return null; } }
 		/// <summary>
 		/// return 0 for a static body
 		/// </summary>
-		protected virtual float Mass { get { return 1f; } }
+		protected virtual float Mass { get { return 10f; } }
 
 		protected RigidBodyConstructionInfo info;
 
@@ -56,28 +59,26 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected override void SetUpPhysics() {
 			SetUpBodyInfo();
-			SetDefaultActorProperties();
+			MoreBodyInfoStuff();
 			CreateBody();
 			SetBodyUserData();
+			MoreBodyStuff();
 		}
 
 		/// <summary>
 		/// Here you create your Actor and assign it.
 		/// </summary>
-		protected virtual void SetUpBodyInfo() {
+		protected void SetUpBodyInfo() {
 			Vector3 inertia;
 			CollisionShape.CalculateLocalInertia(Mass, out inertia);
 			info = new RigidBodyConstructionInfo(Mass, new MogreMotionState(SpawnPosition, SpawnRotation, Node), CollisionShape, inertia);
+			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(info, PhysicsMaterial ?? LKernel.Get<PhysicsMaterialManager>().DefaultMaterial);
 		}
 
 		/// <summary>
-		/// Sets default info properties, like linear and angular damping.
-		/// Remember that we can't edit the Body itself! We need to edit the info object!
+		/// Override this if you want to do more to the construction info before it's used to create the body
 		/// </summary>
-		protected virtual void SetDefaultActorProperties() {
-			info.LinearDamping = 0.1f;
-			info.AngularDamping = 0.1f;
-		}
+		protected virtual void MoreBodyInfoStuff() { }
 
 		protected void CreateBody() {
 			Body = new RigidBody(info);
@@ -92,6 +93,11 @@ namespace Ponykart.Actors {
 			Body.SetName(Name);
 			Body.SetCollisionGroup(CollisionGroup);
 		}
+
+		/// <summary>
+		/// Override this if you want to do more to the rigid body
+		/// </summary>
+		protected virtual void MoreBodyStuff() { }
 
 
 

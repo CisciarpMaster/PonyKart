@@ -40,7 +40,6 @@ namespace Ponykart {
 			var physx = AddGlobalObject(new PhysicsMain());
 			AddGlobalObject(new TriggerReporter());
 			AddGlobalObject(new CollisionReporter());
-			AddGlobalObject(new CollisionMasks());
 			AddGlobalObject(new PhysicsMaterialManager());
 
 			// sound stuff
