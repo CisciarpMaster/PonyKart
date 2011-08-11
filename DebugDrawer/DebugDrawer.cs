@@ -650,16 +650,16 @@ public class DebugDrawer : System.IDisposable {
 	protected virtual void Dispose(bool disposing) {
 		if (!this.disposedValue) {
 			if (disposing) {
-				// TODO: Verwalteten Zustand löschen (verwaltete Objekte).
+				// TO DO: Verwalteten Zustand löschen (verwaltete Objekte).
 			}
 			shutdown();
-			// TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalize() unten überschreiben.
-			// TODO: Große Felder auf NULL festlegen.
+			// TO DO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalize() unten überschreiben.
+			// TO DO: Große Felder auf NULL festlegen.
 		}
 		this.disposedValue = true;
 	}
 
-	// TODO: Finalize() nur überschreiben, wenn Dispose(ByVal disposing As Boolean) oben über Code zum Freigeben von nicht verwalteten Ressourcen verfügt.
+	// TO DO: Finalize() nur überschreiben, wenn Dispose(ByVal disposing As Boolean) oben über Code zum Freigeben von nicht verwalteten Ressourcen verfügt.
 	//Protected Overrides Sub Finalize()
 	//    ' Ändern Sie diesen Code nicht. Fügen Sie oben in Dispose(ByVal disposing As Boolean) Bereinigungscode ein.
 	//    Dispose(False)
