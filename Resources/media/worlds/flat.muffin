@@ -23,13 +23,13 @@ Entities:
 	}
 	Actor (Obstacle) {
 		Name = "obs4"
-		Position = 20, -3, -35
+		Position = 20.1, -3, -35
 		Rotation = -30, 0, 0
 		Scale = 10, 10, 10
 	}
 	Actor (Obstacle) {
 		Name = "obs5"
-		Position = 20, -1, -32
+		Position = 20.2, -1, -32
 		Rotation = -50, 0, 0
 		Scale = 10, 10, 10
 	}
