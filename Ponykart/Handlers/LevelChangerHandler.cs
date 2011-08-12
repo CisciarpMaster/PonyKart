@@ -1,20 +1,15 @@
-﻿using System;
-using MOIS;
+﻿using MOIS;
 using Ponykart.Levels;
 
 namespace Ponykart.Handlers {
 	/// <summary>
 	/// this is hooked up to the keyboard events and tells the level manager to change levels when certain keys are pressed
 	/// </summary>
-	public class LevelChangerHandler : IDisposable {
+	[Handler(HandlerScope.Global)]
+	public class LevelChangerHandler {
 
 		public LevelChangerHandler() {
-			Launch.Log("[Loading] Creating LevelChangerHandler");
 			LKernel.Get<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress_Anything;
-		}
-
-		public void Dispose() {
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything -= OnKeyboardPress_Anything;
 		}
 
 		void OnKeyboardPress_Anything(KeyEvent ke) {

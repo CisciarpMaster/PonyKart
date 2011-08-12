@@ -10,12 +10,12 @@ namespace Ponykart.Handlers {
 	/// At the moment it's just a big label that says "PAUSED" but hey it's a start.
 	/// Later we can expand this to bring up a main menu or something.
 	/// </summary>
+	[Handler(HandlerScope.Global)]
 	public class PauseUIHandler {
 
 		private Label pauseLabel;
 
 		public PauseUIHandler() {
-			Launch.Log("[Loading] Creating PauseUIHandler");
 			// create our label
 			var gui = LKernel.Get<UIMain>().Gui;
 

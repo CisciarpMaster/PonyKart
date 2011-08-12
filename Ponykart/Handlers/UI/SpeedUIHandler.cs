@@ -8,6 +8,7 @@ using Ponykart.Players;
 using Ponykart.UI;
 
 namespace Ponykart.Handlers {
+	[Handler(HandlerScope.Global)]
 	public class SpeedUIHandler {
 		Label label;
 

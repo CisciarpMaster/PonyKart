@@ -1,11 +1,11 @@
-﻿using System;
-using Mogre;
+﻿using Mogre;
+using Ponykart.Physics;
 
 namespace Ponykart.Handlers {
-	public class DebugDrawerHandler : IDisposable {
+	[Handler(HandlerScope.Level)]
+	public class DebugDrawerHandler : ILevelHandler {
 
 		public DebugDrawerHandler() {
-			Launch.Log("[Loading] Creating DebugDrawerHandler");
 
 #if DEBUG
 			MogreDebugDrawer.SetSingleton(new MogreDebugDrawer(LKernel.Get<SceneManager>(), 0.6f));
@@ -15,12 +15,14 @@ namespace Ponykart.Handlers {
 		}
 
 		bool FrameStarted(FrameEvent evt) {
-			MogreDebugDrawer.Singleton.Build();
+			if (PhysicsMain.DrawLines)
+				MogreDebugDrawer.Singleton.Build();
 			return true;
 		}
 
 		bool FrameEnded(FrameEvent evt) {
-			MogreDebugDrawer.Singleton.Clear();
+			if (PhysicsMain.DrawLines)
+				MogreDebugDrawer.Singleton.Clear();
 			return true;
 #endif
 		}

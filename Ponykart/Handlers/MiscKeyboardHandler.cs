@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -15,16 +14,11 @@ namespace Ponykart.Handlers
 	/// This class is hooked up to the keyboard events and does miscellaneous things depending on what keys are pressed.
 	/// It's mostly for debugging functions
 	/// </summary>
-	public class MiscKeyboardHandler : IDisposable
-	{
+	[Handler(HandlerScope.Global)]
+	public class MiscKeyboardHandler {
 
 		public MiscKeyboardHandler() {
-			Launch.Log("[Loading] Creating MiscKeyboardHandler");
 			LKernel.Get<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress_Anything;
-		}
-
-		public void Dispose() {
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything -= OnKeyboardPress_Anything;
 		}
 
 		void OnKeyboardPress_Anything(KeyEvent ke) {
@@ -35,10 +29,10 @@ namespace Ponykart.Handlers
 				case KeyCode.KC_MINUS: // the -_ key
 					LKernel.Get<DebugOverlayManager>().ToggleDebugOverlay();
 					break;
-				case KeyCode.KC_F3:
+				case KeyCode.KC_B:
 					LKernel.Get<PhysicsMain>().ShootBox();
 					break;
-				case KeyCode.KC_Z:
+				case KeyCode.KC_K:
 					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
 					break;
 #if DEBUG
@@ -58,11 +52,11 @@ namespace Ponykart.Handlers
 				case KeyCode.KC_N:
 					LKernel.Get<Sound.SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 					break;
-				case KeyCode.KC_F2:
+				case KeyCode.KC_U:
 					LKernel.Get<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 300000, 0), Vector3.ZERO);
 					break;
 				case KeyCode.KC_F:
-					//LKernel.Get<Player>().Move(new Vector3(50000, 0, 0));
+					LKernel.Get<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
 					break;
 				case KeyCode.KC_L:
 					LKernel.Get<LuaMain>().DoFile("media/scripts/test.lua");

@@ -1,5 +1,4 @@
-﻿using System;
-using Mogre;
+﻿using Mogre;
 using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Players;
@@ -10,7 +9,8 @@ namespace Ponykart.Core {
 	/// 
 	/// here's a mogre sample for camera splines when we get to doing those: A:\Program Files\MOgre\MogreSDK\Samples\CameraTrack
 	/// </summary>
-	public class PlayerCamera : IDisposable {
+	public class PlayerCamera : ILevelHandler {
+		
 		public Camera Camera { get; private set; }
 		/// <summary> This camera's scene node </summary>
 		//public SceneNode Node { get; private set; }
@@ -31,15 +31,13 @@ namespace Ponykart.Core {
 
 			Camera.Position = new Vector3(0f, Constants.CAMERA_HEIGHT, -Constants.CAMERA_DISTANCE);
 			Camera.LookAt(new Vector3(0, 0, 0));
-			Camera.AspectRatio = ((float)Constants.WINDOW_WIDTH) / ((float)Constants.WINDOW_HEIGHT);
-
-			/*Node = manager.CreateSceneNode("CameraNode");
-			Node.SetPosition(0, 0, 0);
-			Node.AttachObject(Camera);*/
+			Camera.AspectRatio = ((float) Constants.WINDOW_WIDTH) / ((float) Constants.WINDOW_HEIGHT);
 
 			// don't want to do any camera shenanigans on the first level
 			if (isPlayableLevel)
 				OnKartCreation(LKernel.Get<PlayerManager>().MainPlayer.Kart);
+
+
 
 			/*camPos = new Vector3();
 			camVelocity = new Vector3();
@@ -49,8 +47,11 @@ namespace Ponykart.Core {
 		}
 
 		void OnKartCreation(Kart kart) {
-			followNode = kart.Node;
-			followNode.AttachObject(Camera);
+			//followNode = kart.RootNode;
+			//followNode.AttachObject(Camera);
+
+			Camera.Position += new Vector3(0, 10, 0);
+			Camera.SetAutoTracking(true, kart.RootNode);
 		}
 
 		/*Vector3 camPos;

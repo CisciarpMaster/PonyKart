@@ -5,10 +5,10 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// Just a bunch of extra stuff that needs to go in the scene, such as ambient light, shadow info, a sunlight, etc.
 	/// </summary>
+	[Handler(HandlerScope.Global)]
 	public class SceneEnvironmentHandler {
 
 		public SceneEnvironmentHandler() {
-			Launch.Log("[Loading] Creating SceneEnvironmentHandler");
 			LKernel.Get<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
 		}
 
@@ -36,7 +36,7 @@ namespace Ponykart.Handlers {
 			axesNode.SetScale(0.1f, 0.1f, 0.1f);
 
 			// for testing animation
-			//LKernel.Get<Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
+			LKernel.Get<Core.Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
 #endif
 		}
 	}

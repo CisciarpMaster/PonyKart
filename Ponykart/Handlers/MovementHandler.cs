@@ -11,14 +11,14 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles movement of all NPCs. Currently it's kinda crude but it works for now.
 	/// </summary>
-	public class MovementHandler : System.IDisposable {
+	[Handler(HandlerScope.Level)]
+	public class MovementHandler : ILevelHandler {
 
 		ICollection<Thing> thingsToMove;
 		float time = 0;
 		readonly float delay = 0.3f;
 
 		public MovementHandler() {
-			Launch.Log("[Loading] Creating MovementHandler");
 
 			thingsToMove = new Collection<Thing>();
 

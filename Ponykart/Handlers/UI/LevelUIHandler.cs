@@ -12,6 +12,7 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles making the UI for both the levels and the main menu (because the main menu is considered to be a level
 	/// </summary>
+	[Handler(HandlerScope.Global)]
 	public class LevelUIHandler {
 		private Button commandsButton, level1Button, level2Button, level3Button, level4Button, quitButton;
 		private Label commandsLabel;
@@ -67,17 +68,18 @@ namespace Ponykart.Handlers {
 				Text =
 					"[W A S D] Move\r\n" +
 					"[Space] Brake\r\n" + 
-					"[0 1 2] Change level\r\n" +
-					"[Z] Spawn another kart\r\n" +
+					"[0 1 2 3...] Change level\r\n" +
+					"[K] Spawn another kart\r\n" +
 					"[Esc] Exit / Close lua console\r\n" +
-					"[-] Toggle OGRE debug box\r\n" +
+					"[-] Toggle OGRE debug info\r\n" +
 					"[M] Turn music on or off (requires level reload)\r\n" +
 					"[P] Turn sounds on or off\r\n" +
 					"[N] Play music now\r\n" +
 					"[L] Run a test lua script\r\n" +
 					"[C] Syncs the media folder and restarts Lua.\r\n" + 
-					"[F2] Apply an upwards force\r\n" + 
-					"[F3] Spawn a box\r\n" + 
+					"[U] Apply an upwards force\r\n" + 
+					"[B] Spawn a box\r\n" + 
+					"[F] Multiply your speed by 2\r\n" +
 #if DEBUG
 					"[X] Clears all lines\r\n" + 
 					"[I] Toggles drawing lines\r\n" +

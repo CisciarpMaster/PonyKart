@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
-using Ponykart.Handlers;
 using Ponykart.Levels;
 using Ponykart.Lua;
 using Ponykart.Physics;
@@ -16,6 +16,8 @@ using Ponykart.UI;
 
 namespace Ponykart {
 	public static partial class LKernel {
+		public static IEnumerable<Type> LevelHandlerTypes;
+		public static IEnumerable<Type> GlobalHandlerTypes;
 
 		/// <summary>
 		/// Load global objects on startup
@@ -83,7 +85,6 @@ namespace Ponykart {
 			AddGlobalObject(new PauserWrapper());
 			AddGlobalObject(new LevelManagerWrapper());
 			AddGlobalObject(new TriggerWrapper());
-			AddGlobalObject(new SceneEnvironmentHandler());
 			AddGlobalObject(new SoundWrapper());
 			AddGlobalObject(new SpawnerWrapper());
 			AddGlobalObject(new LevelWrapper());
@@ -97,17 +98,23 @@ namespace Ponykart {
 
 			// handlers
 			splash.Increment("Starting handlers...");
-			AddGlobalObject(new EscHandler());
-			AddGlobalObject(new GlowHandler());
-			AddGlobalObject(new LevelChangerHandler());
-			AddGlobalObject(new LevelUIHandler());
-			AddGlobalObject(new LoadingUIHandler());
-			AddGlobalObject(new MiscKeyboardHandler());
-			AddGlobalObject(new PauseUIHandler());
-			AddGlobalObject(new SpeedUIHandler());
+			SetUpHandlers();
+			LoadGlobalHandlers();
 			LoadLevelHandlers();
 
 			levelManager.RunPostInitEvents();
+		}
+
+		static void SetUpHandlers() {
+			var types = Assembly.GetExecutingAssembly().GetTypes();
+			LevelHandlerTypes = types.Where(
+				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
+					.Where(a => a.Scope == HandlerScope.Level)
+				.Count() > 0);
+			GlobalHandlerTypes = types.Where(
+				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
+					.Where(a => a.Scope == HandlerScope.Global)
+				.Count() > 0);
 		}
 
 		/// <summary>
@@ -115,34 +122,37 @@ namespace Ponykart {
 		/// This is called from LevelManager
 		/// </summary>
 		public static void LoadLevelObjects(LevelChangedEventArgs eventArgs) {
+			
+		}
+
+		/// <summary>
+		/// Load global handlers
+		/// </summary>
+		public static void LoadGlobalHandlers() {
+			Launch.Log("[Loading] Initialising global handlers...");
+
+			foreach (Type t in GlobalHandlerTypes) {
+				Launch.Log("[Loading] \tCreating " + t);
+				AddGlobalObject(Activator.CreateInstance(t), t);
+			}
 		}
 
 		/// <summary>
 		/// Load handlers for each level
-		/// Have to load these separately from LoadLevelObjects because these depend on some Things (such as the player)
 		/// </summary>
 		public static void LoadLevelHandlers() {
 			Launch.Log("[Loading] Initialising per-level handlers...");
 
-#if DEBUG
-			AddLevelObject(new DebugDrawerHandler());
-#endif
-			AddLevelObject(new MovementHandler());
-			AddLevelObject(new StopKartsFromRollingOverHandler());
-			AddLevelObject(new TriggerRegionsTest());
-			AddLevelObject(new DialogueTest()); // this needs to come after TriggerRegionsTest
-
-			AddLevelObject(new BulletDebugDrawer());
-		}
-
-		/// <summary>
-		/// The camera's a bit weird - it has to be created right at startup because the viewport needs it, but it also depends on
-		/// the main player's kart, which is created much later.
-		/// </summary>
-		public static void CreateCamera() {
-			Launch.Log("[Loading] Creating camera...");
-			var playerCamera = AddLevelObject(new PlayerCamera());
-			Get<Viewport>().Camera = playerCamera.Camera;
+			foreach (Type t in LevelHandlerTypes) {
+				Launch.Log("[Loading] \tCreating " + t);
+				AddLevelObject(Activator.CreateInstance(t), t);
+			}
+			// the camera's a bit weird
+			try {
+				var playerCam = AddLevelObject(new PlayerCamera());
+				LKernel.Get<Viewport>().Camera = playerCam.Camera;
+			}
+			catch { }
 		}
 
 		/// <summary>
@@ -150,9 +160,10 @@ namespace Ponykart {
 		/// </summary>
 		public static void UnloadLevelHandlers() {
 			Launch.Log("[Loading] Disposing of level handlers...");
-			foreach (var obj in LevelObjects.Values.OfType<IDisposable>()) {
-				Console.WriteLine("[Loading] Disposing: " + obj.GetType().ToString());
-				obj.Dispose();
+			foreach (var obj in LevelObjects.Values/*.OfType<ILevelHandler>()*/) {
+				Console.WriteLine("[Loading] \tDisposing: " + obj.GetType().ToString());
+				// if this cast fails, then you need to make sure the level handler implements ILevelHandler!
+				(obj as ILevelHandler).Dispose();
 			}
 		}
 

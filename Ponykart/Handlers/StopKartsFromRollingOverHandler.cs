@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -11,7 +10,8 @@ namespace Ponykart.Handlers {
 	/// This stops them from bouncing all over the place when they land.
 	/// At the moment it raycasts downwards and if the distance to the nearest thing is over than something, then we stop it from spinning in the air
 	/// </summary>
-	public class StopKartsFromRollingOverHandler : IDisposable {
+	[Handler(HandlerScope.Level)]
+	public class StopKartsFromRollingOverHandler : ILevelHandler {
 		public IDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
 
 		readonly float RAYCAST_TIME = 0.2f;
@@ -41,7 +41,7 @@ namespace Ponykart.Handlers {
 						continue;
 
 					// get a ray pointing downwards from the kart (-Y axis)
-					Ray ray = new Ray(kart.Node.Position, -kart.Node.GetLocalYAxis());
+					Ray ray = new Ray(kart.RootNode.Position, -kart.RootNode.GetLocalYAxis());
 
 					//RaycastHit hit;
 					// TODO: do we even need this whole ray stuff any more? Why not just use constraints?

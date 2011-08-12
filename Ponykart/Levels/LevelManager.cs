@@ -106,7 +106,6 @@ namespace Ponykart.Levels
 				// then put Things into our world
 				newLevel.CreateEntities();
 				// then load the rest of the handlers
-				LKernel.CreateCamera();
 				LKernel.LoadLevelHandlers();
 
 				IsValidLevel = true;
@@ -130,7 +129,8 @@ namespace Ponykart.Levels
 		public bool IsValidLevel { get; private set; }
 
 		/// <summary>
-		/// Returns true if the current level is valid and not a main menu
+		/// Returns true if the current level is valid and not a main menu.
+		/// Note that it doesn't say anything about whether the level's actually finished loading yet! Use IsValidLevel for that!
 		/// </summary>
 		public bool IsPlayableLevel {
 			get {

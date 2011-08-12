@@ -133,11 +133,15 @@
     <Compile Include="Actors\Thing.cs" />
     <Compile Include="Actors\Kart.cs" />
     <Compile Include="Actors\ZergShip.cs" />
+    <Compile Include="Handlers\KartSpeedLimiterHandler.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\SelfRightingHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="Kernel\HandlerAttributes.cs" />
+    <Compile Include="Kernel\ILevelHandler.cs" />
     <Compile Include="Physics\CollisionReportInfo.cs" />
+    <Compile Include="Physics\KartMotionState.cs" />
     <Compile Include="Physics\MogreMotionState.cs" />
     <Compile Include="Physics\PhysicsExtensions.cs" />
     <Compile Include="Physics\PhysicsMaterial.cs" />
@@ -149,7 +153,6 @@
     <Compile Include="Core\InputSwallowerManager.cs" />
     <Compile Include="Players\Player.cs" />
     <Compile Include="Players\PlayerManager.cs" />
-    <Compile Include="Handlers\UI\DialogueTest.cs" />
     <Compile Include="Handlers\EscHandler.cs" />
     <Compile Include="Lua\DialogueWrapper.cs" />
     <Compile Include="Lua\IOWrapper.cs" />
@@ -162,6 +165,7 @@
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Stuff\IDs.cs" />
     <Compile Include="IO\ThingTemplate.cs" />
+    <Compile Include="Stuff\MogreDebugDrawer.cs" />
     <Compile Include="UI\LuaConsoleManager.cs" />
     <Compile Include="UI\DialogueManager.cs" />
     <Compile Include="Lua\SpawnerWrapper.cs" />
@@ -266,10 +270,6 @@
     <ProjectReference Include="..\LymphThing\LymphThing.csproj">
       <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
       <Name>LymphThing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MogreDebugDrawer\MogreDebugDrawer.csproj">
-      <Project>{51BD2EDB-5F37-4BA5-9DC6-5C9F267C1CA4}</Project>
-      <Name>MogreDebugDrawer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

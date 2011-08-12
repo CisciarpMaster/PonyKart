@@ -6,11 +6,11 @@ namespace Ponykart.Handlers {
 	/// If you want something to have the nice transparency when glowing, just set the entity's render queue group to one of the two groups
 	/// defined here.
 	/// </summary>
+	[Handler(HandlerScope.Global)]
 	public class GlowHandler {
 
 		public GlowHandler()
 		{
-			Launch.Log("[Loading] Creating GlowHandler");
 			var sceneMgr = LKernel.Get<SceneManager>();
 			sceneMgr.RenderQueueStarted += new RenderQueueListener.RenderQueueStartedHandler(RenderQueueStarted);
 			sceneMgr.RenderQueueEnded += new RenderQueueListener.RenderQueueEndedHandler(RenderQueueEnded);

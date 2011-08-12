@@ -9,12 +9,11 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles the progress bar and label that show on loading screens
 	/// </summary>
+	[Handler(HandlerScope.Global)]
 	public class LoadingUIHandler {
 		Label label;
 
 		public LoadingUIHandler() {
-			Launch.Log("[Loading] Creating LoadingUIHandler");
-
 			LKernel.Get<LevelManager>().OnLevelLoad += OnLevelLoad;
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
 

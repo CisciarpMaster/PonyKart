@@ -6,10 +6,10 @@ namespace Ponykart.Handlers {
 	/// Just a small handler to do stuff when we press Esc
 	/// If the console is up, we hide the console. If the console isn't up, we quit.
 	/// </summary>
+	[Handler(HandlerScope.Global)]
 	public class EscHandler {
 
 		public EscHandler() {
-			Launch.Log("[Loading] Creating EscHandler");
 			LKernel.Get<InputMain>().OnKeyboardPress_Escape += OnEscPress;
 		}
 

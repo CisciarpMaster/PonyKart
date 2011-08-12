@@ -14,6 +14,7 @@ namespace Ponykart {
 		/// <summary>
 		/// Should only be run once, right when you start up. This is what Launch calls.
 		/// </summary>
+		[DebuggerStepThrough]
 		public void Go() {
 			InitializeComponent();
 			InitializeOgre();

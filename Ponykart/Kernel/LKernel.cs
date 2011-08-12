@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Ponykart {
@@ -24,6 +25,7 @@ namespace Ponykart {
 		/// </summary>
 		/// <typeparam name="T">The type of the object you want to get</typeparam>
 		/// <returns></returns>
+		[DebuggerStepThrough]
 		public static T GetGlobalObject<T>() {
 			object value = null;
 			GlobalObjects.TryGetValue(typeof(T), out value);
@@ -35,6 +37,7 @@ namespace Ponykart {
 		/// </summary>
 		/// <typeparam name="T">The type of the object you want to get</typeparam>
 		/// <returns></returns>
+		[DebuggerStepThrough]
 		public static T GetLevelObject<T>() {
 			object value = null;
 			LevelObjects.TryGetValue(typeof(T), out value);
@@ -46,6 +49,7 @@ namespace Ponykart {
 		/// </summary>
 		/// <typeparam name="T">The type of the object you want to get</typeparam>
 		/// <returns></returns>
+		[DebuggerStepThrough]
 		public static T Get<T>() {
 			var obj = GetLevelObject<T>();
 			if (obj == null)
@@ -62,13 +66,18 @@ namespace Ponykart {
 		/// as adding a class to an interface type. "AddGlobalObject&lt;LevelManager&gt;(LevelManager)"</typeparam>
 		/// <param name="obj"></param>
 		/// <returns>Returns the object you add, for convenience</returns>
+		[DebuggerStepThrough]
 		public static T AddGlobalObject<T>(T obj) {
-			var type = typeof(T);
-			if (GlobalObjects.ContainsKey(type))
-				throw new InvalidOperationException("Global object already added " + type.ToString());
+			return (T) AddGlobalObject(obj, typeof(T));
+		}
 
-			GlobalObjects.Add(type, obj);
-			return obj;
+		[DebuggerStepThrough]
+		public static object AddGlobalObject(object o, Type t) {
+			if (GlobalObjects.ContainsKey(t))
+				throw new InvalidOperationException("Global object already added " + t.ToString());
+
+			GlobalObjects.Add(t, o);
+			return o;
 		}
 
 		/// <summary>
@@ -78,13 +87,18 @@ namespace Ponykart {
 		/// as adding a class to an interface type. "AddLevelObject&lt;LevelManager&gt;(LevelManager)"</typeparam>
 		/// <param name="obj"></param>
 		/// <returns>Returns the object you add, for convenience</returns>
+		[DebuggerStepThrough]
 		public static T AddLevelObject<T>(T obj) {
-			var type = typeof(T);
-			if (LevelObjects.ContainsKey(type))
-				throw new InvalidOperationException("Level object already added " + type.ToString());
+			return (T) AddLevelObject(obj, typeof(T));
+		}
 
-			LevelObjects.Add(type, obj);
-			return obj;
+		[DebuggerStepThrough]
+		public static object AddLevelObject(object o, Type t) {
+			if (LevelObjects.ContainsKey(t))
+				throw new InvalidOperationException("Level object already added " + t.ToString());
+
+			LevelObjects.Add(t, o);
+			return o;
 		}
 	}
 }
