@@ -3,12 +3,13 @@
 // ****************************************************************************************
 
 material BalloonGlow {
+	receive_shadows off
+	
 	technique {
 		pass {
 			scene_blend add
 			depth_check on
 			lighting on
-			receive_shadows off
 			
 			vertex_program_ref glowBalloon_vs {
 				param_named Inflate_add float 0
@@ -106,12 +107,13 @@ material BalloonGlow_white : BalloonGlow {
 // ====================================================
 // the flat glow overlay
 material FlatGlow {
+	receive_shadows off
+	
 	technique {
 		pass {
 			scene_blend alpha_blend
 			depth_check off
 			lighting off
-			receive_shadows off
 			
 			vertex_program_ref glow_vs_cg {
 				param_named size_add_value float -1

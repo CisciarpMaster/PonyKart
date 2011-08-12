@@ -1,6 +1,8 @@
 
 material zerg
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass
@@ -19,7 +21,6 @@ material zerg
 			scene_blend add
 			depth_check on
 			lighting on
-			receive_shadows off
 			
 			vertex_program_ref glowBalloon_vs {
 				param_named Inflate_add float 0.1
