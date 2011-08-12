@@ -29,7 +29,7 @@ namespace Ponykart.UI {
 			var input = LKernel.Get<InputMain>();
 
 			// attach events
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
 
 			// set up the system - the first argument has to be "Mogre" because that's the system we're running Miyagi on
 			MiyagiSys = new MiyagiSystem("Mogre");
@@ -52,7 +52,7 @@ namespace Ponykart.UI {
 		/// <summary>
 		/// Runs on each frame
 		/// </summary>
-		bool FrameEnded(FrameEvent evt) {
+		bool FrameStarted(FrameEvent evt) {
 			var mgr = MiyagiSys.TwoDManager;
 			//if (mgr.GetElement("FPS") != null) {
 				//mgr.GetElement<Miyagi.TwoD.Layers.TextOverlay>("FPS").Text = "FPS: " + LKernel.Get<RenderWindow>().LastFPS;

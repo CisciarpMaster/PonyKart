@@ -21,6 +21,9 @@ namespace Ponykart.Actors {
 		protected override PonykartCollidesWithGroups CollidesWith {
 			get { return PonykartCollidesWithGroups.Karts; }
 		}
+		protected override PhysicsMaterial PhysicsMaterial {
+			get { return LKernel.Get<PhysicsMaterialManager>().KartMaterial; }
+		}
 		protected override string DefaultModel {
 			get { return "kart/KartChassis.mesh"; }
 		}
@@ -28,7 +31,7 @@ namespace Ponykart.Actors {
 			get { return "redbrick"; }
 		}
 		protected override float Mass {
-			get { return 400f; }
+			get { return 500f; }
 		}
 
 		// our wheelshapes
@@ -68,41 +71,34 @@ namespace Ponykart.Actors {
 			Compound = new CompoundShape();
 
 			Matrix4 trans = new Matrix4();
-			trans.MakeTrans(0, 1, 0);
+			trans.MakeTrans(0, 0.6f, 0);
 
-			BoxShape chassisShape = new BoxShape(new Vector3(1.5f, 0.5f, 1.4f)); // if you change the Z, remember to update halfExtents down in MoreBodyStuff() as well!
+			BoxShape chassisShape = new BoxShape(new Vector3(1.5f, 0.5f, 1.4f)); // if you change the Z, remember to update HalfExtents!
 			Compound.AddChildShape(trans, chassisShape);
 
-			BoxShape frontAngledShape = new BoxShape(new Vector3(1, 0.2f, 1));
+			/*BoxShape frontAngledShape = new BoxShape(new Vector3(1, 0.2f, 1));
 			trans = new Matrix4(new Vector3(0, 45, 0).DegreeVectorToLocalQuaternion());
-			trans.SetTrans(new Vector3(0, 0.3f, 1.33f));
-			Compound.AddChildShape(trans, frontAngledShape);
+			trans.SetTrans(new Vector3(0, 0.15f, 1.33f));
+			Compound.AddChildShape(trans, frontAngledShape);*/
 
 			return Compound;
-		}
-
-		/// <summary>
-		/// Same as base class + that funny angled bit and the wheels
-		/// </summary>
-		protected override void MoreBodyInfoStuff() {
-			// at this point the compound shape is already created
-
 		}
 
 		protected override void MoreBodyStuff() {
 			Body.ActivationState = ActivationState.DisableDeactivation;
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.Get<PhysicsMain>().World);
+			Tuning = new RaycastVehicle.VehicleTuning();
 			Vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
 			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a matrix?
 
 			LKernel.Get<PhysicsMain>().World.AddAction(Vehicle);
 
 			var wheelFac = LKernel.Get<WheelFactory>();
-			WheelFL = wheelFac.CreateWheel("AltFrontWheel", WheelID.FrontLeft, this, new Vector3(1.7f, -0.3f, 0.75f), true);
-			WheelFR = wheelFac.CreateWheel("AltFrontWheel", WheelID.FrontRight, this, new Vector3(-1.7f, -0.3f, 0.75f), true);
-			WheelBL = wheelFac.CreateWheel("AltBackWheel", WheelID.BackLeft, this, new Vector3(1.7f, -0.3f, -0.75f), false);
-			WheelBR = wheelFac.CreateWheel("AltBackWheel", WheelID.BackRight, this, new Vector3(-1.7f, -0.3f, -0.75f/*-1.33f*/), false);
+			WheelFL = wheelFac.CreateWheel("FrontWheel", WheelID.FrontLeft, this, new Vector3(1.7f, 0.3f, 1.33f/*0.75f*/), true);
+			WheelFR = wheelFac.CreateWheel("FrontWheel", WheelID.FrontRight, this, new Vector3(-1.7f, 0.3f, 1.33f), true);
+			WheelBL = wheelFac.CreateWheel("BackWheel", WheelID.BackLeft, this, new Vector3(1.7f, 0.3f, -1.33f), false);
+			WheelBR = wheelFac.CreateWheel("BackWheel", WheelID.BackRight, this, new Vector3(-1.7f, 0.3f, -1.33f), false);
 		}
 
 		/// <summary>

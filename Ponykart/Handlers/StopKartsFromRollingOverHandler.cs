@@ -19,11 +19,11 @@ namespace Ponykart.Handlers {
 
 		public StopKartsFromRollingOverHandler() {
 			SRHs = new Dictionary<Kart, SelfRightingHandler>();
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
 		}
 
 		float elapsed;
-		bool FrameEnded(FrameEvent evt) {
+		bool FrameStarted(FrameEvent evt) {
 			if (elapsed > RAYCAST_TIME) {
 				elapsed = 0;
 
@@ -59,7 +59,7 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Dispose() {
-			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 			// have to do this because if we change levels while SRHs is being modified, we get an exception
 			SelfRightingHandler[] tempCollection = new SelfRightingHandler[SRHs.Count];
 			SRHs.Values.CopyTo(tempCollection, 0);

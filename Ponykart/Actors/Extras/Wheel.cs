@@ -2,6 +2,7 @@
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
+using Ponykart.Physics;
 using Ponykart.Stuff;
 using Math = Mogre.Math;
 
@@ -14,8 +15,6 @@ namespace Ponykart.Actors {
 
 		public float Radius { get; set; } // 0.5 (lymph)
 		public float Width { get; set; } // 0.4 (demo)
-		public float ConnectionHeight { get; set; } // 1.2 (demo)
-		public float HalfExtents { get; set; } // 0.7 (lymph)
 		public float SuspensionRestLength { get; set; } // 0.6 (demo) // 0.3 (zg)
 
 		public float SpringStiffness { get; set; } // 100 (zg)
@@ -48,15 +47,18 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsBrakeOn { get; set; }
 
+		static CylinderShapeX cylinder;
+
 		Kart Kart;
 
 		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID) {
 			Kart = owner;
 			WheelID = wheelID;
+			//connectionPoint.y = ConnectionHeight;
 
 			ID = IDs.New;
 
-			Node = Kart.Node.CreateChildSceneNode("wheelNode" + ID, connectionPoint - new Vector3(0, 0.5f, 0));
+			Node = /*Kart.Node*/LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + ID, connectionPoint);
 			Entity = LKernel.Get<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
 
@@ -64,7 +66,10 @@ namespace Ponykart.Actors {
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
 
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			if (cylinder == null)
+				cylinder = new CylinderShapeX(Width + 0.1f, Radius + 0.1f, Radius + 0.1f);
+
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
 		}
 
 		/// <summary>
@@ -81,36 +86,34 @@ namespace Ponykart.Actors {
 			info.RollInfluence = RollInfluence;
 		}
 
-		float spin = 0; // rads
+
 		Matrix4 previousTransform;
 		/// <summary>
 		/// Update our node's orientation. I'd still like a way to figure out how to update its position based on the suspension, but oh well.
 		/// </summary>
-		bool FrameEnded(FrameEvent evt) {
+		bool FrameStarted(FrameEvent evt) {
 			if (!LKernel.Get<LevelManager>().IsValidLevel || Pauser.IsPaused)
 				return true;
 
 			// only update the node if it changed
-			if (previousTransform != Kart.Vehicle.GetWheelTransformWS((int) WheelID))
-				previousTransform = Kart.Vehicle.GetWheelTransformWS((int) WheelID);
-			else
-				return true;
+			//if (previousTransform != Kart.Vehicle.GetWheelInfo((int) WheelID).WorldTransform)
+				previousTransform = Kart.Vehicle.GetWheelInfo((int) WheelID).WorldTransform;
+			//else
+			//	return true;
 
 			Node.Position = previousTransform.GetTrans();
 			Node.Orientation = previousTransform.ExtractQuaternion();
 
-			/////////////////
-#if DEBUG
-			//if (drawLines && Kart == LKernel.Get<Players.PlayerManager>().MainPlayer.Kart) {
-				//DebugDrawer.Singleton.BuildLine(Shape.GlobalPosition, lastPos, ColourValue.Blue, 1);
-				//lastPos = Shape.GlobalPosition;
-			//}
-#endif
+
+			if (PhysicsMain.DrawLines)
+				LKernel.Get<PhysicsMain>().World.DebugDrawObject(previousTransform, cylinder, ColourValue.White);
+
+			Accelerate();
+			Brake();
+			Turn();
 
 			return true;
 		}
-		//Vector3 lastPos = Vector3.ZERO;
-		public static bool drawLines = false;
 
 		/// <summary>
 		/// Apply some torque to the engine.
@@ -132,7 +135,7 @@ namespace Ponykart.Actors {
 		float slowSpeed = 0;
 		float highSpeed = 40;
 		float idealSteerAngle = 0;
-		static readonly float one_degree = Math.PI / 180;
+		static readonly float one_degree = Math.PI / 90; //Math.PI / 180;
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
@@ -171,7 +174,7 @@ namespace Ponykart.Actors {
 		/// clean up stuff
 		/// </summary>
 		public void Dispose() {
-			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 			// dispose of mogre stuff? I suppose we don't need to since we aren't going to be disposing karts in the middle of a level
 		}
 	}

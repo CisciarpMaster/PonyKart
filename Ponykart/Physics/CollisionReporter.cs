@@ -43,7 +43,7 @@ namespace Ponykart.Physics {
 			reporters = new CollisionReportHandler[HIGHEST_BIT_IN_COLLISION_GROUPS + 1, HIGHEST_BIT_IN_COLLISION_GROUPS + 1];
 			CurrentlyCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
 
-			LKernel.Get<Root>().FrameEnded += new FrameListener.FrameEndedHandler(FrameEnded);
+			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
 			LKernel.Get<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
 		}
 
@@ -53,8 +53,7 @@ namespace Ponykart.Physics {
 		/// - Finds collision pairs that don't exist any more and fires events for them
 		/// - Keeps an updated list of every contact pair currently in the world
 		/// </summary>
-		bool FrameEnded(FrameEvent evt) {
-			var world = LKernel.Get<PhysicsMain>().World;
+		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 
 			// we start with an empty dict and then gradually build it up. After the frame, we replace the old dict with this one,
 			// and then find which pairs did not exist in the new one and fire stoppedtouching events for them
@@ -125,8 +124,6 @@ namespace Ponykart.Physics {
 
 			// then we replace the old dictionary with the new one
 			CurrentlyCollidingWith = newCollidingWith;
-
-			return true;
 		}
 
 		/// <summary>

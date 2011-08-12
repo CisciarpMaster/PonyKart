@@ -14,7 +14,7 @@ namespace Ponykart.Handlers {
 		public SelfRightingHandler(Kart kartToFlip) {
 			kart = kartToFlip;
 
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
 		}
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace Ponykart.Handlers {
 		/// 
 		/// TODO: use constraints to stop the karts from flipping
 		/// </summary>
-		bool FrameEnded(FrameEvent evt) {
+		bool FrameStarted(FrameEvent evt) {
 			// if the kart's gone, then we can get rid of this handler too
 			if (kart == null || kart.Vehicle.IsDisposed) {
 				Dispose();
@@ -68,7 +68,7 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Dispose() {
-			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 			LKernel.Get<StopKartsFromRollingOverHandler>().SRHs.Remove(kart);
 			kart = null;
 		}

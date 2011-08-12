@@ -8,19 +8,19 @@ namespace Ponykart.Handlers {
 			Launch.Log("[Loading] Creating DebugDrawerHandler");
 
 #if DEBUG
-			DebugDrawer.SetSingleton(new DebugDrawer(LKernel.Get<SceneManager>(), 0.6f));
+			MogreDebugDrawer.SetSingleton(new MogreDebugDrawer(LKernel.Get<SceneManager>(), 0.6f));
 
 			LKernel.Get<Root>().FrameStarted += FrameStarted;
 			LKernel.Get<Root>().FrameEnded += FrameEnded;
 		}
 
 		bool FrameStarted(FrameEvent evt) {
-			DebugDrawer.Singleton.Build();
+			MogreDebugDrawer.Singleton.Build();
 			return true;
 		}
 
 		bool FrameEnded(FrameEvent evt) {
-			//DebugDrawer.Singleton.Clear();
+			MogreDebugDrawer.Singleton.Clear();
 			return true;
 #endif
 		}
@@ -29,7 +29,7 @@ namespace Ponykart.Handlers {
 #if DEBUG
 			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 			LKernel.Get<Root>().FrameEnded -= FrameEnded;
-			DebugDrawer.Singleton.Dispose();
+			MogreDebugDrawer.Singleton.Dispose();
 #endif
 		}
 	}

@@ -254,13 +254,13 @@ public class IcoSphere {
 /// This is the port of the Ogre DebugDrawer from https://bitbucket.org/hasyimi/ogre-debug-drawing-utility/
 /// </summary>
 /// <remarks></remarks>
-public class DebugDrawer : System.IDisposable {
+public class MogreDebugDrawer : System.IDisposable {
 	#region "Singleton"
-	private static DebugDrawer _Singleton;
-	public static DebugDrawer Singleton {
+	private static MogreDebugDrawer _Singleton;
+	public static MogreDebugDrawer Singleton {
 		get { return _Singleton; }
 	}
-	public static void SetSingleton(DebugDrawer DebugDrawer) {
+	public static void SetSingleton(MogreDebugDrawer DebugDrawer) {
 		_Singleton = DebugDrawer;
 	}
 	#endregion
@@ -295,7 +295,7 @@ public class DebugDrawer : System.IDisposable {
 	private int linesIndex;
 
 	private int trianglesIndex;
-	public DebugDrawer(SceneManager _sceneManager, float _fillAlpha) {
+	public MogreDebugDrawer(SceneManager _sceneManager, float _fillAlpha) {
 		sceneManager = _sceneManager;
 		fillAlpha = _fillAlpha;
 		manualObject = null;

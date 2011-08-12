@@ -43,10 +43,10 @@ namespace Ponykart.Handlers
 					break;
 #if DEBUG
 				case KeyCode.KC_X:
-					DebugDrawer.Singleton.Clear();
+					MogreDebugDrawer.Singleton.Clear();
 					break;
 				case KeyCode.KC_I:
-					Wheel.drawLines = !Wheel.drawLines;
+					PhysicsMain.DrawLines = !PhysicsMain.DrawLines;
 					break;
 #endif
 				case KeyCode.KC_M:

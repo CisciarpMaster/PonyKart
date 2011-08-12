@@ -7,12 +7,14 @@ namespace Ponykart.Physics {
 	public class PhysicsMaterialManager {
 		public PhysicsMaterial NoFrictionNoBounceMaterial { get; private set; }
 		public PhysicsMaterial DefaultMaterial { get; private set; }
+		public PhysicsMaterial KartMaterial { get; private set; }
 
 		public PhysicsMaterialManager() {
 			Launch.Log("[Loading] Creating PhysicsMaterialManager");
 
 			DefaultMaterial = new PhysicsMaterial();
 			NoFrictionNoBounceMaterial = new PhysicsMaterial(0, 0);
+			KartMaterial = new PhysicsMaterial(angularDamping: 0.2f, linearDamping: 0.2f);
 		}
 
 		/// <summary>

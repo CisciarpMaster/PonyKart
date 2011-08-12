@@ -10,7 +10,7 @@ namespace Ponykart.Actors {
 			get { return "primitives/box.mesh"; }
 		}
 		protected override CollisionShape CollisionShape {
-			get { return new BoxShape(SpawnScale); }
+			get { return new BoxShape(SpawnScale / 2f); }
 		}
 		protected override float Mass {
 			get { return 0; } // immovable

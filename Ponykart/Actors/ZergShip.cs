@@ -17,7 +17,7 @@ namespace Ponykart.Actors {
 
 		public ZergShip(ThingTemplate tt) : base(tt) {
 			// hook into the "on every frame" event
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
 		}
 
 		protected override void CreateMoreMogreStuff() {
@@ -36,7 +36,7 @@ namespace Ponykart.Actors {
 		protected override void SetUpPhysics() { }
 
 		// this runs every frame
-		bool FrameEnded(FrameEvent evt) {
+		bool FrameStarted(FrameEvent evt) {
 			//if (LKernel.Get<Levels.LevelManager>().IsValidLevel && Entity != null)
 				// advance our animation by the time since the last frame
 				animState.AddTime(evt.timeSinceLastFrame);
@@ -50,7 +50,7 @@ namespace Ponykart.Actors {
 
 		// cleanup
 		public override void Dispose() {
-			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 			base.Dispose();
 		}
 	}

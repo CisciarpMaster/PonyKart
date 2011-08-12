@@ -44,7 +44,24 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public DynamicThing(ThingTemplate tt) : base(tt) { }
+		public DynamicThing(ThingTemplate tt) : base(tt) {
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
+
+			var sceneMgr = LKernel.Get<SceneManager>();
+			glownode = sceneMgr.RootSceneNode.CreateChildSceneNode("COG" + ID);
+			glownode.SetScale(0.2f, 0.2f, 0.2f);
+			Entity glowent = sceneMgr.CreateEntity("COG" + ID, "primitives/ellipsoid.mesh");
+			glowent.SetMaterialName("FlatGlow_red");
+			glowent.RenderQueueGroup = Handlers.GlowHandler.RENDER_QUEUE_FLAT_GLOW;
+			glowent.CastShadows = false;
+			glownode.AttachObject(glowent);
+		}
+
+		SceneNode glownode;
+		bool FrameStarted(FrameEvent evt) {
+			glownode.Position = Body.CenterOfMassPosition;
+			return true;
+		}
 
 
 		/// <summary>
@@ -102,6 +119,7 @@ namespace Ponykart.Actors {
 
 
 		public override void Dispose() {
+			LKernel.Get<Root>().FrameStarted -= FrameStarted;
 			if (Body != null) {
 				Body.Dispose();
 				Body = null;

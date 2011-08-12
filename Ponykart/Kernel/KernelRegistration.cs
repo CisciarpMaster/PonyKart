@@ -131,6 +131,8 @@ namespace Ponykart {
 			AddLevelObject(new StopKartsFromRollingOverHandler());
 			AddLevelObject(new TriggerRegionsTest());
 			AddLevelObject(new DialogueTest()); // this needs to come after TriggerRegionsTest
+
+			AddLevelObject(new BulletDebugDrawer());
 		}
 
 		/// <summary>

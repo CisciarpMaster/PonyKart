@@ -155,6 +155,7 @@
     <Compile Include="Lua\IOWrapper.cs" />
     <Compile Include="Lua\LevelWrapper.cs" />
     <Compile Include="Handlers\DebugDrawerHandler.cs" />
+    <Compile Include="Stuff\BulletDebugDrawer.cs" />
     <Compile Include="Stuff\KartSpawnPositions.cs" />
     <Compile Include="Stuff\KeyBindingManager.cs" />
     <Compile Include="Settings.cs" />
@@ -262,13 +263,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DebugDrawer\DebugDrawer.csproj">
-      <Project>{51BD2EDB-5F37-4BA5-9DC6-5C9F267C1CA4}</Project>
-      <Name>DebugDrawer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LymphThing\LymphThing.csproj">
       <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
       <Name>LymphThing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MogreDebugDrawer\MogreDebugDrawer.csproj">
+      <Project>{51BD2EDB-5F37-4BA5-9DC6-5C9F267C1CA4}</Project>
+      <Name>MogreDebugDrawer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

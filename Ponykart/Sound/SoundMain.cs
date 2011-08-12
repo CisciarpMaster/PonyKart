@@ -27,7 +27,7 @@ namespace Ponykart.Sound {
 			levelManager.OnLevelLoad += OnLevelLoad;
 			levelManager.OnLevelUnload += (ea) => Engine.RemoveAllSoundSources();
 
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
 
 			Engine = new ISoundEngine();
 			Engine.Default3DSoundMinDistance = 2;
@@ -54,7 +54,7 @@ namespace Ponykart.Sound {
 		private float timesince = 0;
 
 		// only need to update this twice a second
-		bool FrameEnded(FrameEvent evt) {
+		bool FrameStarted(FrameEvent evt) {
 			if (!LKernel.Get<LevelManager>().IsValidLevel)
 				return true;
 

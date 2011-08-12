@@ -28,11 +28,11 @@ namespace Ponykart.Handlers {
 			};
 			gui.Controls.Add(label);
 
-			LKernel.Get<Root>().FrameEnded += new FrameListener.FrameEndedHandler(FrameEnded);
+			LKernel.Get<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 		}
 
 		float elapsed;
-		bool FrameEnded(FrameEvent evt) {
+		bool FrameStarted(FrameEvent evt) {
 			if (elapsed >= 0.2f) {
 				elapsed = 0;
 

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponykart", "Ponykart\Ponyka
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LymphThing", "LymphThing\LymphThing.csproj", "{BE300323-9D6D-4CA5-BA9C-41736DFF973D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugDrawer", "DebugDrawer\DebugDrawer.csproj", "{51BD2EDB-5F37-4BA5-9DC6-5C9F267C1CA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MogreDebugDrawer", "MogreDebugDrawer\MogreDebugDrawer.csproj", "{51BD2EDB-5F37-4BA5-9DC6-5C9F267C1CA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

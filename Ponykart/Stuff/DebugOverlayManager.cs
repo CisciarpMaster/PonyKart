@@ -13,7 +13,7 @@ namespace Ponykart.Stuff {
 
 		public DebugOverlayManager() {
 			this.overlay = OverlayManager.Singleton.GetByName("Core/DebugOverlay");
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.Get<Root>().FrameStarted += FrameStarted;
 
 			ShowDebugOverlay(true);
 		}
@@ -65,7 +65,7 @@ namespace Ponykart.Stuff {
 			ShowDebugOverlay(!overlay.IsVisible);
 		}
 
-		public bool FrameEnded(FrameEvent e) {
+		public bool FrameStarted(FrameEvent e) {
 			UpdateStats();
 			return true;
 		}

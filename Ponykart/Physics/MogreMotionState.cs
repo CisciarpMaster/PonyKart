@@ -7,7 +7,6 @@ namespace Ponykart.Physics {
 	/// Best thing is, it only updates the node when it's actually changed instead of every frame!
 	/// 
 	/// TODO: update sound components
-	/// TODO: #if DEBUG, draw our objects using the DebugDrawer
 	/// </summary>
 	public class MogreMotionState : MotionState {
 

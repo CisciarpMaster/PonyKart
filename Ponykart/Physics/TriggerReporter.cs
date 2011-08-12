@@ -25,13 +25,13 @@ namespace Ponykart.Physics {
 			Regions = new Dictionary<string, TriggerRegion>();
 
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
 		}
 
 		/// <summary>
 		/// go through each region and find bodies that have entered or left it
 		/// </summary>
-		bool FrameEnded(FrameEvent evt) {
+		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			foreach (TriggerRegion region in Regions.Values) {
 				// get our set of bodies that were inside the region from the previous frame
 				Collection<RigidBody> previousBodies = region.CurrentlyCollidingWith;
@@ -59,8 +59,6 @@ namespace Ponykart.Physics {
 				foreach (RigidBody removedBody in removed)
 					region.InvokeTrigger(removedBody, TriggerReportFlags.Leave);
 			}
-
-			return true;
 		}
 
 		/// <summary>

@@ -1,22 +1,14 @@
 Radius = 0.5
-Suspension = 0.5
-SpringRestitution = 2000
-SpringDamping = 800
-SpringBias = 0
+Width = 0.2
+SuspensionRestLength = 0.3
 
-BrakeForce = 4000
-MotorForce = 5000
+SpringStiffness = 500
+SpringCompression = 4.2
+SpringDamping = 20
+FrictionSlip = 100
+RollInfluence = 1
+
+BrakeForce = 80
+MotorForce = 2500
 TurnAngle = 0
 MaxSpeed = 100
-
-LatExtremumSlip = 1.0
-LatExtremumValue = 1.0
-LatAsymptoteSlip = 2.0
-LatAsymptoteValue = 0.7
-LatStiffnessFactor = 8000
-
-LongExtremumSlip = 1.0
-LongExtremumValue = 1.0
-LongAsymptoteSlip = 2.0
-LongAsymptoteValue = 0.7
-LongStiffnessFactor = 8000

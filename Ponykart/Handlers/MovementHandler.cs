@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -11,7 +11,7 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles movement of all NPCs. Currently it's kinda crude but it works for now.
 	/// </summary>
-	public class MovementHandler : IDisposable {
+	public class MovementHandler : System.IDisposable {
 
 		ICollection<Thing> thingsToMove;
 		float time = 0;
@@ -38,21 +38,19 @@ namespace Ponykart.Handlers {
 			Launch.Log("[Loading] Disposing MovementHandler");
 
 			LKernel.Get<Spawner>().OnThingCreation -= AddActor;
-			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
 			thingsToMove.Clear();
 		}
 
-		bool FrameEnded(FrameEvent evt) {
+		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsValidLevel)
-				return true;
+				return;
 
 			time += evt.timeSinceLastFrame;
 			if (time > delay) {
 				MoveThings();
 				time = 0;
 			}
-
-			return true;
 		}
 
 		void MoveThings() {

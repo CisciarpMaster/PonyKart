@@ -54,6 +54,9 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BulletSharp">
+      <HintPath>..\References\BulletSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Mogre">
       <HintPath>..\References\Mogre.dll</HintPath>
     </Reference>
@@ -66,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DebugDrawer.cs" />
+    <Compile Include="MogreDebugDrawer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

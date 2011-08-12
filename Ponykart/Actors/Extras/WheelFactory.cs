@@ -94,8 +94,6 @@ namespace Ponykart.Actors {
 			Wheel wheel = new Wheel(owner, position, ID) {
 				Radius = dict["Radius"],
 				Width = dict["Width"],
-				ConnectionHeight = dict["ConnectionHeight"],
-				HalfExtents = dict["HalfExtents"],
 				SuspensionRestLength = dict["SuspensionRestLength"],
 
 				SpringStiffness = dict["SpringStiffness"],
