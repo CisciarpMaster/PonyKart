@@ -14,7 +14,22 @@ material zerg
 				texture zerg.tga
 			}
 		}
-
+		
+		pass {
+			scene_blend add
+			depth_check on
+			lighting on
+			receive_shadows off
+			
+			vertex_program_ref glowBalloon_vs {
+				param_named Inflate_add float 0.1
+				param_named Inflate_mult float 0
+			}
+			fragment_program_ref glowBalloon_ps {
+				param_named GlowColor float3 1 1 1
+				param_named GlowExpon float  2.5
+			}
+		}
 	}
 
 }
