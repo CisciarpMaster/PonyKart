@@ -40,7 +40,7 @@ namespace Ponykart.Physics {
 			}
 			set {
 				if (node == null)
-					return;
+					base.Dispose();
 
 				node.Orientation = value.ExtractQuaternion();
 				node.Position = value.GetTrans();

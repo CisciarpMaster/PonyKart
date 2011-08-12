@@ -42,7 +42,7 @@ namespace Ponykart.Players {
 		/// <summary>
 		/// Gets the kart's SceneNode
 		/// </summary>
-		public SceneNode Node { get { return Kart.Node; } }
+		public SceneNode Node { get { return Kart.RootNode; } }
 		/// <summary>
 		/// Gets the kart's Body
 		/// </summary>
@@ -52,12 +52,12 @@ namespace Ponykart.Players {
 		/// actor - use the <see cref="Body"/> if you want to change the kart's position!
 		/// </summary>
 		public Vector3 NodePosition {
-			get { return Kart.Node.Position; }
+			get { return Kart.RootNode.Position; }
 		}
 		/// <summary>
 		/// Gets the kart's SceneNode's orientation
 		/// </summary>
-		public Quaternion Orientation { get { return Kart.Node.Orientation; } }
+		public Quaternion Orientation { get { return Kart.RootNode.Orientation; } }
 		#endregion
 
 

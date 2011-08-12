@@ -14,7 +14,7 @@ namespace Ponykart.Physics {
 
 			DefaultMaterial = new PhysicsMaterial();
 			NoFrictionNoBounceMaterial = new PhysicsMaterial(0, 0);
-			KartMaterial = new PhysicsMaterial(angularDamping: 0.2f, linearDamping: 0.2f);
+			KartMaterial = new PhysicsMaterial(bounciness: 0f, angularDamping: 0.2f, linearDamping: 0.2f);
 		}
 
 		/// <summary>

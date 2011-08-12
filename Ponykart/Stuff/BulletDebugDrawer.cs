@@ -4,7 +4,8 @@ using Mogre;
 using Ponykart.Physics;
 
 namespace Ponykart.Stuff {
-	public class BulletDebugDrawer : IDebugDraw, System.IDisposable {
+	[Handler(HandlerScope.Level)]
+	public class BulletDebugDrawer : IDebugDraw, ILevelHandler {
 		SceneManager sceneMgr;
 		ManualObject lines;
 		ManualObject triangles;

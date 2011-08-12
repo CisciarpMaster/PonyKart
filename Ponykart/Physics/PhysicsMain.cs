@@ -54,7 +54,7 @@ namespace Ponykart.Physics {
 			Launch.Log("[Loading] Creating PhysicsMain...");
 
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			
 
 			this.update = 1f / Constants.PH_FRAMERATE;
 			this.update10 = update * 10f;
@@ -106,9 +106,13 @@ namespace Ponykart.Physics {
 
 			if (PostCreateWorld != null)
 				PostCreateWorld(world);
+
+			LKernel.Get<Root>().FrameEnded += FrameEnded;
 		}
 
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
+			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+
 			if (!world.IsDisposed)
 				world.Dispose();
 			ThingsToDispose.Clear();
@@ -118,6 +122,7 @@ namespace Ponykart.Physics {
 		/// Creates the world
 		/// </summary>
 		void CreateWorld(string levelName) {
+			System.Console.WriteLine("Creating new world...");
 			// have to make more of these every level because disposing the world apparently disposes of them too.
 			broadphase = new DbvtBroadphase();
 			dcc = new DefaultCollisionConfiguration();
@@ -127,6 +132,7 @@ namespace Ponykart.Physics {
 			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
 
 			world.Gravity = new Vector3(0, Constants.GRAVITY, 0);
+			// TODO: this isn't working for some reason
 			world.SetInternalTickCallback(PostTick);
 		}
 
@@ -135,9 +141,10 @@ namespace Ponykart.Physics {
 		/// Physics simulation should be the only thing that's using FrameStarted!
 		/// </summary>
 		bool FrameEnded(FrameEvent evt) {
-			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsValidLevel || world.IsDisposed)
+			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsPlayableLevel || !LKernel.Get<LevelManager>().IsValidLevel || world.IsDisposed)
 				return true;
 
+			// dispose of everything waiting to be disposed
 			if (ThingsToDispose.Count > 0) {
 				foreach (Thing t in ThingsToDispose) {
 					t.Dispose();
@@ -145,11 +152,13 @@ namespace Ponykart.Physics {
 				ThingsToDispose.Clear();
 			}
 
+			// run the events that go just before we simulate
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
 
-			world.StepSimulation(evt.timeSinceLastFrame, 10, update);
+			world.StepSimulation(evt.timeSinceLastFrame, 7, update);
 
+			// run the events that go just after we simulate
 			if (PostSimulate != null)
 				PostSimulate(world, evt);
 
