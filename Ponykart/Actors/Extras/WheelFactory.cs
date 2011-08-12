@@ -105,10 +105,6 @@ namespace Ponykart.Actors {
 				BrakeForce = dict["BrakeForce"],
 				MotorForce = dict["MotorForce"],
 				TurnAngle = Math.DegreesToRadians(dict["TurnAngle"]),
-				// the maximum axle speed a kart with these wheels reaches is only about 87ish anyway (40 linear vel)
-				MaxSpeed = dict["MaxSpeed"],
-
-
 			};
 			wheel.CreateWheel(position, isFrontWheel);
 			return wheel;

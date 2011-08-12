@@ -33,12 +33,17 @@ namespace Ponykart.Actors {
 		protected override float Mass {
 			get { return 500f; }
 		}
+		protected override MotionState DefaultMotionState {
+			get { return new KartMotionState(SpawnPosition, SpawnRotation, RootNode, this); }
+		}
+		public float MaxSpeed { get; set; }
+		public float MaxSpeedSquared { get; private set; }
 
 		// our wheelshapes
-		public Wheel WheelFR { get; protected set; }
 		public Wheel WheelFL { get; protected set; }
-		public Wheel WheelBR { get; protected set; }
+		public Wheel WheelFR { get; protected set; }
 		public Wheel WheelBL { get; protected set; }
+		public Wheel WheelBR { get; protected set; }
 
 		public RaycastVehicle Vehicle;
 		public RaycastVehicle.VehicleTuning Tuning;
@@ -49,6 +54,9 @@ namespace Ponykart.Actors {
 
 		public Kart(ThingTemplate tt) : base(tt) {
 			Launch.Log("Creating Kart #" + ID + " with name \"" + tt.StringTokens["Name"] + "\"");
+
+			MaxSpeed = 40f;
+			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 		}
 
 		/// <summary>
@@ -57,6 +65,7 @@ namespace Ponykart.Actors {
 		protected override void CreateMoreMogreStuff() {
 			// add a ribbon
 			CreateRibbon(15, 30, ColourValue.Blue, 2f);
+			Node.Position += new Vector3(0, 0.5f, 0);
 		}
 
 		/// <summary>
@@ -71,9 +80,9 @@ namespace Ponykart.Actors {
 			Compound = new CompoundShape();
 
 			Matrix4 trans = new Matrix4();
-			trans.MakeTrans(0, 0.6f, 0);
+			trans.MakeTrans(0, 0.7f, 0);
 
-			BoxShape chassisShape = new BoxShape(new Vector3(1.5f, 0.5f, 1.4f)); // if you change the Z, remember to update HalfExtents!
+			BoxShape chassisShape = new BoxShape(new Vector3(1.5f, 0.5f, 1.4f));
 			Compound.AddChildShape(trans, chassisShape);
 
 			/*BoxShape frontAngledShape = new BoxShape(new Vector3(1, 0.2f, 1));
@@ -84,21 +93,22 @@ namespace Ponykart.Actors {
 			return Compound;
 		}
 
-		protected override void MoreBodyStuff() {
+		protected override void PostCreateBody() {
 			Body.ActivationState = ActivationState.DisableDeactivation;
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.Get<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();
+			Tuning.MaxSuspensionTravelCm = 40f;
 			Vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
 			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a matrix?
 
 			LKernel.Get<PhysicsMain>().World.AddAction(Vehicle);
 
 			var wheelFac = LKernel.Get<WheelFactory>();
-			WheelFL = wheelFac.CreateWheel("FrontWheel", WheelID.FrontLeft, this, new Vector3(1.7f, 0.3f, 1.33f/*0.75f*/), true);
-			WheelFR = wheelFac.CreateWheel("FrontWheel", WheelID.FrontRight, this, new Vector3(-1.7f, 0.3f, 1.33f), true);
-			WheelBL = wheelFac.CreateWheel("BackWheel", WheelID.BackLeft, this, new Vector3(1.7f, 0.3f, -1.33f), false);
-			WheelBR = wheelFac.CreateWheel("BackWheel", WheelID.BackRight, this, new Vector3(-1.7f, 0.3f, -1.33f), false);
+			WheelFL = wheelFac.CreateWheel("FrontWheel", WheelID.FrontLeft, this, new Vector3(1.7f, 0.4f, 1.33f/*0.75f*/), true);
+			WheelFR = wheelFac.CreateWheel("FrontWheel", WheelID.FrontRight, this, new Vector3(-1.7f, 0.4f, 1.33f), true);
+			WheelBL = wheelFac.CreateWheel("BackWheel", WheelID.BackLeft, this, new Vector3(1.7f, 0.4f, -1.33f), false);
+			WheelBR = wheelFac.CreateWheel("BackWheel", WheelID.BackRight, this, new Vector3(-1.7f, 0.4f, -1.33f), false);
 		}
 
 		/// <summary>
@@ -108,8 +118,6 @@ namespace Ponykart.Actors {
 		public void Accelerate(float multiplier) {
 			WheelBR.AccelerateMultiplier = WheelBL.AccelerateMultiplier = WheelFR.AccelerateMultiplier = WheelFL.AccelerateMultiplier = multiplier;
 			WheelBR.IsBrakeOn = WheelBL.IsBrakeOn = WheelFR.IsBrakeOn = WheelFL.IsBrakeOn = false;
-
-
 		}
 
 		/// <summary>
@@ -131,10 +139,10 @@ namespace Ponykart.Actors {
 		public override void Dispose() {
 
 			// then we have to dispose of all of the wheels
-			WheelFR.Dispose();
 			WheelFL.Dispose();
-			WheelBR.Dispose();
+			WheelFR.Dispose();
 			WheelBL.Dispose();
+			WheelBR.Dispose();
 
 			base.Dispose();
 		}

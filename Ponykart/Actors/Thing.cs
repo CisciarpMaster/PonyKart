@@ -14,6 +14,10 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public SceneNode Node { get; private set; }
 		/// <summary>
+		/// This thing's "root" node. This is the one which all of the other nodes are attached to.
+		/// </summary>
+		public SceneNode RootNode { get; private set; }
+		/// <summary>
 		/// This thing's entity
 		/// </summary>
 		public Entity Entity { get; private set; }
@@ -167,9 +171,11 @@ namespace Ponykart.Actors {
 		protected void CreateMogreStuff() {
 			var sceneMgr = LKernel.Get<SceneManager>();
 			// Create the node that the entities will be attached to
-			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(Name + ID, SpawnPosition);
-			Node.Orientation = new Quaternion().FromGlobalEulerDegrees(SpawnRotation);
-			Node.SetScale(SpawnScale);
+			RootNode = sceneMgr.RootSceneNode.CreateChildSceneNode(Name + "Root" + ID, SpawnPosition);
+			RootNode.Orientation = new Quaternion().FromGlobalEulerDegrees(SpawnRotation);
+			RootNode.SetScale(SpawnScale);
+
+			Node = RootNode.CreateChildSceneNode(Name + ID);
 
 			Entity = sceneMgr.CreateEntity(Name + ID, Model);
 			if (DefaultMaterial != null) {
@@ -210,7 +216,7 @@ namespace Ponykart.Actors {
 				Ribbon.SetInitialWidth(0, width);
 				// attach it to the node
 				RibbonNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID + "RibbonNode");
-				Ribbon.AddNode(Node);
+				Ribbon.AddNode(RootNode);
 				RibbonNode.AttachObject(Ribbon);
 			}
 		}
@@ -261,10 +267,10 @@ namespace Ponykart.Actors {
 				Entity.Dispose();
 				Entity = null;
 			}
-			if (Node != null) {
+			if (RootNode != null) {
 				if (valid)
-					sceneMgr.DestroySceneNode(Node);
-				Node.Dispose();
+					sceneMgr.DestroySceneNode(RootNode);
+				RootNode.Dispose();
 			}
 			if (Ribbon != null && RibbonNode != null) {
 				RibbonNode.DetachObject(Ribbon);

@@ -26,7 +26,6 @@ namespace Ponykart.Actors {
 		public float BrakeForce { get; set; }
 		public float MotorForce { get; set; }
 		public Radian TurnAngle { get; set; } // 0.3 (demo)
-		public float MaxSpeed { get; set; }
 
 		protected Vector3 WheelDirection = Vector3.NEGATIVE_UNIT_Y;
 		protected Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
@@ -47,29 +46,24 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsBrakeOn { get; set; }
 
-		static CylinderShapeX cylinder;
-
 		Kart Kart;
 
 		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID) {
 			Kart = owner;
 			WheelID = wheelID;
-			//connectionPoint.y = ConnectionHeight;
 
 			ID = IDs.New;
 
-			Node = /*Kart.Node*/LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + ID, connectionPoint);
+			Node = Kart.RootNode.CreateChildSceneNode("wheelNode" + ID, connectionPoint);
 			Entity = LKernel.Get<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
+			Node.InheritOrientation = false;
 
 			AccelerateMultiplier = 0;
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
 
-			if (cylinder == null)
-				cylinder = new CylinderShapeX(Width + 0.1f, Radius + 0.1f, Radius + 0.1f);
-
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+			LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
 		}
 
 		/// <summary>
@@ -87,32 +81,16 @@ namespace Ponykart.Actors {
 		}
 
 
-		Matrix4 previousTransform;
 		/// <summary>
 		/// Update our node's orientation. I'd still like a way to figure out how to update its position based on the suspension, but oh well.
 		/// </summary>
-		bool FrameStarted(FrameEvent evt) {
+		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!LKernel.Get<LevelManager>().IsValidLevel || Pauser.IsPaused)
-				return true;
-
-			// only update the node if it changed
-			//if (previousTransform != Kart.Vehicle.GetWheelInfo((int) WheelID).WorldTransform)
-				previousTransform = Kart.Vehicle.GetWheelInfo((int) WheelID).WorldTransform;
-			//else
-			//	return true;
-
-			Node.Position = previousTransform.GetTrans();
-			Node.Orientation = previousTransform.ExtractQuaternion();
-
-
-			if (PhysicsMain.DrawLines)
-				LKernel.Get<PhysicsMain>().World.DebugDrawObject(previousTransform, cylinder, ColourValue.White);
+				return;
 
 			Accelerate();
 			Brake();
 			Turn();
-
-			return true;
 		}
 
 		/// <summary>
@@ -132,40 +110,46 @@ namespace Ponykart.Actors {
 				Kart.Vehicle.SetBrake(0, (int) WheelID);
 		}
 
-		float slowSpeed = 0;
-		float highSpeed = 40;
+		readonly float slowSpeed = 40;
+		readonly float highSpeed = 110;
+		readonly float speedTurnMultiplierAtSlowSpeeds = 2.5f;
 		float idealSteerAngle = 0;
-		static readonly float one_degree = Math.PI / 90; //Math.PI / 180;
+		static readonly float steerIncrement = Math.PI / 90;
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
 		protected void Turn() {
 			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
 			float speedTurnMultiplier = 1;
-			/*if (Shape.AxleSpeed < slowSpeed)
-				speedTurnMultiplier = 1.5f;
-			else if (Shape.AxleSpeed > highSpeed)
+
+			float axleSpeed = Kart.Vehicle.CurrentSpeedKmHour;
+			// less than the slow speed = extra turn multiplier
+			if (axleSpeed < slowSpeed)
+				speedTurnMultiplier = speedTurnMultiplierAtSlowSpeeds;
+			// more than the high speed = no extra multiplier
+			else if (axleSpeed > highSpeed)
 				speedTurnMultiplier = 1;
+			// somewhere in between = time for a cosine curve!
 			else {
-				float relativeSpeed = Shape.AxleSpeed - slowSpeed;
+				float relativeSpeed = axleSpeed - slowSpeed;
 				float maxRelativeSpeed = highSpeed - slowSpeed;
-				speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2)) / 2);
-			}*/
+				speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2f)) * (speedTurnMultiplierAtSlowSpeeds - 1f));
+			}
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 
 			float currentAngle = Kart.Vehicle.GetSteeringValue((int) WheelID);
 			
 			// smooth out the turning
 			if (currentAngle < idealSteerAngle) {
-				if (currentAngle + one_degree <= idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(currentAngle + one_degree, (int) WheelID);
-				else if (currentAngle + one_degree > idealSteerAngle)
+				if (currentAngle + steerIncrement <= idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(currentAngle + steerIncrement, (int) WheelID);
+				else if (currentAngle + steerIncrement > idealSteerAngle)
 					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
 			else if (currentAngle > idealSteerAngle) {
-				if (currentAngle - one_degree >= idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(currentAngle - one_degree, (int) WheelID);
-				else if (currentAngle - one_degree < idealSteerAngle)
+				if (currentAngle - steerIncrement >= idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(currentAngle - steerIncrement, (int) WheelID);
+				else if (currentAngle - steerIncrement < idealSteerAngle)
 					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
 		}
@@ -174,7 +158,7 @@ namespace Ponykart.Actors {
 		/// clean up stuff
 		/// </summary>
 		public void Dispose() {
-			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
 			// dispose of mogre stuff? I suppose we don't need to since we aren't going to be disposing karts in the middle of a level
 		}
 	}

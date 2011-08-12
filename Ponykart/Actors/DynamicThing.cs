@@ -35,11 +35,19 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected virtual PhysicsMaterial PhysicsMaterial { get { return null; } }
 		/// <summary>
+		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
+		/// </summary>
+		protected virtual MotionState DefaultMotionState { get { return new MogreMotionState(SpawnPosition, SpawnRotation, RootNode); } }
+		/// <summary>
+		/// The actual motion state.
+		/// </summary>
+		protected MotionState MotionState { get; set; }
+		/// <summary>
 		/// return 0 for a static body
 		/// </summary>
 		protected virtual float Mass { get { return 10f; } }
 
-		protected RigidBodyConstructionInfo info;
+		protected RigidBodyConstructionInfo Info { get; set; }
 
 		/// <summary>
 		/// Constructor
@@ -51,7 +59,7 @@ namespace Ponykart.Actors {
 			glownode = sceneMgr.RootSceneNode.CreateChildSceneNode("COG" + ID);
 			glownode.SetScale(0.2f, 0.2f, 0.2f);
 			Entity glowent = sceneMgr.CreateEntity("COG" + ID, "primitives/ellipsoid.mesh");
-			glowent.SetMaterialName("FlatGlow_red");
+			glowent.SetMaterialName("FlatGlow_yellow");
 			glowent.RenderQueueGroup = Handlers.GlowHandler.RENDER_QUEUE_FLAT_GLOW;
 			glowent.CastShadows = false;
 			glownode.AttachObject(glowent);
@@ -75,12 +83,15 @@ namespace Ponykart.Actors {
 		/// This is called automatically from the constructor.
 		/// </summary>
 		protected override void SetUpPhysics() {
+			PreSetUpBodyInfo();
 			SetUpBodyInfo();
-			MoreBodyInfoStuff();
+			PostSetUpBodyInfo();
 			CreateBody();
+			PostCreateBody();
 			SetBodyUserData();
-			MoreBodyStuff();
 		}
+
+		protected virtual void PreSetUpBodyInfo() { }
 
 		/// <summary>
 		/// Here you create your Actor and assign it.
@@ -88,19 +99,25 @@ namespace Ponykart.Actors {
 		protected void SetUpBodyInfo() {
 			Vector3 inertia;
 			CollisionShape.CalculateLocalInertia(Mass, out inertia);
-			info = new RigidBodyConstructionInfo(Mass, new MogreMotionState(SpawnPosition, SpawnRotation, Node), CollisionShape, inertia);
-			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(info, PhysicsMaterial ?? LKernel.Get<PhysicsMaterialManager>().DefaultMaterial);
+			MotionState = DefaultMotionState;
+			Info = new RigidBodyConstructionInfo(Mass, MotionState, CollisionShape, inertia);
+			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(Info, PhysicsMaterial ?? LKernel.Get<PhysicsMaterialManager>().DefaultMaterial);
 		}
 
 		/// <summary>
-		/// Override this if you want to do more to the construction info before it's used to create the body
+		/// Override this if you want to do more to the construction info before it's used to create the body but after it's been created
 		/// </summary>
-		protected virtual void MoreBodyInfoStuff() { }
+		protected virtual void PostSetUpBodyInfo() { }
 
 		protected void CreateBody() {
-			Body = new RigidBody(info);
+			Body = new RigidBody(Info);
 			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup.ToBullet(), CollidesWith.ToBullet());
 		}
+
+		/// <summary>
+		/// Override this if you want to do more to the rigid body
+		/// </summary>
+		protected virtual void PostCreateBody() { }
 
 		/// <summary>
 		/// Sets the Actor's UserData to this class so we can easily get to it.
@@ -110,12 +127,6 @@ namespace Ponykart.Actors {
 			Body.SetName(Name);
 			Body.SetCollisionGroup(CollisionGroup);
 		}
-
-		/// <summary>
-		/// Override this if you want to do more to the rigid body
-		/// </summary>
-		protected virtual void MoreBodyStuff() { }
-
 
 
 		public override void Dispose() {
