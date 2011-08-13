@@ -48,7 +48,13 @@ namespace Ponykart.Physics {
 	/// Some flags to let us know whether two objects started touching each other inappropriately or whether they finally finished
 	/// </summary>
 	public enum ObjectTouchingFlags {
+		/// <summary>
+		/// Two collision objects just started touching
+		/// </summary>
 		StartedTouching,
+		/// <summary>
+		/// Two collision objects just stopped touching
+		/// </summary>
 		StoppedTouching,
 	}
 }

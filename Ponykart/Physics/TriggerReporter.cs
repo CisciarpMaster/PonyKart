@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using BulletSharp;
-using Mogre;
 using Ponykart.Levels;
 
 namespace Ponykart.Physics {
 	/// <summary>
 	/// The main thing of this you use is AddEvent. Stick in the name of the trigger region and the method you want
-	/// to run when something enters/leaves it, and you're good to go. The method you give it can check stuff like which actors
+	/// to run when something enters/leaves it, and you're good to go. The method you give it can check stuff like which bodies
 	/// were involved and whether it was an entry or leave event.
 	/// (You can use the extension methods IsLeaveFlag and IsEnterFlag on TriggerFlags to help with this)
 	/// 
@@ -17,49 +14,43 @@ namespace Ponykart.Physics {
 	public class TriggerReporter {
 		public IDictionary<string, TriggerRegion> Regions { get; private set; }
 
-		// to make something a trigger area, use the shape desc's ShapeFlags -> TriggerEnable
-		// trigger areas should have no body
 
 		public TriggerReporter() {
 			Launch.Log("[Loading] First Get<TriggerReporter>");
 			Regions = new Dictionary<string, TriggerRegion>();
 
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
-			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
+			LKernel.Get<CollisionReporter>().AddEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Triggers, CollisionEvent);
 		}
 
 		/// <summary>
-		/// go through each region and find bodies that have entered or left it
+		/// Runs whenever we get a collision event from trigger/kart collisions
 		/// </summary>
-		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			foreach (TriggerRegion region in Regions.Values) {
-				// get our set of bodies that were inside the region from the previous frame
-				Collection<RigidBody> previousBodies = region.CurrentlyCollidingWith;
-				Collection<RigidBody> newBodies = new Collection<RigidBody>();
+		void CollisionEvent(CollisionReportInfo info) {
+			// get our ghost object
+			GhostObject ghost = info.FirstObject as GhostObject;
+			if (ghost == null)
+				ghost = info.SecondObject as GhostObject;
 
-				//System.Console.WriteLine(region.Ghost.NumOverlappingObjects + " " + region.Ghost.OverlappingPairs.Count);
+			// get the kart
+			RigidBody body = info.SecondObject as RigidBody;
+			if (body == null)
+				body = info.FirstObject as RigidBody;
 
-				// get all of the objects that are inside the region and add them to the new collection
-				for (int a = 0; a < region.Ghost.NumOverlappingObjects; a++) {
-					RigidBody body = region.Ghost.GetOverlappingObject(a) as RigidBody;
-					// check to make sure this is actually a RigidBody - if it isn't, ignore it
-					if (body != null) {
-						newBodies.Add(body);
-					}
+			// get our region
+			TriggerRegion region;
+			if (Regions.TryGetValue(ghost.GetName(), out region)) {
+
+				// started touching = enter
+				if (info.Flags == ObjectTouchingFlags.StartedTouching) {
+					region.CurrentlyCollidingWith.Add(body);
+					region.InvokeTrigger(body, TriggerReportFlags.Enter);
 				}
-
-				// get the bodies that have been removed and added (yay linq)
-				IEnumerable<RigidBody> added = newBodies.Except(previousBodies);
-				IEnumerable<RigidBody> removed = previousBodies.Except(newBodies);
-
-				// update the region's list of bodies that are inside it
-				region.CurrentlyCollidingWith = newBodies;
-
-				// then run our triggers
-				foreach (RigidBody addedBody in added)
-					region.InvokeTrigger(addedBody, TriggerReportFlags.Enter);
-				foreach (RigidBody removedBody in removed)
-					region.InvokeTrigger(removedBody, TriggerReportFlags.Leave);
+				// stopped touching = leave
+				else if (info.Flags == ObjectTouchingFlags.StoppedTouching) {
+					region.CurrentlyCollidingWith.Remove(body);
+					region.InvokeTrigger(body, TriggerReportFlags.Leave);
+				}
 			}
 		}
 

@@ -33,7 +33,7 @@ namespace Ponykart.Physics {
 		/// </summary>
 		static readonly int HIGHEST_BIT_IN_COLLISION_GROUPS = 32;
 
-		#endregion -------------------- HEY THIS IS IMPORTANT ---------------------
+		#endregion //-----------------------------------------------------------
 
 
 		/// <summary>
@@ -110,16 +110,38 @@ namespace Ponykart.Physics {
 						}
 					}
 				}
+				else {
+					// already in the dictionary, no new collisions. Add it to the new dictionary anyway though, because if we don't then it thinks
+					// they stopped colliding. Which we don't want!
+					newObjectAList.Add(objectB);
+					newObjectBList.Add(objectA);
+
+					newCollidingWith[objectA] = newObjectAList;
+					newCollidingWith[objectB] = newObjectBList;
+				}
 			}
 
 			// now we have to find the collision pairs that weren't in this frame, and get rid of them
 			// go through each "entry" in the new dictionary
-			foreach (KeyValuePair<CollisionObject, HashSet<CollisionObject>> pair in newCollidingWith) {
-				// find all of the objects that were in the old list but weren't in the new one
-				IEnumerable<CollisionObject> oldSet = CurrentlyCollidingWith[pair.Key].Except(pair.Value);
+			foreach (KeyValuePair<CollisionObject, HashSet<CollisionObject>> pair in CurrentlyCollidingWith) {
+				// does the new dict have the old key?
+				if (newCollidingWith.ContainsKey(pair.Key)) {
+					// find all of the objects that were in the old list but weren't in the new one
+					IEnumerable<CollisionObject> oldSet = pair.Value.Except(newCollidingWith[pair.Key]);
 
-				foreach (CollisionObject obj in oldSet) {
-					SetupAndFireEvent(pair.Key, obj, null, null, ObjectTouchingFlags.StoppedTouching);
+					foreach (CollisionObject obj in oldSet) {
+						// fire events for each of them
+						SetupAndFireEvent(pair.Key, obj, null, null, ObjectTouchingFlags.StoppedTouching);
+					}
+				}
+				// if it doesn't, that means two things stopped touching, and the new dict only had one object for that key.
+				else {
+					// this stops us from firing events twice
+					CollisionObject toStopObjectA = pair.Key;
+					CollisionObject toStopObjectB = pair.Value.First();
+
+					if (toStopObjectA.GetCollisionGroup() < toStopObjectB.GetCollisionGroup())
+						SetupAndFireEvent(toStopObjectA, toStopObjectB, null, null, ObjectTouchingFlags.StoppedTouching);
 				}
 			}
 

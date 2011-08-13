@@ -2,7 +2,8 @@
 using Ponykart.Physics;
 
 namespace Ponykart.Handlers {
-	[Handler(HandlerScope.Level)]
+	//[Handler(HandlerScope.Level)]
+	[Obsolete]
 	public class CollisionTestHandler : ILevelHandler {
 
 		public CollisionTestHandler() {
@@ -10,7 +11,7 @@ namespace Ponykart.Handlers {
 		}
 
 		void OnCollision(CollisionReportInfo info) {
-			Console.WriteLine("something");
+			Console.WriteLine(info.Flags);
 		}
 
 

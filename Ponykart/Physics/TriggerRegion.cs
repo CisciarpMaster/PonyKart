@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
 using Ponykart.Handlers;
@@ -13,7 +13,7 @@ namespace Ponykart.Physics {
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
-		public Collection<RigidBody> CurrentlyCollidingWith { get; set; }
+		public HashSet<RigidBody> CurrentlyCollidingWith { get; set; }
 
 		/// <summary>
 		/// Invoked by TriggerReporter
@@ -31,7 +31,7 @@ namespace Ponykart.Physics {
 		/// <param name="rotation">a degree vector</param>
 		public TriggerRegion(string name, Vector3 position, Vector3 rotation, CollisionShape shape) {
 			Name = name;
-			CurrentlyCollidingWith = new Collection<RigidBody>();
+			CurrentlyCollidingWith = new HashSet<RigidBody>();
 			
 			// mogre
 			var sceneMgr = LKernel.Get<SceneManager>();
@@ -81,7 +81,7 @@ namespace Ponykart.Physics {
 
 			// make our ghost object
 			Ghost = new GhostObject();
-			Ghost.CollisionFlags = /*CollisionFlags.StaticObject |*/ CollisionFlags.NoContactResponse;
+			Ghost.CollisionFlags = CollisionFlags.NoContactResponse;
 			Ghost.CollisionShape = shape;
 			Ghost.WorldTransform = transform;
 			Ghost.SetName(name);

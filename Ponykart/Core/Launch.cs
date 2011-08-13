@@ -5,7 +5,7 @@ using Mogre;
 
 namespace Ponykart {
 	public static class Launch {
-	
+
 		[STAThread]
 		[DebuggerStepThrough]
 		public static void Main() {
@@ -22,13 +22,11 @@ namespace Ponykart {
 		/// <summary>
 		/// Fired whan an unhandled exception bubbles up to the AppDomain
 		/// </summary>
-		static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
-		{
+		static void UnhandledException(object sender, UnhandledExceptionEventArgs e) {
 			// message box
 			if (OgreException.IsThrown)
 				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred!");
-			else
-			{
+			else {
 				var ex = e.ExceptionObject as Exception;
 				if (ex != null)
 					MessageBox.Show(ex.Message, ex.GetType().ToString());
