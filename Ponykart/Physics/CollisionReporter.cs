@@ -61,6 +61,7 @@ namespace Ponykart.Physics {
 
 			// go through all of the contacts and find the ones we're interested in
 			for (int a = 0; a < world.Dispatcher.NumManifolds; a++) {
+
 				PersistentManifold manifold = world.Dispatcher.GetManifoldByIndexInternal(a);
 				// here are our two objects
 				CollisionObject objectA = manifold.Body0 as CollisionObject;

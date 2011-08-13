@@ -111,7 +111,7 @@ namespace Ponykart.Actors {
 
 		protected void CreateBody() {
 			Body = new RigidBody(Info);
-			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup.ToBullet(), CollidesWith.ToBullet());
+			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);
 		}
 
 		/// <summary>

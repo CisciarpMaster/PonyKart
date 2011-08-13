@@ -86,7 +86,7 @@ namespace Ponykart {
 				InputKeyboard.Capture();
 				// Capture all mouse movements and button presses since last check.
 				InputMouse.Capture();
-				timeSinceLastFrame = 0;
+				timeSinceLastFrame -= Constants.INPUT_CAPTURE_RATE;
 			}
 
 			return true;

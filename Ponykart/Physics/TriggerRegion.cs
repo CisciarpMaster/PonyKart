@@ -81,10 +81,11 @@ namespace Ponykart.Physics {
 
 			// make our ghost object
 			Ghost = new GhostObject();
-			Ghost.CollisionFlags = CollisionFlags.NoContactResponse | CollisionFlags.StaticObject;
+			Ghost.CollisionFlags = /*CollisionFlags.StaticObject |*/ CollisionFlags.NoContactResponse;
 			Ghost.CollisionShape = shape;
 			Ghost.WorldTransform = transform;
-			LKernel.Get<PhysicsMain>().World.AddCollisionObject(Ghost);
+			Ghost.SetName(name);
+			LKernel.Get<PhysicsMain>().World.AddCollisionObject(Ghost, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
 
 			// then add this to the trigger reporter
 			LKernel.Get<TriggerReporter>().Regions.Add(name, this);

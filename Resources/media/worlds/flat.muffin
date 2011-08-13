@@ -14,6 +14,12 @@ Entities:
 		Rotation = 45, 0, 0
 		Scale = 10, 10, 10
 	}
+	Actor (Obstacle) {
+		Name = "obs2"
+		Position = 20.3, 0, -26
+		Rotation = 0, 0, 0
+		Scale = 10, 10, 10
+	}
 	// a more rounded ramp
 	Actor (Obstacle) {
 		Name = "obs3"

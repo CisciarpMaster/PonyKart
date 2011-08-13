@@ -3,16 +3,15 @@ using System.Collections;
 using LuaInterface;
 using LuaNetInterface;
 using Ponykart.Levels;
+using Ponykart.UI;
 
-namespace Ponykart.Lua
-{
+namespace Ponykart.Lua {
 	public delegate void LuaEventHandler();
 
 	// PackageAttributes are kinda like namespaces... I think? Anyway if you set this to null then it's treated as if it's in the global namespace
 	// obviously if you want it to be in the global namespace, adding documentation for that namespace is pointless
 	[LuaPackage(null, null)]
-	public class LuaMain
-	{
+	public class LuaMain {
 		public LuaVirtualMachine LuaVM { get; private set; }
 
 		public event LuaEventHandler OnRegister;
@@ -55,9 +54,10 @@ namespace Ponykart.Lua
 				try {
 					LuaVM.Lua.DoString(s);
 					Console.WriteLine();
-				} catch (Exception ex) {
+				}
+				catch (Exception ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message + "\n");
-					LKernel.Get<UI.LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
+					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
 					Launch.Log(ex.StackTrace);
 				}
 			}
@@ -77,9 +77,10 @@ namespace Ponykart.Lua
 				try {
 					LuaVM.Lua.DoFile(file);
 					Console.WriteLine();
-				} catch (Exception ex) {
+				}
+				catch (Exception ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message + "\n");
-					LKernel.Get<UI.LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
+					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
 					Launch.Log(ex.StackTrace);
 				}
 			}
@@ -92,8 +93,6 @@ namespace Ponykart.Lua
 			if (OnRegister != null)
 				OnRegister();
 		}
-
-		#region basic lua stuff
 
 		/// <summary>
 		/// Quits the Lua VM. Does not dispose it - use Restart() if you want to do that.
@@ -121,7 +120,7 @@ namespace Ponykart.Lua
 		[LuaFunction("print", "Prints something.", "string s - the string to print")]
 		public void Print(string s) {
 			Launch.Log("[Lua] " + s);
-			LKernel.Get<UI.LuaConsoleManager>().AddLabel(s);
+			LKernel.Get<LuaConsoleManager>().AddLabel(s);
 		}
 
 		/// <summary>
@@ -133,22 +132,21 @@ namespace Ponykart.Lua
 			LuaPackageDescriptor packageDesc;
 
 			if (LuaVM.Functions.ContainsKey(command)) {
-				LuaFunctionDescriptor descriptor = (LuaFunctionDescriptor)LuaVM.Functions[command];
-				Console.WriteLine(descriptor.FullDocumentationString);
-				LKernel.Get<UI.LuaConsoleManager>().AddLabel(descriptor.FullDocumentationString);
+				LuaFunctionDescriptor descriptor = (LuaFunctionDescriptor) LuaVM.Functions[command];
+				Print(descriptor.FullDocumentationString);
 
 				return;
 			}
 
 			if (command.IndexOf(".") == -1) {
 				if (LuaVM.Packages.ContainsKey(command)) {
-					LuaPackageDescriptor descriptor = (LuaPackageDescriptor)LuaVM.Packages[command];
+					LuaPackageDescriptor descriptor = (LuaPackageDescriptor) LuaVM.Packages[command];
 					descriptor.ShowHelp();
 
 					return;
-				} else {
-					Console.WriteLine("No such function or package: " + command);
-					LKernel.Get<UI.LuaConsoleManager>().AddLabel("No such function or package: " + command);
+				}
+				else {
+					Print("No such function or package: " + command);
 
 					return;
 				}
@@ -157,16 +155,14 @@ namespace Ponykart.Lua
 			string[] parts = command.Split('.');
 
 			if (!LuaVM.Packages.ContainsKey(parts[0])) {
-				Console.WriteLine("No such function or package: " + command);
-				LKernel.Get<UI.LuaConsoleManager>().AddLabel("No such function or package: " + command);
+				Print("No such function or package: " + command);
 				return;
 			}
 
-			packageDesc = (LuaPackageDescriptor)LuaVM.Packages[parts[0]];
+			packageDesc = (LuaPackageDescriptor) LuaVM.Packages[parts[0]];
 
 			if (!packageDesc.HasFunction(parts[1])) {
-				Console.WriteLine("Package " + parts[0] + " doesn't have a " + parts[1] + " function.");
-				LKernel.Get<UI.LuaConsoleManager>().AddLabel("Package " + parts[0] + " doesn't have a " + parts[1] + " function.");
+				Print("Package " + parts[0] + " doesn't have a " + parts[1] + " function.");
 				return;
 			}
 
@@ -178,27 +174,23 @@ namespace Ponykart.Lua
 		/// </summary>
 		[LuaFunction("help", "List available commands.")]
 		public void GetHelp() {
-			Console.WriteLine("Available commands: ");
-			Console.WriteLine();
+			Print("Available commands: \n");
 
 			IDictionaryEnumerator functions = LuaVM.Functions.GetEnumerator();
 
 			while (functions.MoveNext()) {
-				Console.WriteLine(((LuaFunctionDescriptor)functions.Value).GetFunctionHeader());
+				Print(((LuaFunctionDescriptor) functions.Value).GetFunctionHeader());
 			}
 
 			if (LuaVM.Packages.Count > 0) {
-				Console.WriteLine();
-				Console.WriteLine("Available packages: ");
+				Print("\n\nAvailable packages: \n");
 
 				IDictionaryEnumerator packages = LuaVM.Packages.GetEnumerator();
 
 				while (packages.MoveNext()) {
-					Console.WriteLine((string)packages.Key + " - " +
-						((LuaPackageDescriptor)packages.Value).GetPackageHeader());
+					Print((string) packages.Key + " - " + ((LuaPackageDescriptor) packages.Value).GetPackageHeader());
 				}
 			}
 		}
-		#endregion
 	}
 }

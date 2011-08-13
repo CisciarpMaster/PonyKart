@@ -57,27 +57,17 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Collides with everything! Even things marked as "collides with nothing"! Use sparingly.
 		/// </summary>
-		All = /*PonykartCollisionGroups.All
-			| PonykartCollisionGroups.None
-			| PonykartCollisionGroups.Default
-			| PonykartCollisionGroups.Environment
-			| PonykartCollisionGroups.Kinematic
-			| PonykartCollisionGroups.Debris
-			| PonykartCollisionGroups.Triggers
-			| PonykartCollisionGroups.Karts,*/
-			-1, // -1 in binary is 111111111... so it's essentially the same as "everything"
+		All = -1, // -1 in binary is 111111111... so it's essentially the same as "everything"
 
 		/// <summary>
 		/// Collides with nothing.
 		/// </summary>
-		None = PonykartCollisionGroups.All
-			 | PonykartCollisionGroups.None,
+		None = PonykartCollisionGroups.None,
 
 		/// <summary>
 		/// Collides with other defaults, environment, kinematic, debris, and karts.
 		/// </summary>
-		Default = PonykartCollisionGroups.All
-				| PonykartCollisionGroups.Default
+		Default = PonykartCollisionGroups.Default
 				| PonykartCollisionGroups.Environment
 				| PonykartCollisionGroups.Kinematic
 				| PonykartCollisionGroups.Debris
@@ -86,24 +76,21 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Collides with default, debris, and karts.
 		/// </summary>
-		Environment = PonykartCollisionGroups.All
-					| PonykartCollisionGroups.Default
+		Environment = PonykartCollisionGroups.Default
 					| PonykartCollisionGroups.Debris
 					| PonykartCollisionGroups.Karts,
 
 		/// <summary>
 		/// Collides with default, debris, and karts.
 		/// </summary>
-		Kinematic = PonykartCollisionGroups.All
-				  | PonykartCollisionGroups.Default
+		Kinematic = PonykartCollisionGroups.Default
 				  | PonykartCollisionGroups.Debris
 				  | PonykartCollisionGroups.Karts,
 
 		/// <summary>
 		/// Collides with default, environment, kinematic, other debris, and karts.
 		/// </summary>
-		Debris = PonykartCollisionGroups.All
-			   | PonykartCollisionGroups.Default
+		Debris = PonykartCollisionGroups.Default
 			   | PonykartCollisionGroups.Environment
 			   | PonykartCollisionGroups.Kinematic
 			   | PonykartCollisionGroups.Debris
@@ -112,14 +99,12 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Only collides with karts.
 		/// </summary>
-		Triggers = PonykartCollisionGroups.All
-				 | PonykartCollisionGroups.Karts,
+		Triggers = PonykartCollisionGroups.Karts,
 
 		/// <summary>
 		/// Collides with default, environment, kinematic, debris, triggers, and other karts.
 		/// </summary>
-		Karts = PonykartCollisionGroups.All
-			  | PonykartCollisionGroups.Default
+		Karts = PonykartCollisionGroups.Default
 			  | PonykartCollisionGroups.Environment
 			  | PonykartCollisionGroups.Kinematic
 			  | PonykartCollisionGroups.Debris

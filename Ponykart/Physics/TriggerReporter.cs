@@ -37,6 +37,8 @@ namespace Ponykart.Physics {
 				Collection<RigidBody> previousBodies = region.CurrentlyCollidingWith;
 				Collection<RigidBody> newBodies = new Collection<RigidBody>();
 
+				//System.Console.WriteLine(region.Ghost.NumOverlappingObjects + " " + region.Ghost.OverlappingPairs.Count);
+
 				// get all of the objects that are inside the region and add them to the new collection
 				for (int a = 0; a < region.Ghost.NumOverlappingObjects; a++) {
 					RigidBody body = region.Ghost.GetOverlappingObject(a) as RigidBody;

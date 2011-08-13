@@ -16,7 +16,6 @@ namespace Ponykart.Physics {
 	public class PhysicsMain : IDisposable {
 		private bool quit = false;
 
-		private float update, update10, elapsed;
 		private BroadphaseInterface broadphase;
 		private DefaultCollisionConfiguration dcc;
 		private CollisionDispatcher dispatcher;
@@ -54,11 +53,6 @@ namespace Ponykart.Physics {
 			Launch.Log("[Loading] Creating PhysicsMain...");
 
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
-			
-
-			this.update = 1f / Constants.PH_FRAMERATE;
-			this.update10 = update * 10f;
-			this.elapsed = 0f;
 
 			ThingsToDispose = new Collection<Thing>();
 
@@ -102,7 +96,8 @@ namespace Ponykart.Physics {
 			matrix.SetTrans(new Vector3(0, -2, 0));
 			var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1), Vector3.ZERO);
 			var groundBody = new RigidBody(info);
-			world.AddRigidBody(groundBody);
+			groundBody.SetName("ground");
+			world.AddRigidBody(groundBody, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 
 			if (PostCreateWorld != null)
 				PostCreateWorld(world);
@@ -156,7 +151,7 @@ namespace Ponykart.Physics {
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
 
-			world.StepSimulation(evt.timeSinceLastFrame, 7, update);
+			world.StepSimulation(evt.timeSinceLastFrame, Constants.PH_MAX_SUBSTEPS, Constants.PH_FIXED_TIMESTEP);
 
 			// run the events that go just after we simulate
 			if (PostSimulate != null)
@@ -178,7 +173,7 @@ namespace Ponykart.Physics {
 #endif
 
 		public void ShootBox() {
-			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition;
+			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition + Vector3.UNIT_Y;
 			string name = "Box_" + IDs.New;
 
 			SceneManager sceneMgr = LKernel.Get<SceneManager>();
@@ -193,7 +188,7 @@ namespace Ponykart.Physics {
 			info.AngularDamping = 0.1f;
 			info.LinearDamping = 0.1f;
 			RigidBody body = new RigidBody(info);
-			world.AddRigidBody(body);
+			world.AddRigidBody(body, PonykartCollisionGroups.Default, PonykartCollidesWithGroups.Default);
 		}
 
 		public DiscreteDynamicsWorld World {

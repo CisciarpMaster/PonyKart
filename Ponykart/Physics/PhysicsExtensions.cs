@@ -55,5 +55,17 @@ namespace Ponykart.Physics {
 			CollisionGroups[obj] = newGroup;
 		}
 		#endregion
+
+		#region World
+		public static void AddRigidBody(this DynamicsWorld world, RigidBody body, PonykartCollisionGroups collisionGroup, PonykartCollidesWithGroups collidesWith) {
+			body.SetCollisionGroup(collisionGroup);
+			world.AddRigidBody(body, collisionGroup.ToBullet(), collidesWith.ToBullet());
+		}
+
+		public static void AddCollisionObject(this DynamicsWorld world, CollisionObject obj, PonykartCollisionGroups collisionGroup, PonykartCollidesWithGroups collidesWith) {
+			obj.SetCollisionGroup(collisionGroup);
+			world.AddCollisionObject(obj, collisionGroup.ToBullet(), collidesWith.ToBullet());
+		}
+		#endregion
 	}
 }

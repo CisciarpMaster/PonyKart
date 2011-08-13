@@ -88,14 +88,5 @@ namespace Ponykart {
 				LKernel.Get<UIMain>().Dispose();
 			base.Dispose(disposing);
 		}
-
-		// ====================================================================
-		
-		/// <summary>
-		/// Gets the handle pointer for this window. Needed by RenderWindowProvider.
-		/// </summary>
-		new public IntPtr Handle {
-			get { return base.Handle; }
-		}
 	}
 }
