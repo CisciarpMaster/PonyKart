@@ -67,6 +67,9 @@ namespace Ponykart.Physics {
 				CollisionObject objectA = manifold.Body0 as CollisionObject;
 				CollisionObject objectB = manifold.Body1 as CollisionObject;
 
+				if (objectA.GetName() == "test trigger area 3" || objectB.GetName() == "test trigger area 3")
+					System.Console.WriteLine(objectA.GetName() + " " + objectB.GetName());
+
 				// do we have any events that care about these groups? if not, then skip this collision pair
 				if (reporters[(int) objectA.GetCollisionGroup(), (int) objectB.GetCollisionGroup()] == null
 						&& reporters[(int) objectB.GetCollisionGroup(), (int) objectA.GetCollisionGroup()] == null)

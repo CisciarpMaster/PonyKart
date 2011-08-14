@@ -10,19 +10,21 @@ namespace Ponykart.Handlers {
 	/// </summary>
 	[Handler(HandlerScope.Level)]
 	public class TriggerRegionsTest : ILevelHandler {
-		TriggerRegion tr;
+		TriggerRegion tr1, tr2, tr3;
 
 		public TriggerRegionsTest() {
-			tr = new TriggerRegion("test trigger area", new Vector3(5, 0, 5), new BoxShape(1, 1, 1));
+			var reporter = LKernel.Get<TriggerReporter>();
+
+			tr1 = new TriggerRegion("test trigger area", new Vector3(5, 3, 30), new BoxShape(10, 3, 3));
+			reporter.AddEvent(tr1.Name, doSomething);
 
 #if DEBUG
-			//new TriggerRegion("test trigger area 2", new Vector3(-5, 0, 5), new Vector3(45, 45, 45), new BoxShapeDesc(new Vector3(2, 1, 1)));
+			tr2 = new TriggerRegion("test trigger area 2", new Vector3(-5, 0, 7), new SphereShape(1));
+			reporter.AddEvent(tr2.Name, doSomething);
 
-			//new TriggerRegion("test trigger area 3", new Vector3(-10, 0, 5), new Vector3(45, 0, 0), new CapsuleShapeDesc(1, 1));
+			tr3 = new TriggerRegion("test trigger area 3", new Vector3(-35, 3.5f, 0), new Vector3(0, 45, 0).DegreeVectorToGlobalQuaternion(), new BoxShape(4, 4, 4));
+			reporter.AddEvent(tr3.Name, doSomething);
 #endif
-
-			// attach the handler
-			tr.OnTrigger += doSomething;
 		}
 
 		void doSomething(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags) {
@@ -30,20 +32,26 @@ namespace Ponykart.Handlers {
 
 			if (flags.HasFlag(TriggerReportFlags.Enter)) {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
-				region.SetBalloonGlowColor(BalloonGlowColor.cyan);
+				region.BalloonGlowColor = (BalloonGlowColor) (((int) region.BalloonGlowColor + 1) % 8);
 
 				d.CreateDialogue("media/gui/lyra.jpg", otherBody.GetName(), "I have entered " + region.Name);
 			}
 			else {
 				Console.WriteLine(otherBody.GetName() + " has left trigger area \"" + region.Name + "\"");
-				region.SetBalloonGlowColor(BalloonGlowColor.orange);
+				region.BalloonGlowColor = (BalloonGlowColor) (((int) region.BalloonGlowColor + 1) % 8);
 
 				d.DestroyDialogue();
 			}
 		}
 
 		public void Dispose() {
-			tr.OnTrigger -= doSomething;
+			var reporter = LKernel.Get<TriggerReporter>();
+
+			reporter.RemoveEvent(tr1.Name, doSomething);
+#if DEBUG
+			reporter.RemoveEvent(tr2.Name, doSomething);
+			reporter.RemoveEvent(tr3.Name, doSomething);
+#endif
 		}
 	}
 }

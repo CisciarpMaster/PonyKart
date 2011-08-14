@@ -64,7 +64,7 @@ namespace Ponykart.Lua {
 			float posX, float posY, float posZ,
 			float rotX, float rotY, float rotZ)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ), new BoxShape(new Vector3(width, height, length)));
+			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ).DegreeVectorToGlobalQuaternion(), new BoxShape(new Vector3(width, height, length)));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}
@@ -81,7 +81,7 @@ namespace Ponykart.Lua {
 			float posX, float posY, float posZ, 
 			float rotX, float rotY, float rotZ)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ), new CapsuleShape(radius, height));
+			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ).DegreeVectorToGlobalQuaternion(), new CapsuleShape(radius, height));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}
@@ -97,7 +97,7 @@ namespace Ponykart.Lua {
 			float radius,
 			float posX, float posY, float posZ)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), Vector3.ZERO, new SphereShape(radius));
+			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new SphereShape(radius));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}

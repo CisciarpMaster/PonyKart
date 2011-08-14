@@ -11,6 +11,7 @@ namespace Ponykart.Handlers {
 		}
 
 		void OnCollision(CollisionReportInfo info) {
+			if (info.FirstObject.GetName() == "test trigger area 3" || info.SecondObject.GetName() == "test trigger area 3")
 			Console.WriteLine(info.Flags);
 		}
 

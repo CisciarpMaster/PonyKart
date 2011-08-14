@@ -9,7 +9,7 @@ namespace Ponykart.Physics {
 	public delegate void TriggerReportHandler(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags);
 
 	public class TriggerRegion : System.IDisposable {
-		public GhostObject Ghost { get; protected set; }
+		public RigidBody Body { get; protected set; }
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
@@ -23,13 +23,13 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.
 		/// </summary>
-		public TriggerRegion(string name, Vector3 position, CollisionShape shape) : this(name, position, Vector3.ZERO, shape) { }
+		public TriggerRegion(string name, Vector3 position, CollisionShape shape) : this(name, position, Quaternion.IDENTITY, shape) { }
 
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.
 		/// </summary>
 		/// <param name="rotation">a degree vector</param>
-		public TriggerRegion(string name, Vector3 position, Vector3 rotation, CollisionShape shape) {
+		public TriggerRegion(string name, Vector3 position, Quaternion rotation, CollisionShape shape) {
 			Name = name;
 			CurrentlyCollidingWith = new HashSet<RigidBody>();
 			
@@ -67,25 +67,25 @@ namespace Ponykart.Physics {
 					Entity = sceneMgr.CreateEntity(name, "primitives/box.mesh");
 					break;
 			}
-			SetBalloonGlowColor(BalloonGlowColor.orange);
+			BalloonGlowColor = BalloonGlowColor.red;
 			Entity.RenderQueueGroup = GlowHandler.RENDER_QUEUE_BUBBLE_GLOW;
 			Entity.CastShadows = false;
 
 			Node.AttachObject(Entity);
 			Node.Position = position;
-			Node.Rotate(rotation.DegreeVectorToGlobalQuaternion());
+			Node.Orientation = rotation;
 
 			// physics
-			Matrix4 transform = new Matrix4(rotation.DegreeVectorToGlobalQuaternion());
+			Matrix4 transform = new Matrix4(rotation);
 			transform.SetTrans(position);
 
 			// make our ghost object
-			Ghost = new GhostObject();
-			Ghost.CollisionFlags = CollisionFlags.NoContactResponse;
-			Ghost.CollisionShape = shape;
-			Ghost.WorldTransform = transform;
-			Ghost.SetName(name);
-			LKernel.Get<PhysicsMain>().World.AddCollisionObject(Ghost, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
+			Body = new RigidBody(new RigidBodyConstructionInfo(0, new MogreMotionState(Node), shape));
+			Body.CollisionFlags = CollisionFlags.NoContactResponse;
+			Body.CollisionShape = shape;
+			Body.WorldTransform = transform;
+			Body.SetName(name);
+			LKernel.Get<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
 
 			// then add this to the trigger reporter
 			LKernel.Get<TriggerReporter>().Regions.Add(name, this);
@@ -103,9 +103,16 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Must be one of: red, blue, yellow, green, orange, magenta, purple, cyan, white
 		/// </summary>
-		public void SetBalloonGlowColor(BalloonGlowColor color) {
-			Entity.SetMaterialName("BalloonGlow_" + color);
+		public BalloonGlowColor BalloonGlowColor {
+			get {
+				return balloonColor;
+			}
+			set {
+				balloonColor = value;
+				Entity.SetMaterialName("BalloonGlow_" + value);
+			}
 		}
+		BalloonGlowColor balloonColor = BalloonGlowColor.red;
 
 		/// <summary>
 		/// do we need to dispose of this stuff? don't we nuke the scene manager every time?

@@ -27,29 +27,31 @@ namespace Ponykart.Physics {
 		/// Runs whenever we get a collision event from trigger/kart collisions
 		/// </summary>
 		void CollisionEvent(CollisionReportInfo info) {
-			// get our ghost object
-			GhostObject ghost = info.FirstObject as GhostObject;
-			if (ghost == null)
-				ghost = info.SecondObject as GhostObject;
-
-			// get the kart
-			RigidBody body = info.SecondObject as RigidBody;
-			if (body == null)
-				body = info.FirstObject as RigidBody;
+			// get our objects
+			RigidBody triggerBody, kartBody;
+			if (info.FirstObject.GetCollisionGroup() == PonykartCollisionGroups.Triggers) {
+				//ghost = info.SecondObject as GhostObject;
+				triggerBody = info.FirstObject as RigidBody;
+				kartBody = info.SecondObject as RigidBody;
+			}
+			else {
+				triggerBody = info.SecondObject as RigidBody;
+				kartBody = info.FirstObject as RigidBody;
+			}
 
 			// get our region
 			TriggerRegion region;
-			if (Regions.TryGetValue(ghost.GetName(), out region)) {
+			if (Regions.TryGetValue(triggerBody.GetName(), out region)) {
 
 				// started touching = enter
 				if (info.Flags == ObjectTouchingFlags.StartedTouching) {
-					region.CurrentlyCollidingWith.Add(body);
-					region.InvokeTrigger(body, TriggerReportFlags.Enter);
+					region.CurrentlyCollidingWith.Add(kartBody);
+					region.InvokeTrigger(kartBody, TriggerReportFlags.Enter);
 				}
 				// stopped touching = leave
 				else if (info.Flags == ObjectTouchingFlags.StoppedTouching) {
-					region.CurrentlyCollidingWith.Remove(body);
-					region.InvokeTrigger(body, TriggerReportFlags.Leave);
+					region.CurrentlyCollidingWith.Remove(kartBody);
+					region.InvokeTrigger(kartBody, TriggerReportFlags.Leave);
 				}
 			}
 		}
