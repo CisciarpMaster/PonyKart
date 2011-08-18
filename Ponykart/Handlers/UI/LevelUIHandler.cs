@@ -163,7 +163,7 @@ namespace Ponykart.Handlers {
 				},
 			};
 			mainMenuControls.Add(quitButton);
-			quitButton.MouseClick += (o, e) => LKernel.Get<Mogre.Root>().Dispose(); // apparently this is one way to quit
+			quitButton.MouseClick += (o, e) => Main.quit = true; // apparently this is one way to quit
 
 			foreach (Control c in mainMenuControls)
 				Gui.Controls.Add(c);
