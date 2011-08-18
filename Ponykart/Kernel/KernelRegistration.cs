@@ -149,11 +149,10 @@ namespace Ponykart {
 				AddLevelObject(Activator.CreateInstance(t), t);
 			}
 			// the camera's a bit weird
-			try {
+			if (!Get<SceneManager>().HasCamera("Camera")) {
 				var playerCam = AddLevelObject(new PlayerCamera());
-				LKernel.Get<Viewport>().Camera = playerCam.Camera;
+				Get<Viewport>().Camera = playerCam.Camera;
 			}
-			catch { }
 		}
 
 		/// <summary>
