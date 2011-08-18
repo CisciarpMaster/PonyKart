@@ -35,14 +35,12 @@ namespace Ponykart.Handlers
 				case KeyCode.KC_K:
 					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
 					break;
-#if DEBUG
 				case KeyCode.KC_X:
 					MogreDebugDrawer.Singleton.Clear();
 					break;
 				case KeyCode.KC_I:
 					PhysicsMain.DrawLines = !PhysicsMain.DrawLines;
 					break;
-#endif
 				case KeyCode.KC_M:
 					Constants.MUSIC = !Constants.MUSIC;
 					break;

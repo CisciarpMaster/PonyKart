@@ -5,104 +5,83 @@ using Ponykart.Players;
 
 namespace Ponykart.Core {
 	/// <summary>
-	/// I need to do a decent third person camera at some point. This one's just a "good enough for now" one
-	/// 
-	/// here's a mogre sample for camera splines when we get to doing those: A:\Program Files\MOgre\MogreSDK\Samples\CameraTrack
+	/// A basic third-person camera with some smoothing.
+	/// TODO: Make more camera types and a way to switch between them more effectively.
 	/// </summary>
 	public class PlayerCamera : ILevelHandler {
 		
 		public Camera Camera { get; private set; }
-		/// <summary> This camera's scene node </summary>
-		//public SceneNode Node { get; private set; }
-		/// <summary> The scene node that this camera follows </summary>
-		SceneNode followNode;
-		/// <summary> Is the current level not the main menu? </summary>
-		bool isPlayableLevel;
+		SceneNode TargetNode;
+		SceneNode CameraNode;
+		Kart followKart;
+		SceneNode kartCamNode;
+		SceneNode kartTargetNode;
 
 		public PlayerCamera() {
 			var manager = LKernel.Get<SceneManager>();
-			Launch.Log("[Loading] First Get<PlayerCamera>");
-			isPlayableLevel = LKernel.Get<LevelManager>().IsPlayableLevel;
+			Launch.Log("[Loading] Creating new PlayerCamera");
 
 			Camera = manager.CreateCamera("Camera");
 
 			Camera.NearClipDistance = 0.5f;
 			Camera.FarClipDistance = 1000f;
-
-			Camera.Position = new Vector3(0f, Constants.CAMERA_HEIGHT, -Constants.CAMERA_DISTANCE);
-			Camera.LookAt(new Vector3(0, 0, 0));
 			Camera.AspectRatio = ((float) Constants.WINDOW_WIDTH) / ((float) Constants.WINDOW_HEIGHT);
 
+			CameraNode = manager.RootSceneNode.CreateChildSceneNode("CameraNode");
+			TargetNode = manager.RootSceneNode.CreateChildSceneNode("CameraTargetNode");
+
+			CameraNode.SetAutoTracking(true, TargetNode);
+			CameraNode.SetFixedYawAxis(true);
+
+			CameraNode.AttachObject(Camera);
+
 			// don't want to do any camera shenanigans on the first level
-			if (isPlayableLevel)
+			if (LKernel.Get<LevelManager>().IsPlayableLevel) {
 				OnKartCreation(LKernel.Get<PlayerManager>().MainPlayer.Kart);
 
-
-
-			/*camPos = new Vector3();
-			camVelocity = new Vector3();
-			cameraDistance = new Vector3();
-			force = new Vector3();
-			acceleration = new Vector3();*/
+				LKernel.Get<Root>().FrameStarted += UpdateCamera;
+			}
 		}
-
-		void OnKartCreation(Kart kart) {
-			//followNode = kart.RootNode;
-			//followNode.AttachObject(Camera);
-
-			Camera.Position += new Vector3(0, 10, 0);
-			Camera.SetAutoTracking(true, kart.RootNode);
-		}
-
-		/*Vector3 camPos;
-		Vector3 camVelocity;
-		readonly float cameraMass = 9;
-		readonly float spring = 9;
-		readonly float damping = 125;
-		Vector3 cameraDistance;
-		Vector3 force;
-		Vector3 acceleration;*/
 
 		/// <summary>
-		/// Updates the cameraNode so it's pointing at the player
+		/// Attaches two SceneNodes to the main kart so we can use them for camera stuff.
 		/// </summary>
-		public void UpdateCamera(FrameEvent evt) {
-			//if (LKernel.Get<LevelManager>().IsValidLevel) {
-				/*Player player = LKernel.Get<PlayerManager>().MainPlayer;
+		void OnKartCreation(Kart kart) {
+			if (kart == LKernel.Get<PlayerManager>().MainPlayer.Kart) {
+				kartCamNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_cam", new Vector3(0, Constants.CAMERA_NODE_Y_OFFSET, Constants.CAMERA_NODE_Z_OFFSET));
+				kartTargetNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_camtarget", new Vector3(0, Constants.CAMERA_TARGET_Y_OFFSET, 0));
+				followKart = kart;
+			}
+		}
 
-				cameraDistance = player.Node.Position - camPos;
-				force = cameraDistance * spring;
-				force -= damping * camVelocity;
+		/// <summary>
+		/// Updates the camera
+		/// TODO: stop it from going through the terrain
+		/// </summary>
+		bool UpdateCamera(FrameEvent evt) {
+			Vector3 displacement;
 
-				acceleration = (force / cameraMass) * evt.timeSinceLastFrame;
-				camVelocity += acceleration;
-				camPos += camVelocity;
+			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * Constants.CAMERA_TIGHTNESS;
+			CameraNode.Translate(displacement);
 
-				//System.Console.WriteLine(cameraDistance);
+			displacement = (kartTargetNode._getDerivedPosition() - TargetNode.Position) * Constants.CAMERA_TIGHTNESS;
+			TargetNode.Translate(displacement);
 
-				//camPos.x = player.Node.Position.x;
-				//camPos.z = player.Node.Position.z;
-				Node.Position = camPos;*/
-
-				// this is a pretty crappy camera but it'll work for now
-				//Node.Position = followNode.ConvertLocalToWorldPosition(new Vector3(0, Constants.CAMERA_HEIGHT, -Constants.CAMERA_DISTANCE));
-				/*Node.Translate(followNode.Position.x, followNode.Position.y - 30, followNode.Position.z);
-				Node.Translate(Math.Cos(followNode.Orientation.Yaw) * -Constants.CAMERA_DISTANCE,
-					0f,
-					Math.Sin(followNode.Orientation.Yaw) * -Constants.CAMERA_DISTANCE);
-				Node.SetPosition(Node.Position.x, Constants.CAMERA_HEIGHT, Node.Position.z);
-				Camera.LookAt(followNode._getDerivedPosition());*/
-			//}
+			return true;
 		}
 
 		public void Dispose() {
-			if (isPlayableLevel)
-				LKernel.Get<Spawner>().OnKartCreation -= OnKartCreation;
+			//LKernel.Get<Spawner>().OnKartCreation -= OnKartCreation;
+			LKernel.Get<Root>().FrameStarted -= UpdateCamera;
 
-			LKernel.Get<SceneManager>().DestroyCamera(Camera);
+			var sceneMgr = LKernel.Get<SceneManager>();
+
+			sceneMgr.DestroyCamera(Camera);
 			Camera.Dispose();
-			//LKernel.Get<SceneManager>().DestroySceneNode(Node);
-			//Node.Dispose();
+			sceneMgr.DestroySceneNode(CameraNode);
+			CameraNode.Dispose();
+			sceneMgr.DestroySceneNode(TargetNode);
+			TargetNode.Dispose();
 		}
 	}
 }

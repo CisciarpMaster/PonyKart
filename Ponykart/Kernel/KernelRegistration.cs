@@ -16,8 +16,8 @@ using Ponykart.UI;
 
 namespace Ponykart {
 	public static partial class LKernel {
-		public static IEnumerable<Type> LevelHandlerTypes;
-		public static IEnumerable<Type> GlobalHandlerTypes;
+		private static IEnumerable<Type> LevelHandlerTypes;
+		private static IEnumerable<Type> GlobalHandlerTypes;
 
 		/// <summary>
 		/// Load global objects on startup
@@ -39,7 +39,7 @@ namespace Ponykart {
 
 			// physx stuff
 			splash.Increment("Initialising physics engine, collision groups, and trigger area and contact reporters...");
-			var physx = AddGlobalObject(new PhysicsMain());
+			var phys = AddGlobalObject(new PhysicsMain());
 			AddGlobalObject(new CollisionReporter());
 			AddGlobalObject(new TriggerReporter());
 			AddGlobalObject(new PhysicsMaterialManager());
@@ -53,11 +53,11 @@ namespace Ponykart {
 			AddGlobalObject(InitSceneManager(root));
 
 			splash.Increment("Loading first level physics...");
-			physx.LoadPhysicsLevel(Settings.Default.MainMenuName);
+			phys.LoadPhysicsLevel(Settings.Default.MainMenuName);
 
 			splash.Increment("Creating player camera and viewport...");
 			var playerCamera = AddLevelObject(new PlayerCamera());
-			AddGlobalObject(InitViewport(renderWindow, playerCamera));
+			AddGlobalObject(InitViewport(renderWindow, playerCamera.Camera));
 
 			// MOIS and input stuff
 			splash.Increment("Starting input system...");
@@ -111,11 +111,11 @@ namespace Ponykart {
 			LevelHandlerTypes = types.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
 					.Where(a => a.Scope == HandlerScope.Level)
-				.Count() > 0);
+					.Count() > 0);
 			GlobalHandlerTypes = types.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
 					.Where(a => a.Scope == HandlerScope.Global)
-				.Count() > 0);
+					.Count() > 0);
 		}
 
 		/// <summary>
@@ -160,7 +160,7 @@ namespace Ponykart {
 		/// </summary>
 		public static void UnloadLevelHandlers() {
 			Launch.Log("[Loading] Disposing of level handlers...");
-			foreach (var obj in LevelObjects.Values/*.OfType<ILevelHandler>()*/) {
+			foreach (var obj in LevelObjects.Values) {
 				Console.WriteLine("[Loading] \tDisposing: " + obj.GetType().ToString());
 				// if this cast fails, then you need to make sure the level handler implements ILevelHandler!
 				(obj as ILevelHandler).Dispose();
@@ -240,9 +240,9 @@ namespace Ponykart {
 			return sceneMgr;
 		}
 
-		private static Viewport InitViewport(RenderWindow window, PlayerCamera playerCamera) {
+		private static Viewport InitViewport(RenderWindow window, Camera camera) {
 			Launch.Log("[Loading] First Get<Viewport>");
-			return window.AddViewport(playerCamera.Camera);
+			return window.AddViewport(camera);
 		}
 		#endregion
 

@@ -272,6 +272,11 @@ namespace Ponykart.Actors {
 					sceneMgr.DestroySceneNode(RootNode);
 				RootNode.Dispose();
 			}
+			if (Node != null) {
+				if (valid)
+					sceneMgr.DestroySceneNode(Node);
+				Node.Dispose();
+			}
 			if (Ribbon != null && RibbonNode != null) {
 				RibbonNode.DetachObject(Ribbon);
 				foreach (SceneNode n in Ribbon.GetNodeIterator())

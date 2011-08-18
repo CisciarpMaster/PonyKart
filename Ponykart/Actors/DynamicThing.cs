@@ -1,4 +1,7 @@
-﻿using BulletSharp;
+﻿// draw little yellow circles where the body's origin is? Useful for debugging center-of-mass stuff.
+//#define DRAW_BODY_ORIGINS
+
+using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
 
@@ -53,6 +56,7 @@ namespace Ponykart.Actors {
 		/// Constructor
 		/// </summary>
 		public DynamicThing(ThingTemplate tt) : base(tt) {
+#if DRAW_BODY_ORIGINS
 			LKernel.Get<Root>().FrameStarted += FrameStarted;
 
 			var sceneMgr = LKernel.Get<SceneManager>();
@@ -69,6 +73,7 @@ namespace Ponykart.Actors {
 		bool FrameStarted(FrameEvent evt) {
 			glownode.Position = Body.CenterOfMassPosition;
 			return true;
+#endif
 		}
 
 
@@ -130,7 +135,9 @@ namespace Ponykart.Actors {
 
 
 		public override void Dispose() {
+#if DRAW_BODY_ORIGINS
 			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+#endif
 			if (Body != null) {
 				Body.Dispose();
 				Body = null;

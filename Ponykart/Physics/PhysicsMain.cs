@@ -134,7 +134,7 @@ namespace Ponykart.Physics {
 
 		/// <summary>
 		/// Runs just before every frame. Simulates one frame of physics.
-		/// Physics simulation should be the only thing that's using FrameStarted!
+		/// Physics simulation should be the only thing that's using FrameEnded!
 		/// </summary>
 		bool FrameEnded(FrameEvent evt) {
 			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsPlayableLevel || !LKernel.Get<LevelManager>().IsValidLevel || world.IsDisposed)
@@ -157,9 +157,6 @@ namespace Ponykart.Physics {
 			// run the events that go just after we simulate
 			if (PostSimulate != null)
 				PostSimulate(world, evt);
-
-			// update the camera after all of the physics stuff happened
-			LKernel.Get<PlayerCamera>().UpdateCamera(evt);
 
 			if (DrawLines)
 				world.DebugDrawWorld();

@@ -36,7 +36,7 @@ namespace Ponykart.Handlers {
 			axesNode.SetScale(0.1f, 0.1f, 0.1f);
 
 			// for testing animation
-			LKernel.Get<Core.Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
+			//LKernel.Get<Core.Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
 #endif
 		}
 	}

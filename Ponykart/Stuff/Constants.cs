@@ -8,10 +8,14 @@ namespace Ponykart {
 		public static readonly uint WINDOW_HEIGHT = 768;
 
 		// ===== Scene =====
-		/// <summary> The distance the camera is along the Y axis from the XZ plane </summary>
-		public static readonly float CAMERA_HEIGHT = 4f;
+		/// <summary> How high up is the camera node? </summary>
+		public static readonly float CAMERA_NODE_Y_OFFSET = 5f;
 		/// <summary> The distance the camera follows the player kart </summary>
-		public static readonly float CAMERA_DISTANCE = 16f;
+		public static readonly float CAMERA_NODE_Z_OFFSET = -20f;
+		/// <summary> How high up is the camera target node from the player kart? </summary>
+		public static readonly float CAMERA_TARGET_Y_OFFSET = 3f;
+		/// <summary> Affects how much we smooth the camera by. 1 means no smoothing, 0 means it doesn't move at all.</summary>
+		public static readonly float CAMERA_TIGHTNESS = 0.1f;
 
 
 		public static readonly int NUMBER_OF_PLAYERS = 8;
