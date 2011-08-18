@@ -92,6 +92,7 @@ namespace Ponykart.Physics {
 				world.AddRigidBody(body);*/
 			}
 
+			// make an infinite plane so we don't fall forever. TODO: hook up an event so when we collide with this, we respawn back on the track
 			Matrix4 matrix = new Matrix4(new Quaternion(0, 0, 0, 1));
 			matrix.SetTrans(new Vector3(0, -2, 0));
 			var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1), Vector3.ZERO);

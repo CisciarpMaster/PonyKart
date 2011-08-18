@@ -12,6 +12,9 @@ namespace Ponykart.Handlers {
 	public class TriggerRegionsTest : ILevelHandler {
 		TriggerRegion tr1, tr2, tr3;
 
+		/// <summary>
+		/// Make some trigger regions - a long box, a sphere, and a rotated box
+		/// </summary>
 		public TriggerRegionsTest() {
 			var reporter = LKernel.Get<TriggerReporter>();
 
@@ -27,11 +30,15 @@ namespace Ponykart.Handlers {
 #endif
 		}
 
+		/// <summary>
+		/// output some text, show/hide a dialogue, and change the color of the region
+		/// </summary>
 		void doSomething(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags) {
 			var d = LKernel.Get<DialogueManager>();
 
 			if (flags.HasFlag(TriggerReportFlags.Enter)) {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
+				// cycle through the balloon colors
 				region.BalloonGlowColor = (BalloonGlowColor) (((int) region.BalloonGlowColor + 1) % 8);
 
 				d.CreateDialogue("media/gui/lyra.jpg", otherBody.GetName(), "I have entered " + region.Name);
@@ -44,6 +51,9 @@ namespace Ponykart.Handlers {
 			}
 		}
 
+		/// <summary>
+		/// Remove the events
+		/// </summary>
 		public void Dispose() {
 			var reporter = LKernel.Get<TriggerReporter>();
 
