@@ -4,17 +4,17 @@ luanet.load_assembly("Lymph")
 print("test.lua has been run")
 -- then we do stuff!
 
-function testfunctionn(s1, s2, tf)
-	if isTriggerEnterFlag(tf) then
+function triggerTestFunction(s1, s2, tf)
+	if isEnterFlag(tf) then
 		print("enter")
 	else
 		print("leave")
 	end
-	print(s2.Actor.Name)
+	print(getBodyName(s2))
 end
 
-hookScriptToTriggerArea("test trigger area", "media/scripts/testevent.lua")
-hookFunctionToTriggerArea("test trigger area", testfunctionn)
+hookScriptToTriggerRegion("test trigger area", "media/scripts/testevent.lua")
+hookFunctionToTriggerRegion("test trigger area", triggerTestFunction)
 
 
 

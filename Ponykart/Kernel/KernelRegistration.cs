@@ -89,6 +89,7 @@ namespace Ponykart {
 			AddGlobalObject(new SpawnerWrapper());
 			AddGlobalObject(new LevelWrapper());
 			AddGlobalObject(new IOWrapper());
+			AddGlobalObject(new PhysicsWrapper());
 			lua.RunRegisterEvent();
 
 			// this is a bit of a hack but it shouldn't matter much since we're only doing it once at the beginning

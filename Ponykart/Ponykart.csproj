@@ -140,6 +140,7 @@
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="Kernel\HandlerAttributes.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
+    <Compile Include="Lua\PhysicsWrapper.cs" />
     <Compile Include="Physics\CollisionReportInfo.cs" />
     <Compile Include="Physics\KartMotionState.cs" />
     <Compile Include="Physics\MogreMotionState.cs" />

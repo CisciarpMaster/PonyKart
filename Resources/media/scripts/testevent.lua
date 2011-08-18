@@ -1,1 +1,1 @@
-print("=== file event hook test successful!")
+print("=== file trigger event hook test successful!")
