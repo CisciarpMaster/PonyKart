@@ -12,7 +12,6 @@ material Fat
 			texture_unit
 			{
 				texture fat-cell-texture.jpg
-				filtering linear linear linear
 			}
 		}
 		
@@ -22,8 +21,6 @@ material Fat
 			lighting on
 			
 			vertex_program_ref glowBalloon_vs {
-				param_named Inflate_add float 0
-				param_named Inflate_mult float 0.02
 			}
 			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0.847 0.827 0.337

@@ -1,6 +1,6 @@
 float4 main(float3 WorldNormal : TEXCOORD0,
 			float3 WorldView   : TEXCOORD1,
-			//float Depth		   : TEXCOORD2,
+			// float Depth		   : TEXCOORD2,
 			
 			uniform float3 GlowColor,
 			uniform float GlowExpon,

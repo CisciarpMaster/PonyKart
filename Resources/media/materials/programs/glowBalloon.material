@@ -1,25 +1,19 @@
 vertex_program glowBalloon_vs cg {
-	source vs_glowBalloon.cg
+	source vs_fresnel.cg
 	entry_point main
 	profiles vs_2_0 arbvp1 vs_2_x vs_3_0 vp40
 	
 	default_params {
-		// Adder determines the offset from the original mesh. Use this to make the cytoplasm smaller or larger.
-		param_named		 Inflate_add  float 0
-		// Multiplier determines how much it pulsates. Use 1 (?) for no pulsating. Higher numbers just get silly
-		param_named 	 Inflate_mult float 1
-		// Determines the pulating rate
-		param_named_auto time	      time_0_x 100
-		// Leave these
 		param_named_auto WorldITXf    inverse_transpose_world_matrix
 		param_named_auto WorldXf      world_matrix
 		param_named_auto ViewIXf      inverse_view_matrix
 		param_named_auto WvpXf        worldviewproj_matrix
+		// param_named_auto CameraPos		camera_position
 	}
 }
 
 fragment_program glowBalloon_ps cg {
-	source ps_glowBalloon.cg
+	source ps_fresnel.cg
 	entry_point main
 	profiles ps_2_0 arbfp1 ps_2_x ps_3_0 ps_3_x fp40
 	
@@ -28,5 +22,7 @@ fragment_program glowBalloon_ps cg {
 		param_named GlowColor float3 1.0 1.0 1.0
 		// Bigger exponent, thinner edges
 		param_named GlowExpon float  2.5
+		// alpha
+		param_named Alpha float 1.0
 	}
 }
