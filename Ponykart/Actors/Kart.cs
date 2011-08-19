@@ -1,5 +1,6 @@
 ﻿using BulletSharp;
 using Mogre;
+using Ponykart.IO;
 using Ponykart.Physics;
 
 namespace Ponykart.Actors {
@@ -7,34 +8,12 @@ namespace Ponykart.Actors {
 	/// Base class for karts. Eventually this'll be abstract.
 	/// Z is forwards!
 	/// </summary>
-	public class Kart : DynamicThing {
-		
-		/// <summary>
-		/// Cast this to a CompoundShape when you use it here
-		/// </summary>
-		protected override CollisionShape CollisionShape {
-			get { return CreateCompoundShape(); }
-		}
-		protected override PonykartCollisionGroups CollisionGroup {
-			get { return PonykartCollisionGroups.Karts; }
-		}
-		protected override PonykartCollidesWithGroups CollidesWith {
-			get { return PonykartCollidesWithGroups.Karts; }
-		}
-		protected override PhysicsMaterial PhysicsMaterial {
+	public class Kart : LThing {
+		protected PhysicsMaterial PhysicsMaterial {
 			get { return LKernel.Get<PhysicsMaterialManager>().KartMaterial; }
 		}
-		protected override string DefaultModel {
-			get { return "kart/KartChassis.mesh"; }
-		}
-		protected override sealed string DefaultMaterial {
-			get { return "redbrick"; }
-		}
-		protected override float Mass {
-			get { return 500f; }
-		}
 		protected override MotionState DefaultMotionState {
-			get { return new KartMotionState(SpawnPosition, SpawnRotation, RootNode, this); }
+			get { return new KartMotionState(SpawnPosition, SpawnOrientation, RootNode, this); }
 		}
 		public float MaxSpeed { get; set; }
 		public float MaxSpeedSquared { get; private set; }
@@ -52,45 +31,11 @@ namespace Ponykart.Actors {
 		protected static CompoundShape Compound;
 
 
-		public Kart(ThingInstanceTemplate tt) : base(tt) {
-			Launch.Log("Creating Kart #" + ID + " with name \"" + tt.StringTokens["name"] + "\"");
+		public Kart(ThingInstanceTemplate tt, ThingDefinition td) : base(tt, td) {
+			Launch.Log("Creating Kart #" + ID + " with name \"" + Name + "\"");
 
 			MaxSpeed = 40f;
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
-		}
-
-		/// <summary>
-		/// Adds a ribbon and creates the wheel nodes and entities
-		/// </summary>
-		protected override void CreateMoreMogreStuff() {
-			// add a ribbon
-			CreateRibbon(15, 30, ColourValue.Blue, 2f);
-			Node.Position += new Vector3(0, 0.5f, 0);
-		}
-
-		/// <summary>
-		/// Creates our compound shape. This only runs once since we can re-use shapes as much as we want.
-		/// </summary>
-		/// <returns></returns>
-		protected static CompoundShape CreateCompoundShape() {
-			// only want to run this once
-			if (Compound != null)
-				return Compound;
-
-			Compound = new CompoundShape();
-
-			Matrix4 trans = new Matrix4();
-			trans.MakeTrans(0, 0.7f, 0);
-
-			BoxShape chassisShape = new BoxShape(new Vector3(1.5f, 0.5f, 1.4f));
-			Compound.AddChildShape(trans, chassisShape);
-
-			/*BoxShape frontAngledShape = new BoxShape(new Vector3(1, 0.2f, 1));
-			trans = new Matrix4(new Vector3(0, 45, 0).DegreeVectorToLocalQuaternion());
-			trans.SetTrans(new Vector3(0, 0.15f, 1.33f));
-			Compound.AddChildShape(trans, frontAngledShape);*/
-
-			return Compound;
 		}
 
 		protected override void PostCreateBody() {
@@ -105,7 +50,7 @@ namespace Ponykart.Actors {
 			LKernel.Get<PhysicsMain>().World.AddAction(Vehicle);
 
 			var wheelFac = LKernel.Get<WheelFactory>();
-			WheelFL = wheelFac.CreateWheel("FrontWheel", WheelID.FrontLeft, this, new Vector3(1.7f, 0.4f, 1.33f/*0.75f*/), true);
+			WheelFL = wheelFac.CreateWheel("FrontWheel", WheelID.FrontLeft, this, new Vector3(1.7f, 0.4f, 1.33f), true);
 			WheelFR = wheelFac.CreateWheel("FrontWheel", WheelID.FrontRight, this, new Vector3(-1.7f, 0.4f, 1.33f), true);
 			WheelBL = wheelFac.CreateWheel("BackWheel", WheelID.BackLeft, this, new Vector3(1.7f, 0.4f, -1.33f), false);
 			WheelBR = wheelFac.CreateWheel("BackWheel", WheelID.BackRight, this, new Vector3(-1.7f, 0.4f, -1.33f), false);

@@ -8,17 +8,12 @@ namespace Ponykart.Actors {
 		public string Name { get; protected set; }
 		public CollisionShape Shape { get; protected set; }
 		public Matrix4 Transform { get; protected set; }
-		
 
 		public ShapeComponent(LThing lthing, ThingInstanceTemplate template, ShapeBlock block) {
 			ID = IDs.New;
 			var sceneMgr = LKernel.Get<SceneManager>();
 
-			string name;
-			if (block.StringTokens.TryGetValue("name", out name))
-				Name = name;
-			else
-				Name = template.Name;
+			Name = block.GetStringProperty("name", template.Name);
 
 			Shape = block.Shape;
 			Transform = block.Transform;

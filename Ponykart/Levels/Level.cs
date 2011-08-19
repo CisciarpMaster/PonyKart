@@ -34,7 +34,7 @@ namespace Ponykart.Levels
 		/// <summary>
 		/// We use the thing's Name as the key
 		/// </summary>
-		public IDictionary<string, Thing> Things { get; private set; }
+		public IDictionary<string, LThing> Things { get; private set; }
 
 		/// <summary>
 		/// Constructor - Initialises the dictionaries and hooks up to the spawn event
@@ -46,7 +46,7 @@ namespace Ponykart.Levels
 			Flags		= new Dictionary<string, bool>();
 			Numbers		= new Dictionary<string, float>();
 			Templates	= new Dictionary<string, ThingInstanceTemplate>();
-			Things		= new Dictionary<string, Thing>();
+			Things		= new Dictionary<string, LThing>();
 
 			// don't use anonymous methods here because we have to disconnect it when we change levels
 			LKernel.Get<Spawner>().OnThingCreation += OnSpawnEvent;
@@ -70,7 +70,7 @@ namespace Ponykart.Levels
 
 			var spawner = LKernel.Get<Spawner>();
 			foreach (ThingInstanceTemplate tt in Templates.Values) {
-				spawner.Spawn(tt);
+				spawner.Spawn(tt.Type, tt);
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace Ponykart.Levels
 		/// Runs whenever we spawn something. This just adds it to the level's dictionary of Things.
 		/// </summary>
 		/// <param name="newThing"></param>
-		void OnSpawnEvent(Thing newThing) {
+		void OnSpawnEvent(LThing newThing) {
 			if (Things.ContainsKey(newThing.Name))
 				Things[newThing.Name + newThing.ID] = newThing;
 			else
@@ -109,7 +109,7 @@ namespace Ponykart.Levels
 			Flags.Clear();
 			Numbers.Clear();
 			Templates.Clear();
-			foreach (Thing t in Things.Values)
+			foreach (LThing t in Things.Values)
 				t.Dispose();
 			Things.Clear();
 		}

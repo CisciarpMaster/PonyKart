@@ -1,0 +1,29 @@
+Name = "Kart"
+Physics = Dynamic
+CollisionGroup = "Karts"
+CollidesWith = "Karts"
+Mass = 500
+Model {
+	Mesh = "kart/KartChassis.mesh"
+	Material = "redbrick"
+	Position = 0, 0.5, 0
+}
+Shape {
+	Type = Box
+	Dimensions = 3, 0.8, 2.8
+	Position = 0, 0.7, 0
+}
+Shape {
+	Type = Box
+	Dimensions = 2, 1.5, 0.3
+	Position = 0, 1.5, -1
+	Rotation = -10, 0, 0
+}
+Shape {
+	Type = Box
+	Dimensions = 2, 0.4, 2
+	Rotation = 0, 45, 0
+	Position = 0, 0.5, 1.33
+}
+
+// ribbon = 15 length, 30 elements, blue, 2 width

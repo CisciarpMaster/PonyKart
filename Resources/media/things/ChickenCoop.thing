@@ -26,20 +26,20 @@ Shape {
 // ramp
 Shape {
 	Type = Box
-	Dimensions = 2.391, 5.569, 2.106
-	Position = 0.029, 0.915, 6.553
-	Rotation = 112.165, 0, 0
+	Dimensions = 2.391, 0.3, 5.569
+	Position = 0.029, 1.2, 6.553
+	Rotation = 24, 0, 0
 }
 // sign
 Shape {
 	Type = Box
-	Dimensions = 0.986, 5.083, 6.408
+	Dimensions = 0.5, 5.083, 6
 	Position = -2.592, 6.524, 7.697
 }
 // angled bit for the roof
 Shape {
 	Type = Box
-	Dimensions = 8.912, 0.403, 10.71
+	Dimensions = 7.5, 0.403, 10.71
 	Position = 0.029, 7.606, 0.011
-	Rotation = 0, 0, -32.515
+	Rotation = 0, 0, -38.515
 }

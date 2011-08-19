@@ -22,12 +22,12 @@ namespace Ponykart.Actors {
 		/// The actual motion state.
 		/// </summary>
 		protected MotionState MotionState { get; set; }
-		protected PonykartCollisionGroups CollisionGroup { get; set; }
-		protected PonykartCollidesWithGroups CollidesWith { get; set; }
+		public PonykartCollisionGroups CollisionGroup { get; protected set; }
+		public PonykartCollidesWithGroups CollidesWith { get; protected set; }
 
-		protected Vector3 SpawnPosition { get; set; }
-		protected Quaternion SpawnOrientation { get; set; }
-		protected Vector3 SpawnScale { get; set; }
+		public Vector3 SpawnPosition { get; private set; }
+		public Quaternion SpawnOrientation { get; private set; }
+		public Vector3 SpawnScale { get; private set; }
 		protected RigidBodyConstructionInfo Info { get; set; }
 
 		protected Collection<ModelComponent> ModelComponents;
@@ -41,24 +41,26 @@ namespace Ponykart.Actors {
 			ShapeComponents = new Collection<ShapeComponent>();
 
 			// get our three basic transforms
-			SpawnPosition = template.VectorTokens["position"];
+			SpawnPosition = template.GetVectorProperty("position", null);
 
-			Vector3 rot;
-			if (template.VectorTokens.TryGetValue("rotation", out rot))
-				SpawnOrientation = rot.DegreeVectorToGlobalQuaternion();
-			else
-				SpawnOrientation = Quaternion.IDENTITY;
+			SpawnOrientation = template.GetVectorProperty("rotation", Vector3.ZERO).DegreeVectorToGlobalQuaternion();
 
-			Vector3 scale;
-			if (template.VectorTokens.TryGetValue("scale", out scale))
-				SpawnScale = scale;
-			else
-				SpawnScale = new Vector3(1, 1, 1);
+			SpawnScale = template.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			// and start setting up this thing!
 			Setup(template, def);
 			SetupMogre(template, def);
 			InitialiseComponents(template, def);
+
+			RootNode.Position = SpawnPosition;
+			RootNode.Orientation = SpawnOrientation;
+			// only scale up the root node if it doesn't have any physics things attached - bullet really does not like scaling.
+			// Need a few variations of identical objects with different scales? Gonna have to make different .things for them.
+			// Though it might be easier to just have one general .thing for them, and all it does is run a script that randomly
+			// gets one of the others.
+			if (ShapeComponents.Count == 0)
+				RootNode.Scale(SpawnScale);
+
 			SetupPhysics(template, def);
 		}
 
@@ -73,6 +75,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void SetupMogre(ThingInstanceTemplate template, ThingDefinition def) {
 			RootNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
+			
 		}
 
 		/// <summary>
@@ -127,18 +130,19 @@ namespace Ponykart.Actors {
 			else {
 				CompoundShape comp = new CompoundShape();
 				foreach (var sc in ShapeComponents) {
+					sc.Transform.SetScale(SpawnScale);
 					comp.AddChildShape(sc.Transform, sc.Shape);
 				}
 				shape = comp;
 			}
 
 			// get the physics type and set up the mass of the body
-			ThingEnum physicsType = def.EnumTokens["physics"];
+			ThingEnum physicsType = def.GetEnumProperty("physics", null);
 			float mass;
 			if (physicsType.HasFlag(ThingEnum.Static))
 				mass = 0;
-			else if (!def.FloatTokens.TryGetValue("mass", out mass)) {
-				mass = 1;
+			else {
+				mass = def.GetFloatProperty("mass", 1);
 			}
 
 			// create our construction info thingy
@@ -150,18 +154,14 @@ namespace Ponykart.Actors {
 			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(Info, LKernel.Get<PhysicsMaterialManager>().DefaultMaterial);
 
 			// collision group
-			string collisionGroup;
-			if (!def.StringTokens.TryGetValue("collisiongroup", out collisionGroup))
-				collisionGroup = "Default";
+			string collisionGroup = def.GetStringProperty("collisiongroup", "Default");
 			PonykartCollisionGroups pcg;
 			if (!Enum.TryParse<PonykartCollisionGroups>(collisionGroup, true, out pcg))
 				throw new FormatException("Invalid collision group!");
 			CollisionGroup = pcg;
 
 			// collides-with group
-			string collidesWith;
-			if (!def.StringTokens.TryGetValue("collideswith", out collidesWith))
-				collidesWith = "Default";
+			string collidesWith = def.GetStringProperty("collideswith", "Default");
 			PonykartCollidesWithGroups pcwg;
 			if (!Enum.TryParse<PonykartCollidesWithGroups>(collidesWith, true, out pcwg))
 				throw new FormatException("Invalid collides-with group!");
@@ -185,7 +185,7 @@ namespace Ponykart.Actors {
 			Body = new RigidBody(Info);
 
 			// stick on our flags
-			ThingEnum te = def.EnumTokens["physics"];
+			ThingEnum te = def.GetEnumProperty("physics", null);
 			if (te.HasFlag(ThingEnum.Static))
 				Body.CollisionFlags |= CollisionFlags.StaticObject;
 			else if (te.HasFlag(ThingEnum.Kinematic))
@@ -210,7 +210,7 @@ namespace Ponykart.Actors {
 
 
 
-		public void Dispose() {
+		public virtual void Dispose() {
 			var sceneMgr = LKernel.Get<SceneManager>();
 			var world = LKernel.Get<PhysicsMain>().World;
 			bool valid = LKernel.Get<LevelManager>().IsValidLevel;

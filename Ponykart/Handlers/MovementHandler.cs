@@ -14,13 +14,13 @@ namespace Ponykart.Handlers {
 	//[Handler(HandlerScope.Level)]
 	public class MovementHandler : ILevelHandler {
 
-		ICollection<Thing> thingsToMove;
+		ICollection<LThing> thingsToMove;
 		float time = 0;
 		readonly float delay = 0.3f;
 
 		public MovementHandler() {
 
-			thingsToMove = new Collection<Thing>();
+			thingsToMove = new Collection<LThing>();
 
 			// commented out until we can get something working
 			//LKernel.Get<Spawner>().OnThingCreation += AddActor;
@@ -28,7 +28,7 @@ namespace Ponykart.Handlers {
 
 			// for things that were created via the save file
 			if (LKernel.Get<LevelManager>().CurrentLevel != null) {
-				foreach (Thing t in LKernel.Get<LevelManager>().CurrentLevel.Things.Values) {
+				foreach (LThing t in LKernel.Get<LevelManager>().CurrentLevel.Things.Values) {
 					AddActor(t);
 				}
 			}
@@ -82,7 +82,7 @@ namespace Ponykart.Handlers {
 		/// Adds a thing to move around.
 		/// </summary>
 		/// <param name="thing"></param>
-		public void AddActor(Thing thing) {
+		public void AddActor(LThing thing) {
 			// If you try to add an thing that should be ignored, then it doesn't get added
 			/*if (thing.MoveBehaviour != MoveBehaviour.IGNORE)
 				thingsToMove.Add(thing);*/

@@ -10,7 +10,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// Fires whenever anything is spawned.
 		/// </summary>
-		public event OnThingCreation<Thing> OnThingCreation;
+		public event OnThingCreation<LThing> OnThingCreation;
 		/// <summary>
 		/// Fires whenever a Kart is spawned.
 		/// </summary>
@@ -23,58 +23,37 @@ namespace Ponykart.Core {
 		/// <param name="template">The template for the thing you want to spawn</param>
 		/// <exception cref="ArgumentException">If 'type' is not a valid ActorEnum</exception>
 		/// <returns>The thing you just spawned. Returns null if you are paused.</returns>
-		public Thing Spawn(SpawnThingEnum type, ThingInstanceTemplate template) {
+		public LThing Spawn(string type, ThingInstanceTemplate template) {
 			if (Pauser.IsPaused) {
 				Launch.Log("[Spawner] WARNING: Attempted to spawn something while paused!");
 				return null;
 			}
-			Thing actor;
+			LThing thing;
 
-			switch (type) {
-				case SpawnThingEnum.Kart:
-					actor = new Kart(template);
-					Invoke(OnKartCreation, actor as Kart);
-					break;
-				case SpawnThingEnum.Obstacle:
-					actor = new Obstacle(template);
-					break;
-				case SpawnThingEnum.ZergShip:
-					actor = new ZergShip(template);
-					break;
-				default:
-					throw new ArgumentException("Unknown ActorEnum: " + type, type.ToString());
+			var definition = LKernel.Get<ThingDatabase>().GetThingDefinition(type);
+
+			if (type == "Kart") {
+				thing = new Kart(template, definition);
+				Invoke(OnKartCreation, thing as Kart);
 			}
-			Invoke(OnThingCreation, actor);
+			else 
+				thing = new LThing(template, definition);
 
-			return actor;
+			Invoke(OnThingCreation, thing);
+
+
+			return thing;
 		}
 
 		/// <summary>
 		/// Spawns something! Use this internally or if you don't have a template. This method will make one for you!
 		/// </summary>
 		/// <param name="type">The type (class) of the thing you want to spawn</param>
-		/// <param name="name">What is its name? (Don't include the ID)</param>
 		/// <param name="spawnPos">Where should it spawn?</param>
 		/// <returns>The thing you spawned</returns>
-		public Thing Spawn(SpawnThingEnum type, string name, Vector3 spawnPos) {
-			ThingInstanceTemplate tt = new ThingInstanceTemplate(type.ToString(), name, spawnPos);
+		public LThing Spawn(string type, Vector3 spawnPos) {
+			ThingInstanceTemplate tt = new ThingInstanceTemplate(type, spawnPos);
 			return Spawn(type, tt);
-		}
-
-		/// <summary>
-		/// Spawns something! Instead of passing this a type via ThingEnum, this uses the string type that's in the
-		/// template. But if that type isn't valid, then an exception gets thrown, so be careful! Note that it is
-		/// not case sensitive.
-		/// </summary>
-		/// <param name="template">The template for the thing you want to spawn</param>
-		/// <exception cref="ArgumentException">If the template's Type is not valid</exception>
-		/// <returns>The thing you spawned</returns>
-		public Thing Spawn(ThingInstanceTemplate template) {
-			SpawnThingEnum ae;
-			if (Enum.TryParse<SpawnThingEnum>(template.Type, true, out ae))
-				return Spawn(ae, template);
-			else
-				throw new ArgumentException("The template's Type (" + template.Type + ") is not a valid Actor type!", "template.Type");
 		}
 
 		/// <summary>

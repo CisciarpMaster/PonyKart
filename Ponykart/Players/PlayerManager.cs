@@ -25,7 +25,6 @@ namespace Ponykart.Players {
 
 			MainPlayer = new HumanPlayer(0);
 			Players[0] = MainPlayer;
-			MainPlayer.Kart.Entity.SetMaterialName("bluebrick");
 
 			for (int a = 1; a < Constants.NUMBER_OF_PLAYERS; a++) {
 				Players[a] = new ComputerPlayer(a);

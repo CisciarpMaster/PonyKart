@@ -4,6 +4,7 @@ using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.IO;
 using Ponykart.Levels;
 using Ponykart.Players;
 using Ponykart.Stuff;
@@ -44,7 +45,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// our collection of things to dispose; these are processed after every "frame"
 		/// </summary>
-		public ICollection<Thing> ThingsToDispose { get; private set; }
+		public ICollection<LThing> ThingsToDispose { get; private set; }
 
 		/// <summary>
 		/// Constructor
@@ -54,7 +55,7 @@ namespace Ponykart.Physics {
 
 			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
 
-			ThingsToDispose = new Collection<Thing>();
+			ThingsToDispose = new Collection<LThing>();
 
 			Launch.Log("[Loading] PhysicsMain created!");
 		}
@@ -142,7 +143,7 @@ namespace Ponykart.Physics {
 
 			// dispose of everything waiting to be disposed
 			if (ThingsToDispose.Count > 0) {
-				foreach (Thing t in ThingsToDispose) {
+				foreach (LThing t in ThingsToDispose) {
 					t.Dispose();
 				}
 				ThingsToDispose.Clear();
@@ -187,7 +188,7 @@ namespace Ponykart.Physics {
 			}
 			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition + Vector3.UNIT_Y;
 			var tt = new ThingInstanceTemplate(type, type, pos);
-			var td = LKernel.Get<IO.ThingDatabase>().GetThingDefinition(type);
+			var td = LKernel.Get<ThingDatabase>().GetThingDefinition(type);
 			new LThing(tt, td);
 		}
 

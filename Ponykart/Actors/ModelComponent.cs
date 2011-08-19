@@ -19,39 +19,30 @@ namespace Ponykart.Actors {
 			ID = IDs.New;
 			var sceneMgr = LKernel.Get<SceneManager>();
 
-			string name;
-			if (block.StringTokens.TryGetValue("name", out name))
-				Name = name;
-			else
-				Name = template.Name;
+			Name = block.GetStringProperty("name", template.Name);
 
 			Node = lthing.RootNode.CreateChildSceneNode(Name + "Node" + ID);
 
 			// position
-			Vector3 pos;
-			if (block.VectorTokens.TryGetValue("position", out pos))
-				Node.Position = pos;
-
+			Node.Position = block.GetVectorProperty("position", Vector3.ZERO);
 			// rotation (in degrees)
-			Vector3 rot;
-			if (block.VectorTokens.TryGetValue("rotation", out rot))
-				Node.Orientation = rot.DegreeVectorToGlobalQuaternion();
-
+			Node.Orientation = block.GetVectorProperty("rotation", Vector3.ZERO).DegreeVectorToGlobalQuaternion();
 			// scale
-			Vector3 sca;
-			if (block.VectorTokens.TryGetValue("scale", out sca))
-				Node.SetScale(sca);
+			Node.Scale(block.GetVectorProperty("scale", Vector3.UNIT_SCALE));
 
 			// make our entity
-			Entity = sceneMgr.CreateEntity(Name + "Entity" + ID, block.StringTokens["mesh"]);
+			Entity = sceneMgr.CreateEntity(Name + "Entity" + ID, block.GetStringProperty("mesh", null));
 
 			// material name
-			string materialName;
-			if (block.StringTokens.TryGetValue("material", out materialName))
+			string materialName = block.GetStringProperty("material", "");
+			if (materialName != "")
 				Entity.SetMaterialName(materialName);
 
 			// then attach it to the node!
 			Node.AttachObject(Entity);
+
+			Node.InheritScale = true;
+			Node.InheritOrientation = true;
 
 			CreateMore();
 		}

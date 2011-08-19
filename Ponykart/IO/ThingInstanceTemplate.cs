@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
-using Mogre;
+﻿using Mogre;
 
-namespace Ponykart {
+namespace Ponykart.IO {
 	/// <summary>
 	/// "Template" for a Thing
 	/// </summary>
-	public class ThingInstanceTemplate {
+	public class ThingInstanceTemplate : TokenHolder {
 		public string Type { get; private set; }
 		public int ID { get; private set; }
-
-		public IDictionary<string, string> StringTokens { get; private set; }
-		public IDictionary<string, float> FloatTokens { get; private set; }
-		public IDictionary<string, bool> BoolTokens { get; private set; }
-		public IDictionary<string, Vector3> VectorTokens { get; private set; }
 
 		/// <summary>
 		/// Constructor without required tokens - you need to add them manually.
@@ -21,12 +15,11 @@ namespace Ponykart {
 		/// <param name="type">Essentially a class name</param>
 		public ThingInstanceTemplate(string type) {
 			Type = type;
-			StringTokens = new Dictionary<string, string>();
-			FloatTokens = new Dictionary<string, float>();
-			BoolTokens = new Dictionary<string, bool>();
-			VectorTokens = new Dictionary<string, Vector3>();
 			ID = IDs.New;
+			SetUpDictionaries();
 		}
+
+		public override void Finish() { }
 
 		/// <summary>
 		/// Constructor with required tokens - add more as necessary.
@@ -39,6 +32,8 @@ namespace Ponykart {
 			StringTokens["name"] = name;
 			VectorTokens["position"] = spawnPosition;
 		}
+
+		public ThingInstanceTemplate(string type, Vector3 spawnPosition) : this(type, type, spawnPosition) { }
 
 		public string Name {
 			get { return StringTokens["name"]; }

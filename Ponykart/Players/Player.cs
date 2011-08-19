@@ -26,7 +26,7 @@ namespace Ponykart.Players {
 				throw new ArgumentOutOfRangeException("id", "ID number specified for kart spawn position is not valid!");
 			Launch.Log("[Loading] Player with ID " + id + " created");
 
-			Kart = LKernel.Get<Spawner>().Spawn(SpawnThingEnum.Kart, "Kart", LKernel.Get<KartSpawnPositions>().GetPosition(id)) as Kart;
+			Kart = LKernel.Get<Spawner>().Spawn("Kart", LKernel.Get<KartSpawnPositions>().GetPosition(id)) as Kart;
 			ID = id;
 		}
 

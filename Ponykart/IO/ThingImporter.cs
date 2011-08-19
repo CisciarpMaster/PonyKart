@@ -70,7 +70,7 @@ namespace Ponykart.IO {
 		/// <summary>
 		/// Takes a property and calls the appropriate parser method depending on its type
 		/// </summary>
-		void ParseProperty(ThingTokenHolder holder, RuleInstance prop) {
+		void ParseProperty(TokenHolder holder, RuleInstance prop) {
 			string propName = GetNameFromProperty(prop).ToLower(culture);
 			switch (prop.Type) {
 				case NodeType.Rule_StringProperty:
