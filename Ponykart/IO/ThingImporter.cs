@@ -42,6 +42,8 @@ namespace Ponykart.IO {
 
 			Parse(thingDef);
 
+			thingDef.Finish();
+
 			return thingDef;
 		}
 

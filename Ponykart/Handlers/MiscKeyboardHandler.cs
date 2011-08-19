@@ -70,7 +70,9 @@ namespace Ponykart.Handlers
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					break;
 				case KeyCode.KC_T:
-					new IO.ThingImporter().Parse("sample");
+					var td = LKernel.Get<IO.ThingDatabase>().GetThingDefinition("Obstacle");
+					var tt = new ThingInstanceTemplate("Obstacle", "obstacle", Vector3.ZERO);
+					new LThing(tt, td);
 					break;
 			}
 		}

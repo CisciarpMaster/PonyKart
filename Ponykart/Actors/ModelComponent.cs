@@ -42,12 +42,16 @@ namespace Ponykart.Actors {
 			if (block.VectorTokens.TryGetValue("scale", out sca))
 				Node.SetScale(sca);
 
+			// make our entity
 			Entity = sceneMgr.CreateEntity(Name + "Entity" + ID, block.StringTokens["mesh"]);
 
 			// material name
 			string materialName;
 			if (block.StringTokens.TryGetValue("material", out materialName))
 				Entity.SetMaterialName(materialName);
+
+			// then attach it to the node!
+			Node.AttachObject(Entity);
 
 			CreateMore();
 		}

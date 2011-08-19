@@ -17,7 +17,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
 		/// </summary>
-		protected virtual MotionState DefaultMotionState { get { return new MogreMotionState(SpawnPosition, SpawnRotation, RootNode); } }
+		protected virtual MotionState DefaultMotionState { get { return new MogreMotionState(SpawnPosition, SpawnOrientation, RootNode); } }
 		/// <summary>
 		/// The actual motion state.
 		/// </summary>
@@ -26,7 +26,7 @@ namespace Ponykart.Actors {
 		protected PonykartCollidesWithGroups CollidesWith { get; set; }
 
 		protected Vector3 SpawnPosition { get; set; }
-		protected Vector3 SpawnRotation { get; set; }
+		protected Quaternion SpawnOrientation { get; set; }
 		protected Vector3 SpawnScale { get; set; }
 		protected RigidBodyConstructionInfo Info { get; set; }
 
@@ -45,9 +45,9 @@ namespace Ponykart.Actors {
 
 			Vector3 rot;
 			if (template.VectorTokens.TryGetValue("rotation", out rot))
-				SpawnRotation = rot;
+				SpawnOrientation = rot.DegreeVectorToGlobalQuaternion();
 			else
-				SpawnRotation = Vector3.ZERO;
+				SpawnOrientation = Quaternion.IDENTITY;
 
 			Vector3 scale;
 			if (template.VectorTokens.TryGetValue("scale", out scale))
@@ -57,6 +57,7 @@ namespace Ponykart.Actors {
 
 			// and start setting up this thing!
 			Setup(template, def);
+			SetupMogre(template, def);
 			InitialiseComponents(template, def);
 			SetupPhysics(template, def);
 		}
@@ -66,6 +67,14 @@ namespace Ponykart.Actors {
 		/// For example if you need to get more things out of the ThingTemplate, you can use this for that.
 		/// </summary>
 		protected virtual void Setup(ThingInstanceTemplate template, ThingDefinition def) {}
+
+		/// <summary>
+		/// Sets up mogre stuff, like our root scene node
+		/// </summary>
+		protected void SetupMogre(ThingInstanceTemplate template, ThingDefinition def) {
+			RootNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID, SpawnPosition, SpawnOrientation);
+			RootNode.SetScale(SpawnScale);
+		}
 
 		/// <summary>
 		/// Make our components
@@ -106,7 +115,7 @@ namespace Ponykart.Actors {
 			if (ShapeComponents.Count == 1) {
 				// ideally we should rotate the whole Thing instead of its shape, but if we only have one shape and for whatever reason we absolutely cannot rotate the node instead,
 				// we'll have to stick it in a compound shape instead.
-				if (ShapeComponents[0].Transform == ShapeComponent.UNCHANGED) {
+				if (ShapeComponents[0].Transform == ShapeBlock.UNCHANGED) {
 					shape = ShapeComponents[0].Shape;
 				}
 				else {
