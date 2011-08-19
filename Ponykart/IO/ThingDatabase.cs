@@ -18,5 +18,9 @@ namespace Ponykart.IO {
 				return def;
 			}
 		}
+
+		public void ClearDatabase() {
+			Definitions.Clear();
+		}
 	}
 }

@@ -2,6 +2,7 @@
 using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.IO;
 using Ponykart.Lua;
 using Ponykart.Physics;
 using Ponykart.Players;
@@ -30,7 +31,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<DebugOverlayManager>().ToggleDebugOverlay();
 					break;
 				case KeyCode.KC_B:
-					LKernel.Get<PhysicsMain>().ShootBox();
+					LKernel.Get<PhysicsMain>().ShootPrimitive();
 					break;
 				case KeyCode.KC_K:
 					LKernel.Get<Spawner>().Spawn(SpawnThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
@@ -68,10 +69,11 @@ namespace Ponykart.Handlers
 
 					LKernel.Get<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
+					LKernel.Get<ThingDatabase>().ClearDatabase();
 					break;
 				case KeyCode.KC_T:
-					var td = LKernel.Get<IO.ThingDatabase>().GetThingDefinition("Obstacle");
-					var tt = new ThingInstanceTemplate("Obstacle", "obstacle", Vector3.ZERO);
+					var td = LKernel.Get<ThingDatabase>().GetThingDefinition("Obstacle");
+					var tt = new ThingInstanceTemplate("Obstacle", "obstacle", new Vector3(2, 10, 5));
 					new LThing(tt, td);
 					break;
 			}

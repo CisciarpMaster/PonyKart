@@ -51,6 +51,7 @@ namespace Ponykart {
 
 		#region Quaternion
 		// We have to make new quaternions because they're passed by value, not by reference
+		// this thing is very useful: http://www.ogre3d.org/tikiwiki/Quaternion+and+Rotation+Primer
 
 			#region Locals
 			/// <summary>

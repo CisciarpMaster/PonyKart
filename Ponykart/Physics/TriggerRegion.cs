@@ -47,19 +47,19 @@ namespace Ponykart.Physics {
 					Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
 					Vector3 vec = new Vector3();
 					vec.y = (shape as CapsuleShape).HalfHeight * 2;
-					vec.x = vec.z = (shape as CapsuleShape).Radius;
+					vec.x = vec.z = (shape as CapsuleShape).Radius * 2;
 					Node.SetScale(vec);
 					break;
 				case BroadphaseNativeType.CylinderShape:
 					Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
 					Vector3 vec2 = new Vector3();
 					vec2.y = (shape as CylinderShape).HalfExtentsWithoutMargin.y;
-					vec2.x = vec2.z = (shape as CylinderShape).Radius;
+					vec2.x = vec2.z = (shape as CylinderShape).Radius * 2;
 					Node.SetScale(vec2);
 					break;
 				case BroadphaseNativeType.SphereShape:
-					Entity = sceneMgr.CreateEntity(name, "primitives/ellipsoid.mesh");
-					float dim = (shape as SphereShape).Radius;
+					Entity = sceneMgr.CreateEntity(name, "primitives/sphere.mesh");
+					float dim = (shape as SphereShape).Radius * 2;
 					Node.SetScale(dim, dim, dim);
 					break;
 				default:

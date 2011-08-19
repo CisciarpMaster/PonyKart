@@ -1,0 +1,24 @@
+Name = "DoubleSphere"
+Physics = Dynamic
+Shape {
+	Type = Sphere
+	Radius = 1
+	Position = 1, 0, 0
+}
+Shape {
+	Type = Sphere
+	Radius = 1
+	Position = -1, 0, 0
+}
+Model {
+	Mesh = "primitives/sphere.mesh"
+	Material = "brick"
+	Position = 1, 0, 0
+	Scale = 2, 2, 2
+}
+Model {
+	Mesh = "primitives/sphere.mesh"
+	Material = "brick"
+	Position = -1, 0, 0
+	Scale = 2, 2, 2
+}

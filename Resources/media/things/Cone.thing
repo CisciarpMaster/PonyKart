@@ -1,0 +1,11 @@
+Name = "Cone"
+Physics = Dynamic
+Shape {
+	Type = Cone
+	Radius = 0.5
+	Height = 1
+}
+Model {
+	Mesh = "primitives/cone.mesh"
+	Material = "brick"
+}

@@ -72,8 +72,7 @@ namespace Ponykart.Actors {
 		/// Sets up mogre stuff, like our root scene node
 		/// </summary>
 		protected void SetupMogre(ThingInstanceTemplate template, ThingDefinition def) {
-			RootNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID, SpawnPosition, SpawnOrientation);
-			RootNode.SetScale(SpawnScale);
+			RootNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
 		}
 
 		/// <summary>
@@ -145,6 +144,7 @@ namespace Ponykart.Actors {
 			// create our construction info thingy
 			Vector3 inertia;
 			shape.CalculateLocalInertia(mass, out inertia);
+			MotionState = DefaultMotionState;
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
 			// TODO
 			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(Info, LKernel.Get<PhysicsMaterialManager>().DefaultMaterial);
@@ -166,6 +166,11 @@ namespace Ponykart.Actors {
 			if (!Enum.TryParse<PonykartCollidesWithGroups>(collidesWith, true, out pcwg))
 				throw new FormatException("Invalid collides-with group!");
 			CollidesWith = pcwg;
+
+			Matrix4 transform = new Matrix4();
+			transform.MakeTransform(SpawnPosition, SpawnScale, SpawnOrientation);
+			Info.StartWorldTransform = transform;
+			MotionState.WorldTransform = transform;
 		}
 
 		/// <summary>
@@ -178,7 +183,6 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void CreateBody(ThingDefinition def) {
 			Body = new RigidBody(Info);
-			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);
 
 			// stick on our flags
 			ThingEnum te = def.EnumTokens["physics"];
@@ -186,6 +190,8 @@ namespace Ponykart.Actors {
 				Body.CollisionFlags |= CollisionFlags.StaticObject;
 			else if (te.HasFlag(ThingEnum.Kinematic))
 				Body.CollisionFlags |= CollisionFlags.KinematicObject;
+
+			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);
 		}
 
 		/// <summary>
@@ -201,6 +207,8 @@ namespace Ponykart.Actors {
 			Body.SetName(Name);
 			Body.SetCollisionGroup(CollisionGroup);
 		}
+
+
 
 		public void Dispose() {
 			var sceneMgr = LKernel.Get<SceneManager>();

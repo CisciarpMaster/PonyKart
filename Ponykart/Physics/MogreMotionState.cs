@@ -18,11 +18,13 @@ namespace Ponykart.Physics {
 			this.node = node;
 			this.transform = transform;
 		}
+
 		public MogreMotionState(Vector3 position, Quaternion orientation, SceneNode node) {
 			transform = new Matrix4(orientation);
 			transform.SetTrans(position);
 			this.node = node;
 		}
+
 		/// <param name="rotation">In degrees</param>
 		public MogreMotionState(Vector3 position, Vector3 rotation, SceneNode node)
 			: this(position, rotation.DegreeVectorToGlobalQuaternion(), node)

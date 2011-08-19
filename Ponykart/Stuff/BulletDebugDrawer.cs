@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using BulletSharp;
+﻿using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
 
@@ -9,14 +8,12 @@ namespace Ponykart.Stuff {
 		SceneManager sceneMgr;
 		ManualObject lines;
 		ManualObject triangles;
-		Collection<ContactPoint> contactPoints;
 		public DebugDrawModes DebugMode { get; set; }
 
 		bool begin = false;
 
 		public BulletDebugDrawer() {
 			sceneMgr = LKernel.Get<SceneManager>();
-			contactPoints = new Collection<ContactPoint>();
 
 			lines = new ManualObject("physics lines");
 			triangles = new ManualObject("physics triangles");
@@ -54,7 +51,7 @@ namespace Ponykart.Stuff {
 			triangles.End();
 			begin = false;
 
-			DebugMode = DebugDrawModes.DrawWireframe;
+			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb | DebugDrawModes.DrawContactPoints;
 
 			LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
 			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
@@ -71,14 +68,6 @@ namespace Ponykart.Stuff {
 		}
 
 		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			foreach (ContactPoint point in contactPoints) {
-				lines.Position(point.from);
-				lines.Colour(point.colour);
-				lines.Position(point.to);
-				lines.Colour(point.colour);
-			}
-			contactPoints.Clear();
-
 			if (begin) {
 				lines.End();
 				triangles.End();
@@ -95,7 +84,18 @@ namespace Ponykart.Stuff {
 
 
 
-
+		/// <summary>
+		/// How many "steps" when we draw circles
+		/// </summary>
+		private const int numIter = 12;
+		/// <summary>
+		/// radian amount to increase the angle by when drawing circles
+		/// </summary>
+		private const float increaseAmount = (360f / numIter) * (Math.TWO_PI / 360f);
+		/// <summary>
+		/// maximum angle to draw circles with
+		/// </summary>
+		private const float limit = Math.TWO_PI + increaseAmount;
 
 
 
@@ -103,8 +103,50 @@ namespace Ponykart.Stuff {
 
 		public void Draw3dText(Vector3 location, string textString) { }
 
+		/// <summary>
+		/// Draws an axis-aligned bounding box
+		/// </summary>
+		/// <param name="colour">I override this and make it white with 30% opacity</param>
 		public void DrawAabb(Vector3 from, Vector3 to, ColourValue colour) {
-			
+			if (!begin)
+				return;
+
+			colour = new ColourValue(1, 1, 1, 0.3f);
+
+			// I'm sure there's a better way of doing this
+			Vector3 loo = new Vector3(to.x, from.y, from.z);
+			Vector3 olo = new Vector3(from.x, to.y, from.z);
+			Vector3 ool = new Vector3(from.x, from.y, to.z);
+			Vector3 llo = new Vector3(to.x, to.y, from.z);
+			Vector3 lol = new Vector3(to.x, from.y, to.z);
+			Vector3 oll = new Vector3(from.x, to.y, to.z);
+
+			lines.Position(from); lines.Colour(colour);
+			lines.Position(loo); lines.Colour(colour);
+			lines.Position(from); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(from); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+
+			lines.Position(to); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(to); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(to); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+
+			lines.Position(loo); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(loo); lines.Colour(colour);
 		}
 
 		public void DrawArc(Vector3 center, Vector3 normal, Vector3 axis, float radiusA, float radiusB, float minAngle, float maxAngle, ColourValue colour, bool drawSect, float stepDegrees) {
@@ -124,26 +166,127 @@ namespace Ponykart.Stuff {
 		}
 
 		public void DrawCapsule(float radius, float halfHeight, int upAxis, Matrix4 transform, ColourValue colour) {
-			
+			DrawCylinder(radius, halfHeight, upAxis, transform, colour);
+
+			Vector3 previousXYPos = transform * new Vector3(radius, halfHeight, 0);
+			Vector3 previousYZPos = transform * new Vector3(0, halfHeight, radius);
+			Vector3 previousNXYPos = transform * new Vector3(radius, -halfHeight, 0);
+			Vector3 previousNYZPos = transform * new Vector3(0, -halfHeight, radius);
+
+			float capsuleLimit = limit * 0.5f;
+
+			// y-x circle
+			for (float a = 0; a <= capsuleLimit; a += increaseAmount) {
+				float y = Math.Sin(a) * radius;
+				float x = Math.Cos(a) * radius;
+
+				// xy
+				Vector3 xyPos = transform * new Vector3(x, y + halfHeight, 0);
+				lines.Position(previousXYPos);
+				lines.Colour(colour);
+				lines.Position(xyPos);
+				lines.Colour(colour);
+				previousXYPos = xyPos;
+
+				// yz
+				float z = Math.Cos(a) * radius;
+
+				Vector3 yzPos = transform * new Vector3(0, y + halfHeight, z);
+				lines.Position(previousYZPos);
+				lines.Colour(colour);
+				lines.Position(yzPos);
+				lines.Colour(colour);
+				previousYZPos = yzPos;
+
+				// -xy
+				Vector3 nxyPos = transform * new Vector3(x, -y - halfHeight, 0);
+				lines.Position(previousNXYPos);
+				lines.Colour(colour);
+				lines.Position(nxyPos);
+				lines.Colour(colour);
+				previousNXYPos = nxyPos;
+
+				// -yz
+				Vector3 nyzPos = transform * new Vector3(0, -y - halfHeight, z);
+				lines.Position(previousNYZPos);
+				lines.Colour(colour);
+				lines.Position(nyzPos);
+				lines.Colour(colour);
+				previousNYZPos = nyzPos;
+			}
 		}
 
+		/// <summary>
+		/// Draws a cone
+		/// </summary>
+		/// <param name="upAxis">ignored for now</param>
 		public void DrawCone(float radius, float height, int upAxis, Matrix4 transform, ColourValue colour) {
-			
+			float halfHeight = height / 2f;
+			Vector3 previousPos = transform * new Vector3(0, -halfHeight, radius);
+			Vector3 tip = transform * new Vector3(0, halfHeight, 0);
+
+			for (float a = 0; a <= limit; a += increaseAmount) {
+				float z = Math.Cos(a) * radius;
+				float x = Math.Sin(a) * radius;
+
+				// the circle
+				Vector3 pos = transform * new Vector3(x, -halfHeight, z);
+				lines.Position(previousPos);
+				lines.Colour(colour);
+				lines.Position(pos);
+				lines.Colour(colour);
+				previousPos = pos;
+
+				// the sides
+				lines.Position(pos);
+				lines.Colour(colour);
+				lines.Position(tip);
+				lines.Colour(colour);
+			}
 		}
 
 		public void DrawContactPoint(Vector3 pointOnB, Vector3 normalOnB, float distance, int lifeTime, ColourValue colour) {
-			ContactPoint p = new ContactPoint();
 
-			p.from = pointOnB;
-			p.to = p.from + normalOnB * distance;
-			p.dieTime = LKernel.Get<Root>().Timer.Milliseconds + (uint)lifeTime;
-			p.colour = colour;
-
-			contactPoints.Add(p);
+			lines.Position(pointOnB);
+			lines.Colour(colour);
+			lines.Position(pointOnB + normalOnB * distance);
+			lines.Colour(colour);
 		}
 
+		/// <summary>
+		/// Draws a cylinder
+		/// </summary>
+		/// <param name="upAxis">ignored for now</param>
 		public void DrawCylinder(float radius, float halfHeight, int upAxis, Matrix4 transform, ColourValue colour) {
-			
+			Vector3 previousPos = transform * new Vector3(0, halfHeight, radius);
+			Vector3 previousNPos = transform * new Vector3(0, -halfHeight, radius);
+
+			for (float a = 0; a <= limit; a += increaseAmount) {
+				float z = Math.Cos(a) * radius;
+				float x = Math.Sin(a) * radius;
+
+				// positive
+				Vector3 pos = transform * new Vector3(x, halfHeight, z);
+				lines.Position(previousPos);
+				lines.Colour(colour);
+				lines.Position(pos);
+				lines.Colour(colour);
+				previousPos = pos;
+
+				// negative
+				Vector3 npos = transform * new Vector3(x, -halfHeight, z);
+				lines.Position(previousNPos);
+				lines.Colour(colour);
+				lines.Position(npos);
+				lines.Colour(colour);
+				previousNPos = npos;
+
+				// the sides
+				lines.Position(pos);
+				lines.Colour(colour);
+				lines.Position(npos);
+				lines.Colour(colour);
+			}
 		}
 
 		public void DrawLine(Vector3 from, Vector3 to, ColourValue colour) {
@@ -164,12 +307,90 @@ namespace Ponykart.Stuff {
 			
 		}
 
+		/// <summary>
+		/// Draws a sphere that doesn't rotate
+		/// </summary>
 		public void DrawSphere(Vector3 p, float radius, ColourValue colour) {
-			
+			Vector3 previousXYPos = p + new Vector3(0, radius, 0);
+			Vector3 previousYZPos = p + new Vector3(0, radius, 0);
+			Vector3 previousXZPos = p + new Vector3(0, 0, radius);
+
+			for (float a = 0; a <= limit; a += increaseAmount) {
+				float y = Math.Cos(a) * radius;
+				float x = Math.Sin(a) * radius;
+
+				// xy
+				Vector3 xyPos = p + new Vector3(x, y, 0);
+				lines.Position(previousXYPos);
+				lines.Colour(colour);
+				lines.Position(xyPos);
+				lines.Colour(colour);
+				previousXYPos = xyPos;
+
+				// yz
+				float z = Math.Sin(a) * radius;
+
+				Vector3 yzPos = p + new Vector3(0, y, z);
+				lines.Position(previousYZPos);
+				lines.Colour(colour);
+				lines.Position(yzPos);
+				lines.Colour(colour);
+				previousYZPos = yzPos;
+
+				// xz
+				z = Math.Cos(a) * radius;
+
+				Vector3 xzPos = p + new Vector3(x, 0, z);
+				lines.Position(previousXZPos);
+				lines.Colour(colour);
+				lines.Position(xzPos);
+				lines.Colour(colour);
+				previousXZPos = xzPos;
+			}
+
 		}
 
+		/// <summary>
+		/// Draws a sphere that does rotate
+		/// </summary>
 		public void DrawSphere(float radius, Matrix4 transform, ColourValue colour) {
-			
+
+			Vector3 previousXYPos = transform * new Vector3(0, radius, 0);
+			Vector3 previousYZPos = transform * new Vector3(0, radius, 0);
+			Vector3 previousXZPos = transform * new Vector3(0, 0, radius);
+
+			for (float a = 0; a <= limit; a += increaseAmount) {
+				float y = Math.Cos(a) * radius;
+				float x = Math.Sin(a) * radius;
+
+				// xy
+				Vector3 xyPos = transform * new Vector3(x, y, 0);
+				lines.Position(previousXYPos);
+				lines.Colour(colour);
+				lines.Position(xyPos);
+				lines.Colour(colour);
+				previousXYPos = xyPos;
+
+				// yz
+				float z = Math.Sin(a) * radius;
+
+				Vector3 yzPos = transform * new Vector3(0, y, z);
+				lines.Position(previousYZPos);
+				lines.Colour(colour);
+				lines.Position(yzPos);
+				lines.Colour(colour);
+				previousYZPos = yzPos;
+
+				// xz
+				z = Math.Cos(a) * radius;
+
+				Vector3 xzPos = transform * new Vector3(x, 0, z);
+				lines.Position(previousXZPos);
+				lines.Colour(colour);
+				lines.Position(xzPos);
+				lines.Colour(colour);
+				previousXZPos = xzPos;
+			}
 		}
 
 		public void DrawSpherePatch(Vector3 center, Vector3 up, Vector3 axis, float radius, float minTh, float maxTh, float minPs, float maxPs, ColourValue colour, float stepDegrees) {
@@ -203,15 +424,6 @@ namespace Ponykart.Stuff {
 
 		public void ReportErrorWarning(string warningString) {
 			Launch.Log("[WARNING] (BulletDebugManager): " + warningString);
-		}
-
-
-
-		struct ContactPoint {
-			public Vector3 from;
-			public Vector3 to;
-			public ColourValue colour;
-			public uint dieTime;
 		}
 	}
 }

@@ -75,6 +75,15 @@ namespace Ponykart.IO {
 				case ThingEnum.CapsuleZ:
 					Shape = new CapsuleShapeZ(FloatTokens["radius"], FloatTokens["height"]);
 					break;
+				case ThingEnum.Cone:
+					Shape = new ConeShape(FloatTokens["radius"], FloatTokens["height"]);
+					break;
+				case ThingEnum.ConeX:
+					Shape = new ConeShapeX(FloatTokens["radius"], FloatTokens["height"]);
+					break;
+				case ThingEnum.ConeZ:
+					Shape = new ConeShapeZ(FloatTokens["radius"], FloatTokens["height"]);
+					break;
 				case ThingEnum.Cylinder:
 					Shape = new CylinderShape(VectorTokens["dimensions"] / 2f);
 					break;
@@ -86,7 +95,7 @@ namespace Ponykart.IO {
 					break;
 				case ThingEnum.Sphere:
 					Shape = new SphereShape(FloatTokens["radius"]);
-					break;
+					break; 
 			}
 
 			Vector3 rot;
@@ -148,7 +157,10 @@ namespace Ponykart.IO {
 		Sphere,
 		Cylinder,
 		CylinderX,
-		CylinderZ
+		CylinderZ,
+		Cone,
+		ConeX,
+		ConeZ
 		// ...
 	}
 }

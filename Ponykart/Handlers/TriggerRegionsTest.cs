@@ -22,7 +22,7 @@ namespace Ponykart.Handlers {
 			reporter.AddEvent(tr1.Name, doSomething);
 
 #if DEBUG
-			tr2 = new TriggerRegion("test trigger area 2", new Vector3(-5, 0, 7), new SphereShape(1));
+			tr2 = new TriggerRegion("test trigger area 2", new Vector3(-5, 2, 7), new SphereShape(1));
 			reporter.AddEvent(tr2.Name, doSomething);
 
 			tr3 = new TriggerRegion("test trigger area 3", new Vector3(-35, 3.5f, 0), new Vector3(0, 45, 0).DegreeVectorToGlobalQuaternion(), new BoxShape(4, 4, 4));

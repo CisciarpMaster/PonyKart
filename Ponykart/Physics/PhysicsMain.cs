@@ -170,23 +170,25 @@ namespace Ponykart.Physics {
 			false;
 #endif
 
-		public void ShootBox() {
+		public void ShootPrimitive() {
+			string type;
+			switch ((int) Math.RangeRandom(0, 5)) {
+				case 0:
+				default:
+					type = "Box"; break;
+				case 1:
+					type = "Sphere"; break;
+				case 2:
+					type = "Cylinder"; break;
+				case 3:
+					type = "Cone"; break;
+				case 4:
+					type = "Capsule"; break;
+			}
 			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition + Vector3.UNIT_Y;
-			string name = "Box_" + IDs.New;
-
-			SceneManager sceneMgr = LKernel.Get<SceneManager>();
-			Entity ent = sceneMgr.CreateEntity(name, "primitives/box.mesh");
-			ent.SetMaterialName("brick");
-			SceneNode node = sceneMgr.RootSceneNode.CreateChildSceneNode(name, pos);
-			node.AttachObject(ent);
-
-			BoxShape shape = new BoxShape(0.5f);
-			shape.CalculateLocalInertia(1);
-			RigidBodyConstructionInfo info = new RigidBodyConstructionInfo(1, new MogreMotionState(pos, Quaternion.IDENTITY, node), shape);
-			info.AngularDamping = 0.1f;
-			info.LinearDamping = 0.1f;
-			RigidBody body = new RigidBody(info);
-			world.AddRigidBody(body, PonykartCollisionGroups.Default, PonykartCollidesWithGroups.Default);
+			var tt = new ThingInstanceTemplate(type, type, pos);
+			var td = LKernel.Get<IO.ThingDatabase>().GetThingDefinition(type);
+			new LThing(tt, td);
 		}
 
 		public DiscreteDynamicsWorld World {

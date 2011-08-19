@@ -1,6 +1,7 @@
 ﻿using System;
 using Mogre;
 using Ponykart.Actors;
+using Ponykart.IO;
 
 namespace Ponykart.Core {
 	public delegate void OnThingCreation<T>(T thing);
@@ -85,9 +86,13 @@ namespace Ponykart.Core {
 		/// <param name="spawnPos">Where should it spawn?</param>
 		/// <exception cref="ArgumentException">If the type is not valid</exception>
 		/// <returns>The thing you spawned</returns>
-		public Thing Spawn(string type, string name, Vector3 spawnPos) {
-			ThingInstanceTemplate tt = new ThingInstanceTemplate(type, name, spawnPos);
-			return Spawn(tt);
+		public LThing Spawn(string type, string name, Vector3 spawnPos) {
+			var td = LKernel.Get<ThingDatabase>().GetThingDefinition(type);
+			var tt = new ThingInstanceTemplate(type, name, spawnPos);
+
+			LThing lt = new LThing(tt, td);
+			return lt;
+			//return Spawn(tt);
 		}
 
 		/// <summary>
