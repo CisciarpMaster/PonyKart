@@ -12,6 +12,7 @@ namespace Ponykart.IO {
 		public IDictionary<string, float> FloatTokens { get; protected set; }
 		public IDictionary<string, bool> BoolTokens { get; protected set; }
 		public IDictionary<string, Vector3> VectorTokens { get; protected set; }
+		public IDictionary<string, Quaternion> QuatTokens { get; protected set; }
 
 		public virtual void SetUpDictionaries() {
 			EnumTokens = new Dictionary<string, ThingEnum>();
@@ -19,6 +20,7 @@ namespace Ponykart.IO {
 			FloatTokens = new Dictionary<string, float>();
 			BoolTokens = new Dictionary<string, bool>();
 			VectorTokens = new Dictionary<string, Vector3>();
+			QuatTokens = new Dictionary<string, Quaternion>();
 		}
 
 		/// <summary>
@@ -96,6 +98,21 @@ namespace Ponykart.IO {
 				return (Vector3) defaultValue;
 		}
 
+		/// <summary>
+		/// Gets a quaternion property from the dictionaries.
+		/// </summary>
+		/// <param name="propertyName">The name of the property to look for</param>
+		/// <param name="defaultValue">If the property was not found, use this instead. Pass null if this is a required property.</param>
+		public Quaternion GetQuatProperty(string propertyName, Quaternion? defaultValue) {
+			Quaternion q;
+			if (QuatTokens.TryGetValue(propertyName, out q))
+				return q;
+			else if (defaultValue == null)
+				throw new ArgumentException("That property was not found in the .thing file!", propertyName);
+			else
+				return (Quaternion) defaultValue;
+		}
+
 		public abstract void Finish();
 
 		public virtual void Dispose() {
@@ -104,6 +121,7 @@ namespace Ponykart.IO {
 			FloatTokens.Clear();
 			BoolTokens.Clear();
 			VectorTokens.Clear();
+			QuatTokens.Clear();
 		}
 	}
 }

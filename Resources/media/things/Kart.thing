@@ -25,5 +25,13 @@ Shape {
 	Rotation = 0, 45, 0
 	Position = 0, 0.5, 1.33
 }
+Ribbon {
+	Material = "ribbon"
+	Length = 15
+	Elements = 30
+	Width = 2
+	Colour = 0, 0, 1, 1 // blue
+	ColourChange = 0, 0, 0, 3
+}
 
 // ribbon = 15 length, 30 elements, blue, 2 width

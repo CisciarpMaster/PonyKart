@@ -9,6 +9,7 @@ namespace Ponykart.IO {
 		public string Name { get; protected set; }
 		public ICollection<ShapeBlock> ShapeBlocks { get; protected set; }
 		public ICollection<ModelBlock> ModelBlocks { get; protected set; }
+		public ICollection<RibbonBlock> RibbonBlocks { get; protected set; }
 
 		public ThingDefinition(string name) {
 			Name = name;
@@ -19,27 +20,28 @@ namespace Ponykart.IO {
 			base.SetUpDictionaries();
 			ShapeBlocks = new Collection<ShapeBlock>();
 			ModelBlocks = new Collection<ModelBlock>();
+			RibbonBlocks = new Collection<RibbonBlock>();
 		}
 
 		/// <summary>
 		/// Must be called after you're done importing everything into the dictionaries
 		/// </summary>
 		public override void Finish() {
-			foreach (ShapeBlock sb in ShapeBlocks) {
+			foreach (ShapeBlock sb in ShapeBlocks)
 				sb.Finish();
-			}
-			foreach (ModelBlock mb in ModelBlocks) {
+			foreach (ModelBlock mb in ModelBlocks)
 				mb.Finish();
-			}
+			foreach (RibbonBlock rb in RibbonBlocks)
+				rb.Finish();
 		}
 
 		public override void Dispose() {
-			foreach (ShapeBlock sb in ShapeBlocks) {
+			foreach (ShapeBlock sb in ShapeBlocks)
 				sb.Dispose();
-			}
-			foreach (ModelBlock mb in ModelBlocks) {
+			foreach (ModelBlock mb in ModelBlocks)
 				mb.Dispose();
-			}
+			foreach (RibbonBlock rb in RibbonBlocks)
+				rb.Dispose();
 			base.Dispose();
 		}
 	}

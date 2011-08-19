@@ -32,6 +32,7 @@ namespace Ponykart.Actors {
 
 		protected Collection<ModelComponent> ModelComponents;
 		protected Collection<ShapeComponent> ShapeComponents;
+		protected Collection<RibbonComponent> RibbonComponents;
 
 		public LThing(ThingInstanceTemplate template, ThingDefinition def) {
 			ID = template.ID;
@@ -39,6 +40,7 @@ namespace Ponykart.Actors {
 
 			ModelComponents = new Collection<ModelComponent>();
 			ShapeComponents = new Collection<ShapeComponent>();
+			RibbonComponents = new Collection<RibbonComponent>();
 
 			// get our three basic transforms
 			SpawnPosition = template.GetVectorProperty("position", null);
@@ -87,6 +89,8 @@ namespace Ponykart.Actors {
 				ModelComponents.Add(new ModelComponent(this, template, mblock));
 			foreach (var sblock in def.ShapeBlocks)
 				ShapeComponents.Add(new ShapeComponent(this, template, sblock));
+			foreach (var rblock in def.RibbonBlocks)
+				RibbonComponents.Add(new RibbonComponent(this, template, rblock));
 		}
 
 		protected void SetupPhysics(ThingInstanceTemplate template, ThingDefinition def) {
@@ -219,6 +223,8 @@ namespace Ponykart.Actors {
 				mc.Dispose();
 			foreach (ShapeComponent sc in ShapeComponents)
 				sc.Dispose();
+			foreach (RibbonComponent rc in RibbonComponents)
+				rc.Dispose();
 
 			if (RootNode != null) {
 				if (valid)
@@ -235,6 +241,7 @@ namespace Ponykart.Actors {
 
 			ModelComponents.Clear();
 			ShapeComponents.Clear();
+			RibbonComponents.Clear();
 		}
 	}
 }

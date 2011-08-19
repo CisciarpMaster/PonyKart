@@ -139,6 +139,7 @@
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="IO\ModelBlock.cs" />
+    <Compile Include="IO\RibbonBlock.cs" />
     <Compile Include="IO\ShapeBlock.cs" />
     <Compile Include="IO\ThingDatabase.cs" />
     <Compile Include="IO\ThingDefinition.cs" />

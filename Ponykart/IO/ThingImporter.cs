@@ -63,6 +63,9 @@ namespace Ponykart.IO {
 					case NodeType.Rule_Model:
 						ParseModel(thingDef, prop as RuleInstance);
 						break;
+					case NodeType.Rule_Ribbon:
+						ParseRibbon(thingDef, prop as RuleInstance);
+						break;
 				}
 			}
 		}
@@ -87,6 +90,9 @@ namespace Ponykart.IO {
 					break;
 				case NodeType.Rule_Vec3Property:
 					holder.VectorTokens[propName] = ParseVectorProperty(prop);
+					break;
+				case NodeType.Rule_QuatProperty:
+					holder.QuatTokens[propName] = ParseQuatProperty(prop);
 					break;
 			}
 		}
@@ -113,9 +119,13 @@ namespace Ponykart.IO {
 
 		// TODO
 		bool ParseBoolProperty(RuleInstance prop) {
-
-
-			return false;
+			Token valTok = prop.Children[2] as Token;
+			if (valTok.Type == NodeType.Tok_KeyTrue)
+				return true;
+			else if (valTok.Type == NodeType.Tok_KeyFalse)
+				return false;
+			else
+				throw new ArgumentException("Boolean property is not true or false! (How did we even get to this point?)", "prop");
 		}
 
 		/// <summary>
@@ -157,6 +167,25 @@ namespace Ponykart.IO {
 		}
 
 		/// <summary>
+		/// Parse a quaternion property, i.e. a quartet of floats separated by commas.
+		/// 
+		/// Note that the .scene format uses xyzw but ogre uses wxyz!
+		/// </summary>
+		Quaternion ParseQuatProperty(RuleInstance prop) {
+			Token tok1 = prop.Children[2] as Token;
+			Token tok2 = prop.Children[4] as Token;
+			Token tok3 = prop.Children[6] as Token;
+			Token tok4 = prop.Children[8] as Token;
+
+			float x = float.Parse(tok1.Image, culture);
+			float y = float.Parse(tok2.Image, culture);
+			float z = float.Parse(tok3.Image, culture);
+			float w = float.Parse(tok4.Image, culture);
+
+			return new Quaternion(w, x, y, z);
+		}
+
+		/// <summary>
 		/// Shape blocks
 		/// </summary>
 		void ParseShape(ThingDefinition thingDef, RuleInstance block) {
@@ -184,6 +213,21 @@ namespace Ponykart.IO {
 			}
 
 			thingDef.ModelBlocks.Add(modelBlock);
+		}
+
+		/// <summary>
+		/// Ribbon blocks
+		/// </summary>
+		void ParseRibbon(ThingDefinition thingDef, RuleInstance block) {
+			RibbonBlock ribbonBlock = new RibbonBlock(thingDef);
+
+			for (int a = 2; a < block.Children.Length - 1; a++) {
+				RuleInstance rule = block.Children[a] as RuleInstance;
+				if (rule.Type == NodeType.Rule_Property)
+					ParseProperty(ribbonBlock, rule.Children[0] as RuleInstance);
+			}
+
+			thingDef.RibbonBlocks.Add(ribbonBlock);
 		}
 	}
 }

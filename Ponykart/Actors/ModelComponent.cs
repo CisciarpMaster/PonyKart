@@ -25,8 +25,14 @@ namespace Ponykart.Actors {
 
 			// position
 			Node.Position = block.GetVectorProperty("position", Vector3.ZERO);
-			// rotation (in degrees)
-			Node.Orientation = block.GetVectorProperty("rotation", Vector3.ZERO).DegreeVectorToGlobalQuaternion();
+			// orientation
+			Node.Orientation = block.GetQuatProperty("orientation", Quaternion.IDENTITY);
+			// if orientation was not found, we fall back to rotation
+			if (Node.Orientation == Quaternion.IDENTITY) {
+				Vector3 rot = block.GetVectorProperty("rotation", Vector3.ZERO);
+				if (rot != Vector3.ZERO)
+					Node.Orientation = rot.DegreeVectorToGlobalQuaternion();
+			}
 			// scale
 			Node.Scale(block.GetVectorProperty("scale", Vector3.UNIT_SCALE));
 

@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// make this match the one in TriggerRegionsTest too
+//#define RENDER_REGIONS
+
+using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
+#if RENDER_REGIONS
 using Ponykart.Handlers;
+#endif
 using Ponykart.Levels;
 
 namespace Ponykart.Physics {
@@ -12,7 +17,9 @@ namespace Ponykart.Physics {
 		public RigidBody Body { get; protected set; }
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
+#if RENDER_REGIONS
 		public Entity Entity { get; protected set; }
+#endif
 		public HashSet<RigidBody> CurrentlyCollidingWith { get; set; }
 
 		/// <summary>
@@ -37,6 +44,7 @@ namespace Ponykart.Physics {
 			var sceneMgr = LKernel.Get<SceneManager>();
 
 			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(name);
+#if RENDER_REGIONS
 			// make a mesh for the region depending on what its type is
 			switch (shape.ShapeType) {
 				case BroadphaseNativeType.BoxShape: 
@@ -72,6 +80,7 @@ namespace Ponykart.Physics {
 			Entity.CastShadows = false;
 
 			Node.AttachObject(Entity);
+#endif
 			Node.Position = position;
 			Node.Orientation = rotation;
 
@@ -100,6 +109,7 @@ namespace Ponykart.Physics {
 				OnTrigger(this, otherBody, flags);
 		}
 
+#if RENDER_REGIONS
 		/// <summary>
 		/// Must be one of: red, blue, yellow, green, orange, magenta, purple, cyan, white
 		/// </summary>
@@ -113,6 +123,7 @@ namespace Ponykart.Physics {
 			}
 		}
 		BalloonGlowColor balloonColor = BalloonGlowColor.red;
+#endif
 
 		/// <summary>
 		/// do we need to dispose of this stuff? don't we nuke the scene manager every time?
@@ -122,12 +133,16 @@ namespace Ponykart.Physics {
 
 			if (Node != null) {
 				if (LKernel.Get<LevelManager>().IsValidLevel) {
+#if RENDER_REGIONS
 					sceneMgr.DestroyEntity(Entity);
+#endif
 					sceneMgr.DestroySceneNode(Node);
 				}
+#if RENDER_REGIONS
 				Entity.Dispose();
-				Node.Dispose();
 				Entity = null;
+#endif
+				Node.Dispose();
 				Node = null;
 			}
 		}

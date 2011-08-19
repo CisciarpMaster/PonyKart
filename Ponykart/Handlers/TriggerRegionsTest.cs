@@ -1,4 +1,6 @@
-﻿using System;
+﻿// make this match the one in TriggerRegion too
+//#define RENDER_REGIONS
+using System;
 using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
@@ -39,14 +41,16 @@ namespace Ponykart.Handlers {
 			if (flags.HasFlag(TriggerReportFlags.Enter)) {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
 				// cycle through the balloon colors
+#if RENDER_REGIONS
 				region.BalloonGlowColor = (BalloonGlowColor) (((int) region.BalloonGlowColor + 1) % 8);
-
+#endif
 				d.CreateDialogue("media/gui/lyra.jpg", otherBody.GetName(), "I have entered " + region.Name);
 			}
 			else {
 				Console.WriteLine(otherBody.GetName() + " has left trigger area \"" + region.Name + "\"");
+#if RENDER_REGIONS
 				region.BalloonGlowColor = (BalloonGlowColor) (((int) region.BalloonGlowColor + 1) % 8);
-
+#endif
 				d.DestroyDialogue();
 			}
 		}

@@ -15,7 +15,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public SceneNode RibbonNode { get; private set; }
 
-		public RibbonComponent(LThing lthing, ThingInstanceTemplate template, ShapeBlock block) {
+		public RibbonComponent(LThing lthing, ThingInstanceTemplate template, RibbonBlock block) {
 			ID = IDs.New;
 			var sceneMgr = LKernel.Get<SceneManager>();
 
@@ -27,12 +27,14 @@ namespace Ponykart.Actors {
 			Ribbon.SetMaterialName(block.GetStringProperty("material", "ribbon"));
 			Ribbon.TrailLength = block.GetFloatProperty("length", 5);
 			Ribbon.MaxChainElements = (uint) block.GetFloatProperty("elements", 10);
+			Ribbon.SetInitialWidth(0, block.GetFloatProperty("width", 1));
 
-			Vector3 colorVec = block.GetVectorProperty("colour", Vector3.UNIT_SCALE);
-			float alpha = block.GetFloatProperty("alpha", 1);
-			Ribbon.SetInitialColour(0, new ColourValue(colorVec.x, colorVec.y, colorVec.z, alpha));
-			Ribbon.SetColourChange(0, new ColourValue(0, 0, 0, 3));
-			Ribbon.SetInitialWidth(0, block.GetFloatProperty("width", 5));
+			// have to convert a quat to a colour
+			Quaternion colorQuat = block.GetQuatProperty("colour", new Quaternion(1, 1, 1, 1));
+			Ribbon.SetInitialColour(0, new ColourValue(colorQuat.x, colorQuat.y, colorQuat.z, colorQuat.w));
+
+			colorQuat = block.GetQuatProperty("colourchange", new Quaternion(0, 0, 0, 3));
+			Ribbon.SetColourChange(0, new ColourValue(colorQuat.x, colorQuat.y, colorQuat.z, colorQuat.w));
 
 			// attach it to the node
 			RibbonNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID + "RibbonNode");
