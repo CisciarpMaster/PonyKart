@@ -7,6 +7,8 @@ using Ponykart.Levels;
 namespace Ponykart.IO {
 	/// <summary>
 	/// Imports worlds from a file.
+	/// 
+	/// TODO: Man this whole .muffin file stuff needs a big cleanup. The grammar's out of date, this importer's pretty messy, etc
 	/// </summary>
 	public class WorldImporter {
 		RuleInstance root;
@@ -16,7 +18,6 @@ namespace Ponykart.IO {
 		/// <summary>
 		/// Imports a world from the given file.
 		/// </summary>
-		/// TODO: We'll need something to see if the save file exists or not, and if it doesn't, to load the "new world" version
 		public void Parse(Level level) {
 
 			string fileContents = "";

@@ -71,11 +71,6 @@ namespace Ponykart.Handlers
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<ThingDatabase>().ClearDatabase();
 					break;
-				case KeyCode.KC_T:
-					var td = LKernel.Get<ThingDatabase>().GetThingDefinition("Obstacle");
-					var tt = new ThingInstanceTemplate("Obstacle", "obstacle", new Vector3(2, 10, 5));
-					new LThing(tt, td);
-					break;
 			}
 		}
 	}
