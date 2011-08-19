@@ -52,8 +52,8 @@ namespace Ponykart.Actors {
 		protected static CompoundShape Compound;
 
 
-		public Kart(ThingTemplate tt) : base(tt) {
-			Launch.Log("Creating Kart #" + ID + " with name \"" + tt.StringTokens["Name"] + "\"");
+		public Kart(ThingInstanceTemplate tt) : base(tt) {
+			Launch.Log("Creating Kart #" + ID + " with name \"" + tt.StringTokens["name"] + "\"");
 
 			MaxSpeed = 40f;
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;

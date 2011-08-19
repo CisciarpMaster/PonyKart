@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.IO;
 using Ponykart.Levels;
 using Ponykart.Lua;
 using Ponykart.Physics;
@@ -69,6 +70,7 @@ namespace Ponykart {
 			// spawner
 			splash.Increment("Creating spawner...");
 			AddGlobalObject(new WheelFactory());
+			AddGlobalObject(new ThingDatabase());
 			AddGlobalObject(new Spawner());
 
 			// Miyagi and stuff

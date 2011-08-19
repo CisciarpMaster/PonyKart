@@ -55,7 +55,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public DynamicThing(ThingTemplate tt) : base(tt) {
+		public DynamicThing(ThingInstanceTemplate tt) : base(tt) {
 #if DRAW_BODY_ORIGINS
 			LKernel.Get<Root>().FrameStarted += FrameStarted;
 

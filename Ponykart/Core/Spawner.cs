@@ -22,7 +22,7 @@ namespace Ponykart.Core {
 		/// <param name="template">The template for the thing you want to spawn</param>
 		/// <exception cref="ArgumentException">If 'type' is not a valid ActorEnum</exception>
 		/// <returns>The thing you just spawned. Returns null if you are paused.</returns>
-		public Thing Spawn(ThingEnum type, ThingTemplate template) {
+		public Thing Spawn(SpawnThingEnum type, ThingInstanceTemplate template) {
 			if (Pauser.IsPaused) {
 				Launch.Log("[Spawner] WARNING: Attempted to spawn something while paused!");
 				return null;
@@ -30,14 +30,14 @@ namespace Ponykart.Core {
 			Thing actor;
 
 			switch (type) {
-				case ThingEnum.Kart:
+				case SpawnThingEnum.Kart:
 					actor = new Kart(template);
 					Invoke(OnKartCreation, actor as Kart);
 					break;
-				case ThingEnum.Obstacle:
+				case SpawnThingEnum.Obstacle:
 					actor = new Obstacle(template);
 					break;
-				case ThingEnum.ZergShip:
+				case SpawnThingEnum.ZergShip:
 					actor = new ZergShip(template);
 					break;
 				default:
@@ -55,8 +55,8 @@ namespace Ponykart.Core {
 		/// <param name="name">What is its name? (Don't include the ID)</param>
 		/// <param name="spawnPos">Where should it spawn?</param>
 		/// <returns>The thing you spawned</returns>
-		public Thing Spawn(ThingEnum type, string name, Vector3 spawnPos) {
-			ThingTemplate tt = new ThingTemplate(type.ToString(), name, spawnPos);
+		public Thing Spawn(SpawnThingEnum type, string name, Vector3 spawnPos) {
+			ThingInstanceTemplate tt = new ThingInstanceTemplate(type.ToString(), name, spawnPos);
 			return Spawn(type, tt);
 		}
 
@@ -68,9 +68,9 @@ namespace Ponykart.Core {
 		/// <param name="template">The template for the thing you want to spawn</param>
 		/// <exception cref="ArgumentException">If the template's Type is not valid</exception>
 		/// <returns>The thing you spawned</returns>
-		public Thing Spawn(ThingTemplate template) {
-			ThingEnum ae;
-			if (Enum.TryParse<ThingEnum>(template.Type, true, out ae))
+		public Thing Spawn(ThingInstanceTemplate template) {
+			SpawnThingEnum ae;
+			if (Enum.TryParse<SpawnThingEnum>(template.Type, true, out ae))
 				return Spawn(ae, template);
 			else
 				throw new ArgumentException("The template's Type (" + template.Type + ") is not a valid Actor type!", "template.Type");
@@ -86,7 +86,7 @@ namespace Ponykart.Core {
 		/// <exception cref="ArgumentException">If the type is not valid</exception>
 		/// <returns>The thing you spawned</returns>
 		public Thing Spawn(string type, string name, Vector3 spawnPos) {
-			ThingTemplate tt = new ThingTemplate(type, name, spawnPos);
+			ThingInstanceTemplate tt = new ThingInstanceTemplate(type, name, spawnPos);
 			return Spawn(tt);
 		}
 

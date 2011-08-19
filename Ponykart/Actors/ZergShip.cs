@@ -15,7 +15,7 @@ namespace Ponykart.Actors {
 
 		AnimationState animState;
 
-		public ZergShip(ThingTemplate tt) : base(tt) {
+		public ZergShip(ThingInstanceTemplate tt) : base(tt) {
 			// hook into the "on every frame" event
 			LKernel.Get<Root>().FrameStarted += FrameStarted;
 		}

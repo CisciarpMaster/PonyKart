@@ -33,7 +33,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<PhysicsMain>().ShootBox();
 					break;
 				case KeyCode.KC_K:
-					LKernel.Get<Spawner>().Spawn(ThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
+					LKernel.Get<Spawner>().Spawn(SpawnThingEnum.Kart, "Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
 					break;
 				case KeyCode.KC_X:
 					MogreDebugDrawer.Singleton.Clear();
@@ -68,6 +68,9 @@ namespace Ponykart.Handlers
 
 					LKernel.Get<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
+					break;
+				case KeyCode.KC_T:
+					new IO.ThingImporter().Parse("sample");
 					break;
 			}
 		}

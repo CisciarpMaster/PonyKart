@@ -8,10 +8,6 @@ Entities:
 	Actor (Obstacle) {
 		Name = "obs2"
 		Position = 0, 1, 2
-		Overrides
-		{
-			Orientation = 39.2
-		}
 	}
 	Actor (Obstacle) {
 		Name = "obs3"

@@ -101,43 +101,43 @@ namespace Ponykart.Actors {
 		/// If you need to run extra stuff before this base constructor runs the methods to set up the Mogre and PhysX stuff,
 		/// use Setup(ThingTemplate).
 		/// </summary>
-		public Thing(ThingTemplate tt) {
+		public Thing(ThingInstanceTemplate tt) {
 			// get out required tokens
-			Name = tt.StringTokens["Name"];
-			SpawnPosition = tt.VectorTokens["Position"];
+			Name = tt.StringTokens["name"];
+			SpawnPosition = tt.VectorTokens["position"];
 
 			// get out optional ones
 			// rotation
 			Vector3 rot;
-			if (tt.VectorTokens.TryGetValue("Rotation", out rot))
+			if (tt.VectorTokens.TryGetValue("rotation", out rot))
 				SpawnRotation = rot;
 			else
 				SpawnRotation = Vector3.ZERO;
 
 			// scale
 			Vector3 scale;
-			if (tt.VectorTokens.TryGetValue("Scale", out scale))
+			if (tt.VectorTokens.TryGetValue("scale", out scale))
 				SpawnScale = scale;
 			else
 				SpawnScale = new Vector3(1, 1, 1);
 
 			// run a lua script?
 			string script;
-			if (tt.StringTokens.TryGetValue("Script", out script))
+			if (tt.StringTokens.TryGetValue("script", out script))
 				Script = script;
 			else
 				Script = null;
 
 			// model file
 			string model;
-			if (tt.StringTokens.TryGetValue("Model", out model))
+			if (tt.StringTokens.TryGetValue("model", out model))
 				Model = model;
 			else
 				Model = DefaultModel;
 
 			// material - if the default is null, then we just use what the model file says
 			string mat;
-			if (tt.StringTokens.TryGetValue("Material", out mat))
+			if (tt.StringTokens.TryGetValue("material", out mat))
 				Material = mat;
 			else
 				Material = DefaultMaterial;
@@ -160,7 +160,7 @@ namespace Ponykart.Actors {
 		/// Remember, if you add more optional parameters to your subclass, don't forget to add one of those iterator methods 
 		/// (see Methods to get optional properties) to somewhere in your subclass!
 		/// </summary>
-		protected virtual void Setup(ThingTemplate tt) { }
+		protected virtual void Setup(ThingInstanceTemplate tt) { }
 
 		#region Mogre stuff
 

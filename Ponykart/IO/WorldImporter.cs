@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.IO;
 using Mogre;
+using Ponykart.IO.WorldParser;
 using Ponykart.Levels;
 
 namespace Ponykart.IO {
@@ -28,12 +29,12 @@ namespace Ponykart.IO {
 
 				// what if there is no default?!
 				if (!File.Exists(filePath)) {
-					Launch.Log("[World Importer] WARNING: Unable to find default save file for this level!");
+					Launch.Log("[WorldImporter] WARNING: Unable to find default save file for this level!");
 					return;
 				}
 			}
 
-			Launch.Log("[World Importer] Importing and parsing level: " + filePath);
+			Launch.Log("[WorldImporter] Importing and parsing level: " + filePath);
 
 			// read stuff
 			using (var fileStream = File.Open(filePath, FileMode.Open))
@@ -68,7 +69,7 @@ namespace Ponykart.IO {
 			for (int a = 2; a < flagNode.Children.Length; a++)
 			{
 				RuleInstance flag = flagNode.Children[a] as RuleInstance;
-				string name = ((flag.Children[0] as RuleInstance).Children[0] as Token).Image;
+				string name = ((flag.Children[0] as RuleInstance).Children[0] as Token).Image.ToLower(culture);
 				bool value = (flag.Children[2] as Token).Type == NodeType.Tok_KeyTrue;
 
 				level.Flags[name] = value;
@@ -84,7 +85,7 @@ namespace Ponykart.IO {
 			for (int a = 2; a < numNode.Children.Length; a++)
 			{
 				RuleInstance num = numNode.Children[a] as RuleInstance;
-				string name = ((num.Children[0] as RuleInstance).Children[0] as Token).Image;
+				string name = ((num.Children[0] as RuleInstance).Children[0] as Token).Image.ToLower(culture);
 				float value = float.Parse((num.Children[2] as Token).Image, culture);
 
 				level.Numbers[name] = value;
@@ -102,7 +103,7 @@ namespace Ponykart.IO {
 			{
 				RuleInstance ent = entNode.Children[a] as RuleInstance;
 				string type = ((ent.Children[2] as RuleInstance).Children[0] as Token).Image;
-				ThingTemplate template = new ThingTemplate(type);
+				ThingInstanceTemplate template = new ThingInstanceTemplate(type);
 
 				// loop through the list of properties for that entity
 				for (int b = 5; b < ent.Children.Length - 1; b++)
@@ -127,12 +128,12 @@ namespace Ponykart.IO {
 				}
 				// and then stuff it into the dictionary
 				// if it already exists in the dictionary, then we need to put it in the dictionary with its ID# after it
-				string currentName = template.StringTokens["Name"];
+				string currentName = template.StringTokens["name"];
 				if (level.Templates.ContainsKey(currentName)) {
-					Launch.Log("[WorldImporter] WARNING: An entity with that name already exists in this world!");
+					Launch.Log("[WorldImporter] WARNING: An entity with that name already exists in this world! (" + currentName + ")");
 					string newName = currentName + template.ID;
 					// put the new name into the template
-					template.StringTokens["Name"] = newName;
+					template.StringTokens["name"] = newName;
 					// then put the template into the dictionary using its new name
 					level.Templates[newName] = template;
 				} else
@@ -145,30 +146,30 @@ namespace Ponykart.IO {
 		/// </summary>
 		/// <param name="prop">The property to get the token out of</param>
 		/// <param name="tt">The template we're going to stick the token into</param>
-		void ParseEntityProperty(RuleInstance prop, ThingTemplate tt) {
+		void ParseEntityProperty(RuleInstance prop, ThingInstanceTemplate tt) {
 			switch (prop.Type) {
 				// if it's a string
 				case NodeType.Rule_EPString:
-					string name		= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image;
+					string name		= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image.ToLower(culture);
 					string svalue	= (prop.Children[2] as Token).Image;
 					svalue = svalue.Substring(1, svalue.Length - 2);
 					tt.StringTokens[name] = svalue;
 					break;
 				// if it's a number
 				case NodeType.Rule_EPFloat:
-						  name		= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image;
+					name			= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image.ToLower(culture);
 					float fvalue	= float.Parse((prop.Children[2] as Token).Image, culture);
 					tt.FloatTokens[name] = fvalue;
 					break;
 				// if it's a boolean
 				case NodeType.Rule_EPBool:
-						 name		= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image;
+					name			= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image.ToLower(culture);
 					bool bvalue		= (prop.Children[2] as Token).Type == NodeType.Tok_KeyTrue;
 					tt.BoolTokens[name] = bvalue;
 					break;
 				// if it's a tuple of numbers
 				case NodeType.Rule_EPVector3D:
-						  name		= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image;
+					name			= ((prop.Children[0] as RuleInstance).Children[0] as Token).Image.ToLower(culture);
 					float x			= float.Parse((prop.Children[2] as Token).Image, culture);
 					float y			= float.Parse((prop.Children[4] as Token).Image, culture);
 					float z			= float.Parse((prop.Children[6] as Token).Image, culture);

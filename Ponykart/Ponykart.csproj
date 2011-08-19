@@ -127,7 +127,11 @@
     <Compile Include="Actors\DynamicThing.cs" />
     <Compile Include="Actors\Extras\Wheel.cs" />
     <Compile Include="Actors\Extras\WheelFactory.cs" />
+    <Compile Include="Actors\IThingComponent.cs" />
+    <Compile Include="Actors\LThing.cs" />
+    <Compile Include="Actors\ModelComponent.cs" />
     <Compile Include="Actors\Obstacle.cs" />
+    <Compile Include="Actors\ShapeComponent.cs" />
     <Compile Include="Actors\ThingEnum.cs" />
     <Compile Include="Actors\Thing.cs" />
     <Compile Include="Actors\Kart.cs" />
@@ -138,6 +142,9 @@
     <Compile Include="Handlers\SelfRightingHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="IO\ThingDatabase.cs" />
+    <Compile Include="IO\ThingDefinition.cs" />
+    <Compile Include="IO\ThingImporter.cs" />
     <Compile Include="Kernel\HandlerAttributes.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
     <Compile Include="Lua\PhysicsWrapper.cs" />
@@ -165,7 +172,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Stuff\IDs.cs" />
-    <Compile Include="IO\ThingTemplate.cs" />
+    <Compile Include="IO\ThingInstanceTemplate.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />
     <Compile Include="UI\LuaConsoleManager.cs" />
     <Compile Include="UI\DialogueManager.cs" />

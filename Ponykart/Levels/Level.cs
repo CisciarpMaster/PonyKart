@@ -30,7 +30,7 @@ namespace Ponykart.Levels
 		/// <summary>
 		/// We use the template's Name as the key
 		/// </summary>
-		public IDictionary<string, ThingTemplate> Templates { get; private set; }
+		public IDictionary<string, ThingInstanceTemplate> Templates { get; private set; }
 		/// <summary>
 		/// We use the thing's Name as the key
 		/// </summary>
@@ -45,7 +45,7 @@ namespace Ponykart.Levels
 			Name		= name;
 			Flags		= new Dictionary<string, bool>();
 			Numbers		= new Dictionary<string, float>();
-			Templates	= new Dictionary<string, ThingTemplate>();
+			Templates	= new Dictionary<string, ThingInstanceTemplate>();
 			Things		= new Dictionary<string, Thing>();
 
 			// don't use anonymous methods here because we have to disconnect it when we change levels
@@ -69,7 +69,7 @@ namespace Ponykart.Levels
 			new WorldImporter().Parse(this);
 
 			var spawner = LKernel.Get<Spawner>();
-			foreach (ThingTemplate tt in Templates.Values) {
+			foreach (ThingInstanceTemplate tt in Templates.Values) {
 				spawner.Spawn(tt);
 			}
 		}

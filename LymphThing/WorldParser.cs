@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ponykart.IO {
+namespace Ponykart.IO.WorldParser {
 	///<summary/>
 	public class ParserException : Exception {
 		///<summary/><param name="message"/>

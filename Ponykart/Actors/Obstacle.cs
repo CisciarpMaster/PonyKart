@@ -22,7 +22,7 @@ namespace Ponykart.Actors {
 			get { return PonykartCollidesWithGroups.Environment; }
 		}
 
-		public Obstacle(ThingTemplate tt) : base(tt) { }
+		public Obstacle(ThingInstanceTemplate tt) : base(tt) { }
 
 	}
 }

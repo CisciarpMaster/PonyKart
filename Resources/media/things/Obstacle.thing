@@ -1,0 +1,14 @@
+Name = "Obstacle"
+CollisionGroup = "Environment"
+CollidesWith = "Environment"
+Mass = 0
+Physics = Static
+Shape {
+	Type = Box
+	Dimensions = 5, 5, 5
+}
+Model {
+	Mesh = "primitives/box.mesh"
+	Material = "yellowbrick"
+	Scale = 10, 10, 10
+}

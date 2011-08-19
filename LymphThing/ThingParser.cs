@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ponykart.Stuff {
+namespace Ponykart.IO.ThingParser {
 	public class ParserException : Exception {
 		public ParserException(string message) :
 			base(message) {
