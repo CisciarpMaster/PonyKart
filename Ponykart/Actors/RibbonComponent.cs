@@ -21,6 +21,10 @@ namespace Ponykart.Actors {
 
 			Name = block.GetStringProperty("name", template.Name);
 
+			// if ribbons are disabled, don't bother creating anything
+			if (!Constants.RIBBONS)
+				return;
+
 			Ribbon = LKernel.Get<SceneManager>().CreateRibbonTrail(Name + ID + "Ribbon");
 
 
@@ -45,7 +49,7 @@ namespace Ponykart.Actors {
 		}
 
 		public void Dispose() {
-			if (Ribbon != null && RibbonNode != null) {
+			if (Constants.RIBBONS && Ribbon != null && RibbonNode != null) {
 				RibbonNode.DetachObject(Ribbon);
 				foreach (SceneNode n in Ribbon.GetNodeIterator())
 					Ribbon.RemoveNode(n);

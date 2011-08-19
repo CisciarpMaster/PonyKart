@@ -38,6 +38,8 @@ namespace Ponykart {
 		public static readonly float GRAVITY = -35f;
 		
 		// ===== Settings =====
+		/// <summary> Render glowy regions or not? </summary>
+		public static bool GLOWY_REGIONS = false;
 		/// <summary> Ribbons enable/disable </summary>
 		public static bool RIBBONS = true;
 		/// <summary> Sounds enable/disable </summary>

@@ -58,7 +58,6 @@ namespace Ponykart.Actors {
 
 		/// <summary>
 		/// Sets the motor torque of all wheels and sets their brake torque to 0.
-		/// TODO: Limit the maximum speed by not applying torque when we're going faster than the maximum speed
 		/// </summary>
 		public void Accelerate(float multiplier) {
 			WheelBR.AccelerateMultiplier = WheelBL.AccelerateMultiplier = WheelFR.AccelerateMultiplier = WheelFL.AccelerateMultiplier = multiplier;

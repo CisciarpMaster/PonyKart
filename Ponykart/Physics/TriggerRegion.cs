@@ -1,12 +1,8 @@
-﻿// make this match the one in TriggerRegionsTest too
-//#define RENDER_REGIONS
-
+﻿
 using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
-#if RENDER_REGIONS
 using Ponykart.Handlers;
-#endif
 using Ponykart.Levels;
 
 namespace Ponykart.Physics {
@@ -17,9 +13,7 @@ namespace Ponykart.Physics {
 		public RigidBody Body { get; protected set; }
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
-#if RENDER_REGIONS
 		public Entity Entity { get; protected set; }
-#endif
 		public HashSet<RigidBody> CurrentlyCollidingWith { get; set; }
 
 		/// <summary>
@@ -44,43 +38,43 @@ namespace Ponykart.Physics {
 			var sceneMgr = LKernel.Get<SceneManager>();
 
 			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(name);
-#if RENDER_REGIONS
-			// make a mesh for the region depending on what its type is
-			switch (shape.ShapeType) {
-				case BroadphaseNativeType.BoxShape: 
-					Entity = sceneMgr.CreateEntity(name, "primitives/box.mesh");
-					Node.SetScale((shape as BoxShape).HalfExtentsWithoutMargin * 2);
-					break;
-				case BroadphaseNativeType.CapsuleShape:
-					Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
-					Vector3 vec = new Vector3();
-					vec.y = (shape as CapsuleShape).HalfHeight * 2;
-					vec.x = vec.z = (shape as CapsuleShape).Radius * 2;
-					Node.SetScale(vec);
-					break;
-				case BroadphaseNativeType.CylinderShape:
-					Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
-					Vector3 vec2 = new Vector3();
-					vec2.y = (shape as CylinderShape).HalfExtentsWithoutMargin.y;
-					vec2.x = vec2.z = (shape as CylinderShape).Radius * 2;
-					Node.SetScale(vec2);
-					break;
-				case BroadphaseNativeType.SphereShape:
-					Entity = sceneMgr.CreateEntity(name, "primitives/sphere.mesh");
-					float dim = (shape as SphereShape).Radius * 2;
-					Node.SetScale(dim, dim, dim);
-					break;
-				default:
-					// for things like meshes, convex hulls, etc
-					Entity = sceneMgr.CreateEntity(name, "primitives/box.mesh");
-					break;
-			}
-			BalloonGlowColor = BalloonGlowColor.red;
-			Entity.RenderQueueGroup = GlowHandler.RENDER_QUEUE_BUBBLE_GLOW;
-			Entity.CastShadows = false;
+			if (Constants.GLOWY_REGIONS) {
+				// make a mesh for the region depending on what its type is
+				switch (shape.ShapeType) {
+					case BroadphaseNativeType.BoxShape:
+						Entity = sceneMgr.CreateEntity(name, "primitives/box.mesh");
+						Node.SetScale((shape as BoxShape).HalfExtentsWithoutMargin * 2);
+						break;
+					case BroadphaseNativeType.CapsuleShape:
+						Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
+						Vector3 vec = new Vector3();
+						vec.y = (shape as CapsuleShape).HalfHeight * 2;
+						vec.x = vec.z = (shape as CapsuleShape).Radius * 2;
+						Node.SetScale(vec);
+						break;
+					case BroadphaseNativeType.CylinderShape:
+						Entity = sceneMgr.CreateEntity(name, "primitives/cylinder.mesh");
+						Vector3 vec2 = new Vector3();
+						vec2.y = (shape as CylinderShape).HalfExtentsWithoutMargin.y;
+						vec2.x = vec2.z = (shape as CylinderShape).Radius * 2;
+						Node.SetScale(vec2);
+						break;
+					case BroadphaseNativeType.SphereShape:
+						Entity = sceneMgr.CreateEntity(name, "primitives/sphere.mesh");
+						float dim = (shape as SphereShape).Radius * 2;
+						Node.SetScale(dim, dim, dim);
+						break;
+					default:
+						// for things like meshes, convex hulls, etc
+						Entity = sceneMgr.CreateEntity(name, "primitives/box.mesh");
+						break;
+				}
+				GlowColor = BalloonGlowColor.red;
+				Entity.RenderQueueGroup = GlowHandler.RENDER_QUEUE_BUBBLE_GLOW;
+				Entity.CastShadows = false;
 
-			Node.AttachObject(Entity);
-#endif
+				Node.AttachObject(Entity);
+			}
 			Node.Position = position;
 			Node.Orientation = rotation;
 
@@ -109,21 +103,20 @@ namespace Ponykart.Physics {
 				OnTrigger(this, otherBody, flags);
 		}
 
-#if RENDER_REGIONS
 		/// <summary>
 		/// Must be one of: red, blue, yellow, green, orange, magenta, purple, cyan, white
 		/// </summary>
-		public BalloonGlowColor BalloonGlowColor {
+		public BalloonGlowColor GlowColor {
 			get {
 				return balloonColor;
 			}
 			set {
 				balloonColor = value;
-				Entity.SetMaterialName("BalloonGlow_" + value);
+				if (Constants.GLOWY_REGIONS)
+					Entity.SetMaterialName("BalloonGlow_" + value);
 			}
 		}
 		BalloonGlowColor balloonColor = BalloonGlowColor.red;
-#endif
 
 		/// <summary>
 		/// do we need to dispose of this stuff? don't we nuke the scene manager every time?
@@ -133,15 +126,14 @@ namespace Ponykart.Physics {
 
 			if (Node != null) {
 				if (LKernel.Get<LevelManager>().IsValidLevel) {
-#if RENDER_REGIONS
-					sceneMgr.DestroyEntity(Entity);
-#endif
+					if (Constants.GLOWY_REGIONS)
+						sceneMgr.DestroyEntity(Entity);
 					sceneMgr.DestroySceneNode(Node);
 				}
-#if RENDER_REGIONS
-				Entity.Dispose();
-				Entity = null;
-#endif
+				if (Constants.GLOWY_REGIONS) {
+					Entity.Dispose();
+					Entity = null;
+				}
 				Node.Dispose();
 				Node = null;
 			}
