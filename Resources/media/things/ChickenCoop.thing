@@ -20,21 +20,21 @@ Model {
 // main part
 Shape {
 	Type = Box
-	Dimensions = 6.229, 9.814, 9.725
-	Position = 0.119, 4.907, 0.079
+	Dimensions = 6.09, 5.78, 9.63
+	Position = 0.09, 2.89, 0.03
 }
 // ramp
 Shape {
 	Type = Box
-	Dimensions = 2.391, 0.3, 5.569
-	Position = 0.029, 1.2, 6.553
+	Dimensions = 2.19, 0.359, 5.047
+	Position = 0.029, 0.952, 6.89
 	Rotation = 24, 0, 0
 }
 // sign
 Shape {
 	Type = Box
-	Dimensions = 0.5, 5.083, 6
-	Position = -2.592, 6.524, 7.697
+	Dimensions = 0.497, 4.866, 6.09
+	Position = -2.613, 6.44, 7.912
 }
 // angled bit for the roof
 Shape {
@@ -42,4 +42,17 @@ Shape {
 	Dimensions = 7.5, 0.403, 10.71
 	Position = 0.029, 7.606, 0.011
 	Rotation = 0, 0, -38.515
+}
+// angled chunk in the middle to plug the gap
+Shape {
+	Type = Box
+	Dimensions = 4.4, 2.712, 9.684
+	Position = 0.145, 5.873, 0.0129
+	Rotation = 0, 0, -40
+}
+// for the tall side
+Shape {
+	Type = Box
+	Dimensions = 1.40942, 3.883, 9.618
+	Position = -2.305, 6.885, 0.029
 }

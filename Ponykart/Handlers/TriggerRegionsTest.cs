@@ -2,7 +2,6 @@
 using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
-using Ponykart.UI;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -34,22 +33,16 @@ namespace Ponykart.Handlers {
 		/// output some text, show/hide a dialogue, and change the color of the region
 		/// </summary>
 		void doSomething(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags) {
-			var d = LKernel.Get<DialogueManager>();
-
 			if (flags.HasFlag(TriggerReportFlags.Enter)) {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
 				// cycle through the balloon colors
 				if (Constants.GLOWY_REGIONS) 
 					region.GlowColor = (BalloonGlowColor) (((int) region.GlowColor + 1) % 8);
-
-				d.CreateDialogue("media/gui/lyra.jpg", otherBody.GetName(), "I have entered " + region.Name);
 			}
 			else {
 				Console.WriteLine(otherBody.GetName() + " has left trigger area \"" + region.Name + "\"");
 				if (Constants.GLOWY_REGIONS)
 					region.GlowColor = (BalloonGlowColor) (((int) region.GlowColor + 1) % 8);
-
-				d.DestroyDialogue();
 			}
 		}
 

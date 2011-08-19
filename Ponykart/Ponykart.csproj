@@ -163,7 +163,6 @@
     <Compile Include="Players\Player.cs" />
     <Compile Include="Players\PlayerManager.cs" />
     <Compile Include="Handlers\EscHandler.cs" />
-    <Compile Include="Lua\DialogueWrapper.cs" />
     <Compile Include="Lua\IOWrapper.cs" />
     <Compile Include="Lua\LevelWrapper.cs" />
     <Compile Include="Handlers\DebugDrawerHandler.cs" />
@@ -176,7 +175,6 @@
     <Compile Include="IO\ThingInstanceTemplate.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />
     <Compile Include="UI\LuaConsoleManager.cs" />
-    <Compile Include="UI\DialogueManager.cs" />
     <Compile Include="Lua\SpawnerWrapper.cs" />
     <Compile Include="Lua\SoundWrapper.cs" />
     <Compile Include="Lua\TriggerWrapper.cs" />

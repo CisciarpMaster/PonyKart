@@ -77,7 +77,6 @@ namespace Ponykart {
 			splash.Increment("Initialising UI...");
 			AddGlobalObject(new DebugOverlayManager());
 			AddGlobalObject(new UIMain());
-			AddGlobalObject(new DialogueManager());
 			AddGlobalObject(new LuaConsoleManager());
 
 			// lua
