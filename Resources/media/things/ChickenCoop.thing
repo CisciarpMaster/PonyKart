@@ -1,0 +1,45 @@
+Name = "ChickenCoop"
+Physics = Static
+Model {
+	Mesh = "Chicken_Coop.mesh"
+	Position = 0, 5.084, 0
+}
+Model {
+	Mesh = "Chicken_Coop_Ramp.mesh"
+	Position = 0.038, 1.014, 6.837
+}
+Model {
+	Mesh = "Chicken_Coop_Signpost.mesh"
+	Position = -2.61342, 8.09612, 7.30329
+}
+Model {
+	Mesh = "Chicken_Coop_Sign.mesh"
+	Position = -2.6118, 6.28688, 7.92089
+}
+// in 3ds max, width = x and length = y
+// main part
+Shape {
+	Type = Box
+	Dimensions = 6.229, 9.814, 9.725
+	Position = 0.119, 4.907, 0.079
+}
+// ramp
+Shape {
+	Type = Box
+	Dimensions = 2.391, 5.569, 2.106
+	Position = 0.029, 0.915, 6.553
+	Rotation = 112.165, 0, 0
+}
+// sign
+Shape {
+	Type = Box
+	Dimensions = 0.986, 5.083, 6.408
+	Position = -2.592, 6.524, 7.697
+}
+// angled bit for the roof
+Shape {
+	Type = Box
+	Dimensions = 8.912, 0.403, 10.71
+	Position = 0.029, 7.606, 0.011
+	Rotation = 0, 0, -32.515
+}

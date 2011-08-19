@@ -1,0 +1,69 @@
+
+material Chicken_coop_sign
+{
+	technique
+	{
+		pass
+		{
+			scene_blend one one_minus_src_alpha
+			depth_write off
+			
+			texture_unit
+			{
+				texture chickencoopsign.png
+			}
+		}
+	}
+}
+
+
+
+material Chicken_Coop
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			
+			texture_unit
+			{
+				texture chickencoop.png
+			}
+		}
+	}
+}
+
+
+
+material Fences
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture fencetex.png
+			}
+		}
+	}
+}
+
+
+
+material CMC_Treehouse_Ramps
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture CMC_Treehouse_Ramp.jpg
+			}
+		}
+	}
+}
+
+
