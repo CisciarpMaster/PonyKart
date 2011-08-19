@@ -2,9 +2,9 @@ Radius = 0.7
 Width = 0.5
 SuspensionRestLength = 0.2
 
-SpringStiffness = 500
+SpringStiffness = 100
 SpringCompression = 4.2
-SpringDamping = 100
+SpringDamping = 10
 FrictionSlip = 100
 RollInfluence = 1
 
