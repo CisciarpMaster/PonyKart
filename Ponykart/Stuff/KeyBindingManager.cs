@@ -70,18 +70,26 @@ namespace Ponykart.Stuff {
 		}
 
 		/// <summary>
-		/// TODO: What about the input swallower?
+		/// 
 		/// </summary>
 		void OnKeyboardPressAnything(KeyEvent ke) {
+			// don't do anything if it's swallowed
+			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
+				return;
+
 			LKey key;
 			if (MOISKeysDict.TryGetValue(ke.key, out key))
 				Invoke(PressEventsDict[key], key);
 		}
 
 		/// <summary>
-		/// TODO: What about the input swallower?
+		/// 
 		/// </summary>
 		void OnKeyboardReleaseAnything(KeyEvent ke) {
+			// don't do anything if it's swallowed
+			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
+				return;
+
 			LKey key;
 			if (MOISKeysDict.TryGetValue(ke.key, out key))
 				Invoke(ReleaseEventsDict[key], key);
@@ -90,9 +98,12 @@ namespace Ponykart.Stuff {
 		/// <summary>
 		/// Is the associated key pressed or not?
 		/// </summary>
-		/// <param name="key"></param>
-		/// <returns></returns>
+		/// <returns>Whether the key is pressed or not, or false if the input is currently swallowed.</returns>
 		public bool IsKeyPressed(LKey key) {
+			// don't do anything if it's swallowed
+			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
+				return false;
+
 			return LKernel.Get<InputMain>().InputKeyboard.IsKeyDown(LKeysDict[key]);
 		}
 

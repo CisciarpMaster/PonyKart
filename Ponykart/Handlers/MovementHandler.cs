@@ -11,7 +11,7 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class handles movement of all NPCs. Currently it's kinda crude but it works for now.
 	/// </summary>
-	[Handler(HandlerScope.Level)]
+	//[Handler(HandlerScope.Level)]
 	public class MovementHandler : ILevelHandler {
 
 		ICollection<Thing> thingsToMove;
