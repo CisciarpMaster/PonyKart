@@ -34,11 +34,11 @@ namespace Ponykart.Actors {
 		public Kart(ThingInstanceTemplate tt, ThingDefinition td) : base(tt, td) {
 			Launch.Log("Creating Kart #" + ID + " with name \"" + Name + "\"");
 
-			MaxSpeed = 40f;
+			MaxSpeed = td.GetFloatProperty("maxspeed", 40f);
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 		}
 
-		protected override void PostCreateBody() {
+		protected override void PostCreateBody(ThingDefinition td) {
 			Body.ActivationState = ActivationState.DisableDeactivation;
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.Get<PhysicsMain>().World);
@@ -50,10 +50,12 @@ namespace Ponykart.Actors {
 			LKernel.Get<PhysicsMain>().World.AddAction(Vehicle);
 
 			var wheelFac = LKernel.Get<WheelFactory>();
-			WheelFL = wheelFac.CreateWheel("FrontWheel", WheelID.FrontLeft, this, new Vector3(1.7f, 0.4f, 1.33f), true);
-			WheelFR = wheelFac.CreateWheel("FrontWheel", WheelID.FrontRight, this, new Vector3(-1.7f, 0.4f, 1.33f), true);
-			WheelBL = wheelFac.CreateWheel("BackWheel", WheelID.BackLeft, this, new Vector3(1.7f, 0.4f, -1.33f), false);
-			WheelBR = wheelFac.CreateWheel("BackWheel", WheelID.BackRight, this, new Vector3(-1.7f, 0.4f, -1.33f), false);
+			string frontWheelName = td.GetStringProperty("frontwheel", null);
+			string backWheelName = td.GetStringProperty("backwheel", null);
+			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, new Vector3(1.7f, 0.4f, 1.33f), true);
+			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, new Vector3(-1.7f, 0.4f, 1.33f), true);
+			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, new Vector3(1.7f, 0.4f, -1.33f), false);
+			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, new Vector3(-1.7f, 0.4f, -1.33f), false);
 		}
 
 		/// <summary>

@@ -3,7 +3,6 @@ using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Physics;
-using Ponykart.Stuff;
 using Math = Mogre.Math;
 
 namespace Ponykart.Actors {

@@ -3,6 +3,9 @@ Physics = Dynamic
 CollisionGroup = "Karts"
 CollidesWith = "Karts"
 Mass = 500
+MaxSpeed = 60
+FrontWheel = "FrontWheel"
+BackWheel = "BackWheel"
 Model {
 	Mesh = "kart/KartChassis.mesh"
 	Material = "redbrick"
@@ -13,18 +16,20 @@ Shape {
 	Dimensions = 3, 0.8, 2.8
 	Position = 0, 0.7, 0
 }
+// seat
 Shape {
 	Type = Box
 	Dimensions = 2, 1.5, 0.3
 	Position = 0, 1.5, -1
 	Rotation = -10, 0, 0
 }
-Shape {
+// front angled bit
+/*Shape {
 	Type = Box
 	Dimensions = 2, 0.4, 2
 	Rotation = 0, 45, 0
 	Position = 0, 0.5, 1.33
-}
+}*/
 Ribbon {
 	Material = "ribbon"
 	Length = 15

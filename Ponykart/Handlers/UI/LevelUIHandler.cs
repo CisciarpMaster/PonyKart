@@ -66,7 +66,7 @@ namespace Ponykart.Handlers {
 				},
 				Visible = false,
 				Text =
-					"[W A S D] Move\r\n" +
+					"[W A S D] Move and turn\r\n" +
 					"[Space] Brake\r\n" + 
 					"[0 1 2 3...] Change level\r\n" +
 					"[K] Spawn another kart\r\n" +
@@ -76,13 +76,12 @@ namespace Ponykart.Handlers {
 					"[P] Turn sounds on or off\r\n" +
 					"[N] Play music now\r\n" +
 					"[L] Run a test lua script\r\n" +
-					"[C] Syncs the media folder and restarts Lua.\r\n" + 
+					"[C] Syncs the media folder and restarts Lua\r\n" + 
 					"[U] Apply an upwards force\r\n" + 
-					"[B] Spawn a box\r\n" + 
+					"[B] Spawn a primitive\r\n" + 
 					"[F] Multiply your speed by 2\r\n" +
 #if DEBUG
-					"[X] Clears all lines\r\n" + 
-					"[I] Toggles drawing lines\r\n" +
+					"[I] Toggles debug lines\r\n" +
 #endif
 					"[backtick] Pause\r\n" +
 					"[enter] Open Lua console",

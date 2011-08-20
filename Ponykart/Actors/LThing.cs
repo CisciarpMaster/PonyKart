@@ -102,7 +102,7 @@ namespace Ponykart.Actors {
 			SetUpBodyInfo(def);
 			PostSetUpBodyInfo();
 			CreateBody(def);
-			PostCreateBody();
+			PostCreateBody(def);
 			SetBodyUserData();
 		}
 
@@ -201,7 +201,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Override this if you want to do more to the rigid body
 		/// </summary>
-		protected virtual void PostCreateBody() { }
+		protected virtual void PostCreateBody(ThingDefinition td) { }
 
 		/// <summary>
 		/// Sets the Actor's UserData to this class so we can easily get to it.
