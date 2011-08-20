@@ -85,7 +85,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".lua")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".luna")]
         public string LuaFileExtension {
             get {
                 return ((string)(this["LuaFileExtension"]));

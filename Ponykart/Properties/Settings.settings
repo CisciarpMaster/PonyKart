@@ -18,7 +18,7 @@
       <Value Profile="(Default)">media/wheels/</Value>
     </Setting>
     <Setting Name="LuaFileExtension" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.lua</Value>
+      <Value Profile="(Default)">.luna</Value>
     </Setting>
     <Setting Name="LevelScriptLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/scripts/levels/</Value>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using LymphThing.Properties;
@@ -23,6 +24,7 @@ namespace LymphThing {
 			}
 
 			LogManager.Singleton.LogMessage("[ThingImporter] Importing and parsing thing: " + filePath);
+			Debug.WriteLine("[ThingImporter] Importing and parsing thing: " + filePath);
 
 			// read stuff
 			using (var fileStream = File.Open(filePath, FileMode.Open)) {

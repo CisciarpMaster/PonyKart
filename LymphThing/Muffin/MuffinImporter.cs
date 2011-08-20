@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using LymphThing.MuffinParser;
@@ -27,6 +28,7 @@ namespace LymphThing {
 			// if we don't have a save file for this level yet, use the "default" one
 			if (!File.Exists(filePath)) {
 				LogManager.Singleton.LogMessage("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
+				Debug.WriteLine("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
 
 				WorldDefinition def = new WorldDefinition(nameOfWorld);
 				def.EnumTokens["type"] = ThingEnum.Race;
@@ -35,6 +37,7 @@ namespace LymphThing {
 			}
 
 			LogManager.Singleton.LogMessage("[MuffinImporter] Importing and parsing world: " + filePath);
+			Debug.WriteLine("[MuffinImporter] Importing and parsing world: " + filePath);
 
 			// read stuff
 			using (var fileStream = File.Open(filePath, FileMode.Open)) {

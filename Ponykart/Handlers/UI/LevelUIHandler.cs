@@ -172,11 +172,11 @@ namespace Ponykart.Handlers {
 		/// Decides which UI to make when a level is loaded
 		/// </summary>
 		private void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (eventArgs.NewLevel.Type == LevelType.Menu) {
+			if (eventArgs.NewLevel.Type != LevelType.Race) {
 				// when going to the menu
 				MakeMainMenuUI();
 			}
-			else if (eventArgs.OldLevel.Type == LevelType.Menu) {
+			else if (eventArgs.OldLevel.Type != LevelType.Race) {
 				// when going from the menu to something else
 				MakeLevelUI();
 			}
@@ -188,13 +188,13 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		/// <param name="eventArgs"></param>
 		private void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			if (eventArgs.OldLevel.Type == LevelType.Menu) {
+			if (eventArgs.OldLevel.Type != LevelType.Race) {
 				foreach (Control c in mainMenuControls) {
 					c.Dispose();
 				}
 				mainMenuControls.Clear();
 			}
-			else if (eventArgs.NewLevel.Type == LevelType.Menu) {
+			else if (eventArgs.NewLevel.Type != LevelType.Race) {
 				foreach (Control c in levelControls) {
 					c.Dispose();
 				}

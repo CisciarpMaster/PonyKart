@@ -275,9 +275,7 @@
       <Name>LymphThing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IO\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Icon 2.ico" />
   </ItemGroup>
