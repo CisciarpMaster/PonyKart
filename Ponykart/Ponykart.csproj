@@ -18,7 +18,7 @@
     <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <TargetZone>LocalIntranet</TargetZone>
-    <ApplicationIcon>..\Resources\Icon 2.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Icon 2.ico</ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
