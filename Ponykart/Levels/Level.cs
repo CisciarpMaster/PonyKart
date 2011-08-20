@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using LymphThing;
 using Ponykart.Actors;
 using Ponykart.Core;
-using Ponykart.IO;
 using Ponykart.Lua;
 using Ponykart.Physics;
+using Ponykart.Properties;
 
 namespace Ponykart.Levels {
 	/// <summary>

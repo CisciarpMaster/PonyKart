@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using Mogre;
 
-namespace Ponykart.IO {
+namespace LymphThing {
 	public class WorldDefinition : TokenHolder {
 		public string Name { get; private set; }
 		public LevelType Type { get; private set; }

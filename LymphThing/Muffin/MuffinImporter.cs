@@ -1,27 +1,40 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using LymphThing.MuffinParser;
+using LymphThing.Properties;
 using Mogre;
-using Ponykart.IO.ThingParser;
-using Node = Ponykart.IO.ThingParser.Node;
+using Node = LymphThing.MuffinParser.Node;
 
-namespace Ponykart.IO {
-	public class ThingImporter {
+namespace LymphThing {
+	public class MuffinImporter {
 		RuleInstance root;
 		CultureInfo culture = CultureInfo.InvariantCulture;
 
-		public ThingDefinition Parse(string nameOfThing) {
+		public WorldDefinition Parse(string nameOfWorld) {
+			// the initial level before we start loading one is "null", so we need to avoid doing anything with that.
+			if (nameOfWorld == null) {
+				WorldDefinition emptyDef = new WorldDefinition("");
+				emptyDef.EnumTokens["type"] = ThingEnum.EmptyLevel;
+				emptyDef.Finish();
+				return emptyDef;
+			}
 
 			string fileContents = "";
 
 			// make the file path
-			string filePath = "media/things/" + nameOfThing + ".thing";
+			string filePath = Settings.Default.MuffinFileLocation + nameOfWorld + Settings.Default.MuffinFileExtension;
 			// if we don't have a save file for this level yet, use the "default" one
 			if (!File.Exists(filePath)) {
-				throw new ArgumentException(nameOfThing + ".thing does not exist!", "nameOfThing");
+				LogManager.Singleton.LogMessage("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
+
+				WorldDefinition def = new WorldDefinition(nameOfWorld);
+				def.EnumTokens["type"] = ThingEnum.Race;
+				def.Finish();
+				return def;
 			}
 
-			Launch.Log("[ThingImporter] Importing and parsing thing: " + filePath);
+			LogManager.Singleton.LogMessage("[MuffinImporter] Importing and parsing world: " + filePath);
 
 			// read stuff
 			using (var fileStream = File.Open(filePath, FileMode.Open)) {
@@ -38,33 +51,27 @@ namespace Ponykart.IO {
 			root = p.Parse(fileContents);
 
 
-			ThingDefinition thingDef = new ThingDefinition(nameOfThing);
+			WorldDefinition worldDef = new WorldDefinition(nameOfWorld);
 
-			Parse(thingDef);
+			Parse(worldDef);
 
-			thingDef.Finish();
+			worldDef.Finish();
 
-			return thingDef;
+			return worldDef;
 		}
 
 		/// <summary>
 		/// Parses right from the root
 		/// </summary>
-		void Parse(ThingDefinition thingDef) {
+		void Parse(WorldDefinition worldDef) {
 			for (int a = 0; a < root.Children.Length; a++) {
 				Node prop = root.Children[a];
 				switch (prop.Type) {
 					case NodeType.Rule_Property:
-						ParseProperty(thingDef, (prop as RuleInstance).Children[0] as RuleInstance);
+						ParseProperty(worldDef, (prop as RuleInstance).Children[0] as RuleInstance);
 						break;
-					case NodeType.Rule_Shape:
-						ParseShape(thingDef, prop as RuleInstance);
-						break;
-					case NodeType.Rule_Model:
-						ParseModel(thingDef, prop as RuleInstance);
-						break;
-					case NodeType.Rule_Ribbon:
-						ParseRibbon(thingDef, prop as RuleInstance);
+					case NodeType.Rule_Block:
+						ParseBlock(worldDef, prop as RuleInstance);
 						break;
 				}
 			}
@@ -131,15 +138,15 @@ namespace Ponykart.IO {
 		}
 
 		/// <summary>
-		/// Parse an enum property. The value must exist in ThingEnum, but it is not case sensitive.
+		/// Parse an enum property. The value must exist in MuffinEnum, but it is not case sensitive.
 		/// </summary>
 		ThingEnum ParseEnumProperty(RuleInstance prop) {
 			RuleInstance valRule = prop.Children[2] as RuleInstance;
 			Token valTok = valRule.Children[0] as Token;
 			ThingEnum te;
-			if (Enum.TryParse<ThingEnum>(valTok.Image, true, out te)) 
+			if (Enum.TryParse<ThingEnum>(valTok.Image, true, out te))
 				return te;
-			else 
+			else
 				throw new ApplicationException("Unable to parse Enum property!");
 		}
 
@@ -190,46 +197,18 @@ namespace Ponykart.IO {
 		/// <summary>
 		/// Shape blocks
 		/// </summary>
-		void ParseShape(ThingDefinition thingDef, RuleInstance block) {
-			ShapeBlock shapeBlock = new ShapeBlock(thingDef);
+		void ParseBlock(WorldDefinition worldDef, RuleInstance block) {
+			Token nameTok = (block.Children[0] as RuleInstance).Children[0] as Token;
+
+			ThingBlock thingBlock = new ThingBlock(nameTok.Image, worldDef);
 
 			for (int a = 2; a < block.Children.Length - 1; a++) {
 				RuleInstance rule = block.Children[a] as RuleInstance;
 				if (rule.Type == NodeType.Rule_Property)
-					ParseProperty(shapeBlock, rule.Children[0] as RuleInstance);
+					ParseProperty(thingBlock, rule.Children[0] as RuleInstance);
 			}
 
-			thingDef.ShapeBlocks.Add(shapeBlock);
-		}
-
-		/// <summary>
-		/// Model blocks
-		/// </summary>
-		void ParseModel(ThingDefinition thingDef, RuleInstance block) {
-			ModelBlock modelBlock = new ModelBlock(thingDef);
-
-			for (int a = 2; a < block.Children.Length - 1; a++) {
-				RuleInstance rule = block.Children[a] as RuleInstance;
-				if (rule.Type == NodeType.Rule_Property)
-					ParseProperty(modelBlock, rule.Children[0] as RuleInstance);
-			}
-
-			thingDef.ModelBlocks.Add(modelBlock);
-		}
-
-		/// <summary>
-		/// Ribbon blocks
-		/// </summary>
-		void ParseRibbon(ThingDefinition thingDef, RuleInstance block) {
-			RibbonBlock ribbonBlock = new RibbonBlock(thingDef);
-
-			for (int a = 2; a < block.Children.Length - 1; a++) {
-				RuleInstance rule = block.Children[a] as RuleInstance;
-				if (rule.Type == NodeType.Rule_Property)
-					ParseProperty(ribbonBlock, rule.Children[0] as RuleInstance);
-			}
-
-			thingDef.RibbonBlocks.Add(ribbonBlock);
+			worldDef.ThingBlocks.Add(thingBlock);
 		}
 	}
 }

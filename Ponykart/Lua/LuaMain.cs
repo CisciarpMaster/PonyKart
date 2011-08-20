@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using LuaNetInterface;
 using Ponykart.Levels;
+using Ponykart.Properties;
 using Ponykart.UI;
 
 namespace Ponykart.Lua {
@@ -51,15 +52,15 @@ namespace Ponykart.Lua {
 		/// <param name="levelName"></param>
 		public void LoadScriptFiles(string levelName) {
 			// media/scripts/
-			string scriptLocation = Settings.Default.LevelScriptLocation;
+			string scriptLocation = Settings.Default.ScriptLocation;
 			Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation);
 
 			// first get all of the scripts that aren't in the 
-			var scripts = Directory.EnumerateFiles(scriptLocation, "*.lua", SearchOption.AllDirectories).Where(s => !s.Contains("/levels/"));
+			var scripts = Directory.EnumerateFiles(scriptLocation, "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories).Where(s => !s.Contains("/levels/"));
 
 			if (Directory.Exists(scriptLocation + levelName + "/")) {
-				Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation + "/levels/" + levelName + "/");
-				scripts = scripts.Concat(Directory.EnumerateFiles(scriptLocation + "/levels/" + levelName + "/", "*.lua", SearchOption.AllDirectories));
+				Launch.Log("[LuaMain] Loading all scripts from " + Settings.Default.LevelScriptLocation + levelName + "/");
+				scripts = scripts.Concat(Directory.EnumerateFiles(Settings.Default.LevelScriptLocation + levelName + "/", "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories));
 			}
 
 			foreach (string file in scripts) {
@@ -97,16 +98,16 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// make lua parse and execute a file
 		/// </summary>
-		/// <param name="file">the filename of the file to execute</param>
-		public void DoFile(string file) {
+		/// <param name="filename">the filename of the file to execute</param>
+		public void DoFile(string filename) {
 			if (LKernel.Get<LevelManager>().IsValidLevel) {
-				Launch.Log("[LuaMain] Running file: " + file);
+				Launch.Log("[LuaMain] Running file: " + filename);
 				// adding this in case you try to run a script but forget the file path
-				if (!file.StartsWith("media/scripts/") && !file.StartsWith("/media/scripts/"))
-					file = "media/scripts/" + file;
+				if (!filename.StartsWith(Settings.Default.ScriptLocation))
+					filename = Settings.Default.ScriptLocation + filename;
 
 				try {
-					LuaVM.Lua.DoFile(file);
+					LuaVM.Lua.DoFile(filename);
 				}
 				catch (Exception ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message + "\n");

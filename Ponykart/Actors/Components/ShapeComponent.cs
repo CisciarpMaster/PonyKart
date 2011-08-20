@@ -1,6 +1,6 @@
 ﻿using BulletSharp;
+using LymphThing;
 using Mogre;
-using Ponykart.IO;
 
 namespace Ponykart.Actors {
 	public class ShapeComponent : IThingComponent {

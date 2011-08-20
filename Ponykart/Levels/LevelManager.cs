@@ -1,5 +1,7 @@
 ﻿using System;
 using Ponykart.Core;
+using Ponykart.Lua;
+using Ponykart.Properties;
 
 namespace Ponykart.Levels {
 	public delegate void LevelEventHandler(LevelChangedEventArgs eventArgs);
@@ -105,7 +107,7 @@ namespace Ponykart.Levels {
 
 				IsValidLevel = true;
 
-				LKernel.Get<Lua.LuaMain>().LoadScriptFiles(newLevel.Name);
+				LKernel.Get<LuaMain>().LoadScriptFiles(newLevel.Name);
 				// run our scripts
 				newLevel.RunLevelScripts();
 			}

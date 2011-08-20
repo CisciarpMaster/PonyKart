@@ -1,12 +1,12 @@
 ﻿
-namespace Ponykart.IO {
+namespace LymphThing {
 	/// <summary>
-	/// Represents a Ribbon { } block in a .thing file
+	/// Represents a Model { } block in a .thing file
 	/// </summary>
-	public class RibbonBlock : TokenHolder {
+	public class ModelBlock : TokenHolder {
 		public ThingDefinition Owner { get; protected set; }
 
-		public RibbonBlock(ThingDefinition owner) {
+		public ModelBlock(ThingDefinition owner) {
 			Owner = owner;
 			SetUpDictionaries();
 		}

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ponykart {
+namespace Ponykart.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -38,12 +38,12 @@ namespace Ponykart {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/worlds/")]
-        public string SaveFileLocation {
+        public string WorldFileLocation {
             get {
-                return ((string)(this["SaveFileLocation"]));
+                return ((string)(this["WorldFileLocation"]));
             }
             set {
-                this["SaveFileLocation"] = value;
+                this["WorldFileLocation"] = value;
             }
         }
         
@@ -62,24 +62,12 @@ namespace Ponykart {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/scripts/")]
-        public string LevelScriptLocation {
+        public string ScriptLocation {
             get {
-                return ((string)(this["LevelScriptLocation"]));
+                return ((string)(this["ScriptLocation"]));
             }
             set {
-                this["LevelScriptLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/init/")]
-        public string LevelScriptFolderExtension {
-            get {
-                return ((string)(this["LevelScriptFolderExtension"]));
-            }
-            set {
-                this["LevelScriptFolderExtension"] = value;
+                this["ScriptLocation"] = value;
             }
         }
         
@@ -104,6 +92,30 @@ namespace Ponykart {
             }
             set {
                 this["Icon"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".lua")]
+        public string LuaFileExtension {
+            get {
+                return ((string)(this["LuaFileExtension"]));
+            }
+            set {
+                this["LuaFileExtension"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("media/scripts/levels/")]
+        public string LevelScriptLocation {
+            get {
+                return ((string)(this["LevelScriptLocation"]));
+            }
+            set {
+                this["LevelScriptLocation"] = value;
             }
         }
     }

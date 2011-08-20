@@ -1,5 +1,5 @@
 ﻿
-namespace Ponykart.IO {
+namespace LymphThing {
 	public enum ThingEnum {
 		// for the ThingParser
 		Dynamic,

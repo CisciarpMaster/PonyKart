@@ -67,7 +67,7 @@ namespace Ponykart.Handlers {
 				Visible = false,
 				Text =
 					"[W A S D] Move and turn\r\n" +
-					"[Space] Brake\r\n" + 
+					"[Space] Brake\r\n" +
 					"[0 1 2 3...] Change level\r\n" +
 					"[K] Spawn another kart\r\n" +
 					"[Esc] Exit / Close lua console\r\n" +
@@ -76,19 +76,19 @@ namespace Ponykart.Handlers {
 					"[P] Turn sounds on or off\r\n" +
 					"[N] Play music now\r\n" +
 					"[L] Run a test lua script\r\n" +
-					"[C] Syncs the media folder and restarts Lua\r\n" + 
-					"[U] Apply an upwards force\r\n" + 
-					"[B] Spawn a primitive\r\n" + 
+					"[C] Syncs the media folder and restarts Lua\r\n" +
+					"[U] Apply an upwards force\r\n" +
+					"[B] Spawn a primitive\r\n" +
 					"[F] Multiply your speed by 2\r\n" +
 #if DEBUG
-					"[I] Toggles debug lines\r\n" +
+ "[I] Toggles debug lines\r\n" +
 #endif
-					"[backtick] Pause\r\n" +
+ "[backtick] Pause\r\n" +
 					"[enter] Open Lua console",
 			};
 			levelControls.Add(commandsLabel);
 
-			foreach (Control c in levelControls) 
+			foreach (Control c in levelControls)
 				Gui.Controls.Add(c);
 		}
 
@@ -100,7 +100,7 @@ namespace Ponykart.Handlers {
 			mainMenuControls.Clear();
 
 			level1Button = new Button("shittyterrain") {
-				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 50), // the 100 is half of 200, which makes sure the button is centered
+				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 50), // the 100 is half of 200, which makes sure the button is centered
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "shittyterrain",
@@ -152,7 +152,7 @@ namespace Ponykart.Handlers {
 			level4Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("saa_0.7");
 
 			quitButton = new Button("Quit") {
-				Location = new Point((int)(Constants.WINDOW_WIDTH / 2) - 100, 250),
+				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 250),
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
 				Text = "Quit",
@@ -172,14 +172,11 @@ namespace Ponykart.Handlers {
 		/// Decides which UI to make when a level is loaded
 		/// </summary>
 		private void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			//Launch.Log("LevelUIHandler level load: old level: " + eventArgs.OldLevelId.Id + " new level: " + eventArgs.NewLevelId.Id);
-			if (eventArgs.NewLevel.Name == Settings.Default.MainMenuName)
-			{
+			if (eventArgs.NewLevel.Type == LevelType.Menu) {
 				// when going to the menu
 				MakeMainMenuUI();
 			}
-			else if (eventArgs.OldLevel.Name == Settings.Default.MainMenuName)
-			{
+			else if (eventArgs.OldLevel.Type == LevelType.Menu) {
 				// when going from the menu to something else
 				MakeLevelUI();
 			}
@@ -191,16 +188,13 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		/// <param name="eventArgs"></param>
 		private void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			//Launch.Log("LevelUIHandler level unload: old level: " + eventArgs.OldLevelId.Id + " new level: " + eventArgs.NewLevelId.Id);
-			if (eventArgs.OldLevel.Name == Settings.Default.MainMenuName)
-			{
+			if (eventArgs.OldLevel.Type == LevelType.Menu) {
 				foreach (Control c in mainMenuControls) {
 					c.Dispose();
 				}
 				mainMenuControls.Clear();
 			}
-			else if (eventArgs.NewLevel.Name == Settings.Default.MainMenuName)
-			{
+			else if (eventArgs.NewLevel.Type == LevelType.Menu) {
 				foreach (Control c in levelControls) {
 					c.Dispose();
 				}
@@ -211,11 +205,12 @@ namespace Ponykart.Handlers {
 		// ======================================================
 
 		private void CommandsButton_MouseDown(object sender, MouseButtonEventArgs e) {
-			if (((Button)sender).Text == "Show Commands") {
-				((Button)sender).Text = "Hide Commands";
+			if (((Button) sender).Text == "Show Commands") {
+				((Button) sender).Text = "Hide Commands";
 				commandsLabel.Visible = true;
-			} else {
-				((Button)sender).Text = "Show Commands";
+			}
+			else {
+				((Button) sender).Text = "Show Commands";
 				commandsLabel.Visible = false;
 			}
 		}

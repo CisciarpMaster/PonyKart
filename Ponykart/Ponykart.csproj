@@ -140,16 +140,6 @@
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="Kernel\HandlerScope.cs" />
     <Compile Include="Levels\LevelType.cs" />
-    <Compile Include="IO\ModelBlock.cs" />
-    <Compile Include="IO\MuffinImporter.cs" />
-    <Compile Include="IO\RibbonBlock.cs" />
-    <Compile Include="IO\ShapeBlock.cs" />
-    <Compile Include="IO\ThingDatabase.cs" />
-    <Compile Include="IO\ThingDefinition.cs" />
-    <Compile Include="IO\ThingEnum.cs" />
-    <Compile Include="IO\ThingImporter.cs" />
-    <Compile Include="IO\TokenHolder.cs" />
-    <Compile Include="IO\WorldDefinition.cs" />
     <Compile Include="Kernel\HandlerAttributes.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
     <Compile Include="Lua\LuaMainWrapper.cs" />
@@ -174,7 +164,6 @@
     <Compile Include="Physics\BulletDebugDrawer.cs" />
     <Compile Include="Stuff\KartSpawnPositions.cs" />
     <Compile Include="Core\KeyBindingManager.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Core\IDs.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />
@@ -210,7 +199,7 @@
     <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Physics\PhysicsMain.cs" />
     <Compile Include="Handlers\MiscKeyboardHandler.cs" />
-    <Compile Include="Settings.Designer.cs">
+    <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -228,20 +217,16 @@
       <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Properties\app.manifest" />
     <Compile Include="Sound\SoundMain.cs" />
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Stuff\DebugOverlayManager.cs" />
     <Compile Include="Stuff\DotSceneLoader.cs" />
-    <None Include="Settings.settings">
+    <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\Lymph.exe.manifest" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -281,7 +266,9 @@
       <Name>LymphThing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="IO\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

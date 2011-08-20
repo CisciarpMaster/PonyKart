@@ -4,6 +4,7 @@ using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Resources;
 using Miyagi.UI;
+using Ponykart.Properties;
 
 namespace Ponykart.UI {
 	/// <summary>

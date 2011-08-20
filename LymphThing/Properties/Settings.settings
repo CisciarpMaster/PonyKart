@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LymphThing.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MuffinFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">media/worlds/</Value>
+    </Setting>
+    <Setting Name="MuffinFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.muffin</Value>
+    </Setting>
+    <Setting Name="ThingFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.thing</Value>
+    </Setting>
+    <Setting Name="ThingFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">media/things/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

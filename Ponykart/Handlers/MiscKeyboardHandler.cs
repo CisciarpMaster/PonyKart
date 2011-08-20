@@ -1,16 +1,16 @@
 ﻿using System.Diagnostics;
+using LymphThing;
 using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
-using Ponykart.IO;
 using Ponykart.Lua;
 using Ponykart.Physics;
 using Ponykart.Players;
+using Ponykart.Properties;
 using Ponykart.Stuff;
 using Vector3 = Mogre.Vector3;
 
-namespace Ponykart.Handlers
-{
+namespace Ponykart.Handlers {
 	/// <summary>
 	/// This class is hooked up to the keyboard events and does miscellaneous things depending on what keys are pressed.
 	/// It's mostly for debugging functions
@@ -58,7 +58,7 @@ namespace Ponykart.Handlers
 					LKernel.Get<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
 					break;
 				case KeyCode.KC_L:
-					LKernel.Get<LuaMain>().DoFile("media/scripts/test.lua");
+					LKernel.Get<LuaMain>().DoFile(Settings.Default.ScriptLocation + "test" + Settings.Default.LuaFileExtension);
 					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");

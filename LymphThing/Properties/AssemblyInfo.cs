@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LymphThing")]
-[assembly: AssemblyDescription(".Thing file format parser for Lymph framework")]
+[assembly: AssemblyTitle(".thing and .muffin parsers")]
+[assembly: AssemblyDescription("File format parsers for .thing and .muffin, for the Lymph framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Pyritie")]
 [assembly: AssemblyProduct("LymphThing")]

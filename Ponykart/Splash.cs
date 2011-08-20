@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Ponykart.Properties;
 
 namespace Ponykart {
 	/// <summary>

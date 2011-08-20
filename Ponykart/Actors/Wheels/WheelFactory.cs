@@ -2,15 +2,10 @@
 using System.Globalization;
 using System.IO;
 using Mogre;
+using Ponykart.Properties;
 
 namespace Ponykart.Actors {
 	public class WheelFactory {
-
-		// lat = sideways grip, long = forwards grip
-		//										1.0f				 0.02f						2.0f					   0.01f						1000000f
-		public static float LatExtremumSlip = 1.0f, LatExtremumValue = 0.05f, LatAsymptoteSlip = 5.0f, LatAsymptoteValue = 0.002f, LatStiffnessFactor = 1000000f,
-							LongExtremumSlip = 1.0f, LongExtremumValue = 0.05f, LongAsymptoteSlip = 2.0f, LongAsymptoteValue = 0.01f, LongStiffnessFactor = 1000000f;
-
 		// our list of wheels
 		IDictionary<string, IDictionary<string, float>> wheels;
 
