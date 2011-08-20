@@ -106,7 +106,7 @@ namespace Ponykart {
 			this.UseWaitCursor = true;
 			this.ResumeLayout(false);
 
-			base.Icon = new Icon(Settings.Default.Icon);
+			base.Icon = Resources.Icon_2;
 		}
 
 		new public void Show() {

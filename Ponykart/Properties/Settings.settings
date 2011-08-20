@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ponykart" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ponykart.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="MiyagiResourcesFileLocation" Type="System.String" Scope="User">
@@ -16,9 +16,6 @@
     </Setting>
     <Setting Name="WheelFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/wheels/</Value>
-    </Setting>
-    <Setting Name="Icon" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Icon 2.ico</Value>
     </Setting>
     <Setting Name="LuaFileExtension" Type="System.String" Scope="User">
       <Value Profile="(Default)">.lua</Value>

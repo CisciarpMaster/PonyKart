@@ -39,7 +39,7 @@ namespace Ponykart {
 			this.Text = "Ponykart";
 			this.ResumeLayout(false);
 
-			base.Icon = new Icon(Settings.Default.Icon);
+			base.Icon = Resources.Icon_2;
 		}
 
 		/// <summary>

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("File format parsers for .thing and .muffin, for the Lymph framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Pyritie")]
-[assembly: AssemblyProduct("LymphThing")]
+[assembly: AssemblyProduct("Lymph Framework")]
 [assembly: AssemblyCopyright("Copyright © Pyritie 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

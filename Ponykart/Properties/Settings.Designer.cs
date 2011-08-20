@@ -85,18 +85,6 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Icon 2.ico")]
-        public string Icon {
-            get {
-                return ((string)(this["Icon"]));
-            }
-            set {
-                this["Icon"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".lua")]
         public string LuaFileExtension {
             get {
