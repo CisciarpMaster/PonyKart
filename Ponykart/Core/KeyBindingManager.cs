@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MOIS;
 
-namespace Ponykart.Stuff {
+namespace Ponykart.Core {
 	/// <summary>
 	/// Our key commands - these are for things that need to be polled. If you want to just respond to events, use the ones in InputMain.
 	/// </summary>

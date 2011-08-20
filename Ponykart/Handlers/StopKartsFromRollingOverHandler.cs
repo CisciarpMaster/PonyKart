@@ -10,7 +10,7 @@ namespace Ponykart.Handlers {
 	/// This stops them from bouncing all over the place when they land.
 	/// At the moment it raycasts downwards and if the distance to the nearest thing is over than something, then we stop it from spinning in the air
 	/// </summary>
-	[Handler(HandlerScope.Level)]
+	[Handler(HandlerScope.Level, LevelType.Race)]
 	public class StopKartsFromRollingOverHandler : ILevelHandler {
 		public IDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
 

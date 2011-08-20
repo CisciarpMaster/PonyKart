@@ -16,7 +16,9 @@ namespace Ponykart.Actors {
 			get { return new KartMotionState(SpawnPosition, SpawnOrientation, RootNode, this); }
 		}
 		public float MaxSpeed { get; set; }
+		public float MaxReverseSpeed { get; set; }
 		public float MaxSpeedSquared { get; private set; }
+		public float MaxReverseSpeedSquared { get; private set; }
 
 		// our wheelshapes
 		public Wheel WheelFL { get; protected set; }
@@ -24,21 +26,21 @@ namespace Ponykart.Actors {
 		public Wheel WheelBL { get; protected set; }
 		public Wheel WheelBR { get; protected set; }
 
-		public RaycastVehicle Vehicle;
-		public RaycastVehicle.VehicleTuning Tuning;
+		public RaycastVehicle Vehicle { get; protected set; }
+		public RaycastVehicle.VehicleTuning Tuning { get; protected set; }
 		protected VehicleRaycaster Raycaster;
 		// do not dispose of the damn shapes
 		protected static CompoundShape Compound;
 
 
-		public Kart(ThingInstanceTemplate tt, ThingDefinition td) : base(tt, td) {
-			Launch.Log("Creating Kart #" + ID + " with name \"" + Name + "\"");
-
-			MaxSpeed = td.GetFloatProperty("maxspeed", 40f);
+		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
+			MaxSpeed = def.GetFloatProperty("maxspeed", 40f);
+			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 20f);
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
+			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
 		}
 
-		protected override void PostCreateBody(ThingDefinition td) {
+		protected override void PostCreateBody(ThingDefinition def) {
 			Body.ActivationState = ActivationState.DisableDeactivation;
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.Get<PhysicsMain>().World);
@@ -50,8 +52,8 @@ namespace Ponykart.Actors {
 			LKernel.Get<PhysicsMain>().World.AddAction(Vehicle);
 
 			var wheelFac = LKernel.Get<WheelFactory>();
-			string frontWheelName = td.GetStringProperty("frontwheel", null);
-			string backWheelName = td.GetStringProperty("backwheel", null);
+			string frontWheelName = def.GetStringProperty("frontwheel", null);
+			string backWheelName = def.GetStringProperty("backwheel", null);
 			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, new Vector3(1.7f, 0.4f, 1.33f), true);
 			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, new Vector3(-1.7f, 0.4f, 1.33f), true);
 			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, new Vector3(1.7f, 0.4f, -1.33f), false);

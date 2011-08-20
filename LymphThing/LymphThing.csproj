@@ -58,6 +58,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BulletSharp">
+      <HintPath>..\References\BulletSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Mogre">
+      <HintPath>..\References\Mogre.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -67,9 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MuffinParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThingParser.cs" />
-    <Compile Include="WorldParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

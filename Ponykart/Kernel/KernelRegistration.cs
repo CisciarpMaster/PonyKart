@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using LuaNetInterface;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -19,19 +20,22 @@ namespace Ponykart {
 	public static partial class LKernel {
 		private static IEnumerable<Type> LevelHandlerTypes;
 		private static IEnumerable<Type> GlobalHandlerTypes;
+		private static IEnumerable<Type> LuaWrapperTypes;
 
 		/// <summary>
 		/// Load global objects on startup
 		/// </summary>
 		public static void LoadInitialObjects(Splash splash) {
-			splash.Increment("Setting up Mogre core...");
-
 			// this goes first since lots of things rely on it
+			splash.Increment("Setting up level manager...");
 			var levelManager = AddGlobalObject(new LevelManager());
 
 			// mogre stuff
+			splash.Increment("Initialising Mogre core...");
 			var root		 = AddGlobalObject(InitRoot());
+			splash.Increment("Initialising render system...");
 			var renderSystem = AddGlobalObject(InitRenderSystem(root));
+			splash.Increment("Creating render window...");
 			var renderWindow = AddGlobalObject(InitRenderWindow(root, Get<Main>(), renderSystem));
 
 			splash.Increment("Initialising resources and resource groups...");
@@ -39,7 +43,7 @@ namespace Ponykart {
 			LoadResourceGroups();
 
 			// physx stuff
-			splash.Increment("Initialising physics engine, collision groups, and trigger area and contact reporters...");
+			splash.Increment("Initialising Bullet physics engine, collision reporter, trigger region reporter, and contact reporter...");
 			var phys = AddGlobalObject(new PhysicsMain());
 			AddGlobalObject(new CollisionReporter());
 			AddGlobalObject(new TriggerReporter());
@@ -50,7 +54,7 @@ namespace Ponykart {
 			AddGlobalObject(new SoundMain());
 
 			// level
-			splash.Increment("Creating level...");
+			splash.Increment("Creating scene manager...");
 			AddGlobalObject(InitSceneManager(root));
 
 			splash.Increment("Loading first level physics...");
@@ -74,23 +78,19 @@ namespace Ponykart {
 			AddGlobalObject(new Spawner());
 
 			// Miyagi and stuff
-			splash.Increment("Initialising UI...");
+			splash.Increment("Initialising Miyagi...");
 			AddGlobalObject(new DebugOverlayManager());
 			AddGlobalObject(new UIMain());
 			AddGlobalObject(new LuaConsoleManager());
 
+			// lua needs these
+			splash.Increment("Registering handlers and wrappers...");
+			SetUpHandlers();
+
 			// lua
-			splash.Increment("Setting up scripting engine...");
+			splash.Increment("Setting up Lua engine and wrappers...");
 			var lua = AddGlobalObject(new LuaMain());
-			AddGlobalObject(new LKernelWrapper());
-			AddGlobalObject(new PauserWrapper());
-			AddGlobalObject(new LevelManagerWrapper());
-			AddGlobalObject(new TriggerWrapper());
-			AddGlobalObject(new SoundWrapper());
-			AddGlobalObject(new SpawnerWrapper());
-			AddGlobalObject(new LevelWrapper());
-			AddGlobalObject(new IOWrapper());
-			AddGlobalObject(new PhysicsWrapper());
+			LoadLuaWrappers();
 			lua.RunRegisterEvent();
 
 			// this is a bit of a hack but it shouldn't matter much since we're only doing it once at the beginning
@@ -99,11 +99,14 @@ namespace Ponykart {
 			AddGlobalObject(new KartSpawnPositions());
 
 			// handlers
-			splash.Increment("Starting handlers...");
-			SetUpHandlers();
+			splash.Increment("Loading global handlers...");
 			LoadGlobalHandlers();
-			LoadLevelHandlers();
+			splash.Increment("Loading level handlers...");
+			LoadLevelHandlers(LevelType.Menu);
 
+
+
+			splash.Increment("Running post-initialisation events...");
 			levelManager.RunPostInitEvents();
 		}
 
@@ -116,6 +119,9 @@ namespace Ponykart {
 			GlobalHandlerTypes = types.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
 					.Where(a => a.Scope == HandlerScope.Global)
+					.Count() > 0);
+			LuaWrapperTypes = types.Where(
+				t => ((LuaPackageAttribute[]) t.GetCustomAttributes(typeof(LuaPackageAttribute), false))
 					.Count() > 0);
 		}
 
@@ -130,7 +136,7 @@ namespace Ponykart {
 		/// <summary>
 		/// Load global handlers
 		/// </summary>
-		public static void LoadGlobalHandlers() {
+		static void LoadGlobalHandlers() {
 			Launch.Log("[Loading] Initialising global handlers...");
 
 			foreach (Type t in GlobalHandlerTypes) {
@@ -142,10 +148,15 @@ namespace Ponykart {
 		/// <summary>
 		/// Load handlers for each level
 		/// </summary>
-		public static void LoadLevelHandlers() {
+		public static void LoadLevelHandlers(LevelType newLevelType) {
 			Launch.Log("[Loading] Initialising per-level handlers...");
 
-			foreach (Type t in LevelHandlerTypes) {
+			IEnumerable<Type> e = LevelHandlerTypes.Where(
+				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
+					.Where(a => a.LevelType.HasFlag(newLevelType))
+					.Count() > 0);
+
+			foreach (Type t in e) {
 				Launch.Log("[Loading] \tCreating " + t);
 				AddLevelObject(Activator.CreateInstance(t), t);
 			}
@@ -165,6 +176,18 @@ namespace Ponykart {
 				Console.WriteLine("[Loading] \tDisposing: " + obj.GetType().ToString());
 				// if this cast fails, then you need to make sure the level handler implements ILevelHandler!
 				(obj as ILevelHandler).Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Load lua wrappers
+		/// </summary>
+		static void LoadLuaWrappers() {
+			Launch.Log("[Loading] Initialising lua wrappers...");
+
+			foreach (Type t in LuaWrapperTypes) {
+				Launch.Log("[Loading] \tCreating " + t);
+				AddGlobalObject(Activator.CreateInstance(t), t);
 			}
 		}
 

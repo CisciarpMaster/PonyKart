@@ -34,9 +34,9 @@ namespace Ponykart.Actors {
 		protected Collection<ShapeComponent> ShapeComponents;
 		protected Collection<RibbonComponent> RibbonComponents;
 
-		public LThing(ThingInstanceTemplate template, ThingDefinition def) {
-			ID = template.ID;
-			Name = template.Name;
+		public LThing(ThingBlock template, ThingDefinition def) {
+			ID = IDs.New;
+			Name = template.ThingName;
 
 			ModelComponents = new Collection<ModelComponent>();
 			ShapeComponents = new Collection<ShapeComponent>();
@@ -70,12 +70,12 @@ namespace Ponykart.Actors {
 		/// Use this method if you need some more stuff to happen before the constructor starts setting everything up.
 		/// For example if you need to get more things out of the ThingTemplate, you can use this for that.
 		/// </summary>
-		protected virtual void Setup(ThingInstanceTemplate template, ThingDefinition def) {}
+		protected virtual void Setup(ThingBlock template, ThingDefinition def) {}
 
 		/// <summary>
 		/// Sets up mogre stuff, like our root scene node
 		/// </summary>
-		protected void SetupMogre(ThingInstanceTemplate template, ThingDefinition def) {
+		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
 			RootNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
 			
 		}
@@ -83,7 +83,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Make our components
 		/// </summary>
-		protected void InitialiseComponents(ThingInstanceTemplate template, ThingDefinition def) {
+		protected void InitialiseComponents(ThingBlock template, ThingDefinition def) {
 			// make our components
 			foreach (var mblock in def.ModelBlocks)
 				ModelComponents.Add(new ModelComponent(this, template, mblock));
@@ -93,7 +93,7 @@ namespace Ponykart.Actors {
 				RibbonComponents.Add(new RibbonComponent(this, template, rblock));
 		}
 
-		protected void SetupPhysics(ThingInstanceTemplate template, ThingDefinition def) {
+		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
 			// if we have no shape components then we don't set up physics
 			if (ShapeComponents.Count == 0)
 				return;

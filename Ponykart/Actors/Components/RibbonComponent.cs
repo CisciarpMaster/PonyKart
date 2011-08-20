@@ -15,11 +15,11 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public SceneNode RibbonNode { get; private set; }
 
-		public RibbonComponent(LThing lthing, ThingInstanceTemplate template, RibbonBlock block) {
+		public RibbonComponent(LThing lthing, ThingBlock template, RibbonBlock block) {
 			ID = IDs.New;
 			var sceneMgr = LKernel.Get<SceneManager>();
 
-			Name = block.GetStringProperty("name", template.Name);
+			Name = block.GetStringProperty("name", template.ThingName);
 
 			// if ribbons are disabled, don't bother creating anything
 			if (!Constants.RIBBONS)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using LuaInterface;
 using LuaNetInterface;
 using Ponykart.Levels;
 using Ponykart.UI;
@@ -10,7 +9,6 @@ namespace Ponykart.Lua {
 
 	// PackageAttributes are kinda like namespaces... I think? Anyway if you set this to null then it's treated as if it's in the global namespace
 	// obviously if you want it to be in the global namespace, adding documentation for that namespace is pointless
-	[LuaPackage(null, null)]
 	public class LuaMain {
 		public LuaVirtualMachine LuaVM { get; private set; }
 
@@ -18,9 +16,6 @@ namespace Ponykart.Lua {
 
 		public LuaMain() {
 			LuaVM = new LuaVirtualMachine();
-
-			// for an implementation of a lua console, see the LuaNetInterface example
-			// obviously I'd have to hook it up to the UI instead of it just being in the console...
 
 			// we don't have to register them on level load because this is a global singleton, not a level one
 			RegisterLuaFunctions(this);
@@ -67,7 +62,6 @@ namespace Ponykart.Lua {
 		/// make lua parse and execute a file
 		/// </summary>
 		/// <param name="file">the filename of the file to execute</param>
-		[LuaFunction("doFile", "Runs a lua script.", "string file - The filename. If it doesn't start with media/scripts/, it's added automagically.")]
 		public void DoFile(string file) {
 			if (LKernel.Get<LevelManager>().IsValidLevel) {
 				// adding this in case you try to run a script but forget the file path
@@ -97,7 +91,6 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// Quits the Lua VM. Does not dispose it - use Restart() if you want to do that.
 		/// </summary>
-		[LuaFunction("quit", "Quits the lua VM.")]
 		public void Quit() {
 			LuaVM.Stop();
 		}
@@ -105,7 +98,6 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// Quits, disposes, and creates a new Lua VM, then runs the re-registration event.
 		/// </summary>
-		[LuaFunction("restart", "Shuts down the Lua VM and starts it again.")]
 		public void Restart() {
 			Quit();
 			LuaVM.Lua.Dispose();
@@ -117,7 +109,6 @@ namespace Ponykart.Lua {
 		/// This overwrites lua's built-in print function so it prints to our console
 		/// </summary>
 		/// <param name="s">The string to print</param>
-		[LuaFunction("print", "Prints something.", "string s - the string to print")]
 		public void Print(string s) {
 			Launch.Log("[Lua] " + s);
 			LKernel.Get<LuaConsoleManager>().AddLabel(s);
@@ -127,14 +118,12 @@ namespace Ponykart.Lua {
 		/// Gets help for a command
 		/// </summary>
 		/// <param name="command">Package to get help of.</param>
-		[LuaFunction("helpcmd", "Show help for a given command or package", "string command - Package to get help of.")]
 		public void GetCommandHelp(string command) {
 			LuaPackageDescriptor packageDesc;
 
 			if (LuaVM.Functions.ContainsKey(command)) {
 				LuaFunctionDescriptor descriptor = (LuaFunctionDescriptor) LuaVM.Functions[command];
 				Print(descriptor.FullDocumentationString);
-
 				return;
 			}
 
@@ -142,12 +131,10 @@ namespace Ponykart.Lua {
 				if (LuaVM.Packages.ContainsKey(command)) {
 					LuaPackageDescriptor descriptor = (LuaPackageDescriptor) LuaVM.Packages[command];
 					descriptor.ShowHelp();
-
 					return;
 				}
 				else {
 					Print("No such function or package: " + command);
-
 					return;
 				}
 			}
@@ -172,7 +159,6 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// Lists available commands
 		/// </summary>
-		[LuaFunction("help", "List available commands.")]
 		public void GetHelp() {
 			Print("Available commands: \n");
 

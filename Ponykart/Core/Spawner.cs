@@ -23,7 +23,7 @@ namespace Ponykart.Core {
 		/// <param name="template">The template for the thing you want to spawn</param>
 		/// <exception cref="ArgumentException">If 'type' is not a valid ActorEnum</exception>
 		/// <returns>The thing you just spawned. Returns null if you are paused.</returns>
-		public LThing Spawn(string type, ThingInstanceTemplate template) {
+		public LThing Spawn(string type, ThingBlock template) {
 			if (Pauser.IsPaused) {
 				Launch.Log("[Spawner] WARNING: Attempted to spawn something while paused!");
 				return null;
@@ -39,6 +39,7 @@ namespace Ponykart.Core {
 			else 
 				thing = new LThing(template, definition);
 
+			Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);
 			Invoke(OnThingCreation, thing);
 
 
@@ -46,32 +47,17 @@ namespace Ponykart.Core {
 		}
 
 		/// <summary>
-		/// Spawns something! Use this internally or if you don't have a template. This method will make one for you!
-		/// </summary>
-		/// <param name="type">The type (class) of the thing you want to spawn</param>
-		/// <param name="spawnPos">Where should it spawn?</param>
-		/// <returns>The thing you spawned</returns>
-		public LThing Spawn(string type, Vector3 spawnPos) {
-			ThingInstanceTemplate tt = new ThingInstanceTemplate(type, spawnPos);
-			return Spawn(type, tt);
-		}
-
-		/// <summary>
 		/// Spawns something! This takes a string instead of an enum for the type, but if the string is not a valid type,
 		/// then an exception gets thrown, so be careful! Note that it is not case sensitive.
 		/// </summary>
 		/// <param name="type">The type (class name) for the thing you want to spawn</param>
-		/// <param name="name">What is its name? (Don't include the ID!)</param>
 		/// <param name="spawnPos">Where should it spawn?</param>
 		/// <exception cref="ArgumentException">If the type is not valid</exception>
 		/// <returns>The thing you spawned</returns>
-		public LThing Spawn(string type, string name, Vector3 spawnPos) {
-			var td = LKernel.Get<ThingDatabase>().GetThingDefinition(type);
-			var tt = new ThingInstanceTemplate(type, name, spawnPos);
+		public LThing Spawn(string type, Vector3 spawnPos) {
+			var tt = new ThingBlock(type, spawnPos);
 
-			LThing lt = new LThing(tt, td);
-			return lt;
-			//return Spawn(tt);
+			return Spawn(type, tt);
 		}
 
 		/// <summary>

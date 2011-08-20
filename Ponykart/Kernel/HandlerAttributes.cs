@@ -7,20 +7,11 @@ namespace Ponykart {
 	[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 	public sealed class HandlerAttribute : Attribute {
 		public readonly HandlerScope Scope;
+		public readonly LevelType LevelType;
 
-		public HandlerAttribute(HandlerScope scope) {
+		public HandlerAttribute(HandlerScope scope, LevelType levelType = LevelType.All) {
 			Scope = scope;
+			LevelType = levelType;
 		}
-	}
-
-	public enum HandlerScope {
-		/// <summary>
-		/// Disposed on level unload, recreated on level load
-		/// </summary>
-		Level,
-		/// <summary>
-		/// Only created once in the whole lifetime of the game
-		/// </summary>
-		Global
 	}
 }

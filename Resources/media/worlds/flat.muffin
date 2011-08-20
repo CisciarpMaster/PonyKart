@@ -1,73 +1,72 @@
-Flags:
-Numbers:
-Entities:
-	// two big squares
-	Actor (Obstacle) {
-		Name = "obs1"
-		Position = 20, -1, -20
-		Rotation = 45, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs2"
-		Position = 20, -1, 16
-		Rotation = 45, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs20"
-		Position = 20.3, 0, -26
-		Rotation = 0, 0, 0
-	}
-	// a more rounded ramp
-	Actor (Obstacle) {
-		Name = "obs3"
-		Position = 20, -5, -40
-		Rotation = -10, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs4"
-		Position = 20.1, -3, -35
-		Rotation = -30, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs5"
-		Position = 20.2, -1, -32
-		Rotation = -50, 0, 0
-	}
-	// a bunch of low ramps
-	Actor (Obstacle) {
-		Name = "obs6"
-		Position = -20, -5, 40
-		Rotation = -10, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs7"
-		Position = -20, -5, 20
-		Rotation = -10, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs8"
-		Position = -20, -5, 0
-		Rotation = -10, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs9"
-		Position = -20, -5, -20
-		Rotation = -10, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs10"
-		Position = -20, -5, -40
-		Rotation = -10, 0, 0
-	}
-	
-	// some of these
-	Actor (ChickenCoop) {
-		Name = "chickencoop"
-		Position = 30, -1, 50
-		Rotation = 0, 270, 0
-	}
-	Actor (ChickenCoop) {
-		Name = "chickencoop2"
-		Position = 30, -1, 70
-		Rotation = 0, 200, 0
-	}
+Type = Race
+
+// two big squares
+Obstacle {
+	Name = "obs1"
+	Position = 20, -1, -20
+	Rotation = 45, 0, 0
+}
+Obstacle {
+	Name = "obs2"
+	Position = 20, -1, 16
+	Rotation = 45, 0, 0
+}
+Obstacle {
+	Name = "obs20"
+	Position = 20.3, 0, -26
+	Rotation = 0, 0, 0
+}
+// a more rounded ramp
+Obstacle {
+	Name = "obs3"
+	Position = 20, -5, -40
+	Rotation = -10, 0, 0
+}
+Obstacle {
+	Name = "obs4"
+	Position = 20.1, -3, -35
+	Rotation = -30, 0, 0
+}
+Obstacle {
+	Name = "obs5"
+	Position = 20.2, -1, -32
+	Rotation = -50, 0, 0
+}
+// a bunch of low ramps
+Obstacle {
+	Name = "obs6"
+	Position = -20, -5, 40
+	Rotation = -10, 0, 0
+}
+Obstacle {
+	Name = "obs7"
+	Position = -20, -5, 20
+	Rotation = -10, 0, 0
+}
+Obstacle {
+	Name = "obs8"
+	Position = -20, -5, 0
+	Rotation = -10, 0, 0
+}
+Obstacle {
+	Name = "obs9"
+	Position = -20, -5, -20
+	Rotation = -10, 0, 0
+}
+Obstacle {
+	Name = "obs10"
+	Position = -20, -5, -40
+	Rotation = -10, 0, 0
+}
+
+// some of these
+ChickenCoop {
+	Name = "chickencoop"
+	Position = 30, -1, 50
+	Rotation = 0, 270, 0
+}
+ChickenCoop {
+	Name = "chickencoop2"
+	Position = 30, -1, 70
+	Rotation = 0, 200, 0
+}

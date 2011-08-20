@@ -1,8 +1,7 @@
 ﻿using BulletSharp;
 using Mogre;
-using Ponykart.Physics;
 
-namespace Ponykart.Stuff {
+namespace Ponykart.Physics {
 	[Handler(HandlerScope.Level)]
 	public class BulletDebugDrawer : IDebugDraw, ILevelHandler {
 		SceneManager sceneMgr;

@@ -124,13 +124,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\Extras\Wheel.cs" />
-    <Compile Include="Actors\Extras\WheelFactory.cs" />
-    <Compile Include="Actors\IThingComponent.cs" />
+    <Compile Include="Actors\Wheels\Wheel.cs" />
+    <Compile Include="Actors\Wheels\WheelFactory.cs" />
+    <Compile Include="Actors\Components\IThingComponent.cs" />
     <Compile Include="Actors\LThing.cs" />
-    <Compile Include="Actors\ModelComponent.cs" />
-    <Compile Include="Actors\RibbonComponent.cs" />
-    <Compile Include="Actors\ShapeComponent.cs" />
+    <Compile Include="Actors\Components\ModelComponent.cs" />
+    <Compile Include="Actors\Components\RibbonComponent.cs" />
+    <Compile Include="Actors\Components\ShapeComponent.cs" />
     <Compile Include="Actors\Kart.cs" />
     <Compile Include="Handlers\CollisionTestHandler.cs" />
     <Compile Include="Handlers\KartSpeedLimiterHandler.cs" />
@@ -138,7 +138,10 @@
     <Compile Include="Handlers\SelfRightingHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\StopKartsFromRollingOverHandler.cs" />
+    <Compile Include="Kernel\HandlerScope.cs" />
+    <Compile Include="Levels\LevelType.cs" />
     <Compile Include="IO\ModelBlock.cs" />
+    <Compile Include="IO\MuffinImporter.cs" />
     <Compile Include="IO\RibbonBlock.cs" />
     <Compile Include="IO\ShapeBlock.cs" />
     <Compile Include="IO\ThingDatabase.cs" />
@@ -146,8 +149,10 @@
     <Compile Include="IO\ThingEnum.cs" />
     <Compile Include="IO\ThingImporter.cs" />
     <Compile Include="IO\TokenHolder.cs" />
+    <Compile Include="IO\WorldDefinition.cs" />
     <Compile Include="Kernel\HandlerAttributes.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
+    <Compile Include="Lua\LuaMainWrapper.cs" />
     <Compile Include="Lua\PhysicsWrapper.cs" />
     <Compile Include="Physics\CollisionReportInfo.cs" />
     <Compile Include="Physics\KartMotionState.cs" />
@@ -166,13 +171,12 @@
     <Compile Include="Lua\IOWrapper.cs" />
     <Compile Include="Lua\LevelWrapper.cs" />
     <Compile Include="Handlers\DebugDrawerHandler.cs" />
-    <Compile Include="Stuff\BulletDebugDrawer.cs" />
+    <Compile Include="Physics\BulletDebugDrawer.cs" />
     <Compile Include="Stuff\KartSpawnPositions.cs" />
-    <Compile Include="Stuff\KeyBindingManager.cs" />
+    <Compile Include="Core\KeyBindingManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Stuff\Extensions.cs" />
-    <Compile Include="Stuff\IDs.cs" />
-    <Compile Include="IO\ThingInstanceTemplate.cs" />
+    <Compile Include="Core\IDs.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />
     <Compile Include="UI\LuaConsoleManager.cs" />
     <Compile Include="Lua\SpawnerWrapper.cs" />
@@ -217,7 +221,6 @@
     </Compile>
     <Compile Include="Core\Launch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IO\WorldImporter.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -232,7 +235,6 @@
     </Compile>
     <Compile Include="Stuff\DebugOverlayManager.cs" />
     <Compile Include="Stuff\DotSceneLoader.cs" />
-    <Compile Include="Stuff\MoveBehaviour.cs" />
     <None Include="Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -279,9 +281,7 @@
       <Name>LymphThing</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Actors\Components\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

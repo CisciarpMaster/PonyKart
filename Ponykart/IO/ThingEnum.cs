@@ -1,7 +1,7 @@
 ﻿
 namespace Ponykart.IO {
 	public enum ThingEnum {
-		Unassigned = 0,
+		// for the ThingParser
 		Dynamic,
 		Kinematic,
 		Static,
@@ -19,7 +19,11 @@ namespace Ponykart.IO {
 		CylinderZ,
 		Cone,
 		ConeX,
-		ConeZ
-		// ...
+		ConeZ,
+
+		// for the MuffinParser
+		Menu,
+		Race,
+		EmptyLevel,
 	}
 }

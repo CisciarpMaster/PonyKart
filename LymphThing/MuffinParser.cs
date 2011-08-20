@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ponykart.IO.ThingParser
+namespace Ponykart.IO.MuffinParser
 {
 	public class ParserException: Exception
 	{
@@ -24,9 +24,6 @@ namespace Ponykart.IO.ThingParser
 		Tok_RBrace           ,
 		Tok_Name             ,
 		Tok_KeyFalse         ,
-		Tok_KeyModel         ,
-		Tok_KeyShape         ,
-		Tok_KeyRibbon        ,
 		Tok_KeyTrue          ,
 		Tok_StringLiteral    ,
 		Tok_FloatLiteral     ,
@@ -42,9 +39,7 @@ namespace Ponykart.IO.ThingParser
 		Rule_NumericProperty ,
 		Rule_StringProperty  ,
 		Rule_BoolProperty    ,
-		Rule_Shape           ,
-		Rule_Model           ,
-		Rule_Ribbon          ,
+		Rule_Block           ,
 		Rule_AnyName
 	}
 
@@ -88,11 +83,8 @@ namespace Ponykart.IO.ThingParser
 		static Token()
 		{
 			specForTok_Name = new Dictionary<string, NodeType>();
-			specForTok_Name.Add("false" , NodeType.Tok_KeyFalse );
-			specForTok_Name.Add("Model" , NodeType.Tok_KeyModel );
-			specForTok_Name.Add("Shape" , NodeType.Tok_KeyShape );
-			specForTok_Name.Add("Ribbon", NodeType.Tok_KeyRibbon);
-			specForTok_Name.Add("true"  , NodeType.Tok_KeyTrue  );
+			specForTok_Name.Add("false", NodeType.Tok_KeyFalse);
+			specForTok_Name.Add("true" , NodeType.Tok_KeyTrue );
 		}
 
 		private static NodeType specializeType(NodeType type, string image)
@@ -1571,14 +1563,14 @@ namespace Ponykart.IO.ThingParser
 
 			while (true)
 			{
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name)
+				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name)
 				{
 					laOffsets.Push(laOffset);
 					laSuccess.Push(true    );
 					lookaheadAnyName();
 					if (laSuccess.Peek())
 					{
-						if (fetchToken(laOffset).Type == NodeType.Tok_Assign)
+						if (fetchToken(laOffset).Type == NodeType.Tok_LBrace)
 							laOffset++;
 						else
 						{
@@ -1589,25 +1581,11 @@ namespace Ponykart.IO.ThingParser
 					laOffset = laOffsets.Pop();
 					if (laSuccess.Pop())
 					{
-						nodes.Add(matchProperty());
+						nodes.Add(matchBlock());
 					}
 					else
 					{
-						if (fetchToken(laOffset).Type == NodeType.Tok_KeyShape)
-						{
-							nodes.Add(matchShape());
-						}
-						else
-						{
-							if (fetchToken(laOffset).Type == NodeType.Tok_KeyModel)
-							{
-								nodes.Add(matchModel());
-							}
-							else
-							{
-								nodes.Add(matchRibbon());
-							}
-						}
+						nodes.Add(matchProperty());
 					}
 				}
 				else
@@ -2023,20 +2001,18 @@ namespace Ponykart.IO.ThingParser
 			return new RuleInstance(NodeType.Rule_BoolProperty, nodes.ToArray());
 		}
 
-		private RuleInstance matchShape()
+		private RuleInstance matchBlock()
 		{
 			List<Node> nodes = new List<Node>();
 			Token tok;
 
-			if ((tok = nextToken()).Type != NodeType.Tok_KeyShape)
-				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected KeyShape token");
-			nodes.Add(tok);
+			nodes.Add(matchAnyName());
 			if ((tok = nextToken()).Type != NodeType.Tok_LBrace)
 				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected LBrace token");
 			nodes.Add(tok);
 			while (true)
 			{
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name)
+				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name)
 				{
 					nodes.Add(matchProperty());
 				}
@@ -2047,61 +2023,7 @@ namespace Ponykart.IO.ThingParser
 				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected RBrace token");
 			nodes.Add(tok);
 
-			return new RuleInstance(NodeType.Rule_Shape, nodes.ToArray());
-		}
-
-		private RuleInstance matchModel()
-		{
-			List<Node> nodes = new List<Node>();
-			Token tok;
-
-			if ((tok = nextToken()).Type != NodeType.Tok_KeyModel)
-				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected KeyModel token");
-			nodes.Add(tok);
-			if ((tok = nextToken()).Type != NodeType.Tok_LBrace)
-				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected LBrace token");
-			nodes.Add(tok);
-			while (true)
-			{
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name)
-				{
-					nodes.Add(matchProperty());
-				}
-				else
-					break;
-			}
-			if ((tok = nextToken()).Type != NodeType.Tok_RBrace)
-				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected RBrace token");
-			nodes.Add(tok);
-
-			return new RuleInstance(NodeType.Rule_Model, nodes.ToArray());
-		}
-
-		private RuleInstance matchRibbon()
-		{
-			List<Node> nodes = new List<Node>();
-			Token tok;
-
-			if ((tok = nextToken()).Type != NodeType.Tok_KeyRibbon)
-				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected KeyRibbon token");
-			nodes.Add(tok);
-			if ((tok = nextToken()).Type != NodeType.Tok_LBrace)
-				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected LBrace token");
-			nodes.Add(tok);
-			while (true)
-			{
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name)
-				{
-					nodes.Add(matchProperty());
-				}
-				else
-					break;
-			}
-			if ((tok = nextToken()).Type != NodeType.Tok_RBrace)
-				throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected RBrace token");
-			nodes.Add(tok);
-
-			return new RuleInstance(NodeType.Rule_Ribbon, nodes.ToArray());
+			return new RuleInstance(NodeType.Rule_Block, nodes.ToArray());
 		}
 
 		private RuleInstance matchAnyName()
@@ -2115,36 +2037,15 @@ namespace Ponykart.IO.ThingParser
 			}
 			else
 			{
-				if (fetchToken(laOffset).Type == NodeType.Tok_KeyModel)
+				if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue)
 				{
 					nodes.Add(nextToken());
 				}
 				else
 				{
-					if (fetchToken(laOffset).Type == NodeType.Tok_KeyShape)
-					{
-						nodes.Add(nextToken());
-					}
-					else
-					{
-						if (fetchToken(laOffset).Type == NodeType.Tok_KeyRibbon)
-						{
-							nodes.Add(nextToken());
-						}
-						else
-						{
-							if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue)
-							{
-								nodes.Add(nextToken());
-							}
-							else
-							{
-								if ((tok = nextToken()).Type != NodeType.Tok_Name)
-									throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected Name token");
-								nodes.Add(tok);
-							}
-						}
-					}
+					if ((tok = nextToken()).Type != NodeType.Tok_Name)
+						throw new ParserException("Line "+tok.LineNr+", char "+tok.CharNr+": Expected Name token");
+					nodes.Add(tok);
 				}
 			}
 
@@ -2242,39 +2143,18 @@ namespace Ponykart.IO.ThingParser
 			}
 			else
 			{
-				if (fetchToken(laOffset).Type == NodeType.Tok_KeyModel)
+				if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue)
 				{
 					laOffset++;
 				}
 				else
 				{
-					if (fetchToken(laOffset).Type == NodeType.Tok_KeyShape)
-					{
+					if (fetchToken(laOffset).Type == NodeType.Tok_Name)
 						laOffset++;
-					}
 					else
 					{
-						if (fetchToken(laOffset).Type == NodeType.Tok_KeyRibbon)
-						{
-							laOffset++;
-						}
-						else
-						{
-							if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue)
-							{
-								laOffset++;
-							}
-							else
-							{
-								if (fetchToken(laOffset).Type == NodeType.Tok_Name)
-									laOffset++;
-								else
-								{
-									laSuccess.Pop (     );
-									laSuccess.Push(false);
-								}
-							}
-						}
+						laSuccess.Pop (     );
+						laSuccess.Push(false);
 					}
 				}
 			}

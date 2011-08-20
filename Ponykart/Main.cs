@@ -45,10 +45,9 @@ namespace Ponykart {
 		/// Sets up ogre, unsurprisingly
 		/// </summary>
 		private void InitializeOgre() {
-			Splash splash = new Splash(12);
+			Splash splash = new Splash(19);
 			splash.Show();
-			try
-			{
+			try {
 				LKernel.LoadInitialObjects(splash);
 				base.Disposed += (sender, ea) => {
 					LKernel.Get<UIMain>().Dispose();
@@ -70,7 +69,7 @@ namespace Ponykart {
 		private void StartRendering() {
 			Root root = LKernel.Get<Root>();
 			root.RenderOneFrame();
-			
+
 			while (!quit && !this.IsDisposed && root != null) {
 				if (!root.RenderOneFrame())
 					break;

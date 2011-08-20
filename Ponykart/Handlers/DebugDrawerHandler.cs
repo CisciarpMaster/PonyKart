@@ -2,7 +2,7 @@
 using Ponykart.Physics;
 
 namespace Ponykart.Handlers {
-	[Handler(HandlerScope.Level)]
+	[Handler(HandlerScope.Level, LevelType.Race)]
 	public class DebugDrawerHandler : ILevelHandler {
 
 		public DebugDrawerHandler() {

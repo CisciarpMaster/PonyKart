@@ -1,4 +1,4 @@
-﻿using Ponykart.Stuff;
+﻿using Ponykart.Core;
 
 namespace Ponykart.Players {
 	public class HumanPlayer : Player {

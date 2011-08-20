@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using BulletSharp;
 using Mogre;
@@ -12,6 +13,7 @@ namespace Ponykart.Handlers {
 	/// This class handles movement of all NPCs. Currently it's kinda crude but it works for now.
 	/// </summary>
 	//[Handler(HandlerScope.Level)]
+	[Obsolete]
 	public class MovementHandler : ILevelHandler {
 
 		ICollection<LThing> thingsToMove;

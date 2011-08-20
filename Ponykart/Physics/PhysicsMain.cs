@@ -187,9 +187,9 @@ namespace Ponykart.Physics {
 					type = "Capsule"; break;
 			}
 			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition + Vector3.UNIT_Y;
-			var tt = new ThingInstanceTemplate(type, type, pos);
+			var tb = new ThingBlock(type, pos);
 			var td = LKernel.Get<ThingDatabase>().GetThingDefinition(type);
-			new LThing(tt, td);
+			new LThing(tb, td);
 		}
 
 		public DiscreteDynamicsWorld World {

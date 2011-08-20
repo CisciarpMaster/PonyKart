@@ -1,21 +1,14 @@
-Flags:
-Numbers:
-Entities:
-	Actor (Obstacle) {
-		Name = "obs1"
-		Position = 10, 0, 0
-	}
-	Actor (Obstacle) {
-		Name = "obs2"
-		Position = 0, 1, 2
-	}
-	Actor (Obstacle) {
-		Name = "obs3"
-		Position = -7, 0, -7
-		// same sort of stuff
-		// ...
-		Overrides
-		{
-			Script = "tim's quest.lua"  //tell the program to run a script when we spawn this
-		}
-	}
+Type = Race
+Obstacle {
+	Name = "obs1"
+	Position = 10, 0, 0
+}
+Obstacle {
+	Name = "obs2"
+	Position = 0, 1, 2
+}
+Obstacle {
+	Name = "obs3"
+	Position = -7, 0, -7
+	Script = "tim's quest.lua"  //tell the program to run a script when we spawn this
+}

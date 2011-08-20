@@ -7,30 +7,22 @@ using Ponykart.IO;
 using Ponykart.Lua;
 using Ponykart.Physics;
 
-namespace Ponykart.Levels
-{
+namespace Ponykart.Levels {
 	/// <summary>
 	/// Represents a level or world in our game.
 	/// </summary>
-	public class Level : IDisposable
-	{
+	public class Level : IDisposable {
 		/// <summary>
 		/// The world's name - this serves as its identifier
 		/// </summary>
 		public string Name { get; private set; }
 
 		/// <summary>
-		/// Our level's boolean flags
+		/// The type of this level
 		/// </summary>
-		public IDictionary<string, bool> Flags { get; private set; }
-		/// <summary>
-		/// Our level's numbers
-		/// </summary>
-		public IDictionary<string, float> Numbers { get; private set; }
-		/// <summary>
-		/// We use the template's Name as the key
-		/// </summary>
-		public IDictionary<string, ThingInstanceTemplate> Templates { get; private set; }
+		public LevelType Type { get; private set; }
+
+		public WorldDefinition Definition { get; private set; }
 		/// <summary>
 		/// We use the thing's Name as the key
 		/// </summary>
@@ -40,13 +32,17 @@ namespace Ponykart.Levels
 		/// Constructor - Initialises the dictionaries and hooks up to the spawn event
 		/// </summary>
 		/// <param name="name">The name of the level - this is case sensitive!</param>
-		public Level(string name)
-		{
-			Name		= name;
-			Flags		= new Dictionary<string, bool>();
-			Numbers		= new Dictionary<string, float>();
-			Templates	= new Dictionary<string, ThingInstanceTemplate>();
-			Things		= new Dictionary<string, LThing>();
+		public Level(string name) {
+			Name = name;
+			Things = new Dictionary<string, LThing>();
+
+			Definition = new MuffinImporter().Parse(Name);
+
+			// get the type of the level
+			ThingEnum tempType = Definition.GetEnumProperty("type", null);
+			LevelType type;
+			Enum.TryParse<LevelType>(tempType + "", true, out type);
+			Type = type;
 
 			// don't use anonymous methods here because we have to disconnect it when we change levels
 			LKernel.Get<Spawner>().OnThingCreation += OnSpawnEvent;
@@ -66,11 +62,10 @@ namespace Ponykart.Levels
 		/// </summary>
 		public void CreateEntities() {
 			// load up everything into this world
-			new WorldImporter().Parse(this);
 
 			var spawner = LKernel.Get<Spawner>();
-			foreach (ThingInstanceTemplate tt in Templates.Values) {
-				spawner.Spawn(tt.Type, tt);
+			foreach (ThingBlock tb in Definition.ThingBlocks) {
+				spawner.Spawn(tb.ThingName, tb);
 			}
 		}
 
@@ -106,9 +101,7 @@ namespace Ponykart.Levels
 
 		public void Dispose() {
 			LKernel.Get<Spawner>().OnThingCreation -= OnSpawnEvent;
-			Flags.Clear();
-			Numbers.Clear();
-			Templates.Clear();
+			Definition.Dispose();
 			foreach (LThing t in Things.Values)
 				t.Dispose();
 			Things.Clear();

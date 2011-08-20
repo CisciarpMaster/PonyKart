@@ -15,11 +15,11 @@ namespace Ponykart.Actors {
 		/// <param name="lthing">The Thing this component is attached to</param>
 		/// <param name="template">The template from the Thing</param>
 		/// <param name="block">The block we're creating this component from</param>
-		public ModelComponent(LThing lthing, ThingInstanceTemplate template, ModelBlock block) {
+		public ModelComponent(LThing lthing, ThingBlock template, ModelBlock block) {
 			ID = IDs.New;
 			var sceneMgr = LKernel.Get<SceneManager>();
 
-			Name = block.GetStringProperty("name", template.Name);
+			Name = block.GetStringProperty("name", template.ThingName);
 
 			Node = lthing.RootNode.CreateChildSceneNode(Name + "Node" + ID);
 

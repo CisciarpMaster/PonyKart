@@ -18,7 +18,7 @@ namespace Ponykart.Lua {
 			Spawner spawner = LKernel.Get<Spawner>();
 			if (spawner != null) {
 				try {
-					spawner.Spawn(type, type, new Vector3(posX, posY, posZ));
+					spawner.Spawn(type, new Vector3(posX, posY, posZ));
 				}
 				catch {
 					LKernel.Get<LuaMain>().Print("[SpawnerWrapper] ERROR: The specified type \"" + type + "\" was not found!");
