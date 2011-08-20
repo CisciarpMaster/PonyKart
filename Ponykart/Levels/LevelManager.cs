@@ -1,12 +1,10 @@
 ﻿using System;
 using Ponykart.Core;
 
-namespace Ponykart.Levels
-{
+namespace Ponykart.Levels {
 	public delegate void LevelEventHandler(LevelChangedEventArgs eventArgs);
 
-	public class LevelManager
-	{
+	public class LevelManager {
 		public Level CurrentLevel { get; private set; }
 		public event LevelEventHandler OnLevelLoad;
 		public event LevelEventHandler OnLevelUnload;
@@ -14,8 +12,7 @@ namespace Ponykart.Levels
 		/// <summary>
 		/// constructor
 		/// </summary>
-		public LevelManager()
-		{
+		public LevelManager() {
 			this.IsValidLevel = false;
 		}
 
@@ -50,10 +47,8 @@ namespace Ponykart.Levels
 		/// - Runs the levelunload events
 		/// - Tells the kernel to unload all level objects
 		/// </summary>
-		private void UnloadLevel(LevelChangedEventArgs eventArgs)
-		{
-			if (CurrentLevel.Name != null)
-			{
+		private void UnloadLevel(LevelChangedEventArgs eventArgs) {
+			if (CurrentLevel.Name != null) {
 				Launch.Log("======= Level unloading: " + CurrentLevel.Name + " =======");
 
 				IsValidLevel = false;
@@ -61,7 +56,7 @@ namespace Ponykart.Levels
 				CurrentLevel.Save();
 
 				LKernel.UnloadLevelHandlers();
-				
+
 				// invoke the level unloading events
 				if (OnLevelUnload != null)
 					OnLevelUnload(eventArgs);
@@ -76,8 +71,7 @@ namespace Ponykart.Levels
 		/// Unloads the current level and loads the new level
 		/// </summary>
 		/// <param name="newLevelName">The name of the level to load</param>
-		public void LoadLevel(string newLevelName)
-		{
+		public void LoadLevel(string newLevelName) {
 			Pauser.IsPaused = false;
 			Level oldLevel = CurrentLevel;
 			Level newLevel = new Level(newLevelName);
@@ -87,11 +81,12 @@ namespace Ponykart.Levels
 			UnloadLevel(eventArgs);
 
 			CurrentLevel = newLevel;
-			
+
 			// Load new Level
-			if (newLevel != null)
-			{
+			if (newLevel != null) {
 				Launch.Log("======= Level loading: " + newLevel.Name + " =======");
+				// load up the world definition from the .muffin file
+				newLevel.ReadMuffin();
 
 				// bind level stuff to the kernel
 				LKernel.LoadLevelObjects(eventArgs);
@@ -110,6 +105,7 @@ namespace Ponykart.Levels
 
 				IsValidLevel = true;
 
+				LKernel.Get<Lua.LuaMain>().LoadScriptFiles(newLevel.Name);
 				// run our scripts
 				newLevel.RunLevelScripts();
 			}

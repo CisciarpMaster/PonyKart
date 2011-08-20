@@ -1,16 +1,12 @@
-﻿using System;
-
-namespace Ponykart.Levels
-{
-	public class LevelChangedEventArgs : EventArgs
-	{
-		public LevelChangedEventArgs(Level newLevelId, Level oldLevelId)
-		{
-			NewLevelId = newLevelId;
-			OldLevelId = oldLevelId;
+﻿
+namespace Ponykart.Levels {
+	public class LevelChangedEventArgs {
+		public LevelChangedEventArgs(Level newLevel, Level oldLevel) {
+			NewLevel = newLevel;
+			OldLevel = oldLevel;
 		}
 
-		public Level NewLevelId { get; private set; }
-		public Level OldLevelId { get; private set; }
+		public Level NewLevel { get; private set; }
+		public Level OldLevel { get; private set; }
 	}
 }

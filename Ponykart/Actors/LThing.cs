@@ -29,6 +29,7 @@ namespace Ponykart.Actors {
 		public Quaternion SpawnOrientation { get; private set; }
 		public Vector3 SpawnScale { get; private set; }
 		protected RigidBodyConstructionInfo Info { get; set; }
+		protected string Script;
 
 		protected Collection<ModelComponent> ModelComponents;
 		protected Collection<ShapeComponent> ShapeComponents;
@@ -64,6 +65,14 @@ namespace Ponykart.Actors {
 				RootNode.Scale(SpawnScale);
 
 			SetupPhysics(template, def);
+
+			// get our script token and run it, if it has one and if this thing was created on the fly instead
+			// of through a .muffin file
+			if (def.StringTokens.TryGetValue("script", out Script)) {
+				if (LKernel.Get<LevelManager>().IsValidLevel)
+					RunScript();
+			}
+			
 		}
 
 		/// <summary>
@@ -212,6 +221,15 @@ namespace Ponykart.Actors {
 			Body.SetCollisionGroup(CollisionGroup);
 		}
 
+		/// <summary>
+		/// Runs the thing's script, if it has one.
+		/// If this thing was made from a .muffin, this is called from Level.RunLevelScripts to make sure it runs after everything else is created.
+		/// If it was made on the fly, it runs at the end of the constructor, as long as it's a valid level of course.
+		/// </summary>
+		public void RunScript() {
+			if (Script != null)
+				LKernel.Get<Lua.LuaMain>().DoFunction(Script, this);
+		}
 
 
 		public virtual void Dispose() {

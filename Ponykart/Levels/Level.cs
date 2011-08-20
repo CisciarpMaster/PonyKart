@@ -36,6 +36,11 @@ namespace Ponykart.Levels {
 			Name = name;
 			Things = new Dictionary<string, LThing>();
 
+			// don't use anonymous methods here because we have to disconnect it when we change levels
+			LKernel.Get<Spawner>().OnThingCreation += OnSpawnEvent;
+		}
+
+		public void ReadMuffin() {
 			Definition = new MuffinImporter().Parse(Name);
 
 			// get the type of the level
@@ -43,9 +48,6 @@ namespace Ponykart.Levels {
 			LevelType type;
 			Enum.TryParse<LevelType>(tempType + "", true, out type);
 			Type = type;
-
-			// don't use anonymous methods here because we have to disconnect it when we change levels
-			LKernel.Get<Spawner>().OnThingCreation += OnSpawnEvent;
 		}
 
 		/// <summary>
@@ -75,13 +77,11 @@ namespace Ponykart.Levels {
 		/// "media/scripts/" + Name + "/init/"
 		/// </summary>
 		public void RunLevelScripts() {
-			string dir = Settings.Default.LevelScriptLocation + Name + Settings.Default.LevelScriptFolderExtension;
-			if (Directory.Exists(dir)) {
-				IEnumerable<string> scripts = Directory.EnumerateFiles(dir);
+			if (Directory.Exists(Settings.Default.LevelScriptLocation + Name + "/"))
+				LKernel.Get<LuaMain>().LuaVM.Lua.GetFunction(Name).Call(this);
 
-				foreach (string script in scripts)
-					LKernel.Get<LuaMain>().DoFile(script);
-			}
+			foreach (LThing l in Things.Values)
+				l.RunScript();
 		}
 
 		public void Save() {
@@ -101,10 +101,13 @@ namespace Ponykart.Levels {
 
 		public void Dispose() {
 			LKernel.Get<Spawner>().OnThingCreation -= OnSpawnEvent;
-			Definition.Dispose();
-			foreach (LThing t in Things.Values)
-				t.Dispose();
-			Things.Clear();
+			if (Definition != null)
+				Definition.Dispose();
+			if (Things != null) {
+				foreach (LThing t in Things.Values)
+					t.Dispose();
+				Things.Clear();
+			}
 		}
 	}
 }

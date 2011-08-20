@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
+using System.Linq;
 using LuaNetInterface;
 using Ponykart.Levels;
 using Ponykart.UI;
@@ -20,11 +22,14 @@ namespace Ponykart.Lua {
 			// we don't have to register them on level load because this is a global singleton, not a level one
 			RegisterLuaFunctions(this);
 			// though we do have to restart lua when we change levels
-			LKernel.Get<LevelManager>().OnLevelLoad += (e) => Restart();
+			LKernel.Get<LevelManager>().OnLevelLoad +=
+				(e) => {
+					Restart();
+				};
 
 
 			LuaVM.Lua.DoString("print(\"All working over here!\")");
-			Launch.Log("[Loading] Scripting engine successfully started!");
+			Launch.Log("[Loading] Lua engine successfully started!");
 		}
 
 		/// <summary>
@@ -35,20 +40,51 @@ namespace Ponykart.Lua {
 		/// <param name="o">The class whose functions you want to add to the Lua VM</param>
 		/// <remarks>Shorthand</remarks>
 		public void RegisterLuaFunctions(object o) {
-			Launch.Log("[Lua Main] Registering lua functions from " + o.GetType());
+			Launch.Log("[LuaMain] Registering lua functions from " + o.GetType());
 
 			OnRegister += () => LuaVM.RegisterLuaFunctions(o);
 		}
 
 		/// <summary>
-		/// make lua parse and execute a string of code
+		/// Loads up all of the script files.
+		/// </summary>
+		/// <param name="levelName"></param>
+		public void LoadScriptFiles(string levelName) {
+			// media/scripts/
+			string scriptLocation = Settings.Default.LevelScriptLocation;
+			Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation);
+
+			// first get all of the scripts that aren't in the 
+			var scripts = Directory.EnumerateFiles(scriptLocation, "*.lua", SearchOption.AllDirectories).Where(s => !s.Contains("/levels/"));
+
+			if (Directory.Exists(scriptLocation + levelName + "/")) {
+				Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation + "/levels/" + levelName + "/");
+				scripts = scripts.Concat(Directory.EnumerateFiles(scriptLocation + "/levels/" + levelName + "/", "*.lua", SearchOption.AllDirectories));
+			}
+
+			foreach (string file in scripts) {
+				DoFile(file);
+			}
+		}
+
+		/// <summary>
+		/// Runs a lua function
+		/// </summary>
+		/// <param name="functionName">The name of the function to run.</param>
+		/// <param name="parameters">The parameters to pass the function</param>
+		/// <returns>Stuff returned from the function</returns>
+		public object[] DoFunction(string functionName, params object[] parameters) {
+			return LKernel.Get<LuaMain>().LuaVM.Lua.GetFunction(functionName).Call(parameters);
+		}
+
+		/// <summary>
+		/// Make lua parse and execute a string of code
 		/// </summary>
 		/// <param name="s">the string to execute</param>
 		public void DoString(string s) {
 			if (LKernel.Get<LevelManager>().IsValidLevel) {
 				try {
 					LuaVM.Lua.DoString(s);
-					Console.WriteLine();
 				}
 				catch (Exception ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message + "\n");
@@ -64,13 +100,13 @@ namespace Ponykart.Lua {
 		/// <param name="file">the filename of the file to execute</param>
 		public void DoFile(string file) {
 			if (LKernel.Get<LevelManager>().IsValidLevel) {
+				Launch.Log("[LuaMain] Running file: " + file);
 				// adding this in case you try to run a script but forget the file path
 				if (!file.StartsWith("media/scripts/") && !file.StartsWith("/media/scripts/"))
 					file = "media/scripts/" + file;
 
 				try {
 					LuaVM.Lua.DoFile(file);
-					Console.WriteLine();
 				}
 				catch (Exception ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message + "\n");

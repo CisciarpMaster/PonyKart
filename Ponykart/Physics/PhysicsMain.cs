@@ -119,7 +119,7 @@ namespace Ponykart.Physics {
 		/// Creates the world
 		/// </summary>
 		void CreateWorld(string levelName) {
-			System.Console.WriteLine("Creating new world...");
+			Launch.Log("[PhysicsMain] Creating new world...");
 			// have to make more of these every level because disposing the world apparently disposes of them too.
 			broadphase = new DbvtBroadphase();
 			dcc = new DefaultCollisionConfiguration();

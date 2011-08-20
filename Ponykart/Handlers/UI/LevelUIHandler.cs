@@ -173,12 +173,12 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			//Launch.Log("LevelUIHandler level load: old level: " + eventArgs.OldLevelId.Id + " new level: " + eventArgs.NewLevelId.Id);
-			if (eventArgs.NewLevelId.Name == Settings.Default.MainMenuName)
+			if (eventArgs.NewLevel.Name == Settings.Default.MainMenuName)
 			{
 				// when going to the menu
 				MakeMainMenuUI();
 			}
-			else if (eventArgs.OldLevelId.Name == Settings.Default.MainMenuName)
+			else if (eventArgs.OldLevel.Name == Settings.Default.MainMenuName)
 			{
 				// when going from the menu to something else
 				MakeLevelUI();
@@ -192,14 +192,14 @@ namespace Ponykart.Handlers {
 		/// <param name="eventArgs"></param>
 		private void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			//Launch.Log("LevelUIHandler level unload: old level: " + eventArgs.OldLevelId.Id + " new level: " + eventArgs.NewLevelId.Id);
-			if (eventArgs.OldLevelId.Name == Settings.Default.MainMenuName)
+			if (eventArgs.OldLevel.Name == Settings.Default.MainMenuName)
 			{
 				foreach (Control c in mainMenuControls) {
 					c.Dispose();
 				}
 				mainMenuControls.Clear();
 			}
-			else if (eventArgs.NewLevelId.Name == Settings.Default.MainMenuName)
+			else if (eventArgs.NewLevel.Name == Settings.Default.MainMenuName)
 			{
 				foreach (Control c in levelControls) {
 					c.Dispose();
