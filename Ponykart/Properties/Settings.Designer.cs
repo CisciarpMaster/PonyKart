@@ -13,7 +13,7 @@ namespace Ponykart.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "10.0.0.0")]
-    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -104,6 +104,42 @@ namespace Ponykart.Properties {
             }
             set {
                 this["LevelScriptLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("media/physicsmaterials/")]
+        public string PhysicsMaterialFileLocation {
+            get {
+                return ((string)(this["PhysicsMaterialFileLocation"]));
+            }
+            set {
+                this["PhysicsMaterialFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".physmat")]
+        public string PhysicsMaterialFileExtension {
+            get {
+                return ((string)(this["PhysicsMaterialFileExtension"]));
+            }
+            set {
+                this["PhysicsMaterialFileExtension"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".wheel")]
+        public string WheelFileExtension {
+            get {
+                return ((string)(this["WheelFileExtension"]));
+            }
+            set {
+                this["WheelFileExtension"] = value;
             }
         }
     }

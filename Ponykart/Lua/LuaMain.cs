@@ -73,9 +73,12 @@ namespace Ponykart.Lua {
 		/// </summary>
 		/// <param name="functionName">The name of the function to run.</param>
 		/// <param name="parameters">The parameters to pass the function</param>
-		/// <returns>Stuff returned from the function</returns>
+		/// <returns>Stuff returned from the function, or null if the level is not valid</returns>
 		public object[] DoFunction(string functionName, params object[] parameters) {
-			return LKernel.Get<LuaMain>().LuaVM.Lua.GetFunction(functionName).Call(parameters);
+			if (LKernel.Get<LevelManager>().IsValidLevel)
+				return LKernel.Get<LuaMain>().LuaVM.Lua.GetFunction(functionName).Call(parameters);
+			else
+				return null;
 		}
 
 		/// <summary>

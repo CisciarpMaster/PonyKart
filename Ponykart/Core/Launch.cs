@@ -7,7 +7,7 @@ namespace Ponykart {
 	public static class Launch {
 
 		[STAThread]
-		[DebuggerStepThrough]
+		//[DebuggerStepThrough]
 		public static void Main() {
 			//#if !DEBUG
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);

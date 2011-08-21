@@ -9,9 +9,6 @@ namespace Ponykart.Actors {
 	/// Z is forwards!
 	/// </summary>
 	public class Kart : LThing {
-		protected PhysicsMaterial PhysicsMaterial {
-			get { return LKernel.Get<PhysicsMaterialManager>().KartMaterial; }
-		}
 		protected override MotionState DefaultMotionState {
 			get { return new KartMotionState(SpawnPosition, SpawnOrientation, RootNode, this); }
 		}

@@ -49,6 +49,7 @@ namespace Ponykart {
 			AddGlobalObject(new CollisionReporter());
 			AddGlobalObject(new TriggerReporter());
 			AddGlobalObject(new PhysicsMaterialManager());
+			AddGlobalObject(new PhysicsMaterialFactory());
 
 			// sound stuff
 			splash.Increment("Setting up sound system...");

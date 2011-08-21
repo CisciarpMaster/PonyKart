@@ -23,5 +23,14 @@
     <Setting Name="LevelScriptLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/scripts/levels/</Value>
     </Setting>
+    <Setting Name="PhysicsMaterialFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">media/physicsmaterials/</Value>
+    </Setting>
+    <Setting Name="PhysicsMaterialFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.physmat</Value>
+    </Setting>
+    <Setting Name="WheelFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.wheel</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

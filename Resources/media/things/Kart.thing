@@ -6,6 +6,8 @@ Mass = 500
 MaxSpeed = 60
 FrontWheel = "FrontWheel"
 BackWheel = "BackWheel"
+PhysicsMaterial = "Kart"
+
 Model {
 	Mesh = "kart/KartChassis.mesh"
 	Material = "redbrick"

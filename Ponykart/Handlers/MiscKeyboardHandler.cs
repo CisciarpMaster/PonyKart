@@ -69,6 +69,7 @@ namespace Ponykart.Handlers {
 
 					LKernel.Get<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
+					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
 					LKernel.Get<ThingDatabase>().ClearDatabase();
 					break;
 			}

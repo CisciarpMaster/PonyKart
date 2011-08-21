@@ -22,7 +22,7 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Go through our /media/wheels/ directory and find all of the wheel definitions we have, then make dictionaries out of them
+		/// Go through our media/wheels/ directory and find all of the wheel definitions we have, then make dictionaries out of them
 		/// and add them to our one big dictionary.		
 		/// </summary>
 		public void ReadWheelsFromFiles() {
@@ -30,11 +30,11 @@ namespace Ponykart.Actors {
 			wheels.Clear();
 
 			// get all of the filenames of the files in media/wheels/
-			IEnumerable<string> files = Directory.EnumerateFiles(Settings.Default.WheelFileLocation);
+			IEnumerable<string> files = Directory.EnumerateFiles(Settings.Default.WheelFileLocation, "*" + Settings.Default.WheelFileExtension);
 
 			foreach (string filename in files) {
 				// our wheelname is the filename minus the file extension
-				string wheelname = filename.Remove(filename.IndexOf(".wheel"));
+				string wheelname = filename.Remove(filename.IndexOf(Settings.Default.WheelFileExtension));
 				// this gets rid of the "media/wheels/" bit
 				wheelname = wheelname.Replace(Settings.Default.WheelFileLocation, "");
 

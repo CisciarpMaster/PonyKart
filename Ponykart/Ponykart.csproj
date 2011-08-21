@@ -149,6 +149,7 @@
     <Compile Include="Physics\MogreMotionState.cs" />
     <Compile Include="Physics\PhysicsExtensions.cs" />
     <Compile Include="Physics\PhysicsMaterial.cs" />
+    <Compile Include="Physics\PhysicsMaterialFactory.cs" />
     <Compile Include="Physics\PhysicsMaterialManager.cs" />
     <Compile Include="Physics\TriggerReportFlags.cs" />
     <Compile Include="Physics\TriggerRegion.cs" />
@@ -159,7 +160,6 @@
     <Compile Include="Players\PlayerManager.cs" />
     <Compile Include="Handlers\EscHandler.cs" />
     <Compile Include="Lua\IOWrapper.cs" />
-    <Compile Include="Lua\LevelWrapper.cs" />
     <Compile Include="Handlers\DebugDrawerHandler.cs" />
     <Compile Include="Physics\BulletDebugDrawer.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -233,7 +233,7 @@
     <Compile Include="Stuff\DebugOverlayManager.cs" />
     <Compile Include="Stuff\DotSceneLoader.cs" />
     <None Include="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

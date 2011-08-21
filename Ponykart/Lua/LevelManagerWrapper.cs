@@ -33,35 +33,6 @@ namespace Ponykart.Lua {
 			return "";
 		}
 
-		/// <summary>
-		/// Duplicate of LevelWrapper.IsValid
-		/// </summary>
-		[LuaFunction("isLevelValid", "Returns whether the current level is valid or not.")]
-		public static bool IsValid() {
-			LevelManager lm = LKernel.Get<LevelManager>();
-			if (lm != null)
-				return lm.IsValidLevel;
-			else
-				return false;
-		}
-
-		[LuaFunction("hookScriptToLevelLoadEvent", "Hook up a lua script so it will run whenever a level finishes loading.",
-			"string pathToLuaFile - the file path to the lua file you want to execute. Ex: media/scripts/example.lua")]
-		public static void HookScriptToLevelLoadEvent(string pathToLuaFile) {
-			LevelManager lm = LKernel.Get<LevelManager>();
-			if (lm != null)
-				lm.OnLevelLoad += (ea) => LKernel.Get<LuaMain>().DoFile(pathToLuaFile);
-		}
-
-		[LuaFunction("hookFunctionToLevelLoadEvent", "Hook up a lua function so it will run whenever a level finishes loading.",
-			"function() level event handler - (LevelChangedEventArgs e)")]
-		public static void HookFunctionToLevelLoadEvent(LevelEventHandler func) {
-			LevelManager lm = LKernel.Get<LevelManager>();
-			if (lm != null) {
-				lm.OnLevelLoad += func;
-			}
-		}
-
 		[LuaFunction("hookScriptToLevelUnloadEvent", "Hook up a lua script so it will run whenever a level unloads.",
 			"string pathToLuaFile - the file path to the lua file you want to execute. Ex: media/scripts/example.lua")]
 		public static void HookScriptToLevelUnloadEvent(string pathToLuaFile) {

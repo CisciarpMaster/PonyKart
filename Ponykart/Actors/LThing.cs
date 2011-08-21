@@ -130,7 +130,7 @@ namespace Ponykart.Actors {
 			if (ShapeComponents.Count == 1) {
 				// ideally we should rotate the whole Thing instead of its shape, but if we only have one shape and for whatever reason we absolutely cannot rotate the node instead,
 				// we'll have to stick it in a compound shape instead.
-				if (ShapeComponents[0].Transform == ShapeBlock.UNCHANGED) {
+				if (ShapeComponents[0].Transform == Matrix4.IDENTITY) {
 					shape = ShapeComponents[0].Shape;
 				}
 				else {
@@ -164,7 +164,8 @@ namespace Ponykart.Actors {
 			MotionState = DefaultMotionState;
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
 			// TODO
-			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(Info, LKernel.Get<PhysicsMaterialManager>().DefaultMaterial);
+			string physmat = def.GetStringProperty("physicsmaterial", "Default");
+			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(Info, physmat);
 
 			// collision group
 			string collisionGroup = def.GetStringProperty("collisiongroup", "Default");

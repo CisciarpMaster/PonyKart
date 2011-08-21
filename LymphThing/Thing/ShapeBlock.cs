@@ -6,8 +6,6 @@ namespace LymphThing {
 	/// Represents a Shape { } block in a .thing file.
 	/// </summary>
 	public class ShapeBlock : TokenHolder {
-		public static readonly Matrix4 UNCHANGED = new Matrix4(Quaternion.IDENTITY);
-
 		public ThingDefinition Owner { get; protected set; }
 		public Matrix4 Transform { get; protected set; }
 		public CollisionShape Shape { get; protected set; }
