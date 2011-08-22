@@ -7,8 +7,8 @@ HingeConstraint = luanet.import_type("BulletSharp.HingeConstraint")
 -- this is run when we create a HingeTest.thing
 function hingetest(lthing)
 	-- spawn our static box and our moving box
-	thing1 = spawn("StaticTallThinBox", Vector3(lthing.SpawnPosition.x, lthing.SpawnPosition.y + 5, lthing.SpawnPosition.z))
-	thing2 = spawn("TallThinBox", Vector3(lthing.SpawnPosition.x + 5, lthing.SpawnPosition.y + 5, lthing.SpawnPosition.z))
+	thing1 = spawn("StaticTallThinBox", addVectors(lthing.SpawnPosition, Vector3(0, 5, 0)))
+	thing2 = spawn("TallThinBox", addVectors(lthing.SpawnPosition, Vector3(5, 5, 0)))
 	
 	-- make a hinge
 	hinge = HingeConstraint(thing1.Body, thing2.Body, Vector3(2.5, 5, 0), Vector3(-2.5, 5, 0), Vector3.UNIT_Y, Vector3.UNIT_Y)

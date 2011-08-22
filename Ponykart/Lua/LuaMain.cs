@@ -75,8 +75,19 @@ namespace Ponykart.Lua {
 		/// <param name="parameters">The parameters to pass the function</param>
 		/// <returns>Stuff returned from the function, or null if the level is not valid</returns>
 		public object[] DoFunction(string functionName, params object[] parameters) {
-			if (LKernel.Get<LevelManager>().IsValidLevel)
-				return LuaVM.Lua.GetFunction(functionName).Call(parameters);
+			if (LKernel.Get<LevelManager>().IsValidLevel) {
+				try {
+					return LuaVM.Lua.GetFunction(functionName).Call(parameters);
+				}
+				catch (Exception ex) {
+					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
+					foreach (var v in ex.Data)
+						Launch.Log("[Lua] " + v);
+					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
+					Launch.Log(ex.StackTrace);
+					return null;
+				}
+			}
 			else
 				return null;
 		}
@@ -91,7 +102,9 @@ namespace Ponykart.Lua {
 					LuaVM.Lua.DoString(s);
 				}
 				catch (Exception ex) {
-					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message + "\n");
+					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
+					foreach (var v in ex.Data)
+						Launch.Log("[Lua] " + v);
 					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
 					Launch.Log(ex.StackTrace);
 				}
@@ -113,7 +126,9 @@ namespace Ponykart.Lua {
 					LuaVM.Lua.DoFile(filename);
 				}
 				catch (Exception ex) {
-					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message + "\n");
+					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
+					foreach (var v in ex.Data)
+						Launch.Log("[Lua] " + v);
 					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
 					Launch.Log(ex.StackTrace);
 				}
