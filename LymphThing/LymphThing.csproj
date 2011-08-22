@@ -58,7 +58,7 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BulletSharp">
+    <Reference Include="BulletSharp, Version=0.15.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\References\BulletSharp.dll</HintPath>
     </Reference>
     <Reference Include="Mogre">

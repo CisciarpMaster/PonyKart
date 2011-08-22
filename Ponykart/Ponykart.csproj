@@ -87,7 +87,7 @@
     <StartupObject>Ponykart.Launch</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BulletSharp">
+    <Reference Include="BulletSharp, Version=0.15.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\References\BulletSharp.dll</HintPath>
     </Reference>
     <Reference Include="irrKlang.NET4">
@@ -143,6 +143,7 @@
     <Compile Include="Kernel\HandlerAttributes.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
     <Compile Include="Lua\LuaMainWrapper.cs" />
+    <Compile Include="Lua\MogreWrapper.cs" />
     <Compile Include="Lua\PhysicsWrapper.cs" />
     <Compile Include="Physics\CollisionReportInfo.cs" />
     <Compile Include="Physics\KartMotionState.cs" />

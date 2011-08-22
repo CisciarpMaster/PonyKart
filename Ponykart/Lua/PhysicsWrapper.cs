@@ -19,5 +19,10 @@ namespace Ponykart.Lua {
 		public static PonykartCollisionGroups GetCollisionGroup(CollisionObject obj) {
 			return obj.GetCollisionGroup();
 		}
+
+		[LuaFunction("addConstraint", "Adds a constraint to the physics world", "TypedConstraint - The constraint to add", "bool - disable collisions between affected bodies?")]
+		public static void AddConstraint(TypedConstraint constraint, bool disableCollisionsBetweenBodies) {
+			LKernel.Get<PhysicsMain>().World.AddConstraint(constraint, disableCollisionsBetweenBodies);
+		}
 	}
 }

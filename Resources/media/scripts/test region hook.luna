@@ -1,11 +1,7 @@
--- first we tell lua about our c# program
-luanet.load_assembly("Lymph")
-
--- then we do stuff!
-
 -- this only gets run if we explicitly call it!
 function triggerTestFunction(s1, s2, tf)
 	if isEnterFlag(tf) then
+		-- remember that .. is how you concatenate strings!
 		print("enter" .. getBodyName(s2))
 	else
 		print("leave" .. getBodyName(s2))

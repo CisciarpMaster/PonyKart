@@ -27,8 +27,8 @@ namespace Ponykart.Core {
 			Camera.FarClipDistance = 1000f;
 			Camera.AspectRatio = ((float) Constants.WINDOW_WIDTH) / ((float) Constants.WINDOW_HEIGHT);
 
-			CameraNode = manager.RootSceneNode.CreateChildSceneNode("CameraNode");
-			TargetNode = manager.RootSceneNode.CreateChildSceneNode("CameraTargetNode");
+			CameraNode = manager.RootSceneNode.CreateChildSceneNode("CameraNode", new Vector3(0, Constants.CAMERA_NODE_Y_OFFSET, Constants.CAMERA_NODE_Z_OFFSET));
+			TargetNode = manager.RootSceneNode.CreateChildSceneNode("CameraTargetNode", new Vector3(0, Constants.CAMERA_TARGET_Y_OFFSET, 0));
 
 			CameraNode.SetAutoTracking(true, TargetNode);
 			CameraNode.SetFixedYawAxis(true);
@@ -61,10 +61,10 @@ namespace Ponykart.Core {
 		bool UpdateCamera(FrameEvent evt) {
 			Vector3 displacement;
 
-			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * Constants.CAMERA_TIGHTNESS;
+			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * Constants.CAMERA_TIGHTNESS * evt.timeSinceLastFrame;
 			CameraNode.Translate(displacement);
 
-			displacement = (kartTargetNode._getDerivedPosition() - TargetNode.Position) * Constants.CAMERA_TIGHTNESS;
+			displacement = (kartTargetNode._getDerivedPosition() - TargetNode.Position) * Constants.CAMERA_TIGHTNESS * evt.timeSinceLastFrame;
 			TargetNode.Translate(displacement);
 
 			return true;

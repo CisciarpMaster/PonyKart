@@ -10,7 +10,7 @@ namespace Ponykart.Lua {
 			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
 		}
 
-		[LuaFunction("pk", "dox")]
+		[LuaFunction("playerKart", "Returns the player's kart")]
 		public static Kart GetPlayerKart() {
 			var playermanager = LKernel.Get<PlayerManager>();
 			if (playermanager != null) {

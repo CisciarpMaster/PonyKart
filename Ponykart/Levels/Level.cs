@@ -81,7 +81,9 @@ namespace Ponykart.Levels {
 			if (Directory.Exists(Settings.Default.LevelScriptLocation + Name + "/"))
 				LKernel.Get<LuaMain>().LuaVM.Lua.GetFunction(Name).Call(this);
 
-			foreach (LThing l in Things.Values)
+			LThing[] readonlythings = new LThing[Things.Values.Count];
+			Things.Values.CopyTo(readonlythings, 0);
+			foreach (LThing l in readonlythings)
 				l.RunScript();
 		}
 

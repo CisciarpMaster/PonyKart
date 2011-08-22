@@ -46,14 +46,6 @@ namespace Ponykart.Lua {
 			return Pauser.IsPaused;
 		}
 
-		[LuaFunction("hookScriptToPauseEvent", "Hook up a lua script so it will run whenever the pause event fires.",
-			"string pathToLuaFile - the file path to the lua file you want to execute. Ex: media/scripts/example.lua")]
-		public static void HookScriptToPauseEvent(string pathToLuaFile) {
-			Pauser p = LKernel.Get<Pauser>();
-			if (p != null)
-				p.PauseEvent += (b) => LKernel.Get<LuaMain>().DoFile(pathToLuaFile);
-		}
-
 		[LuaFunction("hookFunctionToPauseEvent", "Hook up a lua function so it will run whenever the pause event fires.",
 			"string nameOfLuaFunction - the name of the lua function you want to run whenever the event fires.")]
 		public static void HookFunctionToPauseEvent(string nameOfLuaFunction) {

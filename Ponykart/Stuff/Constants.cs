@@ -15,7 +15,7 @@ namespace Ponykart {
 		/// <summary> How high up is the camera target node from the player kart? </summary>
 		public static readonly float CAMERA_TARGET_Y_OFFSET = 3f;
 		/// <summary> Affects how much we smooth the camera by. 1 means no smoothing, 0 means it doesn't move at all.</summary>
-		public static readonly float CAMERA_TIGHTNESS = 0.1f;
+		public static readonly float CAMERA_TIGHTNESS = 7f;
 
 
 		public static readonly int NUMBER_OF_PLAYERS = 8;

@@ -25,11 +25,11 @@ namespace Ponykart.Lua {
 		[LuaFunction("createObjectSound",
 			"Creates a 3D sound i.e. one that changes volume and stuff depending on where the player is. For things like sound effects and stuff.",
 			"string filePath - The path to the sound file to play.", "string objectName - The name of the sound",
-			"number posX", "number posY", "number posZ", "bool looping - Whether the sound should loop or not.")]
-		public static ISound CreateObjectSound(string filePath, string objectName, float posX, float posY, float posZ, bool looping) {
+			"Vector3 pos", "bool looping - Whether the sound should loop or not.")]
+		public static ISound CreateObjectSound(string filePath, string objectName, Vector3 pos, bool looping) {
 			SoundMain s = LKernel.Get<SoundMain>();
 			if (s != null)
-				return s.CreateObjectSound(filePath, new Vector3(posX, posY, posZ), objectName, looping);
+				return s.CreateObjectSound(filePath, pos, objectName, looping);
 			return null;
 		}
 
