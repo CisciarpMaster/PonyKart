@@ -1,0 +1,9 @@
+<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.6">
+    <environment>
+        <colourAmbient r="0.9" g="0.9" b="0.9" />
+        <colourBackground r="0" g="0" b="0" />
+        <clipping near="0.5" far="10000" />
+    </environment>
+    <nodes>
+    </nodes>
+</scene>

@@ -143,7 +143,6 @@ namespace Ponykart.Actors {
 			else {
 				CompoundShape comp = new CompoundShape();
 				foreach (var sc in ShapeComponents) {
-					sc.Transform.SetScale(SpawnScale);
 					comp.AddChildShape(sc.Transform, sc.Shape);
 				}
 				shape = comp;

@@ -9,7 +9,10 @@ namespace Ponykart.Lua {
 			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
 		}
 
-		
+		[LuaFunction("vector", "Creates a Mogre.Vector3 object", "x", "y", "z")]
+		public static Vector3 vec(float x, float y, float z) {
+			return new Vector3(x, y, z);
+		}
 
 		[LuaFunction("vectorToQuaternion", "Turns a degree vector into a global quaternion", "Vector3 vec")]
 		public static Quaternion vec2quat(Vector3 vec) {

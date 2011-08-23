@@ -1,0 +1,53 @@
+Name = "AppleCart"
+Physics = Dynamic
+Mass = 200
+Model {
+	Name = "Entity#0"
+	Mesh = "AppleCart.mesh"
+	Material = "AppleCart"
+	Position = 0, 0.298726, -1.30577E-08
+	Orientation = 0, 0, 0, 1
+	Scale = 0.283173, 0.283173, 0.283173
+	CastsShadows = True
+	Visible = True
+	RenderingDistance = 0
+}
+// box#0
+Shape {
+	Type = Box
+	Position = -0.317541, 2.06123, 0
+	Orientation = 0, 0, 0, 1
+	Dimensions = 2.95216, 2.4561, 2.33871
+}
+Model {
+	Name = "Entity#1"
+	Mesh = "AppleCartExtras.mesh"
+	Material = "AppleCartExtras"
+	Position = 0, 0.298726, -1.30577E-08
+	Orientation = 0, 0, 0, 1
+	Scale = 0.283173, 0.283173, 0.283173
+	CastsShadows = True
+	Visible = True
+	RenderingDistance = 0
+}
+// box#1
+Shape {
+	Type = Box
+	Position = 2.63218, 1.89438, 0
+	Orientation = 0, 0, 0, 1
+	Dimensions = 3.29981, 0.29374, 1.61437
+}
+// cylinder#0
+Shape {
+	Type = Cylinder
+	Position = 0, 1.03346, -0.0273786
+	Orientation = -0.710185, 0, 0, 0.704015
+	Dimensions = 2, 2.88354, 2
+}
+// cylinder#1
+Shape {
+	Type = Cylinder
+	Position = 3.68425, 1.95468, 0
+	Orientation = 0, 0, 0.707107, 0.707107
+	Dimensions = 1.46527, 0.267195, 1.46527
+}

@@ -71,6 +71,8 @@ namespace Ponykart.Handlers {
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
 					LKernel.Get<ThingDatabase>().ClearDatabase();
+					Mogre.MaterialManager.Singleton.ReloadAll(false);
+					Mogre.MeshManager.Singleton.ReloadAll(false);
 					break;
 			}
 		}

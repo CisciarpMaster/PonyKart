@@ -1,0 +1,34 @@
+
+material AppleCartExtras
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			cull_hardware none
+			depth_write off
+			
+			texture_unit
+			{
+				texture applecart_tex.png
+			}
+		}
+	}
+}
+
+material AppleCart
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture applecart_tex.png
+			}
+		}
+	}
+}
+
+
