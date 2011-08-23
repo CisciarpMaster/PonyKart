@@ -8,6 +8,7 @@ namespace Ponykart.Physics {
 		ManualObject lines;
 		ManualObject triangles;
 		public DebugDrawModes DebugMode { get; set; }
+		readonly float maxRenderDistanceSquared = 50 * 50;
 
 		bool begin = false;
 
@@ -50,12 +51,12 @@ namespace Ponykart.Physics {
 			triangles.End();
 			begin = false;
 
-			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb | DebugDrawModes.DrawContactPoints;
+			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb;
 
 			LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
 			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
 
-			LKernel.Get<Physics.PhysicsMain>().World.DebugDrawer = this;
+			LKernel.Get<PhysicsMain>().World.DebugDrawer = this;
 		}
 
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
@@ -82,6 +83,11 @@ namespace Ponykart.Physics {
 		}
 
 
+		bool DrawCondition(Vector3 compare) {
+			return !LKernel.Get<Levels.LevelManager>().IsValidLevel
+				|| (LKernel.Get<Players.PlayerManager>().MainPlayer.NodePosition - compare).SquaredLength > maxRenderDistanceSquared;
+		}
+
 
 		/// <summary>
 		/// How many "steps" when we draw circles
@@ -107,7 +113,7 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="colour">I override this and make it white with 30% opacity</param>
 		public void DrawAabb(Vector3 from, Vector3 to, ColourValue colour) {
-			if (!begin)
+			if (!begin || DrawCondition(from))
 				return;
 
 			colour = new ColourValue(1, 1, 1, 0.3f);
@@ -165,6 +171,9 @@ namespace Ponykart.Physics {
 		}
 
 		public void DrawCapsule(float radius, float halfHeight, int upAxis, Matrix4 transform, ColourValue colour) {
+			if (DrawCondition(transform.GetTrans()))
+				return;
+
 			DrawCylinder(radius, halfHeight, upAxis, transform, colour);
 
 			Vector3 previousXYPos = transform * new Vector3(radius, halfHeight, 0);
@@ -220,6 +229,9 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="upAxis">ignored for now</param>
 		public void DrawCone(float radius, float height, int upAxis, Matrix4 transform, ColourValue colour) {
+			if (DrawCondition(transform.GetTrans()))
+				return;
+
 			float halfHeight = height / 2f;
 			Vector3 previousPos = transform * new Vector3(0, -halfHeight, radius);
 			Vector3 tip = transform * new Vector3(0, halfHeight, 0);
@@ -245,6 +257,8 @@ namespace Ponykart.Physics {
 		}
 
 		public void DrawContactPoint(Vector3 pointOnB, Vector3 normalOnB, float distance, int lifeTime, ColourValue colour) {
+			if (DrawCondition(pointOnB))
+				return;
 
 			lines.Position(pointOnB);
 			lines.Colour(colour);
@@ -257,6 +271,9 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="upAxis">ignored for now</param>
 		public void DrawCylinder(float radius, float halfHeight, int upAxis, Matrix4 transform, ColourValue colour) {
+			if (DrawCondition(transform.GetTrans()))
+				return;
+
 			Vector3 previousPos = transform * new Vector3(0, halfHeight, radius);
 			Vector3 previousNPos = transform * new Vector3(0, -halfHeight, radius);
 
@@ -289,6 +306,9 @@ namespace Ponykart.Physics {
 		}
 
 		public void DrawLine(Vector3 from, Vector3 to, ColourValue colour) {
+			if (DrawCondition(from))
+				return;
+
 			lines.Position(from);
 			lines.Colour(colour);
 			lines.Position(to);
@@ -296,6 +316,9 @@ namespace Ponykart.Physics {
 		}
 
 		public void DrawLine(Vector3 from, Vector3 to, ColourValue fromcolour, ColourValue tocolour) {
+			if (DrawCondition(from))
+				return;
+
 			lines.Position(from);
 			lines.Colour(fromcolour);
 			lines.Position(to);
@@ -310,6 +333,9 @@ namespace Ponykart.Physics {
 		/// Draws a sphere that doesn't rotate
 		/// </summary>
 		public void DrawSphere(Vector3 p, float radius, ColourValue colour) {
+			if (DrawCondition(p))
+				return;
+
 			Vector3 previousXYPos = p + new Vector3(0, radius, 0);
 			Vector3 previousYZPos = p + new Vector3(0, radius, 0);
 			Vector3 previousXZPos = p + new Vector3(0, 0, radius);
@@ -353,6 +379,8 @@ namespace Ponykart.Physics {
 		/// Draws a sphere that does rotate
 		/// </summary>
 		public void DrawSphere(float radius, Matrix4 transform, ColourValue colour) {
+			if (DrawCondition(transform.GetTrans()))
+				return;
 
 			Vector3 previousXYPos = transform * new Vector3(0, radius, 0);
 			Vector3 previousYZPos = transform * new Vector3(0, radius, 0);
@@ -406,6 +434,9 @@ namespace Ponykart.Physics {
 
 		/// <param name="__unnamed004">alpha?</param>
 		public void DrawTriangle(Vector3 v0, Vector3 v1, Vector3 v2, ColourValue colour, float __unnamed004) {
+			if (DrawCondition(v0)) 
+				return;
+
 			triangles.Position(v0);
 			triangles.Colour(colour);
 			triangles.Position(v1);
@@ -418,6 +449,9 @@ namespace Ponykart.Physics {
 		/// <param name="__unnamed004">no idea</param>
 		/// <param name="__unnamed005">no idea</param>
 		public void DrawTriangle(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 __unnamed003, Vector3 __unnamed004, Vector3 __unnamed005, ColourValue colour, float alpha) {
+			if (DrawCondition(v0)) 
+				return;
+
 			DrawTriangle(v0, v1, v2, colour, alpha);
 		}
 

@@ -59,7 +59,7 @@ namespace Ponykart.Stuff {
 			// Validate the File
 			XMLRoot = XMLDoc.DocumentElement;
 			if (XMLRoot.Name != "scene") {
-				Launch.Log("[DotSceneLoader] Error: Invalid .scene File. Missing <scene>. [File: "+sceneFileName+"]");
+				Launch.Log("[DotSceneLoader] Error: Invalid .scene File. Missing <scene>. [File: " + sceneFileName + "]");
 				return;
 			}
 
@@ -154,7 +154,7 @@ namespace Ponykart.Stuff {
 		}
 
 		protected void processCamera(XmlElement XMLNode, SceneNode pParent) {
-			
+
 			// Process attributes
 			String name = getAttrib(XMLNode, "name");
 
@@ -175,7 +175,7 @@ namespace Ponykart.Stuff {
 			XmlElement pElement;
 
 			// Process normal (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("clipping");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("clipping");
 			if (pElement != null) {
 				// Blender
 				float nearDist = getAttribReal(pElement, "nearPlaneDist");
@@ -226,19 +226,20 @@ namespace Ponykart.Stuff {
 
 				XmlElement pElement;
 				// Process subentities (?)
-				pElement = (XmlElement)XMLNode.SelectSingleNode("subentities");
+				pElement = (XmlElement) XMLNode.SelectSingleNode("subentities");
 				if (pElement != null) {
-					pElement = (XmlElement)pElement.FirstChild;
+					pElement = (XmlElement) pElement.FirstChild;
 					while (pElement != null) {
 						string mat = getAttrib(pElement, "materialName");
 						pEntity.SetMaterialName(mat);
-						pElement = (XmlElement)pElement.NextSibling;
+						pElement = (XmlElement) pElement.NextSibling;
 					}
 				}
 
 				pParent.AttachObject(pEntity);
-			} catch (Exception e) {
-			   Launch.Log("[DotSceneLoader] Error loading an entity!" + e.Message +" [File: "+sceneFileName+"]");
+			}
+			catch (Exception e) {
+				Launch.Log("[DotSceneLoader] Error loading an entity!" + e.Message + " [File: " + sceneFileName + "]");
 			}
 
 			Launch.Log("[DotSceneLoader] Successfully processed entity \"" + name + "\"");
@@ -248,12 +249,12 @@ namespace Ponykart.Stuff {
 			XmlElement pElement;
 
 			// Process fog (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("fog");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("fog");
 			if (pElement != null)
 				processFog(pElement);
 
 			// Process colourAmbient (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("colourAmbient");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("colourAmbient");
 			if (pElement != null)
 				sceneMgr.AmbientLight = parseColour(pElement);
 
@@ -291,7 +292,7 @@ namespace Ponykart.Stuff {
 
 			// Process colourDiffuse (?)
 			ColourValue colourDiffuse = ColourValue.White;
-			pElement = (XmlElement)XMLNode.SelectSingleNode("colourDiffuse");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("colourDiffuse");
 			if (pElement != null)
 				colourDiffuse = parseColour(pElement);
 
@@ -322,7 +323,8 @@ namespace Ponykart.Stuff {
 			bool castShadow = true;
 			if (XMLNode.HasAttribute("castShadow")) {
 				castShadow = getAttribBool(XMLNode, "castShadow", true);
-			} else if (XMLNode.HasAttribute("castShadows")) {
+			}
+			else if (XMLNode.HasAttribute("castShadows")) {
 				castShadow = getAttribBool(XMLNode, "castShadows", true);
 			}
 
@@ -331,27 +333,27 @@ namespace Ponykart.Stuff {
 			XmlElement pElement;
 
 			// Process normal (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("normal");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("normal");
 			if (pElement != null)
 				pLight.Direction = parseVector3(pElement);
 
 			// Process colourDiffuse (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("colourDiffuse");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("colourDiffuse");
 			if (pElement != null)
 				pLight.DiffuseColour = parseColour(pElement);
 
 			// Process colourSpecular (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("colourSpecular");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("colourSpecular");
 			if (pElement != null)
 				pLight.SpecularColour = parseColour(pElement);
 
 			// Process lightRange (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("lightRange");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("lightRange");
 			if (pElement != null)
 				processLightRange(pElement, pLight);
 
 			// Process lightAttenuation (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("lightAttenuation");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("lightAttenuation");
 			if (pElement != null)
 				processLightAttenuation(pElement, pLight);
 
@@ -378,7 +380,7 @@ namespace Ponykart.Stuff {
 			float falloff = getAttribReal(XMLNode, "falloff", 1.0f);
 
 			// Setup the light range
-			pLight.SetSpotlightRange(new Radian((Degree)inner), new Radian((Degree)outer), falloff);
+			pLight.SetSpotlightRange(new Radian((Degree) inner), new Radian((Degree) outer), falloff);
 
 			Launch.Log("[DotSceneLoader] Successfully processed light range");
 		}
@@ -395,7 +397,8 @@ namespace Ponykart.Stuff {
 					pNode = pParent.CreateChildSceneNode();
 				else
 					pNode = attachNode.CreateChildSceneNode();
-			} else {
+			}
+			else {
 				// Provide the name
 				if (pParent != null)
 					pNode = pParent.CreateChildSceneNode(name);
@@ -407,70 +410,70 @@ namespace Ponykart.Stuff {
 			XmlElement pElement;
 
 			// Process position (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("position");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("position");
 			if (pElement != null) {
 				pNode.Position = parseVector3(pElement);
 				pNode.SetInitialState();
 			}
 
 			// Process quaternion (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("quaternion");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("quaternion");
 			if (pElement != null) {
 				pNode.Orientation = parseQuaternion(pElement);
 				pNode.SetInitialState();
 			}
 
 			// Process rotation (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("rotation");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("rotation");
 			if (pElement != null) {
 				pNode.Orientation = parseRotation(pElement);
 				pNode.SetInitialState();
 			}
 
 			// Process scale (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("scale");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("scale");
 			if (pElement != null) {
 				pNode.SetScale(parseVector3(pElement));
 				pNode.SetInitialState();
 			}
 
 			// Process entity (*)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("entity");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("entity");
 			if (pElement != null) {
 				processEntity(pElement, pNode);
 			}
 
 			// Process light (*)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("light");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("light");
 			if (pElement != null) {
 				processLight(pElement, pNode);
 			}
 
 			// Process plane (*)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("plane");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("plane");
 			while (pElement != null) {
 				processPlane(pElement, pNode);
-				pElement = (XmlElement)pElement.NextSibling;
+				pElement = (XmlElement) pElement.NextSibling;
 			}
 
 
 
 			// Process camera (*)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("camera");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("camera");
 			if (pElement != null) {
 				processCamera(pElement, pNode);
 			}
 
 			// Process userDataReference (?)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("userData");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("userData");
 			if (pElement != null)
 				processUserDataReference(pElement, pNode);
 
 			// Process childnodes
-			pElement = (XmlElement)XMLNode.SelectSingleNode("node");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("node");
 			while (pElement != null) {
 				processNode(pElement, pNode);
-				pElement = (XmlElement)pElement.NextSibling;
+				pElement = (XmlElement) pElement.NextSibling;
 			}
 
 			Launch.Log("[DotSceneLoader] Successfully processed scene node \"" + name + "\"");
@@ -483,9 +486,9 @@ namespace Ponykart.Stuff {
 			float width = getAttribReal(XMLNode, "width");
 			float height = getAttribReal(XMLNode, "height");
 
-			int xSegments = (int)getAttribReal(XMLNode, "xSegments");
-			int ySegments = (int)getAttribReal(XMLNode, "ySegments");
-			ushort numTexCoordSets = (ushort)getAttribReal(XMLNode, "numTexCoordSets");
+			int xSegments = (int) getAttribReal(XMLNode, "xSegments");
+			int ySegments = (int) getAttribReal(XMLNode, "ySegments");
+			ushort numTexCoordSets = (ushort) getAttribReal(XMLNode, "numTexCoordSets");
 			float uTile = getAttribReal(XMLNode, "uTile");
 			float vTile = getAttribReal(XMLNode, "vTile");
 			string material = getAttrib(XMLNode, "material");
@@ -495,12 +498,12 @@ namespace Ponykart.Stuff {
 			bool receiveShadows = getAttribBool(XMLNode, "receiveShadows");
 
 			Vector3 normal = Vector3.ZERO;
-			XmlElement pElement = (XmlElement)XMLNode.SelectSingleNode("normal");
+			XmlElement pElement = (XmlElement) XMLNode.SelectSingleNode("normal");
 			if (pElement != null)
 				normal = parseVector3(pElement);
 
 			Vector3 upVector = Vector3.UNIT_Y;
-			pElement = (XmlElement)XMLNode.SelectSingleNode("upVector");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("upVector");
 			if (pElement != null)
 				upVector = parseVector3(pElement);
 
@@ -511,8 +514,9 @@ namespace Ponykart.Stuff {
 				MeshPtr ptr = MeshManager.Singleton.CreatePlane(name, groupName, pPlane, width, height, xSegments, ySegments, normals, numTexCoordSets, uTile, vTile, upVector);
 				pEntity = sceneMgr.CreateEntity(name, name);
 				pParent.AttachObject(pEntity);
-			} catch (Exception e) {
-			   Launch.Log("[DotSceneLoader] Error loading an entity!" + e.Message + " [File: " + sceneFileName + "]");
+			}
+			catch (Exception e) {
+				Launch.Log("[DotSceneLoader] Error loading an entity!" + e.Message + " [File: " + sceneFileName + "]");
 			}
 
 			Launch.Log("[DotSceneLoader] Successfully processed plane \"" + name + "\"");
@@ -522,7 +526,7 @@ namespace Ponykart.Stuff {
 			XmlElement pElement;
 
 			// Process node (*)
-			pElement = (XmlElement)XMLNode.SelectSingleNode("node");
+			pElement = (XmlElement) XMLNode.SelectSingleNode("node");
 			while (pElement != null) {
 				processNode(pElement, null);
 				XmlNode nextNode = pElement.NextSibling;
@@ -543,12 +547,12 @@ namespace Ponykart.Stuff {
 			XmlElement pElement;
 
 			// Process nodes (?)
-			pElement = (XmlElement)XMLRoot.SelectSingleNode("nodes");
+			pElement = (XmlElement) XMLRoot.SelectSingleNode("nodes");
 			if (pElement != null)
 				processNodes(pElement);
 
 			// Process environment (?)
-			pElement = (XmlElement)XMLRoot.SelectSingleNode("environment");
+			pElement = (XmlElement) XMLRoot.SelectSingleNode("environment");
 			if (pElement != null)
 				processEnvironment(pElement);
 			// Process externals (?)

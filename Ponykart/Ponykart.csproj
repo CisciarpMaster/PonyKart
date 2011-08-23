@@ -145,6 +145,7 @@
     <Compile Include="Lua\LuaMainWrapper.cs" />
     <Compile Include="Lua\MogreWrapper.cs" />
     <Compile Include="Lua\PhysicsWrapper.cs" />
+    <Compile Include="Physics\OgreToBulletMesh.cs" />
     <Compile Include="Physics\CollisionReportInfo.cs" />
     <Compile Include="Physics\KartMotionState.cs" />
     <Compile Include="Physics\MogreMotionState.cs" />

@@ -81,21 +81,22 @@ namespace Ponykart.Physics {
 			dsl.ParseDotScene(levelName + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, levelNode);
 			// then go through each of the static objects and turn them into trimeshes.
 			foreach (string s in dsl.StaticObjects) {
-				/*Entity dslEnt = sceneMgr.GetEntity(s);
+				Entity dslEnt = sceneMgr.GetEntity(s);
 				SceneNode dslNode = sceneMgr.GetSceneNode(s);
 
-				// not sure if entity.GetMesh().Name would work to get the filename of the mesh
-				Mesh mesh = MeshManager.Singleton.Load(dslEnt.GetMesh().Name, "General", HardwareBuffer.Usage.HBU_DYNAMIC);
-				var strider = new MogreMeshStrider(mesh);
-				var shape = new BvhTriangleMeshShape(strider, true, true);
-				var info = new RigidBodyConstructionInfo(0, new MogreMotionState(dslNode), shape);
-				var body = new RigidBody(info);
-				world.AddRigidBody(body);*/
+				var shape = new BvhTriangleMeshShape(OgreToBulletMesh.Convert(dslEnt, dslNode), true, true);
+				var body = new CollisionObject();
+				body.CollisionShape = shape;
+				body.SetCollisionGroup(PonykartCollisionGroups.Environment);
+				body.CollisionFlags = CollisionFlags.StaticObject;
+				body.Friction = 1;
+				body.ContactProcessingThreshold = 1f;
+				world.AddCollisionObject(body, PonykartCollisionGroups.Environment.ToBullet(), PonykartCollidesWithGroups.Environment.ToBullet());
 			}
 
 			// make an infinite plane so we don't fall forever. TODO: hook up an event so when we collide with this, we respawn back on the track
 			Matrix4 matrix = new Matrix4();
-			matrix.MakeTransform(new Vector3(0, -2, 0), Vector3.UNIT_SCALE, new Quaternion(0, 0, 0, 1));
+			matrix.MakeTransform(new Vector3(0, -10, 0), Vector3.UNIT_SCALE, new Quaternion(0, 0, 0, 1));
 			var groundinfo = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1), Vector3.ZERO);
 			var groundBody = new RigidBody(groundinfo);
 			groundBody.SetName("ground");
