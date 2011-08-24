@@ -5,7 +5,7 @@ Model {
 	Name = "Entity#0"
 	Mesh = "AppleCart.mesh"
 	Material = "AppleCart"
-	Position = 0, 0.298726, -1.30577E-08
+	Position = 0, 0.298726, 0
 	Orientation = 0, 0, 0, 1
 	Scale = 0.283173, 0.283173, 0.283173
 	CastsShadows = True
@@ -15,15 +15,15 @@ Model {
 // box#0
 Shape {
 	Type = Box
-	Position = -0.317541, 2.06123, 0
+	Position = 1.04802, 1.9073, 0
 	Orientation = 0, 0, 0, 1
-	Dimensions = 2.95216, 2.4561, 2.33871
+	Dimensions = 0.27241, 2.4561, 2.33871
 }
 Model {
 	Name = "Entity#1"
 	Mesh = "AppleCartExtras.mesh"
 	Material = "AppleCartExtras"
-	Position = 0, 0.298726, -1.30577E-08
+	Position = 0, 0.298726, 0
 	Orientation = 0, 0, 0, 1
 	Scale = 0.283173, 0.283173, 0.283173
 	CastsShadows = True
@@ -37,12 +37,19 @@ Shape {
 	Orientation = 0, 0, 0, 1
 	Dimensions = 3.29981, 0.29374, 1.61437
 }
+// cylinder#2
+Shape {
+	Type = Cylinder
+	Position = 0, 1.02223, -1.31389
+	Orientation = -0.710185, 0, 0, 0.704015
+	Dimensions = 2, 0.36528, 2
+}
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = 0, 1.03346, -0.0273786
+	Position = 0, 1.04465, 1.25472
 	Orientation = -0.710185, 0, 0, 0.704015
-	Dimensions = 2, 2.88354, 2
+	Dimensions = 2, 0.36528, 2
 }
 // cylinder#1
 Shape {
@@ -50,4 +57,32 @@ Shape {
 	Position = 3.68425, 1.95468, 0
 	Orientation = 0, 0, 0.707107, 0.707107
 	Dimensions = 1.46527, 0.267195, 1.46527
+}
+// box#2
+Shape {
+	Type = Box
+	Position = -1.74358, 1.69939, 0
+	Orientation = 0, 0, 0.0218149, 0.999762
+	Dimensions = 0.27241, 1.96005, 2.33871
+}
+// box#4
+Shape {
+	Type = Box
+	Position = -0.358498, 2.05086, 1.02567
+	Orientation = 0, 0, 0, 1
+	Dimensions = 2.85622, 2.69059, 0.268638
+}
+// box#3
+Shape {
+	Type = Box
+	Position = -0.358498, 2.05086, -1.04659
+	Orientation = 0, 0, 0, 1
+	Dimensions = 2.85622, 2.69059, 0.268638
+}
+// box#5
+Shape {
+	Type = Box
+	Position = -0.358498, 1.26827, 0
+	Orientation = 0, 0, 0, 1
+	Dimensions = 2.85622, 1.23759, 2.0807
 }

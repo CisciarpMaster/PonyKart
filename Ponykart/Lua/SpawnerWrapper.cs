@@ -29,5 +29,18 @@ namespace Ponykart.Lua {
 			else
 				return null;
 		}
+
+		[LuaFunction("setMaterial", "Sets all of the model components of the given LThing to use the new material.", "LThing thing", "string newMaterial")]
+		public static void SetMaterial(LThing thing, string newMaterial) {
+			foreach (ModelComponent mc in thing.ModelComponents) {
+				mc.Entity.SetMaterialName(newMaterial);
+			}
+		}
+
+		[LuaFunction("setOneMaterial", "Sets the model component with the given ID of the given LThing to use the new material.",
+			"LThing thing", "int componentID", "string newMaterial")]
+		public static void SetMaterial(LThing thing, int componentID, string newMaterial) {
+			thing.ModelComponents[componentID].Entity.SetMaterialName(newMaterial);
+		}
 	}
 }

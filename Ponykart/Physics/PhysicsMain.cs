@@ -81,17 +81,16 @@ namespace Ponykart.Physics {
 			dsl.ParseDotScene(levelName + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, levelNode);
 			// then go through each of the static objects and turn them into trimeshes.
 			foreach (string s in dsl.StaticObjects) {
+				// I have NO IDEA what the fuck fixed this problem, but hey, it's fixed now!
 				Entity dslEnt = sceneMgr.GetEntity(s);
 				SceneNode dslNode = sceneMgr.GetSceneNode(s);
 
 				var shape = new BvhTriangleMeshShape(OgreToBulletMesh.Convert(dslEnt, dslNode), true, true);
-				var body = new CollisionObject();
-				body.CollisionShape = shape;
+				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
+				var body = new RigidBody(info);
 				body.SetCollisionGroup(PonykartCollisionGroups.Environment);
-				body.CollisionFlags = CollisionFlags.StaticObject;
-				body.Friction = 1;
-				body.ContactProcessingThreshold = 1f;
-				world.AddCollisionObject(body, PonykartCollisionGroups.Environment.ToBullet(), PonykartCollidesWithGroups.Environment.ToBullet());
+				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
+				world.AddRigidBody(body, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 			}
 
 			// make an infinite plane so we don't fall forever. TODO: hook up an event so when we collide with this, we respawn back on the track

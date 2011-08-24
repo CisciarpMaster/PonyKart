@@ -75,7 +75,7 @@ namespace SceneToThing {
 					shape.Type = ShapeTypes.Sphere;
 					shape.Position = node.Position;
 					shape.Orientation = node.Orientation;
-					shape.Radius = node.Dimensions.x;
+					shape.Radius = node.Dimensions.x / 2f;
 					shape.Name = node.Name;
 
 					Blocks.Add(shape);
@@ -95,7 +95,7 @@ namespace SceneToThing {
 					shape.Type = ShapeTypes.Cone;
 					shape.Position = node.Position;
 					shape.Orientation = node.Orientation;
-					shape.Radius = node.Dimensions.x;
+					shape.Radius = node.Dimensions.x / 2f;
 					shape.Height = node.Dimensions.y;
 					shape.Name = node.Name;
 
@@ -106,7 +106,7 @@ namespace SceneToThing {
 					shape.Type = ShapeTypes.Capsule;
 					shape.Position = node.Position;
 					shape.Orientation = node.Orientation;
-					shape.Radius = node.Dimensions.x;
+					shape.Radius = node.Dimensions.x / 2f;
 					shape.Height = node.Dimensions.y;
 					shape.Name = node.Name;
 

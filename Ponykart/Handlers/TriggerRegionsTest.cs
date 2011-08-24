@@ -7,7 +7,7 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// just a little test for the trigger regions
 	/// </summary>
-	[Handler(HandlerScope.Level, LevelType.Race)]
+	//[Handler(HandlerScope.Level, LevelType.Race)]
 	public class TriggerRegionsTest : ILevelHandler {
 		TriggerRegion tr1, tr2, tr3;
 

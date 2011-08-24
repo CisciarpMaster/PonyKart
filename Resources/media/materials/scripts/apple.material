@@ -1,0 +1,32 @@
+
+material RedApple
+{
+	technique
+	{
+		pass
+		{
+			specular 1 1 1 1 32
+
+			texture_unit
+			{
+				texture redapple.jpg
+			}
+		}
+	}
+}
+
+material GreenApple
+{
+	technique
+	{
+		pass
+		{
+			specular 1 1 1 1 32
+
+			texture_unit
+			{
+				texture greenapple.jpg
+			}
+		}
+	}
+}

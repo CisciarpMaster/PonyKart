@@ -31,9 +31,9 @@ namespace Ponykart.Actors {
 		protected RigidBodyConstructionInfo Info { get; set; }
 		protected string Script;
 
-		protected Collection<ModelComponent> ModelComponents;
-		protected Collection<ShapeComponent> ShapeComponents;
-		protected Collection<RibbonComponent> RibbonComponents;
+		public Collection<ModelComponent> ModelComponents { get; protected set; }
+		public Collection<ShapeComponent> ShapeComponents { get; protected set; }
+		public Collection<RibbonComponent> RibbonComponents { get; protected set; }
 
 		public LThing(ThingBlock template, ThingDefinition def) {
 			ID = IDs.New;

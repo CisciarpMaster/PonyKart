@@ -89,7 +89,7 @@ namespace Ponykart.Actors {
 
 			Accelerate();
 			Brake();
-			Turn();
+			Turn(evt.timeSinceLastFrame);
 		}
 
 		/// <summary>
@@ -117,9 +117,10 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
-		protected void Turn() {
+		protected void Turn(float timeSinceLastFrame) {
 			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
 			float speedTurnMultiplier = 1;
+			timeSinceLastFrame *= 100;
 
 			float axleSpeed = Kart.Vehicle.CurrentSpeedKmHour;
 			// less than the slow speed = extra turn multiplier
@@ -137,18 +138,19 @@ namespace Ponykart.Actors {
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 
 			float currentAngle = Kart.Vehicle.GetSteeringValue((int) WheelID);
+			float thisSteerIncr = steerIncrement * timeSinceLastFrame;
 			
 			// smooth out the turning
 			if (currentAngle < idealSteerAngle) {
-				if (currentAngle + steerIncrement <= idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(currentAngle + steerIncrement, (int) WheelID);
-				else if (currentAngle + steerIncrement > idealSteerAngle)
+				if (currentAngle + thisSteerIncr <= idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(currentAngle + thisSteerIncr, (int) WheelID);
+				else if (currentAngle + thisSteerIncr > idealSteerAngle)
 					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
 			else if (currentAngle > idealSteerAngle) {
-				if (currentAngle - steerIncrement >= idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(currentAngle - steerIncrement, (int) WheelID);
-				else if (currentAngle - steerIncrement < idealSteerAngle)
+				if (currentAngle - thisSteerIncr >= idealSteerAngle)
+					Kart.Vehicle.SetSteeringValue(currentAngle - thisSteerIncr, (int) WheelID);
+				else if (currentAngle - thisSteerIncr < idealSteerAngle)
 					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
 		}

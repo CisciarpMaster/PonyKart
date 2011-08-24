@@ -30,7 +30,7 @@ namespace Ponykart.Physics {
 
 			BulletMesh.PreallocateIndexes((int) index_count);
 			BulletMesh.PreallocateVertices((int) vertex_count);
-			BulletMesh.WeldingThreshold = 0.1f;
+			//BulletMesh.WeldingThreshold = 0.1f;
 
 			for (int a = 0; a < index_count; a += 3) {
 				BulletMesh.AddTriangle(vertices[indices[a]], vertices[indices[a + 1]], vertices[indices[a + 2]], true);

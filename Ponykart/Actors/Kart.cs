@@ -80,7 +80,6 @@ namespace Ponykart.Actors {
 			WheelFR.TurnMultiplier = WheelFL.TurnMultiplier = WheelBR.TurnMultiplier = WheelBL.TurnMultiplier = multiplier;
 		}
 
-		#region IDisposable stuff
 		public override void Dispose() {
 
 			// then we have to dispose of all of the wheels
@@ -91,6 +90,5 @@ namespace Ponykart.Actors {
 
 			base.Dispose();
 		}
-		#endregion
 	}
 }
