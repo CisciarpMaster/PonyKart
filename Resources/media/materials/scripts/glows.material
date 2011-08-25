@@ -15,7 +15,7 @@ material BalloonGlow {
 			}
 			fragment_program_ref glowBalloon_ps {
 				//param_named GlowColor float3 1 1 1
-				param_named GlowExpon float  1
+				param_named GlowExpon float 1
 			}
 		}
 	}

@@ -1,0 +1,222 @@
+
+material NoMaterial
+{
+	technique
+	{
+		pass
+		{
+			texture_unit {
+				texture yellowbrick.jpg
+			}
+		}
+
+	}
+
+}
+
+
+
+material default2
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture road2.png
+				//transform 12 0 0 0 0 12 0 0 0 0 1 0 0 0 0 1
+			}
+		}
+
+	}
+
+}
+
+
+
+material default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture redbrick.jpg
+			}
+		}
+
+	}
+
+}
+
+
+
+material 08-Default
+{
+	technique
+	{
+		pass
+		{
+
+			texture_unit
+			{
+				texture road_texture_1.png
+			}
+		}
+		
+		pass {
+			scene_blend colour_blend
+			depth_check on
+			lighting on
+			
+			vertex_program_ref glowBalloon_vs {
+			}
+			fragment_program_ref glowBalloon_ps {
+				param_named GlowColor float3 1 0.8 0.3
+				param_named GlowExpon float  2
+			}
+		}
+	}
+
+}
+
+
+
+material 09-Default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture grass_texture_1.png
+				//transform 50 0 0 0 0 50 0 0 0 0 1 0 0 0 0 1
+			}
+		}
+		pass {
+			scene_blend colour_blend
+			depth_check on
+			lighting on
+			
+			vertex_program_ref glowBalloon_vs {
+			}
+			fragment_program_ref glowBalloon_ps {
+				param_named GlowColor float3 0.7 0.9 0.2
+				param_named GlowExpon float  2
+			}
+		}
+	}
+
+}
+
+
+
+material 10-Default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture banner.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material 11-Default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture shared.jpg
+			}
+		}
+
+	}
+
+}
+
+
+
+material 13-Default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit {
+				texture bluebrick.jpg
+			}
+		}
+
+	}
+
+}
+
+
+
+material 14-Default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture fencetex.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material 15-Default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture spiky_bush_tex.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material 16-Default
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture barn_1024x2048.jpg
+			}
+		}
+
+	}
+
+}
+
+

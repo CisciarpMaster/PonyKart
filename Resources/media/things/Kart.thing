@@ -1,6 +1,6 @@
 Name = "Kart"
 Physics = Dynamic
-Mass = 500
+Mass = 100
 CollisionGroup = "Karts"
 CollidesWith = "Karts"
 MaxSpeed = 60

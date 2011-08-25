@@ -1,0 +1,249 @@
+<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.7" ogreMaxVersion="2.3.14" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
+    <environment>
+        <colourAmbient r="0.333333" g="0.333333" b="0.333333" />
+        <colourBackground r="0" g="0" b="0" />
+        <clipping near="0" far="100000" />
+    </environment>
+    <nodes>
+        <node name="Line001">
+            <position x="-437.011" y="-6.96936" z="-50.0214" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Line001" castShadows="true" receiveShadows="true" meshFile="Line001.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="NoMaterial" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Road_s1">
+            <position x="-69.9467" y="14.9867" z="290.972" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="Road_s1" castShadows="true" receiveShadows="true" meshFile="Road_s1.mesh">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Shape001">
+            <position x="-268.282" y="-6.96936" z="52.3184" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Shape001" castShadows="true" receiveShadows="true" meshFile="Shape001.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="NoMaterial" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Shape002">
+            <position x="-268.282" y="-6.96936" z="52.3184" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Shape002" castShadows="true" receiveShadows="true" meshFile="Shape002.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Road_s5">
+            <position x="261.884" y="18.9768" z="-169.08" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="Road_s5" castShadows="true" receiveShadows="true" meshFile="Road_s5.mesh">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Road_s2">
+            <position x="75.1291" y="-6.96935" z="170.016" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Road_s2" castShadows="true" receiveShadows="true" meshFile="Road_s2.mesh">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Road_s4">
+            <position x="75.1291" y="-6.96935" z="170.016" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="Road_s4" castShadows="true" receiveShadows="true" meshFile="Road_s4.mesh">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Bridge_1">
+            <position x="285.667" y="-16.7961" z="-239.977" />
+            <scale x="3.23051" y="2.5" z="0.938333" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Bridge_1" castShadows="true" receiveShadows="true" meshFile="Bridge_1.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="13-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Ramp_1">
+            <position x="-106.811" y="48.649" z="-672.68" />
+            <scale x="1.5634" y="2.5" z="2.86408" />
+            <rotation qx="0.697776" qy="0.114492" qz="0.114492" qw="0.697776" />
+            <entity name="Ramp_1" castShadows="true" receiveShadows="true" meshFile="Ramp_1.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="NoMaterial" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Road_s3">
+            <position x="119.19" y="-49.0117" z="-224.722" />
+            <scale x="3.61437" y="2.5" z="3.61437" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="Road_s3" castShadows="true" receiveShadows="true" meshFile="Road_s3.mesh">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="LP_Ground">
+            <position x="-18.8938" y="-6.96937" z="-171.604" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="LP_Ground" castShadows="true" receiveShadows="true" meshFile="LP_Ground.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="09-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="HP_Ground">
+            <position x="119.19" y="-49.0117" z="-224.722" />
+            <scale x="3.61437" y="2.5" z="3.61437" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="HP_Ground" castShadows="true" receiveShadows="true" meshFile="HP_Ground.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="09-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Banner">
+            <position x="-6.13099" y="23.95" z="324.679" />
+            <scale x="2.94578" y="2.82536" z="2.09351" />
+            <rotation qx="0" qy="-0.707107" qz="3.09086e-008" qw="0.707107" />
+            <entity name="Banner" castShadows="true" receiveShadows="true" meshFile="Banner.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="10-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="BannerPost">
+            <position x="-6.15035" y="11.5763" z="323.646" />
+            <scale x="2.09351" y="2.94578" z="2.82536" />
+            <rotation qx="1.78814e-007" qy="0.727982" qz="-0.685596" qw="-3.8743e-007" />
+            <entity name="BannerPost" castShadows="true" receiveShadows="true" meshFile="BannerPost.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="11-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object008">
+            <position x="-1.26341" y="-1.36052" z="269.8" />
+            <scale x="1" y="1" z="0.610662" />
+            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
+            <entity name="Object008" castShadows="true" receiveShadows="true" meshFile="Object008.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="14-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object009">
+            <position x="-26.2268" y="2.71923" z="269.8" />
+            <scale x="1" y="1" z="0.610662" />
+            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
+            <entity name="Object009" castShadows="true" receiveShadows="true" meshFile="Object009.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="14-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object011">
+            <position x="-49.1562" y="2.47855" z="269.8" />
+            <scale x="1" y="1" z="0.610662" />
+            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
+            <entity name="Object011" castShadows="true" receiveShadows="true" meshFile="Object011.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="14-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object012">
+            <position x="-72.8284" y="2.47855" z="268.735" />
+            <scale x="1" y="1" z="0.610662" />
+            <rotation qx="0.706434" qy="-0.0308436" qz="0.0308436" qw="0.706434" />
+            <entity name="Object012" castShadows="true" receiveShadows="true" meshFile="Object012.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="14-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="default002">
+            <position x="9.79416" y="-0.461523" z="267.374" />
+            <scale x="4.71791" y="4.71791" z="4.71791" />
+            <rotation qx="0.45452" qy="-0.541675" qz="0.541675" qw="0.45452" />
+            <entity name="default002" castShadows="true" receiveShadows="true" meshFile="default002.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="15-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object013">
+            <position x="92.1623" y="-1.49016" z="231.876" />
+            <scale x="0.00960932" y="0.0105858" z="0.00960932" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Object013" castShadows="true" receiveShadows="true" meshFile="Object013.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Road_s7">
+            <position x="261.884" y="18.9768" z="-169.08" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="Road_s7" castShadows="true" receiveShadows="true" meshFile="Road_s7.mesh">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Road_s6">
+            <position x="261.884" y="18.9768" z="-169.08" />
+            <scale x="2.5" y="2.5" z="2.5" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="Road_s6" castShadows="true" receiveShadows="true" meshFile="Road_s6.mesh">
+                <subentities>
+                    <subentity index="0" materialName="08-Default" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Barn_area_ground">
+            <position x="85.8292" y="-0.609074" z="262.329" />
+            <scale x="1" y="0.0120714" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Barn_area_ground" castShadows="true" receiveShadows="true" meshFile="Barn_area_ground.mesh">
+                <subentities>
+                    <subentity index="0" materialName="default2" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="barn">
+            <position x="93.727" y="-1.49117" z="229.147" />
+            <scale x="1.5" y="1.5" z="1.5" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="barn" castShadows="true" receiveShadows="true" meshFile="barn.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="16-Default" />
+                </subentities>
+            </entity>
+        </node>
+    </nodes>
+</scene>

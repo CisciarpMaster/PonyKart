@@ -90,6 +90,7 @@ namespace Ponykart.Physics {
 				var body = new RigidBody(info);
 				body.SetCollisionGroup(PonykartCollisionGroups.Environment);
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
+				body.SetName(dslNode.Name);
 				world.AddRigidBody(body, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 			}
 
@@ -99,6 +100,8 @@ namespace Ponykart.Physics {
 			var groundinfo = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1), Vector3.ZERO);
 			var groundBody = new RigidBody(groundinfo);
 			groundBody.SetName("ground");
+			groundBody.SetCollisionGroup(PonykartCollisionGroups.Environment);
+			groundBody.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 			world.AddRigidBody(groundBody, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 
 			if (PostCreateWorld != null)
@@ -166,7 +169,7 @@ namespace Ponykart.Physics {
 		}
 		public static bool DrawLines = 
 #if DEBUG
-			true;
+			false;
 #else
 			false;
 #endif

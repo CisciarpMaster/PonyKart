@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.Physics;
 using Ponykart.Players;
 
 namespace Ponykart.Handlers {
@@ -15,7 +17,7 @@ namespace Ponykart.Handlers {
 		public IDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
 
 		readonly float RAYCAST_TIME = 0.2f;
-		readonly float IN_AIR_MIN_DISTANCE = 2f;
+		readonly float IN_AIR_MIN_DISTANCE = 3f;
 
 		public StopKartsFromRollingOverHandler() {
 			SRHs = new Dictionary<Kart, SelfRightingHandler>();
@@ -26,22 +28,43 @@ namespace Ponykart.Handlers {
 		bool FrameStarted(FrameEvent evt) {
 			if (elapsed > RAYCAST_TIME) {
 				elapsed = 0;
+				var world = LKernel.Get<PhysicsMain>().World;
 
 				foreach (Player p in LKernel.Get<PlayerManager>().Players) {
 					if (p == null)
 						continue;
 
 					Kart kart = p.Kart;
-					// don't bother raycasting for karts that aren't moving, or if we're paused
+					// don't raycast for karts that don't exist! or if we're paused
 					if (kart == null || kart.Body.IsDisposed || Pauser.IsPaused)
 						continue;
 
-					// check to make sure we aren't righting this kart already
-					if (SRHs.ContainsKey(kart))
-						continue;
-
 					// get a ray pointing downwards from the kart (-Y axis)
-					Ray ray = new Ray(kart.RootNode.Position, -kart.RootNode.GetLocalYAxis());
+
+					Vector3 from = kart.RootNode.Position + kart.RootNode.GetLocalYAxis();
+					Vector3 to = from - (kart.RootNode.GetLocalYAxis() * IN_AIR_MIN_DISTANCE);
+
+					var callback = new DynamicsWorld.ClosestRayResultCallback(from, to);
+					callback.CollisionFilterMask = PonykartCollisionGroups.Environment.ToBullet();
+					
+					world.RayTest(from, to, callback);
+#if DEBUG
+					MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.White);
+#endif
+
+					if (!callback.HasHit) {
+						if (!SRHs.ContainsKey(kart)) {
+							SRHs.Add(kart, new SelfRightingHandler(kart));
+							System.Console.WriteLine("creating SRH for " + kart + kart.ID);
+						}
+					}
+					else {
+						SelfRightingHandler srh;
+						if (SRHs.TryGetValue(kart, out srh)) {
+							srh.Dispose();
+							System.Console.WriteLine("disposing SRH for " + kart + kart.ID + " because it collided with " + callback.CollisionObject.GetName());
+						}
+					}
 
 					//RaycastHit hit;
 					// TODO: do we even need this whole ray stuff any more? Why not just use constraints?

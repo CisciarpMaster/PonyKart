@@ -52,7 +52,7 @@ namespace Ponykart.Handlers {
 					LKernel.Get<Sound.SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 					break;
 				case KeyCode.KC_U:
-					LKernel.Get<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 300000, 0), Vector3.ZERO);
+					LKernel.Get<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 60000, 0), Vector3.ZERO);
 					break;
 				case KeyCode.KC_F:
 					LKernel.Get<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
