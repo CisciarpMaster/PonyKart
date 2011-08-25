@@ -30,18 +30,18 @@ namespace Ponykart {
 		/// <summary>
 		/// The desired physics framerate. You generally want it to be higher than the regular ogre FPS otherwise things start vibrating.
 		/// </summary>
-		public static readonly float PH_FIXED_TIMESTEP = 1f / 120f;
+		public static readonly float PH_FIXED_TIMESTEP = 1f / 80f;
 		/// <summary>
 		/// see http://bulletphysics.org/mediawiki-1.5.8/index.php/Stepping_The_World
 		/// </summary>
 		public static readonly int PH_MAX_SUBSTEPS = 15;
-		public static readonly float GRAVITY = -35f;
+		public static readonly float GRAVITY = -30f;
 		
 		// ===== Settings =====
 		/// <summary> Render glowy regions or not? </summary>
 		public static bool GLOWY_REGIONS = false;
 		/// <summary> Ribbons enable/disable </summary>
-		public static bool RIBBONS = true;
+		public static bool RIBBONS = false;
 		/// <summary> Sounds enable/disable </summary>
 		public static bool SOUNDS = true;
 		/// <summary> Music enable/disable </summary>

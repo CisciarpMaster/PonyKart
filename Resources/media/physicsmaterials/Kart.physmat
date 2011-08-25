@@ -1,3 +1,4 @@
-Bounciness = 0
+Bounciness = 0.2
+Friction = 0
 AngularDamping = 0.2
-LinearDamping = 0.2
+LinearDamping = 0

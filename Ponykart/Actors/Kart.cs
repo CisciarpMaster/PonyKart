@@ -51,10 +51,10 @@ namespace Ponykart.Actors {
 			var wheelFac = LKernel.Get<WheelFactory>();
 			string frontWheelName = def.GetStringProperty("frontwheel", null);
 			string backWheelName = def.GetStringProperty("backwheel", null);
-			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, new Vector3(1.7f, 0.4f, 1.33f), true);
-			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, new Vector3(-1.7f, 0.4f, 1.33f), true);
-			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, new Vector3(1.7f, 0.4f, -1.33f), false);
-			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, new Vector3(-1.7f, 0.4f, -1.33f), false);
+			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, new Vector3(1.34f, 0.8f, 1.26279f), true);
+			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, new Vector3(-1.34f, 0.8f, 1.26279f), true);
+			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, new Vector3(1.34f, 0.8f, -1.46281f), false);
+			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, new Vector3(-1.34f, 0.8f, -1.46281f), false);
 		}
 
 		/// <summary>
