@@ -1,6 +1,6 @@
 -- fills the apple cart with apples
 function applecart(lthing)
 	for a = 0, 10 do
-		spawn("Apple", vector(lthing.SpawnPosition.x, lthing.SpawnPosition.y + 2 + a, lthing.SpawnPosition.z))
+		spawn("Apple", addVectors(lthing.SpawnPosition, vector(0, 2 + a, 0)))
 	end
 end

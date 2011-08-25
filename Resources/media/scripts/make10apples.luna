@@ -3,9 +3,3 @@ function make10apples(x, y, z)
 		spawn("Apple", vector(x, y + a, z))
 	end
 end
-
-function make2000apples(x, y, z)
-	for a = 0, 2000 do
-		spawn("Apple", vector(x, y + a, z))
-	end
-end
