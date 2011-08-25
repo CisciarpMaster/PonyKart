@@ -72,7 +72,6 @@ namespace Ponykart.Actors {
 				if (LKernel.Get<LevelManager>().IsValidLevel)
 					RunScript();
 			}
-			
 		}
 
 		/// <summary>

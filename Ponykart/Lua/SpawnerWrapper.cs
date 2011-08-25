@@ -1,4 +1,5 @@
-﻿using LuaNetInterface;
+﻿using System;
+using LuaNetInterface;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -21,8 +22,8 @@ namespace Ponykart.Lua {
 				try {
 					return spawner.Spawn(type, pos);
 				}
-				catch {
-					LKernel.Get<LuaMain>().Print("[SpawnerWrapper] ERROR: The specified type \"" + type + "\" was not found!");
+				catch (Exception e) {
+					LKernel.Get<LuaMain>().Print("[SpawnerWrapper] ERROR: " + e.Source + " : " + e.Message);
 					return null;
 				}
 			}
