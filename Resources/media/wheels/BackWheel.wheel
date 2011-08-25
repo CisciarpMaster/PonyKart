@@ -2,7 +2,7 @@ Radius = 0.7
 Width = 0.5
 SuspensionRestLength = 0.4
 
-SpringStiffness = 400
+SpringStiffness = 200
 SpringCompression = 4.2
 SpringDamping = 40
 FrictionSlip = 20

@@ -19,6 +19,7 @@ namespace Ponykart.Handlers {
 			// shadows
 			sceneMgr.ShadowColour = new ColourValue(0.8f, 0.8f, 0.8f);
 			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
+			LKernel.Get<Viewport>().BackgroundColour = new ColourValue(0.7373f, 0.8902f, 0.9490f);
 
 			// sunlight
 			Light light = sceneMgr.CreateLight("sun");
