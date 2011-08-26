@@ -26,14 +26,16 @@ material default2
 		}
 		
 		pass {
-			scene_blend colour_blend
+			//scene_blend colour_blend
+			scene_blend add
 			depth_bias 1
 			light_scissor on
 			
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				param_named GlowColor float3 0.914 0.698 0.419
+				//param_named GlowColor float3 0.914 0.698 0.419
+				param_named GlowColor float3 0.274 0.209 0.126
 				param_named GlowExpon float  3
 			}
 		}
@@ -72,14 +74,16 @@ material 08-Default
 		}
 		
 		pass {
-			scene_blend colour_blend
+			//scene_blend colour_blend
+			scene_blend add
 			depth_bias 1
 			light_scissor on
 			
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				param_named GlowColor float3 0.792 0.694 0.424
+				//param_named GlowColor float3 0.792 0.694 0.424
+				param_named GlowColor float3 0.24 0.21 0.126
 				param_named GlowExpon float  3
 			}
 		}

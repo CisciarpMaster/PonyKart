@@ -127,16 +127,7 @@ namespace Ponykart.Actors {
 			CollisionShape shape;
 			// if we just have one shape component, we use its shape as the main one
 			if (ShapeComponents.Count == 1) {
-				// ideally we should rotate the whole Thing instead of its shape, but if we only have one shape and for whatever reason we absolutely cannot rotate the node instead,
-				// we'll have to stick it in a compound shape instead.
-				if (ShapeComponents[0].Transform == Matrix4.IDENTITY) {
-					shape = ShapeComponents[0].Shape;
-				}
-				else {
-					CompoundShape comp = new CompoundShape();
-					comp.AddChildShape(ShapeComponents[0].Transform, ShapeComponents[0].Shape);
-					shape = comp;
-				}
+				shape = ShapeComponents[0].Shape;
 			}
 			// if we have more than one component we'll need a compound shape
 			else {
@@ -179,6 +170,7 @@ namespace Ponykart.Actors {
 				throw new FormatException("Invalid collides-with group!");
 			CollidesWith = pcwg;
 
+			// update the transforms
 			Matrix4 transform = new Matrix4();
 			transform.MakeTransform(SpawnPosition, SpawnScale, SpawnOrientation);
 			Info.StartWorldTransform = transform;
@@ -202,6 +194,8 @@ namespace Ponykart.Actors {
 				Body.CollisionFlags |= CollisionFlags.StaticObject;
 			else if (te.HasFlag(ThingEnum.Kinematic))
 				Body.CollisionFlags |= CollisionFlags.KinematicObject;
+
+			Body.WorldTransform = Info.StartWorldTransform;
 
 			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);
 		}
