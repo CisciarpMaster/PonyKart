@@ -35,8 +35,8 @@ namespace Ponykart.Handlers {
 						continue;
 
 					Kart kart = p.Kart;
-					// don't raycast for karts that don't exist! or if we're paused
-					if (kart == null || kart.Body.IsDisposed || Pauser.IsPaused)
+					// don't raycast for karts that don't exist! or if we're paused. Or if we're already upright
+					if (kart == null || kart.Body.IsDisposed || Pauser.IsPaused || kart.RootNode.GetLocalYAxis().DirectionEquals(Vector3.UNIT_Y, 0.0523f)) // 3 degrees
 						continue;
 
 					// get a ray pointing downwards from the kart (-Y axis)
@@ -52,12 +52,14 @@ namespace Ponykart.Handlers {
 					MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.White);
 #endif
 
+					// if the ray did not hit, check to see if we currently have an SRH for that kart, and if not, make one
 					if (!callback.HasHit) {
 						if (!SRHs.ContainsKey(kart)) {
 							SRHs.Add(kart, new SelfRightingHandler(kart));
 							System.Console.WriteLine("creating SRH for " + kart + kart.ID);
 						}
 					}
+					// otherwise, if the kart hit the ground but we already have an SRH, dispose it
 					else {
 						SelfRightingHandler srh;
 						if (SRHs.TryGetValue(kart, out srh)) {
@@ -65,15 +67,6 @@ namespace Ponykart.Handlers {
 							System.Console.WriteLine("disposing SRH for " + kart + kart.ID + " because it collided with " + callback.CollisionObject.GetName());
 						}
 					}
-
-					//RaycastHit hit;
-					// TODO: do we even need this whole ray stuff any more? Why not just use constraints?
-					//Shape closestShape = LKernel.Get<PhysicsMain>().Scene.RaycastClosestShape(ray, ShapesTypes.All, out hit);
-
-					// if the ray either didn't collide with anything or if the closest thing is >2 away, then make the kart upright
-					//if (closestShape == null || hit.Distance > IN_AIR_MIN_DISTANCE) {
-					//	SRHs.Add(kart, new SelfRightingHandler(kart));
-					//}
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

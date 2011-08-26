@@ -1,0 +1,40 @@
+
+material Barn
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			
+			texture_unit
+			{
+				texture barn_1024x2048.jpg
+			}
+		}
+
+	}
+
+}
+
+
+
+material Barn_Plants
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			cull_hardware none
+
+			texture_unit
+			{
+				texture barn03.png
+			}
+		}
+	}
+}
+
+

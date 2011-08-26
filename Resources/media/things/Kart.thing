@@ -11,9 +11,8 @@ PhysicsMaterial = "Kart"
 // box#0
 Shape {
 	Type = Box
-	Position = -0.00027632, 0.950384, -0.0895839
-	Orientation = 0, 0, 0, 1
-	Dimensions = 2.89325, 0.417158, 2.93088
+	Position = -0.00027632, 1.150384, -0.0895839
+	Dimensions = 2.89325, 0.717158, 2.93088
 }
 Model {
 	Mesh = "kart/KartChassis.mesh"
@@ -44,30 +43,33 @@ Shape {
 
 // cylinder#0
 /*Shape {
-	Type = Cylinder
+	Type = Sphere
 	Position = -1.34, 0.8, 1.262
-	Orientation = 0, 0, 0.704015, 0.710185
-	Dimensions = 1, 0.483707, 1
+	//Orientation = 0, 0, 0.704015, 0.710185
+	//Dimensions = 1, 0.483707, 1
+	Radius = 0.7
 }
 // cylinder#1
 Shape {
-	Type = Cylinder
+	Type = Sphere
 	Position = 1.34, 0.8, 1.262
-	Orientation = 0, 0, 0.704015, 0.710185
-	Dimensions = 1, 0.483707, 1
+	//Orientation = 0, 0, 0.704015, 0.710185
+	//Dimensions = 1, 0.483707, 1
+	Radius = 0.7
 }
 // cylinder#2
 Shape {
-	Type = Cylinder
+	Type = Sphere
 	Position = 1.34, 0.8, -1.46253
-	Orientation = 0, 0, 0.704015, 0.710185
-	Dimensions = 1, 0.483707, 1
+	//Orientation = 0, 0, 0.704015, 0.710185
+	//Dimensions = 1, 0.483707, 1
+	Radius = 0.7
 }
 // cylinder#3
 Shape {
-	Type = Cylinder
+	Type = Sphere
 	Position = -1.34, 0.8, -1.46253
-	Orientation = 0, 0, 0.704015, 0.710185
-	Dimensions = 1, 0.483707, 1
-}
-*/
+	//Orientation = 0, 0, 0.704015, 0.710185
+	//Dimensions = 1, 0.483707, 1
+	Radius = 0.7
+}*/

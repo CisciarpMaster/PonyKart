@@ -1,0 +1,215 @@
+Name = "Barn"
+Physics = Static
+Mass = 0
+Script = "barn"
+CollisionGroup = "Environment"
+CollidesWith = "Environment"
+
+// box#0
+Shape {
+	Type = Box
+	Position = 0.810346, 26.7763, 1.11209
+	Dimensions = 27.8653, 17.6353, 33.047
+}
+Model {
+	Name = "Barn"
+	Mesh = "Barn.mesh"
+	Material = "Barn"
+	Position = 7.96297, 26.8586, 0
+	Scale = 1.5, 1.5, 1.5
+}
+// box#7
+Shape {
+	Type = Box
+	Position = -7.72234, 9.01932, 14.0228
+	Dimensions = 2, 19, 7
+}
+Model {
+	Name = "front right top barn door"
+	Mesh = "Barn_Door_Top.mesh"
+	Material = "Barn"
+	Position = -9.10718, 7.31765, -17.7276
+	Orientation = 0, -0.406737, 0, 0.913545
+	Scale = 1.5, 1.5, 1.5
+}
+// box#25
+Shape {
+	Type = Box
+	Position = -9.17104, 7.36007, -17.7316
+	Orientation = 0, -0.394744, 0, 0.918791
+	Dimensions = 7.96453, 6.40792, 1
+}
+Model {
+	Name = "front left bottom barn door"
+	Mesh = "Barn_Door_Bottom.mesh"
+	Material = "Barn"
+	Position = 4.76731, 2.01974, -14.4849
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Name = "front left top barn door"
+	Mesh = "Barn_Door_Top.mesh"
+	Material = "Barn"
+	Position = 4.95968, 7.38608, -14.5139
+	Scale = 1.5, 1.5, 1.5
+}
+// box#4
+Shape {
+	Type = Box
+	Position = 11.8016, 9.45096, 14.0656
+	Orientation = 0, 0, -0.0348995, 0.999391
+	Dimensions = 5, 20, 7
+}
+Model {
+	Name = "front right bottom door"
+	Mesh = "Barn_Door_Bottom.mesh"
+	Material = "Barn"
+	Position = -8.6534, 1.93295, -17.8905
+	Orientation = 0, -0.492424, 0, 0.870356
+	Scale = 1.5, 1.5, 1.5
+}
+// box#23
+Shape {
+	Type = Box
+	Position = 4.80375, 4.99322, -14.4415
+	Dimensions = 7.56678, 12.1203, 1
+}
+Model {
+	Name = "plants"
+	Mesh = "Barn_Plants.mesh"
+	Material = "Barn_Plants"
+	Position = 5.48586, 32.0336, 1.00634
+	Scale = 1.5, 1.5, 1.5
+}
+// box#1
+Shape {
+	Type = Box
+	Position = -10.0343, 9.48417, -6.23485
+	Orientation = 0, 0, 0.0348995, 0.999391
+	Dimensions = 5, 20, 18
+}
+// box#3
+Shape {
+	Type = Box
+	Position = -9.89439, 9.45014, 14.0046
+	Orientation = 0, 0, 0.0348995, 0.999391
+	Dimensions = 5, 20, 7
+}
+// box#2
+Shape {
+	Type = Box
+	Position = 12.2663, 9.41847, -6.23485
+	Orientation = 0, 0, -0.0348995, 0.999391
+	Dimensions = 5, 20, 18
+}
+// box#6
+Shape {
+	Type = Box
+	Position = 9.62164, 8.73665, -6.2569
+	Dimensions = 2, 19, 18
+}
+// box#5
+Shape {
+	Type = Box
+	Position = -7.72234, 9.07087, -6.2569
+	Dimensions = 2, 19, 18
+}
+// box#8
+Shape {
+	Type = Box
+	Position = 9.57787, 8.91007, 14.0228
+	Dimensions = 2, 19, 7
+}
+// box#9
+Shape {
+	Type = Box
+	Position = -11.5827, 8.45239, 6.82724
+	Orientation = 0, 0, 0.0348995, 0.999391
+	Dimensions = 2, 19, 9
+}
+// box#10
+Shape {
+	Type = Box
+	Position = 0.767867, 14.5802, -14.6981
+	Orientation = 0, 0, 0, 1
+	Dimensions = 16, 8, 1
+}
+// box#11
+Shape {
+	Type = Box
+	Position = 0.767867, 14.5802, 16.8657
+	Dimensions = 16, 8, 1
+}
+// box#12
+Shape {
+	Type = Box
+	Position = 0.95805, 19.8305, 18.6185
+	Dimensions = 8.5, 3, 2
+}
+// box#13
+Shape {
+	Type = Box
+	Position = 0.95805, 19.8305, -16.2726
+	Dimensions = 8.5, 3, 2
+}
+// box#14
+Shape {
+	Type = Box
+	Position = 0.907143, 15.6895, -17.0073
+	Dimensions = 13, 3.5, 4
+}
+// box#15
+Shape {
+	Type = Box
+	Position = 0.907143, 15.6895, 19.3094
+	Dimensions = 13, 3.5, 4
+}
+// box#16
+Shape {
+	Type = Box
+	Position = 1.11604, 49.0149, -10.2744
+	Dimensions = 8, 28, 8
+}
+// box#17
+Shape {
+	Type = Box
+	Position = 16.7181, 11.4811, -6.55119
+	Dimensions = 4, 3, 6
+}
+// box#18
+Shape {
+	Type = Box
+	Position = -14.6513, 11.6502, -6.55119
+	Dimensions = 4.5, 3.5, 6
+}
+// box#21
+Shape {
+	Type = Box
+	Position = 21.5528, 6.0026, -1.11583
+	Dimensions = 6.5, 13.1998, 2.7046
+}
+// box#19
+Shape {
+	Type = Box
+	Position = -14.37, 10.4063, 7.62354
+	Dimensions = 4.5, 3.5, 8.5
+}
+// box#20
+Shape {
+	Type = Box
+	Position = 21.2586, 7.74571, 7.98462
+	Dimensions = 16, 17, 16
+}
+// box#22
+Shape {
+	Type = Box
+	Position = 21.5528, 6.0026, 16.5512
+	Dimensions = 6.5, 13.1998, 2.7046
+}
+// box#24
+Shape {
+	Type = Box
+	Position = -8.81338, 1.94419, -17.8743
+	Orientation = 0, -0.488621, 0, 0.872496
+	Dimensions = 7.56678, 4.61307, 1
+}

@@ -5,7 +5,7 @@ SuspensionRestLength = 0.4
 SpringStiffness = 200
 SpringCompression = 4.2
 SpringDamping = 40
-FrictionSlip = 3
+FrictionSlip = 4
 RollInfluence = 0.05
 
 BrakeForce = 50

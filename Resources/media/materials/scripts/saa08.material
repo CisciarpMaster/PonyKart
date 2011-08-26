@@ -9,12 +9,8 @@ material NoMaterial
 				texture yellowbrick.jpg
 			}
 		}
-
 	}
-
 }
-
-
 
 material default2
 {
@@ -28,12 +24,20 @@ material default2
 				//transform 12 0 0 0 0 12 0 0 0 0 1 0 0 0 0 1
 			}
 		}
-
+		
+		pass {
+			scene_blend colour_blend
+			depth_check on
+			
+			vertex_program_ref glowBalloon_vs {
+			}
+			fragment_program_ref glowBalloon_ps {
+				param_named GlowColor float3 0.914 0.698 0.419
+				param_named GlowExpon float  3
+			}
+		}
 	}
-
 }
-
-
 
 material default
 {
@@ -68,18 +72,16 @@ material 08-Default
 		
 		pass {
 			scene_blend colour_blend
-			depth_check on
-			lighting on
+			depth_check off
 			
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				param_named GlowColor float3 1 0.8 0.3
-				param_named GlowExpon float  2
+				param_named GlowColor float3 0.792 0.694 0.424
+				param_named GlowExpon float  3
 			}
 		}
 	}
-
 }
 
 
@@ -99,20 +101,17 @@ material 09-Default
 		pass {
 			scene_blend colour_blend
 			depth_check on
-			lighting on
+			depth_write off
 			
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				param_named GlowColor float3 0.7 0.9 0.2
-				param_named GlowExpon float  2
+				param_named GlowColor float3 0.651 0.78 0.224
+				param_named GlowExpon float  3
 			}
 		}
 	}
-
 }
-
-
 
 material 10-Default
 {
@@ -125,9 +124,7 @@ material 10-Default
 				texture banner.png
 			}
 		}
-
 	}
-
 }
 
 
@@ -143,9 +140,7 @@ material 11-Default
 				texture shared.jpg
 			}
 		}
-
 	}
-
 }
 
 
@@ -160,9 +155,7 @@ material 13-Default
 				texture bluebrick.jpg
 			}
 		}
-
 	}
-
 }
 
 

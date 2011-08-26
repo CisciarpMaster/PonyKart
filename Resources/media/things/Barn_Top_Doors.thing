@@ -1,0 +1,19 @@
+Name = "Barn_Top_Doors"
+Physics = Dynamic
+Mass = 50
+CollisionGroup = "Environment"
+CollidesWith = "Environment"
+
+Model {
+	Name = "Barn_Door_Top"
+	Mesh = "Barn_Door_Top.mesh"
+	Material = "Barn"
+	Position = 0, 0, 0
+	Scale = 1.5, 1.5, 1.5
+}
+// box for top
+Shape {
+	Type = Box
+	Position = 0, 0, 0
+	Dimensions = 7.83753, 6.45971, 0.756926
+}

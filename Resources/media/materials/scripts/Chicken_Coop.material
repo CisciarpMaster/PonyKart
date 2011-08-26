@@ -28,7 +28,7 @@ material Chicken_Coop
 			
 			texture_unit
 			{
-				texture chickencoop.png
+				texture chickencoop.jpg
 			}
 		}
 	}

@@ -38,5 +38,12 @@ namespace Ponykart.Lua {
 		public static Vector3 multiplyVec(Vector3 vec1, float scalar) {
 			return vec1 * scalar;
 		}
+
+		// ------------------------------------
+
+		[LuaFunction("quaternion", "Creates a Mogre.Quaternion object", "x", "y", "z", "w")]
+		public static Quaternion quat(float x, float y, float z, float w) {
+			return new Quaternion(w, x, y, z);
+		}
 	}
 }

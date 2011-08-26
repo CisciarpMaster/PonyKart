@@ -1,5 +1,9 @@
 Name = "ChickenCoop"
 Physics = Static
+Mass = 0
+CollisionGroup = "Environment"
+CollidesWith = "Environment"
+
 Model {
 	Mesh = "Chicken_Coop.mesh"
 	Position = 0, 5.084, 0
