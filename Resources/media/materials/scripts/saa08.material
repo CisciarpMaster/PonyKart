@@ -27,7 +27,8 @@ material default2
 		
 		pass {
 			scene_blend colour_blend
-			depth_check on
+			depth_bias 1
+			light_scissor on
 			
 			vertex_program_ref glowBalloon_vs {
 			}
@@ -72,7 +73,8 @@ material 08-Default
 		
 		pass {
 			scene_blend colour_blend
-			depth_check off
+			depth_bias 1
+			light_scissor on
 			
 			vertex_program_ref glowBalloon_vs {
 			}
@@ -100,8 +102,8 @@ material 09-Default
 		}
 		pass {
 			scene_blend colour_blend
-			depth_check on
-			depth_write off
+			depth_bias 1
+			light_scissor on
 			
 			vertex_program_ref glowBalloon_vs {
 			}
