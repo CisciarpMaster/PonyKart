@@ -42,7 +42,7 @@ namespace Ponykart.Actors {
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.Get<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();
-			Tuning.MaxSuspensionTravelCm = 40f;
+			//Tuning.MaxSuspensionTravelCm = 40f;
 			Vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
 			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a matrix?
 
@@ -51,10 +51,10 @@ namespace Ponykart.Actors {
 			var wheelFac = LKernel.Get<WheelFactory>();
 			string frontWheelName = def.GetStringProperty("frontwheel", null);
 			string backWheelName = def.GetStringProperty("backwheel", null);
-			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, new Vector3(1.34f, 0.8f, 1.26279f), true);
-			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, new Vector3(-1.34f, 0.8f, 1.26279f), true);
-			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, new Vector3(1.34f, 0.8f, -1.46281f), false);
-			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, new Vector3(-1.34f, 0.8f, -1.46281f), false);
+			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, new Vector3(1.34f, 1.0f, 1.26279f), true);
+			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, new Vector3(-1.34f, 1.0f, 1.26279f), true);
+			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, new Vector3(1.34f, 1.0f, -1.46281f), false);
+			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, new Vector3(-1.34f, 1.0f, -1.46281f), false);
 		}
 
 		/// <summary>
@@ -78,6 +78,12 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Turn(float multiplier) {
 			WheelFR.TurnMultiplier = WheelFL.TurnMultiplier = WheelBR.TurnMultiplier = WheelBL.TurnMultiplier = multiplier;
+		}
+
+		public void SetWheelFriction(float friction) {
+			for (int a = 0; a < 4; a++) {
+				Vehicle.GetWheelInfo(a).FrictionSlip = friction;
+			}
 		}
 
 		public override void Dispose() {

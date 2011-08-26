@@ -17,7 +17,7 @@ namespace Ponykart.Handlers {
 
 			label = new Label("speed label") {
 				Location = new Point(10, 400),
-				Size = new Size(200, 200),
+				Size = new Size(400, 200),
 				Visible = true,
 				TextStyle = {
 					Alignment = Alignment.TopLeft,
@@ -34,7 +34,7 @@ namespace Ponykart.Handlers {
 
 		float elapsed;
 		bool FrameStarted(FrameEvent evt) {
-			if (elapsed >= 0.2f) {
+			if (elapsed >= 0.1f) {
 				elapsed = 0;
 
 				var mainPlayer = LKernel.Get<PlayerManager>().MainPlayer;
@@ -44,7 +44,8 @@ namespace Ponykart.Handlers {
 					label.Text =
 						"Speed: " + kart.Vehicle.CurrentSpeedKmHour + "\r\n" +
 						"Turn angle: " + kart.Vehicle.GetSteeringValue((int) WheelID.FrontLeft) + "\r\n" +
-						"Linear Velocity: " + kart.Body.LinearVelocity.Length + "\r\n";
+						"Linear Velocity: " + kart.Body.LinearVelocity.Length + "  " + kart.Body.LinearVelocity + "\r\n" +
+						"WheelFriction: " + kart.Vehicle.GetWheelInfo(0).FrictionSlip + " , " + kart.Vehicle.GetWheelInfo(2).FrictionSlip;
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

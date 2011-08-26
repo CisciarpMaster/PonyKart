@@ -1,3 +1,4 @@
+#if DEBUG
 /// http://www.ogre3d.org/addonforums/viewtopic.php?f=8&p=81515#p81515
 using System.Collections.Generic;
 using Mogre;
@@ -308,17 +309,28 @@ public class MogreDebugDrawer : System.IDisposable {
 		manualObject = sceneManager.CreateManualObject("debug_object");
 		manualObject.CastShadows = false;
 
+		// set up material
+		string matName = "MogreDebugDrawerMaterial";
+		MaterialPtr mtl = MaterialManager.Singleton.GetDefaultSettings().Clone(matName);
+		mtl.ReceiveShadows = false;
+		mtl.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+		mtl.SetDepthBias(0.1f, 0);
+		// also for the material
+		TextureUnitState tu = mtl.GetTechnique(0).GetPass(0).CreateTextureUnitState();
+		tu.SetColourOperationEx(LayerBlendOperationEx.LBX_SOURCE1, LayerBlendSource.LBS_DIFFUSE);
+		mtl.GetTechnique(0).SetLightingEnabled(false);
+
 		sceneManager.RootSceneNode.CreateChildSceneNode("debug_object").AttachObject(manualObject);
 		manualObject.Dynamic = (true);
 
 		icoSphere.create(this.DEFAULT_ICOSPHERE_RECURSION_LEVEL);
 
-		manualObject.Begin("debug_draw", RenderOperation.OperationTypes.OT_LINE_LIST);
+		manualObject.Begin(matName, RenderOperation.OperationTypes.OT_LINE_LIST);
 		manualObject.Position(Vector3.ZERO);
 		manualObject.Colour(ColourValue.ZERO);
 		manualObject.Index(0);
 		manualObject.End();
-		manualObject.Begin("debug_draw", RenderOperation.OperationTypes.OT_TRIANGLE_LIST);
+		manualObject.Begin(matName, RenderOperation.OperationTypes.OT_TRIANGLE_LIST);
 		manualObject.Position(Vector3.ZERO);
 		manualObject.Colour(ColourValue.ZERO);
 		manualObject.Index(0);
@@ -675,3 +687,4 @@ public class MogreDebugDrawer : System.IDisposable {
 	#endregion
 
 }
+#endif

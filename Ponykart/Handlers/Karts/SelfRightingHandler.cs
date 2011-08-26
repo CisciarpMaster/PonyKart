@@ -35,7 +35,6 @@ namespace Ponykart.Handlers {
 			// so first we get the kart's orientation
 			Matrix3 matrix = kart.Body.WorldTransform.Extract3x3Matrix();
 			// then we basically get its local Y axis and average it with the global Y axis to make more of a smooth transition
-			Vector3 avgY = matrix.GetLocalYAxis();
 			Vector3 locY = matrix.GetLocalYAxis();
 
 			// first of all, if we're self righted enough, we can get rid of this handler
@@ -53,21 +52,20 @@ namespace Ponykart.Handlers {
 			quat.x *= 0.95f;
 			quat.z *= 0.95f;
 			quat.Normalise();
-			// make a new matrix from the new quaternion
-			Matrix4 mat = new Matrix4(quat);
-			// instead of doing a GetTrans() and SetTrans(), which does unnecessary calculation, we just carry the translation part over manually
-			mat[0, 3] = kart.Body.WorldTransform[0, 3];
-			mat[1, 3] = kart.Body.WorldTransform[1, 3];
-			mat[2, 3] = kart.Body.WorldTransform[2, 3];
-			mat[3, 3] = kart.Body.WorldTransform[3, 3];
 
 			// then update the body's transform
-			kart.Body.WorldTransform = mat;
+			kart.Body.SetOrientation(quat);
 		}
 
+		public bool IsDisposed = false;
 		public void Dispose() {
+			// already disposed?
+			if (IsDisposed)
+				return;
+
+			IsDisposed = true;
 			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
-			LKernel.Get<StopKartsFromRollingOverHandler>().SRHs.Remove(kart);
+			//LKernel.Get<StopKartsFromRollingOverHandler>().SRHs.Remove(kart);
 			System.Console.WriteLine("Disposing SRH for " + kart);
 			kart = null;
 		}

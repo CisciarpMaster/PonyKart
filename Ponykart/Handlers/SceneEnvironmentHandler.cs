@@ -19,6 +19,7 @@ namespace Ponykart.Handlers {
 			// shadows
 			sceneMgr.ShadowColour = new ColourValue(0.8f, 0.8f, 0.8f);
 			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
+			// TODO read this from a file
 			LKernel.Get<Viewport>().BackgroundColour = new ColourValue(0.7373f, 0.8902f, 0.9490f);
 
 			// sunlight
@@ -30,11 +31,7 @@ namespace Ponykart.Handlers {
 
 #if DEBUG
 			// make some axes
-			SceneNode axesNode = sceneMgr.RootSceneNode.CreateChildSceneNode("axes node");
-			Entity axesEnt = sceneMgr.CreateEntity("axes entity", "axes.mesh");
-			axesEnt.SetMaterialName("Core/NodeMaterial");
-			axesNode.AttachObject(axesEnt);
-			axesNode.SetScale(0.1f, 0.1f, 0.1f);
+			LKernel.Get<Core.Spawner>().Spawn("Axis", Vector3.ZERO);
 
 			// for testing animation
 			//LKernel.Get<Core.Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));

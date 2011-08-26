@@ -80,6 +80,7 @@ namespace Ponykart.Handlers {
 					"[U] Apply an upwards force\r\n" +
 					"[B] Spawn a primitive\r\n" +
 					"[F] Multiply your speed by 2\r\n" +
+					"[G] Disable wheel friction (when pressed)\r\n" + 
 #if DEBUG
  "[I] Toggles debug lines\r\n" +
 #endif

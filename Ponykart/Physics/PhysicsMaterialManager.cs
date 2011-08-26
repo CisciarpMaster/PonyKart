@@ -13,6 +13,8 @@ namespace Ponykart.Physics {
 		/// Only applies friction and bounciness. Use a RigidBodyConstructionInfo if you want to set the damping.
 		/// </summary>
 		public void ApplyMaterial(RigidBody body, string material) {
+			Launch.Log("[PhysicsMaterialManager] Applying material \"" + material + "\" to " + body.GetName());
+
 			PhysicsMaterial mat = LKernel.Get<PhysicsMaterialFactory>().GetMaterial(material);
 
 			body.Friction = mat.Friction;
@@ -23,6 +25,8 @@ namespace Ponykart.Physics {
 		/// Applies friction, bounciness, angular damping, and linear damping
 		/// </summary>
 		public void ApplyMaterial(RigidBodyConstructionInfo info, string material) {
+			Launch.Log("[PhysicsMaterialManager] Applying material \"" + material + "\" to RigidBodyConstructionInfo");
+
 			PhysicsMaterial mat = LKernel.Get<PhysicsMaterialFactory>().GetMaterial(material);
 
 			info.Friction = mat.Friction;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BulletSharp;
+using Mogre;
 
 namespace Ponykart.Physics {
 	/// <summary>
@@ -53,6 +54,23 @@ namespace Ponykart.Physics {
 		/// <param name="newGroup">The group to store in this collision object.</param>
 		public static void SetCollisionGroup(this CollisionObject obj, PonykartCollisionGroups newGroup) {
 			CollisionGroups[obj] = newGroup;
+		}
+
+		// -------------------------------------------------------------------------
+
+		/// <summary>
+		/// Sets the orientation of this CollisionObject. This involves a bunch of matrix and quaternion stuff, so only use this if it's really necessary!
+		/// </summary>
+		/// <param name="newOrient"></param>
+		public static void SetOrientation(this CollisionObject obj, Quaternion newOrient) {
+			Matrix4 mat = new Matrix4(newOrient);
+			// this avoids having to do GetTrans() and SetTrans(), which both do calculations that we don't want.
+			mat[0, 3] = obj.WorldTransform[0, 3];
+			mat[1, 3] = obj.WorldTransform[1, 3];
+			mat[2, 3] = obj.WorldTransform[2, 3];
+			mat[3, 3] = obj.WorldTransform[3, 3];
+			// update our body
+			obj.WorldTransform = mat;
 		}
 		#endregion
 

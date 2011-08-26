@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using BulletSharp;
-using LymphThing;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Players;
 using Ponykart.Stuff;
 using IDisposable = System.IDisposable;
 
@@ -28,19 +26,26 @@ namespace Ponykart.Physics {
 		/// This is invoked after every physics "tick", which occur multiple times per frame.
 		/// Want to change a speed based on a maximum velocity or whatever? Do it with this.
 		/// </summary>
-		public DynamicsWorld.InternalTickCallback PostTick;
+		public event DynamicsWorld.InternalTickCallback PostTick;
 		/// <summary>
 		/// Is invoked right after the physics world is created.
 		/// </summary>
-		public PhysicsWorldEventHandler PostCreateWorld;
+		public event PhysicsWorldEventHandler PostCreateWorld;
 		/// <summary>
 		/// Is invoked right before the physics world is simulated.
 		/// </summary>
-		public PhysicsSimulateEventHandler PreSimulate;
+		public event PhysicsSimulateEventHandler PreSimulate;
 		/// <summary>
 		/// Is invoked right after the physics world is simulated.
 		/// </summary>
-		public PhysicsSimulateEventHandler PostSimulate;
+		public event PhysicsSimulateEventHandler PostSimulate;
+
+		public static bool DrawLines = 
+#if DEBUG
+			false;
+#else
+			false;
+#endif
 
 		/// <summary>
 		/// our collection of things to dispose; these are processed after every "frame"
@@ -166,33 +171,6 @@ namespace Ponykart.Physics {
 				world.DebugDrawWorld();
 
 			return !quit;
-		}
-		public static bool DrawLines = 
-#if DEBUG
-			false;
-#else
-			false;
-#endif
-
-		public void ShootPrimitive() {
-			string type;
-			switch ((int) Math.RangeRandom(0, 5)) {
-				case 0:
-				default:
-					type = "Box"; break;
-				case 1:
-					type = "Sphere"; break;
-				case 2:
-					type = "Cylinder"; break;
-				case 3:
-					type = "Cone"; break;
-				case 4:
-					type = "Capsule"; break;
-			}
-			Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition + Vector3.UNIT_Y;
-			var tb = new ThingBlock(type, pos);
-			var td = LKernel.Get<ThingDatabase>().GetThingDefinition(type);
-			new LThing(tb, td);
 		}
 
 		public DiscreteDynamicsWorld World {

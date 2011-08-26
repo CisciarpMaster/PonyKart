@@ -30,9 +30,6 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_MINUS: // the -_ key
 					LKernel.Get<DebugOverlayManager>().ToggleDebugOverlay();
 					break;
-				case KeyCode.KC_B:
-					LKernel.Get<PhysicsMain>().ShootPrimitive();
-					break;
 				case KeyCode.KC_K:
 					LKernel.Get<Spawner>().Spawn("Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
 					break;

@@ -4,6 +4,7 @@ Mass = 100
 CollisionGroup = "Karts"
 CollidesWith = "Karts"
 MaxSpeed = 60
+MaxReverseSpeed = 20
 FrontWheel = "FrontWheel"
 BackWheel = "BackWheel"
 PhysicsMaterial = "Kart"

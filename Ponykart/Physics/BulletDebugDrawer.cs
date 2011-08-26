@@ -1,4 +1,5 @@
-﻿using BulletSharp;
+﻿#if DEBUG
+using BulletSharp;
 using Mogre;
 
 namespace Ponykart.Physics {
@@ -23,7 +24,7 @@ namespace Ponykart.Physics {
 			sceneMgr.RootSceneNode.AttachObject(lines);
 			sceneMgr.RootSceneNode.AttachObject(triangles);
 
-			string matName = "OgreBulletCollisionsDebugDefault";
+			string matName = "BulletDebugDrawerMaterial";
 			MaterialPtr mtl = MaterialManager.Singleton.GetDefaultSettings().Clone(matName);
 			mtl.ReceiveShadows = false;
 			mtl.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
@@ -82,10 +83,19 @@ namespace Ponykart.Physics {
 			triangles.Dispose();
 		}
 
-
+		/// <summary>
+		/// A little condition to check whether we should render a line or not
+		/// </summary>
 		bool DrawCondition(Vector3 compare) {
 			return !LKernel.Get<Levels.LevelManager>().IsValidLevel
 				|| (LKernel.Get<Players.PlayerManager>().MainPlayer.NodePosition - compare).SquaredLength > maxRenderDistanceSquared;
+		}
+
+		/// <summary>
+		/// A little condition to check whether we should render a line or not
+		/// </summary>
+		bool DrawCondition(Matrix4 compare) {
+			return DrawCondition(compare.GetTrans());
 		}
 
 
@@ -111,7 +121,9 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Draws an axis-aligned bounding box
 		/// </summary>
-		/// <param name="colour">I override this and make it white with 30% opacity</param>
+		/// <param name="colour">
+		/// I override this and make it white with 30% opacity
+		/// </param>
 		public void DrawAabb(Vector3 from, Vector3 to, ColourValue colour) {
 			if (!begin || DrawCondition(from))
 				return;
@@ -170,8 +182,11 @@ namespace Ponykart.Physics {
 			
 		}
 
+		/// <summary>
+		/// Draws a cylinder, then draws two half-spheres on the top and bottom
+		/// </summary>
 		public void DrawCapsule(float radius, float halfHeight, int upAxis, Matrix4 transform, ColourValue colour) {
-			if (DrawCondition(transform.GetTrans()))
+			if (DrawCondition(transform))
 				return;
 
 			DrawCylinder(radius, halfHeight, upAxis, transform, colour);
@@ -227,9 +242,11 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Draws a cone
 		/// </summary>
-		/// <param name="upAxis">ignored for now</param>
+		/// <param name="upAxis">
+		/// I have no idea what this is for
+		/// </param>
 		public void DrawCone(float radius, float height, int upAxis, Matrix4 transform, ColourValue colour) {
-			if (DrawCondition(transform.GetTrans()))
+			if (DrawCondition(transform))
 				return;
 
 			float halfHeight = height / 2f;
@@ -256,6 +273,9 @@ namespace Ponykart.Physics {
 			}
 		}
 
+		/// <summary>
+		/// This doesn't seem to even work half the time
+		/// </summary>
 		public void DrawContactPoint(Vector3 pointOnB, Vector3 normalOnB, float distance, int lifeTime, ColourValue colour) {
 			if (DrawCondition(pointOnB))
 				return;
@@ -269,9 +289,11 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Draws a cylinder
 		/// </summary>
-		/// <param name="upAxis">ignored for now</param>
+		/// <param name="upAxis">
+		/// no idea what this is even for
+		/// </param>
 		public void DrawCylinder(float radius, float halfHeight, int upAxis, Matrix4 transform, ColourValue colour) {
-			if (DrawCondition(transform.GetTrans()))
+			if (DrawCondition(transform))
 				return;
 
 			Vector3 previousPos = transform * new Vector3(0, halfHeight, radius);
@@ -305,6 +327,9 @@ namespace Ponykart.Physics {
 			}
 		}
 
+		/// <summary>
+		/// Draws a line
+		/// </summary>
 		public void DrawLine(Vector3 from, Vector3 to, ColourValue colour) {
 			if (DrawCondition(from))
 				return;
@@ -315,6 +340,9 @@ namespace Ponykart.Physics {
 			lines.Colour(colour);
 		}
 
+		/// <summary>
+		/// Draws a line
+		/// </summary>
 		public void DrawLine(Vector3 from, Vector3 to, ColourValue fromcolour, ColourValue tocolour) {
 			if (DrawCondition(from))
 				return;
@@ -379,7 +407,7 @@ namespace Ponykart.Physics {
 		/// Draws a sphere that does rotate
 		/// </summary>
 		public void DrawSphere(float radius, Matrix4 transform, ColourValue colour) {
-			if (DrawCondition(transform.GetTrans()))
+			if (DrawCondition(transform))
 				return;
 
 			Vector3 previousXYPos = transform * new Vector3(0, radius, 0);
@@ -460,3 +488,4 @@ namespace Ponykart.Physics {
 		}
 	}
 }
+#endif

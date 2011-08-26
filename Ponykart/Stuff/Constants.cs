@@ -30,7 +30,7 @@ namespace Ponykart {
 		/// <summary>
 		/// The desired physics framerate. You generally want it to be higher than the regular ogre FPS otherwise things start vibrating.
 		/// </summary>
-		public static readonly float PH_FIXED_TIMESTEP = 1f / 80f;
+		public static readonly float PH_FIXED_TIMESTEP = 1f / 90f;
 		/// <summary>
 		/// see http://bulletphysics.org/mediawiki-1.5.8/index.php/Stepping_The_World
 		/// </summary>

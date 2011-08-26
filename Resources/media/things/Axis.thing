@@ -1,0 +1,8 @@
+Name = "Axis"
+Physics = None
+Model {
+	Mesh = "axes.mesh"
+	Material = "Core/NodeMaterial"
+	Scale = 0.1, 0.1, 0.1
+	CastsShadows = False
+}

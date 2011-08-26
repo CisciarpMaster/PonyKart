@@ -1,6 +1,6 @@
 Name = "Barn_Top_Doors"
 Physics = Dynamic
-Mass = 50
+Mass = 20
 CollisionGroup = "Environment"
 CollidesWith = "Environment"
 
