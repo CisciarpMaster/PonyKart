@@ -5,7 +5,7 @@ material Chicken_coop_sign
 	{
 		pass
 		{
-			scene_blend one one_minus_src_alpha
+			scene_blend alpha_blend
 			depth_write off
 			
 			texture_unit
