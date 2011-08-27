@@ -18,7 +18,7 @@ namespace Ponykart {
 		public static readonly float CAMERA_TIGHTNESS = 7f;
 
 
-		public static readonly int NUMBER_OF_PLAYERS = 8;
+		public static readonly int NUMBER_OF_PLAYERS = 2;
 
 		// ===== Input =====
 		/// <summary>
@@ -35,7 +35,7 @@ namespace Ponykart {
 		/// see http://bulletphysics.org/mediawiki-1.5.8/index.php/Stepping_The_World
 		/// </summary>
 		public static readonly int PH_MAX_SUBSTEPS = 15;
-		public static readonly float GRAVITY = -30f;
+		public static readonly float GRAVITY = -27f;
 		
 		// ===== Settings =====
 		/// <summary> Render glowy regions or not? </summary>

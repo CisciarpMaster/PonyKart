@@ -4,6 +4,7 @@ using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.Levels;
 using Ponykart.Physics;
 using Ponykart.Players;
 
@@ -14,8 +15,8 @@ namespace Ponykart.Handlers {
 	/// At the moment it raycasts downwards and if it's in the air, then it self-rights.
 	/// When it approaches the ground, it changes direction to the ground's normal.
 	/// </summary>
-	[Handler(HandlerScope.Level, LevelType.Race)]
-	public class StopKartsFromRollingOverHandler : ILevelHandler {
+	[Handler(HandlerScope.Global)]
+	public class StopKartsFromRollingOverHandler {
 		/// <summary>
 		/// This holds all of our self-righting handlers
 		/// </summary>
@@ -48,22 +49,29 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// Our "long" ray
 		/// </summary>
-		private readonly float LONG_RAY_LENGTH = 4f;
-
+		private readonly float LONG_RAY_LENGTH = 5f;
 
 		public StopKartsFromRollingOverHandler() {
-			SRHs = new Dictionary<Kart, SelfRightingHandler>();
-			IsInAir = new Dictionary<Kart, bool>();
-			Nlerpers = new Dictionary<Kart, Nlerper>();
-			Skidders = new Dictionary<Kart, Skidder>();
+			LKernel.Get<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
+			LKernel.Get<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
+		}
 
-			World = LKernel.Get<PhysicsMain>().World;
 
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
+			if (eventArgs.NewLevel.Type == LevelType.Race) {
+				SRHs = new Dictionary<Kart, SelfRightingHandler>();
+				IsInAir = new Dictionary<Kart, bool>();
+				Nlerpers = new Dictionary<Kart, Nlerper>();
+				Skidders = new Dictionary<Kart, Skidder>();
 
-			// set up our dictionary
-			foreach (Player p in LKernel.Get<PlayerManager>().Players) {
-				IsInAir.Add(p.Kart, false);
+				World = LKernel.Get<PhysicsMain>().World;
+
+				// set up our dictionary
+				foreach (Player p in LKernel.Get<PlayerManager>().Players) {
+					IsInAir.Add(p.Kart, false);
+				}
+
+				LKernel.Get<Root>().FrameStarted += FrameStarted;
 			}
 		}
 
@@ -189,7 +197,7 @@ namespace Ponykart.Handlers {
 				s.Dispose();
 				Skidders.Remove(kart);
 			}
-			Skidders[kart] = new Skidder(kart, 1);
+			Skidders[kart] = new Skidder(kart, 0.7f);
 
 			// align the kart just to make sure
 			AlignKartWithNormal(kart, callback, false);
@@ -229,35 +237,37 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// cleanup
 		/// </summary>
-		public void Dispose() {
-			LKernel.Get<Root>().FrameStarted -= FrameStarted;
+		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
+			if (eventArgs.OldLevel.Type == LevelType.Race) {
+				LKernel.Get<Root>().FrameStarted -= FrameStarted;
 
-			// have to do this because if we change levels while SRHs is being modified, we get an exception
-			SelfRightingHandler[] srh = new SelfRightingHandler[SRHs.Count];
-			SRHs.Values.CopyTo(srh, 0);
-			foreach (SelfRightingHandler h in srh) {
-				h.Dispose();
+				// have to do this because if we change levels while SRHs is being modified, we get an exception
+				SelfRightingHandler[] srh = new SelfRightingHandler[SRHs.Count];
+				SRHs.Values.CopyTo(srh, 0);
+				foreach (SelfRightingHandler h in srh) {
+					h.Dispose();
+				}
+				SRHs.Clear();
+
+				// same for these
+				Nlerper[] ns = new Nlerper[Nlerpers.Count];
+				Nlerpers.Values.CopyTo(ns, 0);
+				foreach (Nlerper n in ns) {
+					n.Dispose();
+				}
+				Nlerpers.Clear();
+
+				// and these
+				Skidder[] ss = new Skidder[Skidders.Count];
+				Skidders.Values.CopyTo(ss, 0);
+				foreach (Skidder s in ss) {
+					s.Dispose();
+				}
+				Skidders.Clear();
+
+				// and finally
+				IsInAir.Clear();
 			}
-			SRHs.Clear();
-
-			// same for these
-			Nlerper[] ns = new Nlerper[Nlerpers.Count];
-			Nlerpers.Values.CopyTo(ns, 0);
-			foreach (Nlerper n in ns) {
-				n.Dispose();
-			}
-			Nlerpers.Clear();
-
-			// and these
-			Skidder[] ss = new Skidder[Skidders.Count];
-			Skidders.Values.CopyTo(ss, 0);
-			foreach (Skidder s in ss) {
-				s.Dispose();
-			}
-			Skidders.Clear();
-
-			// and finally
-			IsInAir.Clear();
 		}
 	}
 }

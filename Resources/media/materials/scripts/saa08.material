@@ -69,7 +69,7 @@ material 08-Default
 
 			texture_unit
 			{
-				texture road_texture_1.png
+				texture "road texture test_003.png"
 			}
 		}
 		

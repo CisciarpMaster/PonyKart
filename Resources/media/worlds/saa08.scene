@@ -15,7 +15,7 @@
                 </subentities>
             </entity>
         </node>
-        <node name="Shape001">
+        <!--<node name="Shape001">
             <position x="-268.282" y="-6.96936" z="52.3184" />
             <scale x="2.5" y="2.5" z="2.5" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
@@ -34,7 +34,7 @@
                     <subentity index="0" materialName="08-Default" />
                 </subentities>
             </entity>
-        </node>
+        </node>-->
         <node name="Road_s5">
             <position x="261.884" y="18.9768" z="-169.08" />
             <scale x="2.5" y="2.5" z="2.5" />

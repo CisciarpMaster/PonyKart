@@ -181,7 +181,9 @@ namespace Ponykart.Handlers {
 				// when going from the menu to something else
 				MakeLevelUI();
 			}
-			// don't need to remake it if we're going between levels
+			else {
+				MakeLevelUI();
+			}
 		}
 
 		/// <summary>

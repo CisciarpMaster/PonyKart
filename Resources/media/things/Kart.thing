@@ -1,9 +1,9 @@
 Name = "Kart"
 Physics = Dynamic
-Mass = 100
+Mass = 75
 CollisionGroup = "Karts"
 CollidesWith = "Karts"
-MaxSpeed = 60
+MaxSpeed = 70
 MaxReverseSpeed = 20
 FrontWheel = "FrontWheel"
 BackWheel = "BackWheel"

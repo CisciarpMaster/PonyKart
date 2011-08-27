@@ -47,7 +47,7 @@ namespace Ponykart.Handlers {
 					}
 				}
 				// going in reverse, so we want to limit the speed even more
-				else if (kart.Vehicle.CurrentSpeedKmHour < -20) {
+				else if (kart.Vehicle.CurrentSpeedKmHour < -20 && kart.Body.LinearVelocity.y > 20) {
 					if (kart.Body.LinearVelocity.SquaredLength > kart.MaxReverseSpeedSquared) {
 						Vector3 vec = kart.Body.LinearVelocity;
 						vec.Normalise();
