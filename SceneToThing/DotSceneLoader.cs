@@ -136,9 +136,9 @@ namespace SceneToThing {
 			Entity ent = new Entity();
 			ent.Mesh = getAttrib(XMLNode, "meshFile");
 			ent.Name = getAttrib(XMLNode, "name");
-			ent.CastsShadows = getAttribBool(XMLNode, "castShadows", true);
-			ent.RenderingDistance = getAttribReal(XMLNode, "renderingDistance", 0);
-			ent.Visible = getAttribBool(XMLNode, "visible", true);
+			ent.CastsShadows = getAttribBool(XMLNode, "castShadows", false);
+			//ent.RenderingDistance = getAttribReal(XMLNode, "renderingDistance", 0);
+			//ent.Visible = getAttribBool(XMLNode, "visible", true);
 
 			try {
 				XmlElement pElement;

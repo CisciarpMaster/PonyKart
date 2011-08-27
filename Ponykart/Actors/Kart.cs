@@ -1,6 +1,5 @@
 ﻿using BulletSharp;
 using LymphThing;
-using Mogre;
 using Ponykart.Physics;
 
 namespace Ponykart.Actors {
@@ -51,10 +50,10 @@ namespace Ponykart.Actors {
 			var wheelFac = LKernel.Get<WheelFactory>();
 			string frontWheelName = def.GetStringProperty("frontwheel", null);
 			string backWheelName = def.GetStringProperty("backwheel", null);
-			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, new Vector3(1.34f, 1.0f, 1.26279f), true);
-			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, new Vector3(-1.34f, 1.0f, 1.26279f), true);
-			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, new Vector3(1.34f, 1.0f, -1.46281f), false);
-			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, new Vector3(-1.34f, 1.0f, -1.46281f), false);
+			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("frontleftwheelposition", null), true);
+			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("frontrightwheelposition", null), true);
+			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("backleftwheelposition", null), false);
+			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null), false);
 		}
 
 		/// <summary>

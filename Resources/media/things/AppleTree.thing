@@ -1,0 +1,194 @@
+Name = "AppleTree"
+Physics = Static
+Mass = 0
+
+// main tree model
+Model {
+	Mesh = "apple_tree_1.mesh"
+	Material = "AppleTree"
+	Position = 0.0116948, -0.156848, -0.0753398
+	Orientation = 0, 0, 0, -1
+	Scale = 0.126839, 0.126839, 0.126839
+}
+
+// loads of apples
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedApple"
+	Position = -0.778552, 8.69207, -6.22245
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedApple"
+	Position = -2.45999, 10.81, -6.28908
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedApple"
+	Position = 2.82122, 10.1031, -6.39849
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedApple"
+	Position = 0.14703, 6.69354, 3.44465
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedApple"
+	Position = 2.66972, 10.9047, 3.3212
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedApple"
+	Position = -1.35357, 11.8839, 1.07316
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedApple"
+	Position = 0.186206, 5.50255, -3.096
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedApple"
+	Position = -4.67988, 7.9483, -3.83949
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedApple"
+	Position = -2.84156, 4.80079, -2.58525
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedApple"
+	Position = 5.31391, 9.15035, -3.59756
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedApple"
+	Position = 4.28489, 6.35815, -0.215312
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedApple"
+	Position = -5.23201, 11.224, -1.41004
+	Billboard = true
+	Scale = 1.5, 1.5, 1.5
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedApple"
+	Position = -3.22149, 9.71482, 3.44428
+	Scale = 1.5, 1.5, 1.5
+}
+
+// and then our shapes
+
+// cone#0Copy#0
+Shape {
+	Type = Cone
+	Position = 0.0232855, 2.94948, -0.143713
+	Orientation = -0.12886, -0.0209745, 0.108113, 0.985529
+	Height = 2.90199
+	Radius = 0.818655
+}
+// sphere#2
+Shape {
+	Type = Sphere
+	Position = 3.19724, 10.6792, -3.15948
+	Radius = 2.5
+}
+// sphere#7
+Shape {
+	Type = Sphere
+	Position = -2.91887, 10.3172, -3.65973
+	Radius = 2.5
+}
+// cone#0
+Shape {
+	Type = Cone
+	Position = 0, 1.51862, 0
+	Height = 3.44861
+	Radius = 1.069865
+}
+// cylinder#0
+Shape {
+	Type = Cylinder
+	Position = 0.158368, 0.946367, 0.0839477
+	Orientation = 0.0434696, -0.00361204, -0.0827294, 0.995617
+	Dimensions = 1.63138, 1.88039, 1.82553
+}
+// cylinder#0Copy#0Copy#0
+Shape {
+	Type = Cylinder
+	Position = -0.209619, 4.61245, 0.162973
+	Orientation = 0.0526091, -0.0242935, 0.0548219, 0.996813
+	Dimensions = 1.23888, 1.88039, 1.35842
+}
+// cylinder#1
+Shape {
+	Type = Cylinder
+	Position = 1.25293, 4.76969, 0.242817
+	Orientation = 0.0578208, -0.00382651, -0.306045, 0.950252
+	Dimensions = 1.00472, 4.43877, 1.26733
+}
+// cylinder#2
+Shape {
+	Type = Cylinder
+	Position = -1.16759, 4.49709, -0.720683
+	Orientation = -0.145446, -0.0728359, 0.343697, 0.924885
+	Dimensions = 0.992787, 2.80789, 0.979137
+}
+// cylinder#0Copy#0
+Shape {
+	Type = Cylinder
+	Position = -0.0211376, 2.86592, -0.0687117
+	Orientation = -0.0961015, -0.0442411, 0.110245, 0.988258
+	Dimensions = 1.23888, 1.88039, 1.56269
+}
+// sphere#1
+Shape {
+	Type = Sphere
+	Position = -0.96866, 9.29213, -1.79144
+	Radius = 4.5
+}
+// sphere#0
+Shape {
+	Type = Sphere
+	Position = 0.600902, 8.8481, -1.79144
+	Radius = 4.5
+}
+// sphere#3
+Shape {
+	Type = Sphere
+	Position = 2.31193, 9.15897, 0.897273
+	Radius = 2.5
+}
+// sphere#4
+Shape {
+	Type = Sphere
+	Position = -1.01952, 9.11151, 0.286334
+	Radius = 3.5
+}
+// sphere#5
+Shape {
+	Type = Sphere
+	Position = 0.450234, 9.11151, 0.979909
+	Radius = 3.5
+}
+// sphere#6
+Shape {
+	Type = Sphere
+	Position = 2.76275, 10.0669, -0.876429
+	Radius = 2.5
+}

@@ -1,4 +1,7 @@
 Type = Race
 Barn {
-	Position = 92, -1 /*-1.49117*/, 234.525
+	Position = 92, -1, 234.525
+}
+AppleTree {
+	Position = -5, 1, 30
 }

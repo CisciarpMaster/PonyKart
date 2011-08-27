@@ -98,16 +98,16 @@ namespace Ponykart.Lua {
 		/// <param name="s">the string to execute</param>
 		public void DoString(string s) {
 			if (LKernel.Get<LevelManager>().IsValidLevel) {
-				try {
+				//try {
 					LuaVM.Lua.DoString(s);
-				}
+				/*}
 				catch (Exception ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
 					foreach (var v in ex.Data)
 						Launch.Log("[Lua] " + v);
 					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
 					Launch.Log(ex.StackTrace);
-				}
+				}*/
 			}
 		}
 

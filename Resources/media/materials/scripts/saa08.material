@@ -70,6 +70,7 @@ material 08-Default
 			texture_unit
 			{
 				texture "road texture test_003.png"
+				scale 0.5 0.5
 			}
 		}
 		

@@ -9,6 +9,8 @@ using Ponykart.Physics;
 using Ponykart.Players;
 
 namespace Ponykart.Handlers {
+	public delegate void KartEvent(Kart kart, DynamicsWorld.ClosestRayResultCallback callback);
+
 	/// <summary>
 	/// This handler finds karts that are flying in the air and turns them around so they are facing upwards.
 	/// This stops them from bouncing all over the place when they land.
@@ -33,10 +35,11 @@ namespace Ponykart.Handlers {
 		/// Dictionary of our skidders
 		/// </summary>
 		public IDictionary<Kart, Skidder> Skidders { get; private set; }
-		/// <summary>
-		/// Stops us from having to do LKernel.Get&lt;PhysicsMain&gt; 8 times every frame
-		/// </summary>
-		private DiscreteDynamicsWorld World;
+
+		public event KartEvent OnLiftoff;
+		public event KartEvent OnInAir;
+		public event KartEvent OnCloseToTouchdown;
+		public event KartEvent OnTouchdown;
 
 		/// <summary>
 		/// How often should we raycast?
@@ -56,7 +59,9 @@ namespace Ponykart.Handlers {
 			LKernel.Get<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
 		}
 
-
+		/// <summary>
+		/// Sets up our dictionaries and hooks up to the frame started event
+		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
 				SRHs = new Dictionary<Kart, SelfRightingHandler>();
@@ -64,19 +69,17 @@ namespace Ponykart.Handlers {
 				Nlerpers = new Dictionary<Kart, Nlerper>();
 				Skidders = new Dictionary<Kart, Skidder>();
 
-				World = LKernel.Get<PhysicsMain>().World;
-
 				// set up our dictionary
 				foreach (Player p in LKernel.Get<PlayerManager>().Players) {
 					IsInAir.Add(p.Kart, false);
 				}
 
-				LKernel.Get<Root>().FrameStarted += FrameStarted;
+				LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
 			}
 		}
 
 		private float elapsed;
-		private bool FrameStarted(FrameEvent evt) {
+		private void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (elapsed > RAYCAST_TIME) {
 				elapsed = 0;
 
@@ -92,13 +95,13 @@ namespace Ponykart.Handlers {
 						continue;
 
 
-					var callback = CastRay(kart, (IsInAir[kart] && SRHs.ContainsKey(kart) ? LONG_RAY_LENGTH : SHORT_RAY_LENGTH));
+					var callback = CastRay(kart, (IsInAir[kart] && SRHs.ContainsKey(kart) ? LONG_RAY_LENGTH : SHORT_RAY_LENGTH), world);
 
 					// if the ray did not hit
 					if (!callback.HasHit) {
 						// if we do not have an SRH, that means we were just on the ground
 						if (!SRHs.ContainsKey(kart))
-							JustLaunchedIntoAir(kart, callback);
+							Liftoff(kart, callback);
 						// if we do have one, that means we're still in the air
 						else
 							InAir(kart, callback);
@@ -117,15 +120,13 @@ namespace Ponykart.Handlers {
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;
-
-			return true;
 		}
 
 		/// <summary>
 		/// Casts a ray downwards from the given kart
 		/// </summary>
 		/// <returns>The ray result callback</returns>
-		private DynamicsWorld.ClosestRayResultCallback CastRay(Kart kart, float rayLength) {
+		private DynamicsWorld.ClosestRayResultCallback CastRay(Kart kart, float rayLength, DiscreteDynamicsWorld world) {
 			// get a ray pointing downwards from the kart (-Y axis)
 			Vector3 from = kart.RootNode.Position + kart.RootNode.GetLocalYAxis(); // have to move it up a bit
 			Vector3 to = from - kart.RootNode.GetLocalYAxis() * (rayLength + 1); // add 1 to compensate for the "moving up" we did to the "from" vector
@@ -135,7 +136,7 @@ namespace Ponykart.Handlers {
 			// we only want the ray to collide with the environment and nothing else
 			callback.CollisionFilterMask = PonykartCollisionGroups.Environment.ToBullet();
 			
-			World.RayTest(from, to, callback);
+			world.RayTest(from, to, callback);
 #if DEBUG
 			MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.White);
 #endif
@@ -145,19 +146,23 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// Run when our short ray detects that we're not on the ground any more
 		/// </summary>
-		private void JustLaunchedIntoAir(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
+		private void Liftoff(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// make a new SRH
 			SRHs.Add(kart, new SelfRightingHandler(kart));
 			// we are in the air
 			IsInAir[kart] = true;
 			Console.WriteLine("creating SRH for " + kart + kart.ID);
+
+			if (OnLiftoff != null)
+				OnLiftoff(kart, callback);
 		}
 
 		/// <summary>
 		/// Run when our kart is currently in the air
 		/// </summary>
 		private void InAir(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
-
+			if (OnInAir != null)
+				OnInAir(kart, callback);
 		}
 
 		/// <summary>
@@ -174,6 +179,9 @@ namespace Ponykart.Handlers {
 			Console.WriteLine("Getting close to touching down " + callback.HitNormalWorld);
 
 			AlignKartWithNormal(kart, callback, true, 1);
+
+			if (OnCloseToTouchdown != null)
+				OnCloseToTouchdown(kart, callback);
 		}
 
 		/// <summary>
@@ -201,6 +209,9 @@ namespace Ponykart.Handlers {
 
 			// align the kart just to make sure
 			AlignKartWithNormal(kart, callback, false);
+
+			if (OnTouchdown != null)
+				OnTouchdown(kart, callback);
 		}
 
 		/// <summary>
@@ -239,7 +250,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.OldLevel.Type == LevelType.Race) {
-				LKernel.Get<Root>().FrameStarted -= FrameStarted;
+				LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
 
 				// have to do this because if we change levels while SRHs is being modified, we get an exception
 				SelfRightingHandler[] srh = new SelfRightingHandler[SRHs.Count];

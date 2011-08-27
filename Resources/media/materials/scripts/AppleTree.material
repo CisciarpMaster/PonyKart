@@ -1,0 +1,14 @@
+
+material AppleTree
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture apple_tree_v2_diff.jpg
+			}
+		}
+	}
+}
