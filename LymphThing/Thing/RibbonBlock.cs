@@ -1,5 +1,5 @@
 ﻿
-namespace LymphThing {
+namespace PonykartParsers {
 	/// <summary>
 	/// Represents a Ribbon { } block in a .thing file
 	/// </summary>

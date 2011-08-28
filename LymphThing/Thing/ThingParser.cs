@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LymphThing.ThingParser
+namespace PonykartParsers.ThingParser
 {
 	public class ParserException: Exception
 	{

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Mogre;
 
-namespace LymphThing {
+namespace PonykartParsers {
 	/// <summary>
 	/// Since both the .thing and its blocks can all have properties, they all use this abstract class to give them dictionaries and a few helpful methods
 	/// </summary>

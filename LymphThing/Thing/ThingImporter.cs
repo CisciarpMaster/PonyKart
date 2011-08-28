@@ -2,12 +2,12 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using LymphThing.Properties;
-using LymphThing.ThingParser;
+using PonykartParsers.Properties;
+using PonykartParsers.ThingParser;
 using Mogre;
-using Node = LymphThing.ThingParser.Node;
+using Node = PonykartParsers.ThingParser.Node;
 
-namespace LymphThing {
+namespace PonykartParsers {
 	public class ThingImporter {
 		RuleInstance root;
 		CultureInfo culture = CultureInfo.InvariantCulture;

@@ -1,7 +1,7 @@
 ﻿using BulletSharp;
 using Mogre;
 
-namespace LymphThing {
+namespace PonykartParsers {
 	/// <summary>
 	/// Represents a Shape { } block in a .thing file.
 	/// </summary>

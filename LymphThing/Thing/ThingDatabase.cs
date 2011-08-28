@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LymphThing {
+namespace PonykartParsers {
 	public class ThingDatabase {
 		IDictionary<string, ThingDefinition> Definitions;
 

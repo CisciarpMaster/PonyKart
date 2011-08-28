@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LymphThing.MuffinParser {
+namespace PonykartParsers.MuffinParser {
 	public class ParserException : Exception {
 		public ParserException(string message) :
 			base(message) {

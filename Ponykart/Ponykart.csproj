@@ -278,9 +278,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LymphThing\LymphThing.csproj">
+    <ProjectReference Include="..\LymphThing\PonykartParsers.csproj">
       <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
-      <Name>LymphThing</Name>
+      <Name>PonykartParsers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

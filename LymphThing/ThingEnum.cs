@@ -1,5 +1,5 @@
 ﻿
-namespace LymphThing {
+namespace PonykartParsers {
 	public enum ThingEnum {
 		// for the ThingParser
 		Dynamic,

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace LymphThing {
+namespace PonykartParsers {
 	/// <summary>
 	/// Represents a .thing file - these are one per file and not one per LThing object!
 	/// </summary>

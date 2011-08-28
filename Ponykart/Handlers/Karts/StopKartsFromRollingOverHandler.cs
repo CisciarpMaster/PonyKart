@@ -229,7 +229,7 @@ namespace Ponykart.Handlers {
 			Quaternion newOrientation = rotTo * kart.Body.Orientation;
 #if DEBUG
 			// make a little axis to show our normal
-			LKernel.Get<Spawner>().Spawn("Axis", callback.HitPointWorld).RootNode.Orientation = newOrientation;
+			//LKernel.Get<Spawner>().Spawn("Axis", callback.HitPointWorld).RootNode.Orientation = newOrientation;
 #endif
 			if (useNlerp) {
 				// if we already have a nlerper, get rid of it

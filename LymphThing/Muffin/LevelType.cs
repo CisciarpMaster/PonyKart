@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LymphThing {
+namespace PonykartParsers {
 
 	/// <summary>
 	/// Represents a "type" of level
