@@ -9,14 +9,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonykartParsers", "LymphThi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneToThing", "SceneToThing\SceneToThing.csproj", "{F0DC2342-17AA-48AB-8D0F-4334D1574686}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneToMuffin", "SceneToMuffin\SceneToMuffin.csproj", "{B7598F5C-A971-42F4-B324-2268085C4113}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Cupcake|Any CPU = Cupcake|Any CPU
+		Cupcake|x86 = Cupcake|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|Any CPU.ActiveCfg = Cupcake|Any CPU
+		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|Any CPU.Build.0 = Cupcake|Any CPU
+		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|x86.ActiveCfg = Debug|x86
+		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|x86.Build.0 = Debug|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Debug|Any CPU.Build.0 = Debug|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Debug|x86.ActiveCfg = Debug|x86
@@ -25,6 +33,10 @@ Global
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Release|x86.ActiveCfg = Release|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Release|x86.Build.0 = Release|x86
+		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|Any CPU.ActiveCfg = Cupcake|Any CPU
+		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|Any CPU.Build.0 = Cupcake|Any CPU
+		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|x86.ActiveCfg = Release|x86
+		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|x86.Build.0 = Release|x86
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Debug|x86.ActiveCfg = Debug|x86
@@ -33,12 +45,24 @@ Global
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Release|x86.ActiveCfg = Release|x86
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Release|x86.Build.0 = Release|x86
+		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Cupcake|Any CPU.ActiveCfg = Cupcake|x86
+		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Cupcake|x86.ActiveCfg = Release|x86
+		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Cupcake|x86.Build.0 = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Debug|x86.ActiveCfg = Debug|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Debug|x86.Build.0 = Debug|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Release|Any CPU.ActiveCfg = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Release|x86.ActiveCfg = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Release|x86.Build.0 = Release|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Cupcake|Any CPU.ActiveCfg = Cupcake|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Cupcake|x86.ActiveCfg = Release|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Cupcake|x86.Build.0 = Release|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Debug|x86.ActiveCfg = Debug|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Debug|x86.Build.0 = Debug|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|Any CPU.ActiveCfg = Release|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|x86.ActiveCfg = Release|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

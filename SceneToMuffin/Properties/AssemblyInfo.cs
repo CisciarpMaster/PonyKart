@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SceneToMuffin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle(".scene to .muffin converter")]
+[assembly: AssemblyDescription(".scene to .muffin converter")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("SceneToMuffin")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCompany("Pyritie")]
+[assembly: AssemblyProduct("Lymph Framework")]
+[assembly: AssemblyCopyright("Copyright © Pyritie 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

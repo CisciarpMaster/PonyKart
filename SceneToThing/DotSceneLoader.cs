@@ -126,30 +126,26 @@ namespace SceneToThing {
 		protected void processEntity(XmlElement XMLNode, Node node) {
 			// Process attributes
 
-			/*bool bstatic = getAttribBool(XMLNode, "static", true);
-			if (bstatic)
-				StaticObjects.Add(name);
-			else
-				DynamicObjects.Add(name);*/
-
 			// Create the entity
 			Entity ent = new Entity();
 			ent.Mesh = getAttrib(XMLNode, "meshFile");
 			ent.Name = getAttrib(XMLNode, "name");
-			ent.CastsShadows = getAttribBool(XMLNode, "castShadows", false);
+			ent.CastShadows = getAttribBool(XMLNode, "castShadows", false);
+			ent.ReceiveShadows = getAttribBool(XMLNode, "receiveShadows", true);
+			ent.Static = getAttribBool(XMLNode, "static", true);
 			//ent.RenderingDistance = getAttribReal(XMLNode, "renderingDistance", 0);
 			//ent.Visible = getAttribBool(XMLNode, "visible", true);
 
 			try {
-				XmlElement pElement;
+				XmlElement element;
 				// Process subentities (?)
-				pElement = (XmlElement) XMLNode.SelectSingleNode("subentity");
-				if (pElement != null) {
-					//pElement = (XmlElement) pElement.FirstChild;
-					//while (pElement != null) {
-					ent.Material = getAttrib(pElement, "materialName");
-					pElement = (XmlElement) pElement.NextSibling;
-					//}
+				element = (XmlElement) XMLNode.SelectSingleNode("subentities");
+				if (element != null) {
+					element = (XmlElement) element.FirstChild;
+					while (element != null) {
+						ent.Material = getAttrib(element, "materialName");
+						element = (XmlElement) element.NextSibling;
+					}
 				}
 			}
 			catch (Exception e) {

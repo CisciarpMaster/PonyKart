@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ namespace SceneToThing {
 		public static bool AreWeDoneLoading = false;
 		DotSceneLoader DSL;
 		ICollection<Block> Blocks;
+		CultureInfo culture = CultureInfo.InvariantCulture;
 
 		public MainWindow() {
 			AreWeDoneLoading = false;
@@ -150,7 +152,7 @@ namespace SceneToThing {
 		private void saveButton_Click(object sender, RoutedEventArgs e) {
 			SaveFileDialog dlg = new SaveFileDialog();
 			dlg.DefaultExt = ".thing";
-			dlg.Filter = "Lymph Thing files (.thing)|*.thing";
+			dlg.Filter = "Lymph Thing files|*.thing";
 			dlg.FileName = nameBox.Text + ".thing";
 
 			bool? result = dlg.ShowDialog();
@@ -175,12 +177,10 @@ namespace SceneToThing {
 								writer.WriteLine("\tName = \"" + node.Name + "\"");
 								writer.WriteLine("\tMesh = \"" + node.Entity.Mesh + "\"");
 								writer.WriteLine("\tMaterial = \"" + node.Entity.Material + "\"");
-								writer.WriteLine("\tPosition = " + node.Position.x + ", " + node.Position.y + ", " + node.Position.z);
-								writer.WriteLine("\tOrientation = " + node.Orientation.x + ", " + node.Orientation.y + ", " + node.Orientation.z + ", " + node.Orientation.w);
-								writer.WriteLine("\tScale = " + node.Dimensions.x + ", " + node.Dimensions.y + ", " + node.Dimensions.z);
-								writer.WriteLine("\tCastsShadows = " + node.Entity.CastsShadows);
-								writer.WriteLine("\tVisible = " + node.Entity.Visible);
-								writer.WriteLine("\tRenderingDistance = " + node.Entity.RenderingDistance);
+								writer.WriteLine("\tPosition = " + f(node.Position.x) + ", " + f(node.Position.y) + ", " + f(node.Position.z));
+								writer.WriteLine("\tOrientation = " + f(node.Orientation.x) + ", " + f(node.Orientation.y) + ", " + f(node.Orientation.z) + ", " + f(node.Orientation.w));
+								writer.WriteLine("\tScale = " + f(node.Dimensions.x) + ", " + f(node.Dimensions.y) + ", " + f(node.Dimensions.z));
+								writer.WriteLine("\tCastsShadows = " + node.Entity.CastShadows);
 								writer.WriteLine("}");
 								continue;
 							}
@@ -191,16 +191,16 @@ namespace SceneToThing {
 								writer.WriteLine("// " + shape.Name);
 								writer.WriteLine("Shape {");
 								writer.WriteLine("\tType = " + shape.Type);
-								writer.WriteLine("\tPosition = " + shape.Position.x + ", " + shape.Position.y + ", " + shape.Position.z);
-								writer.WriteLine("\tOrientation = " + shape.Orientation.x + ", " + shape.Orientation.y + ", " + shape.Orientation.z + ", " + shape.Orientation.w);
+								writer.WriteLine("\tPosition = " + f(shape.Position.x) + ", " + f(shape.Position.y) + ", " + f(shape.Position.z));
+								writer.WriteLine("\tOrientation = " + f(shape.Orientation.x) + ", " + f(shape.Orientation.y) + ", " + f(shape.Orientation.z) + ", " + f(shape.Orientation.w));
 								if (shape.Type == ShapeTypes.Box || shape.Type == ShapeTypes.Cylinder)
-									writer.WriteLine("\tDimensions = " + shape.Dimensions.x + ", " + shape.Dimensions.y + ", " + shape.Dimensions.z);
+									writer.WriteLine("\tDimensions = " + f(shape.Dimensions.x) + ", " + f(shape.Dimensions.y) + ", " + f(shape.Dimensions.z));
 								else if (shape.Type == ShapeTypes.Capsule || shape.Type == ShapeTypes.Cone) {
-									writer.WriteLine("\tHeight = " + shape.Height);
-									writer.WriteLine("\tRadius = " + shape.Radius);
+									writer.WriteLine("\tHeight = " + f(shape.Height));
+									writer.WriteLine("\tRadius = " + f(shape.Radius));
 								}
 								else if (shape.Type == ShapeTypes.Sphere)
-									writer.WriteLine("\tRadius = " + shape.Radius);
+									writer.WriteLine("\tRadius = " + f(shape.Radius));
 								writer.WriteLine("}");
 								continue;
 							}
@@ -211,6 +211,10 @@ namespace SceneToThing {
 				}
 				MessageBox.Show("Export successful!", filename, MessageBoxButton.OK, MessageBoxImage.Information);
 			}
+		}
+
+		string f(float cookie) {
+			return cookie.ToString(culture);
 		}
 
 		/// <summary>

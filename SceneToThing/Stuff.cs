@@ -31,13 +31,10 @@ namespace SceneToThing {
 		public Node Owner { get; set; }
 		public string Mesh { get; set; }
 		public string Material { get; set; }
-		public bool CastsShadows { get; set; }
+		public bool CastShadows { get; set; }
+		public bool ReceiveShadows { get; set; }
 		public string Name { get; set; }
-		public bool Visible { get; set; }
-		/// <summary>
-		/// Not sure what this is for... LOD?
-		/// </summary>
-		public float RenderingDistance { get; set; }
+		public bool Static { get; set; }
 	}
 
 	/// <summary>
@@ -90,12 +87,6 @@ namespace SceneToThing {
 		public string Name { get; set; }
 
 		public override string ToString() {
-			/*if (Type == ShapeTypes.Box || Type == ShapeTypes.Cylinder)
-				return Type + " " + Dimensions;
-			else if (Type == ShapeTypes.Capsule || Type == ShapeTypes.Cone)
-				return Type + " {" + Radius + ", " + Height + "}";
-			else
-				return Type + " {" + Radius + "}";*/
 			return Name + " (" + Type + ")";
 		}
 	}

@@ -7,7 +7,7 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SceneToThing")]
+[assembly: AssemblyTitle(".scene to .thing converter")]
 [assembly: AssemblyDescription("Converts a .scene to a .thing")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Pyritie")]
