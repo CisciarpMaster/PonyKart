@@ -5,66 +5,16 @@
         <clipping near="0" far="100000" />
     </environment>
     <nodes>
-        <node name="Road_s1">
-            <position x="-69.9467" y="14.9867" z="290.972" />
-            <scale x="2.5" y="2.5" z="2.5" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="Road_s1" castShadows="true" receiveShadows="true" meshFile="Road_s1.mesh">
-                <subentities>
-                    <subentity index="0" materialName="08-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <!--<node name="Shape001">
-            <position x="-268.282" y="-6.96936" z="52.3184" />
-            <scale x="2.5" y="2.5" z="2.5" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="Shape001" castShadows="true" receiveShadows="true" meshFile="Shape001.mesh" static="false">
-                <subentities>
-                    <subentity index="0" materialName="NoMaterial" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Shape002">
-            <position x="-268.282" y="-6.96936" z="52.3184" />
-            <scale x="2.5" y="2.5" z="2.5" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="Shape002" castShadows="true" receiveShadows="true" meshFile="Shape002.mesh" static="false">
-                <subentities>
-                    <subentity index="0" materialName="08-Default" />
-                </subentities>
-            </entity>
-        </node>-->
-        <node name="Road_s5">
-            <position x="261.884" y="18.9768" z="-169.08" />
-            <scale x="2.5" y="2.5" z="2.5" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="Road_s5" castShadows="true" receiveShadows="true" meshFile="Road_s5.mesh">
-                <subentities>
-                    <subentity index="0" materialName="08-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Road_s2">
-            <position x="75.1291" y="-6.96935" z="170.016" />
-            <scale x="2.5" y="2.5" z="2.5" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="Road_s2" castShadows="true" receiveShadows="true" meshFile="Road_s2.mesh">
-                <subentities>
-                    <subentity index="0" materialName="08-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Road_s4">
-            <position x="75.1291" y="-6.96935" z="170.016" />
-            <scale x="2.5" y="2.5" z="2.5" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="Road_s4" castShadows="true" receiveShadows="true" meshFile="Road_s4.mesh">
-                <subentities>
-                    <subentity index="0" materialName="08-Default" />
-                </subentities>
-            </entity>
-        </node>
+        <node name="SAA_Road">
+			<position x="-69.9466" y="14.9867" z="290.972" />
+			<scale x="2.5" y="2.5" z="2.5" />
+			<rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+			<entity name="SAA_Road" castShadows="false" receiveShadows="true" meshFile="SAA_road.mesh">
+				<subentities>
+					<subentity index="0" materialName="SAA_Road" />
+				</subentities>
+			</entity>
+		</node>
         <node name="Bridge_1">
             <position x="285.667" y="-16.7961" z="-239.977" />
             <scale x="3.23051" y="2.5" z="0.938333" />
@@ -82,16 +32,6 @@
             <entity name="Ramp_1" castShadows="true" receiveShadows="true" meshFile="Ramp_1.mesh">
                 <subentities>
                     <subentity index="0" materialName="NoMaterial" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Road_s3">
-            <position x="119.19" y="-49.0117" z="-224.722" />
-            <scale x="3.61437" y="2.5" z="3.61437" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="Road_s3" castShadows="true" receiveShadows="true" meshFile="Road_s3.mesh">
-                <subentities>
-                    <subentity index="0" materialName="08-Default" />
                 </subentities>
             </entity>
         </node>
@@ -191,17 +131,7 @@
             <rotation qx="0" qy="0" qz="0" qw="1" />
             <entity name="barn_floor" castShadows="false" receiveShadows="true" meshFile="barn_floor.mesh">
                 <subentities>
-                    <subentity index="0" materialName="08-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Road_s6">
-            <position x="261.884" y="18.9768" z="-169.08" />
-            <scale x="2.5" y="2.5" z="2.5" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="Road_s6" castShadows="false" receiveShadows="true" meshFile="Road_s6.mesh">
-                <subentities>
-                    <subentity index="0" materialName="08-Default" />
+                    <subentity index="0" materialName="SAA_Road" />
                 </subentities>
             </entity>
         </node>

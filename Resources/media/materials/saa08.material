@@ -58,9 +58,7 @@ material default
 
 }
 
-
-
-material 08-Default
+material SAA_Road
 {
 	technique
 	{
