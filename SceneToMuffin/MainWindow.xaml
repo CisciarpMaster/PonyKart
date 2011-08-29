@@ -7,24 +7,24 @@
 		<Button Content="Export .muffin" Height="24" HorizontalAlignment="Left" Margin="137,12,0,0" Name="exportButton" VerticalAlignment="Top" Width="119" Click="exportButton_Click" />
 		<DataGrid AutoGenerateColumns="False" Height="531" Margin="12,0,12,12" Name="dataGrid" Width="1368" CanUserReorderColumns="False" ColumnHeaderHeight="25" CanUserResizeRows="False" SelectionMode="Single" HeadersVisibility="Column" IsTextSearchEnabled="True" HorizontalGridLinesBrush="Silver" VerticalGridLinesBrush="Silver" HorizontalAlignment="Center" VerticalAlignment="Bottom">
 			<DataGrid.Columns>
-				<DataGridTextColumn CanUserReorder="False" Header="Name" MinWidth="150" Binding="{Binding Path=Name}" />
+				<DataGridTextColumn Header="Name" MinWidth="120" Binding="{Binding Path=Name}" />
 				<DataGridCheckBoxColumn Header="Uses .thing" Binding="{Binding Path=UsesThing}" />
 				<DataGridTextColumn Header=".thing file" MinWidth="120" Binding="{Binding Path=ThingFile}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Pos X" MinWidth="50" Binding="{Binding Path=PosX}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Pos Y" MinWidth="50" Binding="{Binding Path=PosY}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Pos Z" MinWidth="50" Binding="{Binding Path=PosZ}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Orient X" MinWidth="50" Binding="{Binding Path=OrientX}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Orient Y" MinWidth="50" Binding="{Binding Path=OrientY}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Orient Z" MinWidth="50" Binding="{Binding Path=OrientZ}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Orient W" MinWidth="50" Binding="{Binding Path=OrientW}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Scale X" MinWidth="50" Binding="{Binding Path=ScaleX}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Scale Y" MinWidth="50" Binding="{Binding Path=ScaleY}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Scale Z" MinWidth="50" Binding="{Binding Path=ScaleZ}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Mesh" MinWidth="80" Binding="{Binding Path=Mesh}" />
-				<DataGridTextColumn CanUserResize="False" CanUserSort="False" Header="Material" MinWidth="80" Binding="{Binding Path=Material}" />
-				<DataGridCheckBoxColumn CanUserResize="False" CanUserSort="False" Header="Static" MinWidth="10" Binding="{Binding Path=Static}" />
-				<DataGridCheckBoxColumn CanUserResize="False" CanUserSort="False" Header="Cast shad" Binding="{Binding Path=CastShadows}" />
-				<DataGridCheckBoxColumn CanUserResize="False" CanUserSort="False" Header="Rec shad" Binding="{Binding Path=ReceiveShadows}" />
+				<DataGridTextColumn Header="Pos X" MinWidth="50" Binding="{Binding Path=PosX}" />
+				<DataGridTextColumn Header="Pos Y" MinWidth="50" Binding="{Binding Path=PosY}" />
+				<DataGridTextColumn Header="Pos Z" MinWidth="50" Binding="{Binding Path=PosZ}" />
+				<DataGridTextColumn Header="Orient X" MinWidth="50" Binding="{Binding Path=OrientX}" />
+				<DataGridTextColumn Header="Orient Y" MinWidth="50" Binding="{Binding Path=OrientY}" />
+				<DataGridTextColumn Header="Orient Z" MinWidth="50" Binding="{Binding Path=OrientZ}" />
+				<DataGridTextColumn Header="Orient W" MinWidth="50" Binding="{Binding Path=OrientW}" />
+				<DataGridTextColumn Header="Scale X" MinWidth="50" Binding="{Binding Path=ScaleX}" />
+				<DataGridTextColumn Header="Scale Y" MinWidth="50" Binding="{Binding Path=ScaleY}" />
+				<DataGridTextColumn Header="Scale Z" MinWidth="50" Binding="{Binding Path=ScaleZ}" />
+				<DataGridTextColumn Header="Mesh" MinWidth="80" Binding="{Binding Path=Mesh}" />
+				<DataGridTextColumn Header="Material" MinWidth="80" Binding="{Binding Path=Material}" />
+				<DataGridCheckBoxColumn Header="Static" MinWidth="10" Binding="{Binding Path=Static}" />
+				<DataGridCheckBoxColumn Header="Cast shad" Binding="{Binding Path=CastShadows}" />
+				<DataGridCheckBoxColumn Header="Rec shad" Binding="{Binding Path=ReceiveShadows}" />
 			</DataGrid.Columns>
 		</DataGrid>
 		<ComboBox Height="24" HorizontalAlignment="Left" Margin="374,12,0,0" Name="levelTypeBox" VerticalAlignment="Top" Width="145" ToolTip="Is this a level you can race on, a menu level, or what?">
