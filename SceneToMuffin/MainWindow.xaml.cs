@@ -102,7 +102,7 @@ namespace SceneToMuffin {
 			SaveFileDialog dlg = new SaveFileDialog();
 			dlg.DefaultExt = ".muffin";
 			dlg.Filter = "Lymph Muffin files|*.muffin";
-			dlg.FileName = originalFilename.Replace(".scene", ".muffin");
+			dlg.FileName = originalFilename.Substring(originalFilename.LastIndexOf("/") + 1).Replace(".scene", ".muffin");
 
 			bool? result = dlg.ShowDialog();
 
@@ -171,6 +171,7 @@ namespace SceneToMuffin {
 						}
 					}
 				}
+				MessageBox.Show("Export successful!", filename, MessageBoxButton.OK, MessageBoxImage.Information);
 			}
 		}
 
