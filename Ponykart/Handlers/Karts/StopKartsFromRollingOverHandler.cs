@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
@@ -151,7 +150,6 @@ namespace Ponykart.Handlers {
 			SRHs.Add(kart, new SelfRightingHandler(kart));
 			// we are in the air
 			IsInAir[kart] = true;
-			Console.WriteLine("creating SRH for " + kart + kart.ID);
 
 			if (OnLiftoff != null)
 				OnLiftoff(kart, callback);
@@ -176,8 +174,6 @@ namespace Ponykart.Handlers {
 			if (kart.Body.LinearVelocity.y > 20)
 				kart.Body.LinearVelocity = new Vector3(kart.Body.LinearVelocity.x, 20, kart.Body.LinearVelocity.z);
 
-			Console.WriteLine("Getting close to touching down " + callback.HitNormalWorld);
-
 			AlignKartWithNormal(kart, callback, true, 1);
 
 			if (OnCloseToTouchdown != null)
@@ -190,7 +186,6 @@ namespace Ponykart.Handlers {
 		private void TouchDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// now we have actually landed
 			IsInAir[kart] = false;
-			Console.WriteLine("Touchdown " + callback.HitNormalWorld);
 
 			// if we have a nlerper, get rid of it
 			Nlerper n;

@@ -53,7 +53,7 @@ namespace Ponykart.Actors {
 
 			ID = IDs.New;
 
-			Node = Kart.RootNode.CreateChildSceneNode("wheelNode" + ID, connectionPoint);
+			Node = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + ID);
 			Entity = LKernel.Get<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;

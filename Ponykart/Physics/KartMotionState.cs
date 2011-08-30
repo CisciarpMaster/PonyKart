@@ -48,9 +48,10 @@ namespace Ponykart.Physics {
 
 		private void UpdateWheel(Wheel wheel) {
 			WheelInfo info = Kart.Vehicle.GetWheelInfo((int) wheel.WheelID);
-			wheel.Node.Position = new Vector3(wheel.Node.Position.x,
+			wheel.Node.Position = /*new Vector3(wheel.Node.Position.x,
 											  wheel.SuspensionRestLength - info.RaycastInfo_.SuspensionLength,
-											  wheel.Node.Position.z);
+											  wheel.Node.Position.z);*/
+				info.WorldTransform.GetTrans();
 			wheel.Node.Orientation = info.WorldTransform.ExtractQuaternion();
 		}
 	}

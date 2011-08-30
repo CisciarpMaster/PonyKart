@@ -65,8 +65,6 @@ namespace Ponykart.Handlers {
 
 			IsDisposed = true;
 			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
-			//LKernel.Get<StopKartsFromRollingOverHandler>().SRHs.Remove(kart);
-			System.Console.WriteLine("Disposing SRH for " + kart);
 			kart = null;
 		}
 	}

@@ -70,8 +70,3 @@ ChickenCoop {
 	Position = 30, -1, 70
 	Rotation = 0, 200, 0
 }
-
-// testing hinges
-HingeTest {
-	Position = 0, 0, 100
-}

@@ -8,10 +8,10 @@ MaxReverseSpeed = 20
 FrontWheel = "FrontWheel"
 BackWheel = "BackWheel"
 PhysicsMaterial = "Kart"
-FrontLeftWheelPosition = 1.34, 1.0, 1.26279
-FrontRightWheelPosition = -1.34, 1.0, 1.26279
-BackLeftWheelPosition = 1.34, 1.0, -1.46281
-BackRightWheelPosition = -1.34, 1.0, -1.46281
+FrontLeftWheelPosition = 1.34, 1.1, 1.26279
+FrontRightWheelPosition = -1.34, 1.1, 1.26279
+BackLeftWheelPosition = 1.34, 1.1, -1.46281
+BackRightWheelPosition = -1.34, 1.1, -1.46281
 
 // box#0
 Shape {

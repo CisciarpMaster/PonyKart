@@ -26,7 +26,7 @@ namespace Ponykart {
 		/// <typeparam name="T">The type of the object you want to get</typeparam>
 		/// <returns></returns>
 		[DebuggerStepThrough]
-		public static T GetGlobalObject<T>() {
+		public static T GetG<T>() {
 			object value = null;
 			GlobalObjects.TryGetValue(typeof(T), out value);
 			return (T)value;
@@ -38,7 +38,7 @@ namespace Ponykart {
 		/// <typeparam name="T">The type of the object you want to get</typeparam>
 		/// <returns></returns>
 		[DebuggerStepThrough]
-		public static T GetLevelObject<T>() {
+		public static T GetL<T>() {
 			object value = null;
 			LevelObjects.TryGetValue(typeof(T), out value);
 			return (T)value;
@@ -51,9 +51,9 @@ namespace Ponykart {
 		/// <returns></returns>
 		[DebuggerStepThrough]
 		public static T Get<T>() {
-			var obj = GetLevelObject<T>();
+			var obj = GetL<T>();
 			if (obj == null)
-				obj = GetGlobalObject<T>();
+				obj = GetG<T>();
 			if (obj == null)
 				throw new ArgumentException("This class (" + typeof(T) + ") is not registered to the kernel!", typeof(T).ToString());
 			return obj;
