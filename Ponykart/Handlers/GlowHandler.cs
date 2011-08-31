@@ -11,7 +11,7 @@ namespace Ponykart.Handlers {
 
 		public GlowHandler()
 		{
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 			sceneMgr.RenderQueueStarted += new RenderQueueListener.RenderQueueStartedHandler(RenderQueueStarted);
 			sceneMgr.RenderQueueEnded += new RenderQueueListener.RenderQueueEndedHandler(RenderQueueEnded);
 		}

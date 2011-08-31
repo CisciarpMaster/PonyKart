@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using PonykartParsers;
 using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -7,7 +6,9 @@ using Ponykart.Lua;
 using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Properties;
+using Ponykart.Sound;
 using Ponykart.Stuff;
+using PonykartParsers;
 using Vector3 = Mogre.Vector3;
 
 namespace Ponykart.Handlers {
@@ -19,19 +20,19 @@ namespace Ponykart.Handlers {
 	public class MiscKeyboardHandler {
 
 		public MiscKeyboardHandler() {
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress_Anything;
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress_Anything;
 		}
 
 		void OnKeyboardPress_Anything(KeyEvent ke) {
-			if (LKernel.Get<InputSwallowerManager>().IsSwallowed()) // if the input is swallowed, do nothing
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed()) // if the input is swallowed, do nothing
 				return;
 
 			switch (ke.key) {
 				case KeyCode.KC_MINUS: // the -_ key
-					LKernel.Get<DebugOverlayManager>().ToggleDebugOverlay();
+					LKernel.GetG<DebugOverlayManager>().ToggleDebugOverlay();
 					break;
 				case KeyCode.KC_K:
-					LKernel.Get<Spawner>().Spawn("Kart", LKernel.Get<PlayerManager>().MainPlayer.NodePosition);
+					LKernel.GetG<Spawner>().Spawn("Kart", LKernel.GetG<PlayerManager>().MainPlayer.NodePosition);
 					break;
 				case KeyCode.KC_X:
 					MogreDebugDrawer.Singleton.Clear();
@@ -46,16 +47,16 @@ namespace Ponykart.Handlers {
 					Constants.SOUNDS = !Constants.SOUNDS;
 					break;
 				case KeyCode.KC_N:
-					LKernel.Get<Sound.SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
+					LKernel.GetG<SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 					break;
 				case KeyCode.KC_U:
-					LKernel.Get<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 100000, 0), Vector3.ZERO);
+					LKernel.GetG<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 100000, 0), Vector3.ZERO);
 					break;
 				case KeyCode.KC_F:
-					LKernel.Get<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
+					LKernel.GetG<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
 					break;
 				case KeyCode.KC_L:
-					LKernel.Get<LuaMain>().DoFile(Settings.Default.ScriptLocation + "test" + Settings.Default.LuaFileExtension);
+					LKernel.GetG<LuaMain>().DoFile(Settings.Default.ScriptLocation + "test" + Settings.Default.LuaFileExtension);
 					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
@@ -64,10 +65,10 @@ namespace Ponykart.Handlers {
 					proc.Start();
 					proc.WaitForExit();
 
-					LKernel.Get<LuaMain>().Restart();
+					LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
-					LKernel.Get<ThingDatabase>().ClearDatabase();
+					LKernel.GetG<ThingDatabase>().ClearDatabase();
 					Mogre.MaterialManager.Singleton.ReloadAll(false);
 					Mogre.MeshManager.Singleton.ReloadAll(false);
 					break;

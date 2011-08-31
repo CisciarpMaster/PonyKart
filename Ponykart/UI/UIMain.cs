@@ -25,11 +25,11 @@ namespace Ponykart.UI {
 		/// </summary>
 		public UIMain() {
 			Launch.Log("[Loading] Starting Miyagi...");
-			var levelManager = LKernel.Get<LevelManager>();
-			var input = LKernel.Get<InputMain>();
+			var levelManager = LKernel.GetG<LevelManager>();
+			var input = LKernel.GetG<InputMain>();
 
 			// attach events
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 
 			// set up the system - the first argument has to be "Mogre" because that's the system we're running Miyagi on
 			MiyagiSys = new MiyagiSystem("Mogre");

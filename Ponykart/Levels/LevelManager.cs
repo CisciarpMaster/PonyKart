@@ -40,7 +40,7 @@ namespace Ponykart.Levels {
 			// pause it for the main menu
 			Pauser.IsPaused = true;
 			// we don't want any input to go while we're in the middle of changing levels
-			LKernel.Get<InputSwallowerManager>().AddSwallower(() => !IsValidLevel, this);
+			LKernel.GetG<InputSwallowerManager>().AddSwallower(() => !IsValidLevel, this);
 		}
 
 		/// <summary>
@@ -107,7 +107,7 @@ namespace Ponykart.Levels {
 
 				IsValidLevel = true;
 
-				LKernel.Get<LuaMain>().LoadScriptFiles(newLevel.Name);
+				LKernel.GetG<LuaMain>().LoadScriptFiles(newLevel.Name);
 				// run our scripts
 				newLevel.RunLevelScripts();
 			}

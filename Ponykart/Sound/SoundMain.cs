@@ -22,12 +22,12 @@ namespace Ponykart.Sound {
 		/// </summary>
 		public SoundMain() {
 			Launch.Log("[Loading] Creating IrrKlang and SoundMain...");
-			var levelManager = LKernel.Get<LevelManager>();
+			var levelManager = LKernel.GetG<LevelManager>();
 
 			levelManager.OnLevelLoad += OnLevelLoad;
 			levelManager.OnLevelUnload += (ea) => Engine.RemoveAllSoundSources();
 
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 
 			Engine = new ISoundEngine();
 			Engine.Default3DSoundMinDistance = 2;
@@ -42,7 +42,7 @@ namespace Ponykart.Sound {
 		/// TODO: use that sounddata.birddog file
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (LKernel.Get<LevelManager>().CurrentLevel.Name == "Level0")
+			if (LKernel.GetG<LevelManager>().CurrentLevel.Name == "Level0")
 				music = CreateAmbientSound("media/sound/Kil - MLP Main Theme JRPG Battle Mix.ogg", "bgmusic", true);
 			else
 				music = CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
@@ -55,13 +55,13 @@ namespace Ponykart.Sound {
 
 		// only need to update this twice a second
 		bool FrameStarted(FrameEvent evt) {
-			if (!LKernel.Get<LevelManager>().IsValidLevel)
+			if (!LKernel.GetG<LevelManager>().IsValidLevel)
 				return true;
 
 			timesince += evt.timeSinceLastFrame;
 			if (timesince > 0.5f) {
 				timesince = 0;
-				pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition;
+				pos = LKernel.GetG<PlayerManager>().MainPlayer.NodePosition;
 				Engine.SetListenerPosition(pos.x, pos.y, pos.z, lookDir.x, lookDir.y, lookDir.z);
 				Engine.Update();
 			}

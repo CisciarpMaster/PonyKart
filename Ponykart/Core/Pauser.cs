@@ -20,9 +20,9 @@ namespace Ponykart.Core {
 			Launch.Log("[Loading] Creating Pauser");
 
 			// if we press `, then pause
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything += InvokePauseEvent;
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += InvokePauseEvent;
 
-			LKernel.Get<InputSwallowerManager>().AddSwallower(() => IsPaused, this);
+			LKernel.GetG<InputSwallowerManager>().AddSwallower(() => IsPaused, this);
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Ponykart.Core {
 		/// Checks to make sure we aren't on the main menu (don't want to unpause that!). This is a separate method so we can call it from e.g. Lua.
 		/// </summary>
 		public void InvokePauseEvent() {
-			if (LKernel.Get<LevelManager>().IsPlayableLevel)
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel)
 				PauseWithEvent();
 		}
 

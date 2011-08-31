@@ -10,7 +10,7 @@ namespace Ponykart.Handlers {
 	public class EscHandler {
 
 		public EscHandler() {
-			LKernel.Get<InputMain>().OnKeyboardPress_Escape += OnEscPress;
+			LKernel.GetG<InputMain>().OnKeyboardPress_Escape += OnEscPress;
 		}
 
 		/// <summary>
@@ -18,7 +18,7 @@ namespace Ponykart.Handlers {
 		/// and when you've closed all of them, this should pause, and not quit. But oh well this is temporary really.
 		/// </summary>
 		void OnEscPress(KeyEvent eventArgs) {
-			var lcm = LKernel.Get<LuaConsoleManager>();
+			var lcm = LKernel.GetG<LuaConsoleManager>();
 
 			if (lcm.IsVisible)
 				lcm.Hide();

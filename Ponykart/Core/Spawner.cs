@@ -1,7 +1,7 @@
 ﻿using System;
-using PonykartParsers;
 using Mogre;
 using Ponykart.Actors;
+using PonykartParsers;
 
 namespace Ponykart.Core {
 	public delegate void OnThingCreation<T>(T thing);
@@ -30,7 +30,7 @@ namespace Ponykart.Core {
 			}
 			LThing thing;
 
-			var definition = LKernel.Get<ThingDatabase>().GetThingDefinition(type);
+			var definition = LKernel.GetG<ThingDatabase>().GetThingDefinition(type);
 
 			if (type == "Kart") {
 				thing = new Kart(template, definition);

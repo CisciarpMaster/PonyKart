@@ -15,7 +15,7 @@ namespace Ponykart.Handlers {
 		/// Make some trigger regions - a long box, a sphere, and a rotated box
 		/// </summary>
 		public TriggerRegionsTest() {
-			var reporter = LKernel.Get<TriggerReporter>();
+			var reporter = LKernel.GetG<TriggerReporter>();
 
 			tr1 = new TriggerRegion("test trigger area", new Vector3(5, 3, 30), new BoxShape(10, 3, 3));
 			reporter.AddEvent(tr1.Name, doSomething);
@@ -50,7 +50,7 @@ namespace Ponykart.Handlers {
 		/// Remove the events
 		/// </summary>
 		public void Dispose() {
-			var reporter = LKernel.Get<TriggerReporter>();
+			var reporter = LKernel.GetG<TriggerReporter>();
 
 			reporter.RemoveEvent(tr1.Name, doSomething);
 #if DEBUG

@@ -9,7 +9,7 @@ namespace Ponykart.Handlers {
 	public class PrimitiveCreatorHandler : ILevelHandler {
 
 		public PrimitiveCreatorHandler() {
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything += ShootPrimitive;
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += ShootPrimitive;
 		}
 
 		void ShootPrimitive(KeyEvent ke) {
@@ -28,14 +28,14 @@ namespace Ponykart.Handlers {
 					case 4:
 						type = "Capsule"; break;
 				}
-				Vector3 pos = LKernel.Get<PlayerManager>().MainPlayer.NodePosition + Vector3.UNIT_Y;
+				Vector3 pos = LKernel.GetG<PlayerManager>().MainPlayer.NodePosition + Vector3.UNIT_Y;
 
-				LKernel.Get<Spawner>().Spawn(type, pos);
+				LKernel.GetG<Spawner>().Spawn(type, pos);
 			}
 		}
 
 		public void Dispose() {
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything -= ShootPrimitive;
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything -= ShootPrimitive;
 		}
 	}
 }

@@ -43,8 +43,8 @@ namespace Ponykart.Physics {
 			reporters = new CollisionReportHandler[HIGHEST_BIT_IN_COLLISION_GROUPS + 1, HIGHEST_BIT_IN_COLLISION_GROUPS + 1];
 			CurrentlyCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
 
-			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
-			LKernel.Get<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
+			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
+			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
 		}
 
 		/// <summary>

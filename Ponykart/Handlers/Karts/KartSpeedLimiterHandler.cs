@@ -14,15 +14,15 @@ namespace Ponykart.Handlers {
 		PlayerManager playerManager;
 
 		public KartSpeedLimiterHandler() {
-			playerManager = LKernel.Get<PlayerManager>();
-			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
+			playerManager = LKernel.GetG<PlayerManager>();
+			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
 		}
 
 		/// <summary>
 		/// Runs after every physics simulation
 		/// </summary>
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (!LKernel.Get<LevelManager>().IsValidLevel)
+			if (!LKernel.GetG<LevelManager>().IsValidLevel)
 				return;
 
 			// every kart
@@ -59,7 +59,7 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Dispose() {
-			LKernel.Get<PhysicsMain>().PostSimulate -= PostSimulate;
+			LKernel.GetG<PhysicsMain>().PostSimulate -= PostSimulate;
 		}
 	}
 }

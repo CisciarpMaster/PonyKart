@@ -19,8 +19,8 @@ namespace Ponykart.Physics {
 			Launch.Log("[Loading] First Get<TriggerReporter>");
 			Regions = new Dictionary<string, TriggerRegion>();
 
-			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
-			LKernel.Get<CollisionReporter>().AddEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Triggers, CollisionEvent);
+			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LKernel.GetG<CollisionReporter>().AddEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Triggers, CollisionEvent);
 		}
 
 		/// <summary>

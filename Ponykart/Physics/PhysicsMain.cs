@@ -58,7 +58,7 @@ namespace Ponykart.Physics {
 		public PhysicsMain() {
 			Launch.Log("[Loading] Creating PhysicsMain...");
 
-			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 
 			ThingsToDispose = new Collection<LThing>();
 
@@ -78,7 +78,7 @@ namespace Ponykart.Physics {
 
 			// creates collision meshes out of static objects
 			// get the scene manager
-			SceneManager sceneMgr = LKernel.Get<SceneManager>();
+			SceneManager sceneMgr = LKernel.GetG<SceneManager>();
 			// create a node that will be the root of all of these static level meshes
 			SceneNode levelNode = sceneMgr.RootSceneNode.CreateChildSceneNode("RootLevelNode", new Vector3(0, 0, 0));
 			// parse our .scene file
@@ -112,11 +112,11 @@ namespace Ponykart.Physics {
 			if (PostCreateWorld != null)
 				PostCreateWorld(world);
 
-			LKernel.Get<Root>().FrameEnded += FrameEnded;
+			LKernel.GetG<Root>().FrameEnded += FrameEnded;
 		}
 
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			LKernel.Get<Root>().FrameEnded -= FrameEnded;
+			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
 			if (!world.IsDisposed)
 				world.Dispose();
@@ -146,7 +146,7 @@ namespace Ponykart.Physics {
 		/// Physics simulation should be the only thing that's using FrameEnded!
 		/// </summary>
 		bool FrameEnded(FrameEvent evt) {
-			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsPlayableLevel || !LKernel.Get<LevelManager>().IsValidLevel || world.IsDisposed)
+			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsPlayableLevel || !LKernel.GetG<LevelManager>().IsValidLevel || world.IsDisposed)
 				return true;
 
 			// dispose of everything waiting to be disposed

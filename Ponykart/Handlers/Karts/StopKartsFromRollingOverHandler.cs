@@ -54,8 +54,8 @@ namespace Ponykart.Handlers {
 		private readonly float LONG_RAY_LENGTH = 5f;
 
 		public StopKartsFromRollingOverHandler() {
-			LKernel.Get<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
-			LKernel.Get<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
+			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
+			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
 		}
 
 		/// <summary>
@@ -69,11 +69,11 @@ namespace Ponykart.Handlers {
 				Skidders = new Dictionary<Kart, Skidder>();
 
 				// set up our dictionary
-				foreach (Player p in LKernel.Get<PlayerManager>().Players) {
+				foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
 					IsInAir.Add(p.Kart, false);
 				}
 
-				LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
+				LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace Ponykart.Handlers {
 				elapsed = 0;
 
 				// loop through each player's kart
-				foreach (Player p in LKernel.Get<PlayerManager>().Players) {
+				foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
 					// if the player is null, then skip it
 					if (p == null || Pauser.IsPaused)
 						continue;
@@ -245,7 +245,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.OldLevel.Type == LevelType.Race) {
-				LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
+				LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 
 				// have to do this because if we change levels while SRHs is being modified, we get an exception
 				SelfRightingHandler[] srh = new SelfRightingHandler[SRHs.Count];

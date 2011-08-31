@@ -16,11 +16,11 @@ namespace Ponykart.Lua {
 		static ICollection<KeyValuePair<TriggerRegion, TriggerReportHandler>> toDispose;
 
 		public TriggerWrapper() {
-			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
+			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 
 			toDispose = new Collection<KeyValuePair<TriggerRegion, TriggerReportHandler>>();
 
-			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 		}
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace Ponykart.Lua {
 			TriggerReporter reporter = LKernel.Get<TriggerReporter>();
 
 			if (reporter != null) {
-				TriggerReportHandler handler = (region, otherShape, flags) => LKernel.Get<LuaMain>().DoFile(filePath);
+				TriggerReportHandler handler = (region, otherShape, flags) => LKernel.GetG<LuaMain>().DoFile(filePath);
 				TriggerRegion tr = reporter.AddEvent(nameOfRegion, handler);
 				if (tr != null)
 					AddToDispose(tr, handler);

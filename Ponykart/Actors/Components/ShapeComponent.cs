@@ -11,7 +11,7 @@ namespace Ponykart.Actors {
 
 		public ShapeComponent(LThing lthing, ThingBlock template, ShapeBlock block) {
 			ID = IDs.New;
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Name = block.GetStringProperty("name", template.ThingName);
 

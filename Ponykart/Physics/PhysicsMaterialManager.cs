@@ -15,7 +15,7 @@ namespace Ponykart.Physics {
 		public void ApplyMaterial(RigidBody body, string material) {
 			Launch.Log("[PhysicsMaterialManager] Applying material \"" + material + "\" to " + body.GetName());
 
-			PhysicsMaterial mat = LKernel.Get<PhysicsMaterialFactory>().GetMaterial(material);
+			PhysicsMaterial mat = LKernel.GetG<PhysicsMaterialFactory>().GetMaterial(material);
 
 			body.Friction = mat.Friction;
 			body.Restitution = mat.Bounciness;
@@ -27,7 +27,7 @@ namespace Ponykart.Physics {
 		public void ApplyMaterial(RigidBodyConstructionInfo info, string material) {
 			Launch.Log("[PhysicsMaterialManager] Applying material \"" + material + "\" to RigidBodyConstructionInfo");
 
-			PhysicsMaterial mat = LKernel.Get<PhysicsMaterialFactory>().GetMaterial(material);
+			PhysicsMaterial mat = LKernel.GetG<PhysicsMaterialFactory>().GetMaterial(material);
 
 			info.Friction = mat.Friction;
 			info.Restitution = mat.Bounciness;

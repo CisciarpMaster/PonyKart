@@ -1,6 +1,6 @@
-﻿using PonykartParsers;
-using Mogre;
+﻿using Mogre;
 using Ponykart.Levels;
+using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class RibbonComponent : IThingComponent {
@@ -17,7 +17,7 @@ namespace Ponykart.Actors {
 
 		public RibbonComponent(LThing lthing, ThingBlock template, RibbonBlock block) {
 			ID = IDs.New;
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Name = block.GetStringProperty("name", template.ThingName);
 
@@ -25,7 +25,7 @@ namespace Ponykart.Actors {
 			if (!Constants.RIBBONS)
 				return;
 
-			Ribbon = LKernel.Get<SceneManager>().CreateRibbonTrail(Name + ID + "Ribbon");
+			Ribbon = LKernel.GetG<SceneManager>().CreateRibbonTrail(Name + ID + "Ribbon");
 
 
 			Ribbon.SetMaterialName(block.GetStringProperty("material", "ribbon"));
@@ -41,7 +41,7 @@ namespace Ponykart.Actors {
 			Ribbon.SetColourChange(0, new ColourValue(colorQuat.x, colorQuat.y, colorQuat.z, colorQuat.w));
 
 			// attach it to the node
-			RibbonNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID + "RibbonNode");
+			RibbonNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID + "RibbonNode");
 			Ribbon.AddNode(lthing.RootNode);
 			RibbonNode.AttachObject(Ribbon);
 
@@ -53,8 +53,8 @@ namespace Ponykart.Actors {
 				RibbonNode.DetachObject(Ribbon);
 				foreach (SceneNode n in Ribbon.GetNodeIterator())
 					Ribbon.RemoveNode(n);
-				if (LKernel.Get<LevelManager>().IsValidLevel)
-					LKernel.Get<SceneManager>().DestroyRibbonTrail(Ribbon);
+				if (LKernel.GetG<LevelManager>().IsValidLevel)
+					LKernel.GetG<SceneManager>().DestroyRibbonTrail(Ribbon);
 				Ribbon.Dispose();
 				Ribbon = null;
 				RibbonNode = null;

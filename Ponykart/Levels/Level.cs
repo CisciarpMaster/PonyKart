@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using PonykartParsers;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Lua;
 using Ponykart.Physics;
 using Ponykart.Properties;
+using PonykartParsers;
 
 namespace Ponykart.Levels {
 	/// <summary>
@@ -38,7 +38,7 @@ namespace Ponykart.Levels {
 			Things = new Dictionary<string, LThing>();
 
 			// don't use anonymous methods here because we have to disconnect it when we change levels
-			LKernel.Get<Spawner>().OnThingCreation += OnSpawnEvent;
+			LKernel.GetG<Spawner>().OnThingCreation += OnSpawnEvent;
 		}
 
 		public void ReadMuffin() {
@@ -56,7 +56,7 @@ namespace Ponykart.Levels {
 		/// </summary>
 		public void CreateEnvironment() {
 
-			LKernel.Get<PhysicsMain>().LoadPhysicsLevel(Name);
+			LKernel.GetG<PhysicsMain>().LoadPhysicsLevel(Name);
 		}
 
 		/// <summary>
@@ -66,7 +66,7 @@ namespace Ponykart.Levels {
 		public void CreateEntities() {
 			// load up everything into this world
 
-			var spawner = LKernel.Get<Spawner>();
+			var spawner = LKernel.GetG<Spawner>();
 			foreach (ThingBlock tb in Definition.ThingBlocks) {
 				spawner.Spawn(tb.ThingName, tb);
 			}
@@ -79,7 +79,7 @@ namespace Ponykart.Levels {
 		/// </summary>
 		public void RunLevelScripts() {
 			if (Directory.Exists(Settings.Default.LevelScriptLocation + Name + "/"))
-				LKernel.Get<LuaMain>().LuaVM.Lua.GetFunction(Name).Call(this);
+				LKernel.GetG<LuaMain>().LuaVM.Lua.GetFunction(Name).Call(this);
 
 			LThing[] readonlythings = new LThing[Things.Values.Count];
 			Things.Values.CopyTo(readonlythings, 0);
@@ -103,7 +103,7 @@ namespace Ponykart.Levels {
 		}
 
 		public void Dispose() {
-			LKernel.Get<Spawner>().OnThingCreation -= OnSpawnEvent;
+			LKernel.GetG<Spawner>().OnThingCreation -= OnSpawnEvent;
 			if (Definition != null)
 				Definition.Dispose();
 			if (Things != null) {

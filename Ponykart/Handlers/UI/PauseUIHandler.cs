@@ -17,7 +17,7 @@ namespace Ponykart.Handlers {
 
 		public PauseUIHandler() {
 			// create our label
-			var gui = LKernel.Get<UIMain>().Gui;
+			var gui = LKernel.GetG<UIMain>().Gui;
 
 			pauseLabel = new Label("pause label") {
 				Location = new Point(0, 0), 
@@ -34,7 +34,7 @@ namespace Ponykart.Handlers {
 			gui.Controls.Add(pauseLabel);
 
 			// hook up to the pause event
-			LKernel.Get<Pauser>().PauseEvent += new PauseEventHandler(DoOnPause);
+			LKernel.GetG<Pauser>().PauseEvent += new PauseEventHandler(DoOnPause);
 		}
 
 		void DoOnPause(bool isPaused) {

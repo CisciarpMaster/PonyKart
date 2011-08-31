@@ -10,7 +10,7 @@ namespace Ponykart.Lua {
 	public class SpawnerWrapper {
 
 		public SpawnerWrapper() {
-			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
+			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 		}
 
 		[LuaFunction("spawn", "Spawns a game object! Returns null if it didn't spawn correctly",
@@ -23,7 +23,7 @@ namespace Ponykart.Lua {
 					return spawner.Spawn(type, pos);
 				}
 				catch (Exception e) {
-					LKernel.Get<LuaMain>().Print("[SpawnerWrapper] ERROR: " + e.Source + " : " + e.Message);
+					LKernel.GetG<LuaMain>().Print("[SpawnerWrapper] ERROR: " + e.Source + " : " + e.Message);
 					return null;
 				}
 			}

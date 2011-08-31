@@ -19,8 +19,8 @@ namespace Ponykart.Handlers {
 		private ICollection<Control> levelControls, mainMenuControls;
 
 		public LevelUIHandler() {
-			LKernel.Get<LevelManager>().OnLevelLoad += OnLevelLoad;
-			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LKernel.GetG<LevelManager>().OnLevelLoad += OnLevelLoad;
+			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 
 			levelControls = new Collection<Control>();
 			mainMenuControls = new Collection<Control>();
@@ -32,7 +32,7 @@ namespace Ponykart.Handlers {
 		void MakeLevelUI() {
 			Launch.Log("[Loading] Creating LevelUIHandler");
 
-			GUI Gui = LKernel.Get<UIMain>().Gui;
+			GUI Gui = LKernel.GetG<UIMain>().Gui;
 			levelControls.Clear();
 
 			commandsButton = new Button("show/hide commands button") {
@@ -97,7 +97,7 @@ namespace Ponykart.Handlers {
 		/// Make the UI for the main menu
 		/// </summary>
 		void MakeMainMenuUI() {
-			GUI Gui = LKernel.Get<UIMain>().Gui;
+			GUI Gui = LKernel.GetG<UIMain>().Gui;
 			mainMenuControls.Clear();
 
 			level1Button = new Button("shittyterrain") {
@@ -111,7 +111,7 @@ namespace Ponykart.Handlers {
 				},
 			};
 			mainMenuControls.Add(level1Button);
-			level1Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("shittyterrain");
+			level1Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("shittyterrain");
 
 			level2Button = new Button("flat") {
 				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 100),
@@ -124,7 +124,7 @@ namespace Ponykart.Handlers {
 				},
 			};
 			mainMenuControls.Add(level2Button);
-			level2Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("flat");
+			level2Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("flat");
 
 			level3Button = new Button("testlevel") {
 				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 150),
@@ -137,7 +137,7 @@ namespace Ponykart.Handlers {
 				},
 			};
 			mainMenuControls.Add(level3Button);
-			level3Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("testlevel");
+			level3Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("testlevel");
 
 			level4Button = new Button("sweet apple acres") {
 				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 200),
@@ -150,7 +150,7 @@ namespace Ponykart.Handlers {
 				},
 			};
 			mainMenuControls.Add(level4Button);
-			level4Button.MouseClick += (o, e) => LKernel.Get<LevelManager>().LoadLevel("saa08");
+			level4Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("saa08");
 
 			quitButton = new Button("Quit") {
 				Location = new Point((int) (Constants.WINDOW_WIDTH / 2) - 100, 250),

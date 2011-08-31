@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using LuaNetInterface;
-using PonykartParsers;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -16,6 +15,7 @@ using Ponykart.Properties;
 using Ponykart.Sound;
 using Ponykart.Stuff;
 using Ponykart.UI;
+using PonykartParsers;
 
 namespace Ponykart {
 	public static partial class LKernel {
@@ -37,7 +37,7 @@ namespace Ponykart {
 			splash.Increment("Initialising render system...");
 			var renderSystem = AddGlobalObject(InitRenderSystem(root));
 			splash.Increment("Creating render window...");
-			var renderWindow = AddGlobalObject(InitRenderWindow(root, Get<Main>(), renderSystem));
+			var renderWindow = AddGlobalObject(InitRenderWindow(root, GetG<Main>(), renderSystem));
 
 			splash.Increment("Initialising resources and resource groups...");
 			InitResources();
@@ -163,9 +163,9 @@ namespace Ponykart {
 				AddLevelObject(Activator.CreateInstance(t), t);
 			}
 			// the camera's a bit weird
-			if (!Get<SceneManager>().HasCamera("Camera")) {
+			if (!GetG<SceneManager>().HasCamera("Camera")) {
 				var playerCam = AddLevelObject(new PlayerCamera());
-				Get<Viewport>().Camera = playerCam.Camera;
+				GetG<Viewport>().Camera = playerCam.Camera;
 			}
 		}
 
@@ -206,7 +206,7 @@ namespace Ponykart {
 		/// </summary>
 		private static void CleanSceneManagerThings() {
 			Launch.Log("[Loading] Cleaning SceneManager...");
-			var sceneMgr = Get<SceneManager>();
+			var sceneMgr = GetG<SceneManager>();
 
 			sceneMgr.DestroyAllAnimations();
 			sceneMgr.DestroyAllAnimationStates();

@@ -1,11 +1,10 @@
-﻿using System;
-using Ponykart.Lua;
-using Miyagi.Common;
+﻿using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using MOIS;
+using Ponykart.Lua;
 using KeyEvent = MOIS.KeyEvent;
 
 namespace Ponykart.UI {
@@ -23,12 +22,12 @@ namespace Ponykart.UI {
 
 		public LuaConsoleManager() {
 			Launch.Log("[Loading] Creating LuaConsoleManager");
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress;
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress;
 			IsVisible = false;
 			Create();
 
 			// swallow the input if our text box has focus
-			LKernel.Get<InputSwallowerManager>().AddSwallower(() => textBox.Focused, this);
+			LKernel.GetG<InputSwallowerManager>().AddSwallower(() => textBox.Focused, this);
 		}
 
 		/// <summary>
@@ -68,7 +67,7 @@ namespace Ponykart.UI {
 		/// I don't really need to have this in a separate method, but eh it doesn't matter
 		/// </summary>
 		void Create() {
-			GUI gui = LKernel.Get<UIMain>().Gui;
+			GUI gui = LKernel.GetG<UIMain>().Gui;
 
 			// make the panel
 			panel = new Panel("ConsolePanel") {
@@ -176,7 +175,7 @@ namespace Ponykart.UI {
 			lastInput = vea.Data;
 			AddLabel("> " + vea.Data);
 			Launch.Log("[Lua] <Input> " + vea.Data);
-			LKernel.Get<LuaMain>().DoString("print(" + vea.Data + ")");
+			LKernel.GetG<LuaMain>().DoString("print(" + vea.Data + ")");
 
 			textBox.Text = "";
 

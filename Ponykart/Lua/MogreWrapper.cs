@@ -6,7 +6,7 @@ namespace Ponykart.Lua {
 	public class MogreWrapper {
 
 		public MogreWrapper() {
-			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
+			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 		}
 
 		[LuaFunction("vector", "Creates a Mogre.Vector3 object", "x", "y", "z")]

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using BulletSharp;
-using PonykartParsers;
 using Mogre;
 using Ponykart.Levels;
+using Ponykart.Lua;
 using Ponykart.Physics;
+using PonykartParsers;
 
 namespace Ponykart.Actors {
 
@@ -69,7 +70,7 @@ namespace Ponykart.Actors {
 			// get our script token and run it, if it has one and if this thing was created on the fly instead
 			// of through a .muffin file
 			if (def.StringTokens.TryGetValue("script", out Script)) {
-				if (LKernel.Get<LevelManager>().IsValidLevel)
+				if (LKernel.GetG<LevelManager>().IsValidLevel)
 					RunScript();
 			}
 		}
@@ -84,7 +85,7 @@ namespace Ponykart.Actors {
 		/// Sets up mogre stuff, like our root scene node
 		/// </summary>
 		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
-			RootNode = LKernel.Get<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
+			RootNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
 			
 		}
 
@@ -154,7 +155,7 @@ namespace Ponykart.Actors {
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
 			// TODO
 			string physmat = def.GetStringProperty("physicsmaterial", "Default");
-			LKernel.Get<PhysicsMaterialManager>().ApplyMaterial(Info, physmat);
+			LKernel.GetG<PhysicsMaterialManager>().ApplyMaterial(Info, physmat);
 
 			// collision group
 			string collisionGroup = def.GetStringProperty("collisiongroup", "Default");
@@ -197,7 +198,7 @@ namespace Ponykart.Actors {
 
 			Body.WorldTransform = Info.StartWorldTransform;
 
-			LKernel.Get<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);
+			LKernel.GetG<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);
 		}
 
 		/// <summary>
@@ -221,14 +222,14 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void RunScript() {
 			if (Script != null)
-				LKernel.Get<Lua.LuaMain>().DoFunction(Script, this);
+				LKernel.GetG<LuaMain>().DoFunction(Script, this);
 		}
 
 
 		public virtual void Dispose() {
-			var sceneMgr = LKernel.Get<SceneManager>();
-			var world = LKernel.Get<PhysicsMain>().World;
-			bool valid = LKernel.Get<LevelManager>().IsValidLevel;
+			var sceneMgr = LKernel.GetG<SceneManager>();
+			var world = LKernel.GetG<PhysicsMain>().World;
+			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;
 
 			foreach (ModelComponent mc in ModelComponents)
 				mc.Dispose();

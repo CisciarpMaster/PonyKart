@@ -23,7 +23,7 @@ namespace Ponykart.Lua {
 			// we don't have to register them on level load because this is a global singleton, not a level one
 			RegisterLuaFunctions(this);
 			// though we do have to restart lua when we change levels
-			LKernel.Get<LevelManager>().OnLevelLoad +=
+			LKernel.GetG<LevelManager>().OnLevelLoad +=
 				(e) => {
 					Restart();
 				};
@@ -75,7 +75,7 @@ namespace Ponykart.Lua {
 		/// <param name="parameters">The parameters to pass the function</param>
 		/// <returns>Stuff returned from the function, or null if the level is not valid</returns>
 		public object[] DoFunction(string functionName, params object[] parameters) {
-			if (LKernel.Get<LevelManager>().IsValidLevel) {
+			if (LKernel.GetG<LevelManager>().IsValidLevel) {
 				try {
 					return LuaVM.Lua.GetFunction(functionName).Call(parameters);
 				}
@@ -83,7 +83,7 @@ namespace Ponykart.Lua {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
 					foreach (var v in ex.Data)
 						Launch.Log("[Lua] " + v);
-					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
+					LKernel.GetG<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
 					Launch.Log(ex.StackTrace);
 					return null;
 				}
@@ -97,7 +97,7 @@ namespace Ponykart.Lua {
 		/// </summary>
 		/// <param name="s">the string to execute</param>
 		public void DoString(string s) {
-			if (LKernel.Get<LevelManager>().IsValidLevel) {
+			if (LKernel.GetG<LevelManager>().IsValidLevel) {
 				//try {
 					LuaVM.Lua.DoString(s);
 				/*}
@@ -116,7 +116,7 @@ namespace Ponykart.Lua {
 		/// </summary>
 		/// <param name="filename">the filename of the file to execute</param>
 		public void DoFile(string filename) {
-			if (LKernel.Get<LevelManager>().IsValidLevel) {
+			if (LKernel.GetG<LevelManager>().IsValidLevel) {
 				Launch.Log("[LuaMain] Running file: " + filename);
 				// adding this in case you try to run a script but forget the file path
 				if (!filename.StartsWith(Settings.Default.ScriptLocation))
@@ -129,7 +129,7 @@ namespace Ponykart.Lua {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
 					foreach (var v in ex.Data)
 						Launch.Log("[Lua] " + v);
-					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
+					LKernel.GetG<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
 					Launch.Log(ex.StackTrace);
 				}
 			}
@@ -166,7 +166,7 @@ namespace Ponykart.Lua {
 		/// <param name="s">The string to print</param>
 		public void Print(string s) {
 			Launch.Log("[Lua] " + s);
-			LKernel.Get<LuaConsoleManager>().AddLabel(s);
+			LKernel.GetG<LuaConsoleManager>().AddLabel(s);
 		}
 
 		/// <summary>

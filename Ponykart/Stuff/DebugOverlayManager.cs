@@ -13,7 +13,7 @@ namespace Ponykart.Stuff {
 
 		public DebugOverlayManager() {
 			this.overlay = OverlayManager.Singleton.GetByName("Core/DebugOverlay");
-			LKernel.Get<Root>().FrameStarted += FrameStarted;
+			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 
 			ShowDebugOverlay(true);
 		}
@@ -38,7 +38,7 @@ namespace Ponykart.Stuff {
 			OverlayElement guiBatches = OverlayManager.Singleton.GetOverlayElement("Core/NumBatches", false);
 			OverlayElement guiDbg = OverlayManager.Singleton.GetOverlayElement("Core/DebugText", false);
 
-			RenderTarget.FrameStats stats = LKernel.Get<RenderWindow>().GetStatistics();
+			RenderTarget.FrameStats stats = LKernel.GetG<RenderWindow>().GetStatistics();
 
 			guiAvg.Caption = avgFps + stats.AvgFPS;
 			guiCurr.Caption = currFps + stats.LastFPS;

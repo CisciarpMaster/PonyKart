@@ -13,7 +13,7 @@ namespace Ponykart.Handlers {
 		Label label;
 
 		public SpeedUIHandler() {
-			var gui = LKernel.Get<UIMain>().Gui;
+			var gui = LKernel.GetG<UIMain>().Gui;
 
 			label = new Label("speed label") {
 				Location = new Point(10, 400),
@@ -29,7 +29,7 @@ namespace Ponykart.Handlers {
 			};
 			gui.Controls.Add(label);
 
-			LKernel.Get<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
+			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 		}
 
 		float elapsed;
@@ -37,9 +37,9 @@ namespace Ponykart.Handlers {
 			if (elapsed >= 0.1f) {
 				elapsed = 0;
 
-				var mainPlayer = LKernel.Get<PlayerManager>().MainPlayer;
+				var mainPlayer = LKernel.GetG<PlayerManager>().MainPlayer;
 
-				if (LKernel.Get<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Body.IsDisposed) {
+				if (LKernel.GetG<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Body.IsDisposed) {
 					Kart kart = mainPlayer.Kart;
 					label.Text =
 						"Speed: " + kart.Vehicle.CurrentSpeedKmHour + "\r\n" +

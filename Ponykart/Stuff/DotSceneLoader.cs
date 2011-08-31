@@ -39,7 +39,7 @@ namespace Ponykart.Stuff {
 		public void ParseDotScene(String SceneName, String groupName1, SceneNode pAttachNode, String sPrependNode) {
 			// set up shared object values
 			this.groupName = groupName1;
-			this.sceneMgr = LKernel.Get<SceneManager>();
+			this.sceneMgr = LKernel.GetG<SceneManager>();
 			this.prependNode = sPrependNode;
 			this.sceneFileName = SceneName;
 			this.StaticObjects = new List<string>();

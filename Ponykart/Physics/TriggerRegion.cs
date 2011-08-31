@@ -35,7 +35,7 @@ namespace Ponykart.Physics {
 			CurrentlyCollidingWith = new HashSet<RigidBody>();
 			
 			// mogre
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(name);
 			if (Constants.GLOWY_REGIONS) {
@@ -88,10 +88,10 @@ namespace Ponykart.Physics {
 			Body.CollisionShape = shape;
 			Body.WorldTransform = transform;
 			Body.SetName(name);
-			LKernel.Get<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
+			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
 
 			// then add this to the trigger reporter
-			LKernel.Get<TriggerReporter>().Regions.Add(name, this);
+			LKernel.GetG<TriggerReporter>().Regions.Add(name, this);
 		}
 
 		/// <summary>
@@ -122,10 +122,10 @@ namespace Ponykart.Physics {
 		/// do we need to dispose of this stuff? don't we nuke the scene manager every time?
 		/// </summary>
 		public void Dispose() {
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			if (Node != null) {
-				if (LKernel.Get<LevelManager>().IsValidLevel) {
+				if (LKernel.GetG<LevelManager>().IsValidLevel) {
 					if (Constants.GLOWY_REGIONS)
 						sceneMgr.DestroyEntity(Entity);
 					sceneMgr.DestroySceneNode(Node);

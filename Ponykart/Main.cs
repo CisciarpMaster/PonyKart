@@ -51,9 +51,9 @@ namespace Ponykart {
 			try {
 				LKernel.LoadInitialObjects(splash);
 				base.Disposed += (sender, ea) => {
-					LKernel.Get<UIMain>().Dispose();
-					if (LKernel.Get<Root>() != null)
-						LKernel.Get<Root>().Shutdown();
+					LKernel.GetG<UIMain>().Dispose();
+					if (LKernel.GetG<Root>() != null)
+						LKernel.GetG<Root>().Shutdown();
 				};
 				GC.Collect();
 			}
@@ -68,7 +68,7 @@ namespace Ponykart {
 		/// </summary>
 		[DebuggerStepThrough]
 		private void StartRendering() {
-			Root root = LKernel.Get<Root>();
+			Root root = LKernel.GetG<Root>();
 			root.RenderOneFrame();
 
 			while (!quit && !this.IsDisposed && root != null) {
@@ -76,7 +76,7 @@ namespace Ponykart {
 					break;
 				Application.DoEvents();
 			}
-			LKernel.Get<UIMain>().Dispose();
+			LKernel.GetG<UIMain>().Dispose();
 			if (root != null)
 				root.Shutdown();
 		}
@@ -84,8 +84,8 @@ namespace Ponykart {
 		// ====================================================================
 
 		protected override void Dispose(bool disposing) {
-			if (LKernel.Get<UIMain>() != null)
-				LKernel.Get<UIMain>().Dispose();
+			if (LKernel.GetG<UIMain>() != null)
+				LKernel.GetG<UIMain>().Dispose();
 			base.Dispose(disposing);
 		}
 	}

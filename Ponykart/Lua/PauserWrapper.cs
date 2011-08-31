@@ -8,7 +8,7 @@ namespace Ponykart.Lua {
 	public class PauserWrapper {
 
 		public PauserWrapper() {
-			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
+			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 		}
 
 		[LuaFunction("pause", "Pauses the game but does not fire any events.")]
@@ -26,7 +26,7 @@ namespace Ponykart.Lua {
 			if (Pauser.IsPaused) // don't call this if it's already paused
 				return;
 
-			Pauser p = LKernel.Get<Pauser>();
+			Pauser p = LKernel.GetG<Pauser>();
 			if (p != null)
 				p.InvokePauseEvent();
 		}
@@ -36,7 +36,7 @@ namespace Ponykart.Lua {
 			if (!Pauser.IsPaused) // don't call this if it's already unpaused
 				return;
 
-			Pauser p = LKernel.Get<Pauser>();
+			Pauser p = LKernel.GetG<Pauser>();
 			if (p != null)
 				p.InvokePauseEvent();
 		}
@@ -49,10 +49,10 @@ namespace Ponykart.Lua {
 		[LuaFunction("hookFunctionToPauseEvent", "Hook up a lua function so it will run whenever the pause event fires.",
 			"string nameOfLuaFunction - the name of the lua function you want to run whenever the event fires.")]
 		public static void HookFunctionToPauseEvent(string nameOfLuaFunction) {
-			Pauser p = LKernel.Get<Pauser>();
+			Pauser p = LKernel.GetG<Pauser>();
 			if (p != null) {
 				var eventInfo = p.GetType().GetEvent("PauseEvent");
-				eventInfo.AddEventHandler(p, LKernel.Get<LuaMain>().LuaVM.Lua.GetFunction(eventInfo.EventHandlerType, nameOfLuaFunction));
+				eventInfo.AddEventHandler(p, LKernel.GetG<LuaMain>().LuaVM.Lua.GetFunction(eventInfo.EventHandlerType, nameOfLuaFunction));
 			}
 		}
 	}

@@ -26,11 +26,11 @@ namespace Ponykart.Handlers {
 
 			// commented out until we can get something working
 			//LKernel.Get<Spawner>().OnThingCreation += AddActor;
-			//LKernel.Get<Root>().FrameEnded += FrameEnded;
+			//LKernel.GetG<Root>().FrameEnded += FrameEnded;
 
 			// for things that were created via the save file
-			if (LKernel.Get<LevelManager>().CurrentLevel != null) {
-				foreach (LThing t in LKernel.Get<LevelManager>().CurrentLevel.Things.Values) {
+			if (LKernel.GetG<LevelManager>().CurrentLevel != null) {
+				foreach (LThing t in LKernel.GetG<LevelManager>().CurrentLevel.Things.Values) {
 					AddActor(t);
 				}
 			}
@@ -39,13 +39,13 @@ namespace Ponykart.Handlers {
 		public void Dispose() {
 			Launch.Log("[Loading] Disposing MovementHandler");
 
-			LKernel.Get<Spawner>().OnThingCreation -= AddActor;
-			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
+			LKernel.GetG<Spawner>().OnThingCreation -= AddActor;
+			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 			thingsToMove.Clear();
 		}
 
 		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (Pauser.IsPaused || !LKernel.Get<LevelManager>().IsValidLevel)
+			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsValidLevel)
 				return;
 
 			time += evt.timeSinceLastFrame;
@@ -57,10 +57,10 @@ namespace Ponykart.Handlers {
 
 		void MoveThings() {
 			// first of all, check to make sure this level is valid
-			if (!LKernel.Get<LevelManager>().IsValidLevel)
+			if (!LKernel.GetG<LevelManager>().IsValidLevel)
 				return;
 
-			PhysicsMain physics = LKernel.Get<PhysicsMain>();
+			PhysicsMain physics = LKernel.GetG<PhysicsMain>();
 			// since thingsToMove holds two types of Things, we have to loop over them all and then cast them to see which they are
 			/*foreach (Thing thing in thingsToMove)
 			{

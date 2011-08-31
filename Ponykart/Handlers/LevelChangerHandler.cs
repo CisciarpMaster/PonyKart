@@ -10,12 +10,12 @@ namespace Ponykart.Handlers {
 	public class LevelChangerHandler {
 
 		public LevelChangerHandler() {
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress_Anything;
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress_Anything;
 		}
 
 		void OnKeyboardPress_Anything(KeyEvent ke) {
 			// if the input is swallowed, don't do anything
-			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
 				return;
 
 			string s = "";
@@ -32,7 +32,7 @@ namespace Ponykart.Handlers {
 					s = "saa08"; break;
 			}
 			if (s != "")
-				LKernel.Get<LevelManager>().LoadLevel(s);
+				LKernel.GetG<LevelManager>().LoadLevel(s);
 		}
 	}
 }

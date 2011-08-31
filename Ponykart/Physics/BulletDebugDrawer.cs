@@ -1,6 +1,8 @@
 ﻿#if DEBUG
 using BulletSharp;
 using Mogre;
+using Ponykart.Levels;
+using Ponykart.Players;
 
 namespace Ponykart.Physics {
 	[Handler(HandlerScope.Level)]
@@ -14,7 +16,7 @@ namespace Ponykart.Physics {
 		bool begin = false;
 
 		public BulletDebugDrawer() {
-			sceneMgr = LKernel.Get<SceneManager>();
+			sceneMgr = LKernel.GetG<SceneManager>();
 
 			lines = new ManualObject("physics lines");
 			triangles = new ManualObject("physics triangles");
@@ -54,10 +56,10 @@ namespace Ponykart.Physics {
 
 			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb;
 
-			LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
-			LKernel.Get<PhysicsMain>().PostSimulate += PostSimulate;
+			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
+			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
 
-			LKernel.Get<PhysicsMain>().World.DebugDrawer = this;
+			LKernel.GetG<PhysicsMain>().World.DebugDrawer = this;
 		}
 
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
@@ -77,8 +79,8 @@ namespace Ponykart.Physics {
 		}
 
 		public void Dispose() {
-			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
-			LKernel.Get<PhysicsMain>().PostSimulate -= PostSimulate;
+			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
+			LKernel.GetG<PhysicsMain>().PostSimulate -= PostSimulate;
 			lines.Dispose();
 			triangles.Dispose();
 		}
@@ -87,8 +89,8 @@ namespace Ponykart.Physics {
 		/// A little condition to check whether we should render a line or not
 		/// </summary>
 		bool DrawCondition(Vector3 compare) {
-			return !LKernel.Get<Levels.LevelManager>().IsValidLevel
-				|| (LKernel.Get<Players.PlayerManager>().MainPlayer.NodePosition - compare).SquaredLength > maxRenderDistanceSquared;
+			return !LKernel.GetG<LevelManager>().IsValidLevel
+				|| (LKernel.GetG<PlayerManager>().MainPlayer.NodePosition - compare).SquaredLength > maxRenderDistanceSquared;
 		}
 
 		/// <summary>

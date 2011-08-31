@@ -15,7 +15,7 @@ namespace Ponykart.Handlers {
 		public SelfRightingHandler(Kart kartToFlip) {
 			kart = kartToFlip;
 
-			LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
+			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 		}
 
 		/// <summary>
@@ -64,7 +64,7 @@ namespace Ponykart.Handlers {
 				return;
 
 			IsDisposed = true;
-			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
+			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 			kart = null;
 		}
 	}

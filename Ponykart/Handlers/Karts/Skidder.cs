@@ -18,7 +18,7 @@ namespace Ponykart.Handlers {
 			Kart = kart;
 			Duration = duration;
 
-			LKernel.Get<PhysicsMain>().PreSimulate += Update;
+			LKernel.GetG<PhysicsMain>().PreSimulate += Update;
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace Ponykart.Handlers {
 
 		public bool IsDisposed = false;
 		public void Dispose() {
-			LKernel.Get<PhysicsMain>().PreSimulate -= Update;
+			LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
 			IsDisposed = true;
 
 			LKernel.Get<StopKartsFromRollingOverHandler>().Skidders.Remove(Kart);

@@ -54,7 +54,7 @@ namespace Ponykart.Actors {
 			ID = IDs.New;
 
 			Node = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + ID);
-			Entity = LKernel.Get<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
+			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
@@ -62,7 +62,7 @@ namespace Ponykart.Actors {
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
 
-			LKernel.Get<PhysicsMain>().PreSimulate += PreSimulate;
+			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 		}
 
 		/// <summary>
@@ -84,7 +84,7 @@ namespace Ponykart.Actors {
 		/// Update our node's orientation. I'd still like a way to figure out how to update its position based on the suspension, but oh well.
 		/// </summary>
 		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (!LKernel.Get<LevelManager>().IsValidLevel || Pauser.IsPaused)
+			if (!LKernel.GetG<LevelManager>().IsValidLevel || Pauser.IsPaused)
 				return;
 
 			Accelerate();
@@ -159,7 +159,7 @@ namespace Ponykart.Actors {
 		/// clean up stuff
 		/// </summary>
 		public void Dispose() {
-			LKernel.Get<PhysicsMain>().PreSimulate -= PreSimulate;
+			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 			// dispose of mogre stuff? I suppose we don't need to since we aren't going to be disposing karts in the middle of a level
 		}
 	}

@@ -9,18 +9,18 @@ namespace Ponykart.Handlers {
 	public class SceneEnvironmentHandler {
 
 		public SceneEnvironmentHandler() {
-			LKernel.Get<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
+			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
 		}
 
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 			// ambient light
 			sceneMgr.AmbientLight = new ColourValue(0.8f, 0.8f, 0.8f);
 			// shadows
 			sceneMgr.ShadowColour = new ColourValue(0.8f, 0.8f, 0.8f);
 			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
 			// TODO read this from a file
-			LKernel.Get<Viewport>().BackgroundColour = new ColourValue(0.7373f, 0.8902f, 0.9490f);
+			LKernel.GetG<Viewport>().BackgroundColour = new ColourValue(0.7373f, 0.8902f, 0.9490f);
 
 			// sunlight
 			Light light = sceneMgr.CreateLight("sun");
@@ -31,7 +31,7 @@ namespace Ponykart.Handlers {
 
 #if DEBUG
 			// make some axes
-			LKernel.Get<Core.Spawner>().Spawn("Axis", Vector3.ZERO);
+			LKernel.GetG<Core.Spawner>().Spawn("Axis", Vector3.ZERO);
 
 			// for testing animation
 			//LKernel.Get<Core.Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));

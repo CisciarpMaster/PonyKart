@@ -1,6 +1,6 @@
 ﻿using BulletSharp;
-using PonykartParsers;
 using Ponykart.Physics;
+using PonykartParsers;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -39,15 +39,15 @@ namespace Ponykart.Actors {
 		protected override void PostCreateBody(ThingDefinition def) {
 			Body.ActivationState = ActivationState.DisableDeactivation;
 
-			Raycaster = new DefaultVehicleRaycaster(LKernel.Get<PhysicsMain>().World);
+			Raycaster = new DefaultVehicleRaycaster(LKernel.GetG<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();
 			//Tuning.MaxSuspensionTravelCm = 40f;
 			Vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
 			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a matrix?
 
-			LKernel.Get<PhysicsMain>().World.AddAction(Vehicle);
+			LKernel.GetG<PhysicsMain>().World.AddAction(Vehicle);
 
-			var wheelFac = LKernel.Get<WheelFactory>();
+			var wheelFac = LKernel.GetG<WheelFactory>();
 			string frontWheelName = def.GetStringProperty("frontwheel", null);
 			string backWheelName = def.GetStringProperty("backwheel", null);
 			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("frontleftwheelposition", null), true);

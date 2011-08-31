@@ -7,12 +7,12 @@ namespace Ponykart.Lua {
 	public class LKernelWrapper {
 
 		public LKernelWrapper() {
-			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
+			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 		}
 
 		[LuaFunction("playerKart", "Returns the player's kart")]
 		public static Kart GetPlayerKart() {
-			var playermanager = LKernel.Get<PlayerManager>();
+			var playermanager = LKernel.GetG<PlayerManager>();
 			if (playermanager != null) {
 				return playermanager.MainPlayer.Kart;
 			}

@@ -8,7 +8,7 @@ namespace Ponykart.Lua {
 	public class PhysicsWrapper {
 
 		public PhysicsWrapper() {
-			LKernel.Get<LuaMain>().RegisterLuaFunctions(this);
+			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 		}
 
 		[LuaFunction("getBodyName", "Gets the name of this body.", "The body you want to get the name of.")]
@@ -23,7 +23,7 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("addConstraint", "Adds a constraint to the physics world", "TypedConstraint - The constraint to add", "bool - disable collisions between affected bodies?")]
 		public static void AddConstraint(TypedConstraint constraint, bool disableCollisionsBetweenBodies) {
-			LKernel.Get<PhysicsMain>().World.AddConstraint(constraint, disableCollisionsBetweenBodies);
+			LKernel.GetG<PhysicsMain>().World.AddConstraint(constraint, disableCollisionsBetweenBodies);
 		}
 
 		[LuaFunction("setBodyOrientation", "Sets the orientation of a RigidBody", "RigidBody", "Quaternion")]

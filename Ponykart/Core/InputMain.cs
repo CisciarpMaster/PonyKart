@@ -4,6 +4,7 @@
 using System;
 using Mogre;
 using MOIS;
+using Ponykart.Levels;
 using Type = MOIS.Type;
 
 namespace Ponykart {
@@ -27,7 +28,7 @@ namespace Ponykart {
 
 			ParamList pl = new ParamList();
 			IntPtr windowHnd;
-			LKernel.Get<RenderWindow>().GetCustomAttribute("WINDOW", out windowHnd); // window is your RenderWindow!
+			LKernel.GetG<RenderWindow>().GetCustomAttribute("WINDOW", out windowHnd); // window is your RenderWindow!
 			pl.Insert("WINDOW", windowHnd.ToString());
 #if DEBUG
 			// this stops MOIS from swallowing the mouse
@@ -43,10 +44,10 @@ namespace Ponykart {
 
 			// sets the mouseState initial width and height (default is too low)
 			MouseState_NativePtr mouseState = InputMouse.MouseState;
-			mouseState.width = LKernel.Get<Viewport>().ActualWidth;
-			mouseState.height = LKernel.Get<Viewport>().ActualHeight;
+			mouseState.width = LKernel.GetG<Viewport>().ActualWidth;
+			mouseState.height = LKernel.GetG<Viewport>().ActualHeight;
 
-			LKernel.Get<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
+			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 
 			CreateEventHandlers();
 
@@ -76,7 +77,7 @@ namespace Ponykart {
 		float timeSinceLastFrame = 0;
 
 		bool FrameStarted(FrameEvent e) {
-			if (!LKernel.Get<Levels.LevelManager>().IsValidLevel)
+			if (!LKernel.GetG<LevelManager>().IsValidLevel)
 				return true;
 
 			timeSinceLastFrame += e.timeSinceLastFrame;

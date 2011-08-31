@@ -36,8 +36,8 @@ namespace Ponykart.Core {
 
 			SetupInitialBindings();
 
-			LKernel.Get<InputMain>().OnKeyboardPress_Anything += new LymphInputEventHandler<KeyEvent>(OnKeyboardPressAnything);
-			LKernel.Get<InputMain>().OnKeyboardRelease_Anything += new LymphInputEventHandler<KeyEvent>(OnKeyboardReleaseAnything);
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += new LymphInputEventHandler<KeyEvent>(OnKeyboardPressAnything);
+			LKernel.GetG<InputMain>().OnKeyboardRelease_Anything += new LymphInputEventHandler<KeyEvent>(OnKeyboardReleaseAnything);
 		}
 
 		/// <summary>
@@ -74,7 +74,7 @@ namespace Ponykart.Core {
 		/// </summary>
 		void OnKeyboardPressAnything(KeyEvent ke) {
 			// don't do anything if it's swallowed
-			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
 				return;
 
 			LKey key;
@@ -87,7 +87,7 @@ namespace Ponykart.Core {
 		/// </summary>
 		void OnKeyboardReleaseAnything(KeyEvent ke) {
 			// don't do anything if it's swallowed
-			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
 				return;
 
 			LKey key;
@@ -101,10 +101,10 @@ namespace Ponykart.Core {
 		/// <returns>Whether the key is pressed or not, or false if the input is currently swallowed.</returns>
 		public bool IsKeyPressed(LKey key) {
 			// don't do anything if it's swallowed
-			if (LKernel.Get<InputSwallowerManager>().IsSwallowed())
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
 				return false;
 
-			return LKernel.Get<InputMain>().InputKeyboard.IsKeyDown(LKeysDict[key]);
+			return LKernel.GetG<InputMain>().InputKeyboard.IsKeyDown(LKeysDict[key]);
 		}
 
 		/// <summary>

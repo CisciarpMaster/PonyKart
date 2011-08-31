@@ -1,6 +1,6 @@
-﻿using PonykartParsers;
-using Mogre;
+﻿using Mogre;
 using Ponykart.Levels;
+using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class ModelComponent : IThingComponent {
@@ -17,7 +17,7 @@ namespace Ponykart.Actors {
 		/// <param name="block">The block we're creating this component from</param>
 		public ModelComponent(LThing lthing, ThingBlock template, ModelBlock block) {
 			ID = IDs.New;
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Name = block.GetStringProperty("name", template.ThingName);
 
@@ -63,8 +63,8 @@ namespace Ponykart.Actors {
 		}
 
 		public void Dispose() {
-			var sceneMgr = LKernel.Get<SceneManager>();
-			bool valid = LKernel.Get<LevelManager>().IsValidLevel;
+			var sceneMgr = LKernel.GetG<SceneManager>();
+			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;
 
 			if (Entity != null) {
 				if (valid)

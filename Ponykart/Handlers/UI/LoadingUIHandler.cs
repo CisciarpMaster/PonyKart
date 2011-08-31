@@ -14,8 +14,8 @@ namespace Ponykart.Handlers {
 		Label label;
 
 		public LoadingUIHandler() {
-			LKernel.Get<LevelManager>().OnLevelLoad += OnLevelLoad;
-			LKernel.Get<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LKernel.GetG<LevelManager>().OnLevelLoad += OnLevelLoad;
+			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 
 			label = new Label("loading label") {
 				Size = new Size((int) Constants.WINDOW_WIDTH, (int) Constants.WINDOW_HEIGHT),
@@ -36,8 +36,8 @@ namespace Ponykart.Handlers {
 
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			label.Visible = true;
-			LKernel.Get<UIMain>().MiyagiSys.Update();
-			LKernel.Get<Root>().RenderOneFrame();
+			LKernel.GetG<UIMain>().MiyagiSys.Update();
+			LKernel.GetG<Root>().RenderOneFrame();
 		}
 	}
 }
