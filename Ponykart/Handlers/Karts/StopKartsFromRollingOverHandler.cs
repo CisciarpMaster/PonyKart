@@ -174,7 +174,7 @@ namespace Ponykart.Handlers {
 			if (kart.Body.LinearVelocity.y > 20)
 				kart.Body.LinearVelocity = new Vector3(kart.Body.LinearVelocity.x, 20, kart.Body.LinearVelocity.z);
 
-			AlignKartWithNormal(kart, callback, true, 1);
+			AlignKartWithNormal(kart, callback, true, 0.5f);
 
 			if (OnCloseToTouchdown != null)
 				OnCloseToTouchdown(kart, callback);

@@ -6,6 +6,8 @@ namespace PonykartParsers {
 		Kinematic,
 		Static,
 		None,
+
+
 		Box,
 		/// <summary> a capsule aligned with the Y axis </summary>
 		Capsule,
@@ -20,6 +22,8 @@ namespace PonykartParsers {
 		Cone,
 		ConeX,
 		ConeZ,
+		Hull,
+
 
 		// for the MuffinParser
 		Menu,

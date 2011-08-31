@@ -28,6 +28,8 @@ namespace Ponykart.Handlers {
 			if (IsDisposed || Pauser.IsPaused)
 				return;
 
+			//System.Console.WriteLine(Kart.Body.AngularVelocity);
+
 			Progress += evt.timeSinceLastFrame;
 			if (Progress > Duration) {
 				Kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = Kart.WheelFL.FrictionSlip;
@@ -45,6 +47,24 @@ namespace Ponykart.Handlers {
 			Kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = Kart.WheelFR.FrictionSlip * fraction;
 			Kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = Kart.WheelBL.FrictionSlip * fraction;
 			Kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = Kart.WheelBR.FrictionSlip * fraction;
+
+			Vector3 vec = new Vector3(Kart.Body.AngularVelocity.x, Kart.Body.AngularVelocity.y, Kart.Body.AngularVelocity.z);
+			if (Kart.Body.AngularVelocity.x > 1)
+				vec.x = 1;
+			else if (Kart.Body.AngularVelocity.x < -1)
+				vec.x = -1;
+
+			if (Kart.Body.AngularVelocity.y > 2)
+				vec.y = 2;
+			else if (Kart.Body.AngularVelocity.y < -2)
+				vec.y = -2;
+
+			if (Kart.Body.AngularVelocity.z > 1)
+				vec.z = 1;
+			else if (Kart.Body.AngularVelocity.z < -1)
+				vec.z = -1;
+
+			Kart.Body.AngularVelocity = vec;
 		}
 
 		public bool IsDisposed = false;

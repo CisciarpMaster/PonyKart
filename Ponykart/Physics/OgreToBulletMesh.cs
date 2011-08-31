@@ -7,26 +7,25 @@ namespace Ponykart.Physics {
 	/// </summary>
 	public class OgreToBulletMesh {
 
+		
 		/// <summary>
-		/// Give it an entity and it'll create a BulletSharp.TriangleMesh out of it
+		/// Give it a mesh and it'll create a BulletSharp.TriangleMesh out of it
 		/// </summary>
-		/// <param name="ent">The entity to convert. It'll grab its mesh and use all of its submeshes</param>
-		/// <param name="node">The node the entity is attached to. We aren't modifying it, but we'll use its transforms</param>
+		/// <param name="mesh">The mesh you're converting</param>
 		/// <returns>A bullet trimesh</returns>
-		public static TriangleMesh Convert(Entity ent, SceneNode node) {
+		public static TriangleMesh ConvertToTrimesh(MeshPtr mesh, Vector3 pos, Quaternion orientation, Vector3 scale) {
 
 			// get our two main objects
-			MeshPtr OgreMesh = ent.GetMesh();
 			TriangleMesh BulletMesh = new TriangleMesh(true, false);
 
-			Launch.Log("[Loading] Converting " + OgreMesh.Name + " to a BulletSharp.TriangleMesh");
+			Launch.Log("[Loading] Converting " + mesh.Name + " to a BulletSharp.TriangleMesh");
 
 			uint vertex_count = default(uint);
 			Vector3[] vertices = default(Vector3[]);
 			uint index_count = default(uint);
 			uint[] indices = default(uint[]);
 
-			GetMeshInformation(OgreMesh, ref vertex_count, ref vertices, ref index_count, ref indices, node.Position, node.Orientation, node.GetScale());
+			GetMeshInformation(mesh, ref vertex_count, ref vertices, ref index_count, ref indices, pos, orientation, scale);
 
 			BulletMesh.PreallocateIndexes((int) index_count);
 			BulletMesh.PreallocateVertices((int) vertex_count);
@@ -37,6 +36,27 @@ namespace Ponykart.Physics {
 			}
 
 			return BulletMesh;
+		}
+
+		/// <summary>
+		/// Give it an entity and it'll create a BulletSharp.TriangleMesh out of it
+		/// </summary>
+		/// <param name="ent">The entity to convert. It'll grab its mesh and use all of its submeshes</param>
+		/// <param name="node">The node the entity is attached to. We aren't modifying it, but we'll use its transforms</param>
+		/// <returns>A bullet trimesh</returns>
+		public static TriangleMesh ConvertToTrimesh(Entity ent, SceneNode node) {
+			return ConvertToTrimesh(ent.GetMesh(), node._getDerivedPosition(), node._getDerivedOrientation(), node._getDerivedScale());
+		}
+
+
+		public static ConvexTriangleMeshShape ConvertToConvexHull(MeshPtr mesh, Vector3 pos, Quaternion orientation, Vector3 scale) {
+
+			// get our two main objects
+			TriangleMesh trimesh = ConvertToTrimesh(mesh, pos, orientation, scale);
+
+			ConvexTriangleMeshShape convex = new ConvexTriangleMeshShape(trimesh);
+
+			return convex;
 		}
 
 		public unsafe static void GetMeshInformation(MeshPtr mesh, ref uint vertex_count, ref Vector3[] vertices, ref uint index_count, ref uint[] indices,

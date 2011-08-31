@@ -109,7 +109,7 @@ namespace Ponykart.Physics {
 				else {
 					Launch.Log("[PhysicsMain] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
 					// it does not have a file, so we need to convert our ogre mesh
-					shape = new BvhTriangleMeshShape(OgreToBulletMesh.Convert(dslEnt, dslNode), true, true);
+					shape = new BvhTriangleMeshShape(OgreToBulletMesh.ConvertToTrimesh(dslEnt, dslNode), true, true);
 					// and then export it as a .bullet file
 					SerializeShape(shape, dslNode.Name);
 				}
@@ -133,6 +133,9 @@ namespace Ponykart.Physics {
 			LKernel.GetG<Root>().FrameEnded += FrameEnded;
 		}
 
+		/// <summary>
+		/// Disposes the world
+		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 

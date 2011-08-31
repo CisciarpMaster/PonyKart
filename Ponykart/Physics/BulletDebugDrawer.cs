@@ -11,7 +11,7 @@ namespace Ponykart.Physics {
 		ManualObject lines;
 		ManualObject triangles;
 		public DebugDrawModes DebugMode { get; set; }
-		readonly float maxRenderDistanceSquared = 50 * 50;
+		readonly float maxRenderDistanceSquared = 100 * 100;
 
 		bool begin = false;
 
@@ -54,7 +54,7 @@ namespace Ponykart.Physics {
 			triangles.End();
 			begin = false;
 
-			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb;
+			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb | DebugDrawModes.DrawContactPoints;
 
 			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
