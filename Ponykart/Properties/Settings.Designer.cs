@@ -85,18 +85,6 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".luna")]
-        public string LuaFileExtension {
-            get {
-                return ((string)(this["LuaFileExtension"]));
-            }
-            set {
-                this["LuaFileExtension"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/scripts/levels/")]
         public string LevelScriptLocation {
             get {
@@ -140,6 +128,42 @@ namespace Ponykart.Properties {
             }
             set {
                 this["WheelFileExtension"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".lua")]
+        public string LuaFileExtension {
+            get {
+                return ((string)(this["LuaFileExtension"]));
+            }
+            set {
+                this["LuaFileExtension"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("media/physics/")]
+        public string BulletFileLocation {
+            get {
+                return ((string)(this["BulletFileLocation"]));
+            }
+            set {
+                this["BulletFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".bullet")]
+        public string BulletFileExtension {
+            get {
+                return ((string)(this["BulletFileExtension"]));
+            }
+            set {
+                this["BulletFileExtension"] = value;
             }
         }
     }

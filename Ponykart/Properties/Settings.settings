@@ -17,9 +17,6 @@
     <Setting Name="WheelFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/wheels/</Value>
     </Setting>
-    <Setting Name="LuaFileExtension" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.luna</Value>
-    </Setting>
     <Setting Name="LevelScriptLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">media/scripts/levels/</Value>
     </Setting>
@@ -31,6 +28,15 @@
     </Setting>
     <Setting Name="WheelFileExtension" Type="System.String" Scope="User">
       <Value Profile="(Default)">.wheel</Value>
+    </Setting>
+    <Setting Name="LuaFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.lua</Value>
+    </Setting>
+    <Setting Name="BulletFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">media/physics/</Value>
+    </Setting>
+    <Setting Name="BulletFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.bullet</Value>
     </Setting>
   </Settings>
 </SettingsFile>

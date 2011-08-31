@@ -12,7 +12,7 @@ namespace Ponykart.Levels {
 	/// <summary>
 	/// Represents a level or world in our game.
 	/// </summary>
-	public class Level : IDisposable {
+	public class Level : System.IDisposable {
 		/// <summary>
 		/// The world's name - this serves as its identifier
 		/// </summary>
@@ -55,7 +55,6 @@ namespace Ponykart.Levels {
 		/// Parses a .scene file and tells PhysX about it
 		/// </summary>
 		public void CreateEnvironment() {
-
 			LKernel.GetG<PhysicsMain>().LoadPhysicsLevel(Name);
 		}
 

@@ -49,7 +49,7 @@
             <position x="119.19" y="-49.0117" z="-224.722" />
             <scale x="3.61437" y="2.5" z="3.61437" />
             <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="HP_Ground" castShadows="true" receiveShadows="true" meshFile="HP_Ground.mesh" static="false">
+            <entity name="HP_Ground" castShadows="true" receiveShadows="true" meshFile="HP_Ground.mesh" static="true">
                 <subentities>
                     <subentity index="0" materialName="09-Default" />
                 </subentities>
