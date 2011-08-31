@@ -215,7 +215,7 @@ namespace Ponykart.Physics {
 		/// Serializes a collision shape and exports a .bullet file.
 		/// </summary>
 		/// <param name="shape">The shape you want to serialize.</param>
-		/// <param name="name">The name of the shape - this will be used as part of its filename.</param>
+		/// <param name="name">The name of the shape - this will be used as part of its filename. "media/physics/" + name + ".bullet"</param>
 		public void SerializeShape(CollisionShape shape, string name) {
 			// so we don't have to do this in the future, we make a .bullet file out of it
 			DefaultSerializer serializer = new DefaultSerializer();

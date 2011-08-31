@@ -19,12 +19,25 @@ namespace Ponykart.Actors {
 			Transform = block.Transform;
 
 			if (block.EnumTokens["type"] == ThingEnum.Hull) {
-				Entity ent = LKernel.GetG<SceneManager>().CreateEntity(block.GetStringProperty("mesh", null));
+				// TODO: this stuff
+				/*string name = block.GetStringProperty("name", "");
 
-				Shape = OgreToBulletMesh.ConvertToConvexHull(ent.GetMesh(), Transform.GetTrans(), Transform.ExtractQuaternion(), Vector3.UNIT_SCALE);
+				if (name != "" && File.Exists(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
+					Shape = LKernel.GetG<PhysicsMain>().ImportCollisionShape(name);
+				}
+				else {*/
+					string meshName = block.GetStringProperty("mesh", null);
 
-				LKernel.GetG<SceneManager>().DestroyEntity(ent);
-				ent.Dispose();
+					// TODO: need a better way of loading a mesh
+					Entity ent = LKernel.GetG<SceneManager>().CreateEntity(meshName);
+
+					Shape = OgreToBulletMesh.ConvertToConvexHull(ent.GetMesh(), Transform.GetTrans(), Transform.ExtractQuaternion(), Vector3.UNIT_SCALE);
+
+					LKernel.GetG<SceneManager>().DestroyEntity(ent);
+					ent.Dispose();
+
+					/*LKernel.GetG<PhysicsMain>().SerializeShape(Shape, name);
+				}*/
 			}
 			
 

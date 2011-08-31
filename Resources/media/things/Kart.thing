@@ -22,5 +22,6 @@ Model {
 Shape {
 	Type = Hull
 	Mesh = "kart/KartHull.mesh"
+	//Name = "KartHull"
 	Position = -0.00027632, 1.4, -0.0895839
 }

@@ -174,7 +174,7 @@ namespace Ponykart.Handlers {
 			if (kart.Body.LinearVelocity.y > 20)
 				kart.Body.LinearVelocity = new Vector3(kart.Body.LinearVelocity.x, 20, kart.Body.LinearVelocity.z);
 
-			AlignKartWithNormal(kart, callback, true, 0.5f);
+			AlignKartWithNormal(kart, callback, true, 0.3f);
 
 			if (OnCloseToTouchdown != null)
 				OnCloseToTouchdown(kart, callback);
@@ -203,7 +203,7 @@ namespace Ponykart.Handlers {
 			Skidders[kart] = new Skidder(kart, 0.7f);
 
 			// align the kart just to make sure
-			AlignKartWithNormal(kart, callback, false);
+			AlignKartWithNormal(kart, callback, true, 0.1f);
 
 			if (OnTouchdown != null)
 				OnTouchdown(kart, callback);
