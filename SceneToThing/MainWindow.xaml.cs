@@ -185,7 +185,7 @@ namespace SceneToThing {
 								writer.WriteLine("\tPosition = " + f(node.Position.x) + ", " + f(node.Position.y) + ", " + f(node.Position.z));
 								writer.WriteLine("\tOrientation = " + f(node.Orientation.x) + ", " + f(node.Orientation.y) + ", " + f(node.Orientation.z) + ", " + f(node.Orientation.w));
 								writer.WriteLine("\tScale = " + f(node.Dimensions.x) + ", " + f(node.Dimensions.y) + ", " + f(node.Dimensions.z));
-								writer.WriteLine("\tCastsShadows = " + node.Entity.CastShadows);
+								writer.WriteLine("\tCastsShadows = " + b(node.Entity.CastShadows));
 								writer.WriteLine("}");
 								continue;
 							}
@@ -220,6 +220,10 @@ namespace SceneToThing {
 
 		string f(float cookie) {
 			return cookie.ToString(culture);
+		}
+
+		string b(bool squishyMarshmallowButthole) {
+			return squishyMarshmallowButthole.ToString().ToLower(culture);
 		}
 
 		/// <summary>

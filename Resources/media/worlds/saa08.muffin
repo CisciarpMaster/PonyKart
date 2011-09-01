@@ -46,9 +46,42 @@ Barn {
 AppleTree {
 	Position = -5, 1, 30
 }
+AppleCart {
+	Name = "AppleCart#"
+	Position = -317.713, -1.7346, -339.787
+	Orientation = 0, 0.178411, -7.79858E-09, 0.983956
+}
+AppleCart {
+	Name = "AppleCart#001"
+	Position = -311.651, 0.92648, -242.79
+	Orientation = 0, 0.880034, -3.84675E-08, -0.474911
+}
+AppleCart {
+	Name = "AppleCart#002"
+	Position = -281.729, 1.16494, -272.154
+	Orientation = 0, 0.640539, -2.79989E-08, 0.767925
+}
+AppleCart {
+	Name = "AppleCart#003"
+	Position = -394.048, -1.20989, -317.766
+	Orientation = 0, -0.790017, 3.45327E-08, 0.613085
+}
+AppleCart {
+	Name = "AppleCart#004"
+	Position = -378.395, -2.06482, -237.221
+	Orientation = 0, 0.67804, -2.96381E-08, 0.735025
+}
+AppleCart {
+	Name = "AppleCart#005"
+	Position = -295.498, 0.0747319, -302.786
+	Orientation = 0, 0.178411, -7.79858E-09, 0.983956
+}
 
 
 
+/////////////////////////////////////////////////////////////////
+// 					aaaaand here are the fences				   //
+/////////////////////////////////////////////////////////////////
 
 Fence {
 	Name = "Fence#RIGHT SIDE AFTER RAMP"
@@ -58,19 +91,6 @@ Fence {
 	Name = "Fence#028"
 	Position = -263.467, 27.583, 300.829
 	Orientation = 0.00125167, 0.998591, -0.0436015, 0.0302356}
-Fence {
-	Name = "Fence#029"
-	Position = -141.184, 128.336, -128.336}
-Fence {
-	Name = "Fence#030"
-	Position = -92.6076, 131.275, -124.578}
-Fence {
-	Name = "Fence#033"
-	Position = 302.342, 7.84129, -169.178}
-Fence {
-	Name = "Fence#069"
-	Position = 224.223, 1.99661, 335.213
-	Orientation = 0.0288152, -0.75001, 0.0327465, 0.659986}
 Fence {
 	Name = "Fence#070"
 	Position = -272.882, 27.5698, 300.313

@@ -84,11 +84,11 @@ namespace SceneToMuffin {
 					ScaleY = node.Dimensions.y,
 					ScaleZ = node.Dimensions.z,
 					// only using these for re-exporting the .scene with the things removed
-					Mesh = node.Entity.Mesh,
-					Material = node.Entity.Material,
-					Static = node.Entity.Static,
-					CastShadows = node.Entity.CastShadows,
-					ReceiveShadows = node.Entity.ReceiveShadows
+					Mesh = node.Entity != null ? node.Entity.Mesh : null,
+					Material = node.Entity != null ? node.Entity.Material : null,
+					Static = node.Entity != null ? node.Entity.Static : false,
+					CastShadows = node.Entity != null ? node.Entity.CastShadows : false,
+					ReceiveShadows = node.Entity != null ? node.Entity.ReceiveShadows : false,
 				};
 				Data.Add(data);
 			}
@@ -110,13 +110,15 @@ namespace SceneToMuffin {
 				// write the .muffin
 				string filename = dlg.FileName;
 
+				var orderedData = Data.OrderBy(nd => nd.Name);
+
 				using (var stream = File.Create(filename)) {
 					using (var writer = new StreamWriter(stream)) {
 						// write out these two first
 						writer.WriteLine("Type = " + levelTypeBox.Text);
 
 						// only use the ones that use the .thing, of course
-						foreach (NodeData data in Data.Where(d => d.UsesThing)) {
+						foreach (NodeData data in orderedData.Where(d => d.UsesThing)) {
 							// .thing file
 							writer.WriteLine(data.ThingFile + " {");
 							// name and position are required
@@ -147,14 +149,14 @@ namespace SceneToMuffin {
 	</environment>
 	<nodes>");
 							// only use the ones that aren't going in the muffin file
-							foreach (NodeData data in Data.Where(d => !d.UsesThing)) {
+							foreach (NodeData data in orderedData.Where(d => !d.UsesThing)) {
 								writer.WriteLine("\t\t<node name=\"" + data.Name + "\">");
 								writer.WriteLine("\t\t\t<position x=\"" + f(data.PosX) + "\" y=\"" + f(data.PosY) + "\" z=\"" + f(data.PosZ) + "\" />");
 								writer.WriteLine("\t\t\t<scale x=\"" + f(data.ScaleX) + "\" y=\"" + f(data.ScaleY) + "\" z=\"" + f(data.ScaleZ) + "\" />");
 								writer.WriteLine("\t\t\t<rotation qx=\"" + f(data.OrientX) + "\" qy=\"" + f(data.OrientY) + "\" qz=\"" + f(data.OrientZ)
 									+ "\" qw=\"" + f(data.OrientW) + "\" />");
-								writer.WriteLine("\t\t\t<entity name=\"" + data.Name + "\" castShadows=\"" + data.CastShadows + "\" receiveShadows=\""
-									+ data.ReceiveShadows + "\" meshFile=\"" + data.Mesh + "\" static=\"" + data.Static + "\">");
+								writer.WriteLine("\t\t\t<entity name=\"" + data.Name + "\" castShadows=\"" + b(data.CastShadows) + "\" receiveShadows=\""
+									+ data.ReceiveShadows + "\" meshFile=\"" + data.Mesh + "\" static=\"" + b(data.Static) + "\">");
 								// material
 								writer.WriteLine("\t\t\t\t<subentities>");
 								writer.WriteLine("\t\t\t\t\t<subentity index=\"0\" materialName=\"" + data.Material + "\" />");
@@ -181,6 +183,10 @@ namespace SceneToMuffin {
 		/// <returns></returns>
 		string f(float cookie) {
 			return cookie.ToString(culture);
+		}
+
+		string b(bool squishyMarshmallowButthole) {
+			return squishyMarshmallowButthole.ToString().ToLower(culture);
 		}
 	}
 }

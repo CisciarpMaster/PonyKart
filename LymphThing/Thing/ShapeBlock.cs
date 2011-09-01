@@ -65,6 +65,14 @@ namespace PonykartParsers {
 
 			Transform = new Matrix4();
 			Transform.MakeTransform(pos, Vector3.UNIT_SCALE, quat);
+
+
+			// sometimes shapes want to override this and force a compound collision object even if they only have one shape
+			if (Owner.GetBoolProperty("forcecompound", false)) {
+				CompoundShape comp = new CompoundShape();
+				comp.AddChildShape(Transform, Shape);
+				Shape = comp;
+			}
 		}
 
 		public override void Dispose() {

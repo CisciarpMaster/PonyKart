@@ -1,8 +1,9 @@
 Name = "Barn_Bottom_Doors"
 Physics = Dynamic
-Mass = 20
+Mass = 30
 CollisionGroup = "Environment"
 CollidesWith = "Environment"
+PhysicsMaterial = "NoFrictionNoBounce"
 
 Model {
 	Name = "Barn_Door_Bottom"

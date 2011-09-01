@@ -1,6 +1,7 @@
 Name = "Bright apple"
 Physics = Dynamic
-Mass = 1
+Mass = 5
+
 Model {
 	Mesh = "Apple2.mesh"
 	Position = 0, 0.05, 0

@@ -1,6 +1,6 @@
 Name = "Dark apple"
 Physics = Dynamic
-Mass = 1
+Mass = 5
 
 Model {
 	Mesh = "Apple.mesh"
