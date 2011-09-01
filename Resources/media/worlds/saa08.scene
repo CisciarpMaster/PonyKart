@@ -75,51 +75,11 @@
                 </subentities>
             </entity>
         </node>
-        <node name="Object#008">
-            <position x="-1.26341" y="-1.36052" z="269.8" />
-            <scale x="1" y="1" z="0.610662" />
-            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
-            <entity name="Object008" castShadows="true" receiveShadows="true" meshFile="Object008.mesh" static="false">
-                <subentities>
-                    <subentity index="0" materialName="14-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Object#009">
-            <position x="-26.2268" y="2.71923" z="269.8" />
-            <scale x="1" y="1" z="0.610662" />
-            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
-            <entity name="Object009" castShadows="true" receiveShadows="true" meshFile="Object009.mesh" static="false">
-                <subentities>
-                    <subentity index="0" materialName="14-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Object#011">
-            <position x="-49.1562" y="2.47855" z="269.8" />
-            <scale x="1" y="1" z="0.610662" />
-            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
-            <entity name="Object011" castShadows="false" receiveShadows="false" meshFile="Object011.mesh" static="false">
-                <subentities>
-                    <subentity index="0" materialName="14-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Object#012">
-            <position x="-72.8284" y="2.47855" z="268.735" />
-            <scale x="1" y="1" z="0.610662" />
-            <rotation qx="0.706434" qy="-0.0308436" qz="0.0308436" qw="0.706434" />
-            <entity name="Object012" castShadows="false" receiveShadows="true" meshFile="Object012.mesh" static="false">
-                <subentities>
-                    <subentity index="0" materialName="14-Default" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="default002">
+        <node name="Bush">
             <position x="9.79416" y="-0.461523" z="267.374" />
             <scale x="4.71791" y="4.71791" z="4.71791" />
             <rotation qx="0.45452" qy="-0.541675" qz="0.541675" qw="0.45452" />
-            <entity name="default002" castShadows="false" receiveShadows="true" meshFile="default002.mesh" static="false">
+            <entity name="Bush" castShadows="false" receiveShadows="true" meshFile="default002.mesh" static="false">
                 <subentities>
                     <subentity index="0" materialName="15-Default" />
                 </subentities>

@@ -1,0 +1,16 @@
+
+material Farmhouse
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture farmhouse.jpg
+			}
+		}
+	}
+}
+
+

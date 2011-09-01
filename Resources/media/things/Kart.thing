@@ -1,6 +1,6 @@
 Name = "Kart"
 Physics = Dynamic
-Mass = 85 //75
+Mass = 85
 CollisionGroup = "Karts"
 CollidesWith = "Karts"
 MaxSpeed = 70
@@ -22,6 +22,6 @@ Model {
 Shape {
 	Type = Hull
 	Mesh = "kart/KartHull.mesh"
-	//Name = "KartHull"
+	//HullName = "KartHull"
 	Position = -0.00027632, 1.4, -0.0895839
 }

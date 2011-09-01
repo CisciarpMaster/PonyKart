@@ -1,6 +1,8 @@
 Name = "AppleTree"
 Physics = Static
 Mass = 0
+CollisionGroup = "Environment"
+CollidesWith = "Environment"
 
 // main tree model
 Model {

@@ -1,0 +1,18 @@
+
+material Fences
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture fencetex.png
+			}
+		}
+
+	}
+
+}
+
+

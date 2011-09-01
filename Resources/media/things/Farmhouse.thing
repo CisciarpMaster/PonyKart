@@ -1,0 +1,27 @@
+Name = "Farmhouse"
+Physics = Static
+Mass = 0
+CollisionGroup = "Environment"
+CollidesWith = "Environment"
+
+Model {
+	Name = "Entity#0"
+	Mesh = "Farmhouse.mesh"
+	Position = 0, 2.45712, -7.99763E-07
+	Scale = 0.109289, 0.138084, 0.109289
+	CastsShadows = True
+}
+
+// box#0
+Shape {
+	Type = Box
+	Position = 0, 1.65854, 0.0822897
+	Dimensions = 3.63726, 3.49814, 5.93284
+}
+// box#1
+Shape {
+	Type = Box
+	Position = 0.0122553, 3.25122, 0.0603125
+	Orientation = 0, 0, 0.382683, 0.92388
+	Dimensions = 2.86119, 2.86119, 5.88182
+}
