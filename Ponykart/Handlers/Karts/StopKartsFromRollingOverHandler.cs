@@ -6,6 +6,7 @@ using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Physics;
 using Ponykart.Players;
+using Ponykart.Properties;
 
 namespace Ponykart.Handlers {
 	public delegate void KartEvent(Kart kart, DynamicsWorld.ClosestRayResultCallback callback);
@@ -90,9 +91,12 @@ namespace Ponykart.Handlers {
 
 					Kart kart = p.Kart;
 					// don't raycast for karts that don't exist
-					if (kart == null || kart.Body.IsDisposed ) // 3 degrees
+					if (kart == null || kart.Body.IsDisposed )
 						continue;
 
+					// this helps it stick to the road more
+					if (Settings.Default.ApplyDownwardsForceEveryTenthOfASecond)
+						kart.Body.ApplyCentralForce(kart.RootNode.GetLocalYAxis() * Settings.Default.DownwardsForceToApply);
 
 					var callback = CastRay(kart, (IsInAir[kart] && SRHs.ContainsKey(kart) ? LONG_RAY_LENGTH : SHORT_RAY_LENGTH), world);
 
@@ -147,7 +151,8 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void Liftoff(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// make a new SRH
-			SRHs.Add(kart, new SelfRightingHandler(kart));
+			if (Settings.Default.UseSelfRightingHandlers)
+				SRHs.Add(kart, new SelfRightingHandler(kart));
 			// we are in the air
 			IsInAir[kart] = true;
 
@@ -168,13 +173,16 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void GettingCloseToTouchingDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback, SelfRightingHandler srh) {
 			// getting rid of our SRH means that we're close to landing but we haven't landed yet
-			srh.Dispose();
-			SRHs.Remove(kart);
+			if (Settings.Default.UseSelfRightingHandlers) {
+				srh.Dispose();
+				SRHs.Remove(kart);
+			}
 
 			if (kart.Body.LinearVelocity.y > 20)
 				kart.Body.LinearVelocity = new Vector3(kart.Body.LinearVelocity.x, 20, kart.Body.LinearVelocity.z);
 
-			AlignKartWithNormal(kart, callback, true, 0.3f);
+			if (Settings.Default.UseNlerpers)
+				AlignKartWithNormal(kart, callback, true, 0.3f);
 
 			if (OnCloseToTouchdown != null)
 				OnCloseToTouchdown(kart, callback);
@@ -188,22 +196,27 @@ namespace Ponykart.Handlers {
 			IsInAir[kart] = false;
 
 			// if we have a nlerper, get rid of it
-			Nlerper n;
-			if (Nlerpers.TryGetValue(kart, out n)) {
-				n.Dispose();
-				Nlerpers.Remove(kart);
+			if (Settings.Default.UseNlerpers) {
+				Nlerper n;
+				if (Nlerpers.TryGetValue(kart, out n)) {
+					n.Dispose();
+					Nlerpers.Remove(kart);
+				}
 			}
 
 			// add a skidder!
-			Skidder s;
-			if (Skidders.TryGetValue(kart, out s)) {
-				s.Dispose();
-				Skidders.Remove(kart);
+			if (Settings.Default.UseSkidders) {
+				Skidder s;
+				if (Skidders.TryGetValue(kart, out s)) {
+					s.Dispose();
+					Skidders.Remove(kart);
+				}
+				Skidders[kart] = new Skidder(kart, Settings.Default.SkidderDuration);
 			}
-			Skidders[kart] = new Skidder(kart, 0.7f);
 
 			// align the kart just to make sure
-			AlignKartWithNormal(kart, callback, true, 0.1f);
+			if (Settings.Default.UseNlerpers)
+				AlignKartWithNormal(kart, callback, true, 0.1f);
 
 			if (OnTouchdown != null)
 				OnTouchdown(kart, callback);

@@ -41,10 +41,10 @@ namespace Ponykart.Handlers {
 					PhysicsMain.DrawLines = !PhysicsMain.DrawLines;
 					break;
 				case KeyCode.KC_M:
-					Settings.Default.Music = !Settings.Default.Music;
+					Settings.Default.EnableMusic = !Settings.Default.EnableMusic;
 					break;
 				case KeyCode.KC_P:
-					Settings.Default.Sounds = !Settings.Default.Sounds;
+					Settings.Default.EnableSounds = !Settings.Default.EnableSounds;
 					break;
 				case KeyCode.KC_N:
 					LKernel.GetG<SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
@@ -56,7 +56,7 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
 					break;
 				case KeyCode.KC_L:
-					LKernel.GetG<LuaMain>().DoFile(Settings.Default.ScriptLocation + "test" + Settings.Default.LuaFileExtension);
+					LKernel.GetG<LuaMain>().DoFile(Settings.Default.LuaFileLocation + "test" + Settings.Default.LuaFileExtension);
 					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");

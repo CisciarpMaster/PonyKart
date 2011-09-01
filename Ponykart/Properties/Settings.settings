@@ -2,40 +2,40 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Ponykart.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MiyagiResourcesFileLocation" Type="System.String" Scope="User">
+    <Setting Name="MiyagiResourcesFileLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/gui/</Value>
     </Setting>
-    <Setting Name="WorldFileLocation" Type="System.String" Scope="User">
+    <Setting Name="WorldFileLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/worlds/</Value>
     </Setting>
-    <Setting Name="MainMenuName" Type="System.String" Scope="User">
+    <Setting Name="MainMenuName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Level0</Value>
     </Setting>
-    <Setting Name="ScriptLocation" Type="System.String" Scope="User">
+    <Setting Name="LuaFileLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/scripts/</Value>
     </Setting>
-    <Setting Name="WheelFileLocation" Type="System.String" Scope="User">
+    <Setting Name="WheelFileLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/wheels/</Value>
     </Setting>
-    <Setting Name="LevelScriptLocation" Type="System.String" Scope="User">
+    <Setting Name="LevelScriptLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/scripts/levels/</Value>
     </Setting>
-    <Setting Name="PhysicsMaterialFileLocation" Type="System.String" Scope="User">
+    <Setting Name="PhysicsMaterialFileLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/physicsmaterials/</Value>
     </Setting>
-    <Setting Name="PhysicsMaterialFileExtension" Type="System.String" Scope="User">
+    <Setting Name="PhysicsMaterialFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.physmat</Value>
     </Setting>
-    <Setting Name="WheelFileExtension" Type="System.String" Scope="User">
+    <Setting Name="WheelFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.wheel</Value>
     </Setting>
-    <Setting Name="LuaFileExtension" Type="System.String" Scope="User">
+    <Setting Name="LuaFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.lua</Value>
     </Setting>
-    <Setting Name="BulletFileLocation" Type="System.String" Scope="User">
+    <Setting Name="BulletFileLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/physics/</Value>
     </Setting>
-    <Setting Name="BulletFileExtension" Type="System.String" Scope="User">
+    <Setting Name="BulletFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.bullet</Value>
     </Setting>
     <Setting Name="WindowWidth" Type="System.UInt32" Scope="User">
@@ -71,17 +71,35 @@
     <Setting Name="Gravity" Type="System.Single" Scope="User">
       <Value Profile="(Default)">-28</Value>
     </Setting>
-    <Setting Name="GlowyRegions" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableGlowyRegions" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Ribbons" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableRibbons" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Sounds" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableSounds" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Music" Type="System.Boolean" Scope="User">
+    <Setting Name="EnableMusic" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SkidderDuration" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0.7</Value>
+    </Setting>
+    <Setting Name="UseNlerpers" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UseSkidders" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ApplyDownwardsForceEveryTenthOfASecond" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UseSelfRightingHandlers" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DownwardsForceToApply" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">-6000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

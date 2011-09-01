@@ -23,51 +23,39 @@ namespace PonykartParsers.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/worlds/")]
         public string MuffinFileLocation {
             get {
                 return ((string)(this["MuffinFileLocation"]));
             }
-            set {
-                this["MuffinFileLocation"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".muffin")]
         public string MuffinFileExtension {
             get {
                 return ((string)(this["MuffinFileExtension"]));
             }
-            set {
-                this["MuffinFileExtension"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".thing")]
         public string ThingFileExtension {
             get {
                 return ((string)(this["ThingFileExtension"]));
             }
-            set {
-                this["ThingFileExtension"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/things/")]
         public string ThingFileLocation {
             get {
                 return ((string)(this["ThingFileLocation"]));
-            }
-            set {
-                this["ThingFileLocation"] = value;
             }
         }
     }

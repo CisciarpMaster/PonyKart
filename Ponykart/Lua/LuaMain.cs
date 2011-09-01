@@ -52,7 +52,7 @@ namespace Ponykart.Lua {
 		/// <param name="levelName"></param>
 		public void LoadScriptFiles(string levelName) {
 			// media/scripts/
-			string scriptLocation = Settings.Default.ScriptLocation;
+			string scriptLocation = Settings.Default.LuaFileLocation;
 			Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation);
 
 			// first get all of the scripts that aren't in the 
@@ -119,8 +119,8 @@ namespace Ponykart.Lua {
 			if (LKernel.GetG<LevelManager>().IsValidLevel) {
 				Launch.Log("[LuaMain] Running file: " + filename);
 				// adding this in case you try to run a script but forget the file path
-				if (!filename.StartsWith(Settings.Default.ScriptLocation))
-					filename = Settings.Default.ScriptLocation + filename;
+				if (!filename.StartsWith(Settings.Default.LuaFileLocation))
+					filename = Settings.Default.LuaFileLocation + filename;
 
 				try {
 					LuaVM.Lua.DoFile(filename);

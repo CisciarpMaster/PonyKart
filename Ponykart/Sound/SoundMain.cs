@@ -78,7 +78,7 @@ namespace Ponykart.Sound {
 		/// <param name="looping">Make this sound loop?</param>
 		/// <returns>The ISound you just created</returns>
 		public ISound CreateAmbientSound(string filePath, string objectName, bool looping) {
-			if (!Settings.Default.Music)
+			if (!Settings.Default.EnableMusic)
 				return null;
 			Launch.Log("[Sounds] Creating ambient sound: " + filePath + " Looping: " + looping);
 			ISound sound = Engine.Play2D(filePath, looping);
@@ -96,7 +96,7 @@ namespace Ponykart.Sound {
 		/// <returns>The ISound you just created</returns>
 		// TODO: update the position of these sounds every frame - should that maybe go in MogreMotionState?
 		public ISound CreateObjectSound(string filePath, Vector3 pos, string name, bool looping) {
-			if (!Settings.Default.Sounds || pos == null)
+			if (!Settings.Default.EnableSounds || pos == null)
 				return null;
 			Launch.Log("[Sounds] Creating object sound: " + filePath + " Node: " + name + " Looping: " + looping);
 			ISound sound = Engine.Play3D(filePath, pos.x, pos.y, pos.z, looping);

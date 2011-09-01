@@ -198,7 +198,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Stuff\Constants.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

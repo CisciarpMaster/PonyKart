@@ -23,147 +23,111 @@ namespace Ponykart.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/gui/")]
         public string MiyagiResourcesFileLocation {
             get {
                 return ((string)(this["MiyagiResourcesFileLocation"]));
             }
-            set {
-                this["MiyagiResourcesFileLocation"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/worlds/")]
         public string WorldFileLocation {
             get {
                 return ((string)(this["WorldFileLocation"]));
             }
-            set {
-                this["WorldFileLocation"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Level0")]
         public string MainMenuName {
             get {
                 return ((string)(this["MainMenuName"]));
             }
-            set {
-                this["MainMenuName"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/scripts/")]
-        public string ScriptLocation {
+        public string LuaFileLocation {
             get {
-                return ((string)(this["ScriptLocation"]));
-            }
-            set {
-                this["ScriptLocation"] = value;
+                return ((string)(this["LuaFileLocation"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/wheels/")]
         public string WheelFileLocation {
             get {
                 return ((string)(this["WheelFileLocation"]));
             }
-            set {
-                this["WheelFileLocation"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/scripts/levels/")]
         public string LevelScriptLocation {
             get {
                 return ((string)(this["LevelScriptLocation"]));
             }
-            set {
-                this["LevelScriptLocation"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/physicsmaterials/")]
         public string PhysicsMaterialFileLocation {
             get {
                 return ((string)(this["PhysicsMaterialFileLocation"]));
             }
-            set {
-                this["PhysicsMaterialFileLocation"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".physmat")]
         public string PhysicsMaterialFileExtension {
             get {
                 return ((string)(this["PhysicsMaterialFileExtension"]));
             }
-            set {
-                this["PhysicsMaterialFileExtension"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".wheel")]
         public string WheelFileExtension {
             get {
                 return ((string)(this["WheelFileExtension"]));
             }
-            set {
-                this["WheelFileExtension"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".lua")]
         public string LuaFileExtension {
             get {
                 return ((string)(this["LuaFileExtension"]));
             }
-            set {
-                this["LuaFileExtension"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("media/physics/")]
         public string BulletFileLocation {
             get {
                 return ((string)(this["BulletFileLocation"]));
             }
-            set {
-                this["BulletFileLocation"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".bullet")]
         public string BulletFileExtension {
             get {
                 return ((string)(this["BulletFileExtension"]));
-            }
-            set {
-                this["BulletFileExtension"] = value;
             }
         }
         
@@ -302,48 +266,120 @@ namespace Ponykart.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool GlowyRegions {
+        public bool EnableGlowyRegions {
             get {
-                return ((bool)(this["GlowyRegions"]));
+                return ((bool)(this["EnableGlowyRegions"]));
             }
             set {
-                this["GlowyRegions"] = value;
+                this["EnableGlowyRegions"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Ribbons {
+        public bool EnableRibbons {
             get {
-                return ((bool)(this["Ribbons"]));
+                return ((bool)(this["EnableRibbons"]));
             }
             set {
-                this["Ribbons"] = value;
+                this["EnableRibbons"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Sounds {
+        public bool EnableSounds {
             get {
-                return ((bool)(this["Sounds"]));
+                return ((bool)(this["EnableSounds"]));
             }
             set {
-                this["Sounds"] = value;
+                this["EnableSounds"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Music {
+        public bool EnableMusic {
             get {
-                return ((bool)(this["Music"]));
+                return ((bool)(this["EnableMusic"]));
             }
             set {
-                this["Music"] = value;
+                this["EnableMusic"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.7")]
+        public float SkidderDuration {
+            get {
+                return ((float)(this["SkidderDuration"]));
+            }
+            set {
+                this["SkidderDuration"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseNlerpers {
+            get {
+                return ((bool)(this["UseNlerpers"]));
+            }
+            set {
+                this["UseNlerpers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseSkidders {
+            get {
+                return ((bool)(this["UseSkidders"]));
+            }
+            set {
+                this["UseSkidders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ApplyDownwardsForceEveryTenthOfASecond {
+            get {
+                return ((bool)(this["ApplyDownwardsForceEveryTenthOfASecond"]));
+            }
+            set {
+                this["ApplyDownwardsForceEveryTenthOfASecond"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseSelfRightingHandlers {
+            get {
+                return ((bool)(this["UseSelfRightingHandlers"]));
+            }
+            set {
+                this["UseSelfRightingHandlers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-6000")]
+        public float DownwardsForceToApply {
+            get {
+                return ((float)(this["DownwardsForceToApply"]));
+            }
+            set {
+                this["DownwardsForceToApply"] = value;
             }
         }
     }
