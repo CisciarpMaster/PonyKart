@@ -1,4 +1,55 @@
 Type = Race
+
+ChickenCoop {
+	Name = "ChickenCoop#1"
+	Position = 145.826, -0.6, 145.18
+	Orientation = 0, -0.170071, 7.43405E-09, 0.985432
+}
+ChickenCoop {
+	Name = "ChickenCoop#002"
+	Position = 161.511, -0.6, 161.724
+	Orientation = 0, -0.536017, 2.343E-08, 0.844207
+}
+ChickenCoop {
+	Name = "ChickenCoop#004"
+	Position = 167.363, -0.6, 179.454
+	Orientation = 0, -0.000752181, 3.28789E-11, 1
+}
+Well {
+	Name = "Well#"
+	Position = 177.778, -0.5, 231.089
+	Orientation = -1.47885E-08, 0.987017, -5.51752E-08, 0.160613
+}
+Farmhouse {
+	Name = "Farmhouse#000"
+	Position = 28.5423, -0.5, 205.974
+	Orientation = 0, -0.836976, 3.65854E-08, 0.54724
+}
+Farmhouse {
+	Name = "Farmhouse#001"
+	Position = 34.202, -0.5, 188.874
+	Orientation = 0, -0.785707, 3.43443E-08, 0.618599
+}
+Farmhouse {
+	Name = "Farmhouse#002"
+	Position = 40.38, -0.5, 169.429
+	Orientation = 0, -0.861438, 3.76547E-08, 0.507862
+}
+Farmhouse {
+	Name = "Farmhouse#003"
+	Position = 28.569, -0.5, 152.386
+	Orientation = 0, -0.486735, 2.12758E-08, 0.87355
+}
+Barn {
+    Position = 92, -1, 234.525
+}
+AppleTree {
+	Position = -5, 1, 30
+}
+
+
+
+
 Fence {
 	Name = "Fence#RIGHT SIDE AFTER RAMP"
 	Position = 5.25906, 49.9638, -630.073
@@ -808,10 +859,6 @@ Fence {
 	Name = "Fence#254"
 	Position = -8.72884, 1.9966, 164.878
 	Orientation = 6.6953E-08, 0.420275, 1.26185E-07, 0.907397}
-Barn {
-	Name = "Barn#"
-	Position = 99.5771, 25.3542, 231.63
-}
 Fence {
 	Name = "Fence#255"
 	Position = -14.5766, 1.9966, 172.297
@@ -868,21 +915,6 @@ Fence {
 	Name = "Fence#268"
 	Position = -50.9385, 0.180429, 288.415
 	Orientation = 0.0713544, 0.675466, 0.0771014, 0.729869}
-Chicken_Coop {
-	Name = "Chicken_Coop#1"
-	Position = 145.826, 4.39949, 145.18
-	Orientation = 0, -0.170071, 7.43405E-09, 0.985432
-}
-Chicken_Coop {
-	Name = "Chicken_Coop#002"
-	Position = 161.511, 4.41936, 161.724
-	Orientation = 0, -0.536017, 2.343E-08, 0.844207
-}
-Chicken_Coop {
-	Name = "Chicken_Coop#004"
-	Position = 167.363, 4.47681, 179.454
-	Orientation = 0, -0.000752181, 3.28789E-11, 1
-}
 FenceNonWall {
 	Name = "FenceNonWall#269"
 	Position = 74.7242, 2.44, 217.342
@@ -963,28 +995,3 @@ FencePost {
 	Name = "FencePost#002"
 	Position = 106.053, -1.05235, 250.434
 	Orientation = 0.0324199, -0.166542, -0.0240197, 0.985209}
-Well {
-	Name = "Well#"
-	Position = 177.778, 6.48282, 231.089
-	Orientation = -1.47885E-08, 0.987017, -5.51752E-08, 0.160613
-}
-Farmhouse {
-	Name = "Farmhouse#000"
-	Position = 28.5423, 4.50691, 205.974
-	Orientation = 0, -0.836976, 3.65854E-08, 0.54724
-}
-Farmhouse {
-	Name = "Farmhouse#001"
-	Position = 34.202, 4.50691, 188.874
-	Orientation = 0, -0.785707, 3.43443E-08, 0.618599
-}
-Farmhouse {
-	Name = "Farmhouse#002"
-	Position = 40.38, 4.4179, 169.429
-	Orientation = 0, -0.861438, 3.76547E-08, 0.507862
-}
-Farmhouse {
-	Name = "Farmhouse#003"
-	Position = 28.569, 4.7198, 152.386
-	Orientation = 0, -0.486735, 2.12758E-08, 0.87355
-}

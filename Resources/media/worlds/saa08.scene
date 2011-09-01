@@ -6,7 +6,7 @@
 			<position x="285.667" y="-16.7961" z="-239.977" />
 			<scale x="3.23051" y="2.5" z="0.938333" />
 			<rotation qx="0" qy="0" qz="0" qw="1" />
-			<entity name="Bridge_1" castShadows="True" receiveShadows="True" meshFile="Bridge_1.mesh" static="True">
+			<entity name="Bridge_1" castShadows="True" receiveShadows="True" meshFile="Bridge_1.mesh" static="true">
 				<subentities>
 					<subentity index="0" materialName="bluebrick" />
 				</subentities>
@@ -16,7 +16,7 @@
 			<position x="-106.811" y="48.649" z="-672.68" />
 			<scale x="1.5634" y="2.5" z="2.86408" />
 			<rotation qx="0.697776" qy="0.114492" qz="0.114492" qw="0.697776" />
-			<entity name="Ramp_1" castShadows="True" receiveShadows="True" meshFile="Ramp_1.mesh" static="True">
+			<entity name="Ramp_1" castShadows="True" receiveShadows="True" meshFile="Ramp_1.mesh" static="true">
 				<subentities>
 					<subentity index="0" materialName="bluebrick" />
 				</subentities>
@@ -36,7 +36,7 @@
 			<position x="119.19" y="-49.0117" z="-224.722" />
 			<scale x="3.61437" y="2.5" z="3.61437" />
 			<rotation qx="0" qy="0.707107" qz="-3.09086E-08" qw="0.707107" />
-			<entity name="HP_Ground" castShadows="True" receiveShadows="True" meshFile="HP_Ground.mesh" static="True">
+			<entity name="HP_Ground" castShadows="True" receiveShadows="True" meshFile="HP_Ground.mesh" static="true">
 				<subentities>
 					<subentity index="0" materialName="Grass" />
 				</subentities>
@@ -76,7 +76,7 @@
 			<position x="85.8292" y="-0.609074" z="262.329" />
 			<scale x="1" y="0.0120714" z="1" />
 			<rotation qx="0" qy="0" qz="0" qw="1" />
-			<entity name="Barn_area_ground" castShadows="false" receiveShadows="True" meshFile="Barn_area_ground.mesh" static="True">
+			<entity name="Barn_area_ground" castShadows="false" receiveShadows="True" meshFile="Barn_area_ground.mesh" static="true">
 				<subentities>
 					<subentity index="0" materialName="SAA_Barn_Area" />
 				</subentities>
@@ -86,7 +86,7 @@
 			<position x="-69.9466" y="14.9867" z="290.972" />
 			<scale x="2.5" y="2.5" z="2.5" />
 			<rotation qx="0" qy="0.707107" qz="-3.09086E-08" qw="0.707107" />
-			<entity name="SAA_Road" castShadows="False" receiveShadows="True" meshFile="SAA_road.mesh" static="True">
+			<entity name="SAA_Road" castShadows="False" receiveShadows="True" meshFile="SAA_road.mesh" static="true">
 				<subentities>
 					<subentity index="0" materialName="SAA_Road" />
 				</subentities>
