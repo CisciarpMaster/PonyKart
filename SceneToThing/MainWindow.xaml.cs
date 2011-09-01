@@ -168,7 +168,12 @@ namespace SceneToThing {
 						writer.WriteLine("Physics = " + physicsBox.Text);
 						if (physicsBox.Text != "None")
 							writer.WriteLine("Mass = " + massBox.Text);
+						if (collisionBox.Text != "None") {
+							writer.WriteLine("CollisionGroup = \"" + collisionBox.Text + "\"");
+							writer.WriteLine("CollidesWith = \"" + collisionBox.Text + "\"");
+						}
 
+						writer.WriteLine();
 						foreach (Block block in Blocks) {
 							// write out our model blocks
 							Node node = block as Node;
@@ -471,13 +476,29 @@ namespace SceneToThing {
 
 			ComboBoxItem item = e.AddedItems[0] as ComboBoxItem;
 
-			if ((string) item.Content == "None" || (string) item.Content == "Static") {
+			if ((string) item.Content == "None") {
 				massBox.IsEnabled = false;
 				massBox.Text = "0";
+				collisionBox.SelectedIndex = 0; // none
+				collisionBox.IsEnabled = false;
 			}
-			else {
+			else if ((string) item.Content == "Static") {
+				massBox.IsEnabled = false;
+				massBox.Text = "0";
+				collisionBox.IsEnabled = true;
+				collisionBox.SelectedIndex = 2; // environment
+			}
+			else if ((string) item.Content == "Kinematic") {
+				massBox.IsEnabled = false;
+				massBox.Text = "0";
+				collisionBox.IsEnabled = true;
+				collisionBox.SelectedIndex = 3; // affectors
+			}
+			else { // dynamic
 				massBox.IsEnabled = true;
 				massBox.Text = "1";
+				collisionBox.IsEnabled = true;
+				collisionBox.SelectedIndex = 1; // default
 			}
 		}
 	}

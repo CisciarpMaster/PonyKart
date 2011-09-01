@@ -15,7 +15,7 @@
 			<ComboBoxItem Content="Kinematic" />
 			<ComboBoxItem Content="None" IsSelected="True" />
 		</ComboBox>
-		<GroupBox Header="Modify block" Height="292" HorizontalAlignment="Left" Margin="239,140,0,0" Name="groupBox1" VerticalAlignment="Top" Width="414">
+		<GroupBox Header="Modify block" Height="246" HorizontalAlignment="Left" Margin="239,186,0,0" Name="groupBox1" VerticalAlignment="Top" Width="414">
 			<Grid>
 				<Label Content="Type:" Height="25" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label4" VerticalAlignment="Top" Width="82" />
 				<Label Content="Position:" Height="25" HorizontalAlignment="Left" Margin="6,37,0,0" Name="label3" VerticalAlignment="Top" Width="82" />
@@ -48,5 +48,15 @@
 		</GroupBox>
 		<TextBox Height="27" HorizontalAlignment="Left" Margin="308,107,0,0" Name="massBox" Text="0" VerticalAlignment="Top" Width="169" IsEnabled="False" />
 		<Label Content="Mass:" Height="27" HorizontalAlignment="Left" Margin="239,107,0,0" Name="label9" VerticalAlignment="Top" Width="63" />
+		<Label Content="Collision:" Height="27" HorizontalAlignment="Left" Margin="239,140,0,0" Name="label6" VerticalAlignment="Top" Width="63" />
+		<ComboBox Height="27" HorizontalAlignment="Left" IsEnabled="False" Margin="308,140,0,0" Name="collisionBox" VerticalAlignment="Top" Width="169">
+			<ComboBoxItem Content="None" IsSelected="True" />
+			<ComboBoxItem Content="Default" />
+			<ComboBoxItem Content="Environment" />
+			<ComboBoxItem Content="Affectors" />
+			<ComboBoxItem Content="Walls" />
+			<ComboBoxItem Content="Triggers" />
+			<ComboBoxItem Content="Karts" />
+		</ComboBox>
 	</Grid>
 </Window>
