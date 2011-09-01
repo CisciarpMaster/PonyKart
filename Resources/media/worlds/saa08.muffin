@@ -1,253 +1,990 @@
 Type = Race
-Barn {
-	Position = 92, -1, 234.525
-}
-AppleTree {
-	Position = -5, 1, 30
-}
-
 Fence {
-	Name = "Fence#093"
-	Position = -301.255, 27.5675, 117.115
-	Orientation = 0.0305991, 0.711989, -0.0310861, 0.700835
-}
-Fence {
-	Name = "Fence#113"
-	Position = -256.396, 27.5675, -59.2291
-	Orientation = 0.0290676, 0.744875, -0.0325227, 0.665777
-}
-Fence {
-	Name = "Fence#112"
-	Position = -256.341, 27.5675, -50.2706
-	Orientation = 0.0319032, 0.681318, -0.0297462, 0.730686
-}
-Fence {
-	Name = "Fence#111"
-	Position = -256.776, 27.5675, -41.0594
-	Orientation = 0.0314266, 0.692823, -0.0302493, 0.719787
-}
-Fence {
-	Name = "Fence#110"
-	Position = -257.296, 27.5675, -32.0368
-	Orientation = 0.0332165, 0.64754, -0.0282722, 0.760782
-}
-Fence {
-	Name = "Fence#109"
-	Position = -258.921, 27.5675, -22.9243
-	Orientation = 0.0332356, 0.647025, -0.0282497, 0.76122
-}
-Fence {
-	Name = "Fence#108"
-	Position = -260.507, 27.5675, -13.9116
-	Orientation = 0.0336874, 0.634649, -0.0277094, 0.771569
-}
-Fence {
-	Name = "Fence#107"
-	Position = -262.491, 27.5675, -4.97882
-	Orientation = 0.0345563, 0.609652, -0.026618, 0.791469
-}
-Fence {
-	Name = "Fence#106"
-	Position = -265.153, 27.5675, 3.849
-	Orientation = 0.0352906, 0.587171, -0.0256365, 0.808287
-}
-Fence {
-	Name = "Fence#077"
-	Position = -311.802, 27.5675, 264.041
-	Orientation = 0.0336565, 0.635491, -0.027747, 0.770876
-}
-Fence {
-	Name = "Fence#078"
-	Position = -310.137, 27.5675, 254.901
-	Orientation = 0.0332607, 0.646347, -0.0282201, 0.761796
-}
-Fence {
-	Name = "Fence#079"
-	Position = -308.677, 27.5675, 245.866
-	Orientation = 0.0332223, 0.647384, -0.0282654, 0.760915
-}
-Fence {
-	Name = "Fence#080"
-	Position = -307.248, 27.5675, 236.826
-	Orientation = 0.0330385, 0.652281, -0.02848, 0.756721
-}
-Fence {
-	Name = "Fence#081"
-	Position = -305.937, 27.5675, 227.628
-	Orientation = 0.0328151, 0.658188, -0.0287372, 0.751589
-}
-Fence {
-	Name = "Fence#082"
-	Position = -304.892, 27.5675, 218.22
-	Orientation = 0.0321778, 0.674492, -0.029449, 0.736993
-}
-Fence {
-	Name = "Fence#083"
-	Position = -303.917, 27.5675, 209.087
-	Orientation = 0.0330218, 0.652741, -0.0284993, 0.756324
-}
-Fence {
-	Name = "Fence#084"
-	Position = -302.336, 27.5675, 199.931
-	Orientation = 0.0332965, 0.64536, -0.0281779, 0.762632
-}
-Fence {
-	Name = "Fence#085"
-	Position = -301.145, 27.5675, 190.718
-	Orientation = 0.0323845, 0.669281, -0.0292215, 0.741728
-}
-Fence {
-	Name = "Fence#086"
-	Position = -300.482, 27.5675, 181.556
-	Orientation = 0.0313649, 0.694287, -0.0303132, 0.718375
-}
-Fence {
-	Name = "Fence#087"
-	Position = -300.53, 27.5675, 172.441
-	Orientation = 0.0304578, 0.715159, -0.0312245, 0.697599
-}
-Fence {
-	Name = "Fence#088"
-	Position = -300.666, 27.5675, 163.325
-	Orientation = 0.0306906, 0.70992, -0.0309958, 0.70293
-}
-Fence {
-	Name = "Fence#089"
-	Position = -300.763, 27.5675, 154.104
-	Orientation = 0.030673, 0.710319, -0.0310133, 0.702527
-}
-Fence {
-	Name = "Fence#090"
-	Position = -300.87, 27.5675, 144.848
-	Orientation = 0.0306564, 0.710695, -0.0310296, 0.702147
-}
-Fence {
-	Name = "Fence#091"
-	Position = -300.988, 27.5675, 135.522
-	Orientation = 0.0306382, 0.711106, -0.0310476, 0.70173
-}
-Fence {
-	Name = "Fence#092"
-	Position = -301.117, 27.5675, 126.266
-	Orientation = 0.03062, 0.711517, -0.0310655, 0.701313
-}
-Fence {
-	Name = "Fence#105"
-	Position = -268.047, 27.5675, 12.6419
-	Orientation = 0.0354315, 0.582702, -0.0254413, 0.811515
-}
-Fence {
-	Name = "Fence#094"
-	Position = -301.411, 27.5675, 107.825
-	Orientation = 0.0305632, 0.712798, -0.0311214, 0.700012
-}
-Fence {
-	Name = "Fence#095"
-	Position = -301.586, 27.5675, 98.7097
-	Orientation = 0.0303489, 0.717584, -0.0313304, 0.695104
-}
-Fence {
-	Name = "Fence#096"
-	Position = -298.012, 27.5675, 80.3496
-	Orientation = 0.0368454, 0.534727, -0.0233467, 0.843899
-}
-Fence {
-	Name = "Fence#097"
-	Position = -293.794, 27.5675, 71.9925
-	Orientation = 0.0371846, 0.522243, -0.0228026, 0.85168
-}
-Fence {
-	Name = "Fence#098"
-	Position = -289.57, 27.5675, 63.638
-	Orientation = 0.0371076, 0.525149, -0.0229276, 0.849892
-}
-Fence {
-	Name = "Fence#099"
-	Position = -300.86, 27.5675, 89.3338
-	Orientation = 0.0330793, 0.651212, -0.0284326, 0.757641
-}
-Fence {
-	Name = "Fence#100"
-	Position = -285.522, 27.5675, 55.3914
-	Orientation = 0.0369328, 0.531554, -0.0232082, 0.8459
-}
-Fence {
-	Name = "Fence#101"
-	Position = -281.538, 27.5675, 46.8813
-	Orientation = 0.0366684, 0.541092, -0.0236237, 0.839831
-}
-Fence {
-	Name = "Fence#102"
-	Position = -277.819, 27.5675, 38.4049
-	Orientation = 0.0363474, 0.552296, -0.0241147, 0.832506
-}
-Fence {
-	Name = "Fence#103"
-	Position = -274.368, 27.5675, 29.929
-	Orientation = 0.0360464, 0.562568, -0.0245623, 0.825599
-}
-Fence {
-	Name = "Fence#104"
-	Position = -271.123, 27.5675, 21.4091
-	Orientation = 0.0357588, 0.572137, -0.0249792, 0.818997
-}
-Fence {
-	Name = "Fence#114"
-	Position = -257.482, 27.5675, -68.3162
-	Orientation = 0.0289447, 0.747399, -0.0326322, 0.662942
-}
-Fence {
-	Name = "Fence#076"
-	Position = -313.062, 27.5675, 272.923
-	Orientation = 0.0320455, 0.677788, -0.0295929, 0.733963
-}
-Fence {
-	Name = "Fence#075"
-	Position = -311.908, 27.5675, 282.148
-	Orientation = 0.0252845, 0.814082, -0.0355436, 0.579109
-}
-Fence {
-	Name = "Fence#074"
-	Position = -290.722, 27.5675, 297.14
-	Orientation = 0.00629734, 0.988582, -0.0431625, 0.144233
-}
-Fence {
-	Name = "Fence#073"
-	Position = -306.733, 27.5675, 289.511
-	Orientation = 0.0146168, 0.941287, -0.0410975, 0.334779
-}
-Fence {
-	Name = "Fence#072"
-	Position = -299.176, 27.5675, 294.068
-	Orientation = 0.00892582, 0.977908, -0.0426964, 0.204435
-}
-Fence {
-	Name = "Fence#071"
-	Position = -281.987, 27.5675, 299.187
-	Orientation = 0.00383789, 0.995174, -0.0434503, 0.0879022
-}
-Fence {
-	Name = "Fence#070"
-	Position = -272.882, 27.5698, 300.313
-	Orientation = 0.000850285, 0.998432, -0.0436164, 0.0350731
-}
+	Name = "Fence#RIGHT SIDE AFTER RAMP"
+	Position = 5.25906, 49.9638, -630.073
+	Orientation = -7.2455E-05, -0.00375274, 0.0193035, 0.999807}
 Fence {
 	Name = "Fence#028"
 	Position = -263.467, 27.583, 300.829
-	Orientation = 0.00125167, 0.998591, -0.0436015, 0.0302356
-}
+	Orientation = 0.00125167, 0.998591, -0.0436015, 0.0302356}
+Fence {
+	Name = "Fence#029"
+	Position = -141.184, 128.336, -128.336}
+Fence {
+	Name = "Fence#030"
+	Position = -92.6076, 131.275, -124.578}
+Fence {
+	Name = "Fence#033"
+	Position = 302.342, 7.84129, -169.178}
+Fence {
+	Name = "Fence#069"
+	Position = 224.223, 1.99661, 335.213
+	Orientation = 0.0288152, -0.75001, 0.0327465, 0.659986}
+Fence {
+	Name = "Fence#070"
+	Position = -272.882, 27.5698, 300.313
+	Orientation = 0.000850285, 0.998432, -0.0436164, 0.0350731}
+Fence {
+	Name = "Fence#071"
+	Position = -281.987, 27.5675, 299.187
+	Orientation = 0.00383789, 0.995174, -0.0434503, 0.0879022}
+Fence {
+	Name = "Fence#072"
+	Position = -299.176, 27.5675, 294.068
+	Orientation = 0.00892582, 0.977908, -0.0426964, 0.204435}
+Fence {
+	Name = "Fence#073"
+	Position = -306.733, 27.5675, 289.511
+	Orientation = 0.0146168, 0.941287, -0.0410975, 0.334779}
+Fence {
+	Name = "Fence#074"
+	Position = -290.722, 27.5675, 297.14
+	Orientation = 0.00629734, 0.988582, -0.0431625, 0.144233}
+Fence {
+	Name = "Fence#075"
+	Position = -311.908, 27.5675, 282.148
+	Orientation = 0.0252845, 0.814082, -0.0355436, 0.579109}
+Fence {
+	Name = "Fence#076"
+	Position = -313.062, 27.5675, 272.923
+	Orientation = 0.0320455, 0.677788, -0.0295929, 0.733963}
+Fence {
+	Name = "Fence#077"
+	Position = -311.802, 27.5675, 264.041
+	Orientation = 0.0336565, 0.635491, -0.027747, 0.770876}
+Fence {
+	Name = "Fence#078"
+	Position = -310.137, 27.5675, 254.901
+	Orientation = 0.0332607, 0.646347, -0.0282201, 0.761796}
+Fence {
+	Name = "Fence#079"
+	Position = -308.677, 27.5675, 245.866
+	Orientation = 0.0332223, 0.647384, -0.0282654, 0.760915}
+Fence {
+	Name = "Fence#080"
+	Position = -307.248, 27.5675, 236.826
+	Orientation = 0.0330385, 0.652281, -0.02848, 0.756721}
+Fence {
+	Name = "Fence#081"
+	Position = -305.937, 27.5675, 227.628
+	Orientation = 0.0328151, 0.658188, -0.0287372, 0.751589}
+Fence {
+	Name = "Fence#082"
+	Position = -304.892, 27.5675, 218.22
+	Orientation = 0.0321778, 0.674492, -0.029449, 0.736993}
+Fence {
+	Name = "Fence#083"
+	Position = -303.917, 27.5675, 209.087
+	Orientation = 0.0330218, 0.652741, -0.0284993, 0.756324}
+Fence {
+	Name = "Fence#084"
+	Position = -302.336, 27.5675, 199.931
+	Orientation = 0.0332965, 0.64536, -0.0281779, 0.762632}
+Fence {
+	Name = "Fence#085"
+	Position = -301.145, 27.5675, 190.718
+	Orientation = 0.0323845, 0.669281, -0.0292215, 0.741728}
+Fence {
+	Name = "Fence#086"
+	Position = -300.482, 27.5675, 181.556
+	Orientation = 0.0313649, 0.694287, -0.0303132, 0.718375}
+Fence {
+	Name = "Fence#087"
+	Position = -300.53, 27.5675, 172.441
+	Orientation = 0.0304578, 0.715159, -0.0312245, 0.6976}
+Fence {
+	Name = "Fence#088"
+	Position = -300.666, 27.5675, 163.325
+	Orientation = 0.0306906, 0.70992, -0.0309958, 0.702931}
+Fence {
+	Name = "Fence#089"
+	Position = -300.763, 27.5675, 154.104
+	Orientation = 0.030673, 0.710319, -0.0310133, 0.702527}
+Fence {
+	Name = "Fence#090"
+	Position = -300.87, 27.5675, 144.848
+	Orientation = 0.0306564, 0.710695, -0.0310296, 0.702147}
+Fence {
+	Name = "Fence#091"
+	Position = -300.988, 27.5675, 135.522
+	Orientation = 0.0306382, 0.711106, -0.0310476, 0.70173}
+Fence {
+	Name = "Fence#092"
+	Position = -301.117, 27.5675, 126.266
+	Orientation = 0.03062, 0.711517, -0.0310655, 0.701313}
+Fence {
+	Name = "Fence#093"
+	Position = -301.255, 27.5675, 117.115
+	Orientation = 0.0305991, 0.711989, -0.0310861, 0.700835}
+Fence {
+	Name = "Fence#094"
+	Position = -301.411, 27.5675, 107.825
+	Orientation = 0.0305632, 0.712798, -0.0311214, 0.700012}
+Fence {
+	Name = "Fence#095"
+	Position = -301.586, 27.5675, 98.7097
+	Orientation = 0.0303489, 0.717584, -0.0313304, 0.695104}
+Fence {
+	Name = "Fence#096"
+	Position = -298.012, 27.5675, 80.3496
+	Orientation = 0.0368454, 0.534727, -0.0233467, 0.843899}
+Fence {
+	Name = "Fence#097"
+	Position = -293.794, 27.5675, 71.9925
+	Orientation = 0.0371846, 0.522244, -0.0228026, 0.85168}
+Fence {
+	Name = "Fence#098"
+	Position = -289.57, 27.5675, 63.638
+	Orientation = 0.0371076, 0.525149, -0.0229276, 0.849892}
+Fence {
+	Name = "Fence#099"
+	Position = -300.86, 27.5675, 89.3338
+	Orientation = 0.0330793, 0.651212, -0.0284326, 0.757641}
+Fence {
+	Name = "Fence#100"
+	Position = -285.522, 27.5675, 55.3914
+	Orientation = 0.0369328, 0.531554, -0.0232082, 0.8459}
+Fence {
+	Name = "Fence#101"
+	Position = -281.538, 27.5675, 46.8813
+	Orientation = 0.0366684, 0.541092, -0.0236237, 0.839831}
+Fence {
+	Name = "Fence#102"
+	Position = -277.819, 27.5675, 38.4049
+	Orientation = 0.0363474, 0.552296, -0.0241147, 0.832506}
+Fence {
+	Name = "Fence#103"
+	Position = -274.368, 27.5675, 29.929
+	Orientation = 0.0360464, 0.562568, -0.0245623, 0.825599}
+Fence {
+	Name = "Fence#104"
+	Position = -271.123, 27.5675, 21.4091
+	Orientation = 0.0357588, 0.572137, -0.0249792, 0.818997}
+Fence {
+	Name = "Fence#105"
+	Position = -268.047, 27.5675, 12.6419
+	Orientation = 0.0354315, 0.582702, -0.0254413, 0.811515}
+Fence {
+	Name = "Fence#106"
+	Position = -265.153, 27.5675, 3.849
+	Orientation = 0.0352906, 0.587171, -0.0256365, 0.808287}
+Fence {
+	Name = "Fence#107"
+	Position = -262.491, 27.5675, -4.97882
+	Orientation = 0.0345563, 0.609652, -0.026618, 0.791469}
+Fence {
+	Name = "Fence#108"
+	Position = -260.507, 27.5675, -13.9116
+	Orientation = 0.0336874, 0.634649, -0.0277094, 0.771569}
+Fence {
+	Name = "Fence#109"
+	Position = -258.921, 27.5675, -22.9243
+	Orientation = 0.0332356, 0.647025, -0.0282497, 0.76122}
+Fence {
+	Name = "Fence#110"
+	Position = -257.296, 27.5675, -32.0368
+	Orientation = 0.0332165, 0.64754, -0.0282722, 0.760782}
+Fence {
+	Name = "Fence#111"
+	Position = -256.776, 27.5675, -41.0594
+	Orientation = 0.0314266, 0.692823, -0.0302493, 0.719787}
+Fence {
+	Name = "Fence#112"
+	Position = -256.341, 27.5675, -50.2706
+	Orientation = 0.0319032, 0.681318, -0.0297462, 0.730686}
+Fence {
+	Name = "Fence#113"
+	Position = -256.396, 27.5675, -59.2291
+	Orientation = 0.0290676, 0.744875, -0.0325227, 0.665777}
+Fence {
+	Name = "Fence#114"
+	Position = -257.482, 27.5675, -68.3162
+	Orientation = 0.0289447, 0.747399, -0.0326322, 0.662942}
 Fence {
 	Name = "Fence#115"
 	Position = -258.389, 27.5675, -77.352
-	Orientation = 0.0299059, 0.727277, -0.0317536, 0.684957
-}
+	Orientation = 0.0299058, 0.727277, -0.0317536, 0.684957}
 Fence {
 	Name = "Fence#116"
 	Position = -258.211, 27.5675, -86.6715
-	Orientation = 0.0313529, 0.694572, -0.0303257, 0.7181
-}
+	Orientation = 0.0313529, 0.694572, -0.0303257, 0.7181}
 Fence {
 	Name = "Fence#117"
 	Position = -258.011, 27.5675, -95.961
-	Orientation = 0.031082, 0.70093, -0.0306033, 0.711895
+	Orientation = 0.031082, 0.70093, -0.0306033, 0.711895}
+Fence {
+	Name = "Fence#118"
+	Position = 14.3174, 50.0988, -630.754
+	Orientation = 0.000259652, 0.0904228, 0.00285976, 0.995899}
+Fence {
+	Name = "Fence#119"
+	Position = 23.4373, 50.1621, -632.861
+	Orientation = 0.00047591, 0.127165, 0.00371205, 0.991875}
+Fence {
+	Name = "Fence#120"
+	Position = 32.4701, 50.2368, -635.35
+	Orientation = 0.000576129, 0.137792, 0.00414122, 0.990452}
+Fence {
+	Name = "Fence#121"
+	Position = 41.4917, 50.3181, -637.932
+	Orientation = 0.000618965, 0.138794, 0.00441639, 0.990311}
+Fence {
+	Name = "Fence#122"
+	Position = 50.3568, 50.4022, -640.438
+	Orientation = 0.000629596, 0.135114, 0.00461694, 0.990819}
+Fence {
+	Name = "Fence#123"
+	Position = 59.3658, 50.4908, -642.882
+	Orientation = 0.000618876, 0.128399, 0.00477999, 0.991711}
+Fence {
+	Name = "Fence#124"
+	Position = 68.3075, 50.581, -645.158
+	Orientation = 0.000592563, 0.119707, 0.00491447, 0.992797}
+Fence {
+	Name = "Fence#125"
+	Position = 77.4442, 50.675, -647.293
+	Orientation = 0.000552191, 0.10907, 0.00503245, 0.994021}
+Fence {
+	Name = "Fence#126"
+	Position = 86.3105, 50.7676, -649.155
+	Orientation = 0.000501523, 0.0972443, 0.00513283, 0.995247}
+Fence {
+	Name = "Fence#127"
+	Position = 95.635, 50.8662, -650.863
+	Orientation = 0.000437354, 0.0834355, 0.00522347, 0.996499}
+Fence {
+	Name = "Fence#128"
+	Position = 104.707, 50.9631, -652.259
+	Orientation = 0.000364626, 0.0686402, 0.00529953, 0.997627}
+Fence {
+	Name = "Fence#129"
+	Position = 114.007, 51.0632, -653.389
+	Orientation = 0.000280044, 0.0521292, 0.00536473, 0.998626}
+Fence {
+	Name = "Fence#130"
+	Position = 123.3, 51.1639, -654.197
+	Orientation = 0.000184757, 0.0340864, 0.00541701, 0.999404}
+Fence {
+	Name = "Fence#131"
+	Position = 132.822, 51.2676, -654.659
+	Orientation = 7.80441E-05, 0.0143029, 0.0054559, 0.999883}
+Fence {
+	Name = "Fence#132"
+	Position = 142.095, 51.3691, -654.732
+	Orientation = -3.66375E-05, -0.00668933, 0.0054768, 0.999963}
+Fence {
+	Name = "Fence#133"
+	Position = 151.353, 51.4706, -654.402
+	Orientation = -0.000160129, -0.029209, 0.00547977, 0.999558}
+Fence {
+	Name = "Fence#134"
+	Position = 160.824, 51.5747, -653.618
+	Orientation = -0.000293629, -0.0536928, 0.00546072, 0.998542}
+Fence {
+	Name = "Fence#135"
+	Position = 170.026, 51.676, -652.391
+	Orientation = -0.000429003, -0.0789122, 0.00541943, 0.996867}
+Fence {
+	Name = "Fence#136"
+	Position = 178.954, 51.7417, -650.198
+	Orientation = 8.60125E-06, -0.199518, -4.90896E-05, 0.979894}
+Fence {
+	Name = "Fence#137"
+	Position = 187.424, 51.732, -646.515
+	Orientation = 9.69049E-08, -0.206571, -4.49964E-07, 0.978432}
+Fence {
+	Name = "Fence#138"
+	Position = 195.87, 51.732, -642.612
+	Orientation = 0, -0.221758, 9.69333E-09, 0.975102}
+Fence {
+	Name = "Fence#139"
+	Position = 204.217, 51.732, -638.499
+	Orientation = -5.41788E-08, -0.230995, 2.38299E-07, 0.972955}
+Fence {
+	Name = "Fence#140"
+	Position = 212.507, 51.732, -634.272
+	Orientation = 0, -0.23505, 1.02744E-08, 0.971983}
+Fence {
+	Name = "Fence#141"
+	Position = 220.78, 51.732, -630.012
+	Orientation = 5.50368E-08, -0.234655, -2.17737E-07, 0.972079}
+Fence {
+	Name = "Fence#142"
+	Position = 229.072, 51.732, -625.789
+	Orientation = 5.4094E-08, -0.230634, -2.1814E-07, 0.973041}
+Fence {
+	Name = "Fence#143"
+	Position = 237.415, 51.732, -621.668
+	Orientation = 0, -0.223688, 9.7777E-09, 0.974661}
+Fence {
+	Name = "Fence#144"
+	Position = 245.539, 51.732, -617.832
+	Orientation = -5.01893E-08, -0.213984, 2.38467E-07, 0.976837}
+Fence {
+	Name = "Fence#145"
+	Position = 254.017, 51.7344, -614.056
+	Orientation = -0.000437555, -0.201922, 0.00212232, 0.979399}
+Fence {
+	Name = "Fence#146"
+	Position = 260.916, 51.7992, -611.176
+	Orientation = -8.90041E-06, -0.190921, 4.57691E-05, 0.981605}
+FenceAngled {
+	Name = "FenceAngled#147"
+	Position = 267.383, 50.9649, -606.015
+	Orientation = 0.0289565, -0.495285, 0.00264125, 0.868244}
+FenceAngled {
+	Name = "FenceAngled#148"
+	Position = 271.346, 49.4339, -599.26
+	Orientation = 0.0294015, -0.498565, 0.00195819, 0.866351}
+FenceAngled {
+	Name = "FenceAngled#149"
+	Position = 275.719, 47.7174, -591.692
+	Orientation = 0.0294224, -0.501325, 0.00200476, 0.864757}
+FenceAngled {
+	Name = "FenceAngled#150"
+	Position = 279.751, 46.1207, -584.611
+	Orientation = 0.0291993, -0.504067, 0.00246975, 0.863167}
+FenceAngled {
+	Name = "FenceAngled#151"
+	Position = 283.623, 44.5782, -577.688
+	Orientation = 0.0286517, -0.508033, 0.00351401, 0.860854}
+FenceAngled {
+	Name = "FenceAngled#152"
+	Position = 285.69, 42.579, -568.824
+	Orientation = 0.0389421, -0.722238, -0.000661033, 0.690548}
+FenceAngled {
+	Name = "FenceAngled#153"
+	Position = 285.301, 40.4593, -559.505
+	Orientation = 0.0380074, -0.721356, 0.000186897, 0.691521}
+FenceAngled {
+	Name = "FenceAngled#154"
+	Position = 284.923, 38.3436, -550.136
+	Orientation = 0.0376838, -0.721079, 0.00048317, 0.691827}
+FenceAngled {
+	Name = "FenceAngled#155"
+	Position = 284.55, 36.2357, -540.774
+	Orientation = 0.0375437, -0.72103, 0.000615323, 0.691886}
+FenceAngled {
+	Name = "FenceAngled#156"
+	Position = 284.177, 34.1432, -531.472
+	Orientation = 0.037542, -0.721199, 0.000625958, 0.691709}
+FenceAngled {
+	Name = "FenceAngled#157"
+	Position = 283.789, 32.012, -522.01
+	Orientation = 0.0377529, -0.721771, 0.000454052, 0.691101}
+Fence {
+	Name = "Fence#147"
+	Position = 282.339, 30.6525, -512.747
+	Orientation = 0.0215495, -0.799487, -0.0161746, 0.600079}
+Fence {
+	Name = "Fence#148"
+	Position = 279.694, 30.1261, -503.741
+	Orientation = 0.0230672, -0.800815, -0.0172315, 0.598219}
+Fence {
+	Name = "Fence#149"
+	Position = 277.097, 29.5912, -495.002
+	Orientation = 0.0238485, -0.801517, -0.0177701, 0.597232}
+Fence {
+	Name = "Fence#150"
+	Position = 274.423, 29.0291, -486.075
+	Orientation = 0.0244599, -0.802088, -0.0181882, 0.596427}
+Fence {
+	Name = "Fence#151"
+	Position = 271.757, 28.4588, -477.24
+	Orientation = 0.0251014, -0.80274, -0.0186214, 0.59551}
+Fence {
+	Name = "Fence#152"
+	Position = 269.093, 27.8766, -468.507
+	Orientation = 0.0254454, -0.828771, -0.0205326, 0.558632}
+Fence {
+	Name = "Fence#153"
+	Position = 265.162, 26.9503, -460.184
+	Orientation = 0.0511411, -0.858089, -0.0303979, 0.510043}
+Fence {
+	Name = "Fence#154"
+	Position = 261.141, 25.891, -451.882
+	Orientation = 0.0447516, -0.832775, -0.0296099, 0.551006}
+Fence {
+	Name = "Fence#155"
+	Position = 257.998, 24.941, -443.09
+	Orientation = 0.0375173, -0.802988, -0.0277606, 0.594164}
+Fence {
+	Name = "Fence#156"
+	Position = 253.759, 23.6127, -425.06
+	Orientation = 0.0147867, -0.764424, -0.0124654, 0.644423}
+Fence {
+	Name = "Fence#157"
+	Position = 255.577, 24.1666, -434.177
+	Orientation = 0.0292749, -0.782334, -0.0232653, 0.621735}
+Fence {
+	Name = "Fence#158"
+	Position = 252.479, 23.4356, -416.066
+	Orientation = 0.0032374, -0.746815, -0.00288278, 0.665018}
+Fence {
+	Name = "Fence#159"
+	Position = 251.614, 23.3526, -406.859
+	Orientation = 0.00235472, -0.730865, -0.00219891, 0.682514}
+Fence {
+	Name = "Fence#160"
+	Position = 251.117, 23.4299, -397.561
+	Orientation = -0.0125121, -0.72134, 0.0120095, 0.692364}
+Fence {
+	Name = "Fence#161"
+	Position = 250.881, 23.9323, -388.192
+	Orientation = -0.0156017, -0.712166, 0.0153718, 0.701669}
+Fence {
+	Name = "Fence#162"
+	Position = 250.821, 24.09, -378.773
+	Orientation = 0.00069787, -0.706479, -0.000699077, 0.707733}
+Fence {
+	Name = "Fence#163"
+	Position = 250.886, 23.8703, -369.299
+	Orientation = 0.0160728, -0.702625, -0.0162687, 0.711193}
+Fence {
+	Name = "Fence#164"
+	Position = 251.03, 23.3204, -359.861
+	Orientation = 0.0235268, -0.70039, -0.0239494, 0.712971}
+Fence {
+	Name = "Fence#165"
+	Position = 251.217, 22.5853, -350.56
+	Orientation = 0.0315709, -0.698809, -0.0322519, 0.713883}
+Fence {
+	Name = "Fence#166"
+	Position = 251.433, 21.6042, -341.156
+	Orientation = 0.0397645, -0.697542, -0.0407187, 0.71428}
+Fence {
+	Name = "Fence#167"
+	Position = 251.661, 20.432, -331.926
+	Orientation = 0.0524129, -0.695983, -0.0537788, 0.714121}
+Fence {
+	Name = "Fence#168"
+	Position = 251.928, 18.782, -322.547
+	Orientation = 0.0617341, -0.691129, -0.0640659, 0.717235}
+Fence {
+	Name = "Fence#169"
+	Position = 251.909, 16.8252, -313.399
+	Orientation = 0.0637809, -0.720677, -0.0608572, 0.687643}
+Fence {
+	Name = "Fence#170"
+	Position = 251.446, 15.3653, -304.214
+	Orientation = 0.0538285, -0.722732, -0.0511765, 0.687126}
+Fence {
+	Name = "Fence#171"
+	Position = 251.343, 13.9635, -295.141
+	Orientation = 0.0558038, -0.697764, -0.0569326, 0.711878}
+Fence {
+	Name = "Fence#172"
+	Position = 251.905, 12.5269, -285.957
+	Orientation = 0.0488679, -0.666168, -0.0544456, 0.742205}
+Fence {
+	Name = "Fence#173"
+	Position = 253.133, 11.1914, -276.749
+	Orientation = 0.0450231, -0.649045, -0.052553, 0.757596}
+Fence {
+	Name = "Fence#174"
+	Position = 254.398, 10.1768, -269.332
+	Orientation = 0.0400447, -0.630794, -0.0490952, 0.773359}
+Fence {
+	Name = "Fence#175"
+	Position = 256.337, 9.3417, -261.757
+	Orientation = 0.0221097, -0.597696, -0.0296255, 0.80087}
+Fence {
+	Name = "Fence#176"
+	Position = 258.508, 8.92091, -254.828
+	Orientation = 0.0730498, 0.800947, -0.0534319, 0.591855}
+Fence {
+	Name = "Fence#177"
+	Position = 256.46, 8.33938, -160.213
+	Orientation = -0.0191533, 0.581294, -0.0267888, 0.813027}
+Fence {
+	Name = "Fence#178"
+	Position = 254.547, 9.29349, -151.222
+	Orientation = -0.0224586, 0.668078, -0.02734, 0.74325}
+Fence {
+	Name = "Fence#179"
+	Position = 258.043, 7.98857, -164.898
+	Orientation = 0.0212515, -0.810303, 0.0886488, 0.578877}
+Fence {
+	Name = "Fence#180"
+	Position = 253.78, 9.69279, -141.743
+	Orientation = -0.0216528, 0.714867, -0.0205292, 0.698624}
+Fence {
+	Name = "Fence#181"
+	Position = 254.478, 10.3789, -132.651
+	Orientation = -0.00422671, 0.745882, -0.00411584, 0.666052}
+Fence {
+	Name = "Fence#182"
+	Position = 254.992, 11.5557, -123.278
+	Orientation = -0.028587, 0.734868, -0.0263396, 0.677095}
+Fence {
+	Name = "Fence#183"
+	Position = 255.264, 11.2895, -114.004
+	Orientation = 0.00592633, 0.699112, 0.00606065, 0.714962}
+Fence {
+	Name = "Fence#184"
+	Position = 255.693, 11.1955, -104.775
+	Orientation = 0.00803517, 0.745824, 0.00717576, 0.666056}
+Fence {
+	Name = "Fence#185"
+	Position = 255.91, 11.8837, -95.3917
+	Orientation = -0.0136192, 0.690174, -0.0142744, 0.723374}
+Fence {
+	Name = "Fence#186"
+	Position = 255.205, 11.787, -87.8605
+	Orientation = 0.0142897, 0.653637, 0.0165382, 0.756492}
+Fence {
+	Name = "Fence#187"
+	Position = 253.29, 9.48192, -79.0443
+	Orientation = 0.0669788, 0.597832, 0.0889402, 0.793852}
+Fence {
+	Name = "Fence#188"
+	Position = 250.478, 8.32442, -70.3672
+	Orientation = 0.010906, 0.556784, 0.016266, 0.830427}
+Fence {
+	Name = "Fence#189"
+	Position = 246.466, 8.02155, -64.8973
+	Orientation = 0.00883178, 0.409589, 0.0196653, 0.912015}
+Fence {
+	Name = "Fence#190"
+	Position = 240.013, 7.49002, -58.0351
+	Orientation = 0.0151982, 0.37963, 0.0370025, 0.924273}
+Fence {
+	Name = "Fence#191"
+	Position = 232.932, 7.08921, -51.7643
+	Orientation = 0.0116444, 0.324497, 0.0339181, 0.945207}
+Fence {
+	Name = "Fence#192"
+	Position = 224.954, 6.48624, -46.9188
+	Orientation = 0.011542, 0.19034, 0.0594171, 0.979851}
+Fence {
+	Name = "Fence#193"
+	Position = 216.225, 5.16472, -46.9924
+	Orientation = -0.0175127, -0.190539, 0.0898344, 0.977404}
+Fence {
+	Name = "Fence#194"
+	Position = 208.265, 3.80804, -51.6724
+	Orientation = -0.0222179, -0.308083, 0.0684126, 0.948636}
+Fence {
+	Name = "Fence#195"
+	Position = 201.034, 3.43736, -57.5292
+	Orientation = -0.000738263, -0.352186, 0.00196194, 0.935928}
+Fence {
+	Name = "Fence#196"
+	Position = 194.271, 3.99953, -63.821
+	Orientation = 0.00907343, -0.369621, -0.0228015, 0.928859}
+Fence {
+	Name = "Fence#197"
+	Position = 187.391, 4.65539, -70.0859
+	Orientation = 0.0077022, -0.359305, -0.0199995, 0.932974}
+Fence {
+	Name = "Fence#198"
+	Position = 180.254, 5.22479, -76.3688
+	Orientation = 0.00263148, -0.343923, -0.00718433, 0.938967}
+Fence {
+	Name = "Fence#199"
+	Position = 172.907, 5.25976, -82.0323
+	Orientation = -0.00727061, -0.308632, 0.0224006, 0.95089}
+Fence {
+	Name = "Fence#200"
+	Position = 165.382, 5.16604, -87.5768
+	Orientation = -0.00542797, -0.311989, 0.0165268, 0.949926}
+Fence {
+	Name = "Fence#201"
+	Position = 157.812, 5.09919, -93.0689
+	Orientation = -0.00529145, -0.305437, 0.0164936, 0.952055}
+Fence {
+	Name = "Fence#202"
+	Position = 150.127, 5.03304, -98.4593
+	Orientation = -0.00512963, -0.296111, 0.0165437, 0.954996}
+Fence {
+	Name = "Fence#203"
+	Position = 142.33, 4.96688, -103.685
+	Orientation = -0.00502043, -0.284419, 0.0169197, 0.958538}
+Fence {
+	Name = "Fence#204"
+	Position = 134.299, 4.85285, -108.75
+	Orientation = -0.0038938, -0.269692, 0.0139014, 0.962838}
+Fence {
+	Name = "Fence#205"
+	Position = 126.145, 5.14667, -113.504
+	Orientation = 0.00361712, -0.251786, -0.0139015, 0.967676}
+Fence {
+	Name = "Fence#206"
+	Position = 117.823, 5.71175, -117.894
+	Orientation = 0.00427604, -0.229229, -0.018154, 0.973194}
+Fence {
+	Name = "Fence#207"
+	Position = 109.393, 6.31526, -121.806
+	Orientation = 0.00301582, -0.201409, -0.014665, 0.979393}
+Fence {
+	Name = "Fence#208"
+	Position = 100.659, 6.90173, -125.237
+	Orientation = 0.00466791, -0.167553, -0.0274545, 0.98547}
+Fence {
+	Name = "Fence#209"
+	Position = 91.6458, 7.98048, -128.043
+	Orientation = 0.00547123, -0.130193, -0.0416288, 0.990599}
+Fence {
+	Name = "Fence#210"
+	Position = 82.7255, 8.64318, -130.021
+	Orientation = 0.000746764, -0.0880214, -0.00845063, 0.996082}
+Fence {
+	Name = "Fence#211"
+	Position = 73.5005, 8.85643, -131.175
+	Orientation = -0.000552, -0.0379105, 0.0145486, 0.999175}
+Fence {
+	Name = "Fence#212"
+	Position = 64.0826, 8.74767, -131.371
+	Orientation = 0.000353536, 0.0199956, 0.0176744, 0.999644}
+Fence {
+	Name = "Fence#213"
+	Position = 54.6781, 8.68775, -130.487
+	Orientation = 0.00129208, 0.0762955, 0.0168834, 0.996941}
+Fence {
+	Name = "Fence#214"
+	Position = 45.576, 8.62988, -128.505
+	Orientation = 0.00229448, 0.136084, 0.0167015, 0.990554}
+Fence {
+	Name = "Fence#215"
+	Position = 36.7412, 8.5729, -125.438
+	Orientation = 0.00330866, 0.19665, 0.0164942, 0.98033}
+Fence {
+	Name = "Fence#216"
+	Position = 28.1587, 8.51565, -121.23
+	Orientation = 0.00427139, 0.254561, 0.0162242, 0.966911}
+Fence {
+	Name = "Fence#217"
+	Position = 20.2557, 8.4599, -116.134
+	Orientation = 0.00517514, 0.309217, 0.0159136, 0.950844}
+Fence {
+	Name = "Fence#218"
+	Position = 12.9264, 8.40477, -110.201
+	Orientation = 0.00597704, 0.357842, 0.0155945, 0.933633}
+Fence {
+	Name = "Fence#219"
+	Position = 6.20668, 8.35037, -103.543
+	Orientation = 0.00667664, 0.401104, 0.0152454, 0.915881}
+Fence {
+	Name = "Fence#220"
+	Position = 0.0728989, 8.29689, -96.294
+	Orientation = 0.00728709, 0.439572, 0.0148877, 0.898054}
+Fence {
+	Name = "Fence#221"
+	Position = -5.40578, 8.2456, -88.6966
+	Orientation = 0.00775641, 0.47011, 0.0145597, 0.882454}
+Fence {
+	Name = "Fence#222"
+	Position = -10.3991, 8.19558, -80.7161
+	Orientation = 0.00818438, 0.49916, 0.014205, 0.866355}
+Fence {
+	Name = "Fence#223"
+	Position = -14.8324, 8.14888, -72.5171
+	Orientation = 0.00847014, 0.522565, 0.0138171, 0.852445}
+Fence {
+	Name = "Fence#224"
+	Position = -18.866, 8.10324, -63.8444
+	Orientation = 0.00901954, 0.556345, 0.0134689, 0.830794}
+Fence {
+	Name = "Fence#225"
+	Position = -22.032, 8.0575, -55.0448
+	Orientation = 0.00963514, 0.592728, 0.0130896, 0.805239}
+Fence {
+	Name = "Fence#226"
+	Position = -24.3439, 8.01115, -46.006
+	Orientation = 0.00976248, 0.63534, 0.0118636, 0.77208}
+Fence {
+	Name = "Fence#227"
+	Position = -25.6243, 8.03553, -36.859
+	Orientation = 0.00942296, 0.676841, 0.0102465, 0.735998}
+Fence {
+	Name = "Fence#228"
+	Position = -25.8445, 7.81767, -27.441
+	Orientation = 0.0293038, 0.720746, 0.0281353, 0.692008}
+Fence {
+	Name = "Fence#229"
+	Position = -24.8535, 7.12908, -17.9908
+	Orientation = 0.0411317, 0.761435, 0.0348957, 0.645993}
+Fence {
+	Name = "Fence#230"
+	Position = -22.8093, 6.43035, -8.97949
+	Orientation = 0.040943, 0.800363, 0.030557, 0.597335}
+Fence {
+	Name = "Fence#231"
+	Position = -19.6445, 5.65385, -0.0453188
+	Orientation = 0.0502081, 0.828404, 0.03375, 0.556855}
+Fence {
+	Name = "Fence#232"
+	Position = -15.6103, 4.66919, 8.37473
+	Orientation = 0.0573233, 0.85643, 0.0342646, 0.511925}
+Fence {
+	Name = "Fence#233"
+	Position = -10.8204, 3.73664, 16.549
+	Orientation = 0.0526996, 0.876626, 0.0287004, 0.477415}
+Fence {
+	Name = "Fence#234"
+	Position = -5.52551, 3.15464, 24.3149
+	Orientation = 0.019205, 0.89041, 0.00980615, 0.454648}
+Fence {
+	Name = "Fence#235"
+	Position = 0.111153, 3.15373, 31.8056
+	Orientation = 0.0138915, 0.897085, 0.00683801, 0.441587}
+Fence {
+	Name = "Fence#236"
+	Position = 6.03657, 3.08654, 39.3091
+	Orientation = 0.0156216, 0.900734, 0.00752736, 0.434025}
+Fence {
+	Name = "Fence#237"
+	Position = 11.8614, 3.01984, 46.6365
+	Orientation = 0.0156405, 0.899995, 0.00756916, 0.435553}
+Fence {
+	Name = "Fence#238"
+	Position = 17.4757, 2.95411, 53.9018
+	Orientation = 0.0155586, 0.895203, 0.0077396, 0.44532}
+Fence {
+	Name = "Fence#239"
+	Position = 22.9857, 2.88737, 61.4654
+	Orientation = 0.0153808, 0.88642, 0.00802606, 0.462556}
+Fence {
+	Name = "Fence#240"
+	Position = 28.2232, 2.82135, 69.2625
+	Orientation = 0.0151575, 0.878738, 0.00822769, 0.476993}
+Fence {
+	Name = "Fence#241"
+	Position = 33.1822, 2.75822, 77.1372
+	Orientation = 0.0149147, 0.871122, 0.00840253, 0.490768}
+Fence {
+	Name = "Fence#242"
+	Position = 37.8315, 2.6998, 85.1861
+	Orientation = 0.0145119, 0.861516, 0.00854779, 0.507452}
+Fence {
+	Name = "Fence#243"
+	Position = 42.2681, 2.6364, 93.3444
+	Orientation = 0.0151711, 0.8582, 0.00906889, 0.513012}
+Fence {
+	Name = "Fence#244"
+	Position = 45.0645, 2.58802, 98.606
+	Orientation = 0.0153719, 0.855347, 0.00930464, 0.517744}
+Fence {
+	Name = "Fence#245"
+	Position = 51.5054, 2.70606, 112.558
+	Orientation = -0.00397934, 0.823139, -0.00274507, 0.567819}
+Fence {
+	Name = "Fence#246"
+	Position = 48.333, 2.53533, 105.046
+	Orientation = 0.0113688, 0.845603, 0.00717461, 0.533643}
+Fence {
+	Name = "Fence#118_1"
+	Position = 48.6528, 2.13235, 118.596
+	Orientation = 0.00718872, 0.203061, 0.0346416, 0.978527}
+Fence {
+	Name = "Fence#247"
+	Position = 40.0855, 1.99509, 122.209
+	Orientation = -0.000196366, 0.212071, -0.000904893, 0.977254}
+Fence {
+	Name = "Fence#248"
+	Position = 32.1479, 1.99696, 126.803
+	Orientation = 2.27904E-05, 0.293137, 7.43186E-05, 0.956071}
+Fence {
+	Name = "Fence#249"
+	Position = 24.5112, 1.99659, 132.362
+	Orientation = 6.95594E-07, 0.335784, 1.9366E-06, 0.941939}
+Fence {
+	Name = "Fence#250"
+	Position = 17.7182, 1.9966, 138.579
+	Orientation = 0, 0.381033, -1.66555E-08, 0.924561}
+Fence {
+	Name = "Fence#251"
+	Position = 10.8751, 1.9966, 145.091
+	Orientation = 5.72293E-08, 0.359261, 1.32958E-07, 0.933237}
+Fence {
+	Name = "Fence#252"
+	Position = 3.97476, 1.9966, 151.545
+	Orientation = -1.79461E-07, 0.375526, -4.59331E-07, 0.926812}
+Fence {
+	Name = "Fence#253"
+	Position = -2.5676, 1.9966, 158.031
+	Orientation = 6.25448E-08, 0.39259, 1.29362E-07, 0.919714}
+Fence {
+	Name = "Fence#254"
+	Position = -8.72884, 1.9966, 164.878
+	Orientation = 6.6953E-08, 0.420275, 1.26185E-07, 0.907397}
+Barn {
+	Name = "Barn#"
+	Position = 99.5771, 25.3542, 231.63
+}
+Fence {
+	Name = "Fence#255"
+	Position = -14.5766, 1.9966, 172.297
+	Orientation = 1.46318E-07, 0.459102, 2.63065E-07, 0.888384}
+Fence {
+	Name = "Fence#256"
+	Position = -19.6789, 1.9966, 180.248
+	Orientation = 0, 0.483187, -2.11208E-08, 0.875517}
+Fence {
+	Name = "Fence#257"
+	Position = -24.5259, 1.9966, 188.356
+	Orientation = 8.18116E-08, 0.513489, 1.14271E-07, 0.858096}
+Fence {
+	Name = "Fence#258"
+	Position = -28.84, 1.9966, 196.762
+	Orientation = 0, 0.533326, -2.33124E-08, 0.84591}
+Fence {
+	Name = "Fence#259"
+	Position = -32.3377, 1.99675, 205.786
+	Orientation = -2.49723E-06, 0.580614, -3.52717E-06, 0.814179}
+Fence {
+	Name = "Fence#260"
+	Position = -35.5103, 1.99657, 214.686
+	Orientation = 9.99234E-07, 0.570255, 1.4145E-06, 0.821468}
+Fence {
+	Name = "Fence#261"
+	Position = -38.6951, 1.99398, 223.576
+	Orientation = 0.000241445, 0.587994, 0.000332115, 0.808866}
+Fence {
+	Name = "Fence#262"
+	Position = -41.366, 1.98082, 232.818
+	Orientation = 0.000539787, 0.61552, 0.000691124, 0.788121}
+Fence {
+	Name = "Fence#263"
+	Position = -43.2304, 1.95891, 242.141
+	Orientation = 0.000878192, 0.639253, 0.0010564, 0.768995}
+Fence {
+	Name = "Fence#264"
+	Position = -44.8867, 1.92872, 251.597
+	Orientation = 0.00108767, 0.644486, 0.00129037, 0.764614}
+Fence {
+	Name = "Fence#265"
+	Position = -46.5914, 1.90144, 260.841
+	Orientation = 0.000623051, 0.634781, 0.000758386, 0.772692}
+Fence {
+	Name = "Fence#266"
+	Position = -48.4105, 1.83035, 270.207
+	Orientation = 0.00563981, 0.641417, 0.00674526, 0.767142}
+Fence {
+	Name = "Fence#267"
+	Position = -49.9726, 1.55889, 279.452
+	Orientation = 0.0250291, 0.654477, 0.0288778, 0.755116}
+Fence {
+	Name = "Fence#268"
+	Position = -50.9385, 0.180429, 288.415
+	Orientation = 0.0713544, 0.675466, 0.0771014, 0.729869}
+Chicken_Coop {
+	Name = "Chicken_Coop#1"
+	Position = 145.826, 4.39949, 145.18
+	Orientation = 0, -0.170071, 7.43405E-09, 0.985432
+}
+Chicken_Coop {
+	Name = "Chicken_Coop#002"
+	Position = 161.511, 4.41936, 161.724
+	Orientation = 0, -0.536017, 2.343E-08, 0.844207
+}
+Chicken_Coop {
+	Name = "Chicken_Coop#004"
+	Position = 167.363, 4.47681, 179.454
+	Orientation = 0, -0.000752181, 3.28789E-11, 1
+}
+FenceNonWall {
+	Name = "FenceNonWall#269"
+	Position = 74.7242, 2.44, 217.342
+	Orientation = 0, 0.995557, -4.35172E-08, -0.0941561}
+FenceNonWall {
+	Name = "FenceNonWall#270"
+	Position = 65.7015, 2.44, 219.161
+	Orientation = 0, 0.99408, -4.34526E-08, -0.108653}
+FencePost {
+	Name = "FencePost#"
+	Position = 52.1313, 2.4727, 222.042
+	Orientation = 0.0381095, 0.134962, -0.013254, 0.990029}
+FenceNonWall {
+	Name = "FenceNonWall#271"
+	Position = 56.6074, 2.44, 221.097
+	Orientation = 0, 0.99408, -4.34526E-08, -0.108653}
+FenceNonWall {
+	Name = "FenceNonWall#272"
+	Position = 33.5317, 2.44577, 221.025
+	Orientation = 0, 0.990384, -4.32911E-08, 0.138346}
+FenceNonWall {
+	Name = "FenceNonWall#273"
+	Position = 24.7302, 2.44577, 217.66
+	Orientation = 0, 0.973771, -4.25649E-08, 0.22753}
+FenceNonWall {
+	Name = "FenceNonWall#274"
+	Position = 16.8688, 2.38585, 212.601
+	Orientation = 0, 0.94119, -4.11407E-08, 0.337878}
+FenceNonWall {
+	Name = "FenceNonWall#275"
+	Position = 10.2355, 2.38585, 206.117
+	Orientation = 0, 0.907891, -3.96852E-08, 0.419206}
+FenceNonWall {
+	Name = "FenceNonWall#276"
+	Position = 3.33423, 2.38585, 199.967
+	Orientation = 0, 0.957804, -4.18669E-08, 0.287422}
+FenceNonWall {
+	Name = "FenceNonWall#277"
+	Position = -4.98288, 2.28688, 195.826
+	Orientation = 0, 0.986412, -4.31174E-08, 0.164292}
+FenceNonWall {
+	Name = "FenceNonWall#278"
+	Position = -13.5702, 2.28688, 193.519
+	Orientation = 0.00179351, 0.995569, -0.0194091, 0.0919961}
+FenceNonWall {
+	Name = "FenceNonWall#279"
+	Position = -22.5304, 2.28688, 192.409
+	Orientation = 0.00169556, 0.999313, -0.0309814, 0.0202532}
+FenceNonWall {
+	Name = "FenceNonWall#280"
+	Position = 111.483, -0.58556, 224.277
+	Orientation = 0.0475789, 0.0534465, 0.0214458, 0.997206}
+FenceNonWall {
+	Name = "FenceNonWall#281"
+	Position = 120.533, -0.152649, 225.667
+	Orientation = 0.035547, -0.199991, 0.0282032, 0.978746}
+FenceNonWall {
+	Name = "FenceNonWall#282"
+	Position = 126.915, 0.0208765, 231.522
+	Orientation = 0.0159977, -0.515893, 0.00661159, 0.856478}
+FencePost {
+	Name = "FencePost#001"
+	Position = 129.329, -0.129607, 235.837
+	Orientation = 0.0200264, -0.548608, -0.0350277, 0.835105}
+FenceNonWall {
+	Name = "FenceNonWall#283"
+	Position = 126.215, -0.508011, 250.378
+	Orientation = 0.0172126, -0.862384, -0.00183436, 0.505958}
+FenceNonWall {
+	Name = "FenceNonWall#284"
+	Position = 119.5, -0.920584, 254.53
+	Orientation = 0.00325418, 0.999872, -0.0141987, 0.00667219}
+FenceNonWall {
+	Name = "FenceNonWall#285"
+	Position = 110.607, -0.920584, 252.515
+	Orientation = 0.000216081, 0.976414, -0.0145652, 0.215415}
+FencePost {
+	Name = "FencePost#002"
+	Position = 106.053, -1.05235, 250.434
+	Orientation = 0.0324199, -0.166542, -0.0240197, 0.985209}
+Well {
+	Name = "Well#"
+	Position = 177.778, 6.48282, 231.089
+	Orientation = -1.47885E-08, 0.987017, -5.51752E-08, 0.160613
+}
+Farmhouse {
+	Name = "Farmhouse#000"
+	Position = 28.5423, 4.50691, 205.974
+	Orientation = 0, -0.836976, 3.65854E-08, 0.54724
+}
+Farmhouse {
+	Name = "Farmhouse#001"
+	Position = 34.202, 4.50691, 188.874
+	Orientation = 0, -0.785707, 3.43443E-08, 0.618599
+}
+Farmhouse {
+	Name = "Farmhouse#002"
+	Position = 40.38, 4.4179, 169.429
+	Orientation = 0, -0.861438, 3.76547E-08, 0.507862
+}
+Farmhouse {
+	Name = "Farmhouse#003"
+	Position = 28.569, 4.7198, 152.386
+	Orientation = 0, -0.486735, 2.12758E-08, 0.87355
 }

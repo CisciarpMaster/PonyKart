@@ -1,0 +1,21 @@
+Name = "FencePost"
+Physics = Static
+Mass = 0
+PhysicsMaterial = "Fences"
+CollisionGroup = "Walls"
+CollidesWith = "Walls"
+
+// box#0
+Shape {
+	Type = Box
+	Position = 0, 0, 0
+	Dimensions = 1, 7.15726, 0.519027
+}
+Model {
+	Name = "FencePost#0"
+	Mesh = "FencePost.mesh"
+	Material = "Fences"
+	Position = 0, 0, 0
+	Scale = 0.4, 0.4, 0.4
+	CastsShadows = True
+}

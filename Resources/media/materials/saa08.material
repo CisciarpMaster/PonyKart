@@ -5,14 +5,76 @@ material NoMaterial
 	{
 		pass
 		{
-			texture_unit {
-				texture yellowbrick.jpg
+		}
+	}
+}
+
+
+
+material 11-Default
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.588235 0.588235 0.588235 1
+			diffuse 0.588235 0.588235 0.588235 1
+			specular 0 0 0 1 10
+
+			texture_unit
+			{
+				texture shared.jpg
 			}
 		}
 	}
 }
 
-material default2
+
+
+material 15-Default
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.588235 0.588235 0.588235 1
+			diffuse 0.588235 0.588235 0.588235 1
+			specular 0 0 0 1 10
+
+			texture_unit
+			{
+				texture spiky_bush_tex.png
+			}
+		}
+	}
+}
+
+
+
+material 10-Default
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.588235 0.588235 0.588235 1
+			diffuse 0.588235 0.588235 0.588235 1
+			specular 0 0 0 1 10
+			scene_blend one one_minus_src_alpha
+
+			texture_unit
+			{
+				texture banner.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material SAA_Barn_Area
 {
 	technique
 	{
@@ -42,56 +104,9 @@ material default2
 	}
 }
 
-material default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture redbrick.jpg
-			}
-		}
-
-	}
-
-}
-
-material SAA_Road
-{
-	technique
-	{
-		pass
-		{
-
-			texture_unit
-			{
-				texture "road texture test_003.png"
-				scale 0.5 0.5
-			}
-		}
-		
-		pass {
-			//scene_blend colour_blend
-			scene_blend add
-			depth_bias 1
-			light_scissor on
-			
-			vertex_program_ref glowBalloon_vs {
-			}
-			fragment_program_ref glowBalloon_ps {
-				//param_named GlowColor float3 0.792 0.694 0.424
-				param_named GlowColor float3 0.24 0.21 0.126
-				param_named GlowExpon float  3
-			}
-		}
-	}
-}
 
 
-
-material 09-Default
+material Grass
 {
 	technique
 	{
@@ -118,7 +133,7 @@ material 09-Default
 	}
 }
 
-material 10-Default
+material SAA_Road
 {
 	technique
 	{
@@ -126,15 +141,28 @@ material 10-Default
 		{
 			texture_unit
 			{
-				texture banner.png
+				texture "road texture test_003.png"
+				scale 0.5 0.5
+			}
+		}
+		
+		pass {
+			//scene_blend colour_blend
+			scene_blend add
+			depth_bias 1
+			light_scissor on
+			
+			vertex_program_ref glowBalloon_vs {
+			}
+			fragment_program_ref glowBalloon_ps {
+				//param_named GlowColor float3 0.792 0.694 0.424
+				param_named GlowColor float3 0.24 0.21 0.126
+				param_named GlowExpon float  3
 			}
 		}
 	}
 }
-
-
-
-material 11-Default
+material SAA_Grass
 {
 	technique
 	{
@@ -142,79 +170,21 @@ material 11-Default
 		{
 			texture_unit
 			{
-				texture shared.jpg
+				texture grass_texture_1.png
+				//transform 50 0 0 0 0 50 0 0 0 0 1 0 0 0 0 1
+			}
+		}
+		pass {
+			scene_blend colour_blend
+			depth_bias 1
+			light_scissor on
+			
+			vertex_program_ref glowBalloon_vs {
+			}
+			fragment_program_ref glowBalloon_ps {
+				param_named GlowColor float3 0.651 0.78 0.224
+				param_named GlowExpon float  3
 			}
 		}
 	}
 }
-
-
-
-material 13-Default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit {
-				texture bluebrick.jpg
-			}
-		}
-	}
-}
-
-
-
-material 14-Default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture fencetex.png
-			}
-		}
-
-	}
-
-}
-
-
-
-material 15-Default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture spiky_bush_tex.png
-			}
-		}
-
-	}
-
-}
-
-
-
-material 16-Default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture barn_1024x2048.jpg
-			}
-		}
-
-	}
-
-}
-
-
