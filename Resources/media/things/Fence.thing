@@ -2,9 +2,10 @@ Name = "Fence"
 Physics = Static
 Mass = 0
 PhysicsMaterial = "Fences"
-CollisionGroup = "Kinematic"
-CollidesWith = "Kinematic"
+CollisionGroup = "Walls"
+CollidesWith = "Walls"
 Script = "fence"
+
 // box#0
 Shape {
 	Type = Box

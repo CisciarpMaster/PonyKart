@@ -1,5 +1,6 @@
 Name = "Cone"
 Physics = Dynamic
+
 Shape {
 	Type = Cone
 	Radius = 0.5

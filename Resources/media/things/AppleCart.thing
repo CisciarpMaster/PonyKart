@@ -2,6 +2,7 @@ Name = "AppleCart"
 Physics = Dynamic
 Mass = 200
 Script = "applecart"
+
 Model {
 	Name = "Entity#0"
 	Mesh = "AppleCart.mesh"
