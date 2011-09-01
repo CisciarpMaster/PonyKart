@@ -2,6 +2,7 @@
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 using Ponykart.Core;
+using Ponykart.Properties;
 using Ponykart.UI;
 
 namespace Ponykart.Handlers {
@@ -20,8 +21,8 @@ namespace Ponykart.Handlers {
 			var gui = LKernel.GetG<UIMain>().Gui;
 
 			pauseLabel = new Label("pause label") {
-				Location = new Point(0, 0), 
-				Size = new Size((int) Constants.WINDOW_WIDTH, (int) Constants.WINDOW_HEIGHT),
+				Location = new Point(0, 0),
+				Size = new Size((int) Settings.Default.WindowWidth, (int) Settings.Default.WindowHeight),
 				Visible = false,
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,

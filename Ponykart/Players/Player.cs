@@ -3,6 +3,7 @@ using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.Properties;
 using Ponykart.Stuff;
 
 namespace Ponykart.Players {
@@ -22,7 +23,7 @@ namespace Ponykart.Players {
 
 		public Player(int id) {
 			// don't want to create a player if it's ID isn't valid
-			if (id < 0 || id >= Constants.NUMBER_OF_PLAYERS)
+			if (id < 0 || id >= Settings.Default.NumberOfPlayers)
 				throw new ArgumentOutOfRangeException("id", "ID number specified for kart spawn position is not valid!");
 			Launch.Log("[Loading] Player with ID " + id + " created");
 

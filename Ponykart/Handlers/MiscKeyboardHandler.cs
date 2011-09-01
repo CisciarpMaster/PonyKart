@@ -41,10 +41,10 @@ namespace Ponykart.Handlers {
 					PhysicsMain.DrawLines = !PhysicsMain.DrawLines;
 					break;
 				case KeyCode.KC_M:
-					Constants.MUSIC = !Constants.MUSIC;
+					Settings.Default.Music = !Settings.Default.Music;
 					break;
 				case KeyCode.KC_P:
-					Constants.SOUNDS = !Constants.SOUNDS;
+					Settings.Default.Sounds = !Settings.Default.Sounds;
 					break;
 				case KeyCode.KC_N:
 					LKernel.GetG<SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
@@ -71,6 +71,7 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<ThingDatabase>().ClearDatabase();
 					Mogre.MaterialManager.Singleton.ReloadAll(false);
 					Mogre.MeshManager.Singleton.ReloadAll(false);
+					Settings.Default.Reload();
 					break;
 			}
 		}

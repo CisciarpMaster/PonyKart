@@ -2,6 +2,7 @@
 using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Players;
+using Ponykart.Properties;
 
 namespace Ponykart.Core {
 	/// <summary>
@@ -25,10 +26,10 @@ namespace Ponykart.Core {
 
 			Camera.NearClipDistance = 0.5f;
 			Camera.FarClipDistance = 1000f;
-			Camera.AspectRatio = ((float) Constants.WINDOW_WIDTH) / ((float) Constants.WINDOW_HEIGHT);
+			Camera.AspectRatio = ((float) Settings.Default.WindowWidth) / ((float) Settings.Default.WindowHeight);
 
-			CameraNode = manager.RootSceneNode.CreateChildSceneNode("CameraNode", new Vector3(0, Constants.CAMERA_NODE_Y_OFFSET, Constants.CAMERA_NODE_Z_OFFSET));
-			TargetNode = manager.RootSceneNode.CreateChildSceneNode("CameraTargetNode", new Vector3(0, Constants.CAMERA_TARGET_Y_OFFSET, 0));
+			CameraNode = manager.RootSceneNode.CreateChildSceneNode("CameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
+			TargetNode = manager.RootSceneNode.CreateChildSceneNode("CameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
 
 			CameraNode.SetAutoTracking(true, TargetNode);
 			CameraNode.SetFixedYawAxis(true);
@@ -48,8 +49,8 @@ namespace Ponykart.Core {
 		/// </summary>
 		void OnKartCreation(Kart kart) {
 			if (kart == LKernel.GetG<PlayerManager>().MainPlayer.Kart) {
-				kartCamNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_cam", new Vector3(0, Constants.CAMERA_NODE_Y_OFFSET, Constants.CAMERA_NODE_Z_OFFSET));
-				kartTargetNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_camtarget", new Vector3(0, Constants.CAMERA_TARGET_Y_OFFSET, 0));
+				kartCamNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_cam", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
+				kartTargetNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_camtarget", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
 				followKart = kart;
 			}
 		}
@@ -61,10 +62,10 @@ namespace Ponykart.Core {
 		bool UpdateCamera(FrameEvent evt) {
 			Vector3 displacement;
 
-			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * Constants.CAMERA_TIGHTNESS * evt.timeSinceLastFrame;
+			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * Settings.Default.CameraTightness * evt.timeSinceLastFrame;
 			CameraNode.Translate(displacement);
 
-			displacement = (kartTargetNode._getDerivedPosition() - TargetNode.Position) * Constants.CAMERA_TIGHTNESS * evt.timeSinceLastFrame;
+			displacement = (kartTargetNode._getDerivedPosition() - TargetNode.Position) * Settings.Default.CameraTightness * evt.timeSinceLastFrame;
 			TargetNode.Translate(displacement);
 
 			return true;

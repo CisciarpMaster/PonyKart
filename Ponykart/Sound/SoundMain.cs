@@ -2,6 +2,7 @@
 using Mogre;
 using Ponykart.Levels;
 using Ponykart.Players;
+using Ponykart.Properties;
 
 /* http://www.ogre3d.org/tikiwiki/MogreFreeSL
  * 
@@ -68,7 +69,6 @@ namespace Ponykart.Sound {
 			return !quit;
 		}
 
-		#region Sound object creation
 		/// <summary>
 		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level music and whatnot.
 		/// Also hooks in a stop event receiver so the sound disposes of itself when it's finished playing.
@@ -78,7 +78,7 @@ namespace Ponykart.Sound {
 		/// <param name="looping">Make this sound loop?</param>
 		/// <returns>The ISound you just created</returns>
 		public ISound CreateAmbientSound(string filePath, string objectName, bool looping) {
-			if (!Constants.MUSIC)
+			if (!Settings.Default.Music)
 				return null;
 			Launch.Log("[Sounds] Creating ambient sound: " + filePath + " Looping: " + looping);
 			ISound sound = Engine.Play2D(filePath, looping);
@@ -96,7 +96,7 @@ namespace Ponykart.Sound {
 		/// <returns>The ISound you just created</returns>
 		// TODO: update the position of these sounds every frame - should that maybe go in MogreMotionState?
 		public ISound CreateObjectSound(string filePath, Vector3 pos, string name, bool looping) {
-			if (!Constants.SOUNDS || pos == null)
+			if (!Settings.Default.Sounds || pos == null)
 				return null;
 			Launch.Log("[Sounds] Creating object sound: " + filePath + " Node: " + name + " Looping: " + looping);
 			ISound sound = Engine.Play3D(filePath, pos.x, pos.y, pos.z, looping);
@@ -114,10 +114,8 @@ namespace Ponykart.Sound {
 		public ISound CreateObjectSound(string filePath, Vector3 pos, bool looping) {
 			return CreateObjectSound(filePath, pos, "(unspecified)", looping);
 		}
-		#endregion
 
 
-		#region Properties
 		float rolloff;
 		/// <summary>
 		/// 0 = no rolloff
@@ -132,6 +130,5 @@ namespace Ponykart.Sound {
 				Engine.SetRolloffFactor(value);
 			}
 		}
-		#endregion
 	}
 }

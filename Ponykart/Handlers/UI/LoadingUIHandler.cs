@@ -3,6 +3,7 @@ using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 using Mogre;
 using Ponykart.Levels;
+using Ponykart.Properties;
 using Ponykart.UI;
 
 namespace Ponykart.Handlers {
@@ -18,7 +19,7 @@ namespace Ponykart.Handlers {
 			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 
 			label = new Label("loading label") {
-				Size = new Size((int) Constants.WINDOW_WIDTH, (int) Constants.WINDOW_HEIGHT),
+				Size = new Size((int) Settings.Default.WindowWidth, (int) Settings.Default.WindowHeight),
 				Location = new Point(0, 0),
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,

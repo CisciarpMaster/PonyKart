@@ -2,6 +2,7 @@
 using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
+using Ponykart.Properties;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -36,12 +37,12 @@ namespace Ponykart.Handlers {
 			if (flags.HasFlag(TriggerReportFlags.Enter)) {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
 				// cycle through the balloon colors
-				if (Constants.GLOWY_REGIONS) 
+				if (Settings.Default.GlowyRegions) 
 					region.GlowColor = (BalloonGlowColor) (((int) region.GlowColor + 1) % 8);
 			}
 			else {
 				Console.WriteLine(otherBody.GetName() + " has left trigger area \"" + region.Name + "\"");
-				if (Constants.GLOWY_REGIONS)
+				if (Settings.Default.GlowyRegions)
 					region.GlowColor = (BalloonGlowColor) (((int) region.GlowColor + 1) % 8);
 			}
 		}

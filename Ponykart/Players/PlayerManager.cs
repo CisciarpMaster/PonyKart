@@ -1,4 +1,5 @@
 ﻿using Ponykart.Levels;
+using Ponykart.Properties;
 
 namespace Ponykart.Players {
 	/// <summary>
@@ -21,12 +22,12 @@ namespace Ponykart.Players {
 		/// When a level loads, we create the players. For now, we just have one human player and 7 computer-controlled ones
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			Players = new Player[Constants.NUMBER_OF_PLAYERS];
+			Players = new Player[Settings.Default.NumberOfPlayers];
 
 			MainPlayer = new HumanPlayer(0);
 			Players[0] = MainPlayer;
 
-			for (int a = 1; a < Constants.NUMBER_OF_PLAYERS; a++) {
+			for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
 				Players[a] = new ComputerPlayer(a);
 			}
 		}

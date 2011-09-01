@@ -1,5 +1,6 @@
 ﻿using Mogre;
 using Ponykart.Levels;
+using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
@@ -22,7 +23,7 @@ namespace Ponykart.Actors {
 			Name = block.GetStringProperty("name", template.ThingName);
 
 			// if ribbons are disabled, don't bother creating anything
-			if (!Constants.RIBBONS)
+			if (!Settings.Default.Ribbons)
 				return;
 
 			Ribbon = LKernel.GetG<SceneManager>().CreateRibbonTrail(Name + ID + "Ribbon");
@@ -49,7 +50,7 @@ namespace Ponykart.Actors {
 		}
 
 		public void Dispose() {
-			if (Constants.RIBBONS && Ribbon != null && RibbonNode != null) {
+			if (Settings.Default.Ribbons && Ribbon != null && RibbonNode != null) {
 				RibbonNode.DetachObject(Ribbon);
 				foreach (SceneNode n in Ribbon.GetNodeIterator())
 					Ribbon.RemoveNode(n);

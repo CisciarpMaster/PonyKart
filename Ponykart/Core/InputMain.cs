@@ -5,6 +5,7 @@ using System;
 using Mogre;
 using MOIS;
 using Ponykart.Levels;
+using Ponykart.Properties;
 using Type = MOIS.Type;
 
 namespace Ponykart {
@@ -39,8 +40,8 @@ namespace Ponykart {
 			InputManager = InputManager.CreateInputSystem(pl);
 
 			// Create all devices (except joystick, as most people have Keyboard/Mouse) using buffered input.
-			InputKeyboard = (Keyboard)InputManager.CreateInputObject(Type.OISKeyboard, true);
-			InputMouse = (Mouse)InputManager.CreateInputObject(Type.OISMouse, true);
+			InputKeyboard = (Keyboard) InputManager.CreateInputObject(Type.OISKeyboard, true);
+			InputMouse = (Mouse) InputManager.CreateInputObject(Type.OISMouse, true);
 
 			// sets the mouseState initial width and height (default is too low)
 			MouseState_NativePtr mouseState = InputMouse.MouseState;
@@ -81,13 +82,12 @@ namespace Ponykart {
 				return true;
 
 			timeSinceLastFrame += e.timeSinceLastFrame;
-			if (timeSinceLastFrame >= Constants.INPUT_CAPTURE_RATE)
-			{
+			if (timeSinceLastFrame >= Settings.Default.InputCaptureRate) {
 				// Capture all key presses since last check.
 				InputKeyboard.Capture();
 				// Capture all mouse movements and button presses since last check.
 				InputMouse.Capture();
-				timeSinceLastFrame -= Constants.INPUT_CAPTURE_RATE;
+				timeSinceLastFrame -= Settings.Default.InputCaptureRate;
 			}
 
 			return true;
@@ -135,7 +135,7 @@ namespace Ponykart {
 			FireEvent<KeyEvent>(OnKeyboardPress_Anything, ke);
 			return true;
 		}
-		
+
 		/// <summary>
 		/// Handles key releasing and fires appropriate events
 		/// </summary>

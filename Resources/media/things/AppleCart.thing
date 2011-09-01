@@ -1,6 +1,6 @@
 Name = "AppleCart"
 Physics = Dynamic
-Mass = 200
+Mass = 150
 Script = "applecart"
 
 Model {

@@ -166,5 +166,185 @@ namespace Ponykart.Properties {
                 this["BulletFileExtension"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1024")]
+        public uint WindowWidth {
+            get {
+                return ((uint)(this["WindowWidth"]));
+            }
+            set {
+                this["WindowWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("768")]
+        public uint WindowHeight {
+            get {
+                return ((uint)(this["WindowHeight"]));
+            }
+            set {
+                this["WindowHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public float CameraNodeYOffset {
+            get {
+                return ((float)(this["CameraNodeYOffset"]));
+            }
+            set {
+                this["CameraNodeYOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-20")]
+        public float CameraNodeZOffset {
+            get {
+                return ((float)(this["CameraNodeZOffset"]));
+            }
+            set {
+                this["CameraNodeZOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public float CameraTargetYOffset {
+            get {
+                return ((float)(this["CameraTargetYOffset"]));
+            }
+            set {
+                this["CameraTargetYOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public float CameraTightness {
+            get {
+                return ((float)(this["CameraTightness"]));
+            }
+            set {
+                this["CameraTightness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int NumberOfPlayers {
+            get {
+                return ((int)(this["NumberOfPlayers"]));
+            }
+            set {
+                this["NumberOfPlayers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public float InputCaptureRate {
+            get {
+                return ((float)(this["InputCaptureRate"]));
+            }
+            set {
+                this["InputCaptureRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int PhysicsMaxSubsteps {
+            get {
+                return ((int)(this["PhysicsMaxSubsteps"]));
+            }
+            set {
+                this["PhysicsMaxSubsteps"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.01111111")]
+        public float PhysicsFixedTimestep {
+            get {
+                return ((float)(this["PhysicsFixedTimestep"]));
+            }
+            set {
+                this["PhysicsFixedTimestep"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-28")]
+        public float Gravity {
+            get {
+                return ((float)(this["Gravity"]));
+            }
+            set {
+                this["Gravity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GlowyRegions {
+            get {
+                return ((bool)(this["GlowyRegions"]));
+            }
+            set {
+                this["GlowyRegions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Ribbons {
+            get {
+                return ((bool)(this["Ribbons"]));
+            }
+            set {
+                this["Ribbons"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Sounds {
+            get {
+                return ((bool)(this["Sounds"]));
+            }
+            set {
+                this["Sounds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Music {
+            get {
+                return ((bool)(this["Music"]));
+            }
+            set {
+                this["Music"] = value;
+            }
+        }
     }
 }

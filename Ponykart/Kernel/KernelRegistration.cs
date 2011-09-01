@@ -230,12 +230,12 @@ namespace Ponykart {
 		}
 
 		private static RenderSystem InitRenderSystem(Root root) {
-			Launch.Log("[Loading] First Get<RenderSystem>");
+			Launch.Log("[Loading] Creating RenderSystem...");
 
 			if (root.RenderSystem == null) {
 				var renderSystem = root.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
 				renderSystem.SetConfigOption("Full Screen", "No");
-				renderSystem.SetConfigOption("Video Mode", Constants.WINDOW_WIDTH + " x " + Constants.WINDOW_HEIGHT + " @ 32-bit colour");
+				renderSystem.SetConfigOption("Video Mode", Settings.Default.WindowWidth + " x " + Settings.Default.WindowHeight + " @ 32-bit colour");
 
 				root.RenderSystem = renderSystem;
 			}
@@ -244,7 +244,7 @@ namespace Ponykart {
 		}
 
 		private static RenderWindow InitRenderWindow(Root root, Form form, RenderSystem renderSystem) {
-			Launch.Log("[Loading] First Get<RenderWindow>");
+			Launch.Log("[Loading] Creating RenderWindow...");
 
 			//Ensure RenderSystem has been Initialised
 			root.RenderSystem = renderSystem;
@@ -257,17 +257,17 @@ namespace Ponykart {
 
 			miscParams["vsync"] = "true";    // by Ogre default: false
 
-			return root.CreateRenderWindow("Lymph main RenderWindow", Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, false, miscParams);
+			return root.CreateRenderWindow("Lymph main RenderWindow", Settings.Default.WindowWidth, Settings.Default.WindowHeight, false, miscParams);
 		}
 
 		private static SceneManager InitSceneManager(Root root) {
-			Launch.Log("[Loading] First Get<SceneManager>");
+			Launch.Log("[Loading] Creating SceneManager");
 			var sceneMgr = root.CreateSceneManager(SceneType.ST_GENERIC, "sceneMgr");
 			return sceneMgr;
 		}
 
 		private static Viewport InitViewport(RenderWindow window, Camera camera) {
-			Launch.Log("[Loading] First Get<Viewport>");
+			Launch.Log("[Loading] Creating Viewport...");
 			return window.AddViewport(camera);
 		}
 		#endregion

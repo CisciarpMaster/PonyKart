@@ -1,9 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
 using Ponykart.Handlers;
 using Ponykart.Levels;
+using Ponykart.Properties;
 
 namespace Ponykart.Physics {
 
@@ -38,7 +38,7 @@ namespace Ponykart.Physics {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Node = sceneMgr.RootSceneNode.CreateChildSceneNode(name);
-			if (Constants.GLOWY_REGIONS) {
+			if (Settings.Default.GlowyRegions) {
 				// make a mesh for the region depending on what its type is
 				switch (shape.ShapeType) {
 					case BroadphaseNativeType.BoxShape:
@@ -112,7 +112,7 @@ namespace Ponykart.Physics {
 			}
 			set {
 				balloonColor = value;
-				if (Constants.GLOWY_REGIONS)
+				if (Settings.Default.GlowyRegions)
 					Entity.SetMaterialName("BalloonGlow_" + value);
 			}
 		}
@@ -126,11 +126,11 @@ namespace Ponykart.Physics {
 
 			if (Node != null) {
 				if (LKernel.GetG<LevelManager>().IsValidLevel) {
-					if (Constants.GLOWY_REGIONS)
+					if (Settings.Default.GlowyRegions)
 						sceneMgr.DestroyEntity(Entity);
 					sceneMgr.DestroySceneNode(Node);
 				}
-				if (Constants.GLOWY_REGIONS) {
+				if (Settings.Default.GlowyRegions) {
 					Entity.Dispose();
 					Entity = null;
 				}

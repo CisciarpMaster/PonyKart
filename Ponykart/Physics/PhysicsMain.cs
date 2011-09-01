@@ -157,7 +157,7 @@ namespace Ponykart.Physics {
 
 			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
 
-			world.Gravity = new Vector3(0, Constants.GRAVITY, 0);
+			world.Gravity = new Vector3(0, Settings.Default.Gravity, 0);
 			// TODO: this isn't working for some reason
 			world.SetInternalTickCallback(PostTick);
 		}
@@ -182,7 +182,7 @@ namespace Ponykart.Physics {
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
 
-			world.StepSimulation(evt.timeSinceLastFrame, Constants.PH_MAX_SUBSTEPS, Constants.PH_FIXED_TIMESTEP);
+			world.StepSimulation(evt.timeSinceLastFrame, Settings.Default.PhysicsMaxSubsteps, Settings.Default.PhysicsFixedTimestep);
 
 			// run the events that go just after we simulate
 			if (PostSimulate != null)

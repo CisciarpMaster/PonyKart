@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Mogre;
+using Ponykart.Properties;
 
 namespace Ponykart.Stuff {
 	/// <summary>
@@ -28,7 +29,7 @@ namespace Ponykart.Stuff {
 		/// Must be between 0..n-1 inclusive where n is the maximum number of players as specified in Constants.NUMBER_OF_PLAYERS
 		/// </param>
 		public Vector3 GetPosition(int ID) {
-			if (ID < 0 || ID >= Constants.NUMBER_OF_PLAYERS)
+			if (ID < 0 || ID >= Settings.Default.NumberOfPlayers)
 				throw new ArgumentOutOfRangeException("ID", "ID number specified for kart spawn position is not valid!");
 			return dict[ID];
 		}
