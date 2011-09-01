@@ -1,5 +1,6 @@
 Name = "Sphere"
 Physics = Dynamic
+
 Shape {
 	Type = Sphere
 	Radius = 0.5
