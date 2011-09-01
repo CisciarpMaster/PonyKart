@@ -1,4 +1,3 @@
-
 material AppleCartExtras
 {
 	technique
@@ -30,5 +29,3 @@ material AppleCart
 		}
 	}
 }
-
-

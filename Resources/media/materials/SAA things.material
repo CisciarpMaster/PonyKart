@@ -1,31 +1,26 @@
-material Chicken_coop_sign
+material AppleTree
 {
 	technique
 	{
 		pass
 		{
-			scene_blend alpha_blend
-			depth_write off
-			
 			texture_unit
 			{
-				texture chickencoopsign.png
+				texture apple_tree_v2_diff.jpg
 			}
 		}
 	}
 }
 
-material Chicken_Coop
+material Farmhouse
 {
 	technique
 	{
 		pass
 		{
-			cull_hardware none
-			
 			texture_unit
 			{
-				texture chickencoop.jpg
+				texture farmhouse.jpg
 			}
 		}
 	}
@@ -45,7 +40,7 @@ material Fences
 	}
 }
 
-material CMC_Treehouse_Ramps
+material Well
 {
 	technique
 	{
@@ -53,7 +48,7 @@ material CMC_Treehouse_Ramps
 		{
 			texture_unit
 			{
-				texture CMC_Treehouse_Ramp.jpg
+				texture well.jpg
 			}
 		}
 	}

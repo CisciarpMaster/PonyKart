@@ -1,4 +1,3 @@
-
 material Barn
 {
 	technique
@@ -12,12 +11,8 @@ material Barn
 				texture barn_1024x2048.jpg
 			}
 		}
-
 	}
-
 }
-
-
 
 material Barn_Plants
 {
@@ -36,5 +31,3 @@ material Barn_Plants
 		}
 	}
 }
-
-
