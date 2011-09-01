@@ -13,7 +13,7 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="mesh">The mesh you're converting</param>
 		/// <returns>A bullet trimesh</returns>
-		public static TriangleMesh ConvertToTrimesh(MeshPtr mesh, Vector3 pos, Quaternion orientation, Vector3 scale) {
+		public static TriangleMesh Convert(MeshPtr mesh, Vector3 pos, Quaternion orientation, Vector3 scale) {
 
 			// get our two main objects
 			TriangleMesh BulletMesh = new TriangleMesh(true, false);
@@ -44,19 +44,8 @@ namespace Ponykart.Physics {
 		/// <param name="ent">The entity to convert. It'll grab its mesh and use all of its submeshes</param>
 		/// <param name="node">The node the entity is attached to. We aren't modifying it, but we'll use its transforms</param>
 		/// <returns>A bullet trimesh</returns>
-		public static TriangleMesh ConvertToTrimesh(Entity ent, SceneNode node) {
-			return ConvertToTrimesh(ent.GetMesh(), node._getDerivedPosition(), node._getDerivedOrientation(), node._getDerivedScale());
-		}
-
-
-		public static ConvexTriangleMeshShape ConvertToConvexHull(MeshPtr mesh, Vector3 pos, Quaternion orientation, Vector3 scale) {
-
-			// get our two main objects
-			TriangleMesh trimesh = ConvertToTrimesh(mesh, pos, orientation, scale);
-
-			ConvexTriangleMeshShape convex = new ConvexTriangleMeshShape(trimesh);
-
-			return convex;
+		public static TriangleMesh Convert(Entity ent, SceneNode node) {
+			return Convert(ent.GetMesh(), node._getDerivedPosition(), node._getDerivedOrientation(), node._getDerivedScale());
 		}
 
 		public unsafe static void GetMeshInformation(MeshPtr mesh, ref uint vertex_count, ref Vector3[] vertices, ref uint index_count, ref uint[] indices,

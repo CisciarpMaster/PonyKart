@@ -1,6 +1,8 @@
-﻿using BulletSharp;
+﻿using System.IO;
+using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
+using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
@@ -20,27 +22,27 @@ namespace Ponykart.Actors {
 
 			if (block.EnumTokens["type"] == ThingEnum.Hull) {
 				// TODO: this stuff
-				/*string name = block.GetStringProperty("name", "");
+				string name = block.GetStringProperty("hullname", "");
 
 				if (name != "" && File.Exists(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
 					Shape = LKernel.GetG<PhysicsMain>().ImportCollisionShape(name);
 				}
-				else {*/
+				else {
 					string meshName = block.GetStringProperty("mesh", null);
 
 					// TODO: need a better way of loading a mesh
 					Entity ent = LKernel.GetG<SceneManager>().CreateEntity(meshName);
 
-					Shape = OgreToBulletMesh.ConvertToConvexHull(ent.GetMesh(), Transform.GetTrans(), Transform.ExtractQuaternion(), Vector3.UNIT_SCALE);
+					TriangleMesh trimesh = OgreToBulletMesh.Convert(ent.GetMesh(), Transform.GetTrans(), Transform.ExtractQuaternion(), Vector3.UNIT_SCALE);
+					Shape = new ConvexTriangleMeshShape(trimesh);
 
 					LKernel.GetG<SceneManager>().DestroyEntity(ent);
 					ent.Dispose();
 
-					/*LKernel.GetG<PhysicsMain>().SerializeShape(Shape, name);
-				}*/
+					// TODO: figure out how to deal with convex triangle mesh shapes since apparently they aren't being exported
+					//LKernel.GetG<PhysicsMain>().SerializeShape(Shape, name);
+				}
 			}
-			
-
 		}
 
 		public void Dispose() { }

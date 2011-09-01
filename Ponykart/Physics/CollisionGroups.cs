@@ -24,7 +24,7 @@ namespace Ponykart.Physics {
 		/// </summary>
 		None = CollisionFilterGroups.None, // 0
 		/// <summary>
-		/// Self-explanatory.
+		/// Self-explanatory. Most of the stuff we can bump into and push around falls into this category.
 		/// </summary>
 		Default = CollisionFilterGroups.DefaultFilter, // 1
 		/// <summary>
@@ -32,13 +32,13 @@ namespace Ponykart.Physics {
 		/// </summary>
 		Environment = CollisionFilterGroups.StaticFilter, // 2
 		/// <summary>
-		/// Bodies that move but can't be affected by anything else, for moving platforms etc.
+		/// For things that effect other stuff, such as speed boost panels
 		/// </summary>
-		Kinematic = CollisionFilterGroups.KinematicFilter, // 4
+		Affectors = CollisionFilterGroups.KinematicFilter, // 4
 		/// <summary>
-		/// Junk on the track that we can bump into and push around
+		/// Fences, invisible walls, and stuff that we don't want to be able to drive up
 		/// </summary>
-		Debris = CollisionFilterGroups.DebrisFilter, // 8
+		Walls = CollisionFilterGroups.DebrisFilter, // 8
 		/// <summary>
 		/// Trigger regions and stuff
 		/// </summary>
@@ -69,32 +69,28 @@ namespace Ponykart.Physics {
 		/// </summary>
 		Default = PonykartCollisionGroups.Default
 				| PonykartCollisionGroups.Environment
-				| PonykartCollisionGroups.Kinematic
-				| PonykartCollisionGroups.Debris
+				| PonykartCollisionGroups.Affectors
+				| PonykartCollisionGroups.Walls
 				| PonykartCollisionGroups.Karts,
 
 		/// <summary>
 		/// Collides with default, debris, and karts.
 		/// </summary>
 		Environment = PonykartCollisionGroups.Default
-					| PonykartCollisionGroups.Debris
+					| PonykartCollisionGroups.Walls
 					| PonykartCollisionGroups.Karts,
 
 		/// <summary>
-		/// Collides with default, debris, and karts.
+		/// Collides with default and karts.
 		/// </summary>
-		Kinematic = PonykartCollisionGroups.Default
-				  | PonykartCollisionGroups.Debris
+		Affectors = PonykartCollisionGroups.Default
 				  | PonykartCollisionGroups.Karts,
 
 		/// <summary>
-		/// Collides with default, environment, kinematic, other debris, and karts.
+		/// Collides with default and karts.
 		/// </summary>
-		Debris = PonykartCollisionGroups.Default
-			   | PonykartCollisionGroups.Environment
-			   | PonykartCollisionGroups.Kinematic
-			   | PonykartCollisionGroups.Debris
-			   | PonykartCollisionGroups.Karts,
+		Walls = PonykartCollisionGroups.Default
+			  | PonykartCollisionGroups.Karts,
 
 		/// <summary>
 		/// Only collides with karts.
@@ -106,8 +102,8 @@ namespace Ponykart.Physics {
 		/// </summary>
 		Karts = PonykartCollisionGroups.Default
 			  | PonykartCollisionGroups.Environment
-			  | PonykartCollisionGroups.Kinematic
-			  | PonykartCollisionGroups.Debris
+			  | PonykartCollisionGroups.Affectors
+			  | PonykartCollisionGroups.Walls
 			  | PonykartCollisionGroups.Triggers
 			  | PonykartCollisionGroups.Karts,
 	}

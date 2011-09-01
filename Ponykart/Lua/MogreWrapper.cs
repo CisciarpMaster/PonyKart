@@ -45,5 +45,17 @@ namespace Ponykart.Lua {
 		public static Quaternion quat(float x, float y, float z, float w) {
 			return new Quaternion(w, x, y, z);
 		}
+
+		[LuaFunction("multiplyQuaternion", "Multiplies two quaternions", "quat 1", "quat 2")]
+		public static Quaternion multiplyQuat(Quaternion quat1, Quaternion quat2) {
+			return quat1 * quat2;
+		}
+
+		[LuaFunction("quaternionFromAngleAxis", "Creates a quaternion from an angle and an axis", "float - angle, in radians", "Vector3 - the axis")]
+		public static Quaternion quatFromAngleAxis(float radians, Vector3 axis) {
+			var quaternion = Quaternion.IDENTITY;
+			quaternion.FromAngleAxis(radians, axis);
+			return quaternion;
+		}
 	}
 }

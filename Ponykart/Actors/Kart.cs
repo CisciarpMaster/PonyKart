@@ -44,6 +44,7 @@ namespace Ponykart.Actors {
 			//Tuning.MaxSuspensionTravelCm = 40f;
 			Vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
 			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a matrix?
+			Vehicle.PitchControl = 0;
 
 			LKernel.GetG<PhysicsMain>().World.AddAction(Vehicle);
 

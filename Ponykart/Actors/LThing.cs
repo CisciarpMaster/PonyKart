@@ -47,7 +47,9 @@ namespace Ponykart.Actors {
 			// get our three basic transforms
 			SpawnPosition = template.GetVectorProperty("position", null);
 
-			SpawnOrientation = template.GetVectorProperty("rotation", Vector3.ZERO).DegreeVectorToGlobalQuaternion();
+			SpawnOrientation = template.GetQuatProperty("orientation", Quaternion.IDENTITY);
+			if (SpawnOrientation == Quaternion.IDENTITY)
+				SpawnOrientation = template.GetVectorProperty("rotation", Vector3.ZERO).DegreeVectorToGlobalQuaternion();
 
 			SpawnScale = template.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
