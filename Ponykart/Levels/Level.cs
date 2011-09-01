@@ -110,6 +110,7 @@ namespace Ponykart.Levels {
 					t.Dispose();
 				Things.Clear();
 			}
+			LKernel.GetG<ThingDatabase>().ClearDatabase();
 		}
 	}
 }
