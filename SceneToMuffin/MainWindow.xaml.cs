@@ -114,7 +114,6 @@ namespace SceneToMuffin {
 					using (var writer = new StreamWriter(stream)) {
 						// write out these two first
 						writer.WriteLine("Type = " + levelTypeBox.Text);
-						writer.WriteLine("Physics = \"" + physicsMeshBox.Text + "\"");
 
 						// only use the ones that use the .thing, of course
 						foreach (NodeData data in Data.Where(d => d.UsesThing)) {
