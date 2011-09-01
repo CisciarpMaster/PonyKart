@@ -4,14 +4,15 @@ Mass = 0
 PhysicsMaterial = "Fences"
 CollisionGroup = "Walls"
 CollidesWith = "Walls"
+ForceCompound = true
 
 Model {
 	Name = "Entity#0"
 	Mesh = "FenceAngled.mesh"
 	Material = "Fences"
-	Position = 0, 0, 0
-	Scale = 0.4, 0.4, 0.4
-	CastsShadows = True
+	Position = 0, -0.4, 0
+	Scale = 0.4, 0.3, 0.4
+	CastsShadows = true
 }
 // box#0
 Shape {

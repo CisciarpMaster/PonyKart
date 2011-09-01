@@ -4,18 +4,19 @@ Mass = 0
 PhysicsMaterial = "Fences"
 CollisionGroup = "Environment"
 CollidesWith = "Environment"
+ForceCompound = true
 
 // box#0
 Shape {
 	Type = Box
-	Position = 0, 0, 0
-	Dimensions = 9.44014, 7.15726, 0.6
+	Position = 0, -0.3, 0
+	Dimensions = 9.44014, 5, 0.6
 }
 Model {
 	Name = "Entity#2"
 	Mesh = "FencePartial.mesh"
 	Material = "Fences"
-	Position = 0, 0, 0
-	Scale = 0.4, 0.4, 0.4
+	Position = 0, -0.2, 0
+	Scale = 0.4, 0.3, 0.4
 	CastsShadows = True
 }

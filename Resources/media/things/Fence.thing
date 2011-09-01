@@ -5,7 +5,6 @@ PhysicsMaterial = "Fences"
 CollisionGroup = "Walls"
 CollidesWith = "Walls"
 ForceCompound = true
-//Script = "fence"
 
 // box#0
 Shape {
@@ -17,7 +16,7 @@ Model {
 	Name = "Entity#2"
 	Mesh = "FencePartial.mesh"
 	Material = "Fences"
-	Position = 0, 0, 0
-	Scale = 0.4, 0.4, 0.4
+	Position = 0, -0.4, 0
+	Scale = 0.4, 0.3, 0.4
 	CastsShadows = true
 }

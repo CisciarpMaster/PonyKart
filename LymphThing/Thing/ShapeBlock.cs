@@ -68,7 +68,7 @@ namespace PonykartParsers {
 
 
 			// sometimes shapes want to override this and force a compound collision object even if they only have one shape
-			if (Owner.GetBoolProperty("forcecompound", false)) {
+			if (Owner.GetBoolProperty("forcecompound", false) && Shape != null) {
 				CompoundShape comp = new CompoundShape();
 				comp.AddChildShape(Transform, Shape);
 				Shape = comp;

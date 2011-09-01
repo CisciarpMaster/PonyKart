@@ -24,10 +24,6 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		public IDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
 		/// <summary>
-		/// This tells us if a certain kart is in the air or not
-		/// </summary>
-		private IDictionary<Kart, bool> IsInAir;
-		/// <summary>
 		/// Dictionary of our nlerpers
 		/// </summary>
 		public IDictionary<Kart, Nlerper> Nlerpers { get; private set; }
@@ -65,14 +61,8 @@ namespace Ponykart.Handlers {
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
 				SRHs = new Dictionary<Kart, SelfRightingHandler>();
-				IsInAir = new Dictionary<Kart, bool>();
 				Nlerpers = new Dictionary<Kart, Nlerper>();
 				Skidders = new Dictionary<Kart, Skidder>();
-
-				// set up our dictionary
-				foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
-					IsInAir.Add(p.Kart, false);
-				}
 
 				LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 			}
@@ -98,7 +88,7 @@ namespace Ponykart.Handlers {
 					if (Settings.Default.ApplyDownwardsForceEveryTenthOfASecond)
 						kart.Body.ApplyCentralForce(kart.RootNode.GetLocalYAxis() * Settings.Default.DownwardsForceToApply);
 
-					var callback = CastRay(kart, (IsInAir[kart] && SRHs.ContainsKey(kart) ? LONG_RAY_LENGTH : SHORT_RAY_LENGTH), world);
+					var callback = CastRay(kart, (kart.IsInAir && SRHs.ContainsKey(kart) ? LONG_RAY_LENGTH : SHORT_RAY_LENGTH), world);
 
 					// if the ray did not hit
 					if (!callback.HasHit) {
@@ -116,7 +106,7 @@ namespace Ponykart.Handlers {
 						if (SRHs.TryGetValue(kart, out srh))
 							GettingCloseToTouchingDown(kart, callback, srh);
 						// we don't have an SRH, so we're near the ground, but we aren't quite there yet
-						else if (IsInAir[kart])
+						else if (kart.IsInAir)
 							TouchDown(kart, callback);
 						// if we had an "else" here, it would run every frame that the kart is touching the ground.
 					}
@@ -154,7 +144,7 @@ namespace Ponykart.Handlers {
 			if (Settings.Default.UseSelfRightingHandlers)
 				SRHs.Add(kart, new SelfRightingHandler(kart));
 			// we are in the air
-			IsInAir[kart] = true;
+			kart.IsInAir = true;
 
 			if (OnLiftoff != null)
 				OnLiftoff(kart, callback);
@@ -193,7 +183,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void TouchDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// now we have actually landed
-			IsInAir[kart] = false;
+			kart.IsInAir = false;
 
 			// if we have a nlerper, get rid of it
 			if (Settings.Default.UseNlerpers) {
@@ -283,9 +273,6 @@ namespace Ponykart.Handlers {
 					s.Dispose();
 				}
 				Skidders.Clear();
-
-				// and finally
-				IsInAir.Clear();
 			}
 		}
 	}

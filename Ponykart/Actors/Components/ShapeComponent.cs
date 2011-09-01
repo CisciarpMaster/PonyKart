@@ -45,6 +45,10 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		public void Dispose() { }
+		public void Dispose() {
+			if (!Shape.IsDisposed)
+				Shape.Dispose();
+			Transform = null;
+		}
 	}
 }

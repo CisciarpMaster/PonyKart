@@ -15,6 +15,10 @@ namespace Ponykart.Actors {
 		public float MaxReverseSpeed { get; set; }
 		public float MaxSpeedSquared { get; private set; }
 		public float MaxReverseSpeedSquared { get; private set; }
+		/// <summary>
+		/// Should only be set by StopKartsFromRollingOverHandler
+		/// </summary>
+		public bool IsInAir { get; set; }
 
 		// our wheelshapes
 		public Wheel WheelFL { get; protected set; }
@@ -30,10 +34,11 @@ namespace Ponykart.Actors {
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
-			MaxSpeed = def.GetFloatProperty("maxspeed", 40f);
+			MaxSpeed = def.GetFloatProperty("maxspeed", 60f);
 			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 20f);
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
+			IsInAir = false;
 		}
 
 		protected override void PostCreateBody(ThingDefinition def) {
