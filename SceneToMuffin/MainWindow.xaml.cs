@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using SceneToThing;
+using Node = SceneToThing.Node;
 
 namespace SceneToMuffin {
 	/// <summary>
@@ -90,6 +91,19 @@ namespace SceneToMuffin {
 					CastShadows = node.Entity != null ? node.Entity.CastShadows : false,
 					ReceiveShadows = node.Entity != null ? node.Entity.ReceiveShadows : false,
 				};
+
+				/*Mogre.Quaternion quat = new Mogre.Quaternion(data.OrientW, data.OrientX, data.OrientY, data.OrientZ);
+				Matrix3 mat = quat.ToRotationMatrix();
+				Mogre.Quaternion quat2 = new Mogre.Quaternion();
+				quat2.FromAngleAxis(new Degree(-90), mat.GetColumn(0));
+				quat = quat2 * quat;
+
+				data.OrientX = quat.x;
+				data.OrientY = quat.y;
+				data.OrientZ = quat.z;
+				data.OrientW = quat.w;*/
+
+
 				Data.Add(data);
 			}
 			dataGrid.ItemsSource = Data;
