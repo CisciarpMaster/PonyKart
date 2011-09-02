@@ -11,7 +11,6 @@ Model {
 	Mesh = "FenceAngled.mesh"
 	Material = "Fences"
 	Position = 0, -0.4, 0
-	Scale = 0.4, 0.3, 0.4
 	CastsShadows = true
 }
 // box#0

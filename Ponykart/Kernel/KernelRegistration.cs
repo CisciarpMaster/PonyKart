@@ -263,6 +263,9 @@ namespace Ponykart {
 		private static SceneManager InitSceneManager(Root root) {
 			Launch.Log("[Loading] Creating SceneManager");
 			var sceneMgr = root.CreateSceneManager(SceneType.ST_GENERIC, "sceneMgr");
+			sceneMgr.ShadowColour = new ColourValue(0.8f, 0.8f, 0.8f);
+			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
+			sceneMgr.ShadowFarDistance = 1000;
 			return sceneMgr;
 		}
 

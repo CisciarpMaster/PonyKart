@@ -1,5 +1,7 @@
 material Chicken_coop_sign
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass

@@ -1,5 +1,7 @@
 material AppleTree
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass

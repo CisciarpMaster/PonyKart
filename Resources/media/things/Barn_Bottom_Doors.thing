@@ -6,7 +6,6 @@ CollidesWith = "Environment"
 PhysicsMaterial = "NoFrictionNoBounce"
 
 Model {
-	Name = "Barn_Door_Bottom"
 	Mesh = "Barn_Door_Bottom.mesh"
 	Material = "Barn"
 	Position = 0, 0, 0

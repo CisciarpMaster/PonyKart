@@ -8,20 +8,19 @@ Model {
 	Name = "Entity#0"
 	Mesh = "Farmhouse.mesh"
 	Position = 0, 4.91424, 0
-	Scale = 0.218578, 0.276168, 0.218578
 	CastsShadows = True
 }
 
 // box#0
 Shape {
 	Type = Box
-	Position = 0, 3.31708, 0.1645794 // 1.65854, 0.0822897
+	Position = 0, 3.31708, 0.1645794
 	Dimensions = 7.27452, 6.99628, 11.86568
 }
 // box#1
 Shape {
 	Type = Box
-	Position = 0.0245106, 6.50244, 0.120625  //0.0122553, 3.25122, 0.0603125
+	Position = 0.0245106, 6.50244, 0.120625
 	Orientation = 0, 0, 0.382683, 0.92388
 	Dimensions = 5.72238, 5.72238, 11.76364
 }

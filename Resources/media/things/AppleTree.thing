@@ -6,11 +6,10 @@ CollidesWith = "Environment"
 
 // main tree model
 Model {
-	Mesh = "apple_tree_1.mesh"
+	Mesh = "AppleTree.mesh"
 	Material = "AppleTree"
 	Position = 0.0116948, -0.156848, -0.0753398
-	Orientation = 0, 0, 0, -1
-	Scale = 0.126839, 0.126839, 0.126839
+	CastsShadows = true
 }
 
 // loads of apples

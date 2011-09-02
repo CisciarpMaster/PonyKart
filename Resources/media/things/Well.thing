@@ -4,32 +4,29 @@ Mass = 0
 CollisionGroup = "Environment"
 CollidesWith = "Environment"
 
-Model {
-	Name = "Entity#0"
-	Mesh = "Well.mesh"
-	Position = 0, 11.456, -5.0076E-07
-	Orientation = 1, -5.32907E-15, 7.10543E-15, 7.54979E-08
-	Scale = 0.6, 0.6, 0.6
-	CastsShadows = True
-}
 // box#0
 Shape {
 	Type = Box
-	Position = -0.475473, 8.9873, 0.0928454
-	Orientation = -0.374607, 0, 0, 0.927184
+	Position = 1.20587, 8.76777, -0.0813908
+	Orientation = -0.374702, -0.00723239, 0.0170385, 0.926961
 	Dimensions = 6.31543, 7.3586, 7.3586
+}
+Model {
+	Name = "Entity#0"
+	Mesh = "Well.mesh"
+	Material = "Well"
+	Position = 0, 6.88901, 0
+	CastsShadows = true
 }
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = -0.343574, 1.88642, -0.0674
-	Orientation = 0, 0, 0, 1
+	Position = 1.33777, 1.88679, -0.148723
 	Dimensions = 7.98027, 4.23277, 7.98027
 }
 // box#1
 Shape {
 	Type = Box
-	Position = -5.1341, 5.82684, 0
-	Orientation = 0, 0, 0, 1
+	Position = -3.45276, 5.82721, -0.0813227
 	Dimensions = 3.44395, 1.80741, 0.589819
 }

@@ -1,5 +1,7 @@
 material AppleCartExtras
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass
@@ -10,6 +12,7 @@ material AppleCartExtras
 			
 			texture_unit
 			{
+				tex_address_mode clamp
 				texture applecart_tex.png
 			}
 		}

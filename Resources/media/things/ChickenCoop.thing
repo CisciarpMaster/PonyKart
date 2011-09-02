@@ -19,8 +19,8 @@ Model {
 Model {
 	Mesh = "Chicken_Coop_Sign.mesh"
 	Position = -2.6118, 6.28688, 7.92089
+	CastsShadows = false
 }
-// in 3ds max, width = x and length = y
 // main part
 Shape {
 	Type = Box

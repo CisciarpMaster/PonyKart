@@ -1,5 +1,7 @@
 material RedApple
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass
@@ -16,6 +18,8 @@ material RedApple
 
 material GreenApple
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass

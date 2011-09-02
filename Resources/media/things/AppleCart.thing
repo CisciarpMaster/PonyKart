@@ -1,90 +1,79 @@
 Name = "AppleCart"
 Physics = Dynamic
-Mass = 150
+Mass = 50
+CollisionGroup = "Default"
+CollidesWith = "Default"
 Script = "applecart"
 
-Model {
-	Name = "Entity#0"
-	Mesh = "AppleCart.mesh"
-	Material = "AppleCart"
-	Position = 0, 0.298726, 0
-	Orientation = 0, 0, 0, 1
-	Scale = 0.283173, 0.283173, 0.283173
-	CastsShadows = True
-	Visible = True
-	RenderingDistance = 0
-}
 // box#0
 Shape {
 	Type = Box
-	Position = 1.04802, 1.9073, 0
-	Orientation = 0, 0, 0, 1
+	Position = 1.35977, 0.441717, 0
 	Dimensions = 0.27241, 2.4561, 2.33871
 }
 Model {
-	Name = "Entity#1"
-	Mesh = "AppleCartExtras.mesh"
-	Material = "AppleCartExtras"
-	Position = 0, 0.298726, 0
-	Orientation = 0, 0, 0, 1
-	Scale = 0.283173, 0.283173, 0.283173
-	CastsShadows = True
-	Visible = True
-	RenderingDistance = 0
+	Name = "Entity#0"
+	Mesh = "AppleCart.mesh"
+	Material = ""
+	Position = 1.521, 0.139, 0
+	CastsShadows = true
 }
 // box#1
 Shape {
 	Type = Box
-	Position = 2.63218, 1.89438, 0
-	Orientation = 0, 0, 0, 1
+	Position = 2.94393, 0.428797, 0
 	Dimensions = 3.29981, 0.29374, 1.61437
+}
+Model {
+	Name = "Entity#1"
+	Mesh = "AppleCartExtras.mesh"
+	Material = ""
+	Position = 0.455, 0.269, 0
+	CastsShadows = false
 }
 // cylinder#2
 Shape {
 	Type = Cylinder
-	Position = 0, 1.02223, -1.31389
+	Position = 0.336363, -0.446015, -1.30108
 	Orientation = -0.710185, 0, 0, 0.704015
 	Dimensions = 2, 0.36528, 2
 }
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = 0, 1.04465, 1.25472
+	Position = 0.310594, -0.480542, 1.26803
 	Orientation = -0.710185, 0, 0, 0.704015
 	Dimensions = 2, 0.36528, 2
 }
 // cylinder#1
 Shape {
 	Type = Cylinder
-	Position = 3.68425, 1.95468, 0
+	Position = 3.99936, 0.502252, 0
 	Orientation = 0, 0, 0.707107, 0.707107
 	Dimensions = 1.46527, 0.267195, 1.46527
 }
 // box#2
 Shape {
 	Type = Box
-	Position = -1.74358, 1.69939, 0
+	Position = -1.43182, 0.233807, 0
 	Orientation = 0, 0, 0.0218149, 0.999762
 	Dimensions = 0.27241, 1.96005, 2.33871
 }
 // box#4
 Shape {
 	Type = Box
-	Position = -0.358498, 2.05086, 1.02567
-	Orientation = 0, 0, 0, 1
+	Position = -0.0467449, 0.585277, 1.02567
 	Dimensions = 2.85622, 2.69059, 0.268638
 }
 // box#3
 Shape {
 	Type = Box
-	Position = -0.358498, 2.05086, -1.04659
-	Orientation = 0, 0, 0, 1
+	Position = -0.0467449, 0.585277, -1.04659
 	Dimensions = 2.85622, 2.69059, 0.268638
 }
 // box#5
 Shape {
 	Type = Box
-	Position = -0.358498, 1.26827, 0
-	Orientation = 0, 0, 0, 1
+	Position = -0.0467449, -0.197313, 0
 	Dimensions = 2.85622, 1.23759, 2.0807
 }

@@ -1,4 +1,5 @@
 ﻿using Mogre;
+using Ponykart.Core;
 using Ponykart.Levels;
 
 namespace Ponykart.Handlers {
@@ -15,10 +16,9 @@ namespace Ponykart.Handlers {
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			// ambient light
-			sceneMgr.AmbientLight = new ColourValue(0.8f, 0.8f, 0.8f);
+			//sceneMgr.AmbientLight = new ColourValue(0.8f, 0.8f, 0.8f);
 			// shadows
-			sceneMgr.ShadowColour = new ColourValue(0.8f, 0.8f, 0.8f);
-			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
+			
 			// TODO read this from a file
 			LKernel.GetG<Viewport>().BackgroundColour = new ColourValue(0.7373f, 0.8902f, 0.9490f);
 
@@ -27,14 +27,15 @@ namespace Ponykart.Handlers {
 			light.Type = Light.LightTypes.LT_DIRECTIONAL;
 			light.Direction = new Vector3(0.1f, -1, 0.1f);
 			light.Direction.Normalise();
+			light.DiffuseColour = new ColourValue(1, 1, 1);
 			light.CastShadows = true;
 
 #if DEBUG
 			// make some axes
-			LKernel.GetG<Core.Spawner>().Spawn("Axis", Vector3.ZERO);
+			LKernel.GetG<Spawner>().Spawn("Axis", Vector3.ZERO);
 
 			// for testing animation
-			//LKernel.Get<Core.Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
+			//LKernel.Get<Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
 #endif
 		}
 	}

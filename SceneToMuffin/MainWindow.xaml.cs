@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using SceneToThing;
-using Node = SceneToThing.Node;
 
 namespace SceneToMuffin {
 	/// <summary>

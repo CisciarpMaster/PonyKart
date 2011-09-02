@@ -16,6 +16,8 @@ material Barn
 
 material Barn_Plants
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass

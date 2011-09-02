@@ -9,6 +9,7 @@ Shape {
 Model {
 	Mesh = "primitives/cylinder.mesh"
 	Material = "brick"
+	CastsShadows = true
 }
 Model {
 	Mesh = "primitives/capsule_top.mesh"
