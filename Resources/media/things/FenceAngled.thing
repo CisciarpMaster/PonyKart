@@ -10,8 +10,8 @@ Model {
 	Name = "Entity#0"
 	Mesh = "FenceAngled.mesh"
 	Material = "Fences"
-	Position = 0, -0.4, 0
-	CastsShadows = true
+	Position = 0, 0, 0
+	CastsShadows = false
 }
 // box#0
 Shape {

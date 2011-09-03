@@ -16,6 +16,6 @@ Model {
 	Name = "FencePost#0"
 	Mesh = "FencePost.mesh"
 	Material = "Fences"
-	Position = 0, -0.2, 0
-	CastsShadows = true
+	Position = 0, 0, 0
+	CastsShadows = false
 }

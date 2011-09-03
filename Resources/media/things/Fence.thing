@@ -16,6 +16,6 @@ Model {
 	Name = "Entity#2"
 	Mesh = "FencePartial.mesh"
 	Material = "Fences"
-	Position = 0, -0.4, 0
-	CastsShadows = true
+	Position = 0, 0, 0
+	CastsShadows = false
 }
