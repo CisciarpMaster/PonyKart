@@ -3,16 +3,6 @@
 		<colourAmbient r="0.8" g="0.8" b="0.8" />
 	</environment>
 	<nodes>
-		<node name="Bridge_1">
-			<position x="285.667" y="-16.7961" z="-239.977" />
-			<scale x="3.23051" y="2.5" z="0.938333" />
-			<rotation qx="0" qy="0" qz="0" qw="1" />
-			<entity name="Bridge_1" castShadows="true" receiveShadows="true" meshFile="Bridge_1.mesh" static="true">
-				<subentities>
-					<subentity index="0" materialName="bluebrick" />
-				</subentities>
-			</entity>
-		</node>
 		<node name="Ramp_1">
 			<position x="-106.811" y="48.649" z="-672.68" />
 			<scale x="1.5634" y="2.5" z="2.86408" />

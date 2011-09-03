@@ -1,5 +1,7 @@
 material Barn
 {
+	receive_shadows off
+	
 	technique
 	{
 		pass

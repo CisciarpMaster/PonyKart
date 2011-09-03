@@ -1,5 +1,8 @@
 Type = Race
 
+SAA_Bridge {
+	Position = 280.454, 0, -210.054
+}
 ChickenCoop {
 	Position = 145.826, -0.6, 145.18
 	Orientation = 0, -0.170071, 7.43405E-09, 0.985432

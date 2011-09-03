@@ -1,4 +1,3 @@
-
 material NoMaterial
 {
 	technique
@@ -9,18 +8,12 @@ material NoMaterial
 	}
 }
 
-
-
 material 11-Default
 {
 	technique
 	{
 		pass
 		{
-			ambient 0.588235 0.588235 0.588235 1
-			diffuse 0.588235 0.588235 0.588235 1
-			specular 0 0 0 1 10
-
 			texture_unit
 			{
 				texture shared.jpg
@@ -29,18 +22,12 @@ material 11-Default
 	}
 }
 
-
-
 material 15-Default
 {
 	technique
 	{
 		pass
 		{
-			ambient 0.588235 0.588235 0.588235 1
-			diffuse 0.588235 0.588235 0.588235 1
-			specular 0 0 0 1 10
-
 			texture_unit
 			{
 				texture spiky_bush_tex.png
@@ -49,29 +36,19 @@ material 15-Default
 	}
 }
 
-
-
 material 10-Default
 {
 	technique
 	{
 		pass
 		{
-			ambient 0.588235 0.588235 0.588235 1
-			diffuse 0.588235 0.588235 0.588235 1
-			specular 0 0 0 1 10
-
 			texture_unit
 			{
 				texture banner.png
 			}
 		}
-
 	}
-
 }
-
-
 
 material SAA_Barn_Area
 {
@@ -82,12 +59,10 @@ material SAA_Barn_Area
 			texture_unit
 			{
 				texture road2.png
-				//transform 12 0 0 0 0 12 0 0 0 0 1 0 0 0 0 1
 			}
 		}
 		
 		pass {
-			//scene_blend colour_blend
 			scene_blend add
 			depth_bias 1
 			light_scissor on
@@ -95,15 +70,12 @@ material SAA_Barn_Area
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				//param_named GlowColor float3 0.914 0.698 0.419
 				param_named GlowColor float3 0.274 0.209 0.126
 				param_named GlowExpon float  3
 			}
 		}
 	}
 }
-
-
 
 material Grass
 {
@@ -114,7 +86,6 @@ material Grass
 			texture_unit
 			{
 				texture grass_texture_1.png
-				//transform 50 0 0 0 0 50 0 0 0 0 1 0 0 0 0 1
 			}
 		}
 		pass {
@@ -146,7 +117,6 @@ material SAA_Road
 		}
 		
 		pass {
-			//scene_blend colour_blend
 			scene_blend add
 			depth_bias 1
 			light_scissor on
@@ -154,13 +124,13 @@ material SAA_Road
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				//param_named GlowColor float3 0.792 0.694 0.424
 				param_named GlowColor float3 0.24 0.21 0.126
 				param_named GlowExpon float  3
 			}
 		}
 	}
 }
+
 material SAA_Grass
 {
 	technique
@@ -170,7 +140,6 @@ material SAA_Grass
 			texture_unit
 			{
 				texture grass_texture_1.png
-				//transform 50 0 0 0 0 50 0 0 0 0 1 0 0 0 0 1
 			}
 		}
 		pass {
@@ -183,6 +152,20 @@ material SAA_Grass
 			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0.651 0.78 0.224
 				param_named GlowExpon float  3
+			}
+		}
+	}
+}
+
+material SAA_Bridge
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture bridge_wood.jpg
 			}
 		}
 	}
