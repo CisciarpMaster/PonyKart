@@ -53,7 +53,7 @@ namespace Ponykart {
 				AddGlobalObject(new PhysicsMaterialFactory());
 			}
 			catch {
-				MessageBox.Show("BulletSharp loading unsuccessful! Try installing a 2008 VC++ Redistributable (google it)!", "Well, shit.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("BulletSharp loading unsuccessful! Try installing a 2010 VC++ Redistributable (google it)!", "Well, shit.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 
 			// sound stuff
