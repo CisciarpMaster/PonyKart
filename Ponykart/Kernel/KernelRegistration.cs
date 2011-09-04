@@ -45,11 +45,16 @@ namespace Ponykart {
 
 			// physx stuff
 			splash.Increment("Initialising Bullet physics engine, collision reporter, trigger region reporter, and contact reporter...");
-			var phys = AddGlobalObject(new PhysicsMain());
-			AddGlobalObject(new CollisionReporter());
-			AddGlobalObject(new TriggerReporter());
-			AddGlobalObject(new PhysicsMaterialManager());
-			AddGlobalObject(new PhysicsMaterialFactory());
+			try {
+				AddGlobalObject(new PhysicsMain());
+				AddGlobalObject(new CollisionReporter());
+				AddGlobalObject(new TriggerReporter());
+				AddGlobalObject(new PhysicsMaterialManager());
+				AddGlobalObject(new PhysicsMaterialFactory());
+			}
+			catch {
+				MessageBox.Show("BulletSharp loading unsuccessful! Try installing a 2008 VC++ Redistributable (google it)!", "Well, shit.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 
 			// sound stuff
 			splash.Increment("Setting up sound system...");
@@ -60,7 +65,7 @@ namespace Ponykart {
 			AddGlobalObject(InitSceneManager(root));
 
 			splash.Increment("Loading first level physics...");
-			phys.LoadPhysicsLevel(Settings.Default.MainMenuName);
+			GetG<PhysicsMain>().LoadPhysicsLevel(Settings.Default.MainMenuName);
 
 			splash.Increment("Creating player camera and viewport...");
 			var playerCamera = AddLevelObject(new PlayerCamera());
