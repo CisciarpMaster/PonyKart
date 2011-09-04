@@ -43,6 +43,9 @@ namespace Ponykart.Levels {
 
 		public void ReadMuffin() {
 			Definition = new MuffinImporter().Parse(Name);
+			foreach (string file in Definition.ExtraFiles) {
+				Definition = new MuffinImporter().Parse(file, Definition);
+			}
 
 			// get the type of the level
 			ThingEnum tempType = Definition.GetEnumProperty("type", null);

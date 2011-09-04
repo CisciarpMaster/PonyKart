@@ -101,5 +101,14 @@
     <Setting Name="DownwardsForceToApply" Type="System.Single" Scope="User">
       <Value Profile="(Default)">-6000</Value>
     </Setting>
+    <Setting Name="SelfRighterRaycastTime" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="SelfRighterShortRayLength" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">1.2</Value>
+    </Setting>
+    <Setting Name="SelfRighterLongRayLength" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

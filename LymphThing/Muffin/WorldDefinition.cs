@@ -7,6 +7,7 @@ namespace PonykartParsers {
 		public string Name { get; private set; }
 		public LevelType Type { get; private set; }
 		public ICollection<ThingBlock> ThingBlocks { get; protected set; }
+		public ICollection<string> ExtraFiles { get; set; }
 
 		public WorldDefinition(string name) {
 			Name = name;
@@ -16,6 +17,7 @@ namespace PonykartParsers {
 		public override void SetUpDictionaries() {
 			base.SetUpDictionaries();
 			ThingBlocks = new Collection<ThingBlock>();
+			ExtraFiles = new Collection<string>();
 		}
 
 		public override void Finish() {

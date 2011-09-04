@@ -37,19 +37,6 @@ namespace Ponykart.Handlers {
 		public event KartEvent OnCloseToTouchdown;
 		public event KartEvent OnTouchdown;
 
-		/// <summary>
-		/// How often should we raycast?
-		/// </summary>
-		private readonly float RAYCAST_TIME = 0.1f;
-		/// <summary>
-		/// Our "short" ray
-		/// </summary>
-		private readonly float SHORT_RAY_LENGTH = 1.5f;
-		/// <summary>
-		/// Our "long" ray
-		/// </summary>
-		private readonly float LONG_RAY_LENGTH = 5f;
-
 		public StopKartsFromRollingOverHandler() {
 			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
 			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
@@ -70,7 +57,7 @@ namespace Ponykart.Handlers {
 
 		private float elapsed;
 		private void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (elapsed > RAYCAST_TIME) {
+			if (elapsed > Settings.Default.SelfRighterRaycastTime) {
 				elapsed = 0;
 
 				// loop through each player's kart
@@ -88,7 +75,7 @@ namespace Ponykart.Handlers {
 					if (Settings.Default.ApplyDownwardsForceEveryTenthOfASecond)
 						kart.Body.ApplyCentralForce(kart.RootNode.GetLocalYAxis() * Settings.Default.DownwardsForceToApply);
 
-					var callback = CastRay(kart, (kart.IsInAir && SRHs.ContainsKey(kart) ? LONG_RAY_LENGTH : SHORT_RAY_LENGTH), world);
+					var callback = CastRay(kart, (kart.IsInAir && SRHs.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);
 
 					// if the ray did not hit
 					if (!callback.HasHit) {

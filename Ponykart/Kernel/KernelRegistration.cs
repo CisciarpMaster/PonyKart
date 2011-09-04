@@ -243,13 +243,16 @@ namespace Ponykart {
 			return root.RenderSystem;
 		}
 
+		/// <summary>
+		/// Creates the render window, tells it to use our WinForms window, and enables vsync
+		/// </summary>
 		private static RenderWindow InitRenderWindow(Root root, Form form, RenderSystem renderSystem) {
 			Launch.Log("[Loading] Creating RenderWindow...");
 
 			//Ensure RenderSystem has been Initialised
 			root.RenderSystem = renderSystem;
 
-			root.Initialise(false, "Lymph");
+			root.Initialise(false, "Ponykart");
 			NameValuePairList miscParams = new NameValuePairList();
 
 			if (form.Handle != IntPtr.Zero)
@@ -257,9 +260,12 @@ namespace Ponykart {
 
 			miscParams["vsync"] = "true";    // by Ogre default: false
 
-			return root.CreateRenderWindow("Lymph main RenderWindow", Settings.Default.WindowWidth, Settings.Default.WindowHeight, false, miscParams);
+			return root.CreateRenderWindow("Ponykart main RenderWindow", Settings.Default.WindowWidth, Settings.Default.WindowHeight, false, miscParams);
 		}
 
+		/// <summary>
+		/// Creates the scene manager and sets up shadow stuff
+		/// </summary>
 		private static SceneManager InitSceneManager(Root root) {
 			Launch.Log("[Loading] Creating SceneManager");
 			var sceneMgr = root.CreateSceneManager(SceneType.ST_EXTERIOR_CLOSE, "sceneMgr");

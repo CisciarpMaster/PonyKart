@@ -382,5 +382,41 @@ namespace Ponykart.Properties {
                 this["DownwardsForceToApply"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public float SelfRighterRaycastTime {
+            get {
+                return ((float)(this["SelfRighterRaycastTime"]));
+            }
+            set {
+                this["SelfRighterRaycastTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.2")]
+        public float SelfRighterShortRayLength {
+            get {
+                return ((float)(this["SelfRighterShortRayLength"]));
+            }
+            set {
+                this["SelfRighterShortRayLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public float SelfRighterLongRayLength {
+            get {
+                return ((float)(this["SelfRighterLongRayLength"]));
+            }
+            set {
+                this["SelfRighterLongRayLength"] = value;
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 Name = "Kart"
 Physics = Dynamic
-Mass = 85
+Mass = 75
 CollisionGroup = "Karts"
 CollidesWith = "Karts"
 MaxSpeed = 70
@@ -8,20 +8,20 @@ MaxReverseSpeed = 20
 FrontWheel = "FrontWheel"
 BackWheel = "BackWheel"
 PhysicsMaterial = "Kart"
-FrontLeftWheelPosition = 1.34, 1.1, 1.26279
-FrontRightWheelPosition = -1.34, 1.1, 1.26279
-BackLeftWheelPosition = 1.34, 1.1, -1.46281
-BackRightWheelPosition = -1.34, 1.1, -1.46281
+FrontLeftWheelPosition = 1.388, 0.302, 1.0203
+FrontRightWheelPosition = -1.388, 0.302, 1.0203
+BackLeftWheelPosition = 1.388, 0.302, -1.70428
+BackRightWheelPosition = -1.388, 0.302, -1.70428
 
 Model {
 	Mesh = "kart/KartChassis.mesh"
 	Material = "redbrick"
-	Position = -0.00027632, 0.936292, -0.00685373
+	Position = 0, 0.192696, -0.148015
 }
 
 Shape {
 	Type = Hull
 	Mesh = "kart/KartHull.mesh"
 	//HullName = "KartHull"
-	Position = -0.00027632, 1.6, -0.0895839
+	Position = 0, 0.948928, -0.296362
 }

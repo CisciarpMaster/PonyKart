@@ -1,13 +1,13 @@
-Radius = 0.7
+Radius = 0.5
 Width = 0.5
-SuspensionRestLength = 0.5
+SuspensionRestLength = 0.323326
 
-SpringStiffness = 300
+SpringStiffness = 200
 SpringCompression = 4.2
-SpringDamping = 80
+SpringDamping = 40
 FrictionSlip = 5
 RollInfluence = 0.05
 
-BrakeForce = 30
+BrakeForce = 20
 MotorForce = 1500
 TurnAngle = 0

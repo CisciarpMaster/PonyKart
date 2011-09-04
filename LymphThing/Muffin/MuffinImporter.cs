@@ -1,18 +1,29 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using Mogre;
 using PonykartParsers.MuffinParser;
 using PonykartParsers.Properties;
-using Mogre;
 using Node = PonykartParsers.MuffinParser.Node;
 
 namespace PonykartParsers {
 	public class MuffinImporter {
 		RuleInstance root;
 		CultureInfo culture = CultureInfo.InvariantCulture;
+		Collection<string> extraFiles;
 
-		public WorldDefinition Parse(string nameOfWorld) {
+		/// <summary>
+		/// Parses a .muffin file and puts it into a WorldDefinition
+		/// </summary>
+		/// <param name="nameOfWorld">The name of the world to load. This will be used as a filename</param>
+		/// <param name="worldDef">
+		/// If you've already got a world definition, pass it here and this method will add to it
+		/// instead of making a new one.
+		/// </param>
+		/// <returns>A world definition with the stuff from the specified muffin file.</returns>
+		public WorldDefinition Parse(string nameOfWorld, WorldDefinition worldDef = null) {
 			// the initial level before we start loading one is "null", so we need to avoid doing anything with that.
 			if (nameOfWorld == null) {
 				WorldDefinition emptyDef = new WorldDefinition("");
@@ -50,13 +61,20 @@ namespace PonykartParsers {
 				}
 			}
 
+			extraFiles = new Collection<string>();
+
 			Parser p = new Parser();
 			root = p.Parse(fileContents);
 
 
-			WorldDefinition worldDef = new WorldDefinition(nameOfWorld);
+			if (worldDef == null)
+				worldDef = new WorldDefinition(nameOfWorld);
 
 			Parse(worldDef);
+
+			foreach (var file in extraFiles) {
+				worldDef.ExtraFiles.Add(file);
+			}
 
 			worldDef.Finish();
 
@@ -85,25 +103,31 @@ namespace PonykartParsers {
 		/// </summary>
 		void ParseProperty(TokenHolder holder, RuleInstance prop) {
 			string propName = GetNameFromProperty(prop).ToLower(culture);
-			switch (prop.Type) {
-				case NodeType.Rule_StringProperty:
-					holder.StringTokens[propName] = ParseStringProperty(prop);
-					break;
-				case NodeType.Rule_BoolProperty:
-					holder.BoolTokens[propName] = ParseBoolProperty(prop);
-					break;
-				case NodeType.Rule_EnumProperty:
-					holder.EnumTokens[propName] = ParseEnumProperty(prop);
-					break;
-				case NodeType.Rule_NumericProperty:
-					holder.FloatTokens[propName] = ParseFloatProperty(prop);
-					break;
-				case NodeType.Rule_Vec3Property:
-					holder.VectorTokens[propName] = ParseVectorProperty(prop);
-					break;
-				case NodeType.Rule_QuatProperty:
-					holder.QuatTokens[propName] = ParseQuatProperty(prop);
-					break;
+			// if we have some extra files, load these too
+			if (propName == "loadfile")
+				extraFiles.Add(ParseStringProperty(prop));
+			// otherwise continue as normal
+			else {
+				switch (prop.Type) {
+					case NodeType.Rule_StringProperty:
+						holder.StringTokens[propName] = ParseStringProperty(prop);
+						break;
+					case NodeType.Rule_BoolProperty:
+						holder.BoolTokens[propName] = ParseBoolProperty(prop);
+						break;
+					case NodeType.Rule_EnumProperty:
+						holder.EnumTokens[propName] = ParseEnumProperty(prop);
+						break;
+					case NodeType.Rule_NumericProperty:
+						holder.FloatTokens[propName] = ParseFloatProperty(prop);
+						break;
+					case NodeType.Rule_Vec3Property:
+						holder.VectorTokens[propName] = ParseVectorProperty(prop);
+						break;
+					case NodeType.Rule_QuatProperty:
+						holder.QuatTokens[propName] = ParseQuatProperty(prop);
+						break;
+				}
 			}
 		}
 
@@ -210,7 +234,6 @@ namespace PonykartParsers {
 				if (rule.Type == NodeType.Rule_Property)
 					ParseProperty(thingBlock, rule.Children[0] as RuleInstance);
 			}
-
 			worldDef.ThingBlocks.Add(thingBlock);
 		}
 	}

@@ -151,11 +151,20 @@ namespace Ponykart.Physics {
 			Launch.Log("[PhysicsMain] Creating new world...");
 			// have to make more of these every level because disposing the world apparently disposes of them too.
 			broadphase = new DbvtBroadphase();
+			solver = new SequentialImpulseConstraintSolver();
 			dcc = new DefaultCollisionConfiguration();
 			dispatcher = new CollisionDispatcher(dcc);
-			solver = new SequentialImpulseConstraintSolver();
+			// set up this stuff... not quite sure what it's for, but you need it if you want the CCD to work for the karts
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape));
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape,
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
 
 			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
+			// and then turn on CCD
+			world.DispatchInfo.UseContinuous = true;
 
 			world.Gravity = new Vector3(0, Settings.Default.Gravity, 0);
 			// TODO: this isn't working for some reason
