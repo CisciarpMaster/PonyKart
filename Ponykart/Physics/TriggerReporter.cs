@@ -16,7 +16,7 @@ namespace Ponykart.Physics {
 
 
 		public TriggerReporter() {
-			Launch.Log("[Loading] First Get<TriggerReporter>");
+			Launch.Log("[Loading] Creating TriggerReporter...");
 			Regions = new Dictionary<string, TriggerRegion>();
 
 			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;

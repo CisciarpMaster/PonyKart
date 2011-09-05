@@ -23,11 +23,6 @@ namespace Ponykart.Stuff {
 		protected String prependNode;
 		protected string sceneFileName;
 
-
-		public DotSceneLoader() {
-			Launch.Log("[Loading] First Get<DotSceneLoader>");
-		}
-
 		public void ParseDotScene(String SceneName, String groupName) {
 			ParseDotScene(SceneName, groupName, null, "");
 		}

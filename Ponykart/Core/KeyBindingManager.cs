@@ -28,7 +28,7 @@ namespace Ponykart.Core {
 
 
 		public KeyBindingManager() {
-			Launch.Log("[Loading] First Get<KeyBindingManager>");
+			Launch.Log("[Loading] Creating KeyBindingManager...");
 			LKeysDict = new Dictionary<LKey, KeyCode>();
 			MOISKeysDict = new Dictionary<KeyCode, LKey>();
 			PressEventsDict = new Dictionary<LKey, LymphInputEventHandler<LKey>>();
