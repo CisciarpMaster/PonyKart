@@ -14,10 +14,9 @@ namespace Ponykart {
 		private ProgressBar Progress;
 		private int maximum;
 
-		static readonly string LymphLoadingPicture = "media/gui/17wzuc.png";
-		static readonly string DashBikeLoadingPicture = "media/gui/548dash bike.png";
+		static readonly string LoadingPicture = "media/gui/loading.png";
 
-		public readonly Bitmap Picture = new Bitmap(LymphLoadingPicture);
+		public readonly Bitmap Picture = new Bitmap(LoadingPicture);
 
 		/// <summary>
 		/// Sets up the splash screen
