@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using Mogre;
 using PonykartParsers.Properties;
 using PonykartParsers.ThingParser;
-using Mogre;
 using Node = PonykartParsers.ThingParser.Node;
 
 namespace PonykartParsers {
@@ -68,6 +68,9 @@ namespace PonykartParsers {
 						break;
 					case NodeType.Rule_Ribbon:
 						ParseRibbon(thingDef, prop as RuleInstance);
+						break;
+					case NodeType.Rule_Billboard:
+						ParseBillboard(thingDef, prop as RuleInstance);
 						break;
 				}
 			}
@@ -233,6 +236,21 @@ namespace PonykartParsers {
 			}
 
 			thingDef.RibbonBlocks.Add(ribbonBlock);
+		}
+
+		/// <summary>
+		/// Billboard blocks
+		/// </summary>
+		void ParseBillboard(ThingDefinition thingDef, RuleInstance block) {
+			BillboardBlock billboardBlock = new BillboardBlock(thingDef);
+
+			for (int a = 2; a < block.Children.Length - 1; a++) {
+				RuleInstance rule = block.Children[a] as RuleInstance;
+				if (rule.Type == NodeType.Rule_Property)
+					ParseProperty(billboardBlock, rule.Children[0] as RuleInstance);
+			}
+
+			thingDef.BillboardBlocks.Add(billboardBlock);
 		}
 	}
 }

@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Muffin\LevelType.cs" />
+    <Compile Include="Thing\BillboardBlock.cs" />
     <Compile Include="Thing\ModelBlock.cs" />
     <Compile Include="Muffin\MuffinImporter.cs" />
     <Compile Include="Muffin\MuffinParser.cs" />

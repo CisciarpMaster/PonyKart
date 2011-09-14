@@ -25,29 +25,11 @@ namespace PonykartParsers {
 				case ThingEnum.Capsule:
 					Shape = new CapsuleShape(GetFloatProperty("radius", null), GetFloatProperty("height", null));
 					break;
-				case ThingEnum.CapsuleX:
-					Shape = new CapsuleShapeX(GetFloatProperty("radius", null), GetFloatProperty("height", null));
-					break;
-				case ThingEnum.CapsuleZ:
-					Shape = new CapsuleShapeZ(GetFloatProperty("radius", null), GetFloatProperty("height", null));
-					break;
 				case ThingEnum.Cone:
 					Shape = new ConeShape(GetFloatProperty("radius", null), GetFloatProperty("height", null));
 					break;
-				case ThingEnum.ConeX:
-					Shape = new ConeShapeX(GetFloatProperty("radius", null), GetFloatProperty("height", null));
-					break;
-				case ThingEnum.ConeZ:
-					Shape = new ConeShapeZ(GetFloatProperty("radius", null), GetFloatProperty("height", null));
-					break;
 				case ThingEnum.Cylinder:
 					Shape = new CylinderShape(GetVectorProperty("dimensions", null) / 2f);
-					break;
-				case ThingEnum.CylinderX:
-					Shape = new CylinderShapeX(GetVectorProperty("dimensions", null) / 2f);
-					break;
-				case ThingEnum.CylinderZ:
-					Shape = new CylinderShapeZ(GetVectorProperty("dimensions", null) / 2f);
 					break;
 				case ThingEnum.Sphere:
 					Shape = new SphereShape(GetFloatProperty("radius", null));

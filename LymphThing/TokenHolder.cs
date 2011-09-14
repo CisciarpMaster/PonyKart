@@ -30,7 +30,7 @@ namespace PonykartParsers {
 		/// <param name="defaultValue">If the property was not found, use this instead. Pass null if this is a required property.</param>
 		public ThingEnum GetEnumProperty(string propertyName, ThingEnum? defaultValue) {
 			ThingEnum te;
-			if (EnumTokens.TryGetValue(propertyName, out te))
+			if (EnumTokens.TryGetValue(propertyName.ToLower(), out te))
 				return te;
 			else if (defaultValue == null)
 				throw new ArgumentException("That property was not found in the .thing file!", propertyName);
@@ -45,7 +45,7 @@ namespace PonykartParsers {
 		/// <param name="defaultValue">If the property was not found, use this instead. Pass null if this is a required property.</param>
 		public string GetStringProperty(string propertyName, string defaultValue) {
 			string s;
-			if (StringTokens.TryGetValue(propertyName, out s))
+			if (StringTokens.TryGetValue(propertyName.ToLower(), out s))
 				return s;
 			else if (defaultValue == null)
 				throw new ArgumentException("That property was not found in the .thing file!", propertyName);
@@ -60,7 +60,7 @@ namespace PonykartParsers {
 		/// <param name="defaultValue">If the property was not found, use this instead. Pass null if this is a required property.</param>
 		public float GetFloatProperty(string propertyName, float? defaultValue) {
 			float f;
-			if (FloatTokens.TryGetValue(propertyName, out f))
+			if (FloatTokens.TryGetValue(propertyName.ToLower(), out f))
 				return f;
 			else if (defaultValue == null)
 				throw new ArgumentException("That property was not found in the .thing file!", propertyName);
@@ -75,7 +75,7 @@ namespace PonykartParsers {
 		/// <param name="defaultValue">If the property was not found, use this instead. Pass null if this is a required property.</param>
 		public bool GetBoolProperty(string propertyName, bool? defaultValue) {
 			bool b;
-			if (BoolTokens.TryGetValue(propertyName, out b))
+			if (BoolTokens.TryGetValue(propertyName.ToLower(), out b))
 				return b;
 			else if (defaultValue == null)
 				throw new ArgumentException("That property was not found in the .thing file!", propertyName);
@@ -90,7 +90,7 @@ namespace PonykartParsers {
 		/// <param name="defaultValue">If the property was not found, use this instead. Pass null if this is a required property.</param>
 		public Vector3 GetVectorProperty(string propertyName, Vector3? defaultValue) {
 			Vector3 v;
-			if (VectorTokens.TryGetValue(propertyName, out v))
+			if (VectorTokens.TryGetValue(propertyName.ToLower(), out v))
 				return v;
 			else if (defaultValue == null)
 				throw new ArgumentException("That property was not found in the .thing file!", propertyName);
@@ -105,7 +105,7 @@ namespace PonykartParsers {
 		/// <param name="defaultValue">If the property was not found, use this instead. Pass null if this is a required property.</param>
 		public Quaternion GetQuatProperty(string propertyName, Quaternion? defaultValue) {
 			Quaternion q;
-			if (QuatTokens.TryGetValue(propertyName, out q))
+			if (QuatTokens.TryGetValue(propertyName.ToLower(), out q))
 				return q;
 			else if (defaultValue == null)
 				throw new ArgumentException("That property was not found in the .thing file!", propertyName);

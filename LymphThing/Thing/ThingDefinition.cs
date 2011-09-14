@@ -10,6 +10,7 @@ namespace PonykartParsers {
 		public ICollection<ShapeBlock> ShapeBlocks { get; protected set; }
 		public ICollection<ModelBlock> ModelBlocks { get; protected set; }
 		public ICollection<RibbonBlock> RibbonBlocks { get; protected set; }
+		public ICollection<BillboardBlock> BillboardBlocks { get; protected set; }
 
 		public ThingDefinition(string name) {
 			Name = name;
@@ -21,6 +22,7 @@ namespace PonykartParsers {
 			ShapeBlocks = new Collection<ShapeBlock>();
 			ModelBlocks = new Collection<ModelBlock>();
 			RibbonBlocks = new Collection<RibbonBlock>();
+			BillboardBlocks = new Collection<BillboardBlock>();
 		}
 
 		/// <summary>
@@ -33,6 +35,9 @@ namespace PonykartParsers {
 				mb.Finish();
 			foreach (RibbonBlock rb in RibbonBlocks)
 				rb.Finish();
+			foreach (BillboardBlock bb in BillboardBlocks) {
+				bb.Finish();
+			}
 		}
 
 		public override void Dispose() {
@@ -42,6 +47,9 @@ namespace PonykartParsers {
 				mb.Dispose();
 			foreach (RibbonBlock rb in RibbonBlocks)
 				rb.Dispose();
+			foreach (BillboardBlock bb in BillboardBlocks) {
+				bb.Dispose();
+			}
 			base.Dispose();
 		}
 	}

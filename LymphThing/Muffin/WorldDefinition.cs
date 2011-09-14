@@ -32,6 +32,9 @@ namespace PonykartParsers {
 		}
 	}
 
+	/// <summary>
+	/// These represent each Thing in the .muffin files
+	/// </summary>
 	public class ThingBlock : TokenHolder {
 		/// <summary>
 		/// The name of the .thing file this corresponds with
