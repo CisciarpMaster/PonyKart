@@ -1,0 +1,58 @@
+Physics = Static
+Mass = 0
+CollisionGroup = "Environment"
+CollidesWith = "Environment"
+
+// main tree model
+Model {
+	Mesh = "AppleTree.mesh"
+	Material = "AppleTree"
+	Position = 0.0116948, -0.156848, -0.0753398
+	CastsShadows = true
+}
+
+// loads of apples
+BillboardMaterial = "AppleBillboard"
+BillboardWidth = 1.5
+BillboardHeight = 1.5
+BillboardType = OrientedCommon
+
+Billboard {
+	Position = -0.778552, 8.69207, -6.22245
+}
+Billboard {
+	Position = -2.45999, 10.81, -6.28908
+}
+Billboard {
+	Position = 2.82122, 10.1031, -6.39849
+}
+Billboard {
+	Position = 0.14703, 6.69354, 3.44465
+}
+Billboard {
+	Position = 2.66972, 10.9047, 3.3212
+}
+Billboard {
+	Position = -1.35357, 11.8839, 1.07316
+}
+Billboard {
+	Position = 0.186206, 5.50255, -3.096
+}
+Billboard {
+	Position = -4.67988, 7.9483, -3.83949
+}
+Billboard {
+	Position = -2.84156, 4.80079, -2.58525
+}
+Billboard {
+	Position = 5.31391, 9.15035, -3.59756
+}
+Billboard {
+	Position = 4.28489, 6.35815, -0.215312
+}
+Billboard {
+	Position = -5.23201, 11.224, -1.41004
+}
+Billboard {
+	Position = -3.22149, 9.71482, 3.44428
+}

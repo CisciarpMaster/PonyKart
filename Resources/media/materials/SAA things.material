@@ -14,6 +14,22 @@ material AppleTree
 	}
 }
 
+material AppleBillboard {
+	receive_shadows off
+	
+	technique {
+		pass {
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			
+			texture_unit {
+				texture apple_alpha.png
+			}
+		}
+	}
+}
+
 material Farmhouse
 {
 	technique

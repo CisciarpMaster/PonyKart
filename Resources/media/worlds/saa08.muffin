@@ -41,6 +41,9 @@ Barn {
 AppleTree {
 	Position = -5, 1, 30
 }
+BillboardAppleTree {
+	Position = -20, 1, 30
+}
 AppleCart {
 	Position = -317.713, -0.7346, -339.787
 	Orientation = 0, 0.178411, -7.79858E-09, 0.983956
