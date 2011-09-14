@@ -119,7 +119,7 @@ namespace Ponykart.Actors {
 				BillboardSet.SetDefaultDimensions(def.GetFloatProperty("BillboardWidth", 1), def.GetFloatProperty("BillboardHeight", 1));
 
 				// billboard type
-				ThingEnum type = def.GetEnumProperty("BillboardType", null);
+				ThingEnum type = def.GetEnumProperty("BillboardType", ThingEnum.Point);
 				switch (type) {
 					case ThingEnum.Point:
 						BillboardSet.BillboardType = BillboardType.BBT_POINT; break;
