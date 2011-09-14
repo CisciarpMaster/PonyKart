@@ -39,7 +39,9 @@ namespace Ponykart.Core {
 			else 
 				thing = new LThing(template, definition);
 
+#if DEBUG
 			Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);
+#endif
 			Invoke(OnThingCreation, thing);
 
 

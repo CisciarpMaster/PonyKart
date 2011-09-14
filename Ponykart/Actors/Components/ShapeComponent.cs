@@ -6,22 +6,25 @@ using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
-	public class ShapeComponent : IThingComponent {
-		public int ID { get; protected set; }
-		public string Name { get; protected set; }
+	public class ShapeComponent : System.IDisposable {
 		public CollisionShape Shape { get; protected set; }
 		public Matrix4 Transform { get; protected set; }
 
+		/// <summary>
+		/// For physics
+		/// </summary>
+		/// <param name="lthing">The Thing this component is attached to</param>
+		/// <param name="template">The template from the Thing</param>
+		/// <param name="block">The block we're creating this component from</param>
 		public ShapeComponent(LThing lthing, ThingBlock template, ShapeBlock block) {
-			ID = IDs.New;
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
-			Name = block.GetStringProperty("name", template.ThingName);
 			Shape = block.Shape;
 			Transform = block.Transform;
 
+			// if our shape is a hull, this loads the hull mesh
 			if (block.EnumTokens["type"] == ThingEnum.Hull) {
-				// TODO: this stuff
+				
 				string name = block.GetStringProperty("hullname", "");
 
 				if (name != "" && File.Exists(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {

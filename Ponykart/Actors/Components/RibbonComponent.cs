@@ -1,10 +1,11 @@
-﻿using Mogre;
+﻿using System;
+using Mogre;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
-	public class RibbonComponent : IThingComponent {
+	public class RibbonComponent : IDisposable {
 		public int ID { get; protected set; }
 		public string Name { get; protected set; }
 		/// <summary>
@@ -16,6 +17,12 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public SceneNode RibbonNode { get; private set; }
 
+		/// <summary>
+		/// For ribbons!
+		/// </summary>
+		/// <param name="lthing">The Thing this component is attached to</param>
+		/// <param name="template">The template from the Thing</param>
+		/// <param name="block">The block we're creating this component from</param>
 		public RibbonComponent(LThing lthing, ThingBlock template, RibbonBlock block) {
 			ID = IDs.New;
 			var sceneMgr = LKernel.GetG<SceneManager>();
@@ -33,13 +40,8 @@ namespace Ponykart.Actors {
 			Ribbon.TrailLength = block.GetFloatProperty("length", 5);
 			Ribbon.MaxChainElements = (uint) block.GetFloatProperty("elements", 10);
 			Ribbon.SetInitialWidth(0, block.GetFloatProperty("width", 1));
-
-			// have to convert a quat to a colour
-			Quaternion colorQuat = block.GetQuatProperty("colour", new Quaternion(1, 1, 1, 1));
-			Ribbon.SetInitialColour(0, new ColourValue(colorQuat.x, colorQuat.y, colorQuat.z, colorQuat.w));
-
-			colorQuat = block.GetQuatProperty("colourchange", new Quaternion(0, 0, 0, 3));
-			Ribbon.SetColourChange(0, new ColourValue(colorQuat.x, colorQuat.y, colorQuat.z, colorQuat.w));
+			Ribbon.SetInitialColour(0, block.GetQuatProperty("colour", new Quaternion(1, 1, 1, 1)).ToColourValue());
+			Ribbon.SetColourChange(0, block.GetQuatProperty("colourchange", new Quaternion(0, 0, 0, 3)).ToColourValue());
 
 			// attach it to the node
 			RibbonNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID + "RibbonNode");

@@ -108,9 +108,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\Components\BillboardComponent.cs" />
     <Compile Include="Actors\Wheels\Wheel.cs" />
     <Compile Include="Actors\Wheels\WheelFactory.cs" />
-    <Compile Include="Actors\Components\IThingComponent.cs" />
     <Compile Include="Actors\LThing.cs" />
     <Compile Include="Actors\Components\ModelComponent.cs" />
     <Compile Include="Actors\Components\RibbonComponent.cs" />

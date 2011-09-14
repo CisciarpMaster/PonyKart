@@ -178,9 +178,19 @@ namespace Ponykart {
 			}
 			#endregion Globals
 
+			#region ColourValue
+			/// <summary>
+			/// Converts a quaternion to a colour value, mostly used for colour stuff in the .thing and .muffin files.
+			/// </summary>
+			/// <param name="quat">x for R, y for G, z for B, w for A</param>
+			public static ColourValue ToColourValue(this Quaternion quat) {
+				return new ColourValue(quat.x, quat.y, quat.z, quat.w);
+			}
+			#endregion
+
 		#endregion Quaternion
 
-		#region Matrix3
+			#region Matrix3
 
 			#region Getters
 			/// <summary>

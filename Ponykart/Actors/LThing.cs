@@ -14,6 +14,7 @@ namespace Ponykart.Actors {
 		public string Name { get; protected set; }
 		public RigidBody Body { get; protected set; }
 		public SceneNode RootNode { get; protected set; }
+		public BillboardSet BillboardSet { get; protected set; }
 
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
@@ -23,18 +24,36 @@ namespace Ponykart.Actors {
 		/// The actual motion state.
 		/// </summary>
 		protected MotionState MotionState { get; set; }
+		/// <summary>
+		/// The body's collision group
+		/// </summary>
 		public PonykartCollisionGroups CollisionGroup { get; protected set; }
+		/// <summary>
+		/// What does the body collide with?
+		/// </summary>
 		public PonykartCollidesWithGroups CollidesWith { get; protected set; }
 
+
+		/// <summary>
+		/// The thing's initial position when it's first created
+		/// </summary>
 		public Vector3 SpawnPosition { get; private set; }
+		/// <summary>
+		/// The thing's initial orientation when it's first created
+		/// </summary>
 		public Quaternion SpawnOrientation { get; private set; }
+		/// <summary>
+		/// The thing's initial scale when it's first created. This is only used if it doesn't have any shape components.
+		/// </summary>
 		public Vector3 SpawnScale { get; private set; }
-		protected RigidBodyConstructionInfo Info { get; set; }
+
+		protected RigidBodyConstructionInfo Info;
 		protected string Script;
 
 		public Collection<ModelComponent> ModelComponents { get; protected set; }
 		public Collection<ShapeComponent> ShapeComponents { get; protected set; }
 		public Collection<RibbonComponent> RibbonComponents { get; protected set; }
+		public Collection<BillboardComponent> BillboardComponents { get; protected set; }
 
 		public LThing(ThingBlock template, ThingDefinition def) {
 			ID = IDs.New;
@@ -43,6 +62,7 @@ namespace Ponykart.Actors {
 			ModelComponents = new Collection<ModelComponent>();
 			ShapeComponents = new Collection<ShapeComponent>();
 			RibbonComponents = new Collection<RibbonComponent>();
+			BillboardComponents = new Collection<BillboardComponent>();
 
 			// get our three basic transforms
 			SpawnPosition = template.GetVectorProperty("position", null);
@@ -87,21 +107,65 @@ namespace Ponykart.Actors {
 		/// Sets up mogre stuff, like our root scene node
 		/// </summary>
 		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
+			// create our root node
 			RootNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
-			
+
+			// only create a billboard set if we have any billboard blocks
+			if (def.BillboardBlocks.Count > 0) {
+				// set it up
+				BillboardSet = LKernel.GetG<SceneManager>().CreateBillboardSet(Name + ID + "BillboardSet", (uint) def.BillboardBlocks.Count);
+				BillboardSet.SetMaterialName(def.GetStringProperty("BillboardMaterial", null));
+				BillboardSet.CastShadows = def.GetBoolProperty("BillboardCastsShadows", false);
+				BillboardSet.SetDefaultDimensions(def.GetFloatProperty("BillboardWidth", 1), def.GetFloatProperty("BillboardHeight", 1));
+
+				// billboard type
+				ThingEnum type = def.GetEnumProperty("BillboardType", null);
+				switch (type) {
+					case ThingEnum.Point:
+						BillboardSet.BillboardType = BillboardType.BBT_POINT; break;
+					case ThingEnum.OrientedCommon:
+						BillboardSet.BillboardType = BillboardType.BBT_ORIENTED_COMMON; break;
+					case ThingEnum.OrientedSelf:
+						BillboardSet.BillboardType = BillboardType.BBT_ORIENTED_SELF; break;
+					case ThingEnum.PerpendicularCommon:
+						BillboardSet.BillboardType = BillboardType.BBT_PERPENDICULAR_COMMON; break;
+					case ThingEnum.PerpendicularSelf:
+						BillboardSet.BillboardType = BillboardType.BBT_PERPENDICULAR_SELF; break;
+				}
+
+				Vector3 vec;
+				if (def.VectorTokens.TryGetValue("BillboardUpVector", out vec))
+					BillboardSet.CommonUpVector = vec;
+				// sort transparent stuff
+				BillboardSet.SortingEnabled = true;
+				// make them point the right way
+				BillboardSet.CommonDirection = def.GetVectorProperty("BillboardDirection", Vector3.UNIT_Y);
+
+				// and then attach it to our root node
+				RootNode.AttachObject(BillboardSet);
+			}
 		}
 
 		/// <summary>
 		/// Make our components
 		/// </summary>
 		protected void InitialiseComponents(ThingBlock template, ThingDefinition def) {
-			// make our components
+			// ogre stuff
 			foreach (var mblock in def.ModelBlocks)
 				ModelComponents.Add(new ModelComponent(this, template, mblock));
+			// bullet stuff
 			foreach (var sblock in def.ShapeBlocks)
 				ShapeComponents.Add(new ShapeComponent(this, template, sblock));
+			// ribbons
 			foreach (var rblock in def.RibbonBlocks)
 				RibbonComponents.Add(new RibbonComponent(this, template, rblock));
+
+			// billboards
+			//if (def.BillboardBlocks.Count > 0) {
+				foreach (var bblock in def.BillboardBlocks)
+					BillboardComponents.Add(new BillboardComponent(this, template, bblock));
+				//BillboardSet.AutoUpdate = false;
+			//}
 		}
 
 		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
@@ -156,18 +220,18 @@ namespace Ponykart.Actors {
 			MotionState = DefaultMotionState;
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
 			// TODO
-			string physmat = def.GetStringProperty("physicsmaterial", "Default");
+			string physmat = def.GetStringProperty("PhysicsMaterial", "Default");
 			LKernel.GetG<PhysicsMaterialManager>().ApplyMaterial(Info, physmat);
 
 			// collision group
-			string collisionGroup = def.GetStringProperty("collisiongroup", "Default");
+			string collisionGroup = def.GetStringProperty("CollisionGroup", "Default");
 			PonykartCollisionGroups pcg;
 			if (!Enum.TryParse<PonykartCollisionGroups>(collisionGroup, true, out pcg))
 				throw new FormatException("Invalid collision group!");
 			CollisionGroup = pcg;
 
 			// collides-with group
-			string collidesWith = def.GetStringProperty("collideswith", "Default");
+			string collidesWith = def.GetStringProperty("CollidesWith", "Default");
 			PonykartCollidesWithGroups pcwg;
 			if (!Enum.TryParse<PonykartCollidesWithGroups>(collidesWith, true, out pcwg))
 				throw new FormatException("Invalid collides-with group!");
@@ -239,6 +303,8 @@ namespace Ponykart.Actors {
 				sc.Dispose();
 			foreach (RibbonComponent rc in RibbonComponents)
 				rc.Dispose();
+			foreach (BillboardComponent bb in BillboardComponents)
+				bb.Dispose();
 
 			if (RootNode != null) {
 				if (valid)
@@ -252,10 +318,17 @@ namespace Ponykart.Actors {
 				Body.Dispose();
 				Body = null;
 			}
+			if (BillboardSet != null) {
+				if (valid)
+					sceneMgr.DestroyBillboardSet(BillboardSet);
+				BillboardSet.Dispose();
+				BillboardSet = null;
+			}
 
 			ModelComponents.Clear();
 			ShapeComponents.Clear();
 			RibbonComponents.Clear();
+			BillboardComponents.Clear();
 		}
 	}
 }
