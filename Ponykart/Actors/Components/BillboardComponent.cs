@@ -21,7 +21,7 @@ namespace Ponykart.Actors {
 			if (block.QuatTokens.TryGetValue("Colour", out quat))
 				Billboard.Colour = quat.ToColourValue();
 			// and a rotation
-			//Billboard.Rotation = block.GetFloatProperty("Rotation", 0);
+			Billboard.Rotation = block.GetFloatProperty("Rotation", 0);
 
 			// it's best to not do this unless we really need to since it makes it less efficient
 			float height, width;
