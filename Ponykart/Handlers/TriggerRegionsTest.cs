@@ -50,7 +50,7 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// Remove the events
 		/// </summary>
-		public void Dispose() {
+		public void Detach() {
 			var reporter = LKernel.GetG<TriggerReporter>();
 
 			reporter.RemoveEvent(tr1.Name, doSomething);

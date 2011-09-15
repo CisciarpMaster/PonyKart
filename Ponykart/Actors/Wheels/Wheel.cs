@@ -7,7 +7,7 @@ using Math = Mogre.Math;
 
 namespace Ponykart.Actors {
 	// might want to make this abstract and make two more classes for front and back wheels
-	public class Wheel : System.IDisposable {
+	public class Wheel : LDisposable {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 		public int ID { get; protected set; }
@@ -158,9 +158,18 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// clean up stuff
 		/// </summary>
-		public void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
-			// dispose of mogre stuff? I suppose we don't need to since we aren't going to be disposing karts in the middle of a level
+
+			Node.Dispose();
+			Node = null;
+			Entity.Dispose();
+			Entity = null;
+
+			base.Dispose(disposing);
 		}
 	}
 

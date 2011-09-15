@@ -7,7 +7,7 @@ namespace Ponykart.Stuff {
 	/// <summary>
 	/// Class to get starting positions for the karts. Mostly placeholder code for now - later we should get positions from a file or something.
 	/// </summary>
-	public class KartSpawnPositions : IDisposable {
+	public class KartSpawnPositions {
 		private IDictionary<int, Vector3> dict;
 
 		public KartSpawnPositions() {
@@ -32,10 +32,6 @@ namespace Ponykart.Stuff {
 			if (ID < 0 || ID >= Settings.Default.NumberOfPlayers)
 				throw new ArgumentOutOfRangeException("ID", "ID number specified for kart spawn position is not valid!");
 			return dict[ID];
-		}
-
-		public void Dispose() {
-			dict.Clear();
 		}
 	}
 }

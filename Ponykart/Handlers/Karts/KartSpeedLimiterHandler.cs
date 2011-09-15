@@ -26,14 +26,14 @@ namespace Ponykart.Handlers {
 				return;
 
 			// every kart
-			foreach (Player p in playerManager.Players) {
+			foreach (Player player in playerManager.Players) {
 				// make sure the karts are valid
-				if (p == null || p.Kart == null || p.Body.IsDisposed) {
+				if (player == null || player.Kart == null || player.Body.IsDisposed) {
 					Launch.Log("[WARNING] (KartSpeedLimiterHandler) A player/kart was found that was null!");
 					continue;
 				}
 
-				Kart kart = p.Kart;
+				Kart kart = player.Kart;
 
 				// going forwards
 				// using 20 because we don't need to check the kart's linear velocity if it's going really slowly
@@ -58,7 +58,7 @@ namespace Ponykart.Handlers {
 			}
 		}
 
-		public void Dispose() {
+		public void Detach() {
 			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 		}
 	}

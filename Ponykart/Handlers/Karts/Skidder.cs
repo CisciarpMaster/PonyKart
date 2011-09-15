@@ -8,15 +8,15 @@ namespace Ponykart.Handlers {
 	/// <summary>
 	/// When a kart lands from a jump, this temporarily disables its wheels' friction
 	/// </summary>
-	public class Skidder : System.IDisposable {
-		public Kart Kart;
-		float Duration;
-		float Progress = 0;
+	public class Skidder {
+		public Kart _kart;
+		float _duration;
+		float _progress = 0;
 
 
 		public Skidder(Kart kart, float duration = 0.5f) {
-			Kart = kart;
-			Duration = duration;
+			_kart = kart;
+			_duration = duration;
 
 			LKernel.GetG<PhysicsMain>().PreSimulate += Update;
 		}
@@ -25,54 +25,54 @@ namespace Ponykart.Handlers {
 		/// It's just a linear function
 		/// </summary>
 		void Update(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (IsDisposed || Pauser.IsPaused)
+			if (_kart == null || Pauser.IsPaused)
 				return;
 
 			//System.Console.WriteLine(Kart.Body.AngularVelocity);
 
-			Progress += evt.timeSinceLastFrame;
-			if (Progress > Duration) {
-				Kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = Kart.WheelFL.FrictionSlip;
-				Kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = Kart.WheelFR.FrictionSlip;
-				Kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = Kart.WheelBL.FrictionSlip;
-				Kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = Kart.WheelBR.FrictionSlip;
+			_progress += evt.timeSinceLastFrame;
+			if (_progress > _duration) {
+				_kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = _kart.WheelFL.FrictionSlip;
+				_kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = _kart.WheelFR.FrictionSlip;
+				_kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = _kart.WheelBL.FrictionSlip;
+				_kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = _kart.WheelBR.FrictionSlip;
 
-				Dispose();
+				Detach();
 				return;
 			}
 
-			float fraction = Progress / Duration;
+			float fraction = _progress / _duration;
 
-			Kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = Kart.WheelFL.FrictionSlip * fraction;
-			Kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = Kart.WheelFR.FrictionSlip * fraction;
-			Kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = Kart.WheelBL.FrictionSlip * fraction;
-			Kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = Kart.WheelBR.FrictionSlip * fraction;
+			_kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = _kart.WheelFL.FrictionSlip * fraction;
+			_kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = _kart.WheelFR.FrictionSlip * fraction;
+			_kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = _kart.WheelBL.FrictionSlip * fraction;
+			_kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = _kart.WheelBR.FrictionSlip * fraction;
 
-			Vector3 vec = new Vector3(Kart.Body.AngularVelocity.x, Kart.Body.AngularVelocity.y, Kart.Body.AngularVelocity.z);
-			if (Kart.Body.AngularVelocity.x > 1)
+			Vector3 vec = new Vector3(_kart.Body.AngularVelocity.x, _kart.Body.AngularVelocity.y, _kart.Body.AngularVelocity.z);
+			if (_kart.Body.AngularVelocity.x > 1)
 				vec.x = 1;
-			else if (Kart.Body.AngularVelocity.x < -1)
+			else if (_kart.Body.AngularVelocity.x < -1)
 				vec.x = -1;
 
-			if (Kart.Body.AngularVelocity.y > 2)
+			if (_kart.Body.AngularVelocity.y > 2)
 				vec.y = 2;
-			else if (Kart.Body.AngularVelocity.y < -2)
+			else if (_kart.Body.AngularVelocity.y < -2)
 				vec.y = -2;
 
-			if (Kart.Body.AngularVelocity.z > 1)
+			if (_kart.Body.AngularVelocity.z > 1)
 				vec.z = 1;
-			else if (Kart.Body.AngularVelocity.z < -1)
+			else if (_kart.Body.AngularVelocity.z < -1)
 				vec.z = -1;
 
-			Kart.Body.AngularVelocity = vec;
+			_kart.Body.AngularVelocity = vec;
 		}
 
-		public bool IsDisposed = false;
-		public void Dispose() {
-			LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
-			IsDisposed = true;
-
-			LKernel.Get<StopKartsFromRollingOverHandler>().Skidders.Remove(Kart);
+		public void Detach() {
+			if (_kart != null) {
+				LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
+				LKernel.Get<StopKartsFromRollingOverHandler>().Skidders.Remove(_kart);
+				_kart = null;
+			}
 		}
 	}
 }

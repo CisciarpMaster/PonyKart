@@ -1,5 +1,4 @@
-﻿using System;
-using Mogre;
+﻿using Mogre;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using PonykartParsers;
@@ -8,7 +7,7 @@ namespace Ponykart.Actors {
 	/// <summary>
 	/// Represents an ogre ribbon
 	/// </summary>
-	public class RibbonComponent : IDisposable {
+	public class RibbonComponent : LDisposable {
 		public int ID { get; protected set; }
 		public string Name { get; protected set; }
 		/// <summary>
@@ -58,17 +57,33 @@ namespace Ponykart.Actors {
 			return Name + ID + "Ribbon";
 		}
 
-		public void Dispose() {
+		/// <summary>
+		/// clean up
+		/// </summary>
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
+			var sceneMgr = LKernel.GetG<SceneManager>();
+			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;
+
 			if (Settings.Default.EnableRibbons && Ribbon != null && RibbonNode != null) {
-				RibbonNode.DetachObject(Ribbon);
-				foreach (SceneNode n in Ribbon.GetNodeIterator())
-					Ribbon.RemoveNode(n);
-				if (LKernel.GetG<LevelManager>().IsValidLevel)
-					LKernel.GetG<SceneManager>().DestroyRibbonTrail(Ribbon);
+				if (disposing) {
+					RibbonNode.DetachObject(Ribbon);
+					foreach (SceneNode n in Ribbon.GetNodeIterator())
+						Ribbon.RemoveNode(n);
+					if (valid)
+						sceneMgr.DestroyRibbonTrail(Ribbon);
+					if (valid)
+						sceneMgr.DestroySceneNode(RibbonNode);
+				}
 				Ribbon.Dispose();
 				Ribbon = null;
+				RibbonNode.Dispose();
 				RibbonNode = null;
 			}
+
+			base.Dispose(disposing);
 		}
 	}
 }

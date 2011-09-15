@@ -12,7 +12,7 @@ namespace Ponykart.Levels {
 	/// <summary>
 	/// Represents a level or world in our game.
 	/// </summary>
-	public class Level : System.IDisposable {
+	public class Level : LDisposable {
 		/// <summary>
 		/// The world's name - this serves as its identifier
 		/// </summary>
@@ -23,7 +23,7 @@ namespace Ponykart.Levels {
 		/// </summary>
 		public LevelType Type { get; private set; }
 
-		public WorldDefinition Definition { get; private set; }
+		public MuffinDefinition Definition { get; private set; }
 		/// <summary>
 		/// We use the thing's Name as the key
 		/// </summary>
@@ -103,16 +103,24 @@ namespace Ponykart.Levels {
 				Things[newThing.Name] = newThing;
 		}
 
-		public void Dispose() {
-			LKernel.GetG<Spawner>().OnThingCreation -= OnSpawnEvent;
-			if (Definition != null)
-				Definition.Dispose();
-			if (Things != null) {
-				foreach (LThing t in Things.Values)
-					t.Dispose();
-				Things.Clear();
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
+			if (disposing) {
+				LKernel.GetG<Spawner>().OnThingCreation -= OnSpawnEvent;
+				if (Things != null) {
+					foreach (LThing t in Things.Values)
+						t.Dispose();
+					Things.Clear();
+				}
+				LKernel.GetG<ThingDatabase>().ClearDatabase();
+
+				if (Definition != null)
+					Definition.Dispose();
 			}
-			LKernel.GetG<ThingDatabase>().ClearDatabase();
+
+			base.Dispose(disposing);
 		}
 	}
 }

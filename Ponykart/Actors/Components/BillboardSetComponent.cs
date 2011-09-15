@@ -7,7 +7,7 @@ namespace Ponykart.Actors {
 	/// <summary>
 	/// Represents a billboard set, aka a collection of billboards that share the same material, direction, etc.
 	/// </summary>
-	public class BillboardSetComponent : IDisposable {
+	public class BillboardSetComponent : LDisposable {
 		public int ID { get; protected set; }
 		public string Name { get; protected set; }
 		public BillboardSet BillboardSet { get; protected set; }
@@ -95,16 +95,21 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// clean up our billboard set
 		/// </summary>
-		public void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;
 
 			if (BillboardSet != null) {
-				if (valid)
+				if (valid && disposing)
 					sceneMgr.DestroyBillboardSet(BillboardSet);
 				BillboardSet.Dispose();
 				BillboardSet = null;
 			}
+
+			base.Dispose(disposing);
 		}
 	}
 }

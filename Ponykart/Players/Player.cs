@@ -10,7 +10,7 @@ namespace Ponykart.Players {
 	/// <summary>
 	/// Abstract class for players - each player controls a kart, and abstracting away the player will help when it comes to things like AI and/or networking
 	/// </summary>
-	public abstract class Player : System.IDisposable {
+	public abstract class Player {
 		/// <summary>
 		/// The kart that this player is driving
 		/// </summary>
@@ -62,7 +62,7 @@ namespace Ponykart.Players {
 		#endregion
 
 
-		public virtual void Dispose() {
+		public virtual void Detach() {
 			Kart = null;
 		}
 	}

@@ -40,7 +40,7 @@ namespace Ponykart.Core {
 				thing = new LThing(template, definition);
 
 #if DEBUG
-			Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);
+			//Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);
 #endif
 			Invoke(OnThingCreation, thing);
 

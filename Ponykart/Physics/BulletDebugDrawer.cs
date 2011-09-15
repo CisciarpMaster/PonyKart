@@ -6,7 +6,7 @@ using Ponykart.Players;
 
 namespace Ponykart.Physics {
 	[Handler(HandlerScope.Level)]
-	public class BulletDebugDrawer : IDebugDraw, ILevelHandler {
+	public class BulletDebugDrawer : LDisposable, IDebugDraw, ILevelHandler {
 		SceneManager sceneMgr;
 		ManualObject lines;
 		ManualObject triangles;
@@ -78,11 +78,21 @@ namespace Ponykart.Physics {
 			}
 		}
 
-		public void Dispose() {
+		public void Detach() {
 			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 			LKernel.GetG<PhysicsMain>().PostSimulate -= PostSimulate;
+
+			Dispose();
+		}
+
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			lines.Dispose();
 			triangles.Dispose();
+
+			base.Dispose(disposing);
 		}
 
 		/// <summary>

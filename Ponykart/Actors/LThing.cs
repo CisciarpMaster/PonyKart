@@ -9,7 +9,7 @@ using PonykartParsers;
 
 namespace Ponykart.Actors {
 
-	public class LThing : System.IDisposable {
+	public class LThing : LDisposable {
 		public int ID { get; protected set; }
 		public string Name { get; protected set; }
 		public RigidBody Body { get; protected set; }
@@ -100,7 +100,7 @@ namespace Ponykart.Actors {
 		/// Use this method if you need some more stuff to happen before the constructor starts setting everything up.
 		/// For example if you need to get more things out of the ThingTemplate, you can use this for that.
 		/// </summary>
-		protected virtual void Setup(ThingBlock template, ThingDefinition def) {}
+		protected virtual void Setup(ThingBlock template, ThingDefinition def) { }
 
 		/// <summary>
 		/// Sets up mogre stuff, like our root scene node
@@ -261,42 +261,49 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Clean up stuff
+		/// clean up
 		/// </summary>
-		public virtual void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			var world = LKernel.GetG<PhysicsMain>().World;
 			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;
 
-			// dispose all of our components
-			foreach (ModelComponent mc in ModelComponents)
-				mc.Dispose();
-			foreach (ShapeComponent sc in ShapeComponents)
-				sc.Dispose();
-			foreach (RibbonComponent rc in RibbonComponents)
-				rc.Dispose();
-			foreach (BillboardSetComponent bb in BillboardSetComponents)
-				bb.Dispose();
+			if (disposing) {
+				// dispose all of our components
+				foreach (ModelComponent mc in ModelComponents)
+					mc.Dispose();
+				foreach (ShapeComponent sc in ShapeComponents)
+					sc.Dispose();
+				foreach (RibbonComponent rc in RibbonComponents)
+					rc.Dispose();
+				foreach (BillboardSetComponent bb in BillboardSetComponents)
+					bb.Dispose();
 
-			// dispose this stuff
+				// clear our components
+				ModelComponents.Clear();
+				ShapeComponents.Clear();
+				RibbonComponents.Clear();
+				BillboardSetComponents.Clear();
+			}
+
+			// these are conditional in case we want to dispose stuff in the middle of a level
 			if (RootNode != null) {
-				if (valid)
+				if (valid && disposing)
 					sceneMgr.DestroySceneNode(RootNode);
 				RootNode.Dispose();
 				RootNode = null;
 			}
 			if (Body != null) {
-				if (valid)
+				if (valid && disposing)
 					world.RemoveRigidBody(Body);
 				Body.Dispose();
 				Body = null;
 			}
 
-			// clear our components
-			ModelComponents.Clear();
-			ShapeComponents.Clear();
-			RibbonComponents.Clear();
-			BillboardSetComponents.Clear();
+			base.Dispose(disposing);
 		}
 	}
 }

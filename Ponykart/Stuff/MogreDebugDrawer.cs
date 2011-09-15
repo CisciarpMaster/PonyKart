@@ -656,11 +656,11 @@ public class MogreDebugDrawer : System.IDisposable {
 	}
 	#region "IDisposable Support"
 	// So ermitteln Sie überflüssige Aufrufe
-	private bool disposedValue;
+	private bool isDisposed;
 
 	// IDisposable
 	protected virtual void Dispose(bool disposing) {
-		if (!this.disposedValue) {
+		if (!this.isDisposed) {
 			if (disposing) {
 				// TO DO: Verwalteten Zustand löschen (verwaltete Objekte).
 			}
@@ -668,7 +668,7 @@ public class MogreDebugDrawer : System.IDisposable {
 			// TO DO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalize() unten überschreiben.
 			// TO DO: Große Felder auf NULL festlegen.
 		}
-		this.disposedValue = true;
+		this.isDisposed = true;
 	}
 
 	// TO DO: Finalize() nur überschreiben, wenn Dispose(ByVal disposing As Boolean) oben über Code zum Freigeben von nicht verwalteten Ressourcen verfügt.

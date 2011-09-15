@@ -19,7 +19,7 @@ namespace Ponykart.Handlers {
 				LKernel.GetG<PlayerManager>().MainPlayer.Kart.SetWheelFriction(0);
 		}
 
-		public void Dispose() {
+		public void Detach() {
 			LKernel.GetG<InputMain>().OnKeyboardPress_Anything -= Press;
 			LKernel.GetG<InputMain>().OnKeyboardRelease_Anything -= Release;
 		}

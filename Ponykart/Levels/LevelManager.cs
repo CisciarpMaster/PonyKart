@@ -64,9 +64,9 @@ namespace Ponykart.Levels {
 				if (OnLevelUnload != null)
 					OnLevelUnload(eventArgs);
 
-				CurrentLevel.Dispose();
-
 				LKernel.Cleanup();
+
+				CurrentLevel.Dispose();
 			}
 		}
 

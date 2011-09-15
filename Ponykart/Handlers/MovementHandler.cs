@@ -36,7 +36,7 @@ namespace Ponykart.Handlers {
 			}
 		}
 
-		public void Dispose() {
+		public void Detach() {
 			Launch.Log("[Loading] Disposing MovementHandler");
 
 			LKernel.GetG<Spawner>().OnThingCreation -= AddActor;

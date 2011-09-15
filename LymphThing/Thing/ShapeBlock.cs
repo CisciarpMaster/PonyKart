@@ -57,10 +57,14 @@ namespace PonykartParsers {
 			}
 		}
 
-		public override void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			if (Shape != null)
 				Shape.Dispose();
-			base.Dispose();
+
+			base.Dispose(disposing);
 		}
 
 		static Quaternion GlobalEulerToQuat(Radian rotX, Radian rotY, Radian rotZ) {

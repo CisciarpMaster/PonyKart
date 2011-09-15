@@ -2,14 +2,13 @@
 using BulletSharp;
 using Mogre;
 using Ponykart.Handlers;
-using Ponykart.Levels;
 using Ponykart.Properties;
 
 namespace Ponykart.Physics {
 
 	public delegate void TriggerReportHandler(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags);
 
-	public class TriggerRegion : System.IDisposable {
+	public class TriggerRegion : LDisposable {
 		public RigidBody Body { get; protected set; }
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
@@ -33,7 +32,7 @@ namespace Ponykart.Physics {
 		public TriggerRegion(string name, Vector3 position, Quaternion rotation, CollisionShape shape) {
 			Name = name;
 			CurrentlyCollidingWith = new HashSet<RigidBody>();
-			
+
 			// mogre
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
@@ -119,24 +118,28 @@ namespace Ponykart.Physics {
 		BalloonGlowColor balloonColor = BalloonGlowColor.red;
 
 		/// <summary>
-		/// do we need to dispose of this stuff? don't we nuke the scene manager every time?
+		/// we can assume our trigger regions are permanent
 		/// </summary>
-		public void Dispose() {
-			var sceneMgr = LKernel.GetG<SceneManager>();
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
 
-			if (Node != null) {
-				if (LKernel.GetG<LevelManager>().IsValidLevel) {
-					if (Settings.Default.EnableGlowyRegions)
-						sceneMgr.DestroyEntity(Entity);
-					sceneMgr.DestroySceneNode(Node);
-				}
-				if (Settings.Default.EnableGlowyRegions) {
-					Entity.Dispose();
-					Entity = null;
-				}
-				Node.Dispose();
-				Node = null;
+			if (disposing) {
+				var sceneMgr = LKernel.GetG<SceneManager>();
+				if (Settings.Default.EnableGlowyRegions)
+					sceneMgr.DestroyEntity(Entity);
+				sceneMgr.DestroySceneNode(Node);
 			}
+			if (Settings.Default.EnableGlowyRegions) {
+				Entity.Dispose();
+				Entity = null;
+			}
+
+			Node.Dispose();
+			Node = null;
+			
+
+			base.Dispose(disposing);
 		}
 	}
 }

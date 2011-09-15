@@ -38,7 +38,7 @@ namespace Ponykart.Players {
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			for (int a = 0; a < Players.Length; a++) {
 				if (Players[a] != null) {
-					Players[a].Dispose();
+					Players[a].Detach();
 					Players[a] = null;
 				}
 			}

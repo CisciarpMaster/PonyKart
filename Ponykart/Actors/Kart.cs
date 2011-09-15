@@ -91,15 +91,21 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		public override void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
 
-			// then we have to dispose of all of the wheels
-			WheelFL.Dispose();
-			WheelFR.Dispose();
-			WheelBL.Dispose();
-			WheelBR.Dispose();
+			if (disposing) {
+				// then we have to dispose of all of the wheels
+				WheelFL.Dispose();
+				WheelFR.Dispose();
+				WheelBL.Dispose();
+				WheelBR.Dispose();
+			}
 
-			base.Dispose();
+			Vehicle.Dispose();
+
+			base.Dispose(disposing);
 		}
 	}
 }

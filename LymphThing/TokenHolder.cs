@@ -6,7 +6,7 @@ namespace PonykartParsers {
 	/// <summary>
 	/// Since both the .thing and its blocks can all have properties, they all use this abstract class to give them dictionaries and a few helpful methods
 	/// </summary>
-	public abstract class TokenHolder : IDisposable {
+	public abstract class TokenHolder : LDisposable {
 		public IDictionary<string, ThingEnum> EnumTokens { get; protected set; }
 		public IDictionary<string, string> StringTokens { get; protected set; }
 		public IDictionary<string, float> FloatTokens { get; protected set; }
@@ -115,13 +115,20 @@ namespace PonykartParsers {
 
 		public virtual void Finish() { }
 
-		public virtual void Dispose() {
-			EnumTokens.Clear();
-			StringTokens.Clear();
-			FloatTokens.Clear();
-			BoolTokens.Clear();
-			VectorTokens.Clear();
-			QuatTokens.Clear();
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
+			if (disposing) {
+				EnumTokens.Clear();
+				StringTokens.Clear();
+				FloatTokens.Clear();
+				BoolTokens.Clear();
+				VectorTokens.Clear();
+				QuatTokens.Clear();
+			}
+
+			base.Dispose(disposing);
 		}
 	}
 }

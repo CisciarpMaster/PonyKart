@@ -14,7 +14,7 @@ namespace Ponykart.Physics {
 	public delegate void PhysicsWorldEventHandler(DiscreteDynamicsWorld world);
 	public delegate void PhysicsSimulateEventHandler(DiscreteDynamicsWorld world, FrameEvent evt);
 
-	public class PhysicsMain : System.IDisposable {
+	public class PhysicsMain : LDisposable {
 		private bool quit = false;
 
 		private BroadphaseInterface broadphase;
@@ -146,8 +146,13 @@ namespace Ponykart.Physics {
 			}
 			PhysicsStuffToDispose.Clear();
 
-			if (!world.IsDisposed)
+			if (!world.IsDisposed) {
+				broadphase.Dispose();
+				solver.Dispose();
+				dcc.Dispose();
+				dispatcher.Dispose();
 				world.Dispose();
+			}
 		}
 
 		/// <summary>
@@ -267,13 +272,18 @@ namespace Ponykart.Physics {
 			get { return world; }
 		}
 
-		public void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			foreach (IDisposable shape in PhysicsStuffToDispose)
 				shape.Dispose();
 			PhysicsStuffToDispose.Clear();
 
 			if (!world.IsDisposed)
 				world.Dispose();
+
+			base.Dispose(disposing);
 		}
 	}
 }

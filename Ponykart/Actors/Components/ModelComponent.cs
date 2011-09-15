@@ -7,7 +7,7 @@ namespace Ponykart.Actors {
 	/// <summary>
 	/// Represents an ogre node and mesh
 	/// </summary>
-	public class ModelComponent : IDisposable {
+	public class ModelComponent : LDisposable {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 		public int ID { get; protected set; }
@@ -58,21 +58,26 @@ namespace Ponykart.Actors {
 			Node.InheritOrientation = true;
 		}
 
-		public void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;
 
 			if (Entity != null) {
-				if (valid)
+				if (valid && disposing)
 					sceneMgr.DestroyEntity(Entity);
 				Entity.Dispose();
 				Entity = null;
 			}
 			if (Node != null) {
-				if (valid)
+				if (valid && disposing)
 					sceneMgr.DestroySceneNode(Node);
 				Node.Dispose();
 			}
+
+			base.Dispose(disposing);
 		}
 
 		public override string ToString() {

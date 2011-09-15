@@ -9,7 +9,7 @@ namespace Ponykart.Handlers {
 	/// Instead of doing 8 raycasts every frame to self-right stuff, instead we only raycast every few frames and then only run
 	/// this when we need to self-right, and then get rid of it afterwards
 	/// </summary>
-	public class SelfRightingHandler : System.IDisposable {
+	public class SelfRightingHandler {
 		Kart kart;
 
 		public SelfRightingHandler(Kart kartToFlip) {
@@ -24,7 +24,7 @@ namespace Ponykart.Handlers {
 		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			// if the kart's gone, then we can get rid of this handler too
 			if (kart == null || kart.Vehicle.IsDisposed) {
-				Dispose();
+				Detach();
 				return;
 			}
 			// don't self-right if we're paused
@@ -39,7 +39,7 @@ namespace Ponykart.Handlers {
 
 			// first of all, if we're self righted enough, we can get rid of this handler
 			if (locY.DirectionEquals(Vector3.UNIT_Y, 0.0523f)) { // 3 degrees
-				Dispose();
+				Detach();
 				return;
 			}
 
@@ -57,13 +57,7 @@ namespace Ponykart.Handlers {
 			kart.Body.SetOrientation(quat);
 		}
 
-		public bool IsDisposed = false;
-		public void Dispose() {
-			// already disposed?
-			if (IsDisposed)
-				return;
-
-			IsDisposed = true;
+		public void Detach() {
 			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 			kart = null;
 		}

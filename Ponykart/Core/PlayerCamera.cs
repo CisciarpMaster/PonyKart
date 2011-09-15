@@ -9,7 +9,7 @@ namespace Ponykart.Core {
 	/// A basic third-person camera with some smoothing.
 	/// TODO: Make more camera types and a way to switch between them more effectively.
 	/// </summary>
-	public class PlayerCamera : ILevelHandler {
+	public class PlayerCamera : LDisposable, ILevelHandler {
 		
 		public Camera Camera { get; private set; }
 		SceneNode TargetNode;
@@ -71,18 +71,30 @@ namespace Ponykart.Core {
 			return true;
 		}
 
-		public void Dispose() {
+		public void Detach() {
 			//LKernel.Get<Spawner>().OnKartCreation -= OnKartCreation;
 			LKernel.GetG<Root>().FrameStarted -= UpdateCamera;
 
-			var sceneMgr = LKernel.GetG<SceneManager>();
+			Dispose();
+		}
 
-			sceneMgr.DestroyCamera(Camera);
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
+			if (disposing) {
+				var sceneMgr = LKernel.GetG<SceneManager>();
+
+				sceneMgr.DestroyCamera(Camera);
+				sceneMgr.DestroySceneNode(CameraNode);
+				sceneMgr.DestroySceneNode(TargetNode);
+			}
+
 			Camera.Dispose();
-			sceneMgr.DestroySceneNode(CameraNode);
 			CameraNode.Dispose();
-			sceneMgr.DestroySceneNode(TargetNode);
 			TargetNode.Dispose();
+
+			base.Dispose(disposing);
 		}
 	}
 }

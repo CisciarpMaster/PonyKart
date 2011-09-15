@@ -151,7 +151,7 @@ namespace Ponykart.Handlers {
 		private void GettingCloseToTouchingDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback, SelfRightingHandler srh) {
 			// getting rid of our SRH means that we're close to landing but we haven't landed yet
 			if (Settings.Default.UseSelfRightingHandlers) {
-				srh.Dispose();
+				srh.Detach();
 				SRHs.Remove(kart);
 			}
 
@@ -176,7 +176,7 @@ namespace Ponykart.Handlers {
 			if (Settings.Default.UseNlerpers) {
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
-					n.Dispose();
+					n.Detach();
 					Nlerpers.Remove(kart);
 				}
 			}
@@ -185,7 +185,7 @@ namespace Ponykart.Handlers {
 			if (Settings.Default.UseSkidders) {
 				Skidder s;
 				if (Skidders.TryGetValue(kart, out s)) {
-					s.Dispose();
+					s.Detach();
 					Skidders.Remove(kart);
 				}
 				Skidders[kart] = new Skidder(kart, Settings.Default.SkidderDuration);
@@ -220,7 +220,7 @@ namespace Ponykart.Handlers {
 				// if we already have a nlerper, get rid of it
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
-					n.Dispose();
+					n.Detach();
 				}
 				Nlerpers[kart] = new Nlerper(kart, duration, newOrientation);
 			}
@@ -241,7 +241,7 @@ namespace Ponykart.Handlers {
 				SelfRightingHandler[] srh = new SelfRightingHandler[SRHs.Count];
 				SRHs.Values.CopyTo(srh, 0);
 				foreach (SelfRightingHandler h in srh) {
-					h.Dispose();
+					h.Detach();
 				}
 				SRHs.Clear();
 
@@ -249,7 +249,7 @@ namespace Ponykart.Handlers {
 				Nlerper[] ns = new Nlerper[Nlerpers.Count];
 				Nlerpers.Values.CopyTo(ns, 0);
 				foreach (Nlerper n in ns) {
-					n.Dispose();
+					n.Detach();
 				}
 				Nlerpers.Clear();
 
@@ -257,7 +257,7 @@ namespace Ponykart.Handlers {
 				Skidder[] ss = new Skidder[Skidders.Count];
 				Skidders.Values.CopyTo(ss, 0);
 				foreach (Skidder s in ss) {
-					s.Dispose();
+					s.Detach();
 				}
 				Skidders.Clear();
 			}

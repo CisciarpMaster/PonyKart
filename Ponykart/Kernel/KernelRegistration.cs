@@ -182,7 +182,7 @@ namespace Ponykart {
 			foreach (var obj in LevelObjects.Values) {
 				Console.WriteLine("[Loading] \tDisposing: " + obj.GetType().ToString());
 				// if this cast fails, then you need to make sure the level handler implements ILevelHandler!
-				(obj as ILevelHandler).Dispose();
+				(obj as ILevelHandler).Detach();
 			}
 		}
 

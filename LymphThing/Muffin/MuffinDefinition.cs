@@ -1,0 +1,42 @@
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace PonykartParsers {
+	/// <summary>
+	/// Represents a .muffin file
+	/// </summary>
+	public class MuffinDefinition : TokenHolder {
+		public string Name { get; private set; }
+		public LevelType Type { get; private set; }
+		public ICollection<ThingBlock> ThingBlocks { get; protected set; }
+		public ICollection<string> ExtraFiles { get; set; }
+
+		public MuffinDefinition(string name) {
+			Name = name;
+			SetUpDictionaries();
+		}
+
+		public override void SetUpDictionaries() {
+			base.SetUpDictionaries();
+			ThingBlocks = new Collection<ThingBlock>();
+			ExtraFiles = new Collection<string>();
+		}
+
+		public override void Finish() {
+			foreach (ThingBlock tb in ThingBlocks)
+				tb.Finish();
+		}
+
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
+			if (disposing) {
+				foreach (ThingBlock tb in ThingBlocks)
+					tb.Dispose();
+			}
+
+			base.Dispose(disposing);
+		}
+	}
+}

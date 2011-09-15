@@ -9,7 +9,7 @@ namespace Ponykart.Actors {
 	/// <summary>
 	/// Represents a physics collision shape
 	/// </summary>
-	public class ShapeComponent : System.IDisposable {
+	public class ShapeComponent : LDisposable {
 		public CollisionShape Shape { get; protected set; }
 		public Matrix4 Transform { get; protected set; }
 
@@ -51,10 +51,14 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		public void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			if (!Shape.IsDisposed)
 				Shape.Dispose();
-			Transform = null;
+
+			base.Dispose(disposing);
 		}
 	}
 }

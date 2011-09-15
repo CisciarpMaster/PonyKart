@@ -1,5 +1,4 @@
-﻿using System;
-using Miyagi.Common;
+﻿using Miyagi.Common;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Mogre;
@@ -9,7 +8,7 @@ namespace Ponykart.UI {
 	/// <summary>
 	/// The class that manages the UI system
 	/// </summary>
-	public class UIMain : IDisposable {
+	public class UIMain : LDisposable {
 
 		/// <summary>
 		/// The Miyagi system - this pretty much controls everything in the GUI or has pointers to classes that do so
@@ -65,9 +64,14 @@ namespace Ponykart.UI {
 			return true;
 		}
 
-		public void Dispose() {
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			// TODO: figure out how to stop miyagi from throwing errors whenever we shut down the program
 			MiyagiSys.Dispose();
+
+			base.Dispose(disposing);
 		}
 
 
@@ -99,7 +103,6 @@ namespace Ponykart.UI {
 		 * if I'm doing drag-and-drop inventories, I'll need this somewhere
 		 * http://www.ogre3d.org/addonforums/viewtopic.php?p=77691#p77691
 		 * itemIcon.SuccessfulHitTest += (s, e) => e.Cancel = s == this.MiyagiSystem.GUIManager.GrabbedControl;
-		 * 
 		 */
 	}
 }

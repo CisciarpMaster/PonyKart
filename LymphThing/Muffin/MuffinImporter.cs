@@ -23,10 +23,10 @@ namespace PonykartParsers {
 		/// instead of making a new one.
 		/// </param>
 		/// <returns>A world definition with the stuff from the specified muffin file.</returns>
-		public WorldDefinition Parse(string nameOfWorld, WorldDefinition worldDef = null) {
+		public MuffinDefinition Parse(string nameOfWorld, MuffinDefinition worldDef = null) {
 			// the initial level before we start loading one is "null", so we need to avoid doing anything with that.
 			if (nameOfWorld == null) {
-				WorldDefinition emptyDef = new WorldDefinition("");
+				MuffinDefinition emptyDef = new MuffinDefinition("");
 				emptyDef.EnumTokens["type"] = ThingEnum.EmptyLevel;
 				emptyDef.Finish();
 				return emptyDef;
@@ -41,7 +41,7 @@ namespace PonykartParsers {
 				LogManager.Singleton.LogMessage("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
 				Debug.WriteLine("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
 
-				WorldDefinition def = new WorldDefinition(nameOfWorld);
+				MuffinDefinition def = new MuffinDefinition(nameOfWorld);
 				def.EnumTokens["type"] = ThingEnum.Race;
 				def.Finish();
 				return def;
@@ -68,7 +68,7 @@ namespace PonykartParsers {
 
 
 			if (worldDef == null)
-				worldDef = new WorldDefinition(nameOfWorld);
+				worldDef = new MuffinDefinition(nameOfWorld);
 
 			Parse(worldDef);
 
@@ -84,7 +84,7 @@ namespace PonykartParsers {
 		/// <summary>
 		/// Parses right from the root
 		/// </summary>
-		void Parse(WorldDefinition worldDef) {
+		void Parse(MuffinDefinition worldDef) {
 			for (int a = 0; a < root.Children.Length; a++) {
 				Node prop = root.Children[a];
 				switch (prop.Type) {
@@ -224,7 +224,7 @@ namespace PonykartParsers {
 		/// <summary>
 		/// Shape blocks
 		/// </summary>
-		void ParseBlock(WorldDefinition worldDef, RuleInstance block) {
+		void ParseBlock(MuffinDefinition worldDef, RuleInstance block) {
 			Token nameTok = (block.Children[0] as RuleInstance).Children[0] as Token;
 
 			ThingBlock thingBlock = new ThingBlock(nameTok.Image, worldDef);

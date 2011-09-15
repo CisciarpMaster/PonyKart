@@ -5,12 +5,15 @@ using Mogre;
 using Ponykart.Properties;
 
 namespace Ponykart.Actors {
+	/// <summary>
+	/// A class to read .wheel files and stick them into a wheel object
+	/// </summary>
 	public class WheelFactory {
 		// our list of wheels
-		IDictionary<string, IDictionary<string, float>> wheels;
+		private IDictionary<string, IDictionary<string, float>> wheels;
 
 		// this helps us parse things because of how some countries use . as a decimal point while others use ,
-		CultureInfo culture = CultureInfo.InvariantCulture;
+		private CultureInfo culture = CultureInfo.InvariantCulture;
 
 		/// <summary>
 		/// Constructor.

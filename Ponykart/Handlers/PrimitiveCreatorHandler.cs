@@ -34,7 +34,7 @@ namespace Ponykart.Handlers {
 			}
 		}
 
-		public void Dispose() {
+		public void Detach() {
 			LKernel.GetG<InputMain>().OnKeyboardPress_Anything -= ShootPrimitive;
 		}
 	}

@@ -123,7 +123,7 @@ namespace Ponykart.Players {
 		}
 
 
-		public override void Dispose() {
+		public override void Detach() {
 			bindings.PressEventsDict[LKey.Accelerate] -= OnPressAccelerate;
 			bindings.ReleaseEventsDict[LKey.Accelerate] -= OnReleaseAccelerate;
 			bindings.PressEventsDict[LKey.Brake] -= OnPressBrake;
@@ -135,7 +135,7 @@ namespace Ponykart.Players {
 			bindings.PressEventsDict[LKey.TurnRight] -= OnPressTurnRight;
 			bindings.ReleaseEventsDict[LKey.TurnRight] -= OnReleaseTurnRight;
 
-			base.Dispose();
+			base.Detach();
 		}
 	}
 }

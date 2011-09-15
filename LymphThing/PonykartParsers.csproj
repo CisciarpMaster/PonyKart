@@ -93,8 +93,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LDisposable.cs" />
     <Compile Include="Muffin\LevelType.cs" />
+    <Compile Include="Muffin\ThingBlock.cs" />
     <Compile Include="Thing\BillboardBlock.cs" />
+    <Compile Include="Thing\BillboardSetBlock.cs" />
     <Compile Include="Thing\ModelBlock.cs" />
     <Compile Include="Muffin\MuffinImporter.cs" />
     <Compile Include="Muffin\MuffinParser.cs" />
@@ -112,7 +115,7 @@
     <Compile Include="Thing\ThingImporter.cs" />
     <Compile Include="Thing\ThingParser.cs" />
     <Compile Include="TokenHolder.cs" />
-    <Compile Include="Muffin\WorldDefinition.cs" />
+    <Compile Include="Muffin\MuffinDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

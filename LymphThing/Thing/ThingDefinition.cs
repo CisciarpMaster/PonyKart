@@ -39,16 +39,22 @@ namespace PonykartParsers {
 				bb.Finish();
 		}
 
-		public override void Dispose() {
-			foreach (ShapeBlock sb in ShapeBlocks)
-				sb.Dispose();
-			foreach (ModelBlock mb in ModelBlocks)
-				mb.Dispose();
-			foreach (RibbonBlock rb in RibbonBlocks)
-				rb.Dispose();
-			foreach (BillboardSetBlock bb in BillboardSetBlocks)
-				bb.Dispose();
-			base.Dispose();
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
+			if (disposing) {
+				foreach (ShapeBlock sb in ShapeBlocks)
+					sb.Dispose();
+				foreach (ModelBlock mb in ModelBlocks)
+					mb.Dispose();
+				foreach (RibbonBlock rb in RibbonBlocks)
+					rb.Dispose();
+				foreach (BillboardSetBlock bb in BillboardSetBlocks)
+					bb.Dispose();
+			}
+
+			base.Dispose(disposing);
 		}
 	}
 }

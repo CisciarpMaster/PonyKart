@@ -4,7 +4,7 @@ using Ponykart.Physics;
 
 namespace Ponykart.Handlers {
 	[Handler(HandlerScope.Level, LevelType.Race)]
-	public class DebugDrawerHandler : ILevelHandler {
+	public class DebugDrawerHandler : LDisposable, ILevelHandler {
 
 		public DebugDrawerHandler() {
 			MogreDebugDrawer.SetSingleton(new MogreDebugDrawer(LKernel.GetG<SceneManager>(), 0.6f));
@@ -25,10 +25,20 @@ namespace Ponykart.Handlers {
 			return true;
 		}
 
-		public void Dispose() {
+		public void Detach() {
 			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
+
+			Dispose();
+		}
+
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
 			MogreDebugDrawer.Singleton.Dispose();
+
+			base.Dispose(disposing);
 		}
 	}
 }
