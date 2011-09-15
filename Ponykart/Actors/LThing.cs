@@ -183,17 +183,26 @@ namespace Ponykart.Actors {
 			string physmat = def.GetStringProperty("PhysicsMaterial", "Default");
 			LKernel.GetG<PhysicsMaterialManager>().ApplyMaterial(Info, physmat);
 
+			// choose which group to use for a default
+			ThingEnum defaultGroup;
+			if (physicsType.HasFlag(ThingEnum.Dynamic))
+				defaultGroup = ThingEnum.Default;
+			else if (physicsType.HasFlag(ThingEnum.Static))
+				defaultGroup = ThingEnum.Environment;
+			else // kinematic
+				defaultGroup = ThingEnum.Walls;
+
 			// collision group
-			string collisionGroup = def.GetStringProperty("CollisionGroup", "Default");
+			ThingEnum collisionGroup = def.GetEnumProperty("CollisionGroup", defaultGroup);
 			PonykartCollisionGroups pcg;
-			if (!Enum.TryParse<PonykartCollisionGroups>(collisionGroup, true, out pcg))
+			if (!Enum.TryParse<PonykartCollisionGroups>(collisionGroup + String.Empty, true, out pcg))
 				throw new FormatException("Invalid collision group!");
 			CollisionGroup = pcg;
 
 			// collides-with group
-			string collidesWith = def.GetStringProperty("CollidesWith", "Default");
+			ThingEnum collidesWith = def.GetEnumProperty("CollidesWith", defaultGroup);
 			PonykartCollidesWithGroups pcwg;
-			if (!Enum.TryParse<PonykartCollidesWithGroups>(collidesWith, true, out pcwg))
+			if (!Enum.TryParse<PonykartCollidesWithGroups>(collidesWith + String.Empty, true, out pcwg))
 				throw new FormatException("Invalid collides-with group!");
 			CollidesWith = pcwg;
 

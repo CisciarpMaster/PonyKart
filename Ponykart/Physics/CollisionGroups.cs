@@ -77,7 +77,6 @@ namespace Ponykart.Physics {
 		/// Collides with default, debris, and karts.
 		/// </summary>
 		Environment = PonykartCollisionGroups.Default
-					| PonykartCollisionGroups.Walls
 					| PonykartCollisionGroups.Karts,
 
 		/// <summary>
