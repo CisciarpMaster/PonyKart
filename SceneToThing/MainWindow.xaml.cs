@@ -164,13 +164,13 @@ namespace SceneToThing {
 				using (var stream = File.Create(filename)) {
 					using (var writer = new StreamWriter(stream)) {
 						// write out the "overall" stuff
-						writer.WriteLine("Name = \"" + nameBox.Text + "\"");
+						//writer.WriteLine("Name = \"" + nameBox.Text + "\"");
 						writer.WriteLine("Physics = " + physicsBox.Text);
 						if (physicsBox.Text != "None")
 							writer.WriteLine("Mass = " + massBox.Text);
 						if (collisionBox.Text != "None") {
-							writer.WriteLine("CollisionGroup = \"" + collisionBox.Text + "\"");
-							writer.WriteLine("CollidesWith = \"" + collisionBox.Text + "\"");
+							writer.WriteLine("CollisionGroup = " + collisionBox.Text);
+							writer.WriteLine("CollidesWith = " + collisionBox.Text);
 						}
 
 						writer.WriteLine();
@@ -178,8 +178,8 @@ namespace SceneToThing {
 							// write out our model blocks
 							Node node = block as Node;
 							if (node != null) {
+								writer.WriteLine("// " + node.Name);
 								writer.WriteLine("Model {");
-								writer.WriteLine("\tName = \"" + node.Name + "\"");
 								writer.WriteLine("\tMesh = \"" + node.Entity.Mesh + "\"");
 								writer.WriteLine("\tMaterial = \"" + node.Entity.Material + "\"");
 								writer.WriteLine("\tPosition = " + f(node.Position.x) + ", " + f(node.Position.y) + ", " + f(node.Position.z));
