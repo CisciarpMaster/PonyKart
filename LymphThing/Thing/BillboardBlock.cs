@@ -1,16 +1,41 @@
-﻿
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace PonykartParsers {
 	/// <summary>
-	/// Represents a Ribbon { } block in a .thing file
+	/// Represents a Billboard { } block in a .thing file
 	/// </summary>
 	public class BillboardBlock : TokenHolder {
-		public ThingDefinition Owner { get; protected set; }
+		public BillboardSetBlock Owner { get; protected set; }
 
-		public BillboardBlock(ThingDefinition owner) {
+		public BillboardBlock(BillboardSetBlock owner) {
+			Owner = owner;
+			SetUpDictionaries();
+		}
+	}
+
+	/// <summary>
+	/// Represents a BillboardSet { } block in a .thing file
+	/// </summary>
+	public class BillboardSetBlock : TokenHolder {
+		public ThingDefinition Owner { get; protected set; }
+		public ICollection<BillboardBlock> BillboardBlocks { get; protected set; }
+
+		public BillboardSetBlock(ThingDefinition owner) {
 			Owner = owner;
 			SetUpDictionaries();
 		}
 
-		public override void Finish() { }
+		public override void SetUpDictionaries() {
+			BillboardBlocks = new Collection<BillboardBlock>();
+			base.SetUpDictionaries();
+		}
+
+		public override void Dispose() {
+			foreach (BillboardBlock block in BillboardBlocks)
+				block.Dispose();
+			BillboardBlocks.Clear();
+			base.Dispose();
+		}
 	}
 }

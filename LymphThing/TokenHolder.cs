@@ -113,7 +113,7 @@ namespace PonykartParsers {
 				return (Quaternion) defaultValue;
 		}
 
-		public abstract void Finish();
+		public virtual void Finish() { }
 
 		public virtual void Dispose() {
 			EnumTokens.Clear();

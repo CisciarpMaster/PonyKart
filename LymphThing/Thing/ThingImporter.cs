@@ -69,8 +69,8 @@ namespace PonykartParsers {
 					case NodeType.Rule_Ribbon:
 						ParseRibbon(thingDef, prop as RuleInstance);
 						break;
-					case NodeType.Rule_Billboard:
-						ParseBillboard(thingDef, prop as RuleInstance);
+					case NodeType.Rule_BillboardSet:
+						ParseBillboardSet(thingDef, prop as RuleInstance);
 						break;
 				}
 			}
@@ -239,10 +239,28 @@ namespace PonykartParsers {
 		}
 
 		/// <summary>
+		/// BillboardSet blocks
+		/// </summary>
+		void ParseBillboardSet(ThingDefinition thingDef, RuleInstance block) {
+			BillboardSetBlock billboardSetBlock = new BillboardSetBlock(thingDef);
+
+			for (int a = 2; a < block.Children.Length - 1; a++) {
+				RuleInstance rule = block.Children[a] as RuleInstance;
+				if (rule.Type == NodeType.Rule_Property)
+					ParseProperty(billboardSetBlock, rule.Children[0] as RuleInstance);
+				else if (rule.Type == NodeType.Rule_Billboard)
+					ParseBillboard(billboardSetBlock, rule.Children[0] as RuleInstance);
+			}
+
+			thingDef.BillboardSetBlocks.Add(billboardSetBlock);
+		}
+
+		/// <summary>
 		/// Billboard blocks
 		/// </summary>
-		void ParseBillboard(ThingDefinition thingDef, RuleInstance block) {
-			BillboardBlock billboardBlock = new BillboardBlock(thingDef);
+		/// <param name="bbSet">We pass the bbset block, not the whole thingDefinition</param>
+		void ParseBillboard(BillboardSetBlock bbSet, RuleInstance block) {
+			BillboardBlock billboardBlock = new BillboardBlock(bbSet);
 
 			for (int a = 2; a < block.Children.Length - 1; a++) {
 				RuleInstance rule = block.Children[a] as RuleInstance;
@@ -250,7 +268,7 @@ namespace PonykartParsers {
 					ParseProperty(billboardBlock, rule.Children[0] as RuleInstance);
 			}
 
-			thingDef.BillboardBlocks.Add(billboardBlock);
+			bbSet.BillboardBlocks.Add(billboardBlock);
 		}
 	}
 }

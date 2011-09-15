@@ -24,6 +24,7 @@ namespace PonykartParsers.ThingParser {
 		Tok_KeyShape,
 		Tok_KeyRibbon,
 		Tok_KeyBillboard,
+		Tok_KeyBillboardSet,
 		Tok_KeyTrue,
 		Tok_StringLiteral,
 		Tok_FloatLiteral,
@@ -42,6 +43,7 @@ namespace PonykartParsers.ThingParser {
 		Rule_Shape,
 		Rule_Model,
 		Rule_Ribbon,
+		Rule_BillboardSet,
 		Rule_Billboard,
 		Rule_AnyName
 	}
@@ -84,6 +86,7 @@ namespace PonykartParsers.ThingParser {
 			specForTok_Name.Add("Shape", NodeType.Tok_KeyShape);
 			specForTok_Name.Add("Ribbon", NodeType.Tok_KeyRibbon);
 			specForTok_Name.Add("Billboard", NodeType.Tok_KeyBillboard);
+			specForTok_Name.Add("BillboardSet", NodeType.Tok_KeyBillboardSet);
 			specForTok_Name.Add("true", NodeType.Tok_KeyTrue);
 		}
 
@@ -1346,20 +1349,20 @@ namespace PonykartParsers.ThingParser {
 			Token tok;
 
 			while (true) {
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
-					laOffsets.Push(laOffset);
-					laSuccess.Push(true);
-					lookaheadAnyName();
-					if (laSuccess.Peek()) {
-						if (fetchToken(laOffset).Type == NodeType.Tok_Assign)
-							laOffset++;
-						else {
-							laSuccess.Pop();
-							laSuccess.Push(false);
-						}
+				laOffsets.Push(laOffset);
+				laSuccess.Push(true);
+				lookaheadAnyName();
+				if (laSuccess.Peek()) {
+					if (fetchToken(laOffset).Type == NodeType.Tok_Assign)
+						laOffset++;
+					else {
+						laSuccess.Pop();
+						laSuccess.Push(false);
 					}
-					laOffset = laOffsets.Pop();
-					if (laSuccess.Pop()) {
+				}
+				laOffset = laOffsets.Pop();
+				if (laSuccess.Pop()) {
+					if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyBillboardSet || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
 						nodes.Add(matchProperty());
 					}
 					else {
@@ -1375,7 +1378,7 @@ namespace PonykartParsers.ThingParser {
 									nodes.Add(matchRibbon());
 								}
 								else {
-									nodes.Add(matchBillboard());
+									nodes.Add(matchBillboardSet());
 								}
 							}
 						}
@@ -1738,7 +1741,7 @@ namespace PonykartParsers.ThingParser {
 				throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected LBrace token");
 			nodes.Add(tok);
 			while (true) {
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
+				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyBillboardSet || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
 					nodes.Add(matchProperty());
 				}
 				else
@@ -1762,7 +1765,7 @@ namespace PonykartParsers.ThingParser {
 				throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected LBrace token");
 			nodes.Add(tok);
 			while (true) {
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
+				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyBillboardSet || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
 					nodes.Add(matchProperty());
 				}
 				else
@@ -1786,7 +1789,7 @@ namespace PonykartParsers.ThingParser {
 				throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected LBrace token");
 			nodes.Add(tok);
 			while (true) {
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
+				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyBillboardSet || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
 					nodes.Add(matchProperty());
 				}
 				else
@@ -1797,6 +1800,35 @@ namespace PonykartParsers.ThingParser {
 			nodes.Add(tok);
 
 			return new RuleInstance(NodeType.Rule_Ribbon, nodes.ToArray());
+		}
+
+		private RuleInstance matchBillboardSet() {
+			List<Node> nodes = new List<Node>();
+			Token tok;
+
+			if ((tok = nextToken()).Type != NodeType.Tok_KeyBillboardSet)
+				throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected KeyBillboardSet token");
+			nodes.Add(tok);
+			if ((tok = nextToken()).Type != NodeType.Tok_LBrace)
+				throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected LBrace token");
+			nodes.Add(tok);
+			while (true) {
+				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyBillboardSet || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
+					if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyBillboardSet || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
+						nodes.Add(matchProperty());
+					}
+					else {
+						nodes.Add(matchBillboard());
+					}
+				}
+				else
+					break;
+			}
+			if ((tok = nextToken()).Type != NodeType.Tok_RBrace)
+				throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected RBrace token");
+			nodes.Add(tok);
+
+			return new RuleInstance(NodeType.Rule_BillboardSet, nodes.ToArray());
 		}
 
 		private RuleInstance matchBillboard() {
@@ -1810,7 +1842,7 @@ namespace PonykartParsers.ThingParser {
 				throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected LBrace token");
 			nodes.Add(tok);
 			while (true) {
-				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
+				if ((tok = fetchToken(laOffset)).Type == NodeType.Tok_KeyBillboard || tok.Type == NodeType.Tok_KeyBillboardSet || tok.Type == NodeType.Tok_KeyFalse || tok.Type == NodeType.Tok_KeyModel || tok.Type == NodeType.Tok_KeyRibbon || tok.Type == NodeType.Tok_KeyShape || tok.Type == NodeType.Tok_KeyTrue || tok.Type == NodeType.Tok_Name) {
 					nodes.Add(matchProperty());
 				}
 				else
@@ -1847,13 +1879,18 @@ namespace PonykartParsers.ThingParser {
 								nodes.Add(nextToken());
 							}
 							else {
-								if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue) {
+								if (fetchToken(laOffset).Type == NodeType.Tok_KeyBillboardSet) {
 									nodes.Add(nextToken());
 								}
 								else {
-									if ((tok = nextToken()).Type != NodeType.Tok_Name)
-										throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected Name token");
-									nodes.Add(tok);
+									if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue) {
+										nodes.Add(nextToken());
+									}
+									else {
+										if ((tok = nextToken()).Type != NodeType.Tok_Name)
+											throw new ParserException("Line " + tok.LineNr + ", char " + tok.CharNr + ": Expected Name token");
+										nodes.Add(tok);
+									}
 								}
 							}
 						}
@@ -1950,15 +1987,20 @@ namespace PonykartParsers.ThingParser {
 								laOffset++;
 							}
 							else {
-								if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue) {
+								if (fetchToken(laOffset).Type == NodeType.Tok_KeyBillboardSet) {
 									laOffset++;
 								}
 								else {
-									if (fetchToken(laOffset).Type == NodeType.Tok_Name)
+									if (fetchToken(laOffset).Type == NodeType.Tok_KeyTrue) {
 										laOffset++;
+									}
 									else {
-										laSuccess.Pop();
-										laSuccess.Push(false);
+										if (fetchToken(laOffset).Type == NodeType.Tok_Name)
+											laOffset++;
+										else {
+											laSuccess.Pop();
+											laSuccess.Push(false);
+										}
 									}
 								}
 							}

@@ -10,7 +10,5 @@ namespace PonykartParsers {
 			Owner = owner;
 			SetUpDictionaries();
 		}
-
-		public override void Finish() { }
 	}
 }
