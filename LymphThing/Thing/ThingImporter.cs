@@ -249,7 +249,7 @@ namespace PonykartParsers {
 				if (rule.Type == NodeType.Rule_Property)
 					ParseProperty(billboardSetBlock, rule.Children[0] as RuleInstance);
 				else if (rule.Type == NodeType.Rule_Billboard)
-					ParseBillboard(billboardSetBlock, rule.Children[0] as RuleInstance);
+					ParseBillboard(billboardSetBlock, rule);
 			}
 
 			thingDef.BillboardSetBlocks.Add(billboardSetBlock);

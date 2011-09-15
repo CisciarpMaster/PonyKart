@@ -1,9 +1,12 @@
-﻿using Mogre;
+﻿using System;
+using Mogre;
 using Ponykart.Levels;
 using PonykartParsers;
-using System;
 
 namespace Ponykart.Actors {
+	/// <summary>
+	/// Represents an ogre node and mesh
+	/// </summary>
 	public class ModelComponent : IDisposable {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
@@ -53,12 +56,6 @@ namespace Ponykart.Actors {
 
 			Node.InheritScale = true;
 			Node.InheritOrientation = true;
-
-			CreateMore();
-		}
-
-		protected virtual void CreateMore() {
-
 		}
 
 		public void Dispose() {

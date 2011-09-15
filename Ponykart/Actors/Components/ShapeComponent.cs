@@ -6,6 +6,9 @@ using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
+	/// <summary>
+	/// Represents a physics collision shape
+	/// </summary>
 	public class ShapeComponent : System.IDisposable {
 		public CollisionShape Shape { get; protected set; }
 		public Matrix4 Transform { get; protected set; }

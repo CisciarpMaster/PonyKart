@@ -5,6 +5,9 @@ using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
+	/// <summary>
+	/// Represents an ogre ribbon
+	/// </summary>
 	public class RibbonComponent : IDisposable {
 		public int ID { get; protected set; }
 		public string Name { get; protected set; }
@@ -35,7 +38,7 @@ namespace Ponykart.Actors {
 
 			Ribbon = LKernel.GetG<SceneManager>().CreateRibbonTrail(Name + ID + "Ribbon");
 
-
+			// set up some properties
 			Ribbon.SetMaterialName(block.GetStringProperty("material", "ribbon"));
 			Ribbon.TrailLength = block.GetFloatProperty("length", 5);
 			Ribbon.MaxChainElements = (uint) block.GetFloatProperty("elements", 10);
@@ -49,6 +52,10 @@ namespace Ponykart.Actors {
 			RibbonNode.AttachObject(Ribbon);
 
 			RibbonNode.Position = block.GetVectorProperty("position", Vector3.ZERO);
+		}
+
+		public override string ToString() {
+			return Name + ID + "Ribbon";
 		}
 
 		public void Dispose() {

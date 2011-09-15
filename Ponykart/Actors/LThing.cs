@@ -14,7 +14,6 @@ namespace Ponykart.Actors {
 		public string Name { get; protected set; }
 		public RigidBody Body { get; protected set; }
 		public SceneNode RootNode { get; protected set; }
-		public BillboardSet BillboardSet { get; protected set; }
 
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
@@ -53,7 +52,7 @@ namespace Ponykart.Actors {
 		public Collection<ModelComponent> ModelComponents { get; protected set; }
 		public Collection<ShapeComponent> ShapeComponents { get; protected set; }
 		public Collection<RibbonComponent> RibbonComponents { get; protected set; }
-		public Collection<BillboardComponent> BillboardComponents { get; protected set; }
+		public Collection<BillboardSetComponent> BillboardSetComponents { get; protected set; }
 
 		public LThing(ThingBlock template, ThingDefinition def) {
 			ID = IDs.New;
@@ -62,7 +61,7 @@ namespace Ponykart.Actors {
 			ModelComponents = new Collection<ModelComponent>();
 			ShapeComponents = new Collection<ShapeComponent>();
 			RibbonComponents = new Collection<RibbonComponent>();
-			BillboardComponents = new Collection<BillboardComponent>();
+			BillboardSetComponents = new Collection<BillboardSetComponent>();
 
 			// get our three basic transforms
 			SpawnPosition = template.GetVectorProperty("position", null);
@@ -109,41 +108,6 @@ namespace Ponykart.Actors {
 		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
 			// create our root node
 			RootNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
-
-			// only create a billboard set if we have any billboard blocks
-			if (def.BillboardBlocks.Count > 0) {
-				// set it up
-				BillboardSet = LKernel.GetG<SceneManager>().CreateBillboardSet(Name + ID + "BillboardSet", (uint) def.BillboardBlocks.Count);
-				BillboardSet.SetMaterialName(def.GetStringProperty("BillboardMaterial", null));
-				BillboardSet.CastShadows = def.GetBoolProperty("BillboardCastsShadows", false);
-				BillboardSet.SetDefaultDimensions(def.GetFloatProperty("BillboardWidth", 1), def.GetFloatProperty("BillboardHeight", 1));
-
-				// billboard type
-				ThingEnum type = def.GetEnumProperty("BillboardType", ThingEnum.Point);
-				switch (type) {
-					case ThingEnum.Point:
-						BillboardSet.BillboardType = BillboardType.BBT_POINT; break;
-					case ThingEnum.OrientedCommon:
-						BillboardSet.BillboardType = BillboardType.BBT_ORIENTED_COMMON; break;
-					case ThingEnum.OrientedSelf:
-						BillboardSet.BillboardType = BillboardType.BBT_ORIENTED_SELF; break;
-					case ThingEnum.PerpendicularCommon:
-						BillboardSet.BillboardType = BillboardType.BBT_PERPENDICULAR_COMMON; break;
-					case ThingEnum.PerpendicularSelf:
-						BillboardSet.BillboardType = BillboardType.BBT_PERPENDICULAR_SELF; break;
-				}
-
-				Vector3 vec;
-				if (def.VectorTokens.TryGetValue("BillboardUpVector", out vec))
-					BillboardSet.CommonUpVector = vec;
-				// sort transparent stuff
-				BillboardSet.SortingEnabled = true;
-				// make them point the right way
-				BillboardSet.CommonDirection = def.GetVectorProperty("BillboardDirection", Vector3.UNIT_Y);
-
-				// and then attach it to our root node
-				RootNode.AttachObject(BillboardSet);
-			}
 		}
 
 		/// <summary>
@@ -159,13 +123,9 @@ namespace Ponykart.Actors {
 			// ribbons
 			foreach (var rblock in def.RibbonBlocks)
 				RibbonComponents.Add(new RibbonComponent(this, template, rblock));
-
-			// billboards
-			//if (def.BillboardBlocks.Count > 0) {
-				foreach (var bblock in def.BillboardBlocks)
-					BillboardComponents.Add(new BillboardComponent(this, template, bblock));
-				//BillboardSet.AutoUpdate = false;
-			//}
+			// billboard sets
+			foreach (var bblock in def.BillboardSetBlocks)
+				BillboardSetComponents.Add(new BillboardSetComponent(this, template, bblock));
 		}
 
 		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
@@ -291,21 +251,25 @@ namespace Ponykart.Actors {
 				LKernel.GetG<LuaMain>().DoFunction(Script, this);
 		}
 
-
+		/// <summary>
+		/// Clean up stuff
+		/// </summary>
 		public virtual void Dispose() {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			var world = LKernel.GetG<PhysicsMain>().World;
 			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;
 
+			// dispose all of our components
 			foreach (ModelComponent mc in ModelComponents)
 				mc.Dispose();
 			foreach (ShapeComponent sc in ShapeComponents)
 				sc.Dispose();
 			foreach (RibbonComponent rc in RibbonComponents)
 				rc.Dispose();
-			foreach (BillboardComponent bb in BillboardComponents)
+			foreach (BillboardSetComponent bb in BillboardSetComponents)
 				bb.Dispose();
 
+			// dispose this stuff
 			if (RootNode != null) {
 				if (valid)
 					sceneMgr.DestroySceneNode(RootNode);
@@ -318,17 +282,12 @@ namespace Ponykart.Actors {
 				Body.Dispose();
 				Body = null;
 			}
-			if (BillboardSet != null) {
-				if (valid)
-					sceneMgr.DestroyBillboardSet(BillboardSet);
-				BillboardSet.Dispose();
-				BillboardSet = null;
-			}
 
+			// clear our components
 			ModelComponents.Clear();
 			ShapeComponents.Clear();
 			RibbonComponents.Clear();
-			BillboardComponents.Clear();
+			BillboardSetComponents.Clear();
 		}
 	}
 }
