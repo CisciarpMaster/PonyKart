@@ -51,7 +51,7 @@ namespace Ponykart.Actors {
 			Ribbon.AddNode(lthing.RootNode);
 			RibbonNode.AttachObject(Ribbon);
 
-			RibbonNode.Position = block.GetVectorProperty("position", Vector3.ZERO);
+			RibbonNode.Position = block.GetVectorProperty("position", null);
 		}
 
 		public override string ToString() {

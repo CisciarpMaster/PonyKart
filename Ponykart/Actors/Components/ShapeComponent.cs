@@ -28,9 +28,9 @@ namespace Ponykart.Actors {
 			// if our shape is a hull, this loads the hull mesh
 			if (block.EnumTokens["type"] == ThingEnum.Hull) {
 				
-				string name = block.GetStringProperty("hullname", "");
+				string name = block.GetStringProperty("hullname", string.Empty);
 
-				if (name != "" && File.Exists(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
+				if (!string.IsNullOrEmpty(name) && File.Exists(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
 					Shape = LKernel.GetG<PhysicsMain>().ImportCollisionShape(name);
 				}
 				else {

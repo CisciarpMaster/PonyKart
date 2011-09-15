@@ -44,8 +44,8 @@ namespace Ponykart.Actors {
 			Entity = sceneMgr.CreateEntity(Name + "Entity" + ID, block.GetStringProperty("mesh", null));
 
 			// material name
-			string materialName = block.GetStringProperty("material", "");
-			if (materialName != "")
+			string materialName = block.GetStringProperty("material", String.Empty);
+			if (!string.IsNullOrWhiteSpace(materialName))
 				Entity.SetMaterialName(materialName);
 
 			// some other properties

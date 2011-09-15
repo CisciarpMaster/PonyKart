@@ -47,9 +47,18 @@ namespace Ponykart.Actors {
 			if (block.VectorTokens.TryGetValue("UpVector", out vec))
 				BillboardSet.CommonUpVector = vec;
 			// sort transparent stuff
-			BillboardSet.SortingEnabled = true;
+			BillboardSet.SortingEnabled = block.GetBoolProperty("Sort", true);
 			// make them point the right way
 			BillboardSet.CommonDirection = block.GetVectorProperty("Direction", Vector3.UNIT_Y);
+			// rotation type
+			BillboardSet.BillboardRotationType = block.GetBoolProperty("UseVertexRotation", false) ? BillboardRotationType.BBR_TEXCOORD : BillboardRotationType.BBR_VERTEX;
+			// origin
+			ThingEnum originToken;
+			if (block.EnumTokens.TryGetValue("Origin", out originToken)) {
+				BillboardOrigin origin;
+				if (Enum.TryParse<BillboardOrigin>(originToken + string.Empty, true, out origin))
+					BillboardSet.BillboardOrigin = origin;
+			}
 
 			// and then attach it to our root node
 			lthing.RootNode.AttachObject(BillboardSet);
@@ -71,7 +80,7 @@ namespace Ponykart.Actors {
 			if (block.QuatTokens.TryGetValue("Colour", out quat))
 				bb.Colour = quat.ToColourValue();
 			// and a rotation
-			bb.Rotation = block.GetFloatProperty("Rotation", 0);
+			bb.Rotation = new Degree(block.GetFloatProperty("Rotation", 0));
 
 			// it's best to not do this unless we really need to since it makes it less efficient
 			float height, width;
