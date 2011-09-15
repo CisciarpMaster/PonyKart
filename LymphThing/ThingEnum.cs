@@ -21,6 +21,16 @@ namespace PonykartParsers {
 		Cone,
 		Hull,
 
+		// collision groups
+		//None,
+		All,
+		Default,
+		Environment,
+		Affectors,
+		Walls,
+		Triggers,
+		Karts,
+
 		// billboards
 		/// <summary> Standard point billboard (default), always faces the camera completely and is always upright </summary>
 		Point,
