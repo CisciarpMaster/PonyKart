@@ -1,7 +1,7 @@
 Physics = Static
 Mass = 0
-CollisionGroup = "Environment"
-CollidesWith = "Environment"
+CollisionGroup = Environment
+CollidesWith = Environment
 
 Model {
 	Mesh = "Chicken_Coop.mesh"

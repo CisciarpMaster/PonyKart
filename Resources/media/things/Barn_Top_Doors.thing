@@ -1,7 +1,7 @@
 Physics = Dynamic
 Mass = 30
-CollisionGroup = "Environment"
-CollidesWith = "Environment"
+CollisionGroup = Environment
+CollidesWith = Environment
 PhysicsMaterial = "NoFrictionNoBounce"
 
 Model {

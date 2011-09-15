@@ -1,7 +1,5 @@
 Physics = Dynamic
 Mass = 50
-CollisionGroup = "Default"
-CollidesWith = "Default"
 Script = "applecart"
 PhysicsMaterial = "NoBounce"
 

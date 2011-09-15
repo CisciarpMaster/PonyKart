@@ -1,5 +1,5 @@
-CollisionGroup = "Environment"
-CollidesWith = "Environment"
+CollisionGroup = Environment
+CollidesWith = Environment
 Mass = 0
 Physics = Static
 

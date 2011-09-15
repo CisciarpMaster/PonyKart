@@ -1,7 +1,7 @@
 Physics = Dynamic
 Mass = 75
-CollisionGroup = "Karts"
-CollidesWith = "Karts"
+CollisionGroup = Karts
+CollidesWith = Karts
 MaxSpeed = 70
 MaxReverseSpeed = 20
 FrontWheel = "FrontWheel"

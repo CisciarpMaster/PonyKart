@@ -1,8 +1,8 @@
 Physics = Static
 Mass = 0
 PhysicsMaterial = "Fences"
-CollisionGroup = "Walls"
-CollidesWith = "Walls"
+CollisionGroup = Walls
+CollidesWith = Walls
 ForceCompound = true
 
 Model {
