@@ -1,4 +1,3 @@
-Name = "Cone"
 Physics = Dynamic
 
 Shape {

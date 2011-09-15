@@ -1,4 +1,3 @@
-Name = "SAA_Bridge"
 Physics = Static
 Mass = 0
 CollisionGroup = "Environment"

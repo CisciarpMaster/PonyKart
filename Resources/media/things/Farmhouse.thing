@@ -1,4 +1,3 @@
-Name = "Farmhouse"
 Physics = Static
 Mass = 0
 CollisionGroup = "Environment"

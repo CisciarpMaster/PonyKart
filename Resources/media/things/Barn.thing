@@ -1,4 +1,3 @@
-Name = "Barn"
 Physics = Static
 Mass = 0
 Script = "barn"

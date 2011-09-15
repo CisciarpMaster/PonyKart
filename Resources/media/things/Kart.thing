@@ -1,4 +1,3 @@
-Name = "Kart"
 Physics = Dynamic
 Mass = 75
 CollisionGroup = "Karts"

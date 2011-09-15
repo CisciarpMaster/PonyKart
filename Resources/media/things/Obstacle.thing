@@ -1,4 +1,3 @@
-Name = "Obstacle"
 CollisionGroup = "Environment"
 CollidesWith = "Environment"
 Mass = 0

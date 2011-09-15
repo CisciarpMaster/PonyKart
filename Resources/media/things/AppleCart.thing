@@ -1,4 +1,3 @@
-Name = "AppleCart"
 Physics = Dynamic
 Mass = 50
 CollisionGroup = "Default"

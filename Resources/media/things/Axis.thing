@@ -1,4 +1,3 @@
-Name = "Axis"
 Physics = None
 Model {
 	Mesh = "axes.mesh"

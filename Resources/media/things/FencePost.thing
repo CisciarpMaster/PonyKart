@@ -1,4 +1,3 @@
-Name = "FencePost"
 Physics = Static
 Mass = 0
 PhysicsMaterial = "Fences"

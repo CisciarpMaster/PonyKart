@@ -1,4 +1,3 @@
-Name = "Barn_Bottom_Doors"
 Physics = Dynamic
 Mass = 30
 CollisionGroup = "Environment"
