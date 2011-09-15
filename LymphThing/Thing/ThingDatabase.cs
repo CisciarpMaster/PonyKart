@@ -20,6 +20,9 @@ namespace PonykartParsers {
 		}
 
 		public void ClearDatabase() {
+			foreach (ThingDefinition def in Definitions.Values) {
+				def.Dispose();
+			}
 			Definitions.Clear();
 		}
 	}

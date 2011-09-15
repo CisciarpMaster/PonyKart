@@ -89,9 +89,8 @@ namespace Ponykart.Levels {
 				l.RunScript();
 		}
 
-		public void Save() {
-			// TODO
-		}
+		//public void Save() {
+		//}
 
 		/// <summary>
 		/// Runs whenever we spawn something. This just adds it to the level's dictionary of Things.

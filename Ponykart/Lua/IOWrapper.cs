@@ -1,5 +1,4 @@
 ﻿using LuaNetInterface;
-using Ponykart.Levels;
 
 namespace Ponykart.Lua {
 	/// <summary>
@@ -12,12 +11,12 @@ namespace Ponykart.Lua {
 			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 		}
 
-		[LuaFunction("save", "Saves the current level.")]
+		/*[LuaFunction("save", "Saves the current level.")]
 		public static void Save() {
 			var levelManager = LKernel.GetG<LevelManager>();
 			if (levelManager != null && levelManager.CurrentLevel != null) {
 				levelManager.CurrentLevel.Save();
 			}
-		}
+		}*/
 	}
 }

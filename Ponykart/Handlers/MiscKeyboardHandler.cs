@@ -34,9 +34,11 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_K:
 					LKernel.GetG<Spawner>().Spawn("Kart", LKernel.GetG<PlayerManager>().MainPlayer.NodePosition);
 					break;
+#if DEBUG
 				case KeyCode.KC_X:
 					MogreDebugDrawer.Singleton.Clear();
 					break;
+#endif
 				case KeyCode.KC_I:
 					PhysicsMain.DrawLines = !PhysicsMain.DrawLines;
 					break;

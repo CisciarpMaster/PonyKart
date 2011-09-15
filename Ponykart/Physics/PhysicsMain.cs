@@ -4,18 +4,17 @@ using System.IO;
 using BulletSharp;
 using BulletSharp.Serialize;
 using Mogre;
-using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using Ponykart.Stuff;
-using IDisposable = System.IDisposable;
+using IDisposable = BulletSharp.IDisposable;
 
 namespace Ponykart.Physics {
 	public delegate void PhysicsWorldEventHandler(DiscreteDynamicsWorld world);
 	public delegate void PhysicsSimulateEventHandler(DiscreteDynamicsWorld world, FrameEvent evt);
 
-	public class PhysicsMain : IDisposable {
+	public class PhysicsMain : System.IDisposable {
 		private bool quit = false;
 
 		private BroadphaseInterface broadphase;
@@ -54,9 +53,9 @@ namespace Ponykart.Physics {
 #endif
 
 		/// <summary>
-		/// our collection of things to dispose; these are processed after every "frame"
+		/// our collection of shapes and stuff to dispose at the end of a level. This is for stuff that isn't associated with a Thing.
 		/// </summary>
-		public ICollection<LThing> ThingsToDispose { get; private set; }
+		public ICollection<IDisposable> PhysicsStuffToDispose { get; private set; }
 
 		/// <summary>
 		/// Constructor
@@ -66,7 +65,7 @@ namespace Ponykart.Physics {
 
 			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 
-			ThingsToDispose = new Collection<LThing>();
+			PhysicsStuffToDispose = new Collection<IDisposable>();
 
 			Launch.Log("[Loading] PhysicsMain created!");
 		}
@@ -92,7 +91,7 @@ namespace Ponykart.Physics {
 
 			// then go through each of the static objects and turn them into trimeshes.
 			foreach (string s in dsl.StaticObjects) {
-				// I have NO IDEA what the fuck fixed this problem, but hey, it's fixed now!
+				// apparently triangle meshes only screw up if you turn on debug drawing for them. No I don't know why the fuck that should matter.
 				Entity dslEnt = sceneMgr.GetEntity(s);
 				SceneNode dslNode = sceneMgr.GetSceneNode(s);
 
@@ -121,6 +120,9 @@ namespace Ponykart.Physics {
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 				body.SetName(dslNode.Name);
 				world.AddRigidBody(body, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
+
+				PhysicsStuffToDispose.Add(body);
+				PhysicsStuffToDispose.Add(shape);
 			}
 
 			// make a ground plane for us
@@ -139,9 +141,13 @@ namespace Ponykart.Physics {
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
+			foreach (IDisposable shape in PhysicsStuffToDispose) {
+				shape.Dispose();
+			}
+			PhysicsStuffToDispose.Clear();
+
 			if (!world.IsDisposed)
 				world.Dispose();
-			ThingsToDispose.Clear();
 		}
 
 		/// <summary>
@@ -179,14 +185,6 @@ namespace Ponykart.Physics {
 			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsPlayableLevel || !LKernel.GetG<LevelManager>().IsValidLevel || world.IsDisposed)
 				return true;
 
-			// dispose of everything waiting to be disposed
-			if (ThingsToDispose.Count > 0) {
-				foreach (LThing t in ThingsToDispose) {
-					t.Dispose();
-				}
-				ThingsToDispose.Clear();
-			}
-
 			// run the events that go just before we simulate
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
@@ -212,12 +210,16 @@ namespace Ponykart.Physics {
 			Matrix4 matrix = new Matrix4();
 			matrix.MakeTransform(new Vector3(0, yposition, 0), Vector3.UNIT_SCALE, new Quaternion(0, 0, 0, 1));
 
-			var groundinfo = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1), Vector3.ZERO);
-			var groundBody = new RigidBody(groundinfo);
+			CollisionShape groundShape = new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1);
+			var groundInfo = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), groundShape, Vector3.ZERO);
+			var groundBody = new RigidBody(groundInfo);
 			groundBody.SetName("ground");
 			groundBody.SetCollisionGroup(PonykartCollisionGroups.Environment);
 			groundBody.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 			world.AddRigidBody(groundBody, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
+
+			PhysicsStuffToDispose.Add(groundShape);
+			PhysicsStuffToDispose.Add(groundBody);
 		}
 
 		/// <summary>
@@ -266,10 +268,12 @@ namespace Ponykart.Physics {
 		}
 
 		public void Dispose() {
-			broadphase.Dispose();
-			dcc.Dispose();
-			dispatcher.Dispose();
-			solver.Dispose();
+			foreach (IDisposable shape in PhysicsStuffToDispose)
+				shape.Dispose();
+			PhysicsStuffToDispose.Clear();
+
+			if (!world.IsDisposed)
+				world.Dispose();
 		}
 	}
 }

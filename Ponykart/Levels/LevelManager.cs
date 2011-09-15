@@ -46,8 +46,9 @@ namespace Ponykart.Levels {
 		/// <summary>
 		/// Unloads the current level
 		/// - Sets IsValidLevel to false
-		/// - Runs the levelunload events
+		/// - Runs the levelUnload events
 		/// - Tells the kernel to unload all level objects
+		/// - Disposes the current level
 		/// </summary>
 		private void UnloadLevel(LevelChangedEventArgs eventArgs) {
 			if (CurrentLevel.Name != null) {
@@ -55,7 +56,7 @@ namespace Ponykart.Levels {
 
 				IsValidLevel = false;
 
-				CurrentLevel.Save();
+				//CurrentLevel.Save();
 
 				LKernel.UnloadLevelHandlers();
 
@@ -116,8 +117,7 @@ namespace Ponykart.Levels {
 			if (newLevel.Name == Settings.Default.MainMenuName)
 				Pauser.IsPaused = true;
 
-			// get rid of the old level and clean up
-			//oldLevel.Dispose();
+			// last bit of cleanup
 			GC.Collect();
 		}
 

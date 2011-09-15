@@ -58,15 +58,16 @@ namespace PonykartParsers {
 		}
 
 		public override void Dispose() {
-			Shape.Dispose();
+			if (Shape != null)
+				Shape.Dispose();
 			base.Dispose();
 		}
 
 		static Quaternion GlobalEulerToQuat(Radian rotX, Radian rotY, Radian rotZ) {
 			Quaternion q1 = new Quaternion(),
-						   q2 = new Quaternion(),
-						   q3 = new Quaternion(),
-						   q = new Quaternion();
+					   q2 = new Quaternion(),
+					   q3 = new Quaternion(),
+					   q = new Quaternion();
 			q1.FromAngleAxis(rotX, Vector3.UNIT_X);
 			q2.FromAngleAxis(rotY, Vector3.UNIT_Y);
 			q3.FromAngleAxis(rotZ, Vector3.UNIT_Z);
