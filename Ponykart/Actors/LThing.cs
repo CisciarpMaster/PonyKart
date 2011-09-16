@@ -14,6 +14,7 @@ namespace Ponykart.Actors {
 		public string Name { get; protected set; }
 		public RigidBody Body { get; protected set; }
 		public SceneNode RootNode { get; protected set; }
+		protected StaticGeometry StaticGeometry { get; set; }
 
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
@@ -72,6 +73,7 @@ namespace Ponykart.Actors {
 
 			SpawnScale = template.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
+
 			// and start setting up this thing!
 			Setup(template, def);
 			SetupMogre(template, def);
@@ -85,6 +87,9 @@ namespace Ponykart.Actors {
 			// gets one of the others.
 			if (ShapeComponents.Count == 0)
 				RootNode.Scale(SpawnScale);
+			RootNode.SetInitialState();
+
+			SetupStaticGeom(template, def);
 
 			SetupPhysics(template, def);
 
@@ -126,6 +131,25 @@ namespace Ponykart.Actors {
 			// billboard sets
 			foreach (var bblock in def.BillboardSetBlocks)
 				BillboardSetComponents.Add(new BillboardSetComponent(this, template, bblock));
+		}
+
+		/// <summary>
+		/// Set up static geometry if we have some
+		/// </summary>
+		protected void SetupStaticGeom(ThingBlock template, ThingDefinition def) {
+			if (def.GetBoolProperty("Static", false)) {
+				// create it
+				StaticGeometry = LKernel.GetG<SceneManager>().CreateStaticGeometry(Name + ID);
+				StaticGeometry.Origin = SpawnPosition;
+				// add all of our meshes and stuff
+				StaticGeometry.AddSceneNode(RootNode);
+				// once you do this, you can't add any new geometry to it
+				StaticGeometry.Build();
+
+				// since now we have two copies of the same geometry, we want to get rid of the old stuff
+				foreach (ModelComponent mc in ModelComponents)
+					mc.Dispose();
+			}
 		}
 
 		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
@@ -301,6 +325,12 @@ namespace Ponykart.Actors {
 					world.RemoveRigidBody(Body);
 				Body.Dispose();
 				Body = null;
+			}
+			// we aren't gonna be disposing something static in the middle of a level, so we don't have to tell the scene manager to specifically destroy it,
+			// since it'll be removed in the "DestroyAllStaticGeometry()" thing
+			if (StaticGeometry != null) {
+				StaticGeometry.Dispose();
+				StaticGeometry = null;
 			}
 
 			base.Dispose(disposing);

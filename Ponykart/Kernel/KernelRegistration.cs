@@ -121,15 +121,15 @@ namespace Ponykart {
 			var types = Assembly.GetExecutingAssembly().GetTypes();
 			LevelHandlerTypes = types.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
-					.Where(a => a.Scope == HandlerScope.Level)
-					.Count() > 0);
+					 .Where(a => a.Scope == HandlerScope.Level)
+					 .Count() > 0);
 			GlobalHandlerTypes = types.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
-					.Where(a => a.Scope == HandlerScope.Global)
-					.Count() > 0);
+					 .Where(a => a.Scope == HandlerScope.Global)
+					 .Count() > 0);
 			LuaWrapperTypes = types.Where(
 				t => ((LuaPackageAttribute[]) t.GetCustomAttributes(typeof(LuaPackageAttribute), false))
-					.Count() > 0);
+					 .Count() > 0);
 		}
 
 		/// <summary>
@@ -160,8 +160,8 @@ namespace Ponykart {
 
 			IEnumerable<Type> e = LevelHandlerTypes.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
-					.Where(a => a.LevelType.HasFlag(newLevelType))
-					.Count() > 0);
+					 .Where(a => a.LevelType.HasFlag(newLevelType))
+					 .Count() > 0);
 
 			foreach (Type t in e) {
 				Launch.Log("[Loading] \tCreating " + t);
@@ -231,7 +231,7 @@ namespace Ponykart {
 
 		#region special initialisers
 		private static Root InitRoot() {
-			return new Root("plugins.cfg", "", "Ogre.log");
+			return new Root("plugins.cfg", "", "Ponykart.log");
 		}
 
 		private static RenderSystem InitRenderSystem(Root root) {
@@ -273,10 +273,9 @@ namespace Ponykart {
 		/// </summary>
 		private static SceneManager InitSceneManager(Root root) {
 			Launch.Log("[Loading] Creating SceneManager");
-			var sceneMgr = root.CreateSceneManager(SceneType.ST_EXTERIOR_CLOSE, "sceneMgr");
+			var sceneMgr = root.CreateSceneManager("OctreeSceneManager", "sceneMgr");
 			sceneMgr.ShadowColour = new ColourValue(0.8f, 0.8f, 0.8f);
 			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
-			//sceneMgr.ShadowFarDistance = 500;
 			return sceneMgr;
 		}
 

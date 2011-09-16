@@ -140,7 +140,7 @@ namespace Ponykart.Handlers {
 			mainMenuControls.Add(level3Button);
 			level3Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("testlevel");
 
-			level4Button = new Button("sweet apple acres") {
+			level4Button = new Button("Sweet Apple Acres") {
 				Location = new Point((int) (Settings.Default.WindowWidth / 2) - 100, 200),
 				Size = new Size(200, 40),
 				Skin = UIResources.Skins["ButtonSkin"],
@@ -151,7 +151,7 @@ namespace Ponykart.Handlers {
 				},
 			};
 			mainMenuControls.Add(level4Button);
-			level4Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("saa08");
+			level4Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("saa");
 
 			quitButton = new Button("Quit") {
 				Location = new Point((int) (Settings.Default.WindowWidth / 2) - 100, 250),

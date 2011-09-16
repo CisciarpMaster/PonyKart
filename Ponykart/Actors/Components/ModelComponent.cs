@@ -39,6 +39,7 @@ namespace Ponykart.Actors {
 			}
 			// scale
 			Node.Scale(block.GetVectorProperty("scale", Vector3.UNIT_SCALE));
+			Node.SetInitialState();
 
 			// make our entity
 			Entity = sceneMgr.CreateEntity(Name + "Entity" + ID, block.GetStringProperty("mesh", null));
@@ -75,6 +76,7 @@ namespace Ponykart.Actors {
 				if (valid && disposing)
 					sceneMgr.DestroySceneNode(Node);
 				Node.Dispose();
+				Node = null;
 			}
 
 			base.Dispose(disposing);

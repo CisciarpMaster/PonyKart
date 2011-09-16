@@ -93,24 +93,24 @@ namespace Ponykart.Physics {
 			foreach (string s in dsl.StaticObjects) {
 				// apparently triangle meshes only screw up if you turn on debug drawing for them. No I don't know why the fuck that should matter.
 				Entity dslEnt = sceneMgr.GetEntity(s);
-				SceneNode dslNode = sceneMgr.GetSceneNode(s);
+				StaticGeometry dslGeom = sceneMgr.GetStaticGeometry(s);
 
 				CollisionShape shape;
 
-				string bulletFilePath = Settings.Default.BulletFileLocation + dslNode.Name + Settings.Default.BulletFileExtension;
+				string bulletFilePath = Settings.Default.BulletFileLocation + dslGeom.Name + Settings.Default.BulletFileExtension;
 
 				// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
 				if (File.Exists(bulletFilePath)) {
 					// so it has a file
 					Launch.Log("[PhysicsMain] Loading " + bulletFilePath + "...");
-					shape = ImportCollisionShape(dslNode.Name);
+					shape = ImportCollisionShape(dslGeom.Name);
 				}
 				else {
 					Launch.Log("[PhysicsMain] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
 					// it does not have a file, so we need to convert our ogre mesh
-					shape = new BvhTriangleMeshShape(OgreToBulletMesh.Convert(dslEnt, dslNode), true, true);
+					shape = new BvhTriangleMeshShape(OgreToBulletMesh.Convert(dslEnt.GetMesh(), dsl.Positions[s], dsl.Orientations[s], dsl.Scales[s]), true, true);
 					// and then export it as a .bullet file
-					SerializeShape(shape, dslNode.Name);
+					SerializeShape(shape, dslGeom.Name);
 				}
 
 				// then do the rest as usual
@@ -118,7 +118,7 @@ namespace Ponykart.Physics {
 				var body = new RigidBody(info);
 				body.SetCollisionGroup(PonykartCollisionGroups.Environment);
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
-				body.SetName(dslNode.Name);
+				body.SetName(dslGeom.Name);
 				world.AddRigidBody(body, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 
 				PhysicsStuffToDispose.Add(body);
