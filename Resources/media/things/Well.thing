@@ -2,6 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
+Static = true
 
 // box#0
 Shape {

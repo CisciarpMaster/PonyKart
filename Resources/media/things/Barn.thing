@@ -3,6 +3,7 @@ Mass = 0
 Script = "barn"
 CollisionGroup = Environment
 CollidesWith = Environment
+Static = true
 
 // box#0
 Shape {
