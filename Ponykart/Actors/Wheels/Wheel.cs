@@ -1,7 +1,6 @@
 ﻿using BulletSharp;
 using Mogre;
 using Ponykart.Core;
-using Ponykart.Levels;
 using Ponykart.Physics;
 using Math = Mogre.Math;
 
@@ -45,10 +44,10 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsBrakeOn { get; set; }
 
-		Kart Kart;
+		Kart kart;
 
 		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID) {
-			Kart = owner;
+			kart = owner;
 			WheelID = wheelID;
 
 			ID = IDs.New;
@@ -62,16 +61,16 @@ namespace Ponykart.Actors {
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
 
-			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
+			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
 		}
 
 		/// <summary>
 		/// Makes a wheel at the given position
 		/// </summary>
 		public void CreateWheel(Vector3 connectionPoint, bool isFrontWheel) {
-			Kart.Vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, Kart.Tuning, isFrontWheel);
+			kart.Vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, kart.Tuning, isFrontWheel);
 
-			WheelInfo info = Kart.Vehicle.GetWheelInfo((int) WheelID);
+			WheelInfo info = kart.Vehicle.GetWheelInfo((int) WheelID);
 			info.SuspensionStiffness = SpringStiffness;
 			info.WheelDampingRelaxation = SpringDamping;
 			info.WheelDampingCompression = SpringCompression;
@@ -79,24 +78,29 @@ namespace Ponykart.Actors {
 			info.RollInfluence = RollInfluence;
 		}
 
-
 		/// <summary>
-		/// Update our node's orientation. I'd still like a way to figure out how to update its position based on the suspension, but oh well.
+		/// Update our node's position and orientation, and also accelerate/brake/turn
 		/// </summary>
-		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (!LKernel.GetG<LevelManager>().IsValidLevel || Pauser.IsPaused)
-				return;
+		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
+			WheelInfo info = kart.Vehicle.GetWheelInfo((int) WheelID);
+			Node.Position = /*new Vector3(wheel.Node.Position.x,
+								wheel.SuspensionRestLength - info.RaycastInfo_.SuspensionLength,
+								wheel.Node.Position.z);*/
+				info.WorldTransform.GetTrans();
+			Node.Orientation = info.WorldTransform.ExtractQuaternion();
 
-			Accelerate();
-			Brake();
-			Turn(evt.timeSinceLastFrame);
+			if (!Pauser.IsPaused) {
+				Accelerate();
+				Brake();
+				Turn(evt.timeSinceLastFrame);
+			}
 		}
 
 		/// <summary>
 		/// Apply some torque to the engine.
 		/// </summary>
 		protected void Accelerate() {
-			Kart.Vehicle.ApplyEngineForce(MotorForce * AccelerateMultiplier, (int) WheelID);
+			kart.Vehicle.ApplyEngineForce(MotorForce * AccelerateMultiplier, (int) WheelID);
 		}
 
 		/// <summary>
@@ -104,9 +108,9 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void Brake() {
 			if (IsBrakeOn)
-				Kart.Vehicle.SetBrake(BrakeForce, (int) WheelID);
+				kart.Vehicle.SetBrake(BrakeForce, (int) WheelID);
 			else
-				Kart.Vehicle.SetBrake(0, (int) WheelID);
+				kart.Vehicle.SetBrake(0, (int) WheelID);
 		}
 
 		readonly float slowSpeed = 40;
@@ -122,7 +126,7 @@ namespace Ponykart.Actors {
 			float speedTurnMultiplier = 1;
 			timeSinceLastFrame *= 100;
 
-			float axleSpeed = Kart.Vehicle.CurrentSpeedKmHour;
+			float axleSpeed = kart.Vehicle.CurrentSpeedKmHour;
 			// less than the slow speed = extra turn multiplier
 			if (axleSpeed < slowSpeed)
 				speedTurnMultiplier = speedTurnMultiplierAtSlowSpeeds;
@@ -137,21 +141,21 @@ namespace Ponykart.Actors {
 			}
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 
-			float currentAngle = Kart.Vehicle.GetSteeringValue((int) WheelID);
+			float currentAngle = kart.Vehicle.GetSteeringValue((int) WheelID);
 			float thisSteerIncr = steerIncrement * timeSinceLastFrame;
-			
+
 			// smooth out the turning
 			if (currentAngle < idealSteerAngle) {
 				if (currentAngle + thisSteerIncr <= idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(currentAngle + thisSteerIncr, (int) WheelID);
+					kart.Vehicle.SetSteeringValue(currentAngle + thisSteerIncr, (int) WheelID);
 				else if (currentAngle + thisSteerIncr > idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
+					kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
 			else if (currentAngle > idealSteerAngle) {
 				if (currentAngle - thisSteerIncr >= idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(currentAngle - thisSteerIncr, (int) WheelID);
+					kart.Vehicle.SetSteeringValue(currentAngle - thisSteerIncr, (int) WheelID);
 				else if (currentAngle - thisSteerIncr < idealSteerAngle)
-					Kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
+					kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
 			}
 		}
 
@@ -162,7 +166,7 @@ namespace Ponykart.Actors {
 			if (IsDisposed)
 				return;
 
-			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
+			LKernel.GetG<PhysicsMain>().PostSimulate -= PostSimulate;
 
 			Node.Dispose();
 			Node = null;

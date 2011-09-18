@@ -21,7 +21,7 @@ namespace Ponykart.Physics {
 
 		public MogreMotionState(Vector3 position, Quaternion orientation, SceneNode node) {
 			transform = new Matrix4(orientation);
-			transform.SetTrans(position);
+			transform.MakeTransform(position, Vector3.UNIT_SCALE, orientation);
 			this.node = node;
 		}
 
@@ -46,6 +46,8 @@ namespace Ponykart.Physics {
 
 				node.Orientation = value.ExtractQuaternion();
 				node.Position = value.GetTrans();
+
+				transform = value;
 			}
 		}
 	}

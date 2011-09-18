@@ -8,18 +8,37 @@ using Ponykart.Physics;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
-
+	/// <summary>
+	/// Our game object class! Pretty much everything you see in the game uses this
+	/// </summary>
 	public class LThing : LDisposable {
+		/// <summary>
+		/// Every lthing has an ID, though it's mostly just used to stop ogre complaining about duplicate names
+		/// </summary>
 		public int ID { get; protected set; }
+		/// <summary>
+		/// This lthing's name. It's usually the same as its .thing filename.
+		/// </summary>
 		public string Name { get; protected set; }
+		/// <summary>
+		/// Physics! If we have 0 shape components, this is null; if we have 1 shape component, this is a body made from that shape;
+		/// if we have 2 or more shape components, this is a body made from a compound shape using all of the components' shapes
+		/// </summary>
 		public RigidBody Body { get; protected set; }
+		/// <summary>
+		/// A scene node that all of the model components attach stuff to.
+		/// </summary>
 		public SceneNode RootNode { get; protected set; }
+		/// <summary>
+		/// If we don't have static geometry then this will be null.
+		/// </summary>
 		protected StaticGeometry StaticGeometry { get; set; }
+
 
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
 		/// </summary>
-		protected virtual MotionState DefaultMotionState { get { return new MogreMotionState(SpawnPosition, SpawnOrientation, RootNode); } }
+		protected virtual MotionState InitializationMotionState { get { return new MogreMotionState(SpawnPosition, SpawnOrientation, RootNode); } }
 		/// <summary>
 		/// The actual motion state.
 		/// </summary>
@@ -47,14 +66,27 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public Vector3 SpawnScale { get; private set; }
 
+
 		protected RigidBodyConstructionInfo Info;
 		protected string Script;
+
 
 		public Collection<ModelComponent> ModelComponents { get; protected set; }
 		public Collection<ShapeComponent> ShapeComponents { get; protected set; }
 		public Collection<RibbonComponent> RibbonComponents { get; protected set; }
 		public Collection<BillboardSetComponent> BillboardSetComponents { get; protected set; }
 
+		/// <summary>
+		/// Constructor woo!
+		/// </summary>
+		/// <param name="template">
+		/// This is the part that comes from the .muffin file (if we used one) or somewhere else in the program. It has basic information needed for constructing this
+		/// lthing, such as where it should be in the world, its rotation, etc.
+		/// </param>
+		/// <param name="def">
+		/// This is the part that comes from the .thing file. It's got all of the properties that specifies what this lthing is, what it should look like, and
+		/// information about all of its components.
+		/// </param>
 		public LThing(ThingBlock template, ThingDefinition def) {
 			ID = IDs.New;
 			Name = template.ThingName;
@@ -201,7 +233,7 @@ namespace Ponykart.Actors {
 			// create our construction info thingy
 			Vector3 inertia;
 			shape.CalculateLocalInertia(mass, out inertia);
-			MotionState = DefaultMotionState;
+			MotionState = InitializationMotionState;
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
 			// TODO
 			string physmat = def.GetStringProperty("PhysicsMaterial", "Default");

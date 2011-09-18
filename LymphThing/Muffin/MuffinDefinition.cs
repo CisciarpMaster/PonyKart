@@ -9,6 +9,10 @@ namespace PonykartParsers {
 		public string Name { get; private set; }
 		public LevelType Type { get; private set; }
 		public ICollection<ThingBlock> ThingBlocks { get; protected set; }
+		/// <summary>
+		/// Other .muffin files this one should load.
+		/// </summary>
+		/// <see cref="Ponykart.Levels.Level.ReadMuffin()"/>
 		public ICollection<string> ExtraFiles { get; set; }
 
 		public MuffinDefinition(string name) {

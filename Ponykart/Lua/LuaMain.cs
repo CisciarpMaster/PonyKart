@@ -51,14 +51,14 @@ namespace Ponykart.Lua {
 		/// </summary>
 		/// <param name="levelName"></param>
 		public void LoadScriptFiles(string levelName) {
-			// media/scripts/
+			// "media/scripts/"
 			string scriptLocation = Settings.Default.LuaFileLocation;
 			Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation);
 
 			// first get all of the scripts that aren't in the 
-			var scripts = Directory.EnumerateFiles(scriptLocation, "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories).Where(s => !s.Contains("/levels/"));
+			var scripts = Directory.EnumerateFiles(scriptLocation, "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories).Where(s => !s.Contains("/levels\\"));
 
-			if (Directory.Exists(scriptLocation + levelName + "/")) {
+			if (Directory.Exists(Settings.Default.LevelScriptLocation  + levelName + "/")) {
 				Launch.Log("[LuaMain] Loading all scripts from " + Settings.Default.LevelScriptLocation + levelName + "/");
 				scripts = scripts.Concat(Directory.EnumerateFiles(Settings.Default.LevelScriptLocation + levelName + "/", "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories));
 			}

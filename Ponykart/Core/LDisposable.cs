@@ -12,7 +12,11 @@ namespace Ponykart {
 		/// <summary>
 		/// Track whether Dispose has been called.
 		/// </summary>
-		protected bool IsDisposed = false;
+		public bool IsDisposed { get; protected set; }
+
+		public LDisposable() {
+			IsDisposed = false;
+		}
 
 		/// <summary>
 		/// Use C# destructor syntax for finalization code.

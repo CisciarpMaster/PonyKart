@@ -36,7 +36,7 @@ Farmhouse {
 	Orientation = 0, -0.486735, 2.12758E-08, 0.87355
 }
 Barn {
-    Position = 92, -1, 234.525
+    Position = 92, -1.5, 234.525
 }
 AppleTree {
 	Position = -5, 1, 30

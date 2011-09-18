@@ -1,4 +1,5 @@
 ﻿using BulletSharp;
+using Mogre;
 using Ponykart.Physics;
 using PonykartParsers;
 
@@ -8,8 +9,8 @@ namespace Ponykart.Actors {
 	/// Z is forwards!
 	/// </summary>
 	public class Kart : LThing {
-		protected override MotionState DefaultMotionState {
-			get { return new KartMotionState(SpawnPosition, SpawnOrientation, RootNode, this); }
+		protected override MotionState InitializationMotionState {
+			get { return new DefaultMotionState(); }
 		}
 		public float MaxSpeed { get; set; }
 		public float MaxReverseSpeed { get; set; }
@@ -39,6 +40,22 @@ namespace Ponykart.Actors {
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
 			IsInAir = false;
+
+			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
+		}
+
+		/// <summary>
+		/// We could put this in a motion state, but I want the interpolated one instead
+		/// </summary>
+		/// <param name="world"></param>
+		/// <param name="evt"></param>
+		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
+			if (IsDisposed || Vehicle == null) {
+				return;
+			}
+
+			RootNode.Orientation = Body.InterpolationWorldTransform.ExtractQuaternion();
+			RootNode.Position = Body.InterpolationWorldTransform.GetTrans();
 		}
 
 		protected override void PostCreateBody(ThingDefinition def) {
