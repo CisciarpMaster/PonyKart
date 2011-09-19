@@ -1,14 +1,14 @@
 Type = Race
 Obstacle {
 	Name = "obs1"
-	Position = 4, 0, 0
+	Position = 10, 0, 0
 }
 Obstacle {
 	Name = "obs2"
-	Position = 0, 0.4, 0.8
+	Position = 0, 1, 2
 }
 Obstacle {
 	Name = "obs3"
-	Position = -2.8, 0, -2.8
+	Position = -7, 0, -7
 	Script = "tim's quest.lua"  //tell the program to run a script when we spawn this
 }

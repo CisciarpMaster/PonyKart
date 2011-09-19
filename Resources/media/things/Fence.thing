@@ -8,14 +8,13 @@ ForceCompound = true
 // box#0
 Shape {
 	Type = Box
-	Position = 0, 8.8, 0
-	Dimensions = 3.776056, 20, 0.4
+	Position = 0, 22, 0
+	Dimensions = 9.44014, 50, 1
 }
 Model {
 	Name = "Entity#2"
 	Mesh = "FencePartial.mesh"
 	Material = "Fences"
 	Position = 0, 0, 0
-	Scale = 0.4, 0.4, 0.4
 	CastsShadows = false
 }

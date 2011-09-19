@@ -7,61 +7,60 @@ Static = true
 Model {
 	Mesh = "SAA_Bridge.mesh"
 	Material = "SAA_Bridge"
-	CastsShadows = true
-	Scale = 0.4, 0.4, 0.4
+	//CastsShadows = true
 }
 
 // box#0
 Shape {
 	Type = Box
-	Position = 0, 1.6, 0
-	Dimensions = 18.46284, 1.34422, 33.40548
+	Position = 0, 4/*.35172*/, 0
+	Dimensions = 46.1571, 3.36055, 83.5137
 }
 // box#1
 Shape {
 	Type = Box
-	Position = 8.63708, 3.877156, 0.3915656
-	Dimensions = 1.290804, 3.950384, 18.18088
+	Position = 21.5927, 9.69289, 0.978914
+	Dimensions = 3.22701, 9.87596, 45.4522
 }
 // box#2
 Shape {
 	Type = Box
-	Position = -8.55236, 3.877156, 0.0475564
-	Dimensions = 1.290804, 3.950384, 18.18088
+	Position = -21.3809, 9.69289, 0.118891
+	Dimensions = 3.22701, 9.87596, 45.4522
 }
 // box#3
 Shape {
 	Type = Box
-	Position = -9.493441, 3.877156, -0.184324
-	Dimensions = 0.95952, 3.950384, 33.99232
+	Position = -23.7336, 9.69289, -0.46081
+	Dimensions = 2.3988, 9.87596, 84.9808
 }
 // box#4
 Shape {
 	Type = Box
-	Position = 9.542521, 3.877156, -0.184324
-	Dimensions = 0.95952, 3.950384, 33.99232
+	Position = 23.8563, 9.69289, -0.46081
+	Dimensions = 2.3988, 9.87596, 84.9808
 }
 // cylinder#1
 Shape {
 	Type = Cylinder
-	Position = 8.709041, 3.887732, -15.38932
-	Dimensions = 0.9173641, 3.47376, 0.9173641
+	Position = 21.7726, 9.71933, -38.4733
+	Dimensions = 2.29341, 8.6844, 2.29341
 }
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = -8.635119, 3.887732, -15.38932
-	Dimensions = 0.9173641, 3.47376, 0.9173641
+	Position = -21.5878, 9.71933, -38.4733
+	Dimensions = 2.29341, 8.6844, 2.29341
 }
 // cylinder#2
 Shape {
 	Type = Cylinder
-	Position = 8.709041, 2.91192, 15.51324
-	Dimensions = 0.9173641, 3.47376, 0.9173641
+	Position = 21.7726, 7.2798, 38.7831
+	Dimensions = 2.29341, 8.6844, 2.29341
 }
 // cylinder#3
 Shape {
 	Type = Cylinder
-	Position = -8.65132, 3.176484, 15.51324
-	Dimensions = 0.9173641, 3.47376, 0.9173641
+	Position = -21.6283, 7.94121, 38.7831
+	Dimensions = 2.29341, 8.6844, 2.29341
 }

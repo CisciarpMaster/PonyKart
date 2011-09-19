@@ -1,79 +1,77 @@
 Physics = Dynamic
-Mass = 20
+Mass = 50
 Script = "applecart"
 PhysicsMaterial = "NoBounce"
 
 // box#0
 Shape {
 	Type = Box
-	Position = 0.5439081, 0.1766868, 0
-	Dimensions = 0.108964, 0.98244, 0.9354841
+	Position = 1.35977, 0.441717, 0
+	Dimensions = 0.27241, 2.4561, 2.33871
 }
 Model {
 	Name = "Entity#0"
 	Mesh = "AppleCart.mesh"
 	Material = ""
-	Position = 0.6084, 0.0556, 0
-	Scale = 0.4, 0.4, 0.4
+	Position = 1.521, 0.139, 0
 	CastsShadows = true
 }
 // box#1
 Shape {
 	Type = Box
-	Position = 1.177572, 0.1715188, 0
-	Dimensions = 1.319924, 0.117496, 0.645748
+	Position = 2.94393, 0.428797, 0
+	Dimensions = 3.29981, 0.29374, 1.61437
 }
 Model {
 	Name = "Entity#1"
 	Mesh = "AppleCartExtras.mesh"
 	Material = ""
-	Position = 0.182, 0.1076, 0
-	Scale = 0.4, 0.4, 0.4
+	Position = 0.455, 0.269, 0
 	CastsShadows = false
 }
 // cylinder#2
 Shape {
 	Type = Cylinder
-	Position = 0.1345452, -0.178406, -0.520432
+	Position = 0.336363, -0.446015, -1.30108
 	Orientation = -0.710185, 0, 0, 0.704015
-	Dimensions = 0.8, 0.146112, 0.8
+	Dimensions = 2, 0.36528, 2
 }
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = 0.1242376, -0.1922168, 0.507212
+	Position = 0.310594, -0.480542, 1.26803
 	Orientation = -0.710185, 0, 0, 0.704015
-	Dimensions = 0.8, 0.146112, 0.8
+	Dimensions = 2, 0.36528, 2
 }
 // cylinder#1
 Shape {
 	Type = Cylinder
-	Position = 1.599744, 0.2009008, 0
+	Position = 3.99936, 0.502252, 0
 	Orientation = 0, 0, 0.707107, 0.707107
-	Dimensions = 0.586108, 0.106878, 0.586108
+	Dimensions = 1.46527, 0.267195, 1.46527
 }
 // box#2
 Shape {
 	Type = Box
-	Position = -0.572728, 0.0935228, 0
+	Position = -1.43182, 0.233807, 0
 	Orientation = 0, 0, 0.0218149, 0.999762
-	Dimensions = 0.108964, 0.78402, 0.9354841
+	Dimensions = 0.27241, 1.96005, 2.33871
 }
 // box#4
 Shape {
 	Type = Box
-	Position = -0.01869796, 0.2341108, 0.410268
-	Dimensions = 1.142488, 1.076236, 0.1074552
+	Position = -0.0467449, 0.585277, 1.02567
+	Dimensions = 2.85622, 2.69059, 0.268638
 }
 // box#3
 Shape {
 	Type = Box
-	Position = -0.01869796, 0.2341108, -0.418636
-	Dimensions = 1.142488, 1.076236, 0.1074552
+	Position = -0.0467449, 0.585277, -1.04659
+	Dimensions = 2.85622, 2.69059, 0.268638
 }
 // box#5
 Shape {
 	Type = Box
-	Position = -0.01869796, -0.0789252, 0
-	Dimensions = 1.142488, 0.495036, 0.83228
+	Position = -0.0467449, -0.197313, 0
+	Dimensions = 2.85622, 1.23759, 2.0807
 }

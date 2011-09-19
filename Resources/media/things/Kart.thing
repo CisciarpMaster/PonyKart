@@ -7,21 +7,20 @@ MaxReverseSpeed = 20
 FrontWheel = "FrontWheel"
 BackWheel = "BackWheel"
 PhysicsMaterial = "Kart"
-FrontLeftWheelPosition = 0.5552, 0.1208, 0.40812
-FrontRightWheelPosition = -0.5552, 0.1208, 0.40812
-BackLeftWheelPosition = 0.5552, 0.1208, -0.681712
-BackRightWheelPosition = -0.5552, 0.1208, -0.681712
+FrontLeftWheelPosition = 1.388, 0.302, 1.0203
+FrontRightWheelPosition = -1.388, 0.302, 1.0203
+BackLeftWheelPosition = 1.388, 0.302, -1.70428
+BackRightWheelPosition = -1.388, 0.302, -1.70428
 
 Model {
 	Mesh = "kart/KartChassis.mesh"
 	Material = "redbrick"
-	Position = 0, 0.0770784, -0.05920601
-	Scale = 0.4, 0.4, 0.4
+	Position = 0, 0.192696, -0.148015
 }
 
 Shape {
 	Type = Hull
 	Mesh = "kart/KartHull.mesh"
 	//HullName = "KartHull"
-	Position = 0, 0.3795712, -0.1185448
+	Position = 0, 0.948928, -0.296362
 }

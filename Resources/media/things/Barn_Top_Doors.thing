@@ -1,18 +1,19 @@
 Physics = Dynamic
-Mass = 12
+Mass = 30
 CollisionGroup = Environment
 CollidesWith = Environment
 PhysicsMaterial = "NoFrictionNoBounce"
 
 Model {
+	Name = "Barn_Door_Top"
 	Mesh = "Barn_Door_Top.mesh"
 	Material = "Barn"
 	Position = 0, 0, 0
-	Scale = 0.6, 0.6, 0.6
+	Scale = 1.5, 1.5, 1.5
 }
 // box for top
 Shape {
 	Type = Box
 	Position = 0, 0, 0
-	Dimensions = 3.135012, 2.583884, 0.3027704
+	Dimensions = 7.83753, 6.45971, 0.756926
 }

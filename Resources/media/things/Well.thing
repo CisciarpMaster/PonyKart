@@ -7,27 +7,26 @@ Static = true
 // box#0
 Shape {
 	Type = Box
-	Position = 0.482348, 3.507108, -0.03255632
+	Position = 1.20587, 8.76777, -0.0813908
 	Orientation = -0.374702, -0.00723239, 0.0170385, 0.926961
-	Dimensions = 2.526172, 2.94344, 2.94344
+	Dimensions = 6.31543, 7.3586, 7.3586
 }
 Model {
 	Name = "Entity#0"
 	Mesh = "Well.mesh"
 	Material = "Well"
-	Position = 0, 2.755604, 0
-	Scale = 0.4, 0.4, 0.4
+	Position = 0, 6.88901, 0
 	CastsShadows = true
 }
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = 0.535108, 0.754716, -0.0594892
-	Dimensions = 3.192108, 1.693108, 3.192108
+	Position = 1.33777, 1.88679, -0.148723
+	Dimensions = 7.98027, 4.23277, 7.98027
 }
 // box#1
 Shape {
 	Type = Box
-	Position = -1.381104, 2.330884, -0.03252908
-	Dimensions = 1.37758, 0.722964, 0.2359276
+	Position = -3.45276, 5.82721, -0.0813227
+	Dimensions = 3.44395, 1.80741, 0.589819
 }

@@ -10,12 +10,11 @@ Model {
 	Mesh = "FenceAngled.mesh"
 	Material = "Fences"
 	Position = 0, 0, 0
-	Scale = 0.4, 0.4, 0.4
 	CastsShadows = false
 }
 // box#0
 Shape {
 	Type = Box
-	Position = 0, 8.3198, 0
-	Dimensions = 3.8, 20, 0.4
+	Position = 0, 20.7995, 0
+	Dimensions = 9.5, 50, 1
 }

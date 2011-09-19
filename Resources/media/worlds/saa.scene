@@ -3,60 +3,9 @@
 		<colourAmbient r="0.8" g="0.8" b="0.8" />
 	</environment>
 	<nodes>
-		<node name="HP_Ground_Collidable">
-            <position x="0" y="0" z="0" />
-            <scale x="0.4" y="0.4" z="0.4" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="HP_Ground_Collidable" castShadows="true" receiveShadows="true" meshFile="HP_Ground_Collidable.mesh">
-                <subentities>
-                    <subentity index="0" materialName="Grass" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="HP_Ground">
-            <position x="0" y="0" z="0" />
-            <scale x="0.4" y="0.4" z="0.4" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="HP_Ground" castShadows="true" receiveShadows="true" meshFile="HP_Ground.mesh">
-                <subentities>
-                    <subentity index="0" materialName="Grass" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="SAA_Road">
-            <position x="0" y="0" z="0" />
-            <scale x="0.4" y="0.4" z="0.4" />
-            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="SAA_Road" castShadows="true" receiveShadows="true" meshFile="SAA_Road.mesh">
-                <subentities>
-                    <subentity index="0" materialName="SAA_Road" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="LP_Ground">
-            <position x="0" y="0" z="0" />
-            <scale x="1" y="1" z="1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="LP_Ground" castShadows="true" receiveShadows="true" meshFile="LP_Ground.mesh">
-                <subentities>
-                    <subentity index="0" materialName="Grass" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="Barn_area_ground">
-            <position x="0" y="0" z="0" />
-            <scale x="0.4" y="0.4" z="0.4" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="Barn_area_ground" castShadows="true" receiveShadows="true" meshFile="Barn_area_ground.mesh">
-                <subentities>
-                    <subentity index="0" materialName="SAA_Barn_Area" />
-                </subentities>
-            </entity>
-        </node>
-	
 		<node name="Ramp_1">
-			<position x="-42.7244" y="19.4596" z="-269.072" />
-			<scale x="0.62536" y="1" z="1.145632" />
+			<position x="-106.811" y="48.649" z="-672.68" />
+			<scale x="1.5634" y="2.5" z="2.86408" />
 			<rotation qx="0.697776" qy="0.114492" qz="0.114492" qw="0.697776" />
 			<entity name="Ramp_1" castShadows="true" receiveShadows="true" meshFile="Ramp_1.mesh" static="true">
 				<subentities>
@@ -64,6 +13,36 @@
 				</subentities>
 			</entity>
 		</node>
+		<node name="LP_Ground">
+			<position x="-18.8938" y="-6.96937" z="-171.604" />
+			<scale x="2.5" y="2.5" z="2.5" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="LP_Ground" castShadows="true" receiveShadows="true" meshFile="LP_Ground.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Grass" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="HP_Ground_Collidable">
+            <position x="119.19" y="-49.0117" z="-224.722" />
+            <scale x="3.61437" y="2.5" z="3.61437" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="HP_Ground_Collidable" castShadows="true" receiveShadows="true" meshFile="HP_Ground_Collidable.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="Grass" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="HP_Ground">
+            <position x="119.19" y="-49.0117" z="-224.722" />
+            <scale x="3.61437" y="2.5" z="3.61437" />
+            <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
+            <entity name="HP_Ground" castShadows="true" receiveShadows="true" meshFile="HP_Ground.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="Grass" />
+                </subentities>
+            </entity>
+        </node>
 		<node name="Banner">
 			<position x="-6.13099" y="23.95" z="324.679" />
 			<scale x="2.94578" y="2.82536" z="2.09351" />
@@ -81,6 +60,36 @@
 			<entity name="BannerPost" castShadows="true" receiveShadows="true" meshFile="BannerPost.mesh" static="false">
 				<subentities>
 					<subentity index="0" materialName="11-Default" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="bushes">
+			<position x="9.79416" y="-0.461523" z="267.374" />
+			<scale x="4.71791" y="4.71791" z="4.71791" />
+			<rotation qx="0.45452" qy="-0.541675" qz="0.541675" qw="0.45452" />
+			<entity name="bushes" castShadows="true" receiveShadows="true" meshFile="default002.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="15-Default" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="Barn_area_ground">
+			<position x="85.8292" y="-0.609074" z="262.329" />
+			<scale x="1" y="0.0120714" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="Barn_area_ground" castShadows="false" receiveShadows="true" meshFile="Barn_area_ground.mesh" static="true">
+				<subentities>
+					<subentity index="0" materialName="SAA_Barn_Area" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="SAA_Road">
+			<position x="-69.9466" y="14.9867" z="290.972" />
+			<scale x="2.5" y="2.5" z="2.5" />
+			<rotation qx="0" qy="0.707107" qz="-3.09086E-08" qw="0.707107" />
+			<entity name="SAA_Road" castShadows="False" receiveShadows="true" meshFile="SAA_road.mesh" static="true">
+				<subentities>
+					<subentity index="0" materialName="SAA_Road" />
 				</subentities>
 			</entity>
 		</node>

@@ -6,61 +6,57 @@ Static = true
 
 Model {
 	Mesh = "Chicken_Coop.mesh"
-	Position = 0, 2.0336, 0
-	Scale = 0.4, 0.4, 0.4
+	Position = 0, 5.084, 0
 }
 Model {
 	Mesh = "Chicken_Coop_Ramp.mesh"
-	Position = 0.0152, 0.4056, 2.7348
-	Scale = 0.4, 0.4, 0.4
+	Position = 0.038, 1.014, 6.837
 }
 Model {
 	Mesh = "Chicken_Coop_Signpost.mesh"
-	Position = -1.045368, 3.238448, 2.921316
-	Scale = 0.4, 0.4, 0.4
+	Position = -2.61342, 8.09612, 7.30329
 }
 Model {
 	Mesh = "Chicken_Coop_Sign.mesh"
-	Position = -1.04472, 2.514752, 3.168356
-	Scale = 0.4, 0.4, 0.4
+	Position = -2.6118, 6.28688, 7.92089
 	CastsShadows = false
 }
 // main part
 Shape {
 	Type = Box
-	Dimensions = 2.436, 2.312, 3.852
-	Position = 0.036, 1.156, 0.012
+	Dimensions = 6.09, 5.78, 9.63
+	Position = 0.09, 2.89, 0.03
 }
 // ramp
 Shape {
 	Type = Box
-	Dimensions = 0.876, 0.1436, 2.0188
-	Position = 0.0116, 0.3808, 2.756
+	Dimensions = 2.19, 0.359, 5.047
+	Position = 0.029, 0.952, 6.89
 	Rotation = 24, 0, 0
 }
 // sign
 Shape {
 	Type = Box
-	Dimensions = 0.1988, 1.9464, 2.436
-	Position = -1.0452, 2.576, 3.1648
+	Dimensions = 0.497, 4.866, 6.09
+	Position = -2.613, 6.44, 7.912
 }
 // angled bit for the roof
 Shape {
 	Type = Box
-	Dimensions = 3, 0.1612, 4.284
-	Position = 0.0116, 3.0424, 0.0044
+	Dimensions = 7.5, 0.403, 10.71
+	Position = 0.029, 7.606, 0.011
 	Rotation = 0, 0, -38.515
 }
 // angled chunk in the middle to plug the gap
 Shape {
 	Type = Box
-	Dimensions = 1.76, 1.0848, 3.8736
-	Position = 0.058, 2.3492, 0.00516
+	Dimensions = 4.4, 2.712, 9.684
+	Position = 0.145, 5.873, 0.0129
 	Rotation = 0, 0, -40
 }
 // for the tall side
 Shape {
 	Type = Box
-	Dimensions = 0.563768, 1.5532, 3.8472
-	Position = -0.9220001, 2.754, 0.0116
+	Dimensions = 1.40942, 3.883, 9.618
+	Position = -2.305, 6.885, 0.029
 }

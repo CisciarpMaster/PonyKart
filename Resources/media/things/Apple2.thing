@@ -1,14 +1,13 @@
 Physics = Dynamic
-Mass = 0.4
+Mass = 1
 
 Model {
 	Mesh = "Apple2.mesh"
-	Position = 0, 0.02, 0
-	Scale = 0.4, 0.4, 0.4
+	Position = 0, 0.05, 0
 	CastsShadows = true
 }
 Shape {
 	Type = Sphere
 	Position = 0, 0, 0
-	Radius = 0.15
+	Radius = 0.375
 }

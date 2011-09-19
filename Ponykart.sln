@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneToThing", "SceneToThin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneToMuffin", "SceneToMuffin\SceneToMuffin.csproj", "{B7598F5C-A971-42F4-B324-2268085C4113}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rescaler", "Rescaler\Rescaler.csproj", "{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Cupcake|Any CPU = Cupcake|Any CPU
@@ -65,15 +63,6 @@ Global
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|Any CPU.ActiveCfg = Release|x86
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|x86.ActiveCfg = Release|x86
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|x86.Build.0 = Release|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Cupcake|Any CPU.ActiveCfg = Release|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Cupcake|x86.ActiveCfg = Release|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Cupcake|x86.Build.0 = Release|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Debug|x86.ActiveCfg = Debug|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Debug|x86.Build.0 = Debug|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Release|Any CPU.ActiveCfg = Release|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Release|x86.ActiveCfg = Release|x86
-		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
