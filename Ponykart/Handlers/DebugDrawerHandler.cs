@@ -7,7 +7,7 @@ namespace Ponykart.Handlers {
 	public class DebugDrawerHandler : LDisposable, ILevelHandler {
 
 		public DebugDrawerHandler() {
-			MogreDebugDrawer.SetSingleton(new MogreDebugDrawer(LKernel.GetG<SceneManager>(), 0.6f));
+			MogreDebugDrawer.Singleton.Initialise(LKernel.GetG<SceneManager>(), 0.6f);
 
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 			LKernel.GetG<Root>().FrameEnded += FrameEnded;

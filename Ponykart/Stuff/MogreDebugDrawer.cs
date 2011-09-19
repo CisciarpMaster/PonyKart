@@ -1,8 +1,16 @@
 #if DEBUG
 /// http://www.ogre3d.org/addonforums/viewtopic.php?f=8&p=81515#p81515
+using System;
 using System.Collections.Generic;
 using Mogre;
+using Math = Mogre.Math;
 
+
+#region "IcoSphere"
+/// <summary>
+/// IcoSphere class
+/// <remarks>See http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html </remarks>
+/// </summary>
 public class IcoSphere {
 	public class TriangleIndices {
 		public int v1;
@@ -15,12 +23,11 @@ public class IcoSphere {
 			v3 = _v3;
 		}
 
-
 		public static bool operator <(TriangleIndices ImpliedObject, TriangleIndices o) {
-			return ImpliedObject.v1 > o.v1 && ImpliedObject.v2 < o.v2 && ImpliedObject.v3 < o.v3;
+			return (ImpliedObject.v1 > o.v1) && (ImpliedObject.v2 < o.v2) && (ImpliedObject.v3 < o.v3);
 		}
 		public static bool operator >(TriangleIndices ImpliedObject, TriangleIndices o) {
-			return ImpliedObject.v1 > o.v1 && ImpliedObject.v2 > o.v2 && ImpliedObject.v3 > o.v3;
+			return (ImpliedObject.v1 > o.v1) && (ImpliedObject.v2 > o.v2) && (ImpliedObject.v3 > o.v3);
 		}
 	}
 
@@ -39,28 +46,66 @@ public class IcoSphere {
 		public static bool operator !=(LineIndices ImpliedObject, LineIndices o) {
 			return (ImpliedObject.v1 != o.v1 && ImpliedObject.v2 != o.v2) || (ImpliedObject.v1 != o.v2 && ImpliedObject.v2 != o.v1);
 		}
+		// Equals & GetHashCode override, as guideline [http://msdn.microsoft.com/en-us/library/bsc2ak47.aspx]
+		public override bool Equals(System.Object obj) {
+			// If parameter is null return false.
+			if (obj == null) {
+				return false;
+			}
 
-		// to stop the warnings
+			// If parameter cannot be cast to Type return false.
+			LineIndices p = obj as LineIndices;
+			if ((System.Object) p == null) {
+				return false;
+			}
+
+			// Return true if the fields match:
+			return (v1 == p.v1) && (v2 == p.v2);
+		}
+		public bool Equals(LineIndices p) {
+			// If parameter is null return false.
+			if ((object) p == null) {
+				return false;
+			}
+
+			// Return true if the fields match:
+			return (v1 == p.v1) && (v2 == p.v2);
+		}
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return v1 ^ v2;
 		}
-		public override bool Equals(object obj) {
-			return this == obj as LineIndices;
-		}
+
 	}
+
+
 	private List<Vector3> vertices = new List<Vector3>();
 	private LinkedList<LineIndices> _lineIndices = new LinkedList<LineIndices>();
 	private LinkedList<int> _triangleIndices = new LinkedList<int>();
 	private LinkedList<TriangleIndices> faces = new LinkedList<TriangleIndices>();
+
 	private Dictionary<long, int> middlePointIndexCache = new Dictionary<long, int>();
 
 	private int index;
+
 	public IcoSphere() {
 		index = 0;
 	}
+
 	public void Dispose() {
+		// TODO: Verify & complete if necessary
+		vertices.Clear();
+		vertices = null;
+		_lineIndices.Clear();
+		_lineIndices = null;
+		_triangleIndices.Clear();
+		_triangleIndices = null;
+		faces.Clear();
+		faces = null;
+		middlePointIndexCache.Clear();
+		middlePointIndexCache = null;
 	}
-	public void create(int recursionLevel) {
+
+	public void Create(int recursionLevel) {
 		vertices.Clear();
 		_lineIndices.Clear();
 		_triangleIndices.Clear();
@@ -68,23 +113,26 @@ public class IcoSphere {
 		middlePointIndexCache.Clear();
 		index = 0;
 
+		// Base Icosahedron creation
 		float t = (1f + Math.Sqrt(5f)) / 2f;
 
+		// |1| create 12 vertices of a icosahedron
 		AddVertex(new Vector3(-1f, t, 0f));
+		// Z = 0
 		AddVertex(new Vector3(1f, t, 0f));
 		AddVertex(new Vector3(-1f, -t, 0f));
 		AddVertex(new Vector3(1f, -t, 0f));
-
 		AddVertex(new Vector3(0f, -1f, t));
+		// X = 0
 		AddVertex(new Vector3(0f, 1f, t));
 		AddVertex(new Vector3(0f, -1f, -t));
 		AddVertex(new Vector3(0f, 1f, -t));
-
 		AddVertex(new Vector3(t, 0f, -1f));
+		// Y = 0
 		AddVertex(new Vector3(t, 0f, 1f));
 		AddVertex(new Vector3(-t, 0f, -1f));
 		AddVertex(new Vector3(-t, 0f, 1f));
-
+		// |2| create 20 triangles (faces) of the icosahedron 
 		AddFace(0, 11, 5);
 		AddFace(0, 5, 1);
 		AddFace(0, 1, 7);
@@ -144,6 +192,7 @@ public class IcoSphere {
 		AddLineIndices(7, 10);
 		AddLineIndices(10, 0);
 
+		// Now we can cycle for the recursion level
 		for (int i = 0; i <= recursionLevel - 1; i++) {
 			LinkedList<TriangleIndices> faces2 = new LinkedList<TriangleIndices>();
 
@@ -154,9 +203,9 @@ public class IcoSphere {
 				int b = GetMiddlePoint(f.v2, f.v3);
 				int c = GetMiddlePoint(f.v3, f.v1);
 
-				removeLineIndices(f.v1, f.v2);
-				removeLineIndices(f.v2, f.v3);
-				removeLineIndices(f.v3, f.v1);
+				RemoveLineIndices(f.v1, f.v2);
+				RemoveLineIndices(f.v2, f.v3);
+				RemoveLineIndices(f.v3, f.v1);
 
 				faces2.AddLast(new TriangleIndices(f.v1, a, c));
 				faces2.AddLast(new TriangleIndices(f.v2, b, a));
@@ -171,10 +220,11 @@ public class IcoSphere {
 			faces = faces2;
 		}
 	}
+
 	public void AddLineIndices(int index0, int index1) {
 		_lineIndices.AddLast(new LineIndices(index0, index1));
 	}
-	public void removeLineIndices(int index0, int index1) {
+	public void RemoveLineIndices(int index0, int index1) {
 		LinkedListNode<LineIndices> result = _lineIndices.Find(new LineIndices(index0, index1));
 		if (result != null) {
 			_lineIndices.Remove(result);
@@ -210,10 +260,10 @@ public class IcoSphere {
 		int index = AddVertex(middle);
 		if (middlePointIndexCache.ContainsKey(key) == false) {
 			middlePointIndexCache.Add(key, index);
+
 		}
 		else {
 			middlePointIndexCache[key] = index;
-
 		}
 		return index;
 	}
@@ -247,9 +297,10 @@ public class IcoSphere {
 		return vertices.Count;
 	}
 
-
-
 }
+//public class IcoSphere
+#endregion
+
 
 /// <summary>
 /// This is the port of the Ogre DebugDrawer from https://bitbucket.org/hasyimi/ogre-debug-drawing-utility/
@@ -257,94 +308,169 @@ public class IcoSphere {
 /// <remarks></remarks>
 public class MogreDebugDrawer : System.IDisposable {
 	#region "Singleton"
+	/// <summary>
+	/// Data member for locking, instead locking on type itself (to avoid deadlocks).
+	/// </summary>
+
+	private static object _syncRoot = new System.Object();
+	/// <summary>
+	/// Data member for storing singleton instance. Volatile type for multithreading support.
+	/// </summary>
 	private static MogreDebugDrawer _Singleton;
+	/// <summary>
+	/// The singleton of DebugDrawer. Do not forget to set scenemanager and alpha!
+	/// </summary>
+	/// <value></value>
+	/// <returns></returns>
+	/// <remarks></remarks>
 	public static MogreDebugDrawer Singleton {
-		get { return _Singleton; }
-	}
-	public static void SetSingleton(MogreDebugDrawer DebugDrawer) {
-		_Singleton = DebugDrawer;
+		get {
+			if (_Singleton == null) {
+				lock (_syncRoot) {
+					if (_Singleton == null) {
+						_Singleton = new MogreDebugDrawer();
+					}
+				}
+			}
+			return _Singleton;
+		}
 	}
 	#endregion
+
+
 	readonly int DEFAULT_ICOSPHERE_RECURSION_LEVEL = 0;
-	public bool Enabled {
-		get { return GetEnabled(); }
-		set { SetEnabled(value); }
+
+	#region "Data Members"
+
+	private SceneManager m_sceneManager;
+	/// <summary>
+	/// This is the scenemanager which is used to create the manualobject. 
+	/// If you did not call Initialise(...) and you try to call build, an exception will be thrown ;)
+	/// </summary>
+	/// <value></value>
+	/// <returns></returns>
+	/// <remarks></remarks>
+	public SceneManager SceneManager {
+		get { return m_sceneManager; }
 	}
-	private bool GetEnabled() {
-		return isEnabled;
-	}
-	private void SetEnabled(bool _isEnabled) {
-		isEnabled = _isEnabled;
-	}
-	public void SwitchEnabled() {
-		isEnabled = !isEnabled;
+
+	private ManualObject m_manualObject;
+	/// <summary>
+	/// The manualobject which is used to draw the meshes. You can use this to create a mesh (-snapshot). Remember to call Initialise(...)
+	/// </summary>
+	/// <value></value>
+	/// <returns></returns>
+	/// <remarks></remarks>
+	public ManualObject ManualObject {
+		get { return m_manualObject; }
 	}
 
 
-	private SceneManager sceneManager;
-	private ManualObject manualObject;
-	private float fillAlpha = 1;
-
+	private float fillAlpha = 0.6f;
 	private IcoSphere icoSphere = new IcoSphere();
-
+	// |?| This IcoSphere should be disposed in the Dispose()
 	private bool isEnabled = true;
+	public bool Enabled {
+		get { return isEnabled; }
+		set { isEnabled = value; }
+	}
+	/// <summary>
+	/// The alpha value of all faces (from 0 to 1, default 0.6)
+	/// Note: You need to call 'Build' in order to change alpha value of ALL faces. 
+	/// </summary>
+	/// <value></value>
+	/// <returns></returns>
+	/// <remarks></remarks>
+	public float Alpha {
+		get { return fillAlpha; }
+		set {
+			if (value > 1) {
+				value = 1;
+			}
+			else if (value < 0) {
+				value = 0;
+			}
+			fillAlpha = value;
+		}
+	}
+	private bool isInitialised = false;
+	// Explicit initialization here is redundant: C# default bool is 'false'
+	public bool Initialized {
+		get { return isInitialised; }
+		set { isInitialised = value; }
+	}
+
+	// Clear() - Start data members cleared by Clear()
 	private LinkedList<KeyValuePair<Vector3, ColourValue>> lineVertices = new LinkedList<KeyValuePair<Vector3, ColourValue>>();
 	private LinkedList<KeyValuePair<Vector3, ColourValue>> triangleVertices = new LinkedList<KeyValuePair<Vector3, ColourValue>>();
 	private LinkedList<int> lineIndices = new LinkedList<int>();
 
 	private LinkedList<int> triangleIndices = new LinkedList<int>();
 	private int linesIndex;
-
 	private int trianglesIndex;
-	public MogreDebugDrawer(SceneManager _sceneManager, float _fillAlpha) {
-		sceneManager = _sceneManager;
-		fillAlpha = _fillAlpha;
-		manualObject = null;
-		linesIndex = 0;
-		trianglesIndex = 0;
-		Initialise();
+	// Clear() - End data members cleared by Clear()
+
+	#endregion
+
+
+	/// <summary>
+	/// Class Constructor - class is a Singleton (see Design Patterns)
+	/// <remarks>Protected constructor to enable inherited classes to override it, but to avoid
+	/// direct calls from external classes (they must pass through Singleton property)</remarks>
+	/// </summary>
+	protected MogreDebugDrawer() {
 	}
 
-	private void Initialise() {
-		manualObject = sceneManager.CreateManualObject("debug_object");
-		manualObject.CastShadows = false;
+	public void Initialise(SceneManager aSceneManager, float aFillAlpha) {
+		if (isInitialised) {
+			// Initialization multiple call guard
+			return;
+		}
 
-		// set up material
-		string matName = "MogreDebugDrawerMaterial";
-		MaterialPtr mtl = MaterialManager.Singleton.GetDefaultSettings().Clone(matName);
-		mtl.ReceiveShadows = false;
-		mtl.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-		mtl.SetDepthBias(0.1f, 0);
-		// also for the material
-		TextureUnitState tu = mtl.GetTechnique(0).GetPass(0).CreateTextureUnitState();
-		tu.SetColourOperationEx(LayerBlendOperationEx.LBX_SOURCE1, LayerBlendSource.LBS_DIFFUSE);
-		mtl.GetTechnique(0).SetLightingEnabled(false);
+		if (aSceneManager == null) {
+			return;
+		}
 
-		sceneManager.RootSceneNode.CreateChildSceneNode("debug_object").AttachObject(manualObject);
-		manualObject.Dynamic = (true);
+		m_sceneManager = aSceneManager;
+		fillAlpha = aFillAlpha;
+		m_manualObject = null;
+		linesIndex = 0;
+		trianglesIndex = 0;
 
-		icoSphere.create(this.DEFAULT_ICOSPHERE_RECURSION_LEVEL);
+		m_manualObject = m_sceneManager.CreateManualObject("debugDrawer_object");
+		m_manualObject.CastShadows = false;
 
-		manualObject.Begin(matName, RenderOperation.OperationTypes.OT_LINE_LIST);
-		manualObject.Position(Vector3.ZERO);
-		manualObject.Colour(ColourValue.ZERO);
-		manualObject.Index(0);
-		manualObject.End();
-		manualObject.Begin(matName, RenderOperation.OperationTypes.OT_TRIANGLE_LIST);
-		manualObject.Position(Vector3.ZERO);
-		manualObject.Colour(ColourValue.ZERO);
-		manualObject.Index(0);
-		manualObject.End();
+		m_sceneManager.RootSceneNode.CreateChildSceneNode("debugDrawer_object").AttachObject(m_manualObject);
+		m_manualObject.Dynamic = (true);
+
+		icoSphere.Create(this.DEFAULT_ICOSPHERE_RECURSION_LEVEL);
+
+		m_manualObject.Begin("debug_draw", RenderOperation.OperationTypes.OT_LINE_LIST);
+		m_manualObject.Position(Vector3.ZERO);
+		m_manualObject.Colour(ColourValue.ZERO);
+		m_manualObject.Index(0);
+		m_manualObject.End();
+		m_manualObject.Begin("debug_draw", RenderOperation.OperationTypes.OT_TRIANGLE_LIST);
+		m_manualObject.Position(Vector3.ZERO);
+		m_manualObject.Colour(ColourValue.ZERO);
+		m_manualObject.Index(0);
+		m_manualObject.End();
 
 		trianglesIndex = 0;
 		linesIndex = trianglesIndex;
+
+		isInitialised = true;
+		// Initialization multiple call guard
 	}
 	public void SetIcoSphereRecursionLevel(int recursionLevel) {
-		icoSphere.create(recursionLevel);
+		icoSphere.Create(recursionLevel);
 	}
-	public void shutdown() {
-		sceneManager.DestroySceneNode("debug_object");
-		sceneManager.DestroyManualObject(manualObject);
+	public void Shutdown() {
+		m_sceneManager.DestroySceneNode("debugDrawer_object");
+		m_sceneManager.DestroyManualObject(m_manualObject);
+	}
+	public void SwitchEnabled() {
+		isEnabled = !isEnabled;
 	}
 	public void BuildLine(Vector3 start, Vector3 end, ColourValue colour, float alpha) {
 		int i = AddLineVertex(start, new ColourValue(colour.r, colour.g, colour.b, alpha));
@@ -364,7 +490,7 @@ public class MogreDebugDrawer : System.IDisposable {
 	}
 	public void BuildCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, float alpha) {
 		int index = linesIndex;
-		float increment = 2 * Math.PI / segmentsCount;
+		float increment = 2.0f * Math.PI / segmentsCount;
 		float angle = 0f;
 
 		for (int i = 0; i <= segmentsCount - 1; i++) {
@@ -378,7 +504,7 @@ public class MogreDebugDrawer : System.IDisposable {
 	}
 	public void BuildFilledCircle(Vector3 centre, float radius, int segmentsCount, ColourValue colour, float alpha) {
 		int index = trianglesIndex;
-		float increment = 2 * Math.PI / segmentsCount;
+		float increment = 2.0f * Math.PI / segmentsCount;
 		float angle = 0f;
 
 		for (int i = 0; i <= segmentsCount - 1; i++) {
@@ -394,7 +520,7 @@ public class MogreDebugDrawer : System.IDisposable {
 	}
 	public void BuildCylinder(Vector3 centre, float radius, int segmentsCount, float height, ColourValue colour, float alpha) {
 		int index = linesIndex;
-		float increment = System.Convert.ToSingle(2 * Math.PI / segmentsCount);
+		float increment = System.Convert.ToSingle(2.0f * Math.PI / segmentsCount);
 		float angle = 0f;
 
 		// Top circle
@@ -584,37 +710,40 @@ public class MogreDebugDrawer : System.IDisposable {
 		}
 	}
 	public void Build() {
-		manualObject.BeginUpdate(0);
+		if (Initialized == false) {
+			throw new Exception("You forgot to call 'Initialise(...)'");
+		}
+		m_manualObject.BeginUpdate(0);
 		if (lineVertices.Count > 0 && isEnabled) {
-			manualObject.EstimateVertexCount(System.Convert.ToUInt32(lineVertices.Count));
-			manualObject.EstimateIndexCount(System.Convert.ToUInt32(lineIndices.Count));
+			m_manualObject.EstimateVertexCount(System.Convert.ToUInt32(lineVertices.Count));
+			m_manualObject.EstimateIndexCount(System.Convert.ToUInt32(lineIndices.Count));
 			LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = lineVertices.GetEnumerator();
 			while (i.MoveNext()) {
-				manualObject.Position(i.Current.Key);
-				manualObject.Colour(i.Current.Value);
+				m_manualObject.Position(i.Current.Key);
+				m_manualObject.Colour(i.Current.Value);
 			}
 			LinkedList<int>.Enumerator i2 = lineIndices.GetEnumerator();
 			while (i2.MoveNext()) {
-				manualObject.Index(System.Convert.ToUInt16(i2.Current));
+				m_manualObject.Index(System.Convert.ToUInt16(i2.Current));
 			}
 		}
-		manualObject.End();
+		m_manualObject.End();
 
-		manualObject.BeginUpdate(1);
+		m_manualObject.BeginUpdate(1);
 		if (triangleVertices.Count > 0 && isEnabled) {
-			manualObject.EstimateVertexCount(System.Convert.ToUInt16((triangleVertices.Count)));
-			manualObject.EstimateIndexCount(System.Convert.ToUInt16(triangleIndices.Count));
+			m_manualObject.EstimateVertexCount(System.Convert.ToUInt16((triangleVertices.Count)));
+			m_manualObject.EstimateIndexCount(System.Convert.ToUInt16(triangleIndices.Count));
 			LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = triangleVertices.GetEnumerator();
 			while (i.MoveNext()) {
-				manualObject.Position(i.Current.Key);
-				manualObject.Colour(i.Current.Value.r, i.Current.Value.g, i.Current.Value.b, fillAlpha);
+				m_manualObject.Position(i.Current.Key);
+				m_manualObject.Colour(i.Current.Value.r, i.Current.Value.g, i.Current.Value.b, fillAlpha);
 			}
-			LinkedList <int>.Enumerator i2 = triangleIndices.GetEnumerator();
+			LinkedList<int>.Enumerator i2 = triangleIndices.GetEnumerator();
 			while (i2.MoveNext()) {
-				manualObject.Index(System.Convert.ToUInt16(i2.Current));
+				m_manualObject.Index(System.Convert.ToUInt16(i2.Current));
 			}
 		}
-		manualObject.End();
+		m_manualObject.End();
 	}
 	public void Clear() {
 		lineVertices.Clear();
@@ -654,33 +783,38 @@ public class MogreDebugDrawer : System.IDisposable {
 		triangleIndices.AddLast(index3);
 		triangleIndices.AddLast(index4);
 	}
-	#region "IDisposable Support"
-	// So ermitteln Sie überflüssige Aufrufe
-	private bool isDisposed;
 
+
+	#region "IDisposable Support"
+	// To identify redundant calls
+	private bool disposedValue;
+	// default bool is 'false'
 	// IDisposable
 	protected virtual void Dispose(bool disposing) {
-		if (!this.isDisposed) {
+		if (!this.disposedValue) {
+			// TODO: Verwalteten Zustand löschen (verwaltete Objekte).
+
+			// TODO: Test these two!
+			//icoSphere.Dispose();
+			//Clear();
 			if (disposing) {
-				// TO DO: Verwalteten Zustand löschen (verwaltete Objekte).
 			}
-			shutdown();
-			// TO DO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalize() unten überschreiben.
-			// TO DO: Große Felder auf NULL festlegen.
+			// TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalize() unten überschreiben.
+			// TODO: Große Felder auf NULL festlegen.
+			Shutdown();
 		}
-		this.isDisposed = true;
+		this.disposedValue = true;
 	}
 
-	// TO DO: Finalize() nur überschreiben, wenn Dispose(ByVal disposing As Boolean) oben über Code zum Freigeben von nicht verwalteten Ressourcen verfügt.
+	// TODO: Finalize() nur überschreiben, wenn Dispose(ByVal disposing As Boolean) oben über Code zum Freigeben von nicht verwalteten Ressourcen verfügt.
 	//Protected Overrides Sub Finalize()
 	//    ' Ändern Sie diesen Code nicht. Fügen Sie oben in Dispose(ByVal disposing As Boolean) Bereinigungscode ein.
 	//    Dispose(False)
 	//    MyBase.Finalize()
 	//End Sub
 
-	// Dieser Code wird von Visual Basic hinzugefügt, um das Dispose-Muster richtig zu implementieren.
+	// This code is for C# to implement the Dispose pattern correctly.
 	public void Dispose() {
-		// Ändern Sie diesen Code nicht. Fügen Sie oben in Dispose(ByVal disposing As Boolean) Bereinigungscode ein.
 		Dispose(true);
 		System.GC.SuppressFinalize(this);
 	}
