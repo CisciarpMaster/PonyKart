@@ -102,7 +102,7 @@ namespace Ponykart.Actors {
 
 				BrakeForce = dict["BrakeForce"],
 				MotorForce = dict["MotorForce"],
-				TurnAngle = Math.DegreesToRadians(dict["TurnAngle"]),
+				TurnAngle = dict["TurnAngle"],
 			};
 			wheel.CreateWheel(position, isFrontWheel);
 			return wheel;

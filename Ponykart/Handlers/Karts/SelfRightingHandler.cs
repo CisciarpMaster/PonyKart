@@ -49,8 +49,8 @@ namespace Ponykart.Handlers {
 			// update its rotation to point upwards
 			var quat = kart.Body.WorldTransform.ExtractQuaternion();
 			// make the x and z factors smaller, so that all that's left at the end is the Y pointing upwards
-			quat.x *= 0.95f;
-			quat.z *= 0.95f;
+			quat.x *= 0.96f;
+			quat.z *= 0.96f;
 			quat.Normalise();
 
 			// then update the body's transform

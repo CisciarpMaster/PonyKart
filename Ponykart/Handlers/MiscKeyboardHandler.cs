@@ -8,7 +8,6 @@ using Ponykart.Players;
 using Ponykart.Properties;
 using Ponykart.Sound;
 using Ponykart.Stuff;
-using PonykartParsers;
 using Vector3 = Mogre.Vector3;
 
 namespace Ponykart.Handlers {
@@ -70,7 +69,6 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
-					LKernel.GetG<ThingDatabase>().ClearDatabase();
 					Mogre.MaterialManager.Singleton.ReloadAll(false);
 					Mogre.MeshManager.Singleton.ReloadAll(false);
 					Settings.Default.Reload();

@@ -45,8 +45,6 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// We could put this in a motion state, but I want the interpolated one instead
 		/// </summary>
-		/// <param name="world"></param>
-		/// <param name="evt"></param>
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (IsDisposed || Vehicle == null) {
 				return;
@@ -56,6 +54,9 @@ namespace Ponykart.Actors {
 			RootNode.Position = Body.InterpolationWorldTransform.GetTrans();
 		}
 
+		/// <summary>
+		/// After we create our RigidBody, we turn it into a vehicle
+		/// </summary>
 		protected override void PostCreateBody(ThingDefinition def) {
 			Body.CcdMotionThreshold = 0.001f;
 			Body.CcdSweptSphereRadius = 0.2f;
@@ -81,23 +82,45 @@ namespace Ponykart.Actors {
 		/// Sets the motor torque of all wheels and sets their brake torque to 0.
 		/// </summary>
 		public void Accelerate(float multiplier) {
-			WheelBR.AccelerateMultiplier = WheelBL.AccelerateMultiplier = WheelFR.AccelerateMultiplier = WheelFL.AccelerateMultiplier = multiplier;
-			WheelBR.IsBrakeOn = WheelBL.IsBrakeOn = WheelFR.IsBrakeOn = WheelFL.IsBrakeOn = false;
+			WheelBR.AccelerateMultiplier =
+				WheelBL.AccelerateMultiplier =
+				WheelFR.AccelerateMultiplier =
+				WheelFL.AccelerateMultiplier
+					= multiplier;
+
+			WheelBR.IsBrakeOn =
+				WheelBL.IsBrakeOn =
+				WheelFR.IsBrakeOn =
+				WheelFL.IsBrakeOn
+					= false;
 		}
 
 		/// <summary>
 		/// Sets the motor torque of all wheels to 0 and applies a brake torque.
 		/// </summary>
 		public void Brake() {
-			WheelBR.IsBrakeOn = WheelBL.IsBrakeOn = WheelFR.IsBrakeOn = WheelFL.IsBrakeOn = true;
-			WheelBR.AccelerateMultiplier = WheelBL.AccelerateMultiplier = WheelFR.AccelerateMultiplier = WheelFL.AccelerateMultiplier = 0;
+			WheelBR.IsBrakeOn =
+				WheelBL.IsBrakeOn =
+				WheelFR.IsBrakeOn =
+				WheelFL.IsBrakeOn
+					= true;
+
+			WheelBR.AccelerateMultiplier =
+				WheelBL.AccelerateMultiplier =
+				WheelFR.AccelerateMultiplier =
+				WheelFL.AccelerateMultiplier
+					= 0;
 		}
 
 		/// <summary>
 		/// Turns the wheels
 		/// </summary>
 		public void Turn(float multiplier) {
-			WheelFR.TurnMultiplier = WheelFL.TurnMultiplier = WheelBR.TurnMultiplier = WheelBL.TurnMultiplier = multiplier;
+			WheelFR.TurnMultiplier =
+				WheelFL.TurnMultiplier =
+				WheelBR.TurnMultiplier =
+				WheelBL.TurnMultiplier
+					= multiplier;
 		}
 
 		public void SetWheelFriction(float friction) {

@@ -23,12 +23,13 @@ namespace Ponykart.Actors {
 
 		public float BrakeForce { get; set; }
 		public float MotorForce { get; set; }
-		public Radian TurnAngle { get; set; } // 0.3 (demo)
+		public Degree TurnAngle { get; set; } // 0.3 rads (demo)
 
-		protected Vector3 WheelDirection = Vector3.NEGATIVE_UNIT_Y;
-		protected Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
-		public float IsFrontWheel { get; set; }
+		protected readonly Vector3 WheelDirection = Vector3.NEGATIVE_UNIT_Y;
+		protected readonly Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
+		public bool IsFrontWheel { get; protected set; }
 		public WheelID WheelID { get; private set; }
+		protected readonly int IntWheelID;
 
 		// we use these three things to control the wheels
 		/// <summary>
@@ -45,10 +46,13 @@ namespace Ponykart.Actors {
 		public bool IsBrakeOn { get; set; }
 
 		Kart kart;
+		RaycastVehicle vehicle;
 
 		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID) {
 			kart = owner;
+			vehicle = kart.Vehicle;
 			WheelID = wheelID;
+			IntWheelID = (int) wheelID;
 
 			ID = IDs.New;
 
@@ -68,9 +72,11 @@ namespace Ponykart.Actors {
 		/// Makes a wheel at the given position
 		/// </summary>
 		public void CreateWheel(Vector3 connectionPoint, bool isFrontWheel) {
-			kart.Vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, kart.Tuning, isFrontWheel);
+			vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, kart.Tuning, isFrontWheel);
 
-			WheelInfo info = kart.Vehicle.GetWheelInfo((int) WheelID);
+			IsFrontWheel = isFrontWheel;
+
+			WheelInfo info = vehicle.GetWheelInfo(IntWheelID);
 			info.SuspensionStiffness = SpringStiffness;
 			info.WheelDampingRelaxation = SpringDamping;
 			info.WheelDampingCompression = SpringCompression;
@@ -79,14 +85,11 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Update our node's position and orientation, and also accelerate/brake/turn
+		/// Update our node's position and orientation, and also accelerate/brake/turn if we aren't paused
 		/// </summary>
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			WheelInfo info = kart.Vehicle.GetWheelInfo((int) WheelID);
-			Node.Position = /*new Vector3(wheel.Node.Position.x,
-								wheel.SuspensionRestLength - info.RaycastInfo_.SuspensionLength,
-								wheel.Node.Position.z);*/
-				info.WorldTransform.GetTrans();
+			WheelInfo info = vehicle.GetWheelInfo(IntWheelID);
+			Node.Position = info.WorldTransform.GetTrans();
 			Node.Orientation = info.WorldTransform.ExtractQuaternion();
 
 			if (!Pauser.IsPaused) {
@@ -100,24 +103,62 @@ namespace Ponykart.Actors {
 		/// Apply some torque to the engine.
 		/// </summary>
 		protected void Accelerate() {
-			kart.Vehicle.ApplyEngineForce(MotorForce * AccelerateMultiplier, (int) WheelID);
+			// if we are trying to accelerate in the opposite direction that we're moving, then brake
+			if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour < -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour > 10)) {
+				IsBrakeOn = true;
+			}
+			// if we're mostly stopped and we aren't trying to accelerate, then brake
+			else if (AccelerateMultiplier == 0 && (vehicle.CurrentSpeedKmHour > -10 || vehicle.CurrentSpeedKmHour < 10)) {
+				IsBrakeOn = true;
+			}
+			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
+			else if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour > -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour < 10)) {
+				vehicle.ApplyEngineForce(MotorForce * AccelerateMultiplier, IntWheelID);
+				IsBrakeOn = false;
+			}
 		}
 
 		/// <summary>
 		/// Apply some brake torque.
 		/// </summary>
 		protected void Brake() {
-			if (IsBrakeOn)
-				kart.Vehicle.SetBrake(BrakeForce, (int) WheelID);
-			else
-				kart.Vehicle.SetBrake(0, (int) WheelID);
+			if (IsBrakeOn) {
+				// handbrake
+				if (AccelerateMultiplier == 0 && (vehicle.CurrentSpeedKmHour > -10 && vehicle.CurrentSpeedKmHour < 10)) {
+					// the point of this is to lock the wheels in place so we don't move when we're stopped
+					vehicle.SetBrake(BrakeForce * 10, IntWheelID);
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip * 10;
+				}
+				// normal brake
+				else if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour < -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour > 10)) {
+					// brake to apply when we're changing direction
+					vehicle.SetBrake(BrakeForce, IntWheelID);
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip;
+				}
+				// normal brake
+				else {
+					// brake to apply when we're just slowing down
+					vehicle.SetBrake(BrakeForce * 0.75f, IntWheelID);
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip;
+				}
+			}
+			else {
+				vehicle.SetBrake(0, IntWheelID);
+				vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip;
+			}
 		}
 
+		// any slower than this and you will have the fully multiplied turn angle
 		readonly float slowSpeed = 40;
+		// any faster than this and you will have the regular turn angle
 		readonly float highSpeed = 110;
+		// how much should the wheel's turn angle increase by at slow speeds?
 		readonly float speedTurnMultiplierAtSlowSpeeds = 2.5f;
+		// the target steer angle (i.e. when we aren't turning)
 		float idealSteerAngle = 0;
-		static readonly float steerIncrement = Math.PI / 90;
+		// how much to increment the wheel's angle by, each frame
+		static readonly Degree steerIncrement = 1f; //0.5f;
+
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
@@ -126,7 +167,7 @@ namespace Ponykart.Actors {
 			float speedTurnMultiplier = 1;
 			timeSinceLastFrame *= 100;
 
-			float axleSpeed = kart.Vehicle.CurrentSpeedKmHour;
+			float axleSpeed = vehicle.CurrentSpeedKmHour;
 			// less than the slow speed = extra turn multiplier
 			if (axleSpeed < slowSpeed)
 				speedTurnMultiplier = speedTurnMultiplierAtSlowSpeeds;
@@ -141,21 +182,21 @@ namespace Ponykart.Actors {
 			}
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 
-			float currentAngle = kart.Vehicle.GetSteeringValue((int) WheelID);
-			float thisSteerIncr = steerIncrement * timeSinceLastFrame;
+			float currentAngle = vehicle.GetSteeringValue(IntWheelID);
+			float thisSteerIncr = steerIncrement.ValueRadians * timeSinceLastFrame;
 
 			// smooth out the turning
 			if (currentAngle < idealSteerAngle) {
 				if (currentAngle + thisSteerIncr <= idealSteerAngle)
-					kart.Vehicle.SetSteeringValue(currentAngle + thisSteerIncr, (int) WheelID);
+					vehicle.SetSteeringValue(currentAngle + thisSteerIncr, IntWheelID);
 				else if (currentAngle + thisSteerIncr > idealSteerAngle)
-					kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
+					vehicle.SetSteeringValue(idealSteerAngle, IntWheelID);
 			}
 			else if (currentAngle > idealSteerAngle) {
 				if (currentAngle - thisSteerIncr >= idealSteerAngle)
-					kart.Vehicle.SetSteeringValue(currentAngle - thisSteerIncr, (int) WheelID);
+					vehicle.SetSteeringValue(currentAngle - thisSteerIncr, IntWheelID);
 				else if (currentAngle - thisSteerIncr < idealSteerAngle)
-					kart.Vehicle.SetSteeringValue(idealSteerAngle, (int) WheelID);
+					vehicle.SetSteeringValue(idealSteerAngle, IntWheelID);
 			}
 		}
 

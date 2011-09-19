@@ -4,8 +4,7 @@ namespace Ponykart.Players {
 	public class HumanPlayer : Player {
 		KeyBindingManager bindings;
 
-		public HumanPlayer(int id)
-			: base(id) {
+		public HumanPlayer(int id) : base(id) {
 
 			// hook up to input events
 			bindings = LKernel.Get<KeyBindingManager>();
@@ -29,23 +28,15 @@ namespace Ponykart.Players {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Reverse))
 					Kart.Accelerate(0);
-				else {
-					// if it's currently moving backwards, brake instead
-					if (Kart.WheelSpeed < -10)
-						Kart.Brake();
 					// otherwise go forwards as normal
-					else
-						Kart.Accelerate(1);
-				}
+				else
+					Kart.Accelerate(1);
 			//}
 		}
 		protected void OnReleaseAccelerate(LKey k) {
 			// if reverse is still held down, then we start reversing
 			if (bindings.IsKeyPressed(LKey.Reverse))
 				Kart.Accelerate(-1);
-			// if we're going slowly, apply the handbrake
-			else if (Kart.WheelSpeed > -10 && Kart.WheelSpeed < 10)
-				Kart.Brake();
 			// otherwise we just stop accelerating
 			else
 				Kart.Accelerate(0);
@@ -66,23 +57,16 @@ namespace Ponykart.Players {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Accelerate))
 					Kart.Accelerate(0);
-				else {
-					// if it's currently moving forwards, brake instead
-					if (Kart.WheelSpeed > 10)
-						Kart.Brake();
-					// otherwise go forwards as normal
-					else
-						Kart.Accelerate(-1);
-				}
+				// otherwise go forwards as normal
+				else
+					Kart.Accelerate(-1);
+				
 			//}
 		}
 		protected void OnReleaseReverse(LKey k) {
 			// if forward is still held down, then we start going forwards
 			if (bindings.IsKeyPressed(LKey.Accelerate))
 				Kart.Accelerate(1);
-			// if we're going slowly, apply the handbrake
-			else if (Kart.WheelSpeed > -10 && Kart.WheelSpeed < 10)
-				Kart.Brake();
 			// otherwise we just stop accelerating
 			else
 				Kart.Accelerate(0);

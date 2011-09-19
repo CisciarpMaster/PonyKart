@@ -19,6 +19,9 @@ namespace PonykartParsers {
 			}
 		}
 
+		/// <summary>
+		/// Disposes of everything in the thing database, including stuff like collision shapes.
+		/// </summary>
 		public void ClearDatabase() {
 			foreach (ThingDefinition def in Definitions.Values) {
 				def.Dispose();
