@@ -1,71 +1,71 @@
 Type = Race
 
 SAA_Bridge {
-	Position = 280.454, 0, -210.054
+	Position = 112.1816, 0, -84.0216
 }
 ChickenCoop {
-	Position = 145.826, -0.6, 145.18
+	Position = 58.3304, -0.24, 58.072
 	Orientation = 0, -0.170071, 7.43405E-09, 0.985432
 }
 ChickenCoop {
-	Position = 161.511, -0.6, 161.724
+	Position = 64.6044, -0.24, 64.6896
 	Orientation = 0, -0.536017, 2.343E-08, 0.844207
 }
 ChickenCoop {
-	Position = 167.363, -0.6, 179.454
-	Orientation = 0, -0.000752181, 3.28789E-11, 1
+	Position = 66.94521, -0.24, 71.7816
+	Orientation = 0, -0.000752181, 3.28789E-11, 0.4
 }
 Well {
-	Position = 177.778, -0.5, 231.089
+	Position = 71.1112, -0.2, 92.4356
 	Orientation = -1.47885E-08, 0.987017, -5.51752E-08, 0.160613
 }
 Farmhouse {
-	Position = 28.5423, -0.6, 205.974
+	Position = 11.41692, -0.24, 82.3896
 	Orientation = 0, -0.836976, 3.65854E-08, 0.54724
 }
 Farmhouse {
-	Position = 34.202, -0.7, 188.874
+	Position = 13.6808, -0.28, 75.5496
 	Orientation = 0, -0.785707, 3.43443E-08, 0.618599
 }
 Farmhouse {
-	Position = 40.38, -0.7, 169.429
+	Position = 16.152, -0.28, 67.7716
 	Orientation = 0, -0.861438, 3.76547E-08, 0.507862
 }
 Farmhouse {
-	Position = 28.569, -0.6, 152.386
+	Position = 11.4276, -0.24, 60.9544
 	Orientation = 0, -0.486735, 2.12758E-08, 0.87355
 }
 Barn {
-    Position = 92, -1.5, 234.525
+    Position = 36.8, -0.6, 93.81
 }
 AppleTree {
-	Position = -5, 1, 30
+	Position = -2, 0.4, 12
 }
 BillboardAppleTree {
-	Position = -20, 1, 30
+	Position = -8, 0.4, 12
 }
 AppleCart {
-	Position = -317.713, -0.7346, -339.787
+	Position = -127.0852, -0.29384, -135.9148
 	Orientation = 0, 0.178411, -7.79858E-09, 0.983956
 }
 AppleCart {
-	Position = -311.651, 1.92648, -242.79
+	Position = -124.6604, 0.770592, -97.116
 	Orientation = 0, 0.880034, -3.84675E-08, -0.474911
 }
 AppleCart {
-	Position = -281.729, 2.16494, -272.154
+	Position = -112.6916, 0.865976, -108.8616
 	Orientation = 0, 0.640539, -2.79989E-08, 0.767925
 }
 AppleCart {
-	Position = -394.048, 0, -317.766
+	Position = -157.6192, 0, -127.1064
 	Orientation = 0, -0.790017, 3.45327E-08, 0.613085
 }
 AppleCart {
-	Position = -378.395, -1.06482, -237.221
+	Position = -151.358, -0.425928, -94.8884
 	Orientation = 0, 0.67804, -2.96381E-08, 0.735025
 }
 AppleCart {
-	Position = -295.498, 1.0747319, -302.786
+	Position = -118.1992, 1.0747319, -121.1144
 	Orientation = 0, 0.178411, -7.79858E-09, 0.983956
 }
 

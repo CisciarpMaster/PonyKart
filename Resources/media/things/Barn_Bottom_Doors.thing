@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 30
+Mass = 12
 CollisionGroup = Environment
 CollidesWith = Environment
 PhysicsMaterial = "NoFrictionNoBounce"
@@ -8,11 +8,11 @@ Model {
 	Mesh = "Barn_Door_Bottom.mesh"
 	Material = "Barn"
 	Position = 0, 0, 0
-	Scale = 1.5, 1.5, 1.5
+	Scale = 0.6, 0.6, 0.6
 }
 // box for bottom
 Shape {
 	Type = Box
 	Position = 0, 0, 0
-	Dimensions = 7.83753, 4.43444, 0.756926
+	Dimensions = 3.135012, 1.773776, 0.3027704
 }

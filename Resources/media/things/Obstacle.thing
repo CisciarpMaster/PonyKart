@@ -5,10 +5,10 @@ Physics = Static
 
 Shape {
 	Type = Box
-	Dimensions = 10, 10, 10
+	Dimensions = 4, 4, 4
 }
 Model {
 	Mesh = "primitives/box.mesh"
 	Material = "yellowbrick"
-	Scale = 10, 10, 10
+	Scale = 4, 4, 4
 }

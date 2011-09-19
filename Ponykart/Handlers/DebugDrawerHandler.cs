@@ -36,7 +36,7 @@ namespace Ponykart.Handlers {
 			if (IsDisposed)
 				return;
 
-			MogreDebugDrawer.Singleton.Dispose();
+			MogreDebugDrawer.Singleton.Shutdown();
 
 			base.Dispose(disposing);
 		}
