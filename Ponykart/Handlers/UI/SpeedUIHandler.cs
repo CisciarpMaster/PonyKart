@@ -47,7 +47,8 @@ namespace Ponykart.Handlers {
 						"Linear Velocity: " + kart.Body.LinearVelocity.Length + "  " + kart.Body.LinearVelocity + "\r\n" +
 						"WheelFriction: " + kart.Vehicle.GetWheelInfo(0).FrictionSlip + " , " + kart.Vehicle.GetWheelInfo(2).FrictionSlip + "\r\n" +
 						"Brake? " + kart.WheelFL.IsBrakeOn + "\r\n" +
-						"AccelMultiplier: " + kart.WheelFL.AccelerateMultiplier;
+						"AccelMultiplier: " + kart.WheelFL.AccelerateMultiplier + "\r\n" +
+						"Gravity: " + kart.Body.Gravity;
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;
