@@ -48,11 +48,9 @@ namespace Ponykart.Core {
 		/// Attaches two SceneNodes to the main kart so we can use them for camera stuff.
 		/// </summary>
 		void OnKartCreation(Kart kart) {
-			if (kart == LKernel.GetG<PlayerManager>().MainPlayer.Kart) {
-				kartCamNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_cam", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
-				kartTargetNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_camtarget", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
-				followKart = kart;
-			}
+			kartCamNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_cam", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
+			kartTargetNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_camtarget", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
+			followKart = kart;
 		}
 
 		/// <summary>
