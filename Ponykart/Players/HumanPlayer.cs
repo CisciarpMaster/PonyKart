@@ -4,15 +4,16 @@ namespace Ponykart.Players {
 	public class HumanPlayer : Player {
 		KeyBindingManager bindings;
 
-		public HumanPlayer(int id) : base(id) {
+		public HumanPlayer(int id)
+			: base(id) {
 
 			// hook up to input events
 			bindings = LKernel.Get<KeyBindingManager>();
 
 			bindings.PressEventsDict[LKey.Accelerate] += OnPressAccelerate;
 			bindings.ReleaseEventsDict[LKey.Accelerate] += OnReleaseAccelerate;
-			bindings.PressEventsDict[LKey.Brake] += OnPressBrake;
-			bindings.ReleaseEventsDict[LKey.Brake] += OnReleaseBrake;
+			bindings.PressEventsDict[LKey.Drift] += OnPressDrift;
+			bindings.ReleaseEventsDict[LKey.Drift] += OnReleaseDrift;
 			bindings.PressEventsDict[LKey.Reverse] += OnPressReverse;
 			bindings.ReleaseEventsDict[LKey.Reverse] += OnReleaseReverse;
 			bindings.PressEventsDict[LKey.TurnLeft] += OnPressTurnLeft;
@@ -24,57 +25,64 @@ namespace Ponykart.Players {
 		#region key events
 		protected void OnPressAccelerate(LKey k) {
 			// do nothing if the brake is pressed
-			if (!bindings.IsKeyPressed(LKey.Brake)) {
+			//if (!bindings.IsKeyPressed(LKey.Drift)) {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Reverse))
 					Kart.Accelerate(0);
-				// otherwise go forwards
-				else
-					Kart.Accelerate(1);
-			}
+				else {
+					// if it's currently moving backwards, brake instead
+					if (Kart.WheelSpeed < -10)
+						Kart.Brake();
+					// otherwise go forwards as normal
+					else
+						Kart.Accelerate(1);
+				}
+			//}
 		}
 		protected void OnReleaseAccelerate(LKey k) {
 			// if reverse is still held down, then we start reversing
 			if (bindings.IsKeyPressed(LKey.Reverse))
 				Kart.Accelerate(-1);
+			// if we're going slowly, apply the handbrake
+			else if (Kart.WheelSpeed > -10 && Kart.WheelSpeed < 10)
+				Kart.Brake();
 			// otherwise we just stop accelerating
 			else
 				Kart.Accelerate(0);
 		}
 
 
-		protected void OnPressBrake(LKey k) {
-			Kart.Brake();
+		protected void OnPressDrift(LKey k) {
+
 		}
-		protected void OnReleaseBrake(LKey k) {
-			if (bindings.IsKeyPressed(LKey.Accelerate)) {
-				if (bindings.IsKeyPressed(LKey.Reverse))
-					Kart.Accelerate(0);
-				else
-					Kart.Accelerate(1);
-			}
-			else if (bindings.IsKeyPressed(LKey.Reverse))
-				Kart.Accelerate(-1);
-			else
-				Kart.Accelerate(0);
+		protected void OnReleaseDrift(LKey k) {
+
 		}
 
 
 		protected void OnPressReverse(LKey k) {
 			// do nothing if the brake is pressed
-			if (!bindings.IsKeyPressed(LKey.Brake)) {
+			//if (!bindings.IsKeyPressed(LKey.Drift)) {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Accelerate))
 					Kart.Accelerate(0);
-				// otherwise go backwards
-				else
-					Kart.Accelerate(-1);
-			}
+				else {
+					// if it's currently moving forwards, brake instead
+					if (Kart.WheelSpeed > 10)
+						Kart.Brake();
+					// otherwise go forwards as normal
+					else
+						Kart.Accelerate(-1);
+				}
+			//}
 		}
 		protected void OnReleaseReverse(LKey k) {
 			// if forward is still held down, then we start going forwards
 			if (bindings.IsKeyPressed(LKey.Accelerate))
 				Kart.Accelerate(1);
+			// if we're going slowly, apply the handbrake
+			else if (Kart.WheelSpeed > -10 && Kart.WheelSpeed < 10)
+				Kart.Brake();
 			// otherwise we just stop accelerating
 			else
 				Kart.Accelerate(0);
@@ -126,8 +134,8 @@ namespace Ponykart.Players {
 		public override void Detach() {
 			bindings.PressEventsDict[LKey.Accelerate] -= OnPressAccelerate;
 			bindings.ReleaseEventsDict[LKey.Accelerate] -= OnReleaseAccelerate;
-			bindings.PressEventsDict[LKey.Brake] -= OnPressBrake;
-			bindings.ReleaseEventsDict[LKey.Brake] -= OnReleaseBrake;
+			bindings.PressEventsDict[LKey.Drift] -= OnPressDrift;
+			bindings.ReleaseEventsDict[LKey.Drift] -= OnReleaseDrift;
 			bindings.PressEventsDict[LKey.Reverse] -= OnPressReverse;
 			bindings.ReleaseEventsDict[LKey.Reverse] -= OnReleaseReverse;
 			bindings.PressEventsDict[LKey.TurnLeft] -= OnPressTurnLeft;

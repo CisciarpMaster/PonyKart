@@ -30,8 +30,6 @@ namespace Ponykart.Actors {
 		public RaycastVehicle Vehicle { get; protected set; }
 		public RaycastVehicle.VehicleTuning Tuning { get; protected set; }
 		protected VehicleRaycaster Raycaster;
-		// do not dispose of the damn shapes
-		protected static CompoundShape Compound;
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
@@ -105,6 +103,15 @@ namespace Ponykart.Actors {
 		public void SetWheelFriction(float friction) {
 			for (int a = 0; a < 4; a++) {
 				Vehicle.GetWheelInfo(a).FrictionSlip = friction;
+			}
+		}
+
+		/// <summary>
+		/// shortcut
+		/// </summary>
+		public float WheelSpeed {
+			get {
+				return Vehicle.CurrentSpeedKmHour;
 			}
 		}
 

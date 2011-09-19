@@ -9,7 +9,7 @@ namespace Ponykart.Core {
 		Accelerate,
 		TurnLeft,
 		TurnRight,
-		Brake,
+		Drift,
 		Reverse,
 	}
 
@@ -48,24 +48,24 @@ namespace Ponykart.Core {
 			LKeysDict[LKey.Accelerate] = KeyCode.KC_W;
 			LKeysDict[LKey.TurnLeft] = KeyCode.KC_A;
 			LKeysDict[LKey.TurnRight] = KeyCode.KC_D;
-			LKeysDict[LKey.Brake] = KeyCode.KC_SPACE;
+			LKeysDict[LKey.Drift] = KeyCode.KC_SPACE;
 			LKeysDict[LKey.Reverse] = KeyCode.KC_S;
 			MOISKeysDict[KeyCode.KC_W] = LKey.Accelerate;
 			MOISKeysDict[KeyCode.KC_A] = LKey.TurnLeft;
 			MOISKeysDict[KeyCode.KC_D] = LKey.TurnRight;
-			MOISKeysDict[KeyCode.KC_SPACE] = LKey.Brake;
+			MOISKeysDict[KeyCode.KC_SPACE] = LKey.Drift;
 			MOISKeysDict[KeyCode.KC_S] = LKey.Reverse;
 
 			PressEventsDict.Add(LKey.Accelerate, null);
 			PressEventsDict.Add(LKey.TurnLeft, null);
 			PressEventsDict.Add(LKey.TurnRight, null);
-			PressEventsDict.Add(LKey.Brake, null);
+			PressEventsDict.Add(LKey.Drift, null);
 			PressEventsDict.Add(LKey.Reverse, null);
 
 			ReleaseEventsDict.Add(LKey.Accelerate, null);
 			ReleaseEventsDict.Add(LKey.TurnLeft, null);
 			ReleaseEventsDict.Add(LKey.TurnRight, null);
-			ReleaseEventsDict.Add(LKey.Brake, null);
+			ReleaseEventsDict.Add(LKey.Drift, null);
 			ReleaseEventsDict.Add(LKey.Reverse, null);
 		}
 

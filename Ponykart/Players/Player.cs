@@ -31,12 +31,10 @@ namespace Ponykart.Players {
 			ID = id;
 		}
 
-		#region Stuff to override
 		/// <summary>
 		/// Uses an item
 		/// </summary>
 		protected abstract void UseItem();
-		#endregion
 
 
 		#region shortcuts
