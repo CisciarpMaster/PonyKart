@@ -52,13 +52,13 @@ namespace Rescaler {
 						// try parsing it as a float. If we can, then stick it in the dictionary along with its reduced one
 						float result;
 						if (float.TryParse(token, out result)) {
-							Floats[result] = result / rescaleAmount;
+							Floats[result] = result * rescaleAmount;
 						}
 					}
 					else {
 						int result;
 						if (int.TryParse(token, out result)) {
-							Ints[result] = (float) result / rescaleAmount;
+							Ints[result] = (float) result * rescaleAmount;
 						}
 					}
 				}
