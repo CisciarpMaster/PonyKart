@@ -37,7 +37,6 @@ namespace Ponykart.Sound {
 			Launch.Log("[Loading] IrrKlang and SoundMain initialised!");
 		}
 
-		#region Level un/loading stuff
 		/// <summary>
 		/// Runs whenever a new level is loaded.
 		/// TODO: use that sounddata.birddog file
@@ -48,7 +47,6 @@ namespace Ponykart.Sound {
 			else
 				music = CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
 		}
-		#endregion
 
 		readonly Vector3 lookDir = new Vector3(0, -1, 0);
 		private Vector3 pos;
@@ -62,8 +60,11 @@ namespace Ponykart.Sound {
 			timesince += evt.timeSinceLastFrame;
 			if (timesince > 0.5f) {
 				timesince = 0;
-				pos = LKernel.GetG<PlayerManager>().MainPlayer.NodePosition;
-				Engine.SetListenerPosition(pos.x, pos.y, pos.z, lookDir.x, lookDir.y, lookDir.z);
+				// only update this if the level's playable
+				if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
+					pos = LKernel.GetG<PlayerManager>().MainPlayer.NodePosition;
+					Engine.SetListenerPosition(pos.x, pos.y, pos.z, lookDir.x, lookDir.y, lookDir.z);
+				}
 				Engine.Update();
 			}
 			return !quit;

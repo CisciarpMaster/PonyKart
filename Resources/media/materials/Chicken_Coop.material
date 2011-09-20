@@ -12,6 +12,7 @@ material Chicken_coop_sign
 			texture_unit
 			{
 				texture chickencoopsign.png
+				tex_address_mode clamp
 			}
 		}
 	}

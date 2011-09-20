@@ -31,6 +31,7 @@ material Barn_Plants
 			texture_unit
 			{
 				texture barn03.png
+				tex_address_mode clamp
 			}
 		}
 	}

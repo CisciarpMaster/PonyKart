@@ -4,19 +4,19 @@ CollisionGroup = Environment
 CollidesWith = Environment
 Static = true
 
+Model {
+	Mesh = "Well.mesh"
+	Material = "Well"
+	Position = 0, 6.88901, 0
+	CastsShadows = true
+}
+
 // box#0
 Shape {
 	Type = Box
 	Position = 1.20587, 8.76777, -0.0813908
 	Orientation = -0.374702, -0.00723239, 0.0170385, 0.926961
 	Dimensions = 6.31543, 7.3586, 7.3586
-}
-Model {
-	Name = "Entity#0"
-	Mesh = "Well.mesh"
-	Material = "Well"
-	Position = 0, 6.88901, 0
-	CastsShadows = true
 }
 // cylinder#0
 Shape {

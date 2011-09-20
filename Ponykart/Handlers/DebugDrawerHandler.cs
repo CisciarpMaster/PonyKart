@@ -8,20 +8,23 @@ namespace Ponykart.Handlers {
 
 		public DebugDrawerHandler() {
 			MogreDebugDrawer.Singleton.Initialise(LKernel.GetG<SceneManager>(), 0.6f);
+			MogreDebugDrawer.Singleton.Clear();
 
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 			LKernel.GetG<Root>().FrameEnded += FrameEnded;
 		}
 
 		bool FrameStarted(FrameEvent evt) {
-			if (PhysicsMain.DrawLines)
+			if (PhysicsMain.DrawLines) {
+
 				MogreDebugDrawer.Singleton.Build();
+			}
 			return true;
 		}
 
 		bool FrameEnded(FrameEvent evt) {
-			if (PhysicsMain.DrawLines)
-				MogreDebugDrawer.Singleton.Clear();
+			//if (PhysicsMain.DrawLines)
+				//MogreDebugDrawer.Singleton.Clear();
 			return true;
 		}
 
@@ -29,14 +32,14 @@ namespace Ponykart.Handlers {
 			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
+			MogreDebugDrawer.Singleton.Shutdown();
+
 			Dispose();
 		}
 
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)
 				return;
-
-			MogreDebugDrawer.Singleton.Dispose();
 
 			base.Dispose(disposing);
 		}

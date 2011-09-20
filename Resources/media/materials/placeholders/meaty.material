@@ -3,10 +3,10 @@ material cell_background {
 		pass {
 			ambient 1.0 1.0 1.0
 			diffuse 1.0 1.0 1.0
+			cull_hardware none
 
 			texture_unit {
 				texture 2734-diffuse.jpg
-				filtering linear linear linear
 				scale 0.1 0.1
 			}
 		}

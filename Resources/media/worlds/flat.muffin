@@ -1,4 +1,5 @@
 Type = Race
+LoadFile = "default spawn positions"
 
 // two big squares
 Obstacle {

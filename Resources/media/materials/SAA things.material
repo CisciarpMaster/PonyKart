@@ -25,6 +25,7 @@ material AppleBillboard {
 			
 			texture_unit {
 				texture apple_alpha.png
+				tex_address_mode clamp
 			}
 		}
 	}

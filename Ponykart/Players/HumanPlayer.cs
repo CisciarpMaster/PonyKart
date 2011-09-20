@@ -1,10 +1,11 @@
 ﻿using Ponykart.Core;
+using PonykartParsers;
 
 namespace Ponykart.Players {
 	public class HumanPlayer : Player {
 		KeyBindingManager bindings;
 
-		public HumanPlayer(int id) : base(id) {
+		public HumanPlayer(MuffinDefinition def, int id) : base(def, id) {
 
 			// hook up to input events
 			bindings = LKernel.Get<KeyBindingManager>();

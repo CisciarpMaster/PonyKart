@@ -5,6 +5,8 @@ material redbrick
 	{
 		pass
 		{
+			cull_hardware none
+			
 			texture_unit
 			{
 				texture redbrick.jpg

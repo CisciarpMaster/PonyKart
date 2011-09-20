@@ -350,36 +350,12 @@ namespace Ponykart.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool ApplyDownwardsForceEveryTenthOfASecond {
-            get {
-                return ((bool)(this["ApplyDownwardsForceEveryTenthOfASecond"]));
-            }
-            set {
-                this["ApplyDownwardsForceEveryTenthOfASecond"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UseSelfRightingHandlers {
             get {
                 return ((bool)(this["UseSelfRightingHandlers"]));
             }
             set {
                 this["UseSelfRightingHandlers"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-6000")]
-        public float DownwardsForceToApply {
-            get {
-                return ((float)(this["DownwardsForceToApply"]));
-            }
-            set {
-                this["DownwardsForceToApply"] = value;
             }
         }
         

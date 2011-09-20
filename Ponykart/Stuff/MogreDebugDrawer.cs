@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using Mogre;
+using Ponykart;
+using Ponykart.Levels;
 using Math = Mogre.Math;
 
 
@@ -441,7 +443,7 @@ public class MogreDebugDrawer : System.IDisposable {
 		m_manualObject.CastShadows = false;
 
 		m_sceneManager.RootSceneNode.CreateChildSceneNode("debugDrawer_object").AttachObject(m_manualObject);
-		m_manualObject.Dynamic = (true);
+		m_manualObject.Dynamic = true;
 
 		icoSphere.Create(this.DEFAULT_ICOSPHERE_RECURSION_LEVEL);
 
@@ -468,6 +470,7 @@ public class MogreDebugDrawer : System.IDisposable {
 	public void Shutdown() {
 		m_sceneManager.DestroySceneNode("debugDrawer_object");
 		m_sceneManager.DestroyManualObject(m_manualObject);
+		isInitialised = false;
 	}
 	public void SwitchEnabled() {
 		isEnabled = !isEnabled;
@@ -713,37 +716,39 @@ public class MogreDebugDrawer : System.IDisposable {
 		if (Initialized == false) {
 			throw new Exception("You forgot to call 'Initialise(...)'");
 		}
-		m_manualObject.BeginUpdate(0);
-		if (lineVertices.Count > 0 && isEnabled) {
-			m_manualObject.EstimateVertexCount(System.Convert.ToUInt32(lineVertices.Count));
-			m_manualObject.EstimateIndexCount(System.Convert.ToUInt32(lineIndices.Count));
-			LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = lineVertices.GetEnumerator();
-			while (i.MoveNext()) {
-				m_manualObject.Position(i.Current.Key);
-				m_manualObject.Colour(i.Current.Value);
+		if (LKernel.Get<LevelManager>().IsValidLevel) {
+			m_manualObject.BeginUpdate(0);
+			if (lineVertices.Count > 0 && isEnabled) {
+				m_manualObject.EstimateVertexCount(System.Convert.ToUInt32(lineVertices.Count));
+				m_manualObject.EstimateIndexCount(System.Convert.ToUInt32(lineIndices.Count));
+				LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = lineVertices.GetEnumerator();
+				while (i.MoveNext()) {
+					m_manualObject.Position(i.Current.Key);
+					m_manualObject.Colour(i.Current.Value);
+				}
+				LinkedList<int>.Enumerator i2 = lineIndices.GetEnumerator();
+				while (i2.MoveNext()) {
+					m_manualObject.Index(System.Convert.ToUInt16(i2.Current));
+				}
 			}
-			LinkedList<int>.Enumerator i2 = lineIndices.GetEnumerator();
-			while (i2.MoveNext()) {
-				m_manualObject.Index(System.Convert.ToUInt16(i2.Current));
-			}
-		}
-		m_manualObject.End();
+			m_manualObject.End();
 
-		m_manualObject.BeginUpdate(1);
-		if (triangleVertices.Count > 0 && isEnabled) {
-			m_manualObject.EstimateVertexCount(System.Convert.ToUInt16((triangleVertices.Count)));
-			m_manualObject.EstimateIndexCount(System.Convert.ToUInt16(triangleIndices.Count));
-			LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = triangleVertices.GetEnumerator();
-			while (i.MoveNext()) {
-				m_manualObject.Position(i.Current.Key);
-				m_manualObject.Colour(i.Current.Value.r, i.Current.Value.g, i.Current.Value.b, fillAlpha);
+			m_manualObject.BeginUpdate(1);
+			if (triangleVertices.Count > 0 && isEnabled) {
+				m_manualObject.EstimateVertexCount(System.Convert.ToUInt16((triangleVertices.Count)));
+				m_manualObject.EstimateIndexCount(System.Convert.ToUInt16(triangleIndices.Count));
+				LinkedList<KeyValuePair<Vector3, ColourValue>>.Enumerator i = triangleVertices.GetEnumerator();
+				while (i.MoveNext()) {
+					m_manualObject.Position(i.Current.Key);
+					m_manualObject.Colour(i.Current.Value.r, i.Current.Value.g, i.Current.Value.b, fillAlpha);
+				}
+				LinkedList<int>.Enumerator i2 = triangleIndices.GetEnumerator();
+				while (i2.MoveNext()) {
+					m_manualObject.Index(System.Convert.ToUInt16(i2.Current));
+				}
 			}
-			LinkedList<int>.Enumerator i2 = triangleIndices.GetEnumerator();
-			while (i2.MoveNext()) {
-				m_manualObject.Index(System.Convert.ToUInt16(i2.Current));
-			}
+			m_manualObject.End();
 		}
-		m_manualObject.End();
 	}
 	public void Clear() {
 		lineVertices.Clear();

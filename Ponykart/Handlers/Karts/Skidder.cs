@@ -28,10 +28,9 @@ namespace Ponykart.Handlers {
 			if (_kart == null || Pauser.IsPaused)
 				return;
 
-			//System.Console.WriteLine(Kart.Body.AngularVelocity);
-
 			_progress += evt.timeSinceLastFrame;
 			if (_progress > _duration) {
+				// reset friction back to normal and get rid of the skidder
 				_kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = _kart.WheelFL.FrictionSlip;
 				_kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = _kart.WheelFR.FrictionSlip;
 				_kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = _kart.WheelBL.FrictionSlip;
@@ -42,12 +41,13 @@ namespace Ponykart.Handlers {
 			}
 
 			float fraction = _progress / _duration;
-
+			// update friction
 			_kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = _kart.WheelFL.FrictionSlip * fraction;
 			_kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = _kart.WheelFR.FrictionSlip * fraction;
 			_kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = _kart.WheelBL.FrictionSlip * fraction;
 			_kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = _kart.WheelBR.FrictionSlip * fraction;
 
+			// limit angular velocity
 			Vector3 vec = new Vector3(_kart.Body.AngularVelocity.x, _kart.Body.AngularVelocity.y, _kart.Body.AngularVelocity.z);
 			if (_kart.Body.AngularVelocity.x > 1)
 				vec.x = 1;

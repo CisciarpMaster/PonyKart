@@ -22,13 +22,15 @@ namespace Ponykart.Players {
 		/// When a level loads, we create the players. For now, we just have one human player and 7 computer-controlled ones
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			Players = new Player[Settings.Default.NumberOfPlayers];
+			if (eventArgs.NewLevel.Type == LevelType.Race) {
+				Players = new Player[Settings.Default.NumberOfPlayers];
 
-			MainPlayer = new HumanPlayer(0);
-			Players[0] = MainPlayer;
+				MainPlayer = new HumanPlayer(eventArgs.NewLevel.Definition, 0);
+				Players[0] = MainPlayer;
 
-			for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
-				Players[a] = new ComputerPlayer(a);
+				for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
+					Players[a] = new ComputerPlayer(eventArgs.NewLevel.Definition, a);
+				}
 			}
 		}
 
@@ -36,13 +38,15 @@ namespace Ponykart.Players {
 		/// Dispose of all of the players
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			for (int a = 0; a < Players.Length; a++) {
-				if (Players[a] != null) {
-					Players[a].Detach();
-					Players[a] = null;
+			if (eventArgs.OldLevel.Type == LevelType.Race) {
+				for (int a = 0; a < Players.Length; a++) {
+					if (Players[a] != null) {
+						Players[a].Detach();
+						Players[a] = null;
+					}
 				}
+				MainPlayer = null;
 			}
-			MainPlayer = null;
 		}
 	}
 

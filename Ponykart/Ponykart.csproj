@@ -156,7 +156,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Stuff\KartSpawnPositions.cs" />
     <Compile Include="Core\KeyBindingManager.cs" />
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Core\IDs.cs" />

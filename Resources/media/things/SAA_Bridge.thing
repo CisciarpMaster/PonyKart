@@ -7,13 +7,13 @@ Static = true
 Model {
 	Mesh = "SAA_Bridge.mesh"
 	Material = "SAA_Bridge"
-	//CastsShadows = true
+	CastsShadows = true
 }
 
 // box#0
 Shape {
 	Type = Box
-	Position = 0, 4/*.35172*/, 0
+	Position = 0, 4, 0
 	Dimensions = 46.1571, 3.36055, 83.5137
 }
 // box#1

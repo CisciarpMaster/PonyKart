@@ -5,24 +5,12 @@ CollisionGroup = Environment
 CollidesWith = Environment
 Static = true
 
-// box#0
-Shape {
-	Type = Box
-	Position = 0.810346, 26.7763, 1.11209
-	Dimensions = 27.8653, 17.6353, 33.047
-}
+// main barn
 Model {
-	Name = "Barn"
 	Mesh = "Barn.mesh"
 	Material = "Barn"
 	Position = 7.96297, 26.8586, 0
 	Scale = 1.5, 1.5, 1.5
-}
-// box#7
-Shape {
-	Type = Box
-	Position = -7.72234, 9.01932, 14.0228
-	Dimensions = 2, 19, 7
 }
 Model {
 	Name = "front right top barn door"
@@ -31,13 +19,6 @@ Model {
 	Position = -9.10718, 7.31765, -17.7276
 	Orientation = 0, -0.406737, 0, 0.913545
 	Scale = 1.5, 1.5, 1.5
-}
-// box#25
-Shape {
-	Type = Box
-	Position = -9.17104, 7.36007, -17.7316
-	Orientation = 0, -0.394744, 0, 0.918791
-	Dimensions = 7.96453, 6.40792, 1
 }
 Model {
 	Name = "front left bottom barn door"
@@ -53,13 +34,6 @@ Model {
 	Position = 4.95968, 7.38608, -14.5139
 	Scale = 1.5, 1.5, 1.5
 }
-// box#4
-Shape {
-	Type = Box
-	Position = 11.8016, 9.45096, 14.0656
-	Orientation = 0, 0, -0.0348995, 0.999391
-	Dimensions = 5, 20, 7
-}
 Model {
 	Name = "front right bottom door"
 	Mesh = "Barn_Door_Bottom.mesh"
@@ -68,19 +42,46 @@ Model {
 	Orientation = 0, -0.492424, 0, 0.870356
 	Scale = 1.5, 1.5, 1.5
 }
-// box#23
-Shape {
-	Type = Box
-	Position = 4.80375, 4.99322, -14.4415
-	Dimensions = 7.56678, 12.1203, 1
-}
 Model {
-	Name = "plants"
 	Mesh = "Barn_Plants.mesh"
 	Material = "Barn_Plants"
 	Position = 5.48586, 32.0336, 1.00634
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = false
+}
+
+
+// box#0
+Shape {
+	Type = Box
+	Position = 0.810346, 26.7763, 1.11209
+	Dimensions = 27.8653, 17.6353, 33.047
+}
+// box#7
+Shape {
+	Type = Box
+	Position = -7.72234, 9.01932, 14.0228
+	Dimensions = 2, 19, 7
+}
+// box#25
+Shape {
+	Type = Box
+	Position = -9.17104, 7.36007, -17.7316
+	Orientation = 0, -0.394744, 0, 0.918791
+	Dimensions = 7.96453, 6.40792, 1
+}
+// box#4
+Shape {
+	Type = Box
+	Position = 11.8016, 9.45096, 14.0656
+	Orientation = 0, 0, -0.0348995, 0.999391
+	Dimensions = 5, 20, 7
+}
+// box#23
+Shape {
+	Type = Box
+	Position = 4.80375, 4.99322, -14.4415
+	Dimensions = 7.56678, 12.1203, 1
 }
 // box#1
 Shape {

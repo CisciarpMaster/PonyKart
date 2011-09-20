@@ -51,6 +51,9 @@ namespace Ponykart.Core {
 			kartCamNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_cam", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
 			kartTargetNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_camtarget", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
 			followKart = kart;
+
+			CameraNode.Position = kartCamNode._getDerivedPosition();
+			TargetNode.Position = kartTargetNode._getDerivedPosition();
 		}
 
 		/// <summary>

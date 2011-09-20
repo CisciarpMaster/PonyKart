@@ -55,6 +55,7 @@ namespace Ponykart.Handlers {
 			}
 		}
 
+		private Vector3 gravity = new Vector3(0, Settings.Default.Gravity, 0);
 		private float elapsed;
 		private void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (elapsed > Settings.Default.SelfRighterRaycastTime) {
@@ -68,13 +69,16 @@ namespace Ponykart.Handlers {
 
 					Kart kart = p.Kart;
 					// don't raycast for karts that don't exist
-					if (kart == null || kart.Body.IsDisposed )
+					if (kart == null || kart.Body.IsDisposed)
 						continue;
 
 					// this helps it stick to the road more
-					if (Settings.Default.ApplyDownwardsForceEveryTenthOfASecond)
-						kart.Body.ApplyCentralForce(kart.RootNode.GetLocalYAxis() * Settings.Default.DownwardsForceToApply);
+					if (kart.IsInAir)
+						kart.Body.Gravity = gravity;
+					else
+						kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * -30);
 
+					// then cast our ray!
 					var callback = CastRay(kart, (kart.IsInAir && SRHs.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);
 
 					// if the ray did not hit
@@ -118,7 +122,7 @@ namespace Ponykart.Handlers {
 			
 			world.RayTest(from, to, callback);
 #if DEBUG
-			MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.White);
+			MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.Red);
 #endif
 			return callback;
 		}

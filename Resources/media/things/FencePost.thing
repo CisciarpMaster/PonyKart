@@ -12,7 +12,6 @@ Shape {
 	Dimensions = 1, 5, 0.7
 }
 Model {
-	Name = "FencePost#0"
 	Mesh = "FencePost.mesh"
 	Material = "Fences"
 	Position = 0, 0, 0

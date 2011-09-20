@@ -1,5 +1,9 @@
 Type = Race
 
+// load up the other stuff
+LoadFile = "saa fences"
+LoadFile = "saa spawn positions"
+
 SAA_Bridge {
 	Position = 280.454, 0, -210.054
 }
@@ -68,6 +72,3 @@ AppleCart {
 	Position = -295.498, 1.0747319, -302.786
 	Orientation = 0, 0.178411, -7.79858E-09, 0.983956
 }
-
-// load up the other stuff
-LoadFile = "saa fences"

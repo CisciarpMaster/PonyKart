@@ -1,5 +1,4 @@
-﻿using System;
-using Mogre;
+﻿using Mogre;
 using Ponykart.Actors;
 using PonykartParsers;
 
@@ -19,20 +18,19 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// Spawns something!
 		/// </summary>
-		/// <param name="type">What do you want to spawn?</param>
+		/// <param name="thingName">What do you want to spawn? This is the filename of the .thing file to use, minus the extension.</param>
 		/// <param name="template">The template for the thing you want to spawn</param>
-		/// <exception cref="ArgumentException">If 'type' is not a valid ActorEnum</exception>
 		/// <returns>The thing you just spawned. Returns null if you are paused.</returns>
-		public LThing Spawn(string type, ThingBlock template) {
+		public LThing Spawn(string thingName, ThingBlock template) {
 			if (Pauser.IsPaused) {
 				Launch.Log("[Spawner] WARNING: Attempted to spawn something while paused!");
 				return null;
 			}
 			LThing thing;
 
-			var definition = LKernel.GetG<ThingDatabase>().GetThingDefinition(type);
+			var definition = LKernel.GetG<ThingDatabase>().GetThingDefinition(thingName);
 
-			if (type == "Kart") {
+			if (thingName == "Kart") {
 				thing = new Kart(template, definition);
 				Invoke(OnKartCreation, thing as Kart);
 			}
@@ -54,7 +52,6 @@ namespace Ponykart.Core {
 		/// </summary>
 		/// <param name="type">The type (class name) for the thing you want to spawn</param>
 		/// <param name="spawnPos">Where should it spawn?</param>
-		/// <exception cref="ArgumentException">If the type is not valid</exception>
 		/// <returns>The thing you spawned</returns>
 		public LThing Spawn(string type, Vector3 spawnPos) {
 			var tt = new ThingBlock(type, spawnPos);

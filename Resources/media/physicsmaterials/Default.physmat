@@ -1,2 +1,7 @@
 // leave this file empty!
 // It'll just use the defaults defined in PhysicsMaterial.cs!
+
+// Friction = 0.3
+// Bounciness = 0.3
+// AngularDamping = 0.3
+// LinearDamping = 0.3

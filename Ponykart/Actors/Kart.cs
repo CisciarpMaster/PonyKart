@@ -60,7 +60,7 @@ namespace Ponykart.Actors {
 		protected override void PostCreateBody(ThingDefinition def) {
 			Body.CcdMotionThreshold = 0.001f;
 			Body.CcdSweptSphereRadius = 0.2f;
-			Body.ActivationState = ActivationState.DisableDeactivation;
+			//Body.ActivationState = ActivationState.DisableDeactivation;
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.GetG<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();
@@ -82,6 +82,8 @@ namespace Ponykart.Actors {
 		/// Sets the motor torque of all wheels and sets their brake torque to 0.
 		/// </summary>
 		public void Accelerate(float multiplier) {
+			Body.Activate();
+
 			WheelBR.AccelerateMultiplier =
 				WheelBL.AccelerateMultiplier =
 				WheelFR.AccelerateMultiplier =

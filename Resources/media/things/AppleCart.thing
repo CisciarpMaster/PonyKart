@@ -10,9 +10,7 @@ Shape {
 	Dimensions = 0.27241, 2.4561, 2.33871
 }
 Model {
-	Name = "Entity#0"
 	Mesh = "AppleCart.mesh"
-	Material = ""
 	Position = 1.521, 0.139, 0
 	CastsShadows = true
 }
@@ -23,9 +21,7 @@ Shape {
 	Dimensions = 3.29981, 0.29374, 1.61437
 }
 Model {
-	Name = "Entity#1"
 	Mesh = "AppleCartExtras.mesh"
-	Material = ""
 	Position = 0.455, 0.269, 0
 	CastsShadows = false
 }

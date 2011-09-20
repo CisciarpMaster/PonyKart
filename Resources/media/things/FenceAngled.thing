@@ -6,7 +6,6 @@ CollidesWith = Walls
 ForceCompound = true
 
 Model {
-	Name = "Entity#0"
 	Mesh = "FenceAngled.mesh"
 	Material = "Fences"
 	Position = 0, 0, 0

@@ -100,10 +100,9 @@ namespace Ponykart {
 			LoadLuaWrappers();
 			lua.RunRegisterEvent();
 
-			// this is a bit of a hack but it shouldn't matter much since we're only doing it once at the beginning
+			// players
 			splash.Increment("Spawning players...");
 			AddGlobalObject(new PlayerManager());
-			AddGlobalObject(new KartSpawnPositions());
 
 			// handlers
 			splash.Increment("Loading global handlers...");

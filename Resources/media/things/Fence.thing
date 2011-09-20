@@ -12,7 +12,6 @@ Shape {
 	Dimensions = 9.44014, 50, 1
 }
 Model {
-	Name = "Entity#2"
 	Mesh = "FencePartial.mesh"
 	Material = "Fences"
 	Position = 0, 0, 0

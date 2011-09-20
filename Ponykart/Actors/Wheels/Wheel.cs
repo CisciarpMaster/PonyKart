@@ -126,8 +126,8 @@ namespace Ponykart.Actors {
 				// handbrake
 				if (AccelerateMultiplier == 0 && (vehicle.CurrentSpeedKmHour > -10 && vehicle.CurrentSpeedKmHour < 10)) {
 					// the point of this is to lock the wheels in place so we don't move when we're stopped
-					vehicle.SetBrake(BrakeForce * 10, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip * 10;
+					vehicle.SetBrake(BrakeForce * 100, IntWheelID);
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip * 100;
 				}
 				// normal brake
 				else if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour < -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour > 10)) {

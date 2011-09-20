@@ -4,7 +4,7 @@ using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Properties;
-using Ponykart.Stuff;
+using PonykartParsers;
 
 namespace Ponykart.Players {
 	/// <summary>
@@ -21,13 +21,20 @@ namespace Ponykart.Players {
 		protected int ID;
 
 
-		public Player(int id) {
+		public Player(MuffinDefinition def, int id) {
 			// don't want to create a player if it's ID isn't valid
 			if (id < 0 || id >= Settings.Default.NumberOfPlayers)
 				throw new ArgumentOutOfRangeException("id", "ID number specified for kart spawn position is not valid!");
 			Launch.Log("[Loading] Player with ID " + id + " created");
 
-			Kart = LKernel.GetG<Spawner>().Spawn("Kart", LKernel.GetG<KartSpawnPositions>().GetPosition(id)) as Kart;
+			Vector3 spawnPos = def.GetVectorProperty("KartSpawnPosition" + id, null);
+			Quaternion spawnOrient = def.GetQuatProperty("KartSpawnOrientation" + id, Quaternion.IDENTITY);
+
+			ThingBlock block = new ThingBlock("Kart", def);
+			block.VectorTokens["position"] = spawnPos;
+			block.QuatTokens["orientation"] = spawnOrient;
+
+			Kart = LKernel.GetG<Spawner>().Spawn("Kart", block) as Kart;
 			ID = id;
 		}
 

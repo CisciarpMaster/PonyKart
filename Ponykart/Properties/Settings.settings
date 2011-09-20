@@ -92,14 +92,8 @@
     <Setting Name="UseSkidders" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ApplyDownwardsForceEveryTenthOfASecond" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="UseSelfRightingHandlers" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="DownwardsForceToApply" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">-6000</Value>
     </Setting>
     <Setting Name="SelfRighterRaycastTime" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.1</Value>
