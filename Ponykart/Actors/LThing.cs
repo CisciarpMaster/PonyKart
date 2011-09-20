@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
 using Ponykart.Levels;
@@ -71,10 +71,10 @@ namespace Ponykart.Actors {
 		protected string Script;
 
 
-		public Collection<ModelComponent> ModelComponents { get; protected set; }
-		public Collection<ShapeComponent> ShapeComponents { get; protected set; }
-		public Collection<RibbonComponent> RibbonComponents { get; protected set; }
-		public Collection<BillboardSetComponent> BillboardSetComponents { get; protected set; }
+		public List<ModelComponent> ModelComponents { get; protected set; }
+		public List<ShapeComponent> ShapeComponents { get; protected set; }
+		public List<RibbonComponent> RibbonComponents { get; protected set; }
+		public List<BillboardSetComponent> BillboardSetComponents { get; protected set; }
 
 		/// <summary>
 		/// Constructor woo!
@@ -91,10 +91,10 @@ namespace Ponykart.Actors {
 			ID = IDs.New;
 			Name = template.ThingName;
 
-			ModelComponents = new Collection<ModelComponent>();
-			ShapeComponents = new Collection<ShapeComponent>();
-			RibbonComponents = new Collection<RibbonComponent>();
-			BillboardSetComponents = new Collection<BillboardSetComponent>();
+			ModelComponents = new List<ModelComponent>();
+			ShapeComponents = new List<ShapeComponent>();
+			RibbonComponents = new List<RibbonComponent>();
+			BillboardSetComponents = new List<BillboardSetComponent>();
 
 			// get our three basic transforms
 			SpawnPosition = template.GetVectorProperty("position", null);

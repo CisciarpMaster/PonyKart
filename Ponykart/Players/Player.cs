@@ -60,15 +60,15 @@ namespace Ponykart.Players {
 		public RigidBody Body { get { return Kart.Body; } }
 		/// <summary>
 		/// Gets the kart's Node's position. No setter because it's automatically changed to whatever the position of its
-		/// actor - use the <see cref="Body"/> if you want to change the kart's position!
+		/// body is - use the <see cref="BulletSharp.RigidBody"/> if you want to change the kart's position!
 		/// </summary>
 		public Vector3 NodePosition {
-			get { return Kart.RootNode.Position; }
+			get { return Kart.RootNode._getDerivedPosition(); }
 		}
 		/// <summary>
 		/// Gets the kart's SceneNode's orientation
 		/// </summary>
-		public Quaternion Orientation { get { return Kart.RootNode.Orientation; } }
+		public Quaternion Orientation { get { return Kart.RootNode._getDerivedOrientation(); } }
 		#endregion
 
 

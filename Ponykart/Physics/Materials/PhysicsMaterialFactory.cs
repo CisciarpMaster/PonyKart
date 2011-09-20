@@ -30,9 +30,9 @@ namespace Ponykart.Physics {
 				// our matname is the filename minus the file extension
 				string matname = filename.Remove(filename.IndexOf(Settings.Default.PhysicsMaterialFileExtension));
 				// this gets rid of the "media/physicsmaterials/" bit
-				matname = matname.Replace(Settings.Default.PhysicsMaterialFileLocation, "");
+				matname = matname.Replace(Settings.Default.PhysicsMaterialFileLocation, string.Empty);
 
-				string matcontents = "";
+				string matcontents = string.Empty;
 
 				// open up the file and read everything from it
 				using (var stream = File.Open(filename, FileMode.Open)) {
@@ -55,8 +55,8 @@ namespace Ponykart.Physics {
 			PhysicsMaterial mat = new PhysicsMaterial();
 
 			// get rid of whitespace
-			matcontents.Replace(" ", "");
-			matcontents.Replace("\t", "");
+			matcontents.Replace(" ", string.Empty);
+			matcontents.Replace("\t", string.Empty);
 
 			string[] splits = matcontents.Split('\n');
 

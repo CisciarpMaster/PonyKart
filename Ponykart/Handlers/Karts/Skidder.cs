@@ -70,7 +70,8 @@ namespace Ponykart.Handlers {
 		public void Detach() {
 			if (_kart != null) {
 				LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
-				LKernel.Get<StopKartsFromRollingOverHandler>().Skidders.Remove(_kart);
+				Skidder temp;
+				LKernel.Get<StopKartsFromRollingOverHandler>().Skidders.TryRemove(_kart, out temp);
 				_kart = null;
 			}
 		}

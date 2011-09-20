@@ -39,9 +39,9 @@ namespace Ponykart.Actors {
 				// our wheelname is the filename minus the file extension
 				string wheelname = filename.Remove(filename.IndexOf(Settings.Default.WheelFileExtension));
 				// this gets rid of the "media/wheels/" bit
-				wheelname = wheelname.Replace(Settings.Default.WheelFileLocation, "");
+				wheelname = wheelname.Replace(Settings.Default.WheelFileLocation, string.Empty);
 
-				string wheelcontents = "";
+				string wheelcontents = string.Empty;
 
 				// open up the file and read everything from it
 				using (var stream = File.Open(filename, FileMode.Open)) {
@@ -64,8 +64,8 @@ namespace Ponykart.Actors {
 			IDictionary<string, float> wheeldict = new Dictionary<string, float>();
 
 			// get rid of whitespace
-			wheelcontents.Replace(" ", "");
-			wheelcontents.Replace("\t", "");
+			wheelcontents.Replace(" ", string.Empty);
+			wheelcontents.Replace("\t", string.Empty);
 
 			string[] splits = wheelcontents.Split('\n');
 

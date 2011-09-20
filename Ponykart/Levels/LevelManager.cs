@@ -42,7 +42,7 @@ namespace Ponykart.Levels {
 
 			// run level loading events
 			if (OnLevelLoad != null)
-				OnLevelLoad(new LevelChangedEventArgs(CurrentLevel, new Level(null)));
+				OnLevelLoad.Invoke(new LevelChangedEventArgs(CurrentLevel, new Level(null)));
 
 			IsValidLevel = true;
 
@@ -120,9 +120,6 @@ namespace Ponykart.Levels {
 				LKernel.GetG<LuaMain>().LoadScriptFiles(newLevel.Name);
 				// run our scripts
 				newLevel.RunLevelScripts();
-
-				if (OnLevelPostLoad != null)
-					OnLevelPostLoad(eventArgs);
 			}
 
 			// if we're on the main menu, pause it
@@ -131,6 +128,9 @@ namespace Ponykart.Levels {
 
 			// last bit of cleanup
 			GC.Collect();
+
+			if (newLevel != null && OnLevelPostLoad != null)
+				OnLevelPostLoad(eventArgs);
 		}
 
 		/// <summary>

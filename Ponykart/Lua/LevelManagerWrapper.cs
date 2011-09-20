@@ -25,7 +25,7 @@ namespace Ponykart.Lua {
 			if (lm.IsValidLevel)
 				return lm.CurrentLevel.Name;
 			else
-				return "";
+				return string.Empty;
 		}
 
 		// does this even work, since

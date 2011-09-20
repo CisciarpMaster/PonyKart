@@ -253,7 +253,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-28")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-30")]
         public float Gravity {
             get {
                 return ((float)(this["Gravity"]));
@@ -409,13 +409,22 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-25")]
         public float AdjustKartGravityMultiplier {
             get {
                 return ((float)(this["AdjustKartGravityMultiplier"]));
             }
             set {
                 this["AdjustKartGravityMultiplier"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("media/sound/")]
+        public string SoundFileLocation {
+            get {
+                return ((string)(this["SoundFileLocation"]));
             }
         }
     }

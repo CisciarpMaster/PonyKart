@@ -30,17 +30,17 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_MINUS: // the -_ key
 					LKernel.GetG<DebugOverlayManager>().ToggleDebugOverlay();
 					break;
+#if DEBUG
 				case KeyCode.KC_K:
 					LKernel.GetG<Spawner>().Spawn("Kart", LKernel.GetG<PlayerManager>().MainPlayer.NodePosition);
 					break;
-#if DEBUG
 				case KeyCode.KC_X:
 					MogreDebugDrawer.Singleton.Clear();
 					break;
-#endif
 				case KeyCode.KC_I:
 					PhysicsMain.DrawLines = !PhysicsMain.DrawLines;
 					break;
+#endif
 				case KeyCode.KC_M:
 					Settings.Default.EnableMusic = !Settings.Default.EnableMusic;
 					break;
@@ -48,7 +48,7 @@ namespace Ponykart.Handlers {
 					Settings.Default.EnableSounds = !Settings.Default.EnableSounds;
 					break;
 				case KeyCode.KC_N:
-					LKernel.GetG<SoundMain>().CreateAmbientSound("media/sound/13 Hot Roderick Race.ogg", "bgmusic", true);
+					LKernel.GetG<SoundMain>().CreateAmbientSound("media/sound/Sweet Apple Acres 128bpm.ogg", true);
 					break;
 				case KeyCode.KC_U:
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 100000, 0), Vector3.ZERO);
@@ -56,9 +56,9 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_F:
 					LKernel.GetG<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
 					break;
-				case KeyCode.KC_L:
+				/*case KeyCode.KC_L:
 					LKernel.GetG<LuaMain>().DoFile(Settings.Default.LuaFileLocation + "test" + Settings.Default.LuaFileExtension);
-					break;
+					break;*/
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
 					Process proc = new Process();

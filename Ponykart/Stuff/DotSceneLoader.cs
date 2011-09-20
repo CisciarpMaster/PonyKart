@@ -26,11 +26,11 @@ namespace Ponykart.Stuff {
 		protected string sceneFileName;
 
 		public void ParseDotScene(String SceneName, String groupName) {
-			ParseDotScene(SceneName, groupName, null, "");
+			ParseDotScene(SceneName, groupName, null, string.Empty);
 		}
 
 		public void ParseDotScene(String SceneName, String groupName, SceneNode pAttachNode) {
-			ParseDotScene(SceneName, groupName, pAttachNode, "");
+			ParseDotScene(SceneName, groupName, pAttachNode, string.Empty);
 		}
 
 		public void ParseDotScene(String SceneName, String groupName1, SceneNode pAttachNode, String sPrependNode) {
@@ -79,7 +79,7 @@ namespace Ponykart.Stuff {
 		}
 
 		protected String getAttrib(XmlElement XMLNode, String attrib) {
-			return getAttrib(XMLNode, attrib, "");
+			return getAttrib(XMLNode, attrib, string.Empty);
 		}
 
 		protected String getAttrib(XmlElement XMLNode, String attrib, String defaultValue) {

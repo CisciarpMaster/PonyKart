@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
@@ -22,15 +22,15 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// This holds all of our self-righting handlers
 		/// </summary>
-		public IDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
+		public ConcurrentDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
 		/// <summary>
 		/// Dictionary of our nlerpers
 		/// </summary>
-		public IDictionary<Kart, Nlerper> Nlerpers { get; private set; }
+		public ConcurrentDictionary<Kart, Nlerper> Nlerpers { get; private set; }
 		/// <summary>
 		/// Dictionary of our skidders
 		/// </summary>
-		public IDictionary<Kart, Skidder> Skidders { get; private set; }
+		public ConcurrentDictionary<Kart, Skidder> Skidders { get; private set; }
 
 		public event KartEvent OnLiftoff;
 		public event KartEvent OnInAir;
@@ -47,9 +47,9 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
-				SRHs = new Dictionary<Kart, SelfRightingHandler>();
-				Nlerpers = new Dictionary<Kart, Nlerper>();
-				Skidders = new Dictionary<Kart, Skidder>();
+				SRHs = new ConcurrentDictionary<Kart, SelfRightingHandler>();
+				Nlerpers = new ConcurrentDictionary<Kart, Nlerper>();
+				Skidders = new ConcurrentDictionary<Kart, Skidder>();
 
 				LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 			}
@@ -135,7 +135,7 @@ namespace Ponykart.Handlers {
 		private void Liftoff(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// make a new SRH
 			if (Settings.Default.UseSelfRightingHandlers)
-				SRHs.Add(kart, new SelfRightingHandler(kart));
+				SRHs.GetOrAdd(kart, new SelfRightingHandler(kart));
 			// we are in the air
 			kart.IsInAir = true;
 
@@ -158,7 +158,8 @@ namespace Ponykart.Handlers {
 			// getting rid of our SRH means that we're close to landing but we haven't landed yet
 			if (Settings.Default.UseSelfRightingHandlers) {
 				srh.Detach();
-				SRHs.Remove(kart);
+				SelfRightingHandler temp;
+				SRHs.TryRemove(kart, out temp);
 			}
 
 			if (kart.Body.LinearVelocity.y > 20)
@@ -183,7 +184,8 @@ namespace Ponykart.Handlers {
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
 					n.Detach();
-					Nlerpers.Remove(kart);
+					Nlerper temp;
+					Nlerpers.TryRemove(kart, out temp);
 				}
 			}
 
@@ -192,7 +194,8 @@ namespace Ponykart.Handlers {
 				Skidder s;
 				if (Skidders.TryGetValue(kart, out s)) {
 					s.Detach();
-					Skidders.Remove(kart);
+					Skidder temp;
+					Skidders.TryRemove(kart, out temp);
 				}
 				Skidders[kart] = new Skidder(kart, Settings.Default.SkidderDuration);
 			}
@@ -218,10 +221,7 @@ namespace Ponykart.Handlers {
 			Quaternion rotTo = kart.Body.Orientation.YAxis.GetRotationTo(callback.HitNormalWorld);
 			// rotTo * old orientation is the same as rotate(rotTo) on SceneNodes, but since this isn't a scene node we have to do it this way
 			Quaternion newOrientation = rotTo * kart.Body.Orientation;
-#if DEBUG
-			// make a little axis to show our normal
-			//LKernel.Get<Spawner>().Spawn("Axis", callback.HitPointWorld).RootNode.Orientation = newOrientation;
-#endif
+
 			if (useNlerp) {
 				// if we already have a nlerper, get rid of it
 				Nlerper n;
@@ -243,26 +243,20 @@ namespace Ponykart.Handlers {
 			if (eventArgs.OldLevel.Type == LevelType.Race) {
 				LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
 
-				// have to do this because if we change levels while SRHs is being modified, we get an exception
-				SelfRightingHandler[] srh = new SelfRightingHandler[SRHs.Count];
-				SRHs.Values.CopyTo(srh, 0);
-				foreach (SelfRightingHandler h in srh) {
+				// clean up these
+				foreach (SelfRightingHandler h in SRHs.Values) {
 					h.Detach();
 				}
 				SRHs.Clear();
 
 				// same for these
-				Nlerper[] ns = new Nlerper[Nlerpers.Count];
-				Nlerpers.Values.CopyTo(ns, 0);
-				foreach (Nlerper n in ns) {
+				foreach (Nlerper n in Nlerpers.Values) {
 					n.Detach();
 				}
 				Nlerpers.Clear();
 
 				// and these
-				Skidder[] ss = new Skidder[Skidders.Count];
-				Skidders.Values.CopyTo(ss, 0);
-				foreach (Skidder s in ss) {
+				foreach (Skidder s in Skidders.Values) {
 					s.Detach();
 				}
 				Skidders.Clear();

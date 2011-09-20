@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Events;
@@ -17,14 +16,14 @@ namespace Ponykart.Handlers {
 	public class LevelUIHandler {
 		private Button commandsButton, level1Button, level2Button, level3Button, level4Button, quitButton;
 		private Label commandsLabel;
-		private ICollection<Control> levelControls, mainMenuControls;
+		private IList<Control> levelControls, mainMenuControls;
 
 		public LevelUIHandler() {
 			LKernel.GetG<LevelManager>().OnLevelLoad += OnLevelLoad;
 			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 
-			levelControls = new Collection<Control>();
-			mainMenuControls = new Collection<Control>();
+			levelControls = new List<Control>();
+			mainMenuControls = new List<Control>();
 		}
 
 		/// <summary>

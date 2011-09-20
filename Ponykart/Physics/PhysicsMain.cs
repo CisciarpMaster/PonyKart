@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using BulletSharp;
 using BulletSharp.Serialize;
@@ -55,7 +54,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// our collection of shapes and stuff to dispose at the end of a level. This is for stuff that isn't associated with a Thing.
 		/// </summary>
-		public ICollection<IDisposable> PhysicsStuffToDispose { get; private set; }
+		public IList<IDisposable> PhysicsStuffToDispose { get; private set; }
 
 		/// <summary>
 		/// Constructor
@@ -65,7 +64,7 @@ namespace Ponykart.Physics {
 
 			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 
-			PhysicsStuffToDispose = new Collection<IDisposable>();
+			PhysicsStuffToDispose = new List<IDisposable>();
 
 			Launch.Log("[Loading] PhysicsMain created!");
 		}

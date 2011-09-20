@@ -56,9 +56,7 @@ namespace Ponykart {
 				MessageBox.Show("BulletSharp loading unsuccessful! Try installing a 2010 VC++ Redistributable (google it)!", "Well, shit.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 
-			// sound stuff
-			splash.Increment("Setting up sound system...");
-			AddGlobalObject(new SoundMain());
+
 
 			// level
 			splash.Increment("Creating scene manager...");
@@ -104,6 +102,10 @@ namespace Ponykart {
 			splash.Increment("Spawning players...");
 			AddGlobalObject(new PlayerManager());
 			AddGlobalObject(new RaceCountdown());
+
+			// sound stuff
+			splash.Increment("Setting up sound system...");
+			AddGlobalObject(new SoundMain());
 
 			// handlers
 			splash.Increment("Loading global handlers...");

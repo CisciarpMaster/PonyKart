@@ -11,7 +11,7 @@ namespace Ponykart.Core {
 
 	public class RaceCountdown {
 		float elapsed;
-		bool three, two, one, go, oneSecondAfterGo;
+		bool preCount, three, two, one, go, oneSecondAfterGo;
 		const float INITIAL_DELAY = 1;
 
 		/// <summary>
@@ -33,7 +33,7 @@ namespace Ponykart.Core {
 		void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
 			// only run this on race levels!
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
-				three = two = one = go = oneSecondAfterGo = false;
+				preCount = three = two = one = go = oneSecondAfterGo = false;
 				elapsed = 0;
 
 				foreach (var player in LKernel.Get<PlayerManager>().Players) {
@@ -49,20 +49,27 @@ namespace Ponykart.Core {
 		/// Count down!
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
-			if (!three && elapsed >= INITIAL_DELAY) {
+			if (!preCount && elapsed >= INITIAL_DELAY) {
+				elapsed = 0;
+				preCount = true;
+			}
+			else if (!three && elapsed >= INITIAL_DELAY) {
 				Console.WriteLine("3");
 				Invoke(OnThree);
 				three = true;
+				elapsed = INITIAL_DELAY;
 			}
 			else if (!two && elapsed >= INITIAL_DELAY + 1) {
 				Console.WriteLine("2");
 				Invoke(OnTwo);
 				two = true;
+				elapsed = INITIAL_DELAY + 1;
 			}
 			else if (!one && elapsed >= INITIAL_DELAY + 2) {
 				Console.WriteLine("1");
 				Invoke(OnOne);
 				one = true;
+				elapsed = INITIAL_DELAY + 2;
 			}
 			else if (!go && elapsed >= INITIAL_DELAY + 3) {
 				foreach (var player in LKernel.Get<PlayerManager>().Players) {
@@ -73,6 +80,7 @@ namespace Ponykart.Core {
 				Console.WriteLine("Go!");
 				Invoke(OnGo);
 				go = true;
+				elapsed = INITIAL_DELAY + 3;
 			}
 			else if (!oneSecondAfterGo && elapsed >= INITIAL_DELAY + 4) {
 				Console.WriteLine("One second after go");

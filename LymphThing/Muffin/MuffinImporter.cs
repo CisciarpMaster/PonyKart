@@ -26,13 +26,13 @@ namespace PonykartParsers {
 		public MuffinDefinition Parse(string nameOfWorld, MuffinDefinition worldDef = null) {
 			// the initial level before we start loading one is "null", so we need to avoid doing anything with that.
 			if (nameOfWorld == null) {
-				MuffinDefinition emptyDef = new MuffinDefinition("");
+				MuffinDefinition emptyDef = new MuffinDefinition(string.Empty);
 				emptyDef.EnumTokens["type"] = ThingEnum.EmptyLevel;
 				emptyDef.Finish();
 				return emptyDef;
 			}
 
-			string fileContents = "";
+			string fileContents = string.Empty;
 
 			// make the file path
 			string filePath = Settings.Default.MuffinFileLocation + nameOfWorld + Settings.Default.MuffinFileExtension;

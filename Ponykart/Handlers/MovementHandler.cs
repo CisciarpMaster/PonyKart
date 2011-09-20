@@ -16,13 +16,13 @@ namespace Ponykart.Handlers {
 	[Obsolete]
 	public class MovementHandler : ILevelHandler {
 
-		ICollection<LThing> thingsToMove;
+		IList<LThing> thingsToMove;
 		float time = 0;
 		readonly float delay = 0.3f;
 
 		public MovementHandler() {
 
-			thingsToMove = new Collection<LThing>();
+			thingsToMove = new List<LThing>();
 
 			// commented out until we can get something working
 			//LKernel.Get<Spawner>().OnThingCreation += AddActor;

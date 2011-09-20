@@ -13,18 +13,18 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("createAmbientSound",
 			"Creates a 2D sound i.e. one that has the same volume no matter where the player is. For things like music and stuff.",
-			"string filePath - The path to the sound file to play.", "string objectName - The name of the sound", 
+			"string filePath - The path to the sound file to play.", 
 			"bool looping - Whether the sound should loop or not.")]
-		public static ISound CreateAmbientSound(string filePath, string objectName, bool looping) {
-			return LKernel.GetG<SoundMain>().CreateAmbientSound(filePath, objectName, looping);
+		public static ISound CreateAmbientSound(string filePath, bool looping) {
+			return LKernel.GetG<SoundMain>().CreateAmbientSound(filePath, looping);
 		}
 
 		[LuaFunction("createObjectSound",
 			"Creates a 3D sound i.e. one that changes volume and stuff depending on where the player is. For things like sound effects and stuff.",
-			"string filePath - The path to the sound file to play.", "string objectName - The name of the sound",
+			"string filePath - The path to the sound file to play.",
 			"Vector3 pos", "bool looping - Whether the sound should loop or not.")]
-		public static ISound CreateObjectSound(string filePath, string objectName, Vector3 pos, bool looping) {
-			return LKernel.GetG<SoundMain>().CreateObjectSound(filePath, pos, objectName, looping);
+		public static ISound CreateObjectSound(string filePath, Vector3 pos, bool looping) {
+			return LKernel.GetG<SoundMain>().CreateObjectSound(filePath, pos, looping);
 		}
 
 		[LuaFunction("isCurrentlyPlaying", "Tells whether a given sound is playing or not.", "string soundName - The name of the sound. Not a file path.")]

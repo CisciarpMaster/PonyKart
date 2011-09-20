@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using BulletSharp;
 using LuaNetInterface;
 using Mogre;
@@ -12,12 +11,12 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// for cleaning up all of our events we'll have to dispose of
 		/// </summary>
-		static ICollection<KeyValuePair<TriggerRegion, TriggerReportEvent>> toDispose;
+		static IList<KeyValuePair<TriggerRegion, TriggerReportEvent>> toDispose;
 
 		public TriggerWrapper() {
 			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 
-			toDispose = new Collection<KeyValuePair<TriggerRegion, TriggerReportEvent>>();
+			toDispose = new List<KeyValuePair<TriggerRegion, TriggerReportEvent>>();
 
 			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 		}

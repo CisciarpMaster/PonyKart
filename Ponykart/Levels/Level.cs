@@ -36,6 +36,8 @@ namespace Ponykart.Levels {
 		public Level(string name) {
 			Name = name;
 			Things = new Dictionary<string, LThing>();
+			if (string.IsNullOrEmpty(name))
+				Type = LevelType.EmptyLevel;
 
 			// don't use anonymous methods here because we have to disconnect it when we change levels
 			LKernel.GetG<Spawner>().OnThingCreation += OnSpawnEvent;
@@ -53,7 +55,7 @@ namespace Ponykart.Levels {
 			// get the type of the level
 			ThingEnum tempType = Definition.GetEnumProperty("type", null);
 			LevelType type;
-			Enum.TryParse<LevelType>(tempType + "", true, out type);
+			Enum.TryParse<LevelType>(tempType + string.Empty, true, out type);
 			Type = type;
 		}
 

@@ -24,7 +24,7 @@ namespace Ponykart.Handlers {
 					Font = UIResources.Fonts["BlueHighwayHuge"],
 				},
 				Visible = false,
-				Text = "",
+				Text = string.Empty,
 				AlwaysOnTop = true,
 			};
 

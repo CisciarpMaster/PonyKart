@@ -48,7 +48,7 @@ namespace Ponykart.UI {
 			IsVisible = false;
 			panel.Visible = IsVisible;
 			textBox.Visible = IsVisible;
-			textBox.Text = "";
+			textBox.Text = string.Empty;
 		}
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace Ponykart.UI {
 			IsVisible = true;
 			panel.Visible = IsVisible;
 			textBox.Visible = IsVisible;
-			textBox.Text = "";
+			textBox.Text = string.Empty;
 
 			textBox.Focused = true;
 		}
@@ -169,7 +169,7 @@ namespace Ponykart.UI {
 		/// </summary>
 		private void TextBoxSubmit(object sender, ValueEventArgs<string> vea) {
 			// ignore if nothing is entered
-			if (vea.Data == "")
+			if (vea.Data == string.Empty)
 				return;
 
 			lastInput = vea.Data;
@@ -177,7 +177,7 @@ namespace Ponykart.UI {
 			Launch.Log("[Lua] <Input> " + vea.Data);
 			LKernel.GetG<LuaMain>().DoString("print(" + vea.Data + ")");
 
-			textBox.Text = "";
+			textBox.Text = string.Empty;
 
 			// yet it still loses focus?
 			textBox.Focused = true;

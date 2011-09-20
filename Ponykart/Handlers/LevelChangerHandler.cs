@@ -18,7 +18,7 @@ namespace Ponykart.Handlers {
 			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
 				return;
 
-			string s = "";
+			string s = string.Empty;
 			switch (ke.key) {
 				case KeyCode.KC_0:
 					s = Settings.Default.MainMenuName; break;
@@ -31,7 +31,7 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_4:
 					s = "saa"; break;
 			}
-			if (s != "")
+			if (!string.IsNullOrEmpty(s))
 				LKernel.GetG<LevelManager>().LoadLevel(s);
 		}
 	}
