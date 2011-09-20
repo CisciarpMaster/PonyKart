@@ -263,12 +263,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LymphThing\PonykartParsers.csproj">
+    <ProjectReference Include="..\PonykartParsers\PonykartParsers.csproj">
       <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
       <Name>PonykartParsers</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Icon 2.ico" />
   </ItemGroup>
