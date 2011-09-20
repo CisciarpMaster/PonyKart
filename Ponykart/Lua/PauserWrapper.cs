@@ -47,12 +47,11 @@ namespace Ponykart.Lua {
 		}
 
 		[LuaFunction("hookFunctionToPauseEvent", "Hook up a lua function so it will run whenever the pause event fires.",
-			"string nameOfLuaFunction - the name of the lua function you want to run whenever the event fires.")]
-		public static void HookFunctionToPauseEvent(string nameOfLuaFunction) {
+			"function(PausingState)")]
+		public static void HookFunctionToPauseEvent(PauseEvent pe) {
 			Pauser p = LKernel.GetG<Pauser>();
 			if (p != null) {
-				var eventInfo = p.GetType().GetEvent("PauseEvent");
-				eventInfo.AddEventHandler(p, LKernel.GetG<LuaMain>().LuaVM.Lua.GetFunction(eventInfo.EventHandlerType, nameOfLuaFunction));
+				p.PauseEvent += pe;
 			}
 		}
 	}

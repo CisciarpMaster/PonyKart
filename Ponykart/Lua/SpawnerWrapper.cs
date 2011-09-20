@@ -17,18 +17,13 @@ namespace Ponykart.Lua {
 			"string type - The name of the .thing you want to spawn. Not case sensitive.",
 			"Vector3 pos - Spawn position")]
 		public static LThing Spawn(string type, Vector3 pos) {
-			Spawner spawner = LKernel.Get<Spawner>();
-			if (spawner != null) {
-				try {
-					return spawner.Spawn(type, pos);
-				}
-				catch (Exception e) {
-					LKernel.GetG<LuaMain>().Print("[SpawnerWrapper] ERROR: " + e.Source + " : " + e.Message);
-					return null;
-				}
+			try {
+				return LKernel.Get<Spawner>().Spawn(type, pos);
 			}
-			else
+			catch (Exception e) {
+				LKernel.GetG<LuaMain>().Print("[SpawnerWrapper] ERROR: " + e.Source + " : " + e.Message);
 				return null;
+			}
 		}
 
 		[LuaFunction("setMaterial", "Sets all of the model components of the given LThing to use the new material.", "LThing thing", "string newMaterial")]

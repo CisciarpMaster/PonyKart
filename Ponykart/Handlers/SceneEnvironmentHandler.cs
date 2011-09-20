@@ -10,7 +10,7 @@ namespace Ponykart.Handlers {
 	public class SceneEnvironmentHandler {
 
 		public SceneEnvironmentHandler() {
-			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
+			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEvent(OnLevelLoad);
 		}
 
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {

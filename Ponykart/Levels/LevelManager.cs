@@ -4,12 +4,22 @@ using Ponykart.Lua;
 using Ponykart.Properties;
 
 namespace Ponykart.Levels {
-	public delegate void LevelEventHandler(LevelChangedEventArgs eventArgs);
+	public delegate void LevelEvent(LevelChangedEventArgs eventArgs);
 
 	public class LevelManager {
 		public Level CurrentLevel { get; private set; }
-		public event LevelEventHandler OnLevelLoad;
-		public event LevelEventHandler OnLevelUnload;
+		/// <summary>
+		/// Is run after the .muffins have been read and the .scene file has been used, but before we start actually creating any Things
+		/// </summary>
+		public event LevelEvent OnLevelLoad;
+		/// <summary>
+		/// Is run after the level handlers have been disposed, but before we clean out the scene manager.
+		/// </summary>
+		public event LevelEvent OnLevelUnload;
+		/// <summary>
+		/// Is run right at the end of the level load process, including after scripts have been run.
+		/// </summary>
+		public event LevelEvent OnLevelPostLoad;
 
 		/// <summary>
 		/// constructor
@@ -17,6 +27,7 @@ namespace Ponykart.Levels {
 		public LevelManager() {
 			this.IsValidLevel = false;
 		}
+
 
 		private bool hasRunPostInitEvents = false;
 		/// <summary>
@@ -91,8 +102,6 @@ namespace Ponykart.Levels {
 				// load up the world definition from the .muffin file
 				newLevel.ReadMuffin();
 
-				// bind level stuff to the kernel
-				LKernel.LoadLevelObjects(eventArgs);
 				// create the enviroment
 				newLevel.CreateEnvironment();
 
@@ -111,6 +120,9 @@ namespace Ponykart.Levels {
 				LKernel.GetG<LuaMain>().LoadScriptFiles(newLevel.Name);
 				// run our scripts
 				newLevel.RunLevelScripts();
+
+				if (OnLevelPostLoad != null)
+					OnLevelPostLoad(eventArgs);
 			}
 
 			// if we're on the main menu, pause it

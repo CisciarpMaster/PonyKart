@@ -38,8 +38,8 @@ namespace Ponykart.Handlers {
 		public event KartEvent OnTouchdown;
 
 		public StopKartsFromRollingOverHandler() {
-			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEventHandler(OnLevelLoad);
-			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
+			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEvent(OnLevelLoad);
+			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
 
 		/// <summary>

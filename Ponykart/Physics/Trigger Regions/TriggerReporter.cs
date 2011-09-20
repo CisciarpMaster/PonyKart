@@ -70,7 +70,7 @@ namespace Ponykart.Physics {
 		/// Hooks an event to a trigger region safely. If that region does not exist, you simply get a warning message instead of a crash.
 		/// </summary>
 		/// <returns>If the region with that name exists, this returns that region. If it doesn't, this returns null.</returns>
-		public TriggerRegion AddEvent(string regionName, TriggerReportHandler handler) {
+		public TriggerRegion AddEvent(string regionName, TriggerReportEvent handler) {
 			TriggerRegion tr;
 
 			if (Regions.TryGetValue(regionName, out tr)) {
@@ -85,7 +85,7 @@ namespace Ponykart.Physics {
 		/// Removes an event from a trigger region safely. If that region does not exist, you simply get a warning message instead of a crash.
 		/// </summary>
 		/// <returns>True if that region exists, false otherwise.</returns>
-		public bool RemoveEvent(string regionName, TriggerReportHandler handler) {
+		public bool RemoveEvent(string regionName, TriggerReportEvent handler) {
 			TriggerRegion tr;
 
 			if (Regions.TryGetValue(regionName, out tr)) {

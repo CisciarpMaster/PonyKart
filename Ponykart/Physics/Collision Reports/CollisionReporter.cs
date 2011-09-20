@@ -9,7 +9,7 @@ namespace Ponykart.Physics {
 	/// <summary>
 	/// Our delegate for collision reports
 	/// </summary>
-	public delegate void CollisionReportHandler(CollisionReportInfo info);
+	public delegate void CollisionReportEvent(CollisionReportInfo info);
 
 	/// <summary>
 	/// Our class for handling all collision reports, firing events when physics objects collide.
@@ -18,7 +18,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// our 2D array of contact report delegates
 		/// </summary>
-		private CollisionReportHandler[,] reporters;
+		private CollisionReportEvent[,] reporters;
 		/// <summary>
 		/// Our dictionary of collision objects, with a set containing the objects it collided with last frame.
 		/// Why a hash set? They prevent having multiple identical objects, but also don't throw an error if they already contain it.
@@ -40,11 +40,11 @@ namespace Ponykart.Physics {
 		/// Constructor and stuff
 		/// </summary>
 		public CollisionReporter() {
-			reporters = new CollisionReportHandler[HIGHEST_BIT_IN_COLLISION_GROUPS + 1, HIGHEST_BIT_IN_COLLISION_GROUPS + 1];
+			reporters = new CollisionReportEvent[HIGHEST_BIT_IN_COLLISION_GROUPS + 1, HIGHEST_BIT_IN_COLLISION_GROUPS + 1];
 			CurrentlyCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
 
 			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
-			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEventHandler(OnLevelUnload);
+			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
 
 		/// <summary>
@@ -206,7 +206,7 @@ namespace Ponykart.Physics {
 		/// For example, to listen for the player colliding with the wall, you want to use Groups.PlayerID and Groups.WallID.
 		/// </summary>
 		/// <param name="handler">The method that will run when the event is fired</param>
-		public void AddEvent(PonykartCollisionGroups firstType, PonykartCollisionGroups secondType, CollisionReportHandler handler) {
+		public void AddEvent(PonykartCollisionGroups firstType, PonykartCollisionGroups secondType, CollisionReportEvent handler) {
 			reporters[(int) firstType, (int) secondType] += handler;
 			reporters[(int) secondType, (int) firstType] += handler;
 		}
@@ -217,7 +217,7 @@ namespace Ponykart.Physics {
 		/// The order of the two group IDs does not matter, as it will remove from both [a,b] and [b,a].
 		/// </summary>
 		/// <param name="handler">The method that will run when the event is fired</param>
-		public void RemoveEvent(PonykartCollisionGroups firstType, PonykartCollisionGroups secondType, CollisionReportHandler handler) {
+		public void RemoveEvent(PonykartCollisionGroups firstType, PonykartCollisionGroups secondType, CollisionReportEvent handler) {
 			reporters[(int) firstType, (int) secondType] -= handler;
 			reporters[(int) secondType, (int) firstType] -= handler;
 		}

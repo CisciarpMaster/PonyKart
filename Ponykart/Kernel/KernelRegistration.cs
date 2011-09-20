@@ -103,6 +103,7 @@ namespace Ponykart {
 			// players
 			splash.Increment("Spawning players...");
 			AddGlobalObject(new PlayerManager());
+			AddGlobalObject(new RaceCountdown());
 
 			// handlers
 			splash.Increment("Loading global handlers...");
@@ -129,14 +130,6 @@ namespace Ponykart {
 			LuaWrapperTypes = types.Where(
 				t => ((LuaPackageAttribute[]) t.GetCustomAttributes(typeof(LuaPackageAttribute), false))
 					 .Count() > 0);
-		}
-
-		/// <summary>
-		/// Load objects for each level
-		/// This is called from LevelManager
-		/// </summary>
-		public static void LoadLevelObjects(LevelChangedEventArgs eventArgs) {
-			
 		}
 
 		/// <summary>

@@ -1,5 +1,6 @@
 ﻿using LuaNetInterface;
 using Ponykart.Actors;
+using Ponykart.Levels;
 using Ponykart.Players;
 
 namespace Ponykart.Lua {
@@ -12,11 +13,11 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("playerKart", "Returns the player's kart")]
 		public static Kart GetPlayerKart() {
-			var playermanager = LKernel.GetG<PlayerManager>();
-			if (playermanager != null) {
-				return playermanager.MainPlayer.Kart;
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
+				return LKernel.GetG<PlayerManager>().MainPlayer.Kart;
 			}
-			else return null;
+			else
+				return null;
 		}
 	}
 }

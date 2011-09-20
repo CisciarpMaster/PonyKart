@@ -7,18 +7,17 @@ using Ponykart.Levels;
 using Ponykart.Physics;
 
 namespace Ponykart.Lua {
-	//[LuaPackage("Triggers", "A wrapper for the TriggerReporter.")]
 	[LuaPackage(null, null)]
 	public class TriggerWrapper {
 		/// <summary>
 		/// for cleaning up all of our events we'll have to dispose of
 		/// </summary>
-		static ICollection<KeyValuePair<TriggerRegion, TriggerReportHandler>> toDispose;
+		static ICollection<KeyValuePair<TriggerRegion, TriggerReportEvent>> toDispose;
 
 		public TriggerWrapper() {
 			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 
-			toDispose = new Collection<KeyValuePair<TriggerRegion, TriggerReportHandler>>();
+			toDispose = new Collection<KeyValuePair<TriggerRegion, TriggerReportEvent>>();
 
 			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
 		}
@@ -28,7 +27,7 @@ namespace Ponykart.Lua {
 		/// regions won't be disposed properly.
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			foreach (KeyValuePair<TriggerRegion, TriggerReportHandler> pair in toDispose) {
+			foreach (KeyValuePair<TriggerRegion, TriggerReportEvent> pair in toDispose) {
 				pair.Key.OnTrigger -= pair.Value;
 			}
 		}
@@ -36,8 +35,8 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// Shortcut method to add something to the dispose queue.
 		/// </summary>
-		static void AddToDispose(TriggerRegion region, TriggerReportHandler handler) {
-			toDispose.Add(new KeyValuePair<TriggerRegion, TriggerReportHandler>(region, handler));
+		static void AddToDispose(TriggerRegion region, TriggerReportEvent handler) {
+			toDispose.Add(new KeyValuePair<TriggerRegion, TriggerReportEvent>(region, handler));
 		}
 
 		//-----------------------------------------------
@@ -59,7 +58,7 @@ namespace Ponykart.Lua {
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
 			"number width", "number height", "number length", "number posX", "number posY", "number posZ", "number rotX", "number rotY", "number rotZ")]
 		public static void CreateBoxTriggerRegion(
-			string name, TriggerReportHandler trh,
+			string name, TriggerReportEvent trh,
 			float width, float height, float length,
 			float posX, float posY, float posZ,
 			float rotX, float rotY, float rotZ)
@@ -76,7 +75,7 @@ namespace Ponykart.Lua {
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
 			"number radius", "number height", "number posX", "number posY", "number posZ", "number rotX", "number rotY", "number rotZ")]
 		public static void CreateCapsuleTriggerRegion(
-			string name, TriggerReportHandler trh,
+			string name, TriggerReportEvent trh,
 			float radius, float height,
 			float posX, float posY, float posZ, 
 			float rotX, float rotY, float rotZ)
@@ -93,37 +92,13 @@ namespace Ponykart.Lua {
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
 			"number radius", "number posX", "number posY", "number posZ")]
 		public static void CreateSphereTriggerRegion(
-			string name, TriggerReportHandler trh,
+			string name, TriggerReportEvent trh,
 			float radius,
 			float posX, float posY, float posZ)
 		{
 			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new SphereShape(radius));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
-		}
-
-		// TODO: we need to unhook these functions on level unload, otherwise the regions won't be disposed of properly
-
-		/// <summary>
-		/// Hooks up a script file to a trigger region event so it will run whenever an actor enters or leaves the specified trigger region.
-		/// The problem with this is that I lose the variables from the event so I can't check whether it's an enter or leave event.
-		/// Still... might be useful so I'll leave it
-		/// </summary>
-		/// <param name="nameOfRegion">The name of the trigger region. Well technically it's the actor name of the shape of the trigger region, but eh whatever.</param>
-		/// <param name="filePath">The file path of the script you want to run when the event fires. Ex: "media/scripts/example.lua"</param>
-		[LuaFunction("hookScriptToTriggerRegion",
-			"Hooks up a script file to a trigger region event so it will run whenever an actor enters or leaves the specified trigger region.",
-			"string nameOfRegion - The name of the trigger region. Well technically it's the actor name of the shape of the trigger region, but eh whatever.",
-			"string filePath - The file path of the script you want to run when the event fires. Ex: \"media/scripts/example.lua\"")]
-		public static void HookScriptToTriggerRegion(string nameOfRegion, string filePath) {
-			TriggerReporter reporter = LKernel.Get<TriggerReporter>();
-
-			if (reporter != null) {
-				TriggerReportHandler handler = (region, otherShape, flags) => LKernel.GetG<LuaMain>().DoFile(filePath);
-				TriggerRegion tr = reporter.AddEvent(nameOfRegion, handler);
-				if (tr != null)
-					AddToDispose(tr, handler);
-			}
 		}
 
 		/// <summary>
@@ -135,7 +110,7 @@ namespace Ponykart.Lua {
 			"Hooks up a function to a trigger region event so it will run whenever an actor enters of leaves the specified trigger region.",
 			"string nameOfRegion - The name of the trigger region",
 			"function() trigger report handler - (Shape triggerShape, Shape otherShape, TriggerFlags flags)")]
-		public static void HookFunctionToTriggerRegion(string nameOfRegion, TriggerReportHandler trh) {
+		public static void HookFunctionToTriggerRegion(string nameOfRegion, TriggerReportEvent trh) {
 			TriggerReporter reporter = LKernel.Get<TriggerReporter>();
 
 			if (reporter != null) {

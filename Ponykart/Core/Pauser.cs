@@ -2,13 +2,18 @@
 using Ponykart.Levels;
 
 namespace Ponykart.Core {
-	public delegate void PauseEventHandler(bool isPaused);
+	public delegate void PauseEvent(PausingState state);
+
+	public enum PausingState {
+		Pausing,
+		Unpausing
+	}
 
 	public class Pauser {
 		/// <summary>
 		/// An event for things that need it
 		/// </summary>
-		public event PauseEventHandler PauseEvent;
+		public event PauseEvent PauseEvent;
 		/// <summary>
 		/// I think most things will be fine with just a boolean.<br />
 		/// Setting this to true will pause the spawner, physics engine, level changer, movement managers, etc.
@@ -47,8 +52,12 @@ namespace Ponykart.Core {
 		public void PauseWithEvent() {
 			Launch.Log("Pause!");
 			IsPaused = !IsPaused;
-			if (PauseEvent != null)
-				PauseEvent(IsPaused);
+			if (PauseEvent != null) {
+				if (IsPaused)
+					PauseEvent(PausingState.Pausing);
+				else
+					PauseEvent(PausingState.Unpausing);
+			}
 		}
 	}
 }

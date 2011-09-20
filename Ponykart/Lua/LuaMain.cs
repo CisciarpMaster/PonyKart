@@ -8,14 +8,14 @@ using Ponykart.Properties;
 using Ponykart.UI;
 
 namespace Ponykart.Lua {
-	public delegate void LuaEventHandler();
+	public delegate void LuaEvent();
 
 	// PackageAttributes are kinda like namespaces... I think? Anyway if you set this to null then it's treated as if it's in the global namespace
 	// obviously if you want it to be in the global namespace, adding documentation for that namespace is pointless
 	public class LuaMain {
 		public LuaVirtualMachine LuaVM { get; private set; }
 
-		public event LuaEventHandler OnRegister;
+		public event LuaEvent OnRegister;
 
 		public LuaMain() {
 			LuaVM = new LuaVirtualMachine();

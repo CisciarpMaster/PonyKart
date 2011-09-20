@@ -35,11 +35,14 @@ namespace Ponykart.Handlers {
 			gui.Controls.Add(pauseLabel);
 
 			// hook up to the pause event
-			LKernel.GetG<Pauser>().PauseEvent += new PauseEventHandler(DoOnPause);
+			LKernel.GetG<Pauser>().PauseEvent += new PauseEvent(DoOnPause);
 		}
 
-		void DoOnPause(bool isPaused) {
-			pauseLabel.Visible = isPaused;
+		void DoOnPause(PausingState state) {
+			if (state == PausingState.Pausing)
+				pauseLabel.Visible = true;
+			else
+				pauseLabel.Visible = false;
 		}
 	}
 }

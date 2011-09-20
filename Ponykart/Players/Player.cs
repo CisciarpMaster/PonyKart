@@ -19,6 +19,10 @@ namespace Ponykart.Players {
 		/// ID number. Same thing that's used as the array index in PlayerManager.
 		/// </summary>
 		protected int ID;
+		/// <summary>
+		/// Can the player control his kart?
+		/// </summary>
+		public virtual bool IsControlEnabled { get; set; }
 
 
 		public Player(MuffinDefinition def, int id) {
@@ -27,6 +31,7 @@ namespace Ponykart.Players {
 				throw new ArgumentOutOfRangeException("id", "ID number specified for kart spawn position is not valid!");
 			Launch.Log("[Loading] Player with ID " + id + " created");
 
+			// set up the spawn position/orientation
 			Vector3 spawnPos = def.GetVectorProperty("KartSpawnPosition" + id, null);
 			Quaternion spawnOrient = def.GetQuatProperty("KartSpawnOrientation" + id, Quaternion.IDENTITY);
 

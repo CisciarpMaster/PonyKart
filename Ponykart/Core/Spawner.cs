@@ -3,17 +3,17 @@ using Ponykart.Actors;
 using PonykartParsers;
 
 namespace Ponykart.Core {
-	public delegate void OnThingCreation<T>(T thing);
+	public delegate void SpawnEvent<T>(T thing);
 
 	public class Spawner {
 		/// <summary>
 		/// Fires whenever anything is spawned.
 		/// </summary>
-		public event OnThingCreation<LThing> OnThingCreation;
+		public event SpawnEvent<LThing> OnThingCreation;
 		/// <summary>
 		/// Fires whenever a Kart is spawned.
 		/// </summary>
-		public event OnThingCreation<Kart> OnKartCreation;
+		public event SpawnEvent<Kart> OnKartCreation;
 
 		/// <summary>
 		/// Spawns something!
@@ -62,7 +62,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// helper
 		/// </summary>
-		void Invoke<T>(OnThingCreation<T> evt, T actor) {
+		void Invoke<T>(SpawnEvent<T> evt, T actor) {
 			if (evt != null)
 				evt(actor);
 		}

@@ -102,7 +102,7 @@ namespace Ponykart {
 		/// <typeparam name="T">The parameter type of the event</typeparam>
 		/// <param name="handler">The event handler</param>
 		/// <param name="eventArgs">The parameter of the event</param>
-		void FireEvent<T>(LymphInputEventHandler<T> handler, T eventArgs) {
+		void FireEvent<T>(LymphInputEvent<T> handler, T eventArgs) {
 			if (handler != null)
 				handler(eventArgs);
 		}
@@ -115,7 +115,7 @@ namespace Ponykart {
 		/// <param name="handler">The event handler</param>
 		/// <param name="eventArg1">The first parameter of the event</param>
 		/// <param name="eventArg2">The second parameter of the event</param>
-		void FireEvent<T, U>(LymphInputEventHandler<T, U> handler, T eventArg1, U eventArg2) {
+		void FireEvent<T, U>(LymphInputEvent<T, U> handler, T eventArg1, U eventArg2) {
 			if (handler != null)
 				handler(eventArg1, eventArg2);
 		}
@@ -204,22 +204,22 @@ namespace Ponykart {
 
 		#region Events
 		/// <summary> When any keyboard button is pressed. This should eventually be removed once we know what all of the keys are. </summary>
-		public event LymphInputEventHandler<KeyEvent> OnKeyboardPress_Anything;
-		public event LymphInputEventHandler<KeyEvent> OnKeyboardRelease_Anything;
+		public event LymphInputEvent<KeyEvent> OnKeyboardPress_Anything;
+		public event LymphInputEvent<KeyEvent> OnKeyboardRelease_Anything;
 
-		public event LymphInputEventHandler<KeyEvent> OnKeyboardPress_Escape;
+		public event LymphInputEvent<KeyEvent> OnKeyboardPress_Escape;
 
-		public event LymphInputEventHandler<MouseEvent, MouseButtonID> OnMousePress_Left;
-		public event LymphInputEventHandler<MouseEvent, MouseButtonID> OnMouseRelease_Left;
-		public event LymphInputEventHandler<MouseEvent, MouseButtonID> OnMousePress_Right;
-		public event LymphInputEventHandler<MouseEvent, MouseButtonID> OnMouseRelease_Right;
-		public event LymphInputEventHandler<MouseEvent, MouseButtonID> OnMousePress_Middle;
-		public event LymphInputEventHandler<MouseEvent, MouseButtonID> OnMouseRelease_Middle;
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMousePress_Left;
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMouseRelease_Left;
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMousePress_Right;
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMouseRelease_Right;
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMousePress_Middle;
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMouseRelease_Middle;
 
-		public event LymphInputEventHandler<MouseEvent> OnMouseMove;
+		public event LymphInputEvent<MouseEvent> OnMouseMove;
 		#endregion
 	}
 
-	public delegate void LymphInputEventHandler<T>(T eventArgs);
-	public delegate void LymphInputEventHandler<T, U>(T eventArg1, U eventArg2);
+	public delegate void LymphInputEvent<T>(T eventArgs);
+	public delegate void LymphInputEvent<T, U>(T eventArg1, U eventArg2);
 }

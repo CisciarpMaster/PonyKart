@@ -23,21 +23,21 @@ namespace Ponykart.Core {
 		/// </summary>
 		private IDictionary<LKey, KeyCode> LKeysDict;
 		private IDictionary<KeyCode, LKey> MOISKeysDict;
-		public IDictionary<LKey, LymphInputEventHandler<LKey>> PressEventsDict { get; private set; }
-		public IDictionary<LKey, LymphInputEventHandler<LKey>> ReleaseEventsDict { get; private set; }
+		public IDictionary<LKey, LymphInputEvent<LKey>> PressEventsDict { get; private set; }
+		public IDictionary<LKey, LymphInputEvent<LKey>> ReleaseEventsDict { get; private set; }
 
 
 		public KeyBindingManager() {
 			Launch.Log("[Loading] Creating KeyBindingManager...");
 			LKeysDict = new Dictionary<LKey, KeyCode>();
 			MOISKeysDict = new Dictionary<KeyCode, LKey>();
-			PressEventsDict = new Dictionary<LKey, LymphInputEventHandler<LKey>>();
-			ReleaseEventsDict = new Dictionary<LKey, LymphInputEventHandler<LKey>>();
+			PressEventsDict = new Dictionary<LKey, LymphInputEvent<LKey>>();
+			ReleaseEventsDict = new Dictionary<LKey, LymphInputEvent<LKey>>();
 
 			SetupInitialBindings();
 
-			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += new LymphInputEventHandler<KeyEvent>(OnKeyboardPressAnything);
-			LKernel.GetG<InputMain>().OnKeyboardRelease_Anything += new LymphInputEventHandler<KeyEvent>(OnKeyboardReleaseAnything);
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardPressAnything);
+			LKernel.GetG<InputMain>().OnKeyboardRelease_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardReleaseAnything);
 		}
 
 		/// <summary>
@@ -120,7 +120,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// helper
 		/// </summary>
-		public void Invoke(LymphInputEventHandler<LKey> e, LKey eventArgs) {
+		public void Invoke(LymphInputEvent<LKey> e, LKey eventArgs) {
 			if (e != null)
 				e.Invoke(eventArgs);
 		}

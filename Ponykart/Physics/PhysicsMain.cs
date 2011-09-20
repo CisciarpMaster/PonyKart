@@ -11,8 +11,8 @@ using Ponykart.Stuff;
 using IDisposable = BulletSharp.IDisposable;
 
 namespace Ponykart.Physics {
-	public delegate void PhysicsWorldEventHandler(DiscreteDynamicsWorld world);
-	public delegate void PhysicsSimulateEventHandler(DiscreteDynamicsWorld world, FrameEvent evt);
+	public delegate void PhysicsWorldEvent(DiscreteDynamicsWorld world);
+	public delegate void PhysicsSimulateEvent(DiscreteDynamicsWorld world, FrameEvent evt);
 
 	public class PhysicsMain : LDisposable {
 		private bool quit = false;
@@ -32,15 +32,15 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Is invoked right after the physics world is created.
 		/// </summary>
-		public event PhysicsWorldEventHandler PostCreateWorld;
+		public event PhysicsWorldEvent PostCreateWorld;
 		/// <summary>
 		/// Is invoked right before the physics world is simulated.
 		/// </summary>
-		public event PhysicsSimulateEventHandler PreSimulate;
+		public event PhysicsSimulateEvent PreSimulate;
 		/// <summary>
 		/// Is invoked right after the physics world is simulated.
 		/// </summary>
-		public event PhysicsSimulateEventHandler PostSimulate;
+		public event PhysicsSimulateEvent PostSimulate;
 
 		/// <summary>
 		/// Should we draw debug lines or not?

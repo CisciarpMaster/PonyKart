@@ -122,6 +122,7 @@
     <Compile Include="Handlers\Karts\Nlerper.cs" />
     <Compile Include="Handlers\Karts\Skidder.cs" />
     <Compile Include="Handlers\PrimitiveCreatorHandler.cs" />
+    <Compile Include="Core\RaceCountdown.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\Karts\SelfRightingHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Lua\LuaMainWrapper.cs" />
     <Compile Include="Lua\MogreWrapper.cs" />
     <Compile Include="Lua\PhysicsWrapper.cs" />
+    <Compile Include="Lua\RaceCountdownWrapper.cs" />
     <Compile Include="Physics\OgreToBulletMesh.cs" />
     <Compile Include="Physics\Collision Reports\CollisionReportInfo.cs" />
     <Compile Include="Physics\Motion States\MogreMotionState.cs" />
@@ -148,7 +150,6 @@
     <Compile Include="Players\Player.cs" />
     <Compile Include="Players\PlayerManager.cs" />
     <Compile Include="Handlers\EscHandler.cs" />
-    <Compile Include="Lua\IOWrapper.cs" />
     <Compile Include="Handlers\DebugDrawerHandler.cs" />
     <Compile Include="Physics\BulletDebugDrawer.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

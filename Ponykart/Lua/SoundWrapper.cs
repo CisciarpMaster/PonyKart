@@ -16,10 +16,7 @@ namespace Ponykart.Lua {
 			"string filePath - The path to the sound file to play.", "string objectName - The name of the sound", 
 			"bool looping - Whether the sound should loop or not.")]
 		public static ISound CreateAmbientSound(string filePath, string objectName, bool looping) {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				return s.CreateAmbientSound(filePath, objectName, looping);
-			return null;
+			return LKernel.GetG<SoundMain>().CreateAmbientSound(filePath, objectName, looping);
 		}
 
 		[LuaFunction("createObjectSound",
@@ -27,65 +24,44 @@ namespace Ponykart.Lua {
 			"string filePath - The path to the sound file to play.", "string objectName - The name of the sound",
 			"Vector3 pos", "bool looping - Whether the sound should loop or not.")]
 		public static ISound CreateObjectSound(string filePath, string objectName, Vector3 pos, bool looping) {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				return s.CreateObjectSound(filePath, pos, objectName, looping);
-			return null;
+			return LKernel.GetG<SoundMain>().CreateObjectSound(filePath, pos, objectName, looping);
 		}
 
 		[LuaFunction("isCurrentlyPlaying", "Tells whether a given sound is playing or not.", "string soundName - The name of the sound. Not a file path.")]
 		public static bool IsCurrentlyPlaying(string soundName) {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				return s.Engine.IsCurrentlyPlaying(soundName);
-			return false;
+			return LKernel.GetG<SoundMain>().Engine.IsCurrentlyPlaying(soundName);
 		}
 
 		[LuaFunction("setDefaultMinDistance", "Sets the default minimum distance you have to be from the sound to hear it. I think.",
 			"number num - The new minimum distance")]
 		public static void SetDefaultMinDistance(float num) {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				s.Engine.Default3DSoundMinDistance = num;
+			LKernel.GetG<SoundMain>().Engine.Default3DSoundMinDistance = num;
 		}
 
 		[LuaFunction("getDefaultMinDistance", "Gets the default minimum distance you have to be from the sound to hear it. I think.")]
 		public static float GetDefaultMinDistance() {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				return s.Engine.Default3DSoundMinDistance;
-			return -1;
+			return LKernel.GetG<SoundMain>().Engine.Default3DSoundMinDistance;
 		}
 
 		[LuaFunction("setDefaultManDistance", "Sets the default maximum distance you have to be from the sound to hear it. I think.",
 			"number num - The new maximum distance")]
 		public static void SetDefaultMaxDistance(float num) {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				s.Engine.Default3DSoundMaxDistance = num;
+			LKernel.GetG<SoundMain>().Engine.Default3DSoundMaxDistance = num;
 		}
 
 		[LuaFunction("getDefaultMaxDistance", "Gets the default maximum distance you have to be from the sound to hear it. I think.")]
 		public static float GetDefaultMaxDistance() {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				return s.Engine.Default3DSoundMaxDistance;
-			return -1;
+			return LKernel.GetG<SoundMain>().Engine.Default3DSoundMaxDistance;
 		}
 
 		[LuaFunction("setRolloffFactor", "Not sure what this does but I think it has something to do with how the sound \"decays\".", "number rolloff")]
 		public static void SetRolloffFactor(float rolloff) {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				s.RolloffFactor = rolloff;
+			LKernel.GetG<SoundMain>().RolloffFactor = rolloff;
 		}
 
 		[LuaFunction("getRolloffFactor", "Not sure what this does but I think it has something to do with how the sound \"decays\".")]
 		public static float GetRolloffFactor() {
-			SoundMain s = LKernel.GetG<SoundMain>();
-			if (s != null)
-				return s.RolloffFactor;
-			return -1;
+			return LKernel.GetG<SoundMain>().RolloffFactor;
 		}
 	}
 }

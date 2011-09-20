@@ -6,7 +6,7 @@ using Ponykart.Properties;
 
 namespace Ponykart.Physics {
 
-	public delegate void TriggerReportHandler(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags);
+	public delegate void TriggerReportEvent(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags);
 
 	public class TriggerRegion : LDisposable {
 		public RigidBody Body { get; protected set; }
@@ -18,7 +18,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Invoked by TriggerReporter
 		/// </summary>
-		public event TriggerReportHandler OnTrigger;
+		public event TriggerReportEvent OnTrigger;
 
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.
