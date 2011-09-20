@@ -31,16 +31,11 @@ namespace PonykartParsers {
 				tb.Finish();
 		}
 
-		protected override void Dispose(bool disposing) {
-			if (IsDisposed)
-				return;
+		public override void Dispose() {
+			foreach (ThingBlock tb in ThingBlocks)
+				tb.Dispose();
 
-			if (disposing) {
-				foreach (ThingBlock tb in ThingBlocks)
-					tb.Dispose();
-			}
-
-			base.Dispose(disposing);
+			base.Dispose();
 		}
 	}
 }

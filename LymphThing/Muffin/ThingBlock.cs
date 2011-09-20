@@ -22,7 +22,5 @@ namespace PonykartParsers {
 			SetUpDictionaries();
 			VectorTokens["position"] = position;
 		}
-
-		public override void Finish() { }
 	}
 }

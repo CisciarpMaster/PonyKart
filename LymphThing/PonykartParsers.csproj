@@ -93,7 +93,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LDisposable.cs" />
     <Compile Include="Muffin\LevelType.cs" />
     <Compile Include="Muffin\ThingBlock.cs" />
     <Compile Include="Thing\BillboardBlock.cs" />
@@ -109,6 +108,7 @@
     </Compile>
     <Compile Include="Thing\RibbonBlock.cs" />
     <Compile Include="Thing\ShapeBlock.cs" />
+    <Compile Include="Thing\SoundBlock.cs" />
     <Compile Include="Thing\ThingDatabase.cs" />
     <Compile Include="Thing\ThingDefinition.cs" />
     <Compile Include="ThingEnum.cs" />

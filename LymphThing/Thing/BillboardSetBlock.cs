@@ -19,17 +19,10 @@ namespace PonykartParsers {
 			base.SetUpDictionaries();
 		}
 
-		protected override void Dispose(bool disposing) {
-			if (IsDisposed)
-				return;
-
-			if (disposing) {
-				foreach (BillboardBlock block in BillboardBlocks)
-					block.Dispose();
-				BillboardBlocks.Clear();
-			}
-
-			base.Dispose(disposing);
+		public override void Dispose() {
+			foreach (BillboardBlock block in BillboardBlocks)
+				block.Dispose();
+			BillboardBlocks.Clear();
 		}
 	}
 }

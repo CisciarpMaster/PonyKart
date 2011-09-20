@@ -1,11 +1,13 @@
-﻿using BulletSharp;
+﻿using System;
+using BulletSharp;
 using Mogre;
+using IDisposable = System.IDisposable;
 
 namespace PonykartParsers {
 	/// <summary>
 	/// Represents a Shape { } block in a .thing file.
 	/// </summary>
-	public class ShapeBlock : TokenHolder {
+	public class ShapeBlock : TokenHolder, IDisposable {
 		public ThingDefinition Owner { get; protected set; }
 		public Matrix4 Transform { get; protected set; }
 		public CollisionShape Shape { get; protected set; }
@@ -13,6 +15,7 @@ namespace PonykartParsers {
 		public ShapeBlock(ThingDefinition owner) {
 			Owner = owner;
 			SetUpDictionaries();
+			IsDisposed = false;
 		}
 
 		public override void Finish() {
@@ -57,15 +60,31 @@ namespace PonykartParsers {
 			}
 		}
 
-		protected override void Dispose(bool disposing) {
+		#region IDisposable stuff
+		public bool IsDisposed { get; protected set; }
+
+		~ShapeBlock() {
+			Dispose(false);
+		}
+
+		public new void Dispose() {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected void Dispose(bool disposing) {
 			if (IsDisposed)
 				return;
 
 			if (Shape != null)
 				Shape.Dispose();
 
-			base.Dispose(disposing);
+			if (disposing)
+				base.Dispose();
+
+			IsDisposed = true;
 		}
+		#endregion
 
 		static Quaternion GlobalEulerToQuat(Radian rotX, Radian rotY, Radian rotZ) {
 			Quaternion q1 = new Quaternion(),
