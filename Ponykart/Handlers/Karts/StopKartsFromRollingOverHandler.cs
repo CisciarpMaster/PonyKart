@@ -73,10 +73,12 @@ namespace Ponykart.Handlers {
 						continue;
 
 					// this helps it stick to the road more
-					if (kart.IsInAir)
-						kart.Body.Gravity = gravity;
-					else
-						kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * -30);
+					if (Settings.Default.AdjustKartGravityEnabled) {
+						if (kart.IsInAir)
+							kart.Body.Gravity = gravity;
+						else
+							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * Settings.Default.AdjustKartGravityMultiplier);
+					}
 
 					// then cast our ray!
 					var callback = CastRay(kart, (kart.IsInAir && SRHs.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);

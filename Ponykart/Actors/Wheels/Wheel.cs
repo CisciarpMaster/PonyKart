@@ -9,7 +9,7 @@ namespace Ponykart.Actors {
 	public class Wheel : LDisposable {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
-		public int ID { get; protected set; }
+		public long ID { get; protected set; }
 
 		public float Radius { get; set; } // 0.5 (lymph)
 		public float Width { get; set; } // 0.4 (demo)
@@ -157,7 +157,7 @@ namespace Ponykart.Actors {
 		// the target steer angle (i.e. when we aren't turning)
 		float idealSteerAngle = 0;
 		// how much to increment the wheel's angle by, each frame
-		static readonly Degree steerIncrement = 1f; //0.5f;
+		static readonly Degree steerIncrement = 1.5f; //0.5f;
 
 		/// <summary>
 		/// Rotates our wheels.

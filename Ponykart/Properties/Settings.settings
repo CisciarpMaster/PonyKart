@@ -104,5 +104,11 @@
     <Setting Name="SelfRighterLongRayLength" Type="System.Single" Scope="User">
       <Value Profile="(Default)">4</Value>
     </Setting>
+    <Setting Name="AdjustKartGravityEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="AdjustKartGravityMultiplier" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">-30</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

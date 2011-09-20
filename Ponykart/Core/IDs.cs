@@ -3,7 +3,7 @@
 	/// Handles getting ID numbers
 	/// </summary>
 	public abstract class IDs {
-		private static int Counter = 0;
+		private static long Counter = 0;
 
 		/// <summary>
 		/// Just get this property and it'll give you a new ID number.
@@ -12,7 +12,7 @@
 		/// <example>
 		/// something.IDNumber = IDs.New;
 		/// </example>
-		public static int New {
+		public static long New {
 			get {
 				return Counter++;
 			}

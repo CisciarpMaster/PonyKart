@@ -394,5 +394,29 @@ namespace Ponykart.Properties {
                 this["SelfRighterLongRayLength"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AdjustKartGravityEnabled {
+            get {
+                return ((bool)(this["AdjustKartGravityEnabled"]));
+            }
+            set {
+                this["AdjustKartGravityEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-30")]
+        public float AdjustKartGravityMultiplier {
+            get {
+                return ((float)(this["AdjustKartGravityMultiplier"]));
+            }
+            set {
+                this["AdjustKartGravityMultiplier"] = value;
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Every lthing has an ID, though it's mostly just used to stop ogre complaining about duplicate names
 		/// </summary>
-		public int ID { get; protected set; }
+		public long ID { get; protected set; }
 		/// <summary>
 		/// This lthing's name. It's usually the same as its .thing filename.
 		/// </summary>

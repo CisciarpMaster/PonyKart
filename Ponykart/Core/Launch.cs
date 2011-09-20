@@ -7,7 +7,6 @@ namespace Ponykart {
 	public static class Launch {
 
 		[STAThread]
-		//[DebuggerStepThrough]
 		public static void Main() {
 			//#if !DEBUG
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
@@ -29,7 +28,6 @@ namespace Ponykart {
 			Process proc = new Process();
 			proc.StartInfo = p;
 			proc.Start();
-			proc.WaitForExit();
 
 			// message box
 			if (OgreException.IsThrown)
