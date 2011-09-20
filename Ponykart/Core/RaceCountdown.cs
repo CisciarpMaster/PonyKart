@@ -11,13 +11,13 @@ namespace Ponykart.Core {
 
 	public class RaceCountdown {
 		float elapsed;
-		bool three, two, one, go;
+		bool three, two, one, go, oneSecondAfterGo;
 		const float INITIAL_DELAY = 1;
 
 		/// <summary>
 		/// our events
 		/// </summary>
-		public event RaceCountEvent OnThree, OnTwo, OnOne, OnGo;
+		public event RaceCountEvent OnThree, OnTwo, OnOne, OnGo, OnOneSecondAfterGo;
 
 		/// <summary>
 		/// Hook up to the level un/load events
@@ -33,7 +33,7 @@ namespace Ponykart.Core {
 		void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
 			// only run this on race levels!
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
-				three = two = one = go = false;
+				three = two = one = go = oneSecondAfterGo = false;
 				elapsed = 0;
 
 				foreach (var player in LKernel.Get<PlayerManager>().Players) {
@@ -73,6 +73,11 @@ namespace Ponykart.Core {
 				Console.WriteLine("Go!");
 				Invoke(OnGo);
 				go = true;
+			}
+			else if (!oneSecondAfterGo && elapsed >= INITIAL_DELAY + 4) {
+				Console.WriteLine("One second after go");
+				Invoke(OnOneSecondAfterGo);
+				oneSecondAfterGo = true;
 
 				// don't need to keep checking the time any more
 				Detach();

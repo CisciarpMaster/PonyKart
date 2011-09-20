@@ -125,6 +125,7 @@
     <Compile Include="Core\RaceCountdown.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\Karts\SelfRightingHandler.cs" />
+    <Compile Include="Handlers\UI\CountdownUIHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\StopKartsFromRollingOverHandler.cs" />
     <Compile Include="Kernel\HandlerScope.cs" />
