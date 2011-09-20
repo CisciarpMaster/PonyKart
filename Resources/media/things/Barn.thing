@@ -12,30 +12,32 @@ Model {
 	Position = 7.96297, 26.8586, 0
 	Scale = 1.5, 1.5, 1.5
 }
+// frontleftbottomdoor
 Model {
-	Name = "front right top barn door"
+	Mesh = "Barn_Door_Bottom.mesh"
+	Material = "Barn"
+	Position = 11.2229, 2.01974, -17.6692
+	Orientation = 0, -0.930418, 0, 0.366501
+	Scale = 1.5, 1.5, 1.5
+}
+// frontrighttopdoor
+Model {
 	Mesh = "Barn_Door_Top.mesh"
 	Material = "Barn"
 	Position = -9.10718, 7.31765, -17.7276
 	Orientation = 0, -0.406737, 0, 0.913545
 	Scale = 1.5, 1.5, 1.5
 }
+// frontlefttopdoor
 Model {
-	Name = "front left bottom barn door"
-	Mesh = "Barn_Door_Bottom.mesh"
-	Material = "Barn"
-	Position = 4.76731, 2.01974, -14.4849
-	Scale = 1.5, 1.5, 1.5
-}
-Model {
-	Name = "front left top barn door"
 	Mesh = "Barn_Door_Top.mesh"
 	Material = "Barn"
-	Position = 4.95968, 7.38608, -14.5139
+	Position = 9.93524, 7.38608, -18.4935
+	Orientation = 0, -0.845728, 0, 0.533614
 	Scale = 1.5, 1.5, 1.5
 }
+// frontrightbottomdoor
 Model {
-	Name = "front right bottom door"
 	Mesh = "Barn_Door_Bottom.mesh"
 	Material = "Barn"
 	Position = -8.6534, 1.93295, -17.8905
@@ -51,76 +53,53 @@ Model {
 }
 
 
+// box#25
+Shape {
+	Type = Box
+	Position = -9.11944, 7.36007, -17.7806
+	Orientation = 0, -0.394744, 0, 0.918791
+	Dimensions = 7.96453, 6.40792, 0.710783
+}
+
+// box#4
+Shape {
+	Type = Box
+	Position = 9.98335, 7.36007, -18.532
+	Orientation = 0, -0.843392, 0, 0.537299
+	Dimensions = 7.96453, 6.40792, 0.710783
+}
+
 // box#0
 Shape {
 	Type = Box
 	Position = 0.810346, 26.7763, 1.11209
 	Dimensions = 27.8653, 17.6353, 33.047
 }
-// box#7
-Shape {
-	Type = Box
-	Position = -7.72234, 9.01932, 14.0228
-	Dimensions = 2, 19, 7
-}
-// box#25
-Shape {
-	Type = Box
-	Position = -9.17104, 7.36007, -17.7316
-	Orientation = 0, -0.394744, 0, 0.918791
-	Dimensions = 7.96453, 6.40792, 1
-}
-// box#4
-Shape {
-	Type = Box
-	Position = 11.8016, 9.45096, 14.0656
-	Orientation = 0, 0, -0.0348995, 0.999391
-	Dimensions = 5, 20, 7
-}
-// box#23
-Shape {
-	Type = Box
-	Position = 4.80375, 4.99322, -14.4415
-	Dimensions = 7.56678, 12.1203, 1
-}
 // box#1
 Shape {
 	Type = Box
-	Position = -10.0343, 9.48417, -6.23485
+	Position = -10.0343, 9.48417, 1.14871
 	Orientation = 0, 0, 0.0348995, 0.999391
-	Dimensions = 5, 20, 18
-}
-// box#3
-Shape {
-	Type = Box
-	Position = -9.89439, 9.45014, 14.0046
-	Orientation = 0, 0, 0.0348995, 0.999391
-	Dimensions = 5, 20, 7
+	Dimensions = 4.99999, 20, 32.2156
 }
 // box#2
 Shape {
 	Type = Box
-	Position = 12.2663, 9.41847, -6.23485
+	Position = 12.2663, 9.41847, 1.14871
 	Orientation = 0, 0, -0.0348995, 0.999391
-	Dimensions = 5, 20, 18
+	Dimensions = 5.00001, 20, 32.2156
 }
 // box#6
 Shape {
 	Type = Box
-	Position = 9.62164, 8.73665, -6.2569
-	Dimensions = 2, 19, 18
+	Position = 9.62164, 8.73665, 1.10925
+	Dimensions = 2, 19, 32.2156
 }
 // box#5
 Shape {
 	Type = Box
-	Position = -7.72234, 9.07087, -6.2569
-	Dimensions = 2, 19, 18
-}
-// box#8
-Shape {
-	Type = Box
-	Position = 9.57787, 8.91007, 14.0228
-	Dimensions = 2, 19, 7
+	Position = -7.72234, 9.07087, 1.10925
+	Dimensions = 2, 19, 32.2156
 }
 // box#9
 Shape {
@@ -133,7 +112,6 @@ Shape {
 Shape {
 	Type = Box
 	Position = 0.767867, 14.5802, -14.6981
-	Orientation = 0, 0, 0, 1
 	Dimensions = 16, 8, 1
 }
 // box#11
@@ -178,29 +156,29 @@ Shape {
 	Position = 16.7181, 11.4811, -6.55119
 	Dimensions = 4, 3, 6
 }
-// box#18
-Shape {
-	Type = Box
-	Position = -14.6513, 11.6502, -6.55119
-	Dimensions = 4.5, 3.5, 6
-}
 // box#21
 Shape {
 	Type = Box
 	Position = 21.5528, 6.0026, -1.11583
 	Dimensions = 6.5, 13.1998, 2.7046
 }
-// box#19
+// box#18
 Shape {
 	Type = Box
-	Position = -14.37, 10.4063, 7.62354
-	Dimensions = 4.5, 3.5, 8.5
+	Position = -14.6513, 11.6502, -6.55119
+	Dimensions = 4.5, 3.5, 6
 }
 // box#20
 Shape {
 	Type = Box
 	Position = 21.2586, 7.74571, 7.98462
 	Dimensions = 16, 17, 16
+}
+// box#19
+Shape {
+	Type = Box
+	Position = -14.37, 10.4063, 7.62354
+	Dimensions = 4.5, 3.5, 8.5
 }
 // box#22
 Shape {
@@ -211,7 +189,14 @@ Shape {
 // box#24
 Shape {
 	Type = Box
-	Position = -8.81338, 1.94419, -17.8743
+	Position = -8.70151, 1.94419, -17.9429
 	Orientation = 0, -0.488621, 0, 0.872496
-	Dimensions = 7.56678, 4.61307, 1
+	Dimensions = 7.56678, 4.61307, 0.692094
+}
+// box#3
+Shape {
+	Type = Box
+	Position = 11.2802, 1.94419, -17.7219
+	Orientation = 0, -0.927184, 0, 0.374607
+	Dimensions = 7.56678, 4.61307, 0.720859
 }

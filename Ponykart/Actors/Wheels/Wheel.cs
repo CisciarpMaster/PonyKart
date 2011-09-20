@@ -153,11 +153,11 @@ namespace Ponykart.Actors {
 		// any faster than this and you will have the regular turn angle
 		readonly float highSpeed = 160;
 		// how much should the wheel's turn angle increase by at slow speeds?
-		readonly float speedTurnMultiplierAtSlowSpeeds = 3.5f;
+		readonly float speedTurnMultiplierAtSlowSpeeds = 3f;
 		// the target steer angle (i.e. when we aren't turning)
 		float idealSteerAngle = 0;
 		// how much to increment the wheel's angle by, each frame
-		static readonly Degree steerIncrement = 2f;
+		static readonly Degree steerIncrement = 0.5f;
 
 		/// <summary>
 		/// Rotates our wheels.

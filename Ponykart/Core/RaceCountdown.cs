@@ -1,7 +1,7 @@
 ﻿//#define ENABLE_COUNTDOWN
-using System;
 using Mogre;
 using Ponykart.Levels;
+using Ponykart.Players;
 
 namespace Ponykart.Core {
 	/// <summary>
@@ -36,12 +36,16 @@ namespace Ponykart.Core {
 				preCount = three = two = one = go = oneSecondAfterGo = false;
 				elapsed = 0;
 
-#if ENABLE_COUNTDOWN
+
 				foreach (var player in LKernel.Get<PlayerManager>().Players) {
 					// first make sure all of the karts can't be controlled
+#if ENABLE_COUNTDOWN
 					player.IsControlEnabled = false;
-				}
+#else
+					player.IsControlEnabled = true;
 #endif
+				}
+
 
 				LKernel.Get<Root>().FrameStarted += FrameStarted;
 			}
@@ -51,24 +55,22 @@ namespace Ponykart.Core {
 		/// Count down!
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
+			// this precount part is to stop it from counting down while we're still loading stuff
 			if (!preCount && elapsed >= INITIAL_DELAY) {
 				elapsed = 0;
 				preCount = true;
 			}
 			else if (!three && elapsed >= INITIAL_DELAY) {
-				Console.WriteLine("3");
 				Invoke(OnThree);
 				three = true;
 				elapsed = INITIAL_DELAY;
 			}
 			else if (!two && elapsed >= INITIAL_DELAY + 1) {
-				Console.WriteLine("2");
 				Invoke(OnTwo);
 				two = true;
 				elapsed = INITIAL_DELAY + 1;
 			}
 			else if (!one && elapsed >= INITIAL_DELAY + 2) {
-				Console.WriteLine("1");
 				Invoke(OnOne);
 				one = true;
 				elapsed = INITIAL_DELAY + 2;
@@ -81,13 +83,11 @@ namespace Ponykart.Core {
 				}
 #endif
 
-				Console.WriteLine("Go!");
 				Invoke(OnGo);
 				go = true;
 				elapsed = INITIAL_DELAY + 3;
 			}
 			else if (!oneSecondAfterGo && elapsed >= INITIAL_DELAY + 4) {
-				Console.WriteLine("One second after go");
 				Invoke(OnOneSecondAfterGo);
 				oneSecondAfterGo = true;
 

@@ -23,8 +23,8 @@ namespace Ponykart.Handlers {
 		}
 
 		bool FrameEnded(FrameEvent evt) {
-			//if (PhysicsMain.DrawLines)
-				//MogreDebugDrawer.Singleton.Clear();
+			if (!PhysicsMain.DrawLines)
+				MogreDebugDrawer.Singleton.Clear();
 			return true;
 		}
 
