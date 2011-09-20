@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace PonykartParsers {
 	/// <summary>
@@ -7,10 +6,11 @@ namespace PonykartParsers {
 	/// </summary>
 	public class ThingDefinition : TokenHolder {
 		public string Name { get; protected set; }
-		public ICollection<ShapeBlock> ShapeBlocks { get; protected set; }
-		public ICollection<ModelBlock> ModelBlocks { get; protected set; }
-		public ICollection<RibbonBlock> RibbonBlocks { get; protected set; }
-		public ICollection<BillboardSetBlock> BillboardSetBlocks { get; protected set; }
+		public IList<ShapeBlock> ShapeBlocks { get; protected set; }
+		public IList<ModelBlock> ModelBlocks { get; protected set; }
+		public IList<RibbonBlock> RibbonBlocks { get; protected set; }
+		public IList<BillboardSetBlock> BillboardSetBlocks { get; protected set; }
+		public IList<SoundBlock> SoundBlocks { get; protected set; }
 
 		public ThingDefinition(string name) {
 			Name = name;
@@ -19,10 +19,11 @@ namespace PonykartParsers {
 
 		public override void SetUpDictionaries() {
 			base.SetUpDictionaries();
-			ShapeBlocks = new Collection<ShapeBlock>();
-			ModelBlocks = new Collection<ModelBlock>();
-			RibbonBlocks = new Collection<RibbonBlock>();
-			BillboardSetBlocks = new Collection<BillboardSetBlock>();
+			ShapeBlocks = new List<ShapeBlock>();
+			ModelBlocks = new List<ModelBlock>();
+			RibbonBlocks = new List<RibbonBlock>();
+			BillboardSetBlocks = new List<BillboardSetBlock>();
+			SoundBlocks = new List<SoundBlock>();
 		}
 
 		/// <summary>
@@ -37,24 +38,23 @@ namespace PonykartParsers {
 				rb.Finish();
 			foreach (BillboardSetBlock bb in BillboardSetBlocks)
 				bb.Finish();
+			foreach (SoundBlock sb in SoundBlocks)
+				sb.Finish();
 		}
 
-		protected override void Dispose(bool disposing) {
-			if (IsDisposed)
-				return;
+		public override void Dispose() {
+			foreach (ShapeBlock sb in ShapeBlocks)
+				sb.Dispose();
+			foreach (ModelBlock mb in ModelBlocks)
+				mb.Dispose();
+			foreach (RibbonBlock rb in RibbonBlocks)
+				rb.Dispose();
+			foreach (BillboardSetBlock bb in BillboardSetBlocks)
+				bb.Dispose();
+			foreach (SoundBlock sb in SoundBlocks)
+				sb.Dispose();
 
-			if (disposing) {
-				foreach (ShapeBlock sb in ShapeBlocks)
-					sb.Dispose();
-				foreach (ModelBlock mb in ModelBlocks)
-					mb.Dispose();
-				foreach (RibbonBlock rb in RibbonBlocks)
-					rb.Dispose();
-				foreach (BillboardSetBlock bb in BillboardSetBlocks)
-					bb.Dispose();
-			}
-
-			base.Dispose(disposing);
+			base.Dispose();
 		}
 	}
 }

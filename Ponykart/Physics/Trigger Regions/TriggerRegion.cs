@@ -82,7 +82,7 @@ namespace Ponykart.Physics {
 			transform.SetTrans(position);
 
 			// make our ghost object
-			Body = new RigidBody(new RigidBodyConstructionInfo(0, new MogreMotionState(Node), shape));
+			Body = new RigidBody(new RigidBodyConstructionInfo(0, new MogreMotionState(null, Node), shape));
 			Body.CollisionFlags = CollisionFlags.NoContactResponse;
 			Body.CollisionShape = shape;
 			Body.WorldTransform = transform;

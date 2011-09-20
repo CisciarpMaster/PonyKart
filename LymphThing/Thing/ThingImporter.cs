@@ -72,6 +72,9 @@ namespace PonykartParsers {
 					case NodeType.Rule_BillboardSet:
 						ParseBillboardSet(thingDef, prop as RuleInstance);
 						break;
+					case NodeType.Rule_Sound:
+						ParseSound(thingDef, prop as RuleInstance);
+						break;
 				}
 			}
 		}
@@ -269,6 +272,21 @@ namespace PonykartParsers {
 			}
 
 			bbSet.BillboardBlocks.Add(billboardBlock);
+		}
+
+		/// <summary>
+		/// Sound blocks
+		/// </summary>
+		void ParseSound(ThingDefinition thingDef, RuleInstance block) {
+			SoundBlock soundBlock = new SoundBlock(thingDef);
+
+			for (int a = 2; a < block.Children.Length - 1; a++) {
+				RuleInstance rule = block.Children[a] as RuleInstance;
+				if (rule.Type == NodeType.Rule_Property)
+					ParseProperty(soundBlock, rule.Children[0] as RuleInstance);
+			}
+
+			thingDef.SoundBlocks.Add(soundBlock);
 		}
 	}
 }

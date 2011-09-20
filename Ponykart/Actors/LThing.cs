@@ -38,7 +38,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
 		/// </summary>
-		protected virtual MotionState InitializationMotionState { get { return new MogreMotionState(SpawnPosition, SpawnOrientation, RootNode); } }
+		protected virtual MotionState InitializationMotionState { get { return new MogreMotionState(this, SpawnPosition, SpawnOrientation, RootNode); } }
 		/// <summary>
 		/// The actual motion state.
 		/// </summary>
@@ -75,6 +75,7 @@ namespace Ponykart.Actors {
 		public List<ShapeComponent> ShapeComponents { get; protected set; }
 		public List<RibbonComponent> RibbonComponents { get; protected set; }
 		public List<BillboardSetComponent> BillboardSetComponents { get; protected set; }
+		public List<SoundComponent> SoundComponents { get; protected set; }
 
 		/// <summary>
 		/// Constructor woo!
@@ -95,6 +96,7 @@ namespace Ponykart.Actors {
 			ShapeComponents = new List<ShapeComponent>();
 			RibbonComponents = new List<RibbonComponent>();
 			BillboardSetComponents = new List<BillboardSetComponent>();
+			SoundComponents = new List<SoundComponent>();
 
 			// get our three basic transforms
 			SpawnPosition = template.GetVectorProperty("position", null);
@@ -109,6 +111,7 @@ namespace Ponykart.Actors {
 			// and start setting up this thing!
 			Setup(template, def);
 			SetupMogre(template, def);
+
 			InitialiseComponents(template, def);
 
 			RootNode.Position = SpawnPosition;
@@ -163,6 +166,9 @@ namespace Ponykart.Actors {
 			// billboard sets
 			foreach (var bblock in def.BillboardSetBlocks)
 				BillboardSetComponents.Add(new BillboardSetComponent(this, template, bblock));
+			// sounds
+			foreach (var sblock in def.SoundBlocks)
+				SoundComponents.Add(new SoundComponent(this, template, sblock));
 		}
 
 		/// <summary>
@@ -337,12 +343,15 @@ namespace Ponykart.Actors {
 					rc.Dispose();
 				foreach (BillboardSetComponent bb in BillboardSetComponents)
 					bb.Dispose();
+				foreach (SoundComponent sb in SoundComponents)
+					sb.Dispose();
 
 				// clear our components
 				ModelComponents.Clear();
 				ShapeComponents.Clear();
 				RibbonComponents.Clear();
 				BillboardSetComponents.Clear();
+				SoundComponents.Clear();
 			}
 
 			// these are conditional in case we want to dispose stuff in the middle of a level

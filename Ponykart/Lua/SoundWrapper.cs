@@ -16,7 +16,7 @@ namespace Ponykart.Lua {
 			"string filePath - The path to the sound file to play.", 
 			"bool looping - Whether the sound should loop or not.")]
 		public static ISound CreateAmbientSound(string filePath, bool looping) {
-			return LKernel.GetG<SoundMain>().CreateAmbientSound(filePath, looping);
+			return LKernel.GetG<SoundMain>().Play2D(filePath, looping);
 		}
 
 		[LuaFunction("createObjectSound",
@@ -24,7 +24,7 @@ namespace Ponykart.Lua {
 			"string filePath - The path to the sound file to play.",
 			"Vector3 pos", "bool looping - Whether the sound should loop or not.")]
 		public static ISound CreateObjectSound(string filePath, Vector3 pos, bool looping) {
-			return LKernel.GetG<SoundMain>().CreateObjectSound(filePath, pos, looping);
+			return LKernel.GetG<SoundMain>().Play3D(filePath, pos, looping);
 		}
 
 		[LuaFunction("isCurrentlyPlaying", "Tells whether a given sound is playing or not.", "string soundName - The name of the sound. Not a file path.")]

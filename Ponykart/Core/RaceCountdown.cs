@@ -1,7 +1,7 @@
-﻿using System;
+﻿//#define ENABLE_COUNTDOWN
+using System;
 using Mogre;
 using Ponykart.Levels;
-using Ponykart.Players;
 
 namespace Ponykart.Core {
 	/// <summary>
@@ -36,10 +36,12 @@ namespace Ponykart.Core {
 				preCount = three = two = one = go = oneSecondAfterGo = false;
 				elapsed = 0;
 
+#if ENABLE_COUNTDOWN
 				foreach (var player in LKernel.Get<PlayerManager>().Players) {
 					// first make sure all of the karts can't be controlled
 					player.IsControlEnabled = false;
 				}
+#endif
 
 				LKernel.Get<Root>().FrameStarted += FrameStarted;
 			}
@@ -72,10 +74,12 @@ namespace Ponykart.Core {
 				elapsed = INITIAL_DELAY + 2;
 			}
 			else if (!go && elapsed >= INITIAL_DELAY + 3) {
+#if ENABLE_COUNTDOWN
 				foreach (var player in LKernel.Get<PlayerManager>().Players) {
 					// first make sure all of the karts can't be controlled
 					player.IsControlEnabled = true;
 				}
+#endif
 
 				Console.WriteLine("Go!");
 				Invoke(OnGo);

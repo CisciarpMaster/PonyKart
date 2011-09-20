@@ -1,5 +1,6 @@
 ﻿using BulletSharp;
 using Mogre;
+using Ponykart.Actors;
 
 namespace Ponykart.Physics {
 	/// <summary>
@@ -12,28 +13,33 @@ namespace Ponykart.Physics {
 
 		protected SceneNode node;
 		protected Matrix4 transform;
+		protected LThing owner;
 
-
-		public MogreMotionState(Matrix4 transform, SceneNode node) {
+		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
+		public MogreMotionState(LThing thing, Matrix4 transform, SceneNode node) {
 			this.node = node;
 			this.transform = transform;
+			this.owner = thing;
 		}
 
-		public MogreMotionState(Vector3 position, Quaternion orientation, SceneNode node) {
+		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
+		public MogreMotionState(LThing thing, Vector3 position, Quaternion orientation, SceneNode node) {
 			transform = new Matrix4(orientation);
 			transform.MakeTransform(position, Vector3.UNIT_SCALE, orientation);
 			this.node = node;
+			this.owner = thing;
 		}
 
+		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
 		/// <param name="rotation">In degrees</param>
-		public MogreMotionState(Vector3 position, Vector3 rotation, SceneNode node)
-			: this(position, rotation.DegreeVectorToGlobalQuaternion(), node)
+		public MogreMotionState(LThing thing, Vector3 position, Vector3 rotation, SceneNode node)
+			: this(thing, position, rotation.DegreeVectorToGlobalQuaternion(), node)
 		{ }
 
-		public MogreMotionState(SceneNode node)
-			: this(node.Position, node.Orientation, node)
+		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
+		public MogreMotionState(LThing thing, SceneNode node)
+			: this(thing, node.Position, node.Orientation, node)
 		{ }
-
 
 
 		public override Matrix4 WorldTransform {
@@ -46,6 +52,13 @@ namespace Ponykart.Physics {
 
 				node.Orientation = value.ExtractQuaternion();
 				node.Position = value.GetTrans();
+
+				// update the sounds
+				if (owner != null && owner.SoundComponents.Count > 0) {
+					foreach (var component in owner.SoundComponents) {
+						component.Update();
+					}
+				}
 
 				transform = value;
 			}

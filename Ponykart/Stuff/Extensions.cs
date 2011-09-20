@@ -1,4 +1,5 @@
-﻿using Mogre;
+﻿using IrrKlang;
+using Mogre;
 using Math = Mogre.Math;
 
 namespace Ponykart {
@@ -46,6 +47,12 @@ namespace Ponykart {
 		/// </summary>
 		public static Quaternion RadianVectorToGlobalQuaternion(this Vector3 vec) {
 			return new Quaternion().FromGlobalEuler(vec);
+		}
+
+		// -----------------------------------------------------------------------------
+
+		public static Vector3D ToSoundVector(this Vector3 vec) {
+			return new Vector3D(vec.x, vec.y, vec.z);
 		}
 		#endregion Vector3
 

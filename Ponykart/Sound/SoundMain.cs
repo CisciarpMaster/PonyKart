@@ -1,34 +1,21 @@
-﻿using System.Collections.Generic;
-using IrrKlang;
+﻿using IrrKlang;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Players;
 using Ponykart.Properties;
 
-/* http://www.ogre3d.org/tikiwiki/MogreFreeSL
- * 
- * PROTIPS: 
- * 
- * - The Reference Distance is the distance away from the camera at which the
- *   SoundObject's volume starts decreasing, and the Maximum Distance is the distance
- *   from the camera at which the SoundObject will be at its quietest.
- */
 namespace Ponykart.Sound {
 	public class SoundMain {
 		bool quit = false;
 		public ISoundEngine Engine { get; private set; }
-		/// <summary>
-		/// The key is the filename
-		/// </summary>
-		public IDictionary<string, ISoundSource> Sources { get; private set; }
+		ISoundSource bgMusic;
 
 		/// <summary>
 		/// The sound manager class.
 		/// </summary>
 		public SoundMain() {
 			Launch.Log("[Loading] Creating IrrKlang and SoundMain...");
-			Sources = new Dictionary<string, ISoundSource>();
 
 			var levelManager = LKernel.GetG<LevelManager>();
 			levelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
@@ -53,11 +40,11 @@ namespace Ponykart.Sound {
 				// get the property from the .muffin file, if it has one
 				string musicFile = eventArgs.NewLevel.Definition.GetStringProperty("Music", string.Empty);
 				if (musicFile != string.Empty) {
-					Sources["music"] = Engine.AddSoundSourceFromFile(Settings.Default.SoundFileLocation + musicFile, StreamMode.AutoDetect, true);
+					bgMusic = Engine.AddSoundSourceFromFile(Settings.Default.SoundFileLocation + musicFile, StreamMode.AutoDetect, true);
 					
 					// if it's a race level, pause the music until we need it
 					if (eventArgs.NewLevel.Type != LevelType.Race)
-						Engine.Play2D(Sources["music"], true, false, false);
+						Play2D(bgMusic, true);
 				}
 			}
 		}
@@ -67,15 +54,15 @@ namespace Ponykart.Sound {
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			Engine.RemoveAllSoundSources();
-			Sources.Clear();
+			bgMusic = null;
 		}
 
 		/// <summary>
 		/// Start the background music!
 		/// </summary>
 		void OnGo() {
-			if (Sources.ContainsKey("music"))
-				Engine.Play2D(Sources["music"], true, false, false);
+			if (bgMusic != null)
+				Play2D(bgMusic, true);
 		}
 
 
@@ -113,13 +100,28 @@ namespace Ponykart.Sound {
 		/// </summary>
 		/// <param name="filename">The file path of the sound you want to play.</param>
 		/// <param name="looping">Make this sound loop?</param>
+		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
+		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
 		/// <returns>The ISound you just created</returns>
-		public ISound CreateAmbientSound(string filename, bool looping) {
+		public ISound Play2D(string filename, bool looping, bool startPaused = false, bool sfx = false) {
+			return Play2D(GetSource(filename), looping, startPaused, sfx);
+		}
+
+		/// <summary>
+		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level music and whatnot.
+		/// Also hooks in a stop event receiver so the sound disposes of itself when it's finished playing.
+		/// </summary>
+		/// <param name="source">The sound source of the sound you want to play.</param>
+		/// <param name="looping">Make this sound loop?</param>
+		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
+		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
+		/// <returns>The ISound you just created</returns>
+		public ISound Play2D(ISoundSource source, bool looping, bool startPaused = false, bool sfx = false) {
 			if (!Settings.Default.EnableMusic)
 				return null;
-			Launch.Log("[Sounds] Creating ambient sound: " + filename + " Looping: " + looping);
+			Launch.Log("[Sounds] Creating 2D sound: " + source.Name + " Looping: " + looping);
 
-			ISound sound = Engine.Play2D(GetSource(filename), looping, false, false);
+			ISound sound = Engine.Play2D(source, looping, startPaused, sfx);
 			return sound;
 		}
 
@@ -130,27 +132,38 @@ namespace Ponykart.Sound {
 		/// <param name="filename">The file path of the sound you want to play.</param>
 		/// <param name="pos">The Position you want this sound to play at.</param>
 		/// <param name="looping">Make this sound loop?</param>
+		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
+		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
 		/// <returns>The ISound you just created</returns>
-		// TODO: update the position of these sounds every frame - should that maybe go in MogreMotionState?
-		public ISound CreateObjectSound(string filename, Vector3 pos, bool looping) {
+		public ISound Play3D(string filename, Vector3 pos, bool looping, bool startPaused = false, bool sfx = false) {
+			return Play3D(GetSource(filename), pos, looping, startPaused, sfx);
+		}
+
+		/// <summary>
+		/// Creates an object sound. These sounds do have a 3D position and are attached to SceneNodes. Use these for sound effects and stuff.
+		/// Also hooks in a stop event receiver so the sound disposes of itself when it's finished playing.
+		/// </summary>
+		/// <param name="source">The sound source of the sound you want to play.</param>
+		/// <param name="pos">The Position you want this sound to play at.</param>
+		/// <param name="looping">Make this sound loop?</param>
+		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
+		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
+		/// <returns>The ISound you just created</returns>
+		public ISound Play3D(ISoundSource source, Vector3 pos, bool looping, bool startPaused = false, bool sfx = false) {
 			if (!Settings.Default.EnableSounds || pos == null)
 				return null;
-			Launch.Log("[Sounds] Creating object sound: " + filename + " Looping: " + looping);
+			Launch.Log("[Sounds] Creating 3D sound: " + source.Name + " Looping: " + looping);
 
-			ISound sound = Engine.Play3D(GetSource(filename), pos.x, pos.y, pos.z, looping, false, false);
+			ISound sound = Engine.Play3D(source, pos.x, pos.y, pos.z, looping, startPaused, sfx);
 			return sound;
 		}
 
 		/// <summary>
-		/// Gets a sound source. If we have it already, then we just get the one from the dictionary, otherwise we load it.
+		/// Gets a sound source. The engine keeps track of all of these.
 		/// </summary>
-		ISoundSource GetSource(string filename) {
-			ISoundSource source;
-			if (!Sources.TryGetValue(filename, out source)) {
-				source = Engine.AddSoundSourceFromFile(Settings.Default.SoundFileLocation + filename, StreamMode.AutoDetect, true);
-				Sources[filename] = source;
-			}
-			return source;
+		/// <param name="filename">Don't include the "media/sound/" bit.</param>
+		public ISoundSource GetSource(string filename) {
+			return Engine.GetSoundSource(Settings.Default.SoundFileLocation + filename, true);
 		}
 
 
