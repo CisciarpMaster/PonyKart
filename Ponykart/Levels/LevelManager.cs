@@ -1,4 +1,5 @@
 ﻿using System;
+using Mogre;
 using Ponykart.Core;
 using Ponykart.Lua;
 using Ponykart.Properties;
@@ -9,15 +10,19 @@ namespace Ponykart.Levels {
 	public class LevelManager {
 		public Level CurrentLevel { get; private set; }
 		/// <summary>
-		/// Is run after the .muffins have been read and the .scene file has been used, but before we start actually creating any Things
+		/// Is fired a few frames before we even start unloading anything. Mostly used for stuff that still requires screen rendering, such as putting up a loading screen
+		/// </summary>
+		public event LevelEvent OnLevelPreUnload;
+		/// <summary>
+		/// Is fired after the .muffins have been read and the .scene file has been used, but before we start actually creating any Things
 		/// </summary>
 		public event LevelEvent OnLevelLoad;
 		/// <summary>
-		/// Is run after the level handlers have been disposed, but before we clean out the scene manager.
+		/// Is fired after the level handlers have been disposed, but before we clean out the scene manager.
 		/// </summary>
 		public event LevelEvent OnLevelUnload;
 		/// <summary>
-		/// Is run right at the end of the level load process, including after scripts have been run.
+		/// Is fired a few frames after the entire level load process, including after scripts have been run.
 		/// </summary>
 		public event LevelEvent OnLevelPostLoad;
 
@@ -41,8 +46,11 @@ namespace Ponykart.Levels {
 			CurrentLevel = new Level(Settings.Default.MainMenuName);
 
 			// run level loading events
-			if (OnLevelLoad != null)
-				OnLevelLoad.Invoke(new LevelChangedEventArgs(CurrentLevel, new Level(null)));
+			var args = new LevelChangedEventArgs {
+				OldLevel = CurrentLevel,
+				NewLevel = new Level(null),
+			};
+			Invoke(OnLevelLoad, args);
 
 			IsValidLevel = true;
 
@@ -72,8 +80,7 @@ namespace Ponykart.Levels {
 				LKernel.UnloadLevelHandlers();
 
 				// invoke the level unloading events
-				if (OnLevelUnload != null)
-					OnLevelUnload(eventArgs);
+				Invoke(OnLevelUnload, eventArgs);
 
 				LKernel.Cleanup();
 
@@ -84,15 +91,11 @@ namespace Ponykart.Levels {
 		/// <summary>
 		/// Unloads the current level and loads the new level
 		/// </summary>
-		/// <param name="newLevelName">The name of the level to load</param>
-		public void LoadLevel(string newLevelName) {
-			Pauser.IsPaused = false;
-			Level oldLevel = CurrentLevel;
-			Level newLevel = new Level(newLevelName);
-			var eventArgs = new LevelChangedEventArgs(newLevel, oldLevel);
+		private void LoadLevelNow(LevelChangedEventArgs args) {
+			Level newLevel = args.NewLevel;
 
 			// Unload current level
-			UnloadLevel(eventArgs);
+			UnloadLevel(args);
 
 			CurrentLevel = newLevel;
 
@@ -107,8 +110,7 @@ namespace Ponykart.Levels {
 
 				// run our level loading events
 				Launch.Log("[Loading] Loading everything else...");
-				if (OnLevelLoad != null)
-					OnLevelLoad(eventArgs);
+				Invoke(OnLevelLoad, args);
 
 				// then put Things into our world
 				newLevel.CreateEntities();
@@ -129,8 +131,111 @@ namespace Ponykart.Levels {
 			// last bit of cleanup
 			GC.Collect();
 
-			if (newLevel != null && OnLevelPostLoad != null)
-				OnLevelPostLoad(eventArgs);
+			// post load event needs to be delayed
+			if (newLevel != null) {
+				// reset these
+				elapsed = 0;
+				frameOneRendered = frameTwoRendered = false;
+
+				// set up our handler
+				postLoadFrameStartedHandler = new FrameListener.FrameStartedHandler(
+					(fe) => {
+						return DelayedRun_FrameStarted(fe, INITIAL_DELAY, (a) => { Invoke(OnLevelPostLoad, a); }, args);
+					});
+				LKernel.Get<Root>().FrameStarted += postLoadFrameStartedHandler;
+			}
+		}
+
+		/// <summary>
+		/// Loads a level!
+		/// </summary>
+		/// <param name="newLevelName">The name of the level to load</param>
+		/// <param name="delay">
+		/// Minimum time to wait (in seconds) before we load the level, to let stuff like loading screens have a chance to render.
+		/// Pass 0 to load the new level instantly.
+		/// </param>
+		public void LoadLevel(string newLevelName, float delay = INITIAL_DELAY) {
+			Pauser.IsPaused = false;
+			var eventArgs = new LevelChangedEventArgs {
+				NewLevel = new Level(newLevelName),
+				OldLevel = CurrentLevel,
+			};
+
+			// fire our preUnload events
+			Console.WriteLine("Pre unload");
+			Invoke(OnLevelPreUnload, eventArgs);
+
+			if (delay > 0) {
+				// reset these
+				elapsed = 0;
+				frameOneRendered = frameTwoRendered = false;
+
+				// set up a little frame started handler with our events
+				preUnloadFrameStartedHandler = new FrameListener.FrameStartedHandler(
+					(fe) => {
+						return DelayedRun_FrameStarted(fe, delay, LoadLevelNow, eventArgs);
+					});
+				LKernel.Get<Root>().FrameStarted += preUnloadFrameStartedHandler;
+			}
+			else {
+				// if our delay is 0, just load the level and don't do any of the delayed stuff
+				LoadLevelNow(eventArgs);
+			}
+		}
+
+		// a little hacky workaround so we can still have a FrameStarted event run but with a few extra arguments
+		private FrameListener.FrameStartedHandler preUnloadFrameStartedHandler;
+		private FrameListener.FrameStartedHandler postLoadFrameStartedHandler;
+		// time to wait until we run the event
+		private const float INITIAL_DELAY = 0.2f;
+		// used in the FrameStarted method
+		private float elapsed = 0;
+		/// keeps track of how many frames we've rendered
+		private bool frameOneRendered = false, frameTwoRendered = false;
+
+		/// <summary>
+		/// Runs something after both the specified time has passed and two frames have been rendered.
+		/// </summary>
+		/// <param name="evt">Passed in from Root.FrameStarted</param>
+		/// <param name="delay">The minimum time that must pass before we run the method</param>
+		/// <param name="action">The method to run</param>
+		/// <param name="args">Arguments for the method</param>
+		/// <param name="handler">The handler to detach after the method has been ran</param>
+		private bool DelayedRun_FrameStarted(FrameEvent evt, float delay, Action<LevelChangedEventArgs> action, LevelChangedEventArgs args) {
+			if (!frameOneRendered && elapsed > delay) {
+				// rendered one frame
+				frameOneRendered = true;
+				elapsed = delay;
+			}
+			else if (!frameTwoRendered && elapsed > delay) {
+				// rendered two frames
+				frameTwoRendered = true;
+				elapsed = delay;
+			}
+			else if (frameTwoRendered && elapsed > delay) {
+				// rendered three frames! Detach and run our method
+				Detach();
+				action(args);
+			}
+
+			elapsed += evt.timeSinceLastFrame;
+			return true;
+		}
+
+		/// <summary>
+		/// Unhook from the frame started event
+		/// </summary>
+		private void Detach() {
+			LKernel.Get<Root>().FrameStarted -= preUnloadFrameStartedHandler;
+			LKernel.Get<Root>().FrameStarted -= postLoadFrameStartedHandler;
+		}
+
+		/// <summary>
+		/// helper
+		/// </summary>
+		private void Invoke(LevelEvent e, LevelChangedEventArgs args) {
+			if (e != null)
+				e(args);
 		}
 
 		/// <summary>
@@ -144,7 +249,7 @@ namespace Ponykart.Levels {
 		/// </summary>
 		public bool IsPlayableLevel {
 			get {
-				return CurrentLevel != null && CurrentLevel.Name != Settings.Default.MainMenuName;
+				return CurrentLevel != null && CurrentLevel.Type == LevelType.Race && CurrentLevel.Name != Settings.Default.MainMenuName;
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 ﻿using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
-using Mogre;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using Ponykart.UI;
@@ -15,30 +14,31 @@ namespace Ponykart.Handlers {
 		Label label;
 
 		public LoadingUIHandler() {
-			LKernel.GetG<LevelManager>().OnLevelLoad += OnLevelLoad;
-			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LKernel.GetG<LevelManager>().OnLevelPostLoad += OnLevelPostLoad;
+			LKernel.GetG<LevelManager>().OnLevelPreUnload += OnLevelPreUnload;
 
 			label = new Label("loading label") {
 				Size = new Size((int) Settings.Default.WindowWidth, (int) Settings.Default.WindowHeight),
 				Location = new Point(0, 0),
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,
-					ForegroundColour = Colours.Coral,
+					ForegroundColour = Colours.Red,
 					Font = UIResources.Fonts["BlueHighwayHuge"],
 				},
 				Text = "Loading...",
 				Visible = false,
+				AlwaysOnTop = true,
 			};
+
+			LKernel.GetG<UIMain>().Gui.Controls.Add(label);
 		}
 
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
+		void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
 			label.Visible = false;
 		}
 
-		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
+		void OnLevelPreUnload(LevelChangedEventArgs eventArgs) {
 			label.Visible = true;
-			LKernel.GetG<UIMain>().MiyagiSys.Update();
-			LKernel.GetG<Root>().RenderOneFrame();
 		}
 	}
 }

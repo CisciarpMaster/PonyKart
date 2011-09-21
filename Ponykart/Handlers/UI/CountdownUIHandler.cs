@@ -3,6 +3,7 @@ using Miyagi.Common.Data;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Ponykart.Core;
+using Ponykart.Levels;
 using Ponykart.Properties;
 using Ponykart.UI;
 
@@ -32,6 +33,11 @@ namespace Ponykart.Handlers {
 
 			// hook up to events
 			LKernel.GetG<RaceCountdown>().OnCountdown += new RaceCountdownEvent(OnCountdown);
+			LKernel.GetG<LevelManager>().OnLevelPreUnload += new LevelEvent(OnLevelPreUnload);
+		}
+
+		void OnLevelPreUnload(LevelChangedEventArgs eventArgs) {
+			countLabel.Visible = false;
 		}
 
 

@@ -10,7 +10,6 @@ namespace Ponykart.Core {
 	public delegate void RaceCountdownEvent(RaceCountdownState state);
 
 	public enum RaceCountdownState {
-		PreCount = 4,
 		Three = 3,
 		Two = 2,
 		One = 1,
@@ -20,7 +19,7 @@ namespace Ponykart.Core {
 
 	public class RaceCountdown {
 		float elapsed;
-		bool preCount, three, two, one, go, oneSecondAfterGo;
+		bool three, two, one, go, oneSecondAfterGo;
 		const float INITIAL_DELAY = 1;
 
 		/// <summary>
@@ -42,7 +41,7 @@ namespace Ponykart.Core {
 		void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
 			// only run this on race levels!
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
-				preCount = three = two = one = go = oneSecondAfterGo = false;
+				three = two = one = go = oneSecondAfterGo = false;
 				elapsed = 0;
 
 
@@ -64,13 +63,7 @@ namespace Ponykart.Core {
 		/// Count down!
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
-			// this precount part is to stop it from counting down while we're still loading stuff
-			if (!preCount && elapsed >= INITIAL_DELAY) {
-				Invoke(RaceCountdownState.PreCount);
-				preCount = true;
-				elapsed = 0;
-			}
-			else if (!three && elapsed >= INITIAL_DELAY) {
+			if (!three && elapsed >= INITIAL_DELAY) {
 				Invoke(RaceCountdownState.Three);
 				three = true;
 				elapsed = INITIAL_DELAY;

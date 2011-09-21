@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -27,7 +27,7 @@ namespace Ponykart.Levels {
 		/// <summary>
 		/// We use the thing's Name as the key
 		/// </summary>
-		public IDictionary<string, LThing> Things { get; private set; }
+		public ConcurrentDictionary<string, LThing> Things { get; private set; }
 
 		/// <summary>
 		/// Constructor - Initialises the dictionaries and hooks up to the spawn event
@@ -35,7 +35,7 @@ namespace Ponykart.Levels {
 		/// <param name="name">The name of the level - this is case sensitive!</param>
 		public Level(string name) {
 			Name = name;
-			Things = new Dictionary<string, LThing>();
+			Things = new ConcurrentDictionary<string, LThing>();
 			if (string.IsNullOrEmpty(name))
 				Type = LevelType.EmptyLevel;
 
@@ -88,9 +88,7 @@ namespace Ponykart.Levels {
 			if (Directory.Exists(Settings.Default.LevelScriptLocation + Name + "/"))
 				LKernel.GetG<LuaMain>().LuaVM.Lua.GetFunction(Name).Call(this);
 
-			LThing[] readonlythings = new LThing[Things.Values.Count];
-			Things.Values.CopyTo(readonlythings, 0);
-			foreach (LThing l in readonlythings)
+			foreach (LThing l in Things.Values)
 				l.RunScript();
 		}
 
@@ -102,10 +100,13 @@ namespace Ponykart.Levels {
 		/// </summary>
 		/// <param name="newThing"></param>
 		void OnSpawnEvent(LThing newThing) {
-			if (Things.ContainsKey(newThing.Name))
-				Things[newThing.Name + newThing.ID] = newThing;
-			else
-				Things[newThing.Name] = newThing;
+			// try adding it without its ID
+			if (!Things.TryAdd(newThing.Name, newThing)) {
+				// okay that didn't work, now try adding it with its ID
+				if (!Things.TryAdd(newThing.Name + newThing.ID, newThing))
+					// still didn't work so we must've had a problem while adding it.
+					Launch.Log("[Level] **WARNING** (OnSpawnEvent) A problem occurred when we tried to add this new LThing to the Things dictionary!");
+			}
 		}
 
 		protected override void Dispose(bool disposing) {
