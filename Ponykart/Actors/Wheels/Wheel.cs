@@ -157,7 +157,9 @@ namespace Ponykart.Actors {
 		// the target steer angle (i.e. when we aren't turning)
 		float idealSteerAngle = 0;
 		// how much to increment the wheel's angle by, each frame
-		static readonly Degree steerIncrement = 0.5f;
+		static readonly Degree steerIncrementTurn = 0.4f;
+		// how much to decrement the whee's angle by, each frame
+		static readonly Degree steerDecrementTurn = 1f;
 
 		/// <summary>
 		/// Rotates our wheels.
@@ -183,19 +185,31 @@ namespace Ponykart.Actors {
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 
 			float currentAngle = vehicle.GetSteeringValue(IntWheelID);
-			float thisSteerIncr = steerIncrement.ValueRadians * timeSinceLastFrame;
+			/*
+			 * if (abs(idealAngle) < abs(current angle))
+			 *	decrement
+			 */
+			float steerChange;
+			if (Math.Abs(idealSteerAngle) < Math.Abs(currentAngle))
+				// we are not turning any more, so the wheels are moving back to their forward positions
+				steerChange = steerDecrementTurn.ValueRadians * timeSinceLastFrame;
+			else
+				// we are turning, so the wheels are moving to their turned positions
+				steerChange = steerIncrementTurn.ValueRadians * timeSinceLastFrame;
 
 			// smooth out the turning
 			if (currentAngle < idealSteerAngle) {
-				if (currentAngle + thisSteerIncr <= idealSteerAngle)
-					vehicle.SetSteeringValue(currentAngle + thisSteerIncr, IntWheelID);
-				else if (currentAngle + thisSteerIncr > idealSteerAngle)
+				if (currentAngle + steerChange <= idealSteerAngle)
+					vehicle.SetSteeringValue(currentAngle + steerChange, IntWheelID);
+				// close enough to the ideal angle, so we snap
+				else if (currentAngle + steerChange > idealSteerAngle)
 					vehicle.SetSteeringValue(idealSteerAngle, IntWheelID);
 			}
 			else if (currentAngle > idealSteerAngle) {
-				if (currentAngle - thisSteerIncr >= idealSteerAngle)
-					vehicle.SetSteeringValue(currentAngle - thisSteerIncr, IntWheelID);
-				else if (currentAngle - thisSteerIncr < idealSteerAngle)
+				if (currentAngle - steerChange >= idealSteerAngle)
+					vehicle.SetSteeringValue(currentAngle - steerChange, IntWheelID);
+				// can't decrement any more to the ideal angle, so we snap
+				else if (currentAngle - steerChange < idealSteerAngle)
 					vehicle.SetSteeringValue(idealSteerAngle, IntWheelID);
 			}
 		}

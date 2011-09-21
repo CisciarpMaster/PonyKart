@@ -253,7 +253,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-40")]
         public float Gravity {
             get {
                 return ((float)(this["Gravity"]));
@@ -409,7 +409,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-15")]
         public float AdjustKartGravityMultiplier {
             get {
                 return ((float)(this["AdjustKartGravityMultiplier"]));
