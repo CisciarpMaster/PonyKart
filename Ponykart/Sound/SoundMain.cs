@@ -23,7 +23,7 @@ namespace Ponykart.Sound {
 
 			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 
-			LKernel.GetG<RaceCountdown>().OnGo += new RaceCountEvent(OnGo);
+			LKernel.GetG<RaceCountdown>().OnCountdown += new RaceCountdownEvent(OnCountdown);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
@@ -60,8 +60,8 @@ namespace Ponykart.Sound {
 		/// <summary>
 		/// Start the background music!
 		/// </summary>
-		void OnGo() {
-			if (bgMusic != null)
+		void OnCountdown(RaceCountdownState state) {
+			if (state == RaceCountdownState.Go && bgMusic != null)
 				Play2D(bgMusic, true);
 		}
 

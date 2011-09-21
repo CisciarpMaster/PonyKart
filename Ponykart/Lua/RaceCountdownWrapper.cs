@@ -7,13 +7,6 @@ namespace Ponykart.Lua {
 
 		//static ICollection<KeyValuePair<RaceCountState, RaceCountEvent>> toDispose;
 
-		/*enum RaceCountState {
-			Three,
-			Two,
-			One,
-			Go
-		}*/
-
 		public RaceCountdownWrapper() {
 			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 
@@ -43,27 +36,9 @@ namespace Ponykart.Lua {
 			}
 		}*/
 
-		[LuaFunction("hookFunctionToCountdownEvent", "Hooks a function to one of the countdown events.",
-			"int count - The countdown number to hook this event to. Use 3 for Three, 2 for Two, 1 for One, 0 for Go, and -1 for OneSecondAfterGo. Anything else will be ignored.",
-			"Function() rce - The function to run. Must take 0 parameters.")]
-		public static void HookFunctionToCountdownEvent(int count, RaceCountEvent rce) {
-			var countdown = LKernel.GetG<RaceCountdown>();
-
-			switch (count) {
-				case 3:
-					countdown.OnThree += rce; break;
-				case 2:
-					countdown.OnTwo += rce; break;
-				case 1:
-					countdown.OnOne += rce; break;
-				case 0:
-					countdown.OnGo += rce; break;
-				case -1:
-					countdown.OnOneSecondAfterGo += rce; break;
-				default:
-					LKernel.GetG<LuaMain>().Print("Invalid countdown number! It must be between -1 and 3 inclusive!");
-					break;
-			}
+		[LuaFunction("hookFunctionToCountdownEvent", "Hooks a function to one of the countdown events.", "Function(RaceCountdownState)")]
+		public static void HookFunctionToCountdownEvent(RaceCountdownEvent rce) {
+			LKernel.GetG<RaceCountdown>().OnCountdown += rce;
 		}
 	}
 }

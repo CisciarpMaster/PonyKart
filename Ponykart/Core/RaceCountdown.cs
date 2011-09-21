@@ -7,7 +7,16 @@ namespace Ponykart.Core {
 	/// <summary>
 	/// A delegate for each of the countdown states
 	/// </summary>
-	public delegate void RaceCountEvent();
+	public delegate void RaceCountdownEvent(RaceCountdownState state);
+
+	public enum RaceCountdownState {
+		PreCount = 4,
+		Three = 3,
+		Two = 2,
+		One = 1,
+		Go = 0,
+		OneSecondAfterGo = -1
+	}
 
 	public class RaceCountdown {
 		float elapsed;
@@ -17,7 +26,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// our events
 		/// </summary>
-		public event RaceCountEvent OnThree, OnTwo, OnOne, OnGo, OnOneSecondAfterGo;
+		public event RaceCountdownEvent OnCountdown;
 
 		/// <summary>
 		/// Hook up to the level un/load events
@@ -57,21 +66,22 @@ namespace Ponykart.Core {
 		bool FrameStarted(FrameEvent evt) {
 			// this precount part is to stop it from counting down while we're still loading stuff
 			if (!preCount && elapsed >= INITIAL_DELAY) {
-				elapsed = 0;
+				Invoke(RaceCountdownState.PreCount);
 				preCount = true;
+				elapsed = 0;
 			}
 			else if (!three && elapsed >= INITIAL_DELAY) {
-				Invoke(OnThree);
+				Invoke(RaceCountdownState.Three);
 				three = true;
 				elapsed = INITIAL_DELAY;
 			}
 			else if (!two && elapsed >= INITIAL_DELAY + 1) {
-				Invoke(OnTwo);
+				Invoke(RaceCountdownState.Two);
 				two = true;
 				elapsed = INITIAL_DELAY + 1;
 			}
 			else if (!one && elapsed >= INITIAL_DELAY + 2) {
-				Invoke(OnOne);
+				Invoke(RaceCountdownState.One);
 				one = true;
 				elapsed = INITIAL_DELAY + 2;
 			}
@@ -83,12 +93,12 @@ namespace Ponykart.Core {
 				}
 #endif
 
-				Invoke(OnGo);
+				Invoke(RaceCountdownState.Go);
 				go = true;
 				elapsed = INITIAL_DELAY + 3;
 			}
 			else if (!oneSecondAfterGo && elapsed >= INITIAL_DELAY + 4) {
-				Invoke(OnOneSecondAfterGo);
+				Invoke(RaceCountdownState.OneSecondAfterGo);
 				oneSecondAfterGo = true;
 
 				// don't need to keep checking the time any more
@@ -102,9 +112,9 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// helper method
 		/// </summary>
-		void Invoke(RaceCountEvent evt) {
-			if (evt != null)
-				evt();
+		void Invoke(RaceCountdownState state) {
+			if (OnCountdown != null)
+				OnCountdown(state);
 		}
 
 		/// <summary>

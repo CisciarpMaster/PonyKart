@@ -31,34 +31,29 @@ namespace Ponykart.Handlers {
 			Gui.Controls.Add(countLabel);
 
 			// hook up to events
-			var countdown = LKernel.GetG<RaceCountdown>();
-			countdown.OnThree += new RaceCountEvent(OnThree);
-			countdown.OnTwo += new RaceCountEvent(OnTwo);
-			countdown.OnOne += new RaceCountEvent(OnOne);
-			countdown.OnGo += new RaceCountEvent(OnGo);
-			countdown.OnOneSecondAfterGo += new RaceCountEvent(OnOneSecondAfterGo);
+			LKernel.GetG<RaceCountdown>().OnCountdown += new RaceCountdownEvent(OnCountdown);
 		}
 
 
-		void OnThree() {
-			countLabel.Visible = true;
-			countLabel.Text = "3";
-		}
-
-		void OnTwo() {
-			countLabel.Text = "2";
-		}
-
-		void OnOne() {
-			countLabel.Text = "1";
-		}
-
-		void OnGo() {
-			countLabel.Text = "Go!";
-		}
-
-		void OnOneSecondAfterGo() {
-			countLabel.Visible = false;
+		void OnCountdown(RaceCountdownState state) {
+			switch (state) {
+				case RaceCountdownState.Three:
+					countLabel.Visible = true;
+					countLabel.Text = "3";
+					break;
+				case RaceCountdownState.Two:
+					countLabel.Text = "2";
+					break;
+				case RaceCountdownState.One:
+					countLabel.Text = "1";
+					break;
+				case RaceCountdownState.Go:
+					countLabel.Text = "Go!";
+					break;
+				case RaceCountdownState.OneSecondAfterGo:
+					countLabel.Visible = false;
+					break;
+			}
 		}
 	}
 }

@@ -185,11 +185,8 @@ namespace Ponykart.Actors {
 			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
 
 			float currentAngle = vehicle.GetSteeringValue(IntWheelID);
-			/*
-			 * if (abs(idealAngle) < abs(current angle))
-			 *	decrement
-			 */
 			float steerChange;
+
 			if (Math.Abs(idealSteerAngle) < Math.Abs(currentAngle))
 				// we are not turning any more, so the wheels are moving back to their forward positions
 				steerChange = steerDecrementTurn.ValueRadians * timeSinceLastFrame;
