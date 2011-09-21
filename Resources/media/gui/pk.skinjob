@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <Textures>
+    <Texture>C:\Ponykart\Resources\media\gui\loading.png</Texture>
+  </Textures>
+  <Skins>
+    <Skin Name="PKLoadingScreenPanel">
+      <SubSkins>
+        <SubSkin Name="PKLoadingScreenPanel">
+		  
+          <Frames>
+			<Frame>
+				<FileName>loading.png</FileName>
+				<Duration>0</Duration>
+				<UV>
+				  <X>0</X>
+				  <Y>0</Y>
+				  <Width>1</Width>
+				  <Height>1</Height>
+				</UV>
+			</Frame>
+		  </Frames>
+          <GpuPrograms />
+          <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+          <ScrollVector>
+            <X>0</X>
+            <Y>0</Y>
+          </ScrollVector>
+        </SubSkin>
+      </SubSkins>
+    </Skin>
+  </Skins>
+</Project>

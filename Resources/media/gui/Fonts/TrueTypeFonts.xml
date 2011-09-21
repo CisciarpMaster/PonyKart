@@ -12,10 +12,22 @@
     <Resolution>96</Resolution>
     <Size>12</Size>
   </TrueTypeFont>
-  <TrueTypeFont Name="BlueHighwayHuge">
-    <FileName>media\gui\fonts\bluehigh.ttf</FileName>
+  <TrueTypeFont Name="Celestia">
+    <FileName>media\gui\fonts\celestia.ttf</FileName>
+    <FontStyle>Regular</FontStyle>
+    <Resolution>96</Resolution>
+    <Size>20</Size>
+  </TrueTypeFont>
+  <TrueTypeFont Name="CelestiaHuge">
+    <FileName>media\gui\fonts\celestia.ttf</FileName>
     <FontStyle>Regular</FontStyle>
     <Resolution>96</Resolution>
     <Size>90</Size>
+  </TrueTypeFont>
+  <TrueTypeFont Name="Zil">
+    <FileName>media\gui\fonts\zil.ttf</FileName>
+    <FontStyle>Regular</FontStyle>
+    <Resolution>96</Resolution>
+    <Size>20</Size>
   </TrueTypeFont>
 </TrueTypeFonts>

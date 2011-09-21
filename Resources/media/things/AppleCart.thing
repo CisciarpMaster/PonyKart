@@ -1,7 +1,8 @@
 Physics = Dynamic
 Mass = 50
 Script = "applecart"
-PhysicsMaterial = "NoBounce"
+Bounciness = 0
+Friction = 0.5
 
 // box#0
 Shape {
