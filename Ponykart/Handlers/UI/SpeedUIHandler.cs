@@ -25,7 +25,6 @@ namespace Ponykart.Handlers {
 					Font = UIResources.Fonts["BlueHighway"],
 				},
 				Text = "Speed",
-				AlwaysOnTop = true,
 			};
 			gui.Controls.Add(label);
 
@@ -33,6 +32,7 @@ namespace Ponykart.Handlers {
 		}
 
 		float elapsed;
+		const string ret = "\r\n";
 		bool FrameStarted(FrameEvent evt) {
 			if (elapsed >= 0.1f) {
 				elapsed = 0;
@@ -41,14 +41,15 @@ namespace Ponykart.Handlers {
 
 				if (LKernel.GetG<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Body.IsDisposed) {
 					Kart kart = mainPlayer.Kart;
+					
 					label.Text =
-						"Speed: " + kart.Vehicle.CurrentSpeedKmHour + "\r\n" +
-						"Turn angle: " + kart.Vehicle.GetSteeringValue((int) WheelID.FrontLeft) + "\r\n" +
-						"Linear Velocity: " + kart.Body.LinearVelocity.Length + "  " + kart.Body.LinearVelocity + "\r\n" +
-						"WheelFriction: " + kart.Vehicle.GetWheelInfo(0).FrictionSlip + " , " + kart.Vehicle.GetWheelInfo(2).FrictionSlip + "\r\n" +
-						"Brake? " + kart.WheelFL.IsBrakeOn + "\r\n" +
-						"AccelMultiplier: " + kart.WheelFL.AccelerateMultiplier + "\r\n" +
-						"Gravity: " + kart.Body.Gravity;
+						string.Concat("Speed: ", kart.Vehicle.CurrentSpeedKmHour, ret, 
+						"Turn angle: ", kart.Vehicle.GetSteeringValue((int) WheelID.FrontLeft), ret, 
+						"Linear Velocity: ", kart.Body.LinearVelocity.Length, "  ", kart.Body.LinearVelocity, ret, 
+						"WheelFriction: ", kart.Vehicle.GetWheelInfo(0).FrictionSlip, " , ", kart.Vehicle.GetWheelInfo(2).FrictionSlip, ret, 
+						"Brake? ", kart.WheelFL.IsBrakeOn, ret, 
+						"AccelMultiplier: ", kart.WheelFL.AccelerateMultiplier, ret, 
+						"Gravity: ", kart.Body.Gravity);
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

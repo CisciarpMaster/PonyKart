@@ -26,11 +26,10 @@ namespace Ponykart.Handlers {
 				Visible = false,
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,
-					ForegroundColour = Colours.Coral,
-					Font = UIResources.Fonts["BlueHighwayHuge"],
+					ForegroundColour = Colours.Red,
+					Font = UIResources.Fonts["CelestiaHuge"],
 				},
 				Text = "PAUSED",
-				AlwaysOnTop = true,
 			};
 			gui.Controls.Add(pauseLabel);
 

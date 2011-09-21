@@ -8,6 +8,7 @@ namespace Ponykart.Actors {
 	public class SoundComponent {
 		public ISound Sound { get; protected set; }
 		public string Name { get; protected set; }
+		Vector3 relativePosition;
 		LThing owner;
 
 		/// <summary>
@@ -28,9 +29,9 @@ namespace Ponykart.Actors {
 
 			bool looping = block.GetBoolProperty("looping", true);
 			bool sfx = block.GetBoolProperty("SpecialEffects", false);
-			Vector3 pos = template.GetVectorProperty("position", null);
+			relativePosition = template.GetVectorProperty("position", Vector3.ZERO);
 
-			Sound = soundMain.Play3D(source, pos, looping, true, sfx);
+			Sound = soundMain.Play3D(source, relativePosition, looping, true, sfx);
 
 			Sound.PlaybackSpeed = block.GetFloatProperty("Speed", 1);
 			Sound.Volume = block.GetFloatProperty("volume", 1);
@@ -39,6 +40,7 @@ namespace Ponykart.Actors {
 
 			// TODO: effects, if we end up using any of them
 
+			Update();
 			Sound.Paused = false;
 		}
 
@@ -47,7 +49,7 @@ namespace Ponykart.Actors {
 		/// This is called from <see cref="Ponykart.Physics.MogreMotionState"/>.
 		/// </summary>
 		public void Update() {
-			Sound.Position = owner.RootNode._getDerivedPosition().ToSoundVector();
+			Sound.Position = (owner.RootNode._getDerivedPosition() + relativePosition).ToSoundVector();
 			if (owner.Body != null) {
 				Sound.Velocity = owner.Body.LinearVelocity.ToSoundVector();
 			}

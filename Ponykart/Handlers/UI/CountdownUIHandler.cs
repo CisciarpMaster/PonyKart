@@ -22,11 +22,10 @@ namespace Ponykart.Handlers {
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,
 					ForegroundColour = Colours.Magenta,
-					Font = UIResources.Fonts["BlueHighwayHuge"],
+					Font = UIResources.Fonts["CelestiaHuge"],
 				},
 				Visible = false,
 				Text = string.Empty,
-				AlwaysOnTop = true,
 			};
 
 			Gui.Controls.Add(countLabel);

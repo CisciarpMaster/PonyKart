@@ -1,10 +1,10 @@
 ﻿
 namespace Ponykart.Physics {
 	public class PhysicsMaterial {
-		const float DEFAULT_FRICTION = 0.3f;
-		const float DEFAULT_BOUNCINESS = 0.3f;
-		const float DEFAULT_ANGULAR_DAMPING = 0.3f;
-		const float DEFAULT_LINEAR_DAMPING = 0.3f;
+		public const float DEFAULT_FRICTION = 0.3f;
+		public const float DEFAULT_BOUNCINESS = 0.3f;
+		public const float DEFAULT_ANGULAR_DAMPING = 0.3f;
+		public const float DEFAULT_LINEAR_DAMPING = 0.3f;
 
 		/// <summary>
 		/// 0 is no friction, 1 is lots of friction, >1 is more friction

@@ -57,10 +57,11 @@ namespace Ponykart.UI {
 			var skins = new List<Skin>();
 
 			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"GUI/Skins.xml"));
+			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"GUI/PonykartSkins.xml"));
 			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"Cursor/CursorSkin.xml"));
 
 			// manually create Skins
-			var logo = new Skin("Logo");
+			/*var logo = new Skin("Logo");
 			var rect = RectangleF.FromLTRB(0, 0, 1, 1);
 			var frame1 = new TextureFrame("Logo1.png", rect, 1000);
 			var frame2 = new TextureFrame("Logo2.png", rect, 800);
@@ -72,7 +73,7 @@ namespace Ponykart.UI {
 				FrameAnimationMode = FrameAnimationMode.ForwardBackwardLoop
 			};
 
-			skins.Add(logo);
+			skins.Add(logo);*/
 
 			// done
 

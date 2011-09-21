@@ -241,9 +241,18 @@ namespace Ponykart.Actors {
 			shape.CalculateLocalInertia(mass, out inertia);
 			MotionState = InitializationMotionState;
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
-			// TODO
+			// physics material stuff from a .physmat file
 			string physmat = def.GetStringProperty("PhysicsMaterial", "Default");
 			LKernel.GetG<PhysicsMaterialManager>().ApplyMaterial(Info, physmat);
+			// we can override some of them in the .thing file
+			if (def.FloatTokens.ContainsKey("bounciness"))
+				Info.Restitution = def.GetFloatProperty("bounciness", PhysicsMaterial.DEFAULT_BOUNCINESS);
+			if (def.FloatTokens.ContainsKey("friction"))
+				Info.Friction = def.GetFloatProperty("friction", PhysicsMaterial.DEFAULT_FRICTION);
+			if (def.FloatTokens.ContainsKey("angulardamping"))
+				Info.AngularDamping = def.GetFloatProperty("angulardamping", PhysicsMaterial.DEFAULT_ANGULAR_DAMPING);
+			if (def.FloatTokens.ContainsKey("lineardamping"))
+				Info.LinearDamping = def.GetFloatProperty("lineardamping", PhysicsMaterial.DEFAULT_LINEAR_DAMPING);
 
 			// choose which group to use for a default
 			ThingEnum defaultGroup;
