@@ -1,17 +1,17 @@
 <scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.6" author="OgreMax Scene Exporter (www.ogremax.com)">
     <environment>
-        <colourAmbient r="0.8" g="0.8" b="0.8" />
+        <colourAmbient r="1" g="1" b="1" />
         <colourBackground r="0" g="0" b="0" />
         <clipping near="0.5" far="10000" />
     </environment>
     <nodes>
-        <node name="Level0">
-            <position x="0.01206" y="-0.75" z="3.72067" />
-            <scale x="1.1" y="1.1" z="1.1" />
-            <rotation qx="0.707107" qy="0" qz="0" qw="0.707107" />
-            <entity name="Level0" static="false" castShadows="false" receiveShadows="true" meshFile="Level0.mesh">
+        <node name="Box">
+            <position x="0" y="0" z="0" />
+            <scale x="30" y="30" z="30" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Box" static="false" castShadows="false" receiveShadows="false" meshFile="primitives/Box.mesh">
                 <subentities>
-                    <subentity index="0" materialName="cell_background" />
+                    <subentity index="0" materialName="DashBackground" />
                 </subentities>
             </entity>
         </node>

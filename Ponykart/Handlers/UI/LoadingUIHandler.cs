@@ -1,4 +1,5 @@
-﻿using Miyagi.Common.Data;
+﻿using Miyagi.Common;
+using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 using Ponykart.Levels;
 using Ponykart.Properties;
@@ -22,6 +23,7 @@ namespace Ponykart.Handlers {
 				Visible = false,
 				AlwaysOnTop = true,
 				Skin = UIResources.Skins["PKLoadingScreenPanel"],
+				TextureFiltering = TextureFiltering.Linear,
 			};
 
 			LKernel.GetG<UIMain>().Gui.Controls.Add(panel);

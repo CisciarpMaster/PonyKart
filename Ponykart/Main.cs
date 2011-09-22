@@ -31,7 +31,7 @@ namespace Ponykart {
 			// 
 			// Main
 			// 
-			this.ClientSize = new Size(1008, 730);
+			this.ClientSize = new Size((int) Settings.Default.WindowWidth, (int) Settings.Default.WindowHeight);
 			this.FormBorderStyle = FormBorderStyle.Fixed3D;
 			this.MaximizeBox = false;
 			this.Name = "Main";

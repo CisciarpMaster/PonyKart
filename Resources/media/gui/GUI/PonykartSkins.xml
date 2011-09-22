@@ -1,27 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Skins>
-    <Skin Name="PKLoadingScreenPanel">
-      <SubSkins>
-        <SubSkin Name="PKLoadingScreenPanel">
-          <Frames>
-			<Frame>
-				<FileName>loading.png</FileName>
-				<Duration>0</Duration>
-				<UV>
-				  <X>0</X>
-				  <Y>0</Y>
-				  <Width>1</Width>
-				  <Height>1</Height>
-				</UV>
-			</Frame>
-		  </Frames>
-          <GpuPrograms />
-          <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
-          <ScrollVector>
-            <X>0</X>
-            <Y>0</Y>
-          </ScrollVector>
-        </SubSkin>
-      </SubSkins>
-    </Skin>
+	<!-- for the loading screen -->
+	<Skin Name="PKLoadingScreenPanel">
+		<SubSkins>
+			<SubSkin Name="PKLoadingScreenPanel">
+				<Frames>
+					<Frame>
+						<FileName>loading.png</FileName>
+						<Duration>0</Duration>
+						<UV>
+							<X>0</X>
+							<Y>0</Y>
+							<Width>1</Width>
+							<Height>1</Height>
+						</UV>
+					</Frame>
+				</Frames>
+				<GpuPrograms />
+				<FrameAnimationMode>BackwardLoop</FrameAnimationMode>
+				<ScrollVector>
+					<X>0</X>
+					<Y>0</Y>
+				</ScrollVector>
+			</SubSkin>
+		</SubSkins>
+	</Skin>
+	<Skin Name="PKPlayMenu">
+		<SubSkins>
+			<SubSkin Name="PKPlayMenu">
+				<Frames>
+					<Frame>
+						<FileName>playmenu.png</FileName>
+						<Duration>0</Duration>
+						<UV>
+							<X>0</X>
+							<Y>0</Y>
+							<Width>1</Width>
+							<Height>1</Height>
+						</UV>
+					</Frame>
+				</Frames>
+				<GpuPrograms />
+				<FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+				<ScrollVector>
+					<X>0</X>
+					<Y>0</Y>
+				</ScrollVector>
+			</SubSkin>
+		</SubSkins>
+	</Skin>
+	
+	<!-- for the buttons -->
+	
+	<Skin Name="PKButtonSkin">
+		<SubSkins>
+			<SubSkin Name="PKButtonSkin">
+				<Frames>
+					<Frame>
+					<FileName>texture.png</FileName>
+					<Duration>0</Duration>
+					<UV>
+						<X>0.500976563</X>
+						<Y>0.06347656</Y>
+						<Width>0.25</Width>
+						<Height>0.0625</Height>
+					</UV>
+					</Frame>
+				</Frames>
+				<GpuPrograms />
+				<FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+				<ScrollVector>
+					<X>0</X>
+					<Y>0</Y>
+				</ScrollVector>
+			</SubSkin>
+			<!-- we won't need to disable buttons, so we might as well turn this off -->
+			<!--<SubSkin Name="PKButtonSkin.Disabled">
+				<Frames>
+					<Frame>
+					<FileName>texture.png</FileName>
+					<Duration>0</Duration>
+					<UV>
+						<X>0.500976563</X>
+						<Y>0</Y>
+						<Width>0.25</Width>
+						<Height>0.0625</Height>
+					</UV>
+					</Frame>
+				</Frames>
+				<GpuPrograms />
+				<FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+				<ScrollVector>
+					<X>0</X>
+					<Y>0</Y>
+				</ScrollVector>
+			</SubSkin>-->
+			<SubSkin Name="PKButtonSkin.MouseDown">
+				<Frames>
+					<Frame>
+					<FileName>texture.png</FileName>
+					<Duration>0</Duration>
+					<UV>
+						<X>0.5009766</X>
+						<Y>0.127</Y>
+						<Width>0.25</Width>
+						<Height>0.06254688</Height>
+					</UV>
+					</Frame>
+				</Frames>
+				<GpuPrograms />
+				<FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+				<ScrollVector>
+					<X>0</X>
+					<Y>0</Y>
+				</ScrollVector>
+			</SubSkin>
+			<SubSkin Name="PKButtonSkin.MouseEnter">
+				<Frames>
+					<Frame>
+					<FileName>texture.png</FileName>
+					<Duration>0</Duration>
+					<UV>
+						<X>0.500976563</X>
+						<Y>0.1904297</Y>
+						<Width>0.25</Width>
+						<Height>0.06345312</Height>
+					</UV>
+					</Frame>
+				</Frames>
+				<GpuPrograms />
+				<FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+				<ScrollVector>
+					<X>0</X>
+					<Y>0</Y>
+				</ScrollVector>
+			</SubSkin>
+		</SubSkins>
+	</Skin>
 </Skins>

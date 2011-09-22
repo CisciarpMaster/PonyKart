@@ -22,6 +22,7 @@ material AppleBillboard {
 			lighting off
 			scene_blend alpha_blend
 			depth_write off
+			transparent_sorting on
 			
 			texture_unit {
 				texture apple_alpha.png

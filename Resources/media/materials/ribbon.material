@@ -4,6 +4,7 @@ material ribbon {
 			lighting off
 			scene_blend alpha_blend
 			depth_write off
+			transparent_sorting on
 
 			texture_unit {
 				texture ribbonband.png 1d

@@ -8,6 +8,7 @@ material Chicken_coop_sign
 		{
 			scene_blend alpha_blend
 			depth_write off
+			transparent_sorting on
 			
 			texture_unit
 			{
