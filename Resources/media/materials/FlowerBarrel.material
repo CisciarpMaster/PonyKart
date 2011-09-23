@@ -1,0 +1,47 @@
+material FlowerBarrelGreen {
+	technique {
+		pass {
+			texture_unit {
+				texture FBgreen_tex.dds
+			}
+		}
+	}
+}
+
+material FlowerBarrelRed {
+	technique {
+		pass {
+			texture_unit {
+				texture FBred_tex.dds
+			}
+		}
+	}
+}
+
+material FlowerBarrelYellow {
+	technique {
+		pass {
+			texture_unit {
+				texture FByellow_tex.dds
+			}
+		}
+	}
+}
+
+material FlowerBarrelTransparent {
+	receive_shadows off
+	
+	technique {
+		pass {
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			transparent_sorting on
+			
+			texture_unit {
+				texture FBgreen_tex.dds
+				tex_address_mode clamp
+			}
+		}
+	}
+}

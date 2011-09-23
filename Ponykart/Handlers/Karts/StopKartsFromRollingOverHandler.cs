@@ -124,7 +124,7 @@ namespace Ponykart.Handlers {
 			
 			world.RayTest(from, to, callback);
 #if DEBUG
-			MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.Red);
+			//MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.Red);
 #endif
 			return callback;
 		}

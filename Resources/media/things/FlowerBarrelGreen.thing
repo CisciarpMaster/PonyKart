@@ -1,0 +1,39 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Environment
+CollidesWith = Environment
+
+// Entity#0
+Model {
+	Mesh = "FlowerBarrel.mesh"
+	Material = "FlowerBarrelGreen"
+	Position = 0, 1.05441, 0
+}
+// cylinder#0
+Shape {
+	Type = Cylinder
+	Position = 0, 0.621097, 0
+	Dimensions = 2.02693, 1.96167, 2.02693
+}
+
+// need to add something to specify the coordinates of the texture
+BillboardSet {
+	Material = "FlowerBarrelTransparent"
+	Type = OrientedCommon
+	Width = 0.5
+	Height = 0.781
+	
+	Billboard {
+		Position = -0.369, 1.865, 0.117
+	}
+	Billboard {
+		Position = 0.49, 1.778, 0.193
+		Width = 0.437
+		Height = 0.682
+	}
+	Billboard {
+		Position = 0, 1.978, -0.408
+		Width = 0.648
+		Height = 1
+	}
+}

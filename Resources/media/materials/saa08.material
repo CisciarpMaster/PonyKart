@@ -1,13 +1,3 @@
-material NoMaterial
-{
-	technique
-	{
-		pass
-		{
-		}
-	}
-}
-
 material 11-Default
 {
 	technique
@@ -42,6 +32,10 @@ material 10-Default
 	{
 		pass
 		{
+			scene_blend alpha_blend
+			depth_write off
+			transparent_sorting on
+			
 			texture_unit
 			{
 				texture banner.png
@@ -58,7 +52,7 @@ material SAA_Barn_Area
 		{
 			texture_unit
 			{
-				texture road2.png
+				texture saa_dirt.dds
 			}
 		}
 		
@@ -85,7 +79,7 @@ material Grass
 		{
 			texture_unit
 			{
-				texture grass_texture_1.png
+				texture grasstexture.dds
 			}
 		}
 		pass {
@@ -111,7 +105,7 @@ material SAA_Road
 		{
 			texture_unit
 			{
-				texture "road texture test_003.png"
+				texture saa_road.dds
 				scale 0.5 0.5
 			}
 		}
@@ -139,7 +133,7 @@ material SAA_Grass
 		{
 			texture_unit
 			{
-				texture grass_texture_1.png
+				texture grasstexture.dds
 			}
 		}
 		pass {
@@ -152,20 +146,6 @@ material SAA_Grass
 			fragment_program_ref glowBalloon_ps {
 				param_named GlowColor float3 0.651 0.78 0.224
 				param_named GlowExpon float  3
-			}
-		}
-	}
-}
-
-material SAA_Bridge
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture bridge_wood.jpg
 			}
 		}
 	}

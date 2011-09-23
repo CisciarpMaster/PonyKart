@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Mogre;
 using PonykartParsers.Properties;
 using PonykartParsers.ThingParser;
@@ -9,18 +11,36 @@ using Node = PonykartParsers.ThingParser.Node;
 
 namespace PonykartParsers {
 	public class ThingImporter {
-		RuleInstance root;
-		CultureInfo culture = CultureInfo.InvariantCulture;
+		private RuleInstance root;
+		private static CultureInfo culture = CultureInfo.InvariantCulture;
+		private static IEnumerable<string> fileList;
+		private static bool hasPreparedFileList = false;
+
+		private static void PrepareFileList() {
+#if !DEBUG
+			if (!hasPreparedFileList) {
+#endif
+				fileList = Directory.EnumerateFiles(Settings.Default.ThingFileLocation, "*" + Settings.Default.ThingFileExtension, SearchOption.AllDirectories);
+				hasPreparedFileList = true;
+#if !DEBUG
+			}
+#endif
+		}
 
 		public ThingDefinition Parse(string nameOfThing) {
+			PrepareFileList();
 
-			string fileContents = "";
+			string fileContents = string.Empty;
 
 			// make the file path
+			// this just searches for "media/things/foo.thing"
 			string filePath = Settings.Default.ThingFileLocation + nameOfThing + Settings.Default.ThingFileExtension;
-			// if we don't have a save file for this level yet, use the "default" one
+			// this searches subfolders for .things
 			if (!File.Exists(filePath)) {
-				throw new ArgumentException(nameOfThing + ".thing does not exist!", "nameOfThing");
+				filePath = fileList.FirstOrDefault((s) => s.Contains(nameOfThing));
+				// we went through all of the files and couldn't find it, so it doesn't exist or we typo'd somewhere
+				if (filePath == null)
+					throw new ArgumentException(nameOfThing + ".thing does not exist!", "nameOfThing");
 			}
 
 			LogManager.Singleton.LogMessage("[ThingImporter] Importing and parsing thing: " + filePath);
@@ -31,10 +51,11 @@ namespace PonykartParsers {
 				using (var reader = new StreamReader(fileStream)) {
 					// for each line in the file
 					while (!reader.EndOfStream) {
-						fileContents += reader.ReadLine() + "\r\n";
+						fileContents += reader.ReadLine() + Environment.NewLine;
 					}
 					reader.Close();
 				}
+				fileStream.Close();
 			}
 
 			Parser p = new Parser();

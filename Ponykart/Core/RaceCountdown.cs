@@ -63,22 +63,23 @@ namespace Ponykart.Core {
 		/// Count down!
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
-			if (!three && elapsed >= INITIAL_DELAY) {
-				Invoke(RaceCountdownState.Three);
-				three = true;
-				elapsed = INITIAL_DELAY;
-			}
-			else if (!two && elapsed >= INITIAL_DELAY + 1) {
-				Invoke(RaceCountdownState.Two);
-				two = true;
-				elapsed = INITIAL_DELAY + 1;
-			}
-			else if (!one && elapsed >= INITIAL_DELAY + 2) {
-				Invoke(RaceCountdownState.One);
-				one = true;
-				elapsed = INITIAL_DELAY + 2;
-			}
-			else if (!go && elapsed >= INITIAL_DELAY + 3) {
+			if (!Pauser.IsPaused) {
+				if (!three && elapsed >= INITIAL_DELAY) {
+					Invoke(RaceCountdownState.Three);
+					three = true;
+					elapsed = INITIAL_DELAY;
+				}
+				else if (!two && elapsed >= INITIAL_DELAY + 1) {
+					Invoke(RaceCountdownState.Two);
+					two = true;
+					elapsed = INITIAL_DELAY + 1;
+				}
+				else if (!one && elapsed >= INITIAL_DELAY + 2) {
+					Invoke(RaceCountdownState.One);
+					one = true;
+					elapsed = INITIAL_DELAY + 2;
+				}
+				else if (!go && elapsed >= INITIAL_DELAY + 3) {
 #if ENABLE_COUNTDOWN
 				foreach (var player in LKernel.Get<PlayerManager>().Players) {
 					// first make sure all of the karts can't be controlled
@@ -86,19 +87,20 @@ namespace Ponykart.Core {
 				}
 #endif
 
-				Invoke(RaceCountdownState.Go);
-				go = true;
-				elapsed = INITIAL_DELAY + 3;
-			}
-			else if (!oneSecondAfterGo && elapsed >= INITIAL_DELAY + 4) {
-				Invoke(RaceCountdownState.OneSecondAfterGo);
-				oneSecondAfterGo = true;
+					Invoke(RaceCountdownState.Go);
+					go = true;
+					elapsed = INITIAL_DELAY + 3;
+				}
+				else if (!oneSecondAfterGo && elapsed >= INITIAL_DELAY + 4) {
+					Invoke(RaceCountdownState.OneSecondAfterGo);
+					oneSecondAfterGo = true;
 
-				// don't need to keep checking the time any more
-				Detach();
-			}
+					// don't need to keep checking the time any more
+					Detach();
+				}
 
-			elapsed += evt.timeSinceLastFrame;
+				elapsed += evt.timeSinceLastFrame;
+			}
 			return true;
 		}
 

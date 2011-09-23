@@ -10,7 +10,7 @@ material Barn
 			
 			texture_unit
 			{
-				texture barn_1024x2048.jpg
+				texture saa_barn.dds
 			}
 		}
 	}
@@ -31,7 +31,7 @@ material Barn_Plants
 
 			texture_unit
 			{
-				texture barn03.png
+				texture saa_barn_transparent.dds
 				tex_address_mode clamp
 			}
 		}

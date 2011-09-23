@@ -1,0 +1,77 @@
+material CMC_Treehouse_Main
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture CMC_Treehouse_Main.dds
+			}
+		}
+	}
+}
+
+material CMC_Treehouse_Extras
+{
+	technique
+	{
+		pass
+		{
+			// two-sided for the big planks between the fences
+			cull_hardware none
+
+			texture_unit
+			{
+				texture CMC_Treehouse_Extras.dds
+			}
+		}
+	}
+}
+
+material CMC_Treehouse_Ramps
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture CMC_Treehouse_Ramp.dds
+			}
+		}
+	}
+}
+
+material CMC_Treehouse_Transparent
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			transparent_sorting on
+			depth_write off
+
+			texture_unit
+			{
+				texture CMC_Treehouse_Transparent.dds
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material CMC_Treehouse_Tree
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture CMC_Treehouse_Tree.jpg
+			}
+		}
+	}
+}

@@ -1,0 +1,48 @@
+Physics = Dynamic
+Mass = 100
+CollisionGroup = Default
+CollidesWith = Default
+Friction = 0.6
+LinearDamping = 0.6
+Script = "containerSmall"
+
+Model {
+	Mesh = "AppleContainerSmall.mesh"
+	Position = 0, 0.546193, 0
+	CastsShadows = true
+}
+
+// box#1#0
+Shape {
+	Type = Box
+	Position = 0, 0.522624, -1.29277
+	Orientation = -0.748956, 0, 0, 0.66262
+	Dimensions = 2.8, 0.312922, 2
+}
+// box#0#0
+Shape {
+	Type = Box
+	Position = 0, -0.349989, 0
+	Dimensions = 2.5, 0.274174, 2.4
+}
+// box#2#0
+Shape {
+	Type = Box
+	Position = 0, 0.571793, 1.27976
+	Orientation = -0.669131, 0, 0, 0.743145
+	Dimensions = 2.79458, 0.312922, 2
+}
+// box#3#0
+Shape {
+	Type = Box
+	Position = -1.30826, 0.568949, 0
+	Orientation = 0, 0, 0.731354, 0.681998
+	Dimensions = 2, 0.347162, 2.6
+}
+// box#4#0
+Shape {
+	Type = Box
+	Position = 1.29961, 0.559234, 0
+	Orientation = 0, 0, 0.669131, 0.743145
+	Dimensions = 2, 0.347162, 2.6
+}

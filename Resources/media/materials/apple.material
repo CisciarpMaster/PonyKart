@@ -6,11 +6,9 @@ material RedApple
 	{
 		pass
 		{
-			specular 1 1 1 1 32
-
 			texture_unit
 			{
-				texture redapple.jpg
+				texture redapple.dds
 			}
 		}
 	}
@@ -24,11 +22,9 @@ material GreenApple
 	{
 		pass
 		{
-			specular 1 1 1 1 32
-
 			texture_unit
 			{
-				texture greenapple.jpg
+				texture greenapple.dds
 			}
 		}
 	}

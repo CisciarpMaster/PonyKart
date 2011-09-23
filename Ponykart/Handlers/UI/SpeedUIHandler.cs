@@ -1,4 +1,5 @@
-﻿using Miyagi.Common;
+﻿#if DEBUG
+using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 using Mogre;
@@ -24,7 +25,7 @@ namespace Ponykart.Handlers {
 					ForegroundColour = Colours.White,
 					Font = UIResources.Fonts["BlueHighway"],
 				},
-				Text = "Speed",
+				Text = "",
 			};
 			gui.Controls.Add(label);
 
@@ -57,3 +58,4 @@ namespace Ponykart.Handlers {
 		}
 	}
 }
+#endif

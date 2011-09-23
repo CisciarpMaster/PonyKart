@@ -40,7 +40,7 @@ namespace Ponykart.Levels {
 				Type = LevelType.EmptyLevel;
 
 			// don't use anonymous methods here because we have to disconnect it when we change levels
-			LKernel.GetG<Spawner>().OnThingCreation += OnSpawnEvent;
+			//LKernel.GetG<Spawner>().OnThingCreation += OnSpawnEvent;
 		}
 
 		/// <summary>
@@ -98,14 +98,13 @@ namespace Ponykart.Levels {
 		/// <summary>
 		/// Runs whenever we spawn something. This just adds it to the level's dictionary of Things.
 		/// </summary>
-		/// <param name="newThing"></param>
-		void OnSpawnEvent(LThing newThing) {
+		public void AddThing(LThing newThing) {
 			// try adding it without its ID
 			if (!Things.TryAdd(newThing.Name, newThing)) {
 				// okay that didn't work, now try adding it with its ID
 				if (!Things.TryAdd(newThing.Name + newThing.ID, newThing))
 					// still didn't work so we must've had a problem while adding it.
-					Launch.Log("[Level] **WARNING** (OnSpawnEvent) A problem occurred when we tried to add this new LThing to the Things dictionary!");
+					Launch.Log("[Level] **WARNING** (AddThing) A problem occurred when we tried to add this new LThing to the Things dictionary!");
 			}
 		}
 
@@ -114,7 +113,7 @@ namespace Ponykart.Levels {
 				return;
 
 			if (disposing) {
-				LKernel.GetG<Spawner>().OnThingCreation -= OnSpawnEvent;
+				//LKernel.GetG<Spawner>().OnThingCreation -= OnSpawnEvent;
 				if (Things != null) {
 					foreach (LThing t in Things.Values)
 						t.Dispose();

@@ -1,6 +1,7 @@
 ﻿using BulletSharp;
 using LuaNetInterface;
 using Mogre;
+using Ponykart.Actors;
 using Ponykart.Physics;
 
 namespace Ponykart.Lua {
@@ -39,6 +40,26 @@ namespace Ponykart.Lua {
 		[LuaFunction("setBodyPosition", "Sets the position of a RigidBody", "RigidBody", "Vector3")]
 		public static void SetBodyPosition(RigidBody body, Vector3 vec) {
 			body.WorldTransform.SetTrans(vec);
+		}
+
+		/*
+		 * ActiveTag = 1,
+		 * IslandSleeping = 2,
+		 * WantsDeactivation = 3,
+		 * DisableDeactivation = 4,
+		 * DisableSimulation = 5,
+		 */
+		[LuaFunction("forceActivationState", "Forces the activation state of a RigidBody to be something.", "", "")]
+		public static void ForceActivationState(LThing thing, int activationState) {
+			if (thing != null && thing.Body != null)
+				thing.Body.ForceActivationState((ActivationState) activationState);
+		}
+
+		[LuaFunction("deactivateThing", "Deactivates a LThing's physics body. This means it won't move until something else (that's moving) comes near it.",
+			"LThing - the thing to deactivate")]
+		public static void DeactivateThing(LThing thing) {
+			if (thing != null && thing.Body != null)
+				thing.Body.ForceActivationState(ActivationState.WantsDeactivation);
 		}
 	}
 }

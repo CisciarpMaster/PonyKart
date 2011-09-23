@@ -1,5 +1,6 @@
 Physics = Dynamic
 Mass = 1
+PhysicsMaterial = "Apples"
 
 Model {
 	Mesh = "Apple.mesh"

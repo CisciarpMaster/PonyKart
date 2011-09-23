@@ -22,5 +22,12 @@ namespace PonykartParsers {
 			SetUpDictionaries();
 			VectorTokens["position"] = position;
 		}
+
+		public ThingBlock(string thingName, Vector3 position, Quaternion orientation) {
+			ThingName = thingName;
+			SetUpDictionaries();
+			VectorTokens["position"] = position;
+			QuatTokens["orientation"] = orientation;
+		}
 	}
 }

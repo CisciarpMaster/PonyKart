@@ -1,14 +1,10 @@
-material AppleTree
-{
+material AppleTree {
 	receive_shadows off
 	
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture apple_tree_v2_diff.jpg
+	technique {
+		pass {
+			texture_unit {
+				texture apple_tree_v2_diff.dds
 			}
 		}
 	}
@@ -25,50 +21,81 @@ material AppleBillboard {
 			transparent_sorting on
 			
 			texture_unit {
-				texture apple_alpha.png
+				texture apple_alpha.dds
 				tex_address_mode clamp
 			}
 		}
 	}
 }
 
-material Farmhouse
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture farmhouse.jpg
+material Farmhouse {
+	technique {
+		pass {
+			texture_unit {
+				texture farmhouse.dds
 			}
 		}
 	}
 }
 
-material Fences
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture fencetex.png
+material Fences {
+	technique {
+		pass {
+			texture_unit {
+				texture fencetex.dds
 			}
 		}
 	}
 }
 
-material Well
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture well.jpg
+material Well {
+	technique {
+		pass {
+			texture_unit {
+				texture well.dds
+			}
+		}
+	}
+}
+
+material SAA_Bridge {
+	technique {
+		pass {
+			texture_unit {
+				texture bridge_wood.jpg
+			}
+		}
+	}
+}
+
+
+material AppleContainer {
+	technique {
+		pass {
+			texture_unit {
+				texture apple_container.dds
+			}
+		}
+	}
+}
+
+
+material HayBale {
+	technique {
+		pass {
+			texture_unit {
+				texture HAYBALE.png
+			}
+		}
+	}
+}
+
+
+material Bucket {
+	technique {
+		pass {
+			texture_unit {
+				texture Bucket.dds
 			}
 		}
 	}

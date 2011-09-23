@@ -2,7 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
-Static = true
+//Static = true
 
 Model {
 	Name = "Entity#0"

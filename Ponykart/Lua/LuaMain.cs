@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using LuaInterface;
 using LuaNetInterface;
 using Ponykart.Levels;
 using Ponykart.Properties;
@@ -126,7 +127,7 @@ namespace Ponykart.Lua {
 				try {
 					LuaVM.Lua.DoFile(filename);
 				}
-				catch (Exception ex) {
+				catch (LuaException ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
 					foreach (var v in ex.Data)
 						Launch.Log("[Lua] " + v);
@@ -157,6 +158,7 @@ namespace Ponykart.Lua {
 		public void Restart() {
 			Quit();
 			LuaVM.Lua.Dispose();
+
 			LuaVM = new LuaVirtualMachine();
 			RunRegisterEvent();
 		}

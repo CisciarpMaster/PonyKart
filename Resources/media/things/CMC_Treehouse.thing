@@ -1,0 +1,209 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Environment
+CollidesWith = Environment
+//Static = true
+
+Model {
+	Mesh = "CMC_Treehouse_Extras.mesh"
+	Position = 0, 0, 0
+	Scale = 0.3, 0.3, 0.3
+	CastsShadows = true
+}
+Model {
+	Mesh = "CMC_Treehouse_Main.mesh"
+	Position = 0, 0, 0
+	Scale = 0.3, 0.3, 0.3
+	CastsShadows = true
+}
+Model {
+	Mesh = "CMC_Treehouse_Ramps.mesh"
+	Position = 0, 0, 0
+	Scale = 0.3, 0.3, 0.3
+	CastsShadows = true
+}
+Model {
+	Mesh = "CMC_Treehouse_Transparent.mesh"
+	Position = 0, 0, 0
+	Scale = 0.3, 0.3, 0.3
+	CastsShadows = false
+}
+Model {
+	Mesh = "CMC_Treehouse_Tree.mesh"
+	Position = 0, 0, 0
+	Scale = 0.3, 0.3, 0.3
+	CastsShadows = true
+}
+
+
+
+// box#8
+Shape {
+	Type = Box
+	Position = 15.74985, 2.571675, 1.173042
+	Orientation = 0, 0, -0.0130896, 0.999914
+	Dimensions = 0.635808, 6.030465, 1.5
+}
+// box#9
+Shape {
+	Type = Box
+	Position = 14.08332, 2.466765, 0.9162945
+	Orientation = -0.189789, -0.684356, 0.170317, 0.683102
+	Dimensions = 0.635808, 6.551325, 1.5
+}
+// cone#0
+Shape {
+	Type = Cone
+	Position = -2.34285, 6.635895, 2.011035
+	Height = 13.22937
+	Radius = 3.225
+}
+// cylinder#0
+Shape {
+	Type = Cylinder
+	Position = -0.688248, 0.445896, -0.1165334
+	Orientation = -0.133671, 0.825099, 0.326174, 0.441537
+	Dimensions = 2.60283, 6.361125, 3.078345
+}
+// cylinder#1
+Shape {
+	Type = Cylinder
+	Position = 0.29088, 0.8235795, 3.16755
+	Orientation = -0.114366, -0.19914, 0.418662, 0.878627
+	Dimensions = 2.821155, 6.361125, 3.078345
+}
+// cylinder#2
+Shape {
+	Type = Cylinder
+	Position = -2.39904, 1.010074, 4.25799
+	Orientation = -0.257923, -0.61701, 0.205263, 0.714592
+	Dimensions = 2.821155, 6.361125, 2.225685
+}
+// cylinder#3
+Shape {
+	Type = Cylinder
+	Position = -4.705245, 0.9272956, 2.483985
+	Orientation = -0.0631812, 0.153001, -0.316114, 0.934169
+	Dimensions = 2.821155, 6.361125, 2.225685
+}
+// cylinder#4
+Shape {
+	Type = Cylinder
+	Position = -4.2285, 0.274179, -0.618132
+	Orientation = 0.398646, 0.808813, 0.1404, 0.408889
+	Dimensions = 2.821155, 6.361125, 2.675475
+}
+// capsule#5
+Shape {
+	Type = Capsule
+	Position = 15.58845, 15.945, 5.152305
+	Orientation = 0.0412603, 0.0290264, -0.102665, 0.993436
+	Height = 6.613155
+	Radius = 0.5677177
+}
+// cylinder#5
+Shape {
+	Type = Cylinder
+	Position = -0.700209, 23.1132, -0.08469405
+	Orientation = -0.0961255, -0.0370151, 0.143638, 0.984255
+	Dimensions = 4.035765, 6.48078, 1.90242
+}
+// capsule#0
+Shape {
+	Type = Capsule
+	Position = -2.231685, 5.71017, 2.445735
+	Height = 4.2
+	Radius = 2.1
+}
+// cone#1
+Shape {
+	Type = Cone
+	Position = -1.935525, 7.24107, 1.892265
+	Orientation = 1.5, 0, 0, 0
+	Height = 5.713935
+	Radius = 5.25
+}
+// capsule#1
+Shape {
+	Type = Capsule
+	Position = 4.597425, 8.592629, 3.89226
+	Orientation = 0.0916656, 0.0027311, -0.625918, 0.774479
+	Height = 14.64993
+	Radius = 1.10982
+}
+// capsule#2
+Shape {
+	Type = Capsule
+	Position = -4.60026, 8.78901, 0.313686
+	Orientation = -0.284201, -0.182804, 0.509152, 0.791566
+	Height = 5.63514
+	Radius = 1.072747
+}
+// capsule#3
+Shape {
+	Type = Capsule
+	Position = -8.295361, 11.397, -2.77077
+	Orientation = -0.163456, -0.218557, 0.35428, 0.894428
+	Height = 5.63514
+	Radius = 0.8443575
+}
+// capsule#4
+Shape {
+	Type = Capsule
+	Position = 13.01149, 11.30042, 5.047935
+	Orientation = -0.0171418, 0.0299706, -0.419346, 0.90717
+	Height = 5.019105
+	Radius = 0.93216
+}
+// box#0
+Shape {
+	Type = Box
+	Position = -0.3240735, 13.60349, 1.211769
+	Dimensions = 12.81174, 6.951406, 9.881055
+}
+// box#1
+Shape {
+	Type = Box
+	Position = 0.2061705, 10.03047, 0.08536005
+	Dimensions = 15.32295, 0.5244345, 13.22844
+}
+// box#2
+Shape {
+	Type = Box
+	Position = 6.70809, 11.47575, 0.0970446
+	Dimensions = 2.17641, 2.47311, 13.24662
+}
+// box#3
+Shape {
+	Type = Box
+	Position = 0.3691815, 11.47575, -5.051205
+	Dimensions = 14.20772, 2.47311, 2.95401
+}
+// box#4
+Shape {
+	Type = Box
+	Position = -0.3240735, 16.1904, 0.6720675
+	Orientation = -0.333807, 0, 0, 0.942641
+	Dimensions = 13.2, 7.519665, 7.519665
+}
+// box#5
+Shape {
+	Type = Box
+	Position = -0.3240735, 16.0467, 2.11164
+	Orientation = -0.438371, 0, 0, 0.898794
+	Dimensions = 13.2, 7.919385, 7.519665
+}
+// box#6
+Shape {
+	Type = Box
+	Position = 12.03132, 7.786965, 1.279778
+	Orientation = 0, 0, -0.241922, 0.970296
+	Dimensions = 9.372015, 0.8911845, 3.563265
+}
+// box#7
+Shape {
+	Type = Box
+	Position = 13.98003, 3.076635, -4.77081
+	Orientation = -0.198495, 0.679014, -0.203648, 0.676807
+	Dimensions = 10.37289, 0.8911845, 4.07388
+}

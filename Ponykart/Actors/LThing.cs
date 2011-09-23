@@ -34,6 +34,8 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected StaticGeometry StaticGeometry { get; set; }
 
+		protected InstancedGeometry InstancedGeometry { get; set; }
+
 
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
@@ -125,6 +127,7 @@ namespace Ponykart.Actors {
 			RootNode.SetInitialState();
 
 			SetupStaticGeom(template, def);
+			SetupInstancedGeom(template, def);
 
 			SetupPhysics(template, def);
 
@@ -147,6 +150,10 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
 			// create our root node
+			if (LKernel.GetG<SceneManager>().HasSceneNode(Name + ID))
+				// for some reason, sometimes two LThings are created at once and end up using the same ID or something stupid I don't know.
+				// This stops that error from happening though, so I'm not complaining!
+				ID = IDs.New;
 			RootNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
 		}
 
@@ -183,6 +190,22 @@ namespace Ponykart.Actors {
 				StaticGeometry.AddSceneNode(RootNode);
 				// once you do this, you can't add any new geometry to it
 				StaticGeometry.Build();
+
+				// since now we have two copies of the same geometry, we want to get rid of the old stuff
+				foreach (ModelComponent mc in ModelComponents)
+					mc.Dispose();
+			}
+		}
+
+		protected void SetupInstancedGeom(ThingBlock template, ThingDefinition def) {
+			if (def.GetBoolProperty("Instanced", false)) {
+				// create it
+				InstancedGeometry = LKernel.GetG<SceneManager>().CreateInstancedGeometry(Name + ID);
+				InstancedGeometry.Origin = SpawnPosition;
+				// add all of our meshes and stuff
+				InstancedGeometry.AddSceneNode(RootNode);
+				// once you do this, you can't add any new geometry to it
+				InstancedGeometry.Build();
 
 				// since now we have two copies of the same geometry, we want to get rid of the old stuff
 				foreach (ModelComponent mc in ModelComponents)
@@ -381,6 +404,10 @@ namespace Ponykart.Actors {
 			if (StaticGeometry != null) {
 				StaticGeometry.Dispose();
 				StaticGeometry = null;
+			}
+			if (InstancedGeometry != null) {
+				InstancedGeometry.Dispose();
+				InstancedGeometry = null;
 			}
 
 			base.Dispose(disposing);

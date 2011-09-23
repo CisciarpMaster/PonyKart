@@ -1,0 +1,78 @@
+Physics = Dynamic
+Mass = 40
+CollisionGroup = Default
+CollidesWith = Default
+Friction = 1
+LinearDamping = 0.7
+AngularDamping = 0.7
+Script = "bucket"
+
+// box#0
+Shape {
+	Type = Box
+	Position = 0, 0.443154, -0.547084
+	Orientation = -0.0348995, 0, 0, 0.999391
+	Dimensions = 0.599235, 1, 0.193541
+}
+// Entity#0
+Model {
+	Mesh = "Bucket.mesh"
+	Position = 0, 0.379031, 0
+	CastsShadows = true
+}
+// cylinder#0
+Shape {
+	Type = Cylinder
+	Position = 0.00759642, -0.169688, -0.0119001
+	Orientation = 0, 0, 0, 1
+	Dimensions = 1.08309, 0.209949, 1.21145
+}
+// box#1
+Shape {
+	Type = Box
+	Position = 0, 0.330939, 0.543203
+	Orientation = 0.0828082, 0, 0, 0.996566
+	Dimensions = 0.599235, 1, 0.193541
+}
+// box#2
+Shape {
+	Type = Box
+	Position = -0.546767, 0.355269, -0.0113049
+	Orientation = 0, 0, 0.113203, 0.993572
+	Dimensions = 0.2, 1, 0.6
+}
+// box#3
+Shape {
+	Type = Box
+	Position = 0.539021, 0.355982, -0.0113049
+	Orientation = 0, 0, -0.108867, 0.994056
+	Dimensions = 0.2, 1, 0.6
+}
+// box#4
+Shape {
+	Type = Box
+	Position = 0.421862, 0.354784, 0.341768
+	Orientation = 0.0367191, -0.364657, -0.0932167, 0.925736
+	Dimensions = 0.2, 1, 0.6
+}
+// box#5
+Shape {
+	Type = Box
+	Position = -0.406194, 0.393033, -0.34975
+	Orientation = -0.0271609, -0.365493, 0.0689518, 0.927859
+	Dimensions = 0.2, 1, 0.6
+}
+// box#6
+Shape {
+	Type = Box
+	Position = -0.358736, 0.308673, 0.409092
+	Orientation = 0.0883891, -0.384931, 0.0370646, 0.917955
+	Dimensions = 0.599235, 1, 0.193541
+}
+// box#7
+Shape {
+	Type = Box
+	Position = 0.426076, 0.384458, -0.362141
+	Orientation = -0.0643295, -0.385769, -0.0269756, 0.919955
+	Dimensions = 0.599235, 1.02921, 0.193541
+}

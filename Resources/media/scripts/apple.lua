@@ -21,6 +21,7 @@ function apple(lthing)
 	
 	t = spawn(name, lthing.SpawnPosition)
 	setMaterial(t, mat)
+	deactivateThing(t)
 	
 	lthing:Dispose()
 end

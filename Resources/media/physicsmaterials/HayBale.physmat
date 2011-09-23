@@ -1,0 +1,4 @@
+Friction = 1
+Bounciness = 0
+LinearDamping = 0.8
+AngularDamping = 0.8

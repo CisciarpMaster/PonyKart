@@ -1,5 +1,6 @@
 ﻿using Mogre;
 using Ponykart.Actors;
+using Ponykart.Levels;
 using PonykartParsers;
 
 namespace Ponykart.Core {
@@ -36,6 +37,8 @@ namespace Ponykart.Core {
 			}
 			else 
 				thing = new LThing(template, definition);
+
+			LKernel.Get<LevelManager>().CurrentLevel.AddThing(thing);
 
 #if DEBUG
 			//Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);

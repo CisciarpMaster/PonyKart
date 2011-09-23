@@ -3,8 +3,6 @@ material DashBackground {
 	
 	technique
 	{
-		lod_values 1000
-		
 		pass
 		{
 			lighting off
@@ -12,7 +10,7 @@ material DashBackground {
 			texture_unit
 			{
 				tex_address_mode wrap
-				filtering linear
+				filtering trilinear
 				texture dashbackground.png
 				scroll_anim 0.1 0.05
 				scale 0.075 0.075

@@ -12,7 +12,7 @@ material Chicken_coop_sign
 			
 			texture_unit
 			{
-				texture chickencoopsign.png
+				texture chickencoopsign.dds
 				tex_address_mode clamp
 			}
 		}
@@ -29,7 +29,7 @@ material Chicken_Coop
 			
 			texture_unit
 			{
-				texture chickencoop.jpg
+				texture chickencoop.dds
 			}
 		}
 	}
@@ -43,7 +43,7 @@ material Fences
 		{
 			texture_unit
 			{
-				texture fencetex.png
+				texture fencetex.dds
 			}
 		}
 	}
@@ -57,7 +57,7 @@ material CMC_Treehouse_Ramps
 		{
 			texture_unit
 			{
-				texture CMC_Treehouse_Ramp.jpg
+				texture CMC_Treehouse_Ramp.dds
 			}
 		}
 	}

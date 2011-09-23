@@ -13,7 +13,7 @@ material AppleCartExtras
 			texture_unit
 			{
 				tex_address_mode clamp
-				texture applecart_tex.png
+				texture applecart_tex.dds
 			}
 		}
 	}
@@ -27,7 +27,7 @@ material AppleCart
 		{
 			texture_unit
 			{
-				texture applecart_tex.png
+				texture applecart_tex.dds
 			}
 		}
 	}

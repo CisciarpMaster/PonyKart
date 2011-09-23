@@ -1,0 +1,24 @@
+Physics = Dynamic
+Mass = 200
+CollisionGroup = Default
+CollidesWith = Default
+PhysicsMaterial = "HayBale"
+
+// box#0
+Shape {
+	Type = Box
+	Position = 0, -0.921256, 0
+	Dimensions = 3.5988, 2.1991, 4.32156
+}
+// HayBale3#0
+Model {
+	Mesh = "HayBale3.mesh"
+	Position = 0, 0, 0
+}
+// box#1
+Shape {
+	Type = Box
+	Position = -0.004772, 0.774587, 0.388295
+	Orientation = 0.008304, -0.0155412, -0.0695488, 0.997423
+	Dimensions = 3.45812, 1.77019, 2.47323
+}

@@ -10,9 +10,9 @@ using Node = PonykartParsers.MuffinParser.Node;
 
 namespace PonykartParsers {
 	public class MuffinImporter {
-		RuleInstance root;
-		CultureInfo culture = CultureInfo.InvariantCulture;
-		Collection<string> extraFiles;
+		private RuleInstance root;
+		private static CultureInfo culture = CultureInfo.InvariantCulture;
+		private Collection<string> extraFiles;
 
 		/// <summary>
 		/// Parses a .muffin file and puts it into a WorldDefinition
@@ -36,7 +36,7 @@ namespace PonykartParsers {
 
 			// make the file path
 			string filePath = Settings.Default.MuffinFileLocation + nameOfWorld + Settings.Default.MuffinFileExtension;
-			// if we don't have a save file for this level yet, use the "default" one
+			// if we don't have a muffin file for this level yet, use the "default" one
 			if (!File.Exists(filePath)) {
 				LogManager.Singleton.LogMessage("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
 				Debug.WriteLine("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
@@ -55,10 +55,11 @@ namespace PonykartParsers {
 				using (var reader = new StreamReader(fileStream)) {
 					// for each line in the file
 					while (!reader.EndOfStream) {
-						fileContents += reader.ReadLine() + "\r\n";
+						fileContents += reader.ReadLine() + Environment.NewLine;
 					}
 					reader.Close();
 				}
+				fileStream.Close();
 			}
 
 			extraFiles = new Collection<string>();
