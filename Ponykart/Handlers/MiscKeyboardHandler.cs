@@ -59,6 +59,9 @@ namespace Ponykart.Handlers {
 				/*case KeyCode.KC_L:
 					LKernel.GetG<LuaMain>().DoFile(Settings.Default.LuaFileLocation + "test" + Settings.Default.LuaFileExtension);
 					break;*/
+				case KeyCode.KC_G:
+					LKernel.GetG<UI.UIMain>().MiyagiSys.SerializationManager.ExportToFile("media/gui/serialize.xml");
+					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
 					Process proc = new Process();
