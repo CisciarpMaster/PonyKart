@@ -1,5 +1,6 @@
 ﻿using System;
 using Mogre;
+using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Lua;
 using Ponykart.Properties;
@@ -122,6 +123,8 @@ namespace Ponykart.Levels {
 				LKernel.GetG<LuaMain>().LoadScriptFiles(newLevel.Name);
 				// run our scripts
 				newLevel.RunLevelScripts();
+
+				LKernel.GetG<StaticGeometryManager>().Build();
 			}
 
 			// if we're on the main menu, pause it

@@ -2,6 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
+Static = true
 
 // main tree model
 Model {

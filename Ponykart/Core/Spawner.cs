@@ -27,26 +27,27 @@ namespace Ponykart.Core {
 				Launch.Log("[Spawner] WARNING: Attempted to spawn something while paused!");
 				return null;
 			}
-			LThing thing;
 
-			var definition = LKernel.GetG<ThingDatabase>().GetThingDefinition(thingName);
+			lock (this) {
+				LThing thing;
 
-			if (thingName == "Kart") {
-				thing = new Kart(template, definition);
-				Invoke(OnKartCreation, thing as Kart);
-			}
-			else 
-				thing = new LThing(template, definition);
+				var definition = LKernel.GetG<ThingDatabase>().GetThingDefinition(thingName);
 
-			LKernel.Get<LevelManager>().CurrentLevel.AddThing(thing);
+				if (thingName == "Kart") {
+					thing = new Kart(template, definition);
+					Invoke(OnKartCreation, thing as Kart);
+				}
+				else
+					thing = new LThing(template, definition);
+
+				LKernel.Get<LevelManager>().CurrentLevel.AddThing(thing);
 
 #if DEBUG
-			//Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);
+				//Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);
 #endif
-			Invoke(OnThingCreation, thing);
-
-
-			return thing;
+				Invoke(OnThingCreation, thing);
+				return thing;
+			}
 		}
 
 		/// <summary>

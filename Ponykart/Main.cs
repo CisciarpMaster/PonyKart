@@ -46,7 +46,7 @@ namespace Ponykart {
 		/// Sets up ogre, unsurprisingly
 		/// </summary>
 		private void InitializeOgre() {
-			Splash splash = new Splash(19);
+			Splash splash = new Splash();
 			splash.Show();
 			try {
 				LKernel.LoadInitialObjects(splash);

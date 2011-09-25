@@ -4,6 +4,7 @@ PhysicsMaterial = "Fences"
 CollisionGroup = Walls
 CollidesWith = Walls
 ForceCompound = true
+Static = true
 
 Model {
 	Mesh = "FenceAngled.mesh"

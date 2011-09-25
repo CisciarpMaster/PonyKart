@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
 using System.Linq;
 using LuaInterface;
 using LuaNetInterface;
+using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using Ponykart.UI;
@@ -70,6 +70,20 @@ namespace Ponykart.Lua {
 			}
 		}
 
+		public void DoFunctionForLThing(string functionName, LThing thing) {
+			if (LKernel.GetG<LevelManager>().IsValidLevel) {
+				lock (this) {
+					try {
+						LuaVM.Lua["lthing"] = thing;
+						LuaVM.Lua.GetFunction(functionName).Call(thing);
+					}
+					catch (LuaException ex) {
+						HandleException(ex);
+					}
+				}
+			}
+		}
+
 		/// <summary>
 		/// Runs a lua function
 		/// </summary>
@@ -81,17 +95,11 @@ namespace Ponykart.Lua {
 				try {
 					return LuaVM.Lua.GetFunction(functionName).Call(parameters);
 				}
-				catch (Exception ex) {
-					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
-					foreach (var v in ex.Data)
-						Launch.Log("[Lua] " + v);
-					LKernel.GetG<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
-					Launch.Log(ex.StackTrace);
-					return null;
+				catch (LuaException ex) {
+					HandleException(ex);
 				}
 			}
-			else
-				return null;
+			return null;
 		}
 
 		/// <summary>
@@ -103,12 +111,8 @@ namespace Ponykart.Lua {
 				try {
 					LuaVM.Lua.DoString(s);
 				}
-				catch (Exception ex) {
-					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
-					foreach (var v in ex.Data)
-						Launch.Log("[Lua] " + v);
-					LKernel.Get<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
-					Launch.Log(ex.StackTrace);
+				catch (LuaException ex) {
+					HandleException(ex);
 				}
 			}
 		}
@@ -128,13 +132,20 @@ namespace Ponykart.Lua {
 					LuaVM.Lua.DoFile(filename);
 				}
 				catch (LuaException ex) {
-					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
-					foreach (var v in ex.Data)
-						Launch.Log("[Lua] " + v);
-					LKernel.GetG<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
-					Launch.Log(ex.StackTrace);
+					HandleException(ex);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Handles a lua exception
+		/// </summary>
+		private void HandleException(LuaException ex) {
+			Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
+			foreach (var v in ex.Data)
+				Launch.Log("[Lua] " + v);
+			LKernel.GetG<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
+			Launch.Log(ex.StackTrace);
 		}
 
 		/// <summary>

@@ -29,12 +29,6 @@ namespace Ponykart.Actors {
 		/// A scene node that all of the model components attach stuff to.
 		/// </summary>
 		public SceneNode RootNode { get; protected set; }
-		/// <summary>
-		/// If we don't have static geometry then this will be null.
-		/// </summary>
-		protected StaticGeometry StaticGeometry { get; set; }
-
-		protected InstancedGeometry InstancedGeometry { get; set; }
 
 
 		/// <summary>
@@ -70,7 +64,7 @@ namespace Ponykart.Actors {
 
 
 		protected RigidBodyConstructionInfo Info;
-		protected string Script;
+		public string Script { get; private set; }
 
 
 		public List<ModelComponent> ModelComponents { get; protected set; }
@@ -126,14 +120,13 @@ namespace Ponykart.Actors {
 				RootNode.Scale(SpawnScale);
 			RootNode.SetInitialState();
 
-			SetupStaticGeom(template, def);
-			SetupInstancedGeom(template, def);
-
 			SetupPhysics(template, def);
 
 			// get our script token and run it, if it has one and if this thing was created on the fly instead
 			// of through a .muffin file
-			if (def.StringTokens.TryGetValue("script", out Script)) {
+			string script;
+			if (def.StringTokens.TryGetValue("script", out script)) {
+				this.Script = script;
 				if (LKernel.GetG<LevelManager>().IsValidLevel)
 					RunScript();
 			}
@@ -150,10 +143,6 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
 			// create our root node
-			if (LKernel.GetG<SceneManager>().HasSceneNode(Name + ID))
-				// for some reason, sometimes two LThings are created at once and end up using the same ID or something stupid I don't know.
-				// This stops that error from happening though, so I'm not complaining!
-				ID = IDs.New;
 			RootNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
 		}
 
@@ -163,10 +152,10 @@ namespace Ponykart.Actors {
 		protected void InitialiseComponents(ThingBlock template, ThingDefinition def) {
 			// ogre stuff
 			foreach (var mblock in def.ModelBlocks)
-				ModelComponents.Add(new ModelComponent(this, template, mblock));
+				ModelComponents.Add(new ModelComponent(this, template, mblock, def));
 			// bullet stuff
 			foreach (var sblock in def.ShapeBlocks)
-				ShapeComponents.Add(new ShapeComponent(this, template, sblock));
+				ShapeComponents.Add(new ShapeComponent(this, sblock));
 			// ribbons
 			foreach (var rblock in def.RibbonBlocks)
 				RibbonComponents.Add(new RibbonComponent(this, template, rblock));
@@ -176,41 +165,6 @@ namespace Ponykart.Actors {
 			// sounds
 			foreach (var sblock in def.SoundBlocks)
 				SoundComponents.Add(new SoundComponent(this, template, sblock));
-		}
-
-		/// <summary>
-		/// Set up static geometry if we have some
-		/// </summary>
-		protected void SetupStaticGeom(ThingBlock template, ThingDefinition def) {
-			if (def.GetBoolProperty("Static", false)) {
-				// create it
-				StaticGeometry = LKernel.GetG<SceneManager>().CreateStaticGeometry(Name + ID);
-				StaticGeometry.Origin = SpawnPosition;
-				// add all of our meshes and stuff
-				StaticGeometry.AddSceneNode(RootNode);
-				// once you do this, you can't add any new geometry to it
-				StaticGeometry.Build();
-
-				// since now we have two copies of the same geometry, we want to get rid of the old stuff
-				foreach (ModelComponent mc in ModelComponents)
-					mc.Dispose();
-			}
-		}
-
-		protected void SetupInstancedGeom(ThingBlock template, ThingDefinition def) {
-			if (def.GetBoolProperty("Instanced", false)) {
-				// create it
-				InstancedGeometry = LKernel.GetG<SceneManager>().CreateInstancedGeometry(Name + ID);
-				InstancedGeometry.Origin = SpawnPosition;
-				// add all of our meshes and stuff
-				InstancedGeometry.AddSceneNode(RootNode);
-				// once you do this, you can't add any new geometry to it
-				InstancedGeometry.Build();
-
-				// since now we have two copies of the same geometry, we want to get rid of the old stuff
-				foreach (ModelComponent mc in ModelComponents)
-					mc.Dispose();
-			}
 		}
 
 		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
@@ -351,7 +305,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void RunScript() {
 			if (Script != null)
-				LKernel.GetG<LuaMain>().DoFunction(Script, this);
+				LKernel.GetG<LuaMain>().DoFunctionForLThing(Script, this);
 		}
 
 		/// <summary>
@@ -398,16 +352,6 @@ namespace Ponykart.Actors {
 					world.RemoveRigidBody(Body);
 				Body.Dispose();
 				Body = null;
-			}
-			// we aren't gonna be disposing something static in the middle of a level, so we don't have to tell the scene manager to specifically destroy it,
-			// since it'll be removed in the "DestroyAllStaticGeometry()" thing
-			if (StaticGeometry != null) {
-				StaticGeometry.Dispose();
-				StaticGeometry = null;
-			}
-			if (InstancedGeometry != null) {
-				InstancedGeometry.Dispose();
-				InstancedGeometry = null;
 			}
 
 			base.Dispose(disposing);

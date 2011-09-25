@@ -48,7 +48,7 @@ namespace Ponykart.Handlers {
 					Settings.Default.EnableSounds = !Settings.Default.EnableSounds;
 					break;
 				case KeyCode.KC_N:
-					LKernel.GetG<SoundMain>().Play2D("media/sound/Sweet Apple Acres 128bpm.ogg", true);
+					LKernel.GetG<SoundMain>().Play2D("Sweet Apple Acres 128bpm.ogg", true);
 					break;
 				case KeyCode.KC_U:
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 100000, 0), Vector3.ZERO);

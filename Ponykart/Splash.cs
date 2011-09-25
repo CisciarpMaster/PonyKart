@@ -12,7 +12,7 @@ namespace Ponykart {
 		private IContainer components;
 		private Label LoadingText;
 		private ProgressBar Progress;
-		private int maximum;
+		private readonly int maximum = 20;
 
 		static readonly string LoadingPicture = "media/gui/loading.png";
 
@@ -25,8 +25,7 @@ namespace Ponykart {
 		/// The total calls to .Increment() you are going to do on the splash screen.
 		/// Added to the constructor for convenience.
 		/// </param>
-		public Splash(int numberOfIncrements) {
-			this.maximum = numberOfIncrements;
+		public Splash() {
 			this.InitializeComponent();
 		}
 

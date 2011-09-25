@@ -17,9 +17,9 @@ namespace Ponykart.Actors {
 		/// For physics
 		/// </summary>
 		/// <param name="lthing">The Thing this component is attached to</param>
-		/// <param name="template">The template from the Thing</param>
+		/// 
 		/// <param name="block">The block we're creating this component from</param>
-		public ShapeComponent(LThing lthing, ThingBlock template, ShapeBlock block) {
+		public ShapeComponent(LThing lthing, ShapeBlock block) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Shape = block.Shape;
