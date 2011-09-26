@@ -61,5 +61,14 @@ namespace Ponykart.Lua {
 			if (thing != null && thing.Body != null)
 				thing.Body.ForceActivationState(ActivationState.WantsDeactivation);
 		}
+
+		// ------------------------------------
+
+		[LuaFunction("hookFunctionToCollisionReport", "Hooks a function to the collision reporter's event stuff",
+			"int firstType - the first collision group to listen for", "int secondType - the second collision group to listen for",
+			"function(CollisionReportInfo)")]
+		public static void HookFunctionToCollisionReport(int firstType, int secondType, CollisionReportEvent handler) {
+			LKernel.GetG<CollisionReporter>().AddEvent(firstType, secondType, handler);
+		}
 	}
 }

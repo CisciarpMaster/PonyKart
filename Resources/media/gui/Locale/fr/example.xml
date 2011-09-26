@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<Root>
-  <Key Name="ExampleKey">
-    <Property Name="Text" Value="Bonjour"/>
-	<Property Name="ToolTipText" Value="Bonjour ToolTip"/>
-  </Key>
-</Root>

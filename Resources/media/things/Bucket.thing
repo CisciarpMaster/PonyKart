@@ -5,7 +5,6 @@ CollidesWith = Default
 Friction = 1
 LinearDamping = 0.7
 AngularDamping = 0.7
-//Script = "bucket"
 
 // Entity#0
 Model {

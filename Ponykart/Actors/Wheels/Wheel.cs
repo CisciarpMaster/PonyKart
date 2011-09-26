@@ -65,9 +65,6 @@ namespace Ponykart.Actors {
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
 
-			var particle = LKernel.GetG<SceneManager>().CreateParticleSystem("wheelParticles" + ID, "dirt");
-			Node.AttachObject(particle);
-
 			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
 		}
 

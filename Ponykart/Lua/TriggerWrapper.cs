@@ -110,13 +110,9 @@ namespace Ponykart.Lua {
 			"string nameOfRegion - The name of the trigger region",
 			"function() trigger report handler - (Shape triggerShape, Shape otherShape, TriggerFlags flags)")]
 		public static void HookFunctionToTriggerRegion(string nameOfRegion, TriggerReportEvent trh) {
-			TriggerReporter reporter = LKernel.Get<TriggerReporter>();
-
-			if (reporter != null) {
-				TriggerRegion tr = reporter.AddEvent(nameOfRegion, trh);
-				if (tr != null)
-					AddToDispose(tr, trh);
-			}
+			TriggerRegion tr = LKernel.Get<TriggerReporter>().AddEvent(nameOfRegion, trh);
+			if (tr != null)
+				AddToDispose(tr, trh);
 		}
 	}
 }

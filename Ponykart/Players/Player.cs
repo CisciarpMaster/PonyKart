@@ -18,7 +18,7 @@ namespace Ponykart.Players {
 		/// <summary>
 		/// ID number. Same thing that's used as the array index in PlayerManager.
 		/// </summary>
-		protected int ID;
+		public int ID { get; protected set; }
 		/// <summary>
 		/// Can the player control his kart?
 		/// </summary>
@@ -40,6 +40,7 @@ namespace Ponykart.Players {
 			block.QuatTokens["orientation"] = spawnOrient;
 
 			Kart = LKernel.GetG<Spawner>().Spawn("Kart", block) as Kart;
+			Kart.OwnerID = id;
 			ID = id;
 		}
 

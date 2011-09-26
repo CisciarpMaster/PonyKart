@@ -28,11 +28,13 @@ namespace Ponykart.Lua {
 				return string.Empty;
 		}
 
-		// does this even work, since
-		[LuaFunction("hookFunctionToLevelUnloadEvent", "Hook up a lua function so it will run whenever a level unloads.",
+		/// <summary>
+		/// yeah okay this uses OnLevelPreUnload instead of OnLevelUnload, but the latter wouldn't even work since lua scripts aren't ran when IsValidLevel == false
+		/// </summary>
+		[LuaFunction("hookFunctionToLevelUnloadEvent", "Hook up a lua function so it will run whenever a level is about to unload.",
 			"function(LevelChangedEventArgs)")]
 		public static void HookFunctionToLevelUnloadEvent(LevelEvent func) {
-			LKernel.GetG<LevelManager>().OnLevelUnload += func;
+			LKernel.GetG<LevelManager>().OnLevelPreUnload += func;
 		}
 	}
 }

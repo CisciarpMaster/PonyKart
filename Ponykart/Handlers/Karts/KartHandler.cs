@@ -10,15 +10,16 @@ using Ponykart.Properties;
 
 namespace Ponykart.Handlers {
 	public delegate void KartEvent(Kart kart, DynamicsWorld.ClosestRayResultCallback callback);
+	public delegate void KartGroundEvent(Kart kart, CollisionObject newGround, CollisionObject oldGround);
 
 	/// <summary>
 	/// This handler finds karts that are flying in the air and turns them around so they are facing upwards.
 	/// This stops them from bouncing all over the place when they land.
 	/// At the moment it raycasts downwards and if it's in the air, then it self-rights.
-	/// When it approaches the ground, it changes direction to the ground's normal.
+	/// When it approaches the ground, it changes direction to the ground's normal and makes the kart skid a little.
 	/// </summary>
 	[Handler(HandlerScope.Global)]
-	public class StopKartsFromRollingOverHandler {
+	public class KartHandler {
 		/// <summary>
 		/// This holds all of our self-righting handlers
 		/// </summary>
@@ -31,13 +32,19 @@ namespace Ponykart.Handlers {
 		/// Dictionary of our skidders
 		/// </summary>
 		public ConcurrentDictionary<Kart, Skidder> Skidders { get; private set; }
+		/// <summary>
+		/// What is the kart currently driving on?
+		/// </summary>
+		public ConcurrentDictionary<Kart, CollisionObject> CurrentlyDrivingOn { get; private set; }
 
 		public event KartEvent OnLiftoff;
 		public event KartEvent OnInAir;
 		public event KartEvent OnCloseToTouchdown;
 		public event KartEvent OnTouchdown;
+		public event KartEvent OnGround;
+		public event KartGroundEvent OnGroundChanged;
 
-		public StopKartsFromRollingOverHandler() {
+		public KartHandler() {
 			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
@@ -50,6 +57,7 @@ namespace Ponykart.Handlers {
 				SRHs = new ConcurrentDictionary<Kart, SelfRightingHandler>();
 				Nlerpers = new ConcurrentDictionary<Kart, Nlerper>();
 				Skidders = new ConcurrentDictionary<Kart, Skidder>();
+				CurrentlyDrivingOn = new ConcurrentDictionary<Kart, CollisionObject>();
 
 				LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 			}
@@ -101,7 +109,9 @@ namespace Ponykart.Handlers {
 						// we don't have an SRH, so we're near the ground, but we aren't quite there yet
 						else if (kart.IsInAir)
 							TouchDown(kart, callback);
-						// if we had an "else" here, it would run every frame that the kart is touching the ground.
+						// yeah we're still on the ground
+						else
+							Ground(kart, callback);
 					}
 				}
 			}
@@ -138,6 +148,8 @@ namespace Ponykart.Handlers {
 				SRHs.GetOrAdd(kart, new SelfRightingHandler(kart));
 			// we are in the air
 			kart.IsInAir = true;
+
+			CurrentlyDrivingOn[kart] = null;
 
 			if (OnLiftoff != null)
 				OnLiftoff(kart, callback);
@@ -204,8 +216,33 @@ namespace Ponykart.Handlers {
 			if (Settings.Default.UseNlerpers)
 				AlignKartWithNormal(kart, callback, true, 0.1f);
 
+			CurrentlyDrivingOn[kart] = callback.CollisionObject;
+
 			if (OnTouchdown != null)
 				OnTouchdown(kart, callback);
+		}
+
+		/// <summary>
+		/// Run when our kart is still on the ground
+		/// </summary>
+		private void Ground(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
+			// first get the object we're currently driving on
+			CollisionObject current;
+			if (CurrentlyDrivingOn.TryGetValue(kart, out current)) {
+				// if it's different than the old one, then we need to run our event and update the dictionary
+				if (current != callback.CollisionObject) {
+					// run the event
+					if (OnGroundChanged != null)
+						OnGroundChanged(kart, callback.CollisionObject, CurrentlyDrivingOn[kart]);
+
+					// and then update the dictionary
+					CurrentlyDrivingOn[kart] = callback.CollisionObject;
+				}
+			}
+
+			// run this too
+			if (OnGround != null)
+				OnGround(kart, callback);
 		}
 
 		/// <summary>

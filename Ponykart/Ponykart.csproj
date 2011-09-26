@@ -122,6 +122,7 @@
     <Compile Include="Handlers\DisableWheelFrictionHandler.cs" />
     <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />
     <Compile Include="Handlers\Karts\Nlerper.cs" />
+    <Compile Include="Handlers\Per-level\SAA_WheelParticleHandler.cs" />
     <Compile Include="Handlers\Karts\Skidder.cs" />
     <Compile Include="Handlers\PrimitiveCreatorHandler.cs" />
     <Compile Include="Core\RaceCountdown.cs" />
@@ -129,14 +130,14 @@
     <Compile Include="Handlers\Karts\SelfRightingHandler.cs" />
     <Compile Include="Handlers\UI\CountdownUIHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
-    <Compile Include="Handlers\Karts\StopKartsFromRollingOverHandler.cs" />
-    <Compile Include="Kernel\HandlerScope.cs" />
+    <Compile Include="Handlers\Karts\KartHandler.cs" />
     <Compile Include="Levels\LevelType.cs" />
     <Compile Include="Kernel\HandlerAttributes.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
     <Compile Include="Lua\LuaMainWrapper.cs" />
     <Compile Include="Lua\MogreWrapper.cs" />
     <Compile Include="Lua\PhysicsWrapper.cs" />
+    <Compile Include="Lua\PlayerWrapper.cs" />
     <Compile Include="Lua\RaceCountdownWrapper.cs" />
     <Compile Include="Physics\OgreToBulletMesh.cs" />
     <Compile Include="Physics\Collision Reports\CollisionReportInfo.cs" />

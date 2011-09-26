@@ -10,7 +10,6 @@ material Particles/Dirt {
 			
 			texture_unit {
 				texture Dust3.png
-				//texture White_64_Foam1.png
 				tex_address_mode clamp
 			}
 		}

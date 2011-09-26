@@ -48,10 +48,11 @@ namespace Ponykart.Levels {
 
 			// run level loading events
 			var args = new LevelChangedEventArgs {
-				OldLevel = CurrentLevel,
-				NewLevel = new Level(null),
+				OldLevel = new Level(null),
+				NewLevel = CurrentLevel,
 			};
 			Invoke(OnLevelLoad, args);
+			LKernel.LoadLevelHandlers(args.NewLevel);
 
 			IsValidLevel = true;
 
@@ -116,13 +117,14 @@ namespace Ponykart.Levels {
 				// then put Things into our world
 				newLevel.CreateEntities();
 				// then load the rest of the handlers
-				LKernel.LoadLevelHandlers(newLevel.Type);
+				LKernel.LoadLevelHandlers(newLevel);
 
 				IsValidLevel = true;
 
-				LKernel.GetG<LuaMain>().LoadScriptFiles(newLevel.Name);
 				// run our scripts
-				newLevel.RunLevelScripts();
+				LKernel.GetG<LuaMain>().LoadScriptFiles(newLevel.Name);
+				newLevel.RunLevelScript();
+				newLevel.RunThingScripts();
 
 				LKernel.GetG<StaticGeometryManager>().Build();
 			}

@@ -1,9 +1,9 @@
-_appleRadius = 0.7
+local appleRadius = 0.7
 
 -- an apple's radius is 0.75
 function spawnApples(numberOfApples, position)
 	for a = 0, numberOfApples do
-		vspawn("Apple", addVectors(position, vector(0, a * _appleRadius, 0)))
+		vspawn("Apple", addVectors(position, vector(0, a * appleRadius, 0)))
 	end
 end
 
@@ -14,13 +14,13 @@ function spawnMoreApples(lthing, offsetX, offsetY, offsetZ, width, height, lengt
 	local offset = vector(offsetX, offsetY, offsetZ)
 	for x = 0, width - 1 do
 		-- multiply these by the radius of the apple
-		local mx = x * _appleRadius
+		local mx = x * appleRadius
 		
 		for y = 0, height - 1 do
-			local my = y * _appleRadius
+			local my = y * appleRadius
 			
 			for z = 0, length - 1 do
-				local mz = z * _appleRadius
+				local mz = z * appleRadius
 				
 				relativeSpawn("Apple", lthing, addVectors(offset, vector(mx, my, mz)))
 			end

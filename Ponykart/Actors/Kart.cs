@@ -9,6 +9,7 @@ namespace Ponykart.Actors {
 	/// Z is forwards!
 	/// </summary>
 	public class Kart : LThing {
+		public int OwnerID { get; set; }
 		protected override MotionState InitializationMotionState {
 			get { return new DefaultMotionState(); }
 		}
@@ -137,6 +138,22 @@ namespace Ponykart.Actors {
 		public float WheelSpeed {
 			get {
 				return Vehicle.CurrentSpeedKmHour;
+			}
+		}
+
+		public Wheel GetWheel(int id) {
+			WheelID wid = (WheelID) id;
+			switch (wid) {
+				case WheelID.FrontLeft:
+					return WheelFL;
+				case WheelID.FrontRight:
+					return WheelFR;
+				case WheelID.BackLeft:
+					return WheelBL;
+				case WheelID.BackRight:
+					return WheelBR;
+				default:
+					return null;
 			}
 		}
 

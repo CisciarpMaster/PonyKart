@@ -12,7 +12,7 @@ namespace Ponykart {
 		private IContainer components;
 		private Label LoadingText;
 		private ProgressBar Progress;
-		private readonly int maximum = 20;
+		private readonly int maximum = 19;
 
 		static readonly string LoadingPicture = "media/gui/loading.png";
 

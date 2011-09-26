@@ -42,7 +42,7 @@ namespace Ponykart.Lua {
 		/// <param name="o">The class whose functions you want to add to the Lua VM</param>
 		/// <remarks>Shorthand</remarks>
 		public void RegisterLuaFunctions(object o) {
-			Launch.Log("[LuaMain] Registering lua functions from " + o.GetType());
+			Launch.Log("[LuaMain] \tRegistering lua functions from " + o.GetType());
 
 			OnRegister += () => LuaVM.RegisterLuaFunctions(o);
 		}
@@ -50,14 +50,14 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// Loads up all of the script files.
 		/// </summary>
-		/// <param name="levelName"></param>
+		/// <param name="levelName">We will also load files from /levels/levelName/ if it exists</param>
 		public void LoadScriptFiles(string levelName) {
 			// "media/scripts/"
 			string scriptLocation = Settings.Default.LuaFileLocation;
 			Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation);
 
 			// first get all of the scripts that aren't in the /levels/ directory
-			var scripts = Directory.EnumerateFiles(scriptLocation, "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories).Where(s => !s.Contains("/levels\\"));
+			var scripts = Directory.EnumerateFiles(scriptLocation, "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories).Where(s => !s.Contains("/levels"));
 
 			// then get all of the scripts that are in the /levels/ directory (but only the level we're interested in)
 			if (Directory.Exists(Settings.Default.LevelScriptLocation  + levelName + "/")) {

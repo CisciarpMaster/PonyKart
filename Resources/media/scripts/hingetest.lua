@@ -1,8 +1,8 @@
 -- load up our types
-luanet.load_assembly("Mogre")
-luanet.load_assembly("BulletSharp")
-Vector3 = luanet.import_type("Mogre.Vector3")
-HingeConstraint = luanet.import_type("BulletSharp.HingeConstraint")
+--luanet.load_assembly("Mogre")
+--luanet.load_assembly("BulletSharp")
+--Vector3 = luanet.import_type("Mogre.Vector3")
+--HingeConstraint = luanet.import_type("BulletSharp.HingeConstraint")
 
 -- this is run when we create a HingeTest.thing
 function hingetest(lthing)

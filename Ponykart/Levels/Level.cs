@@ -84,10 +84,15 @@ namespace Ponykart.Levels {
 		/// If this documentation is up to date, it should look like:
 		/// "media/scripts/" + Name + "/init/"
 		/// </summary>
-		public void RunLevelScripts() {
+		public void RunLevelScript() {
 			if (Directory.Exists(Settings.Default.LevelScriptLocation + Name + "/"))
 				LKernel.GetG<LuaMain>().LuaVM.Lua.GetFunction(Name).Call(this);
+		}
 
+		/// <summary>
+		/// Runs all of the scripts that the .things have defined, if any
+		/// </summary>
+		public void RunThingScripts() {
 			foreach (LThing l in Things.Values)
 				l.RunScript();
 		}

@@ -217,7 +217,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.05")]
         public float InputCaptureRate {
             get {
                 return ((float)(this["InputCaptureRate"]));
@@ -361,7 +361,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.05")]
         public float SelfRighterRaycastTime {
             get {
                 return ((float)(this["SelfRighterRaycastTime"]));

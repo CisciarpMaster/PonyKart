@@ -112,9 +112,6 @@ namespace Ponykart {
 			// handlers
 			splash.Increment("Loading global handlers...");
 			LoadGlobalHandlers();
-			splash.Increment("Loading level handlers...");
-			LoadLevelHandlers(LevelType.Menu);
-
 
 
 			splash.Increment("Running post-initialisation events...");
@@ -151,12 +148,12 @@ namespace Ponykart {
 		/// <summary>
 		/// Load handlers for each level
 		/// </summary>
-		public static void LoadLevelHandlers(LevelType newLevelType) {
+		public static void LoadLevelHandlers(Level newLevel) {
 			Launch.Log("[Loading] Initialising per-level handlers...");
 
 			IEnumerable<Type> e = LevelHandlerTypes.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
-					 .Where(a => a.LevelType.HasFlag(newLevelType))
+					 .Where(a => a.LevelType.HasFlag(newLevel.Type) && (a.LevelNames.Contains(newLevel.Name) || string.IsNullOrEmpty(a.LevelNames)))
 					 .Count() > 0);
 
 			foreach (Type t in e) {

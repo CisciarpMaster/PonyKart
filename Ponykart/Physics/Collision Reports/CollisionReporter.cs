@@ -83,7 +83,7 @@ namespace Ponykart.Physics {
 					ManifoldPoint point = manifold.GetContactPoint(0);
 
 					// when the actual bodies are touching and not just their AABB's
-					if (point.Distance <= 0) {
+					if (point.Distance <= 0.05) {
 						// see if the other object is in there
 						if (!objectAList.Contains(objectB) || !objectBList.Contains(objectA)) {
 							/*
@@ -207,8 +207,20 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="handler">The method that will run when the event is fired</param>
 		public void AddEvent(PonykartCollisionGroups firstType, PonykartCollisionGroups secondType, CollisionReportEvent handler) {
-			reporters[(int) firstType, (int) secondType] += handler;
-			reporters[(int) secondType, (int) firstType] += handler;
+			AddEvent((int) firstType, (int) secondType, handler);
+		}
+
+		/// <summary>
+		/// Hooks up an event handler to a collision event.
+		/// 
+		/// The order of the two groups do not matter, as it will add them to both [a,b] and [b,a].
+		/// 
+		/// For example, to listen for the player colliding with the wall, you want to use Groups.PlayerID and Groups.WallID.
+		/// </summary>
+		/// <param name="handler">The method that will run when the event is fired</param>
+		public void AddEvent(int firstType, int secondType, CollisionReportEvent handler) {
+			reporters[firstType, secondType] += handler;
+			reporters[secondType, firstType] += handler;
 		}
 
 		/// <summary>
@@ -218,8 +230,18 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="handler">The method that will run when the event is fired</param>
 		public void RemoveEvent(PonykartCollisionGroups firstType, PonykartCollisionGroups secondType, CollisionReportEvent handler) {
-			reporters[(int) firstType, (int) secondType] -= handler;
-			reporters[(int) secondType, (int) firstType] -= handler;
+			RemoveEvent((int) firstType, (int) secondType, handler);
+		}
+
+		/// <summary>
+		/// Removes a handler from a collision event. 
+		/// 
+		/// The order of the two group IDs does not matter, as it will remove from both [a,b] and [b,a].
+		/// </summary>
+		/// <param name="handler">The method that will run when the event is fired</param>
+		public void RemoveEvent(int firstType, int secondType, CollisionReportEvent handler) {
+			reporters[firstType, secondType] -= handler;
+			reporters[secondType, firstType] -= handler;
 		}
 
 		/// <summary>
@@ -237,7 +259,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Clear the dictionary whenever we unload a level
 		/// </summary>
-		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
+		private void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			CurrentlyCollidingWith.Clear();
 		}
 	}

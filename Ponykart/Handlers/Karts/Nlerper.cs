@@ -46,7 +46,7 @@ namespace Ponykart.Handlers {
 			if (_kart != null) {
 				LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
 				Nlerper temp;
-				LKernel.Get<StopKartsFromRollingOverHandler>().Nlerpers.TryRemove(_kart, out temp);
+				LKernel.Get<KartHandler>().Nlerpers.TryRemove(_kart, out temp);
 				_kart = null;
 			}
 		}

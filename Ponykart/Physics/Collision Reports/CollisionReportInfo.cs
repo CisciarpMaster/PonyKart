@@ -42,6 +42,31 @@ namespace Ponykart.Physics {
 		/// Lets us see whether the two objects just started touching or whether they just stopped.
 		/// </summary>
 		public ObjectTouchingFlags Flags { get; set; }
+
+		/// <summary>
+		/// For lua
+		/// </summary>
+		public int IntFlags {
+			get {
+				return (int) Flags;
+			}
+		}
+		/// <summary>
+		/// For lua
+		/// </summary>
+		public int IntFirstGroup {
+			get {
+				return (int) FirstGroup;
+			}
+		}
+		/// <summary>
+		/// For lua
+		/// </summary>
+		public int IntSecondGroup {
+			get {
+				return (int) SecondGroup;
+			}
+		}
 	}
 
 	/// <summary>
@@ -51,10 +76,10 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Two collision objects just started touching
 		/// </summary>
-		StartedTouching,
+		StartedTouching = 1,
 		/// <summary>
 		/// Two collision objects just stopped touching
 		/// </summary>
-		StoppedTouching,
+		StoppedTouching = 2,
 	}
 }

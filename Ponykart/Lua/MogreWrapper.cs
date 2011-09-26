@@ -57,5 +57,12 @@ namespace Ponykart.Lua {
 			quaternion.FromAngleAxis(radians, axis);
 			return quaternion;
 		}
+
+		// ------------------------------------
+
+		[LuaFunction("createParticleSystem", "Creates a particle system", "string - The name of the particle system", "string - The particle template to use")]
+		public static ParticleSystem createParticleSystem(string name, string template) {
+			return LKernel.GetG<SceneManager>().CreateParticleSystem(name, template);
+		}
 	}
 }
