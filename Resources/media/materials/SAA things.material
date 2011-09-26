@@ -62,7 +62,7 @@ material SAA_Bridge {
 	technique {
 		pass {
 			texture_unit {
-				texture bridge_wood.jpg
+				texture bridge_wood.dds
 			}
 		}
 	}

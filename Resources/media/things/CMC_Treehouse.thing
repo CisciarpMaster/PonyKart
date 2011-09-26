@@ -119,7 +119,7 @@ Shape {
 Shape {
 	Type = Cone
 	Position = -1.935525, 7.24107, 1.892265
-	Orientation = 1.5, 0, 0, 0
+	Orientation = 1, 0, 0, 0
 	Height = 5.713935
 	Radius = 5.25
 }

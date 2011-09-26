@@ -30,6 +30,7 @@ namespace PonykartParsers {
 					break;
 				case ThingEnum.Cone:
 					Shape = new ConeShape(GetFloatProperty("radius", null), GetFloatProperty("height", null));
+					(Shape as ConeShape).ConeUpIndex = 1;
 					break;
 				case ThingEnum.Cylinder:
 					Shape = new CylinderShape(GetVectorProperty("dimensions", null) / 2f);
@@ -39,10 +40,9 @@ namespace PonykartParsers {
 					break;
 			}
 
-			Quaternion quat = GetQuatProperty("orientation", Quaternion.IDENTITY);
-			Vector3 rot;
-			if (quat == Quaternion.IDENTITY) {
-				rot = GetVectorProperty("rotation", Vector3.ZERO);
+			Quaternion quat;
+			if (!QuatTokens.TryGetValue("orientation", out quat)) {
+				Vector3 rot = GetVectorProperty("rotation", Vector3.ZERO);
 				quat = GlobalEulerToQuat(new Degree(rot.x), new Degree(rot.y), new Degree(rot.z));
 			}
 

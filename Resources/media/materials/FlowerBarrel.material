@@ -3,6 +3,7 @@ material FlowerBarrelGreen {
 		pass {
 			texture_unit {
 				texture FBgreen_tex.dds
+				tex_address_mode clamp
 			}
 		}
 	}
@@ -13,6 +14,7 @@ material FlowerBarrelRed {
 		pass {
 			texture_unit {
 				texture FBred_tex.dds
+				tex_address_mode clamp
 			}
 		}
 	}
@@ -23,6 +25,7 @@ material FlowerBarrelYellow {
 		pass {
 			texture_unit {
 				texture FByellow_tex.dds
+				tex_address_mode clamp
 			}
 		}
 	}
