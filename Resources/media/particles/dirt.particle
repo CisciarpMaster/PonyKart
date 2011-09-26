@@ -1,0 +1,46 @@
+
+particle_system dirt
+{
+	quota	1000
+	material	Particles/Dirt
+	particle_width	0.5
+	particle_height	0.5
+	cull_each	false
+	billboard_type	point
+
+	emitter Box
+	{
+		angle	82
+		colour	0.619608 0.501961 0.380392 1
+		colour_range_start	0.835294 0.623529 0.341176 1
+		colour_range_end	0.682352 0.525490 0.290196 1
+		direction	0 1 0
+		emission_rate	10
+		position	0 0 0
+		velocity	0.5
+		velocity_min	0.5
+		velocity_max	1
+		time_to_live	1
+		time_to_live_min	1
+		time_to_live_max	1.2
+		width	0.5
+		height	0.1
+		depth	1
+	}
+	affector ColourFader
+	{
+		alpha -0.1
+	}
+
+	affector Scaler
+	{
+		rate	5
+	}
+
+	affector LinearForce
+	{
+		force_vector	0 -10 0
+		force_application	add
+	}
+}
+

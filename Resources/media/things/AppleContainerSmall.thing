@@ -22,8 +22,9 @@ Shape {
 // box#0#0
 Shape {
 	Type = Box
-	Position = 0, -0.349989, 0
-	Dimensions = 2.5, 0.274174, 2.4
+	Position = 0, 0.37337, 0
+	Orientation = 0, 0, 0, 1
+	Dimensions = 2.6889, 1.6459, 2.58134
 }
 // box#2#0
 Shape {

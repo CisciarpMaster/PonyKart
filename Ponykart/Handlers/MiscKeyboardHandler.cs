@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Mogre;
 using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
@@ -72,8 +73,8 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
-					Mogre.MaterialManager.Singleton.ReloadAll(false);
-					Mogre.MeshManager.Singleton.ReloadAll(false);
+					MaterialManager.Singleton.ReloadAll(false);
+					MeshManager.Singleton.ReloadAll(false);
 					Settings.Default.Reload();
 					break;
 			}

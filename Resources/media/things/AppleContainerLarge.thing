@@ -16,8 +16,9 @@ Model {
 // box#0
 Shape {
 	Type = Box
-	Position = 0, -0.679029, 0
-	Dimensions = 3.8, 0.340557, 3.6
+	Position = 0, 0.410229, 0
+	Orientation = 0, 0, 0, 1
+	Dimensions = 3.8, 2.48623, 3.6
 }
 // box#1
 Shape {

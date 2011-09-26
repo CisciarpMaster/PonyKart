@@ -12,11 +12,11 @@ end
 
 -- this on the other hand is huge
 function containerLarge(lthing)
-	spawnMoreApples(lthing, -1.0312, -0.15732, -1.20012, 4, 1, 4)
+	spawnMoreApples(lthing, -1.14589, 2.02102, -1.11799, 4, 1, 4)
 	deactivateThing(lthing)
 end
 
 function containerSmall(lthing)
-	spawnMoreApples(lthing, -0.732017, 0.158708, -0.67916, 3, 1, 3)
+	spawnMoreApples(lthing, -0.662419, 1.5571, -0.639155, 3, 1, 3)
 	deactivateThing(lthing)
 end
