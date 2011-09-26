@@ -167,7 +167,6 @@ namespace Ponykart.Levels {
 			};
 
 			// fire our preUnload events
-			Console.WriteLine("Pre unload");
 			Invoke(OnLevelPreUnload, eventArgs);
 
 			if (delay > 0) {
@@ -258,5 +257,4 @@ namespace Ponykart.Levels {
 			}
 		}
 	}
-
 }

@@ -65,58 +65,39 @@ AppleCart {
 	Orientation = -0.00817085, 0.952011, 0.0238132, 0.305028
 }
 AppleContainerLarge {
-	Position = -308.463, 0.692102, -274.866
+	Position = -308.463, -0.307898, -274.866
 	Orientation = 0, 0.165775, -7.24627E-09, 0.986164
 }
 AppleContainerLarge {
-	Position = -316.292, 4.01027, -219.186
+	Position = -316.292, 3.01027, -219.186
 	Orientation = -0.0477705, -0.23217, 0.0899991, 0.967324
 }
 AppleContainerLarge {
-	Position = -390.843, 0.414072, -273.32
-	Orientation = 0, -0.481267, 2.10368E-08, 0.876574
-}
-AppleContainerLarge {
-	Position = -290.629, 2.57002, -244.015
+	Position = -290.629, 1.57002, -244.015
 	Orientation = 0, -0.0403619, 1.76427E-09, 0.999185
 }
 AppleContainerLarge {
-	Position = -410.146, 1.30363, -325.275
+	Position = -388.855, -0.496803, -287.945
 	Orientation = 0, -0.0403619, 1.76427E-09, 0.999185
 }
+// by the barn
 AppleContainerLarge {
-	Position = -388.855, 0.503197, -287.945
-	Orientation = 0, -0.0403619, 1.76427E-09, 0.999185
-}
-AppleContainerLarge {
-	Position = 60.1759, 1.30589, 225.592
+	Position = 60.1759, 0.30589, 225.592
 	Orientation = 0, 0.165775, -7.24627E-09, 0.986164
 }
-AppleContainerLarge {
-	Position = 65.6926, 1.30589, 231.089
-	Orientation = 0, -0.225796, 9.86986E-09, 0.974175
+AppleContainerSmall {
+	Position = -304.024, 2.0702, -230.673
 }
 AppleContainerSmall {
-	Position = -304.024, 3.0702, -230.673
-}
-AppleContainerSmall {
-	Position = -376.828, 0.0263762, -318.154
+	Position = -376.828, -0.9736238, -318.154
 	Orientation = 0, -0.318961, 1.39422E-08, 0.947768
 }
 AppleContainerSmall {
-	Position = -305.03, 1.15753, -347.024
+	Position = -305.03, 0.15753, -347.024
 	Orientation = 0, -0.318961, 1.39422E-08, 0.947768
 }
 AppleContainerSmall {
-	Position = -300.641, 1.31619, -338.772
-	Orientation = 0, -0.131127, 5.73173E-09, 0.991366
-}
-AppleContainerSmall {
-	Position = -339.761, -4.23281, -276.579
-	Orientation = 0, -0.131127, 5.73173E-09, 0.991366
-}
-AppleContainerSmall {
-	Position = 65.7134, 0.708376, 222.822
+	Position = -339.761, -5.23281, -276.579
 	Orientation = 0, -0.131127, 5.73173E-09, 0.991366
 }
 Bucket {
@@ -162,17 +143,18 @@ CMC_Treehouse {
 	Orientation = 0.0613301, 0.0911103, 0.00562195, 0.993935
 }
 FlowerBarrelGreen {
-	Position = 183.886, 1.32491, 233.664
+	Position = 183.886, 0.32491, 233.664
 }
 FlowerBarrelGreen {
-	Position = 190.223, 1.32491, 229.591
+	Position = 190.223, 0.32491, 229.591
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 }
+// the one by the barn
 FlowerBarrelGreen {
-	Position = 82.7244, 0.642549, 208.17
+	Position = 83.7244, -0.642549, 212.17
 }
 FlowerBarrelGreen {
-	Position = 192.055, 1.37155, 197.47
+	Position = 192.055, 0.37155, 197.47
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 }
 HayBale1 {
@@ -311,8 +293,9 @@ StaticHayBale2 {
 	Position = 191.236, 2.91735, 204.775
 	Orientation = 0.369775, 0.0472707, 0.927663, -0.0217529
 }
+// the one by the barn
 StaticHayBale3 {
-	Position = 103.899, 0.48789, 209.948
+	Position = 101.899, 0.48789, 213.948
 	Orientation = -0.0230363, 0.268176, -0.000563691, 0.963094
 }
 StaticHayBale3 {

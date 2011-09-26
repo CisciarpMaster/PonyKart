@@ -22,8 +22,11 @@ Shape {
 BillboardSet {
 	Material = "FlowerBarrelTransparent"
 	Type = OrientedCommon
-	Width = 2
+	Width = 1
 	Height = 1.562
+	// left, top, right, bottom
+	//TextureCoords = 0.57, 0.938, 0.984, 0.156
+	TextureCoords = 0.57, 0.062, 0.984, 0.844
 	
 	Billboard {
 		Position = -0.738, 3.73, 0.234

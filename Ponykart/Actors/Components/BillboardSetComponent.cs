@@ -44,7 +44,7 @@ namespace Ponykart.Actors {
 			}
 
 			Vector3 vec;
-			if (block.VectorTokens.TryGetValue("UpVector", out vec))
+			if (block.VectorTokens.TryGetValue("upvector", out vec))
 				BillboardSet.CommonUpVector = vec;
 			// sort transparent stuff
 			BillboardSet.SortingEnabled = block.GetBoolProperty("Sort", true);
@@ -54,10 +54,25 @@ namespace Ponykart.Actors {
 			BillboardSet.BillboardRotationType = block.GetBoolProperty("UseVertexRotation", false) ? BillboardRotationType.BBR_TEXCOORD : BillboardRotationType.BBR_VERTEX;
 			// origin
 			ThingEnum originToken;
-			if (block.EnumTokens.TryGetValue("Origin", out originToken)) {
+			if (block.EnumTokens.TryGetValue("origin", out originToken)) {
 				BillboardOrigin origin;
 				if (Enum.TryParse<BillboardOrigin>(originToken + string.Empty, true, out origin))
 					BillboardSet.BillboardOrigin = origin;
+			}
+			BillboardSet.RenderingDistance = block.GetFloatProperty("RenderingDistance", 400);
+
+			// texture coordinates
+			Quaternion rectQ;
+			if (block.QuatTokens.TryGetValue("texturecoords", out rectQ)) {
+				unsafe {
+					var rect = new FloatRect(rectQ.x, rectQ.y, rectQ.z, rectQ.w);
+					BillboardSet.SetTextureCoords(&rect, 1);
+				}
+			}
+
+			// stacks/slices
+			if (block.FloatTokens.ContainsKey("texturestacks") && block.FloatTokens.ContainsKey("textureslices")) {
+				BillboardSet.SetTextureStacksAndSlices((byte) block.GetFloatProperty("TextureStacks", 1), (byte) block.GetFloatProperty("TextureSlices", 1));
 			}
 
 			// and then attach it to our root node
@@ -77,14 +92,14 @@ namespace Ponykart.Actors {
 			Billboard bb = BillboardSet.CreateBillboard(block.GetVectorProperty("Position", null));
 			// set its color if it has one
 			Quaternion quat;
-			if (block.QuatTokens.TryGetValue("Colour", out quat))
+			if (block.QuatTokens.TryGetValue("colour", out quat))
 				bb.Colour = quat.ToColourValue();
 			// and a rotation
 			bb.Rotation = new Degree(block.GetFloatProperty("Rotation", 0));
 
 			// it's best to not do this unless we really need to since it makes it less efficient
 			float height, width;
-			if (block.FloatTokens.TryGetValue("Width", out width) && block.FloatTokens.TryGetValue("Height", out height))
+			if (block.FloatTokens.TryGetValue("width", out width) && block.FloatTokens.TryGetValue("height", out height))
 				bb.SetDimensions(width, height);
 		}
 

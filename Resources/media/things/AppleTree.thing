@@ -8,89 +8,90 @@ Static = true
 Model {
 	Mesh = "AppleTree.mesh"
 	Material = "AppleTree"
-	Position = 0.0116948, -0.156848, -0.0753398
+	Position = 0.0175422, -0.235272, -0.1130097
 	CastsShadows = true
+	Scale = 1.5, 1.5, 1.5
 }
 
 // loads of apples
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = -0.778552, 8.69207, -6.22245
-	Scale = 1.5, 1.5, 1.5
+	Position = -1.167828, 13.03811, -9.333674
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = -2.45999, 10.81, -6.28908
-	Scale = 1.5, 1.5, 1.5
+	Position = -3.689985, 16.215, -9.43362
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = 2.82122, 10.1031, -6.39849
-	Scale = 1.5, 1.5, 1.5
+	Position = 4.23183, 15.15465, -9.597734
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = 0.14703, 6.69354, 3.44465
-	Scale = 1.5, 1.5, 1.5
+	Position = 0.220545, 10.04031, 5.166975
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = 2.66972, 10.9047, 3.3212
-	Scale = 1.5, 1.5, 1.5
+	Position = 4.00458, 16.35705, 4.9818
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = -1.35357, 11.8839, 1.07316
-	Scale = 1.5, 1.5, 1.5
+	Position = -2.030355, 17.82585, 1.60974
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = 0.186206, 5.50255, -3.096
-	Scale = 1.5, 1.5, 1.5
+	Position = 0.279309, 8.253825, -4.644
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = -4.67988, 7.9483, -3.83949
-	Scale = 1.5, 1.5, 1.5
+	Position = -7.01982, 11.92245, -5.759235
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = -2.84156, 4.80079, -2.58525
-	Scale = 1.5, 1.5, 1.5
+	Position = -4.26234, 7.201185, -3.877875
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = 5.31391, 9.15035, -3.59756
-	Scale = 1.5, 1.5, 1.5
+	Position = 7.970865, 13.72552, -5.39634
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = 4.28489, 6.35815, -0.215312
-	Scale = 1.5, 1.5, 1.5
+	Position = 6.427335, 9.537225, -0.322968
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = -5.23201, 11.224, -1.41004
+	Position = -7.848015, 16.836, -2.11506
 	Billboard = true
-	Scale = 1.5, 1.5, 1.5
+	Scale = 2.25, 2.25, 2.25
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = -3.22149, 9.71482, 3.44428
-	Scale = 1.5, 1.5, 1.5
+	Position = -4.832235, 14.57223, 5.16642
+	Scale = 2.25, 2.25, 2.25
 }
 
 // and then our shapes
@@ -98,19 +99,19 @@ Model {
 // capsule#0
 Shape {
 	Type = Capsule
-	Position = 0, 4.75626, 0
-	Height = 9.9432
-	Radius = 1.51723
+	Position = 0, 7.13439, 0
+	Height = 14.9148
+	Radius = 2.275845
 }
 // sphere#0
 Shape {
 	Type = Sphere
-	Position = 1.47667, 8.78674, -1.35936
-	Radius = 4.910805
+	Position = 2.215005, 13.18011, -2.03904
+	Radius = 7.366208
 }
 // sphere#1
 Shape {
 	Type = Sphere
-	Position = -1.02436, 8.9708, -1.88243
-	Radius = 4.286935
+	Position = -1.53654, 13.4562, -2.823645
+	Radius = 6.430402
 }
