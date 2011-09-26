@@ -7,54 +7,55 @@ CollidesWith = Environment
 Model {
 	Mesh = "AppleTree.mesh"
 	Material = "AppleTree"
-	Position = 0.0116948, -0.156848, -0.0753398
+	Position = 0.0175422, -0.235272, -0.1130097
+	Scale = 1.5, 1.5, 1.5
 	CastsShadows = true
 }
 
 BillboardSet {
 	// loads of apples
 	Material = "AppleBillboard"
-	Width = 1.5
-	Height = 1.5
+	Width = 2.25
+	Height = 2.25
 	Type = OrientedCommon
 
 	Billboard {
-		Position = -0.778552, 8.69207, -6.22245
+		Position = -1.167828, 13.03811, -9.333674
 	}
 	Billboard {
-		Position = -2.45999, 10.81, -6.28908
+		Position = -3.689985, 16.215, -9.43362
 	}
 	Billboard {
-		Position = 2.82122, 10.1031, -6.39849
+		Position = 4.23183, 15.15465, -9.597734
 	}
 	Billboard {
-		Position = 0.14703, 6.69354, 3.44465
+		Position = 0.220545, 10.04031, 5.166975
 	}
 	Billboard {
-		Position = 2.66972, 10.9047, 3.3212
+		Position = 4.00458, 16.35705, 4.9818
 	}
 	Billboard {
-		Position = -1.35357, 11.8839, 1.07316
+		Position = -2.030355, 17.82585, 1.60974
 	}
 	Billboard {
-		Position = 0.186206, 5.50255, -3.096
+		Position = 0.279309, 8.253825, -4.644
 	}
 	Billboard {
-		Position = -4.67988, 7.9483, -3.83949
+		Position = -7.01982, 11.92245, -5.759235
 	}
 	Billboard {
-		Position = -2.84156, 4.80079, -2.58525
+		Position = -4.26234, 7.201185, -3.877875
 	}
 	Billboard {
-		Position = 5.31391, 9.15035, -3.59756
+		Position = 7.970865, 13.72552, -5.39634
 	}
 	Billboard {
-		Position = 4.28489, 6.35815, -0.215312
+		Position = 6.427335, 9.537225, -0.322968
 	}
 	Billboard {
-		Position = -5.23201, 11.224, -1.41004
+		Position = -7.848015, 16.836, -2.11506
 	}
 	Billboard {
-		Position = -3.22149, 9.71482, 3.44428
+		Position = -4.832235, 14.57223, 5.16642
 	}
 }
