@@ -59,7 +59,7 @@ namespace Ponykart.Handlers {
 				}
 
 				// add one of these to the states list
-				kartSpeedStates.Add(KartSpeedState.Slow);
+				kartSpeedStates.Add(KartSpeedState.None);
 			}
 		}
 
@@ -144,7 +144,7 @@ namespace Ponykart.Handlers {
 		}
 
 		enum KartSpeedState {
-			Slow, Medium, Fast
+			None, Slow, Medium, Fast
 		}
 
 		/// <summary>

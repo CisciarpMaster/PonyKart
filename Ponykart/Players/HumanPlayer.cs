@@ -88,7 +88,6 @@ namespace Ponykart.Players {
 				Kart.Bounce();
 			}
 		}
-
 		/// <summary>
 		/// cancel the drift
 		/// </summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using BulletSharp;
-using Mogre;
 using Ponykart.Physics;
 using PonykartParsers;
 
@@ -12,7 +11,7 @@ namespace Ponykart.Actors {
 	public class Kart : LThing {
 		public int OwnerID { get; set; }
 		protected override MotionState InitializationMotionState {
-			get { return new DefaultMotionState(); }
+			get { return new MogreMotionState(this, SpawnPosition, SpawnOrientation, RootNode); }
 		}
 		public float MaxSpeed { get; set; }
 		public float MaxReverseSpeed { get; set; }
@@ -23,7 +22,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsInAir { get; set; }
 		/// <summary>
-		/// For the bounce you do before a drift
+		/// For the bounce you do before a drift. Used to tell whether we should start drifting when we land.
 		/// </summary>
 		public bool IsBouncing { get; set; }
 		/// <summary>
@@ -48,20 +47,6 @@ namespace Ponykart.Actors {
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
 			IsInAir = false;
-
-			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
-		}
-
-		/// <summary>
-		/// We could put this in a motion state, but I want the interpolated one instead
-		/// </summary>
-		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (IsDisposed || Vehicle == null) {
-				return;
-			}
-
-			RootNode.Orientation = Body.WorldTransform.ExtractQuaternion();
-			RootNode.Position = Body.WorldTransform.GetTrans();
 		}
 
 		/// <summary>
@@ -155,18 +140,24 @@ namespace Ponykart.Actors {
 		/// Make the kart bounce up in preparation for drifting, but only if it isn't in the air already
 		/// </summary>
 		public void Bounce() {
+			Body.Activate();
+
 			IsBouncing = true;
+			IsDrifting = false;
+
 			if (!IsInAir) {
-				Body.LinearVelocity += Body.Orientation.YAxis * new Vector3(0, 10, 0);
+				Body.LinearVelocity += RootNode.GetLocalYAxis() * 10;
 			}
 		}
 
 		public void StartDrifting() {
-
+			IsDrifting = true;
+			WheelFL.idealSteerAngle = WheelFR.idealSteerAngle = WheelBL.idealSteerAngle = WheelBR.idealSteerAngle = 90;
 		}
 
 		public void StopDrifting() {
-
+			IsDrifting = false;
+			WheelFL.idealSteerAngle = WheelFR.idealSteerAngle = WheelBL.idealSteerAngle = WheelBR.idealSteerAngle = 0;
 		}
 
 		private float _friction;

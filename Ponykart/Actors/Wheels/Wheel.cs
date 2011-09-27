@@ -88,7 +88,7 @@ namespace Ponykart.Actors {
 		/// Update our node's position and orientation, and also accelerate/brake/turn if we aren't paused
 		/// </summary>
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			WheelInfo info = vehicle.GetWheelInfo(IntWheelID);
+			WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
 			Node.Position = info.WorldTransform.GetTrans();
 			Node.Orientation = info.WorldTransform.ExtractQuaternion();
 
@@ -154,20 +154,22 @@ namespace Ponykart.Actors {
 		readonly float highSpeed = 160;
 		// how much should the wheel's turn angle increase by at slow speeds?
 		readonly float speedTurnMultiplierAtSlowSpeeds = 3f;
-		// the target steer angle (i.e. when we aren't turning)
-		float idealSteerAngle = 0;
 		// how much to increment the wheel's angle by, each frame
 		static readonly Degree steerIncrementTurn = 0.4f;
 		// how much to decrement the whee's angle by, each frame
 		static readonly Degree steerDecrementTurn = 1f;
+		// the angle wheels should try to be at when they aren't turning
+		public Degree idealSteerAngle = 0;
 
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
 		protected void Turn(float timeSinceLastFrame) {
 			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
-			float speedTurnMultiplier = 1;
+			float speedTurnMultiplier;
 			timeSinceLastFrame *= 100;
+
+			// first we figure out what our maximum turn angle is depending on kart speed
 
 			float axleSpeed = vehicle.CurrentSpeedKmHour;
 			// less than the slow speed = extra turn multiplier
@@ -182,12 +184,12 @@ namespace Ponykart.Actors {
 				float maxRelativeSpeed = highSpeed - slowSpeed;
 				speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2f)) * (speedTurnMultiplierAtSlowSpeeds - 1f));
 			}
-			idealSteerAngle = TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier;
+			float targetSteerAngle = (TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier) + idealSteerAngle.ValueRadians;
 
 			float currentAngle = vehicle.GetSteeringValue(IntWheelID);
 			float steerChange;
 
-			if (Math.Abs(idealSteerAngle) < Math.Abs(currentAngle))
+			if (Math.Abs(targetSteerAngle) < Math.Abs(currentAngle))
 				// we are not turning any more, so the wheels are moving back to their forward positions
 				steerChange = steerDecrementTurn.ValueRadians * timeSinceLastFrame;
 			else
@@ -195,19 +197,19 @@ namespace Ponykart.Actors {
 				steerChange = steerIncrementTurn.ValueRadians * timeSinceLastFrame;
 
 			// smooth out the turning
-			if (currentAngle < idealSteerAngle) {
-				if (currentAngle + steerChange <= idealSteerAngle)
+			if (currentAngle < targetSteerAngle) {
+				if (currentAngle + steerChange <= targetSteerAngle)
 					vehicle.SetSteeringValue(currentAngle + steerChange, IntWheelID);
 				// close enough to the ideal angle, so we snap
-				else if (currentAngle + steerChange > idealSteerAngle)
-					vehicle.SetSteeringValue(idealSteerAngle, IntWheelID);
+				else if (currentAngle + steerChange > targetSteerAngle)
+					vehicle.SetSteeringValue(targetSteerAngle, IntWheelID);
 			}
-			else if (currentAngle > idealSteerAngle) {
-				if (currentAngle - steerChange >= idealSteerAngle)
+			else if (currentAngle > targetSteerAngle) {
+				if (currentAngle - steerChange >= targetSteerAngle)
 					vehicle.SetSteeringValue(currentAngle - steerChange, IntWheelID);
 				// can't decrement any more to the ideal angle, so we snap
-				else if (currentAngle - steerChange < idealSteerAngle)
-					vehicle.SetSteeringValue(idealSteerAngle, IntWheelID);
+				else if (currentAngle - steerChange < targetSteerAngle)
+					vehicle.SetSteeringValue(targetSteerAngle, IntWheelID);
 			}
 		}
 

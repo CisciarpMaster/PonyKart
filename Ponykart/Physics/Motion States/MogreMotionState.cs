@@ -31,12 +31,6 @@ namespace Ponykart.Physics {
 		}
 
 		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
-		/// <param name="rotation">In degrees</param>
-		public MogreMotionState(LThing thing, Vector3 position, Vector3 rotation, SceneNode node)
-			: this(thing, position, rotation.DegreeVectorToGlobalQuaternion(), node)
-		{ }
-
-		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
 		public MogreMotionState(LThing thing, SceneNode node)
 			: this(thing, node.Position, node.Orientation, node)
 		{ }
