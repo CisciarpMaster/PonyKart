@@ -13,6 +13,9 @@ namespace Ponykart.Handlers {
 		}
 
 		void ShootPrimitive(KeyEvent ke) {
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
+				return;
+
 			if (ke.key == KeyCode.KC_B) {
 				string type;
 				switch ((int) Math.RangeRandom(0, 5)) {

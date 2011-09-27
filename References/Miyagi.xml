@@ -3093,6 +3093,13 @@
             Gets or sets the skin.
             </summary>
         </member>
+        <member name="P:Miyagi.UI.Controls.SkinnedControl.SkinName">
+            <summary>
+            Sets/gets the name of the skin. Used for serialization only - changing this at runtime will do nothing.
+            
+            (Added by Pyritie)
+            </summary>
+        </member>
         <member name="P:Miyagi.UI.Controls.SkinnedControl.ToolTipStyle">
             <summary>
             Gets or sets the style of the tooltip.
@@ -13137,6 +13144,13 @@
         <member name="P:Miyagi.UI.Controls.Styles.TextStyle.Font">
             <summary>
             Gets or sets the font.
+            </summary>
+        </member>
+        <member name="P:Miyagi.UI.Controls.Styles.TextStyle.FontName">
+            <summary>
+            Sets/gets the name of the font. Used for serialization only - changing this at runtime will do nothing.
+            
+            (Added by Pyritie)
             </summary>
         </member>
         <member name="P:Miyagi.UI.Controls.Styles.TextStyle.ForegroundColour">

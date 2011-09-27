@@ -1,8 +1,5 @@
-﻿using Miyagi.Common;
-using Miyagi.Common.Data;
-using Miyagi.UI.Controls;
+﻿using Miyagi.UI;
 using Ponykart.Levels;
-using Ponykart.Properties;
 using Ponykart.UI;
 
 namespace Ponykart.Handlers {
@@ -11,30 +8,21 @@ namespace Ponykart.Handlers {
 	/// </summary>
 	[Handler(HandlerScope.Global)]
 	public class LoadingUIHandler {
-		Panel panel;
+		GUI loadingGui;
 
 		public LoadingUIHandler() {
 			LKernel.GetG<LevelManager>().OnLevelPostLoad += OnLevelPostLoad;
 			LKernel.GetG<LevelManager>().OnLevelPreUnload += OnLevelPreUnload;
 
-			panel = new Panel("loading screen panel") {
-				Size = new Size((int) Settings.Default.WindowWidth, (int) Settings.Default.WindowHeight),
-				Location = new Point(0, 0),
-				Visible = false,
-				AlwaysOnTop = true,
-				Skin = UIResources.Skins["PKLoadingScreenPanel"],
-				TextureFiltering = TextureFiltering.Linear,
-			};
-
-			LKernel.GetG<UIMain>().Gui.Controls.Add(panel);
+			loadingGui = LKernel.GetG<UIMain>().GetGUI("loading screen gui");
 		}
 
 		void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
-			panel.Visible = false;
+			loadingGui.Visible = false;
 		}
 
 		void OnLevelPreUnload(LevelChangedEventArgs eventArgs) {
-			panel.Visible = true;
+			loadingGui.Visible = true;
 		}
 	}
 }

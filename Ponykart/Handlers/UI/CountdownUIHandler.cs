@@ -1,34 +1,20 @@
-﻿using Miyagi.Common;
-using Miyagi.Common.Data;
-using Miyagi.UI;
+﻿using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Properties;
 using Ponykart.UI;
 
 namespace Ponykart.Handlers {
 	[Handler(HandlerScope.Global)]
 	public class CountdownUIHandler {
 		private Label countLabel;
+		private GUI countGui;
 
 		public CountdownUIHandler() {
 			// set up our label
-			GUI Gui = LKernel.GetG<UIMain>().Gui;
+			countGui = LKernel.GetG<UIMain>().GetGUI("countdown gui");
 
-			countLabel = new Label("countdown label") {
-				Location = new Point(0, 0),
-				Size = new Size((int) Settings.Default.WindowWidth, (int) Settings.Default.WindowHeight),
-				TextStyle = {
-					Alignment = Alignment.MiddleCenter,
-					ForegroundColour = Colours.Magenta,
-					Font = UIResources.Fonts["Celestia"],
-				},
-				Visible = false,
-				Text = string.Empty,
-			};
-
-			Gui.Controls.Add(countLabel);
+			countLabel = countGui.GetControl<Label>("countdown label");
 
 			// hook up to events
 			LKernel.GetG<RaceCountdown>().OnCountdown += new RaceCountdownEvent(OnCountdown);
@@ -36,14 +22,14 @@ namespace Ponykart.Handlers {
 		}
 
 		void OnLevelPreUnload(LevelChangedEventArgs eventArgs) {
-			countLabel.Visible = false;
+			countGui.Visible = false;
 		}
 
 
 		void OnCountdown(RaceCountdownState state) {
 			switch (state) {
 				case RaceCountdownState.Three:
-					countLabel.Visible = true;
+					countGui.Visible = true;
 					countLabel.Text = "3";
 					break;
 				case RaceCountdownState.Two:
@@ -56,7 +42,7 @@ namespace Ponykart.Handlers {
 					countLabel.Text = "Go!";
 					break;
 				case RaceCountdownState.OneSecondAfterGo:
-					countLabel.Visible = false;
+					countGui.Visible = false;
 					break;
 			}
 		}

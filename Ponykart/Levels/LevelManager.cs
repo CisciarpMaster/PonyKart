@@ -45,6 +45,7 @@ namespace Ponykart.Levels {
 				throw new ApplicationException("The LevelManager has already run its post-initialisation events!");
 
 			CurrentLevel = new Level(Settings.Default.MainMenuName);
+			CurrentLevel.ReadMuffin();
 
 			// run level loading events
 			var args = new LevelChangedEventArgs {

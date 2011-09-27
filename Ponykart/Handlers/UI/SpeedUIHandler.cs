@@ -1,6 +1,4 @@
 ﻿#if DEBUG
-using Miyagi.Common;
-using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
 using Mogre;
 using Ponykart.Actors;
@@ -14,26 +12,15 @@ namespace Ponykart.Handlers {
 		Label label;
 
 		public SpeedUIHandler() {
-			var gui = LKernel.GetG<UIMain>().Gui;
+			var gui = LKernel.GetG<UIMain>().GetGUI("level gui");
 
-			label = new Label("speed label") {
-				Location = new Point(10, 400),
-				Size = new Size(500, 300),
-				Visible = true,
-				TextStyle = {
-					Alignment = Alignment.TopLeft,
-					ForegroundColour = Colours.White,
-					Font = UIResources.Fonts["BlueHighway"],
-				},
-				Text = "",
-			};
-			gui.Controls.Add(label);
+			label = gui.GetControl<Label>("speed label");
 
 			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 		}
 
 		float elapsed;
-		const string ret = "\r\n";
+		private static readonly string _ret = "\r\n";
 		bool FrameStarted(FrameEvent evt) {
 			if (elapsed >= 0.1f) {
 				elapsed = 0;
@@ -44,12 +31,12 @@ namespace Ponykart.Handlers {
 					Kart kart = mainPlayer.Kart;
 					
 					label.Text =
-						string.Concat("Speed: ", kart.Vehicle.CurrentSpeedKmHour, ret, 
-						"Turn angle: ", kart.Vehicle.GetSteeringValue((int) WheelID.FrontLeft), ret, 
-						"Linear Velocity: ", kart.Body.LinearVelocity.Length, "  ", kart.Body.LinearVelocity, ret, 
-						"WheelFriction: ", kart.Vehicle.GetWheelInfo(0).FrictionSlip, " , ", kart.Vehicle.GetWheelInfo(2).FrictionSlip, ret, 
-						"Brake? ", kart.WheelFL.IsBrakeOn, ret, 
-						"AccelMultiplier: ", kart.WheelFL.AccelerateMultiplier, ret, 
+						string.Concat("Speed: ", kart.Vehicle.CurrentSpeedKmHour, _ret, 
+						"Turn angle: ", kart.Vehicle.GetSteeringValue((int) WheelID.FrontLeft), _ret, 
+						"Linear Velocity: ", kart.Body.LinearVelocity.Length, "  ", kart.Body.LinearVelocity, _ret, 
+						"WheelFriction: ", kart.Vehicle.GetWheelInfo(0).FrictionSlip, " , ", kart.Vehicle.GetWheelInfo(2).FrictionSlip, _ret, 
+						"Brake? ", kart.WheelFL.IsBrakeOn, _ret, 
+						"AccelMultiplier: ", kart.WheelFL.AccelerateMultiplier, _ret, 
 						"Gravity: ", kart.Body.Gravity);
 				}
 			}

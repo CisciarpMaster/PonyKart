@@ -16,7 +16,7 @@ namespace Ponykart.Handlers {
 		float defaultDirtEmissionRate = -1;
 		float defaultGrassEmissionRate = -1;
 		// woo microimprovements
-		static readonly string hyphen = "-";
+		static readonly string _hyphen = "-";
 
 		/// <summary>
 		/// I mostly put this in C# because running a lua function 10 times every second per kart seemed like it could cause some slowdowns
@@ -39,8 +39,8 @@ namespace Ponykart.Handlers {
 			// create particles for each wheel
 			foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
 				for (int a = 0; a < 4; a++) {
-					var dirt = sceneMgr.CreateParticleSystem(string.Concat("wheelDirtParticle", p.ID, hyphen, a), "dirt");
-					var grass = sceneMgr.CreateParticleSystem(string.Concat("wheelGrassParticle", p.ID, hyphen, a), "grass");
+					var dirt = sceneMgr.CreateParticleSystem(string.Concat("wheelDirtParticle", p.ID, _hyphen, a), "dirt");
+					var grass = sceneMgr.CreateParticleSystem(string.Concat("wheelGrassParticle", p.ID, _hyphen, a), "grass");
 
 					dirt.Emitting = false;
 					grass.Emitting = false;
@@ -49,8 +49,8 @@ namespace Ponykart.Handlers {
 					wheel.Node.AttachObject(dirt);
 					wheel.Node.AttachObject(grass);
 
-					dirtParticles[string.Concat(p.ID, hyphen, a)] = dirt;
-					grassParticles[string.Concat(p.ID, hyphen, a)] = grass;
+					dirtParticles[string.Concat(p.ID, _hyphen, a)] = dirt;
+					grassParticles[string.Concat(p.ID, _hyphen, a)] = grass;
 
 					if (defaultDirtEmissionRate == -1)
 						defaultDirtEmissionRate = dirt.GetEmitter(0).EmissionRate;
@@ -80,7 +80,7 @@ namespace Ponykart.Handlers {
 		/// Sets all of the emission states of the dirt particles of a kart
 		/// </summary>
 		void DirtEmitting(int kartID, bool isEmitting) {
-			string idWithHyphen = kartID + hyphen;
+			string idWithHyphen = kartID + _hyphen;
 			for (int a = 0; a < 4; a++) {
 				dirtParticles[idWithHyphen + a].Emitting = isEmitting;
 			}
@@ -90,7 +90,7 @@ namespace Ponykart.Handlers {
 		/// Sets all of the emission states of the grass particles of a kart
 		/// </summary>
 		void GrassEmitting(int kartID, bool isEmitting) {
-			string idWithHyphen = kartID + hyphen;
+			string idWithHyphen = kartID + _hyphen;
 			for (int a = 0; a < 4; a++) {
 				grassParticles[idWithHyphen + a].Emitting = isEmitting;
 			}
@@ -100,7 +100,7 @@ namespace Ponykart.Handlers {
 		/// Sets all of the emission states of both the dirt and grass particles of a kart
 		/// </summary>
 		void BothEmitting(int kartID, bool isEmitting) {
-			string idWithHyphen = kartID + hyphen;
+			string idWithHyphen = kartID + _hyphen;
 			for (int a = 0; a < 4; a++) {
 				dirtParticles[idWithHyphen + a].Emitting = isEmitting;
 				grassParticles[idWithHyphen + a].Emitting = isEmitting;
@@ -174,7 +174,7 @@ namespace Ponykart.Handlers {
 				}
 
 				// update the particles
-				string idWithHypen = kart.OwnerID + hyphen;
+				string idWithHypen = kart.OwnerID + _hyphen;
 				// make some new emission rates
 				float dirtEmissionRate = (speed / 150) * defaultDirtEmissionRate;
 				float grassEmissionRate = (speed / 150) * defaultGrassEmissionRate;
@@ -189,7 +189,7 @@ namespace Ponykart.Handlers {
 				if (kartSpeedStates[kart.OwnerID] != KartSpeedState.Fast) {
 					kartSpeedStates[kart.OwnerID] = KartSpeedState.Fast;
 
-					string idWithHypen = kart.OwnerID + hyphen;
+					string idWithHypen = kart.OwnerID + _hyphen;
 					for (int a = 0; a < 4; a++) {
 						// update all of the particles to use the default emission rate instead of whatever it was set to before
 						dirtParticles[idWithHypen + a].GetEmitter(0).EmissionRate = defaultDirtEmissionRate;

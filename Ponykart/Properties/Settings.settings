@@ -113,5 +113,8 @@
     <Setting Name="SoundFileLocation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">media/sound/</Value>
     </Setting>
+    <Setting Name="MiyagiXMLExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.mgx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

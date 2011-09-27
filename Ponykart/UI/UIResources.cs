@@ -4,6 +4,7 @@ using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Resources;
 using Miyagi.UI;
+using Miyagi.UI.Controls;
 using Ponykart.Properties;
 
 namespace Ponykart.UI {
@@ -26,6 +27,8 @@ namespace Ponykart.UI {
 		public static void Create(MiyagiSystem system) {
 			CreateFonts(system);
 			CreateSkins();
+
+			CreateFromSerialized(system);
 		}
 
 		/// <summary>
@@ -35,10 +38,10 @@ namespace Ponykart.UI {
 			var fonts = new[]
 				{
 					// load ttf definitions from xml file
-					TrueTypeFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"Fonts/TrueTypeFonts.xml", system)
+					TrueTypeFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "Fonts/TrueTypeFonts" + Settings.Default.MiyagiXMLExtension, system)
 						.Cast<Font>().ToDictionary(f => f.Name),
 					// load image font definitions from xml file
-					ImageFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"Fonts/ImageFonts.xml", system)
+					ImageFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "Fonts/ImageFonts" + Settings.Default.MiyagiXMLExtension, system)
 						.Cast<Font>().ToDictionary(f => f.Name)
 				};
 
@@ -56,34 +59,37 @@ namespace Ponykart.UI {
 
 			var skins = new List<Skin>();
 
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"GUI/Skins.xml"));
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"GUI/PonykartSkins.xml"));
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + @"Cursor/CursorSkin.xml"));
-
-			// manually create Skins
-			/*var logo = new Skin("Logo");
-			var rect = RectangleF.FromLTRB(0, 0, 1, 1);
-			var frame1 = new TextureFrame("Logo1.png", rect, 1000);
-			var frame2 = new TextureFrame("Logo2.png", rect, 800);
-			var frame3 = new TextureFrame("Logo3.png", rect, 600);
-			var frame4 = new TextureFrame("Logo4.png", rect, 400);
-			var frame5 = new TextureFrame("Logo5.png", rect, 200);
-
-			logo.SubSkins["Logo"] = new Texture(frame1, frame2, frame3, frame4, frame5) {
-				FrameAnimationMode = FrameAnimationMode.ForwardBackwardLoop
-			};
-
-			skins.Add(logo);*/
+			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "GUI/Skins" + Settings.Default.MiyagiXMLExtension));
+			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "GUI/PonykartSkins" + Settings.Default.MiyagiXMLExtension));
+			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "Cursor/CursorSkin" + Settings.Default.MiyagiXMLExtension));
 
 			// done
-
 			Skins = skins.ToDictionary(s => s.Name);
+		}
+
+		/// <summary>
+		/// Loads up our GUI from an xml file
+		/// </summary>
+		private static void CreateFromSerialized(MiyagiSystem system) {
+			system.SerializationManager.ImportFromFile(Settings.Default.MiyagiResourcesFileLocation + "serialize" + Settings.Default.MiyagiXMLExtension);
+
+			// the XML only gives us SkinNames and FontNames, so now we have to get them to all use the correct skins/fonts
+			foreach (var control in system.GUIManager.AllControls) {
+				SkinnedControl sc = control as SkinnedControl;
+				if (sc != null) {
+					sc.Skin = Skins[sc.SkinName];
+				}
+
+				Label l = control as Label;
+				if (l != null) {
+					l.TextStyle.Font = Fonts[l.TextStyle.FontName];
+				}
+			}
 		}
 
 		/// <summary>
 		/// Creates the cursor
 		/// </summary>
-		/// <param name="guiMgr">MiyagiSystem.GUIManager</param>
 		public static void CreateCursor(GUIManager guiMgr) {
 			guiMgr.Cursor = new Cursor(Skins["CursorSkin"], new Size(16, 16), Point.Empty);
 			guiMgr.Cursor.SetHotspot(CursorMode.ResizeLeft, new Point(8, 8));

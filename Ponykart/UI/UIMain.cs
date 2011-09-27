@@ -17,7 +17,11 @@ namespace Ponykart.UI {
 		/// <summary>
 		/// Our current GUI layout
 		/// </summary>
-		public GUI Gui { get; private set; }
+		public GUIManager GuiManager {
+			get {
+				return MiyagiSys.GUIManager;
+			}
+		}
 
 		/// <summary>
 		/// Constructor
@@ -32,7 +36,6 @@ namespace Ponykart.UI {
 
 			// set up the system - the first argument has to be "Mogre" because that's the system we're running Miyagi on
 			MiyagiSys = new MiyagiSystem("Mogre");
-			//, new LoggerSettings { File = "Miyagi.log", Level = LoggerLevel.Debug }
 			// load the MOIS plugin
 			MiyagiSys.PluginManager.LoadPlugin("Miyagi.Plugin.Input.Mois.dll", input.InputKeyboard, input.InputMouse);
 
@@ -40,10 +43,9 @@ namespace Ponykart.UI {
 			UIResources.Create(MiyagiSys);
 			UIResources.CreateCursor(MiyagiSys.GUIManager);
 
-			Gui = new GUI();
-
-			// add the GUI to the GUIManager
-			MiyagiSys.GUIManager.GUIs.Add(Gui);
+			// add a default GUI to the GUIManager
+			var gui = new GUI("default GUI");
+			MiyagiSys.GUIManager.GUIs.Add(gui);
 
 			Launch.Log("[Loading] Miyagi loaded!");
 		}
@@ -52,7 +54,7 @@ namespace Ponykart.UI {
 		/// Runs on each frame
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
-			var mgr = MiyagiSys.TwoDManager;
+			//var mgr = MiyagiSys.TwoDManager;
 			//if (mgr.GetElement("FPS") != null) {
 				//mgr.GetElement<Miyagi.TwoD.Layers.TextOverlay>("FPS").Text = "FPS: " + LKernel.Get<RenderWindow>().LastFPS;
 				// guiMgr.GetControl<Miyagi.UI.Controls.Label>("Batch").Text = "Batch: " + root.RenderSystem._getBatchCount();
@@ -62,6 +64,10 @@ namespace Ponykart.UI {
 			if (MiyagiSys != null && !MiyagiSys.IsDisposed)
 				this.MiyagiSys.Update();
 			return true;
+		}
+
+		public GUI GetGUI(string name) {
+			return MiyagiSys.GUIManager.GetGUI(name);
 		}
 
 		protected override void Dispose(bool disposing) {
@@ -97,12 +103,5 @@ namespace Ponykart.UI {
 				// does not have any user data, so we just go with the default
 				return false;
 		}
-
-		/* here, have some sample code
-		 * 
-		 * if I'm doing drag-and-drop inventories, I'll need this somewhere
-		 * http://www.ogre3d.org/addonforums/viewtopic.php?p=77691#p77691
-		 * itemIcon.SuccessfulHitTest += (s, e) => e.Cancel = s == this.MiyagiSystem.GUIManager.GrabbedControl;
-		 */
 	}
 }

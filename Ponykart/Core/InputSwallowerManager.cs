@@ -38,18 +38,18 @@ namespace Ponykart {
 		/// </summary>
 		/// <param name="querier">
 		/// For the most part, just use the keyword "this".
-		/// The thing asking whether the input it swallowed or not.
+		/// The thing asking whether the input is swallowed or not.
 		/// This is needed because otherwise nothing would be able to do anything if the input was swallowed.
 		/// So when we're checking the conditions, we excude any that are managed by the querier.
 		/// </param>
-		/// <returns>Returns whether or not the input is swallowed by something else.</returns>
+		/// <returns>Returns true if the input is swallowed by something else, false otherwise.</returns>
 		public bool IsSwallowed(object querier) {
 			bool result = false;
 			// we go through our conditions to check
-			foreach (Func<bool> f in ThingsToCheck.Keys.Where((f, i) => ThingsToCheck[f] != querier)) {
+			foreach (KeyValuePair<Func<bool>, object> pair in ThingsToCheck.Where((p) => p.Value != querier)) {
 				// and we don't count things that are managed by the querier
 				// We OR the conditions with the result. If any of the conditions are true, the input is swallowed.
-				result |= f.Invoke();
+				result |= pair.Key.Invoke();
 			}
 			return result;
 		}
@@ -58,7 +58,7 @@ namespace Ponykart {
 		/// Is the current input swallowed or not? This method is the same as IsSwallowed(object) but without the extra condition.
 		/// This should be used by objects that do not swallow input themselves.
 		/// </summary>
-		/// <returns>Returns whether or not the input is swallowed.</returns>
+		/// <returns>Returns true if the input is swallowed by something, false otherwise.</returns>
 		public bool IsSwallowed() {
 			bool result = false;
 			// we go through our conditions to check
