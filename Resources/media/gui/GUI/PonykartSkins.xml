@@ -74,27 +74,7 @@
 					<Y>0</Y>
 				</ScrollVector>
 			</SubSkin>
-			<!-- we won't need to disable buttons, so we might as well turn this off -->
-			<!--<SubSkin Name="PKButtonSkin.Disabled">
-				<Frames>
-					<Frame>
-					<FileName>texture.png</FileName>
-					<Duration>0</Duration>
-					<UV>
-						<X>0.500976563</X>
-						<Y>0</Y>
-						<Width>0.25</Width>
-						<Height>0.0625</Height>
-					</UV>
-					</Frame>
-				</Frames>
-				<GpuPrograms />
-				<FrameAnimationMode>ForwardOnce</FrameAnimationMode>
-				<ScrollVector>
-					<X>0</X>
-					<Y>0</Y>
-				</ScrollVector>
-			</SubSkin>-->
+			<!-- we won't need to disable buttons, so we don't have a disabled subskin -->
 			<SubSkin Name="PKButtonSkin.MouseDown">
 				<Frames>
 					<Frame>

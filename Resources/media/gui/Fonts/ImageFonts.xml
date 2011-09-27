@@ -1,1529 +1,4627 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ImageFonts>
-    <ImageFont Name="BlueHighwayImage">
-        <FileName>bluehigh.png</FileName>
-        <SpaceWidth>5</SpaceWidth>
-        <Glyphs>
-            <Glyph Char=" ">
-                <UV>
-                    <X>0</X>
-                    <Y>0</Y>
-                    <Width>0.02083333</Width>
-                    <Height>0.125624985</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="!">
-                <UV>
-                    <X>0.187530518</X>
-                    <Y>0</Y>
-                    <Width>0.0111249993</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="&quot;">
-                <UV>
-                    <X>0.202561766</X>
-                    <Y>0</Y>
-                    <Width>0.0146249989</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="#">
-                <UV>
-                    <X>0.221093014</X>
-                    <Y>0</Y>
-                    <Width>0.0308749974</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="$">
-                <UV>
-                    <X>0.255874276</X>
-                    <Y>0</Y>
-                    <Width>0.0253749974</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="%">
-                <UV>
-                    <X>0.285155535</X>
-                    <Y>0</Y>
-                    <Width>0.030249998</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="&amp;">
-                <UV>
-                    <X>0.3193118</X>
-                    <Y>0</Y>
-                    <Width>0.0351874977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="'">
-                <UV>
-                    <X>0.35840553</X>
-                    <Y>0</Y>
-                    <Width>0.00699999928</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="(">
-                <UV>
-                    <X>0.36931178</X>
-                    <Y>0</Y>
-                    <Width>0.0145624988</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char=")">
-                <UV>
-                    <X>0.387780517</X>
-                    <Y>0</Y>
-                    <Width>0.0144999987</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="*">
-                <UV>
-                    <X>0.406186759</X>
-                    <Y>0</Y>
-                    <Width>0.0287499968</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="+">
-                <UV>
-                    <X>0.438843</X>
-                    <Y>0</Y>
-                    <Width>0.016499998</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char=",">
-                <UV>
-                    <X>0.459249258</X>
-                    <Y>0</Y>
-                    <Width>0.009874999</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="-">
-                <UV>
-                    <X>0.4730305</X>
-                    <Y>0</Y>
-                    <Width>0.0149999987</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char=".">
-                <UV>
-                    <X>0.491936743</X>
-                    <Y>0</Y>
-                    <Width>0.0103749987</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="/">
-                <UV>
-                    <X>0.506218</X>
-                    <Y>0</Y>
-                    <Width>0.0194374975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="0">
-                <UV>
-                    <X>0.529561758</X>
-                    <Y>0</Y>
-                    <Width>0.0301249977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="1">
-                <UV>
-                    <X>0.56359303</X>
-                    <Y>0</Y>
-                    <Width>0.012812499</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="2">
-                <UV>
-                    <X>0.5803118</X>
-                    <Y>0</Y>
-                    <Width>0.0254374985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="3">
-                <UV>
-                    <X>0.6096555</X>
-                    <Y>0</Y>
-                    <Width>0.0241874978</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="4">
-                <UV>
-                    <X>0.637749255</X>
-                    <Y>0</Y>
-                    <Width>0.0263124984</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="5">
-                <UV>
-                    <X>0.667968</X>
-                    <Y>0</Y>
-                    <Width>0.0262499973</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="6">
-                <UV>
-                    <X>0.69812423</X>
-                    <Y>0</Y>
-                    <Width>0.0248124972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="7">
-                <UV>
-                    <X>0.726843</X>
-                    <Y>0</Y>
-                    <Width>0.024312498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="8">
-                <UV>
-                    <X>0.755061746</X>
-                    <Y>0</Y>
-                    <Width>0.0254374985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="9">
-                <UV>
-                    <X>0.78440547</X>
-                    <Y>0</Y>
-                    <Width>0.0249374975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char=":">
-                <UV>
-                    <X>0.81324923</X>
-                    <Y>0</Y>
-                    <Width>0.0109374989</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char=";">
-                <UV>
-                    <X>0.828093</X>
-                    <Y>0</Y>
-                    <Width>0.010062499</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="&lt;">
-                <UV>
-                    <X>0.842061758</X>
-                    <Y>0</Y>
-                    <Width>0.0278124977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="=">
-                <UV>
-                    <X>0.8737805</X>
-                    <Y>0</Y>
-                    <Width>0.0180624984</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="&gt;">
-                <UV>
-                    <X>0.8957492</X>
-                    <Y>0</Y>
-                    <Width>0.0278124977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="?">
-                <UV>
-                    <X>0.927467942</X>
-                    <Y>0</Y>
-                    <Width>0.0218749978</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="@">
-                <UV>
-                    <X>0.9532492</X>
-                    <Y>0</Y>
-                    <Width>0.0301249977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="A">
-                <UV>
-                    <X>0</X>
-                    <Y>0.125</Y>
-                    <Width>0.0281874966</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="B">
-                <UV>
-                    <X>0.03209375</X>
-                    <Y>0.125</Y>
-                    <Width>0.0279374979</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="C">
-                <UV>
-                    <X>0.0639375</X>
-                    <Y>0.125</Y>
-                    <Width>0.0301249977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="D">
-                <UV>
-                    <X>0.09796875</X>
-                    <Y>0.125</Y>
-                    <Width>0.0310624968</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="E">
-                <UV>
-                    <X>0.132937491</X>
-                    <Y>0.125</Y>
-                    <Width>0.0240624975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="F">
-                <UV>
-                    <X>0.16090624</X>
-                    <Y>0.125</Y>
-                    <Width>0.0225624982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="G">
-                <UV>
-                    <X>0.187375</X>
-                    <Y>0.125</Y>
-                    <Width>0.0318749957</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="H">
-                <UV>
-                    <X>0.223156244</X>
-                    <Y>0.125</Y>
-                    <Width>0.0294999965</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="I">
-                <UV>
-                    <X>0.2565625</X>
-                    <Y>0.125</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="J">
-                <UV>
-                    <X>0.271656245</X>
-                    <Y>0.125</Y>
-                    <Width>0.0188749973</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="K">
-                <UV>
-                    <X>0.2944375</X>
-                    <Y>0.125</Y>
-                    <Width>0.0296874978</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="L">
-                <UV>
-                    <X>0.328031242</X>
-                    <Y>0.125</Y>
-                    <Width>0.0236249976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="M">
-                <UV>
-                    <X>0.355562478</X>
-                    <Y>0.125</Y>
-                    <Width>0.0346249975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="N">
-                <UV>
-                    <X>0.394093722</X>
-                    <Y>0.125</Y>
-                    <Width>0.0296249967</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="O">
-                <UV>
-                    <X>0.427624971</X>
-                    <Y>0.125</Y>
-                    <Width>0.032562498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="P">
-                <UV>
-                    <X>0.464093715</X>
-                    <Y>0.125</Y>
-                    <Width>0.0272499975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Q">
-                <UV>
-                    <X>0.495249957</X>
-                    <Y>0.125</Y>
-                    <Width>0.0324999951</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="R">
-                <UV>
-                    <X>0.5316562</X>
-                    <Y>0.125</Y>
-                    <Width>0.0285624973</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="S">
-                <UV>
-                    <X>0.564124942</X>
-                    <Y>0.125</Y>
-                    <Width>0.0259999968</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="T">
-                <UV>
-                    <X>0.5940312</X>
-                    <Y>0.125</Y>
-                    <Width>0.0273124967</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="U">
-                <UV>
-                    <X>0.62525</X>
-                    <Y>0.125</Y>
-                    <Width>0.0291249976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="V">
-                <UV>
-                    <X>0.6582812</X>
-                    <Y>0.125</Y>
-                    <Width>0.0300624967</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="W">
-                <UV>
-                    <X>0.692249954</X>
-                    <Y>0.125</Y>
-                    <Width>0.0454999954</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="X">
-                <UV>
-                    <X>0.7416562</X>
-                    <Y>0.125</Y>
-                    <Width>0.0316249952</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Y">
-                <UV>
-                    <X>0.7771874</X>
-                    <Y>0.125</Y>
-                    <Width>0.0294999965</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Z">
-                <UV>
-                    <X>0.810593665</X>
-                    <Y>0.125</Y>
-                    <Width>0.0273749977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="[">
-                <UV>
-                    <X>0.8418749</X>
-                    <Y>0.125</Y>
-                    <Width>0.0141249988</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="\">
-                <UV>
-                    <X>0.859906137</X>
-                    <Y>0.125</Y>
-                    <Width>0.0206249971</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="]">
-                <UV>
-                    <X>0.8844374</X>
-                    <Y>0.125</Y>
-                    <Width>0.0142499991</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="^">
-                <UV>
-                    <X>0.9025936</X>
-                    <Y>0.125</Y>
-                    <Width>0.0243749972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="_">
-                <UV>
-                    <X>0.9308749</X>
-                    <Y>0.125</Y>
-                    <Width>0.0275624972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="`">
-                <UV>
-                    <X>0.962343633</X>
-                    <Y>0.125</Y>
-                    <Width>0.009749999</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="a">
-                <UV>
-                    <X>0</X>
-                    <Y>0.25</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="b">
-                <UV>
-                    <X>0.0283437483</X>
-                    <Y>0.25</Y>
-                    <Width>0.0251249969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="c">
-                <UV>
-                    <X>0.0573749952</X>
-                    <Y>0.25</Y>
-                    <Width>0.0223749969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="d">
-                <UV>
-                    <X>0.083656244</X>
-                    <Y>0.25</Y>
-                    <Width>0.0255624969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="e">
-                <UV>
-                    <X>0.113124989</X>
-                    <Y>0.25</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="f">
-                <UV>
-                    <X>0.14234373</X>
-                    <Y>0.25</Y>
-                    <Width>0.0158124976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="g">
-                <UV>
-                    <X>0.162062481</X>
-                    <Y>0.25</Y>
-                    <Width>0.0249374975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="h">
-                <UV>
-                    <X>0.190906227</X>
-                    <Y>0.25</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="i">
-                <UV>
-                    <X>0.219249979</X>
-                    <Y>0.25</Y>
-                    <Width>0.0110624991</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="j">
-                <UV>
-                    <X>0.234218732</X>
-                    <Y>0.25</Y>
-                    <Width>0.0105624991</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="k">
-                <UV>
-                    <X>0.248687476</X>
-                    <Y>0.25</Y>
-                    <Width>0.0240624975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="l">
-                <UV>
-                    <X>0.2766562</X>
-                    <Y>0.25</Y>
-                    <Width>0.0110624991</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="m">
-                <UV>
-                    <X>0.291624963</X>
-                    <Y>0.25</Y>
-                    <Width>0.0400624946</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="n">
-                <UV>
-                    <X>0.3355937</X>
-                    <Y>0.25</Y>
-                    <Width>0.0254374985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="o">
-                <UV>
-                    <X>0.364937454</X>
-                    <Y>0.25</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="p">
-                <UV>
-                    <X>0.394156218</X>
-                    <Y>0.25</Y>
-                    <Width>0.0251249969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="q">
-                <UV>
-                    <X>0.423187464</X>
-                    <Y>0.25</Y>
-                    <Width>0.0252499972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="r">
-                <UV>
-                    <X>0.4523437</X>
-                    <Y>0.25</Y>
-                    <Width>0.0168124977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="s">
-                <UV>
-                    <X>0.473062456</X>
-                    <Y>0.25</Y>
-                    <Width>0.0216874983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="t">
-                <UV>
-                    <X>0.4986562</X>
-                    <Y>0.25</Y>
-                    <Width>0.0171249975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="u">
-                <UV>
-                    <X>0.5196875</X>
-                    <Y>0.25</Y>
-                    <Width>0.0255624969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="v">
-                <UV>
-                    <X>0.549156249</X>
-                    <Y>0.25</Y>
-                    <Width>0.0238749981</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="w">
-                <UV>
-                    <X>0.5769375</X>
-                    <Y>0.25</Y>
-                    <Width>0.0392499976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="x">
-                <UV>
-                    <X>0.620093763</X>
-                    <Y>0.25</Y>
-                    <Width>0.021999998</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="y">
-                <UV>
-                    <X>0.646</X>
-                    <Y>0.25</Y>
-                    <Width>0.0245624967</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="z">
-                <UV>
-                    <X>0.674468756</X>
-                    <Y>0.25</Y>
-                    <Width>0.0230624974</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="{">
-                <UV>
-                    <X>0.7014375</X>
-                    <Y>0.25</Y>
-                    <Width>0.0226249974</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="|">
-                <UV>
-                    <X>0.7279687</X>
-                    <Y>0.25</Y>
-                    <Width>0.008062499</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="}">
-                <UV>
-                    <X>0.7399374</X>
-                    <Y>0.25</Y>
-                    <Width>0.0226874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="~">
-                <UV>
-                    <X>0.766531169</X>
-                    <Y>0.25</Y>
-                    <Width>0.0883749947</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char=" ">
-                <UV>
-                    <X>0.6933594</X>
-                    <Y>0.375</Y>
-                    <Width>0.0166015625</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¡">
-                <UV>
-                    <X>0.7138672</X>
-                    <Y>0.375</Y>
-                    <Width>0.0104374988</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¢">
-                <UV>
-                    <X>0.7282109</X>
-                    <Y>0.375</Y>
-                    <Width>0.0243749972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="£">
-                <UV>
-                    <X>0.7564922</X>
-                    <Y>0.375</Y>
-                    <Width>0.0273749977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¤">
-                <UV>
-                    <X>0.78777343</X>
-                    <Y>0.375</Y>
-                    <Width>0.024312498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¥">
-                <UV>
-                    <X>0.8159922</X>
-                    <Y>0.375</Y>
-                    <Width>0.0294999965</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¦">
-                <UV>
-                    <X>0.849398434</X>
-                    <Y>0.375</Y>
-                    <Width>0.0278124977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="§">
-                <UV>
-                    <X>0.881117165</X>
-                    <Y>0.375</Y>
-                    <Width>0.0243749972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¨">
-                <UV>
-                    <X>0.909398437</X>
-                    <Y>0.375</Y>
-                    <Width>0.0209999979</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="©">
-                <UV>
-                    <X>0.9343047</X>
-                    <Y>0.375</Y>
-                    <Width>0.0396874957</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ª">
-                <UV>
-                    <X>0</X>
-                    <Y>0.5</Y>
-                    <Width>0.0231323242</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="«">
-                <UV>
-                    <X>0.0270385742</X>
-                    <Y>0.5</Y>
-                    <Width>0.0233749971</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¬">
-                <UV>
-                    <X>0.05431982</X>
-                    <Y>0.5</Y>
-                    <Width>0.0364990234</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="­">
-                <UV>
-                    <X>0.0947250947</X>
-                    <Y>0.5</Y>
-                    <Width>-0</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="®">
-                <UV>
-                    <X>0.0986313447</X>
-                    <Y>0.5</Y>
-                    <Width>0.0337499976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¯">
-                <UV>
-                    <X>0.1362876</X>
-                    <Y>0.5</Y>
-                    <Width>0.0184374973</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="°">
-                <UV>
-                    <X>0.158631355</X>
-                    <Y>0.5</Y>
-                    <Width>0.0200624987</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="±">
-                <UV>
-                    <X>0.182600111</X>
-                    <Y>0.5</Y>
-                    <Width>0.0364990234</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="²">
-                <UV>
-                    <X>0.223005384</X>
-                    <Y>0.5</Y>
-                    <Width>0.0208129883</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="³">
-                <UV>
-                    <X>0.247724622</X>
-                    <Y>0.5</Y>
-                    <Width>0.0208129883</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="´">
-                <UV>
-                    <X>0.272443861</X>
-                    <Y>0.5</Y>
-                    <Width>0.009687499</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="µ">
-                <UV>
-                    <X>0.286037624</X>
-                    <Y>0.5</Y>
-                    <Width>0.0259999968</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¶">
-                <UV>
-                    <X>0.315943867</X>
-                    <Y>0.5</Y>
-                    <Width>0.0335693359</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="·">
-                <UV>
-                    <X>0.353419453</X>
-                    <Y>0.5</Y>
-                    <Width>0.017364502</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¸">
-                <UV>
-                    <X>0.3746902</X>
-                    <Y>0.5</Y>
-                    <Width>0.0113124987</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¹">
-                <UV>
-                    <X>0.38990894</X>
-                    <Y>0.5</Y>
-                    <Width>0.0208129883</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="º">
-                <UV>
-                    <X>0.414628178</X>
-                    <Y>0.5</Y>
-                    <Width>0.0228271484</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="»">
-                <UV>
-                    <X>0.441361576</X>
-                    <Y>0.5</Y>
-                    <Width>0.0241249967</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¼">
-                <UV>
-                    <X>0.469392836</X>
-                    <Y>0.5</Y>
-                    <Width>0.0344999954</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="½">
-                <UV>
-                    <X>0.5077991</X>
-                    <Y>0.5</Y>
-                    <Width>0.0373749956</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¾">
-                <UV>
-                    <X>0.5490803</X>
-                    <Y>0.5</Y>
-                    <Width>0.034374997</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="¿">
-                <UV>
-                    <X>0.5873616</X>
-                    <Y>0.5</Y>
-                    <Width>0.021937497</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="À">
-                <UV>
-                    <X>0.6132053</X>
-                    <Y>0.5</Y>
-                    <Width>0.0281874966</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Á">
-                <UV>
-                    <X>0.6452991</X>
-                    <Y>0.5</Y>
-                    <Width>0.0281874966</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Â">
-                <UV>
-                    <X>0.67739284</X>
-                    <Y>0.5</Y>
-                    <Width>0.0281874966</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ã">
-                <UV>
-                    <X>0.7094866</X>
-                    <Y>0.5</Y>
-                    <Width>0.0281874966</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ä">
-                <UV>
-                    <X>0.741580367</X>
-                    <Y>0.5</Y>
-                    <Width>0.0281874966</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Å">
-                <UV>
-                    <X>0.77367413</X>
-                    <Y>0.5</Y>
-                    <Width>0.0281874966</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Æ">
-                <UV>
-                    <X>0.8057679</X>
-                    <Y>0.5</Y>
-                    <Width>0.039874997</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ç">
-                <UV>
-                    <X>0.8495491</X>
-                    <Y>0.5</Y>
-                    <Width>0.0301249977</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="È">
-                <UV>
-                    <X>0.8835804</X>
-                    <Y>0.5</Y>
-                    <Width>0.0240624975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="É">
-                <UV>
-                    <X>0.911549151</X>
-                    <Y>0.5</Y>
-                    <Width>0.0240624975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ê">
-                <UV>
-                    <X>0.9395179</X>
-                    <Y>0.5</Y>
-                    <Width>0.0240624975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ë">
-                <UV>
-                    <X>0.9674867</X>
-                    <Y>0.5</Y>
-                    <Width>0.0240624975</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ì">
-                <UV>
-                    <X>0</X>
-                    <Y>0.625</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Í">
-                <UV>
-                    <X>0.0150937485</X>
-                    <Y>0.625</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Î">
-                <UV>
-                    <X>0.0301874969</X>
-                    <Y>0.625</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ï">
-                <UV>
-                    <X>0.0452812463</X>
-                    <Y>0.625</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ð">
-                <UV>
-                    <X>0.0603749938</X>
-                    <Y>0.625</Y>
-                    <Width>0.0310624968</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ñ">
-                <UV>
-                    <X>0.09534374</X>
-                    <Y>0.625</Y>
-                    <Width>0.0296249967</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ò">
-                <UV>
-                    <X>0.128874987</X>
-                    <Y>0.625</Y>
-                    <Width>0.032562498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ó">
-                <UV>
-                    <X>0.165343732</X>
-                    <Y>0.625</Y>
-                    <Width>0.032562498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ô">
-                <UV>
-                    <X>0.201812476</X>
-                    <Y>0.625</Y>
-                    <Width>0.032562498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Õ">
-                <UV>
-                    <X>0.23828122</X>
-                    <Y>0.625</Y>
-                    <Width>0.032562498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ö">
-                <UV>
-                    <X>0.274749964</X>
-                    <Y>0.625</Y>
-                    <Width>0.032562498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="×">
-                <UV>
-                    <X>0.3112187</X>
-                    <Y>0.625</Y>
-                    <Width>0.0364990234</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ø">
-                <UV>
-                    <X>0.351623982</X>
-                    <Y>0.625</Y>
-                    <Width>0.032562498</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ù">
-                <UV>
-                    <X>0.388092726</X>
-                    <Y>0.625</Y>
-                    <Width>0.0291249976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ú">
-                <UV>
-                    <X>0.421123981</X>
-                    <Y>0.625</Y>
-                    <Width>0.0291249976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Û">
-                <UV>
-                    <X>0.454155236</X>
-                    <Y>0.625</Y>
-                    <Width>0.0291249976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ü">
-                <UV>
-                    <X>0.4871865</X>
-                    <Y>0.625</Y>
-                    <Width>0.0291249976</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Ý">
-                <UV>
-                    <X>0.5202177</X>
-                    <Y>0.625</Y>
-                    <Width>0.0294999965</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="Þ">
-                <UV>
-                    <X>0.553624</X>
-                    <Y>0.625</Y>
-                    <Width>0.0256874971</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ß">
-                <UV>
-                    <X>0.58321774</X>
-                    <Y>0.625</Y>
-                    <Width>0.0275624972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="à">
-                <UV>
-                    <X>0.6146865</X>
-                    <Y>0.625</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="á">
-                <UV>
-                    <X>0.6430302</X>
-                    <Y>0.625</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="â">
-                <UV>
-                    <X>0.671373963</X>
-                    <Y>0.625</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ã">
-                <UV>
-                    <X>0.6997177</X>
-                    <Y>0.625</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ä">
-                <UV>
-                    <X>0.728061438</X>
-                    <Y>0.625</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="å">
-                <UV>
-                    <X>0.7564052</X>
-                    <Y>0.625</Y>
-                    <Width>0.0244374983</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="æ">
-                <UV>
-                    <X>0.7847489</X>
-                    <Y>0.625</Y>
-                    <Width>0.0349374972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ç">
-                <UV>
-                    <X>0.823592663</X>
-                    <Y>0.625</Y>
-                    <Width>0.0223749969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="è">
-                <UV>
-                    <X>0.8498739</X>
-                    <Y>0.625</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="é">
-                <UV>
-                    <X>0.879092634</X>
-                    <Y>0.625</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ê">
-                <UV>
-                    <X>0.908311367</X>
-                    <Y>0.625</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ë">
-                <UV>
-                    <X>0.9375301</X>
-                    <Y>0.625</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ì">
-                <UV>
-                    <X>0.966748834</X>
-                    <Y>0.625</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="í">
-                <UV>
-                    <X>0.9818426</X>
-                    <Y>0.625</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="î">
-                <UV>
-                    <X>0</X>
-                    <Y>0.75</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ï">
-                <UV>
-                    <X>0.0150937485</X>
-                    <Y>0.75</Y>
-                    <Width>0.0111874985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ð">
-                <UV>
-                    <X>0.0301874969</X>
-                    <Y>0.75</Y>
-                    <Width>0.0248124972</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ñ">
-                <UV>
-                    <X>0.0589062423</X>
-                    <Y>0.75</Y>
-                    <Width>0.0254374985</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ò">
-                <UV>
-                    <X>0.08824999</X>
-                    <Y>0.75</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ó">
-                <UV>
-                    <X>0.117468737</X>
-                    <Y>0.75</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ô">
-                <UV>
-                    <X>0.146687478</X>
-                    <Y>0.75</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="õ">
-                <UV>
-                    <X>0.175906226</X>
-                    <Y>0.75</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ö">
-                <UV>
-                    <X>0.205124974</X>
-                    <Y>0.75</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="÷">
-                <UV>
-                    <X>0.234343722</X>
-                    <Y>0.75</Y>
-                    <Width>0.0364990234</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ø">
-                <UV>
-                    <X>0.274748981</X>
-                    <Y>0.75</Y>
-                    <Width>0.0253124982</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ù">
-                <UV>
-                    <X>0.3039677</X>
-                    <Y>0.75</Y>
-                    <Width>0.0255624969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ú">
-                <UV>
-                    <X>0.333436459</X>
-                    <Y>0.75</Y>
-                    <Width>0.0255624969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="û">
-                <UV>
-                    <X>0.3629052</X>
-                    <Y>0.75</Y>
-                    <Width>0.0255624969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ü">
-                <UV>
-                    <X>0.392373949</X>
-                    <Y>0.75</Y>
-                    <Width>0.0255624969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="ý">
-                <UV>
-                    <X>0.4218427</X>
-                    <Y>0.75</Y>
-                    <Width>0.0245624967</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-            <Glyph Char="þ">
-                <UV>
-                    <X>0.450311452</X>
-                    <Y>0.75</Y>
-                    <Width>0.0251249969</Width>
-                    <Height>0.1171875</Height>
-                </UV>
-            </Glyph>
-        </Glyphs>
-    </ImageFont>
+	<!-- size 12 -->
+	<ImageFont Name="BlueHighway">
+		<FileName>bluehigh.ttf_Regular_12_96.png</FileName>
+		<Leading>15</Leading>
+		<SpaceWidth>5</SpaceWidth>
+		<TabSize>3</TabSize>
+		<Tracking>0</Tracking>
+		<Glyphs>
+			<Glyph Char=" ">
+				<UV>
+					<X>0</X>
+					<Y>0</Y>
+					<Width>0.02083333</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="!">
+				<UV>
+					<X>0.0078125</X>
+					<Y>0</Y>
+					<Width>0.011125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&quot;">
+				<UV>
+					<X>0.02675</X>
+					<Y>0</Y>
+					<Width>0.014625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="#">
+				<UV>
+					<X>0.0491875</X>
+					<Y>0</Y>
+					<Width>0.030875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="$">
+				<UV>
+					<X>0.08787499</X>
+					<Y>0</Y>
+					<Width>0.025375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="%">
+				<UV>
+					<X>0.1210625</X>
+					<Y>0</Y>
+					<Width>0.03025</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&amp;">
+				<UV>
+					<X>0.159125</X>
+					<Y>0</Y>
+					<Width>0.03518749</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="'">
+				<UV>
+					<X>0.202125</X>
+					<Y>0</Y>
+					<Width>0.006999999</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="(">
+				<UV>
+					<X>0.2169375</X>
+					<Y>0</Y>
+					<Width>0.0145625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=")">
+				<UV>
+					<X>0.2393125</X>
+					<Y>0</Y>
+					<Width>0.0145</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="*">
+				<UV>
+					<X>0.261625</X>
+					<Y>0</Y>
+					<Width>0.02875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="+">
+				<UV>
+					<X>0.2981875</X>
+					<Y>0</Y>
+					<Width>0.0165</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=",">
+				<UV>
+					<X>0.3225</X>
+					<Y>0</Y>
+					<Width>0.009874999</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="-">
+				<UV>
+					<X>0.3401875</X>
+					<Y>0</Y>
+					<Width>0.015</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=".">
+				<UV>
+					<X>0.363</X>
+					<Y>0</Y>
+					<Width>0.010375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="/">
+				<UV>
+					<X>0.3811875</X>
+					<Y>0</Y>
+					<Width>0.0194375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="0">
+				<UV>
+					<X>0.4084375</X>
+					<Y>0</Y>
+					<Width>0.030125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="1">
+				<UV>
+					<X>0.446375</X>
+					<Y>0</Y>
+					<Width>0.0128125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="2">
+				<UV>
+					<X>0.4669999</X>
+					<Y>0</Y>
+					<Width>0.0254375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="3">
+				<UV>
+					<X>0.5002499</X>
+					<Y>0</Y>
+					<Width>0.0241875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="4">
+				<UV>
+					<X>0.5322499</X>
+					<Y>0</Y>
+					<Width>0.0263125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="5">
+				<UV>
+					<X>0.5663749</X>
+					<Y>0</Y>
+					<Width>0.02625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="6">
+				<UV>
+					<X>0.6004374</X>
+					<Y>0</Y>
+					<Width>0.0248125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="7">
+				<UV>
+					<X>0.6330624</X>
+					<Y>0</Y>
+					<Width>0.0243125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="8">
+				<UV>
+					<X>0.6651874</X>
+					<Y>0</Y>
+					<Width>0.0254375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="9">
+				<UV>
+					<X>0.6984374</X>
+					<Y>0</Y>
+					<Width>0.0249375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=":">
+				<UV>
+					<X>0.7311874</X>
+					<Y>0</Y>
+					<Width>0.0109375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=";">
+				<UV>
+					<X>0.7499374</X>
+					<Y>0</Y>
+					<Width>0.0100625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&lt;">
+				<UV>
+					<X>0.7678124</X>
+					<Y>0</Y>
+					<Width>0.0278125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="=">
+				<UV>
+					<X>0.8034374</X>
+					<Y>0</Y>
+					<Width>0.0180625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&gt;">
+				<UV>
+					<X>0.8293124</X>
+					<Y>0</Y>
+					<Width>0.0278125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="?">
+				<UV>
+					<X>0.8649374</X>
+					<Y>0</Y>
+					<Width>0.021875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="@">
+				<UV>
+					<X>0.8946249</X>
+					<Y>0</Y>
+					<Width>0.030125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="A">
+				<UV>
+					<X>0.9325624</X>
+					<Y>0</Y>
+					<Width>0.0281875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="B">
+				<UV>
+					<X>0.9685624</X>
+					<Y>0</Y>
+					<Width>0.0279375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="C">
+				<UV>
+					<X>0</X>
+					<Y>0.06640625</Y>
+					<Width>0.030125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="D">
+				<UV>
+					<X>0.0379375</X>
+					<Y>0.06640625</Y>
+					<Width>0.0310625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="E">
+				<UV>
+					<X>0.0768125</X>
+					<Y>0.06640625</Y>
+					<Width>0.0240625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="F">
+				<UV>
+					<X>0.1086875</X>
+					<Y>0.06640625</Y>
+					<Width>0.0225625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="G">
+				<UV>
+					<X>0.1390625</X>
+					<Y>0.06640625</Y>
+					<Width>0.031875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="H">
+				<UV>
+					<X>0.17875</X>
+					<Y>0.06640625</Y>
+					<Width>0.0295</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="I">
+				<UV>
+					<X>0.2160625</X>
+					<Y>0.06640625</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="J">
+				<UV>
+					<X>0.2350625</X>
+					<Y>0.06640625</Y>
+					<Width>0.018875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="K">
+				<UV>
+					<X>0.26175</X>
+					<Y>0.06640625</Y>
+					<Width>0.0296875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="L">
+				<UV>
+					<X>0.29925</X>
+					<Y>0.06640625</Y>
+					<Width>0.023625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="M">
+				<UV>
+					<X>0.3306875</X>
+					<Y>0.06640625</Y>
+					<Width>0.03462499</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="N">
+				<UV>
+					<X>0.373125</X>
+					<Y>0.06640625</Y>
+					<Width>0.029625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="O">
+				<UV>
+					<X>0.4105625</X>
+					<Y>0.06640625</Y>
+					<Width>0.03256249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="P">
+				<UV>
+					<X>0.4509374</X>
+					<Y>0.06640625</Y>
+					<Width>0.02725</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Q">
+				<UV>
+					<X>0.4859999</X>
+					<Y>0.06640625</Y>
+					<Width>0.0325</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="R">
+				<UV>
+					<X>0.5263124</X>
+					<Y>0.06640625</Y>
+					<Width>0.0285625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="S">
+				<UV>
+					<X>0.5626874</X>
+					<Y>0.06640625</Y>
+					<Width>0.026</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="T">
+				<UV>
+					<X>0.5964999</X>
+					<Y>0.06640625</Y>
+					<Width>0.0273125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="U">
+				<UV>
+					<X>0.6316249</X>
+					<Y>0.06640625</Y>
+					<Width>0.029125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="V">
+				<UV>
+					<X>0.6685624</X>
+					<Y>0.06640625</Y>
+					<Width>0.0300625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="W">
+				<UV>
+					<X>0.7064374</X>
+					<Y>0.06640625</Y>
+					<Width>0.0455</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="X">
+				<UV>
+					<X>0.7597499</X>
+					<Y>0.06640625</Y>
+					<Width>0.031625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Y">
+				<UV>
+					<X>0.7991874</X>
+					<Y>0.06640625</Y>
+					<Width>0.0295</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Z">
+				<UV>
+					<X>0.8364999</X>
+					<Y>0.06640625</Y>
+					<Width>0.027375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="[">
+				<UV>
+					<X>0.8716874</X>
+					<Y>0.06640625</Y>
+					<Width>0.014125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="\">
+				<UV>
+					<X>0.8936248</X>
+					<Y>0.06640625</Y>
+					<Width>0.020625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="]">
+				<UV>
+					<X>0.9220623</X>
+					<Y>0.06640625</Y>
+					<Width>0.01425</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="^">
+				<UV>
+					<X>0.9441248</X>
+					<Y>0.06640625</Y>
+					<Width>0.024375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="_">
+				<UV>
+					<X>0</X>
+					<Y>0.1328125</Y>
+					<Width>0.0275625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="`">
+				<UV>
+					<X>0.035375</X>
+					<Y>0.1328125</Y>
+					<Width>0.009749998</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="a">
+				<UV>
+					<X>0.0529375</X>
+					<Y>0.1328125</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="b">
+				<UV>
+					<X>0.08518749</X>
+					<Y>0.1328125</Y>
+					<Width>0.025125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="c">
+				<UV>
+					<X>0.118125</X>
+					<Y>0.1328125</Y>
+					<Width>0.022375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="d">
+				<UV>
+					<X>0.1483125</X>
+					<Y>0.1328125</Y>
+					<Width>0.0255625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="e">
+				<UV>
+					<X>0.1816875</X>
+					<Y>0.1328125</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="f">
+				<UV>
+					<X>0.2148125</X>
+					<Y>0.1328125</Y>
+					<Width>0.0158125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="g">
+				<UV>
+					<X>0.2384375</X>
+					<Y>0.1328125</Y>
+					<Width>0.0249375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="h">
+				<UV>
+					<X>0.2711875</X>
+					<Y>0.1328125</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="i">
+				<UV>
+					<X>0.3034375</X>
+					<Y>0.1328125</Y>
+					<Width>0.0110625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="j">
+				<UV>
+					<X>0.3223125</X>
+					<Y>0.1328125</Y>
+					<Width>0.0105625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="k">
+				<UV>
+					<X>0.3406875</X>
+					<Y>0.1328125</Y>
+					<Width>0.0240625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="l">
+				<UV>
+					<X>0.3725625</X>
+					<Y>0.1328125</Y>
+					<Width>0.0110625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="m">
+				<UV>
+					<X>0.3914375</X>
+					<Y>0.1328125</Y>
+					<Width>0.04006249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="n">
+				<UV>
+					<X>0.4393125</X>
+					<Y>0.1328125</Y>
+					<Width>0.0254375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="o">
+				<UV>
+					<X>0.4725625</X>
+					<Y>0.1328125</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="p">
+				<UV>
+					<X>0.5056875</X>
+					<Y>0.1328125</Y>
+					<Width>0.025125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="q">
+				<UV>
+					<X>0.538625</X>
+					<Y>0.1328125</Y>
+					<Width>0.02525</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="r">
+				<UV>
+					<X>0.5716875</X>
+					<Y>0.1328125</Y>
+					<Width>0.0168125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="s">
+				<UV>
+					<X>0.5963125</X>
+					<Y>0.1328125</Y>
+					<Width>0.0216875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="t">
+				<UV>
+					<X>0.6258125</X>
+					<Y>0.1328125</Y>
+					<Width>0.017125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="u">
+				<UV>
+					<X>0.65075</X>
+					<Y>0.1328125</Y>
+					<Width>0.0255625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="v">
+				<UV>
+					<X>0.6841251</X>
+					<Y>0.1328125</Y>
+					<Width>0.023875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="w">
+				<UV>
+					<X>0.7158126</X>
+					<Y>0.1328125</Y>
+					<Width>0.03924999</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="x">
+				<UV>
+					<X>0.7628751</X>
+					<Y>0.1328125</Y>
+					<Width>0.022</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="y">
+				<UV>
+					<X>0.7926876</X>
+					<Y>0.1328125</Y>
+					<Width>0.0245625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="z">
+				<UV>
+					<X>0.8250626</X>
+					<Y>0.1328125</Y>
+					<Width>0.0230625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="{">
+				<UV>
+					<X>0.8559376</X>
+					<Y>0.1328125</Y>
+					<Width>0.022625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="|">
+				<UV>
+					<X>0.8863751</X>
+					<Y>0.1328125</Y>
+					<Width>0.008062499</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="}">
+				<UV>
+					<X>0.9022501</X>
+					<Y>0.1328125</Y>
+					<Width>0.0226875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="~">
+				<UV>
+					<X>0</X>
+					<Y>0.1992188</Y>
+					<Width>0.08837499</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="">
+				<UV>
+					<X>0.09618749</X>
+					<Y>0.1992188</Y>
+					<Width>0</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=" ">
+				<UV>
+					<X>0.05151367</X>
+					<Y>0.265625</Y>
+					<Width>0.01660156</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¡">
+				<UV>
+					<X>0.07592773</X>
+					<Y>0.265625</Y>
+					<Width>0.0104375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¢">
+				<UV>
+					<X>0.09417774</X>
+					<Y>0.265625</Y>
+					<Width>0.024375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="£">
+				<UV>
+					<X>0.1263652</X>
+					<Y>0.265625</Y>
+					<Width>0.027375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¤">
+				<UV>
+					<X>0.1615527</X>
+					<Y>0.265625</Y>
+					<Width>0.0243125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¥">
+				<UV>
+					<X>0.1936777</X>
+					<Y>0.265625</Y>
+					<Width>0.0295</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¦">
+				<UV>
+					<X>0.2309902</X>
+					<Y>0.265625</Y>
+					<Width>0.0278125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="§">
+				<UV>
+					<X>0.2666152</X>
+					<Y>0.265625</Y>
+					<Width>0.024375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¨">
+				<UV>
+					<X>0.2988027</X>
+					<Y>0.265625</Y>
+					<Width>0.021</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="©">
+				<UV>
+					<X>0.3276152</X>
+					<Y>0.265625</Y>
+					<Width>0.0396875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ª">
+				<UV>
+					<X>0.3751152</X>
+					<Y>0.265625</Y>
+					<Width>0.02313232</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="«">
+				<UV>
+					<X>0.40606</X>
+					<Y>0.265625</Y>
+					<Width>0.023375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¬">
+				<UV>
+					<X>0.4372475</X>
+					<Y>0.265625</Y>
+					<Width>0.03649902</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="­">
+				<UV>
+					<X>0.481559</X>
+					<Y>0.265625</Y>
+					<Width>0</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="®">
+				<UV>
+					<X>0.4893715</X>
+					<Y>0.265625</Y>
+					<Width>0.03374999</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¯">
+				<UV>
+					<X>0.530934</X>
+					<Y>0.265625</Y>
+					<Width>0.0184375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="°">
+				<UV>
+					<X>0.557184</X>
+					<Y>0.265625</Y>
+					<Width>0.0200625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="±">
+				<UV>
+					<X>0.585059</X>
+					<Y>0.265625</Y>
+					<Width>0.03649902</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="²">
+				<UV>
+					<X>0.6293706</X>
+					<Y>0.265625</Y>
+					<Width>0.02081299</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="³">
+				<UV>
+					<X>0.6579961</X>
+					<Y>0.265625</Y>
+					<Width>0.02081299</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="´">
+				<UV>
+					<X>0.6866215</X>
+					<Y>0.265625</Y>
+					<Width>0.009687498</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="µ">
+				<UV>
+					<X>0.7041215</X>
+					<Y>0.265625</Y>
+					<Width>0.026</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¶">
+				<UV>
+					<X>0.7379341</X>
+					<Y>0.265625</Y>
+					<Width>0.03356934</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="·">
+				<UV>
+					<X>0.7793159</X>
+					<Y>0.265625</Y>
+					<Width>0.0173645</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¸">
+				<UV>
+					<X>0.8044929</X>
+					<Y>0.265625</Y>
+					<Width>0.0113125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¹">
+				<UV>
+					<X>0.8236179</X>
+					<Y>0.265625</Y>
+					<Width>0.02081299</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="º">
+				<UV>
+					<X>0.8522434</X>
+					<Y>0.265625</Y>
+					<Width>0.02282715</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="»">
+				<UV>
+					<X>0.882883</X>
+					<Y>0.265625</Y>
+					<Width>0.024125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¼">
+				<UV>
+					<X>0.9148205</X>
+					<Y>0.265625</Y>
+					<Width>0.0345</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="½">
+				<UV>
+					<X>0.957133</X>
+					<Y>0.265625</Y>
+					<Width>0.037375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¾">
+				<UV>
+					<X>0</X>
+					<Y>0.3320313</Y>
+					<Width>0.03437499</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¿">
+				<UV>
+					<X>0.04218749</X>
+					<Y>0.3320313</Y>
+					<Width>0.0219375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="À">
+				<UV>
+					<X>0.07193749</X>
+					<Y>0.3320313</Y>
+					<Width>0.0281875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Á">
+				<UV>
+					<X>0.1079375</X>
+					<Y>0.3320313</Y>
+					<Width>0.0281875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Â">
+				<UV>
+					<X>0.1439375</X>
+					<Y>0.3320313</Y>
+					<Width>0.0281875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ã">
+				<UV>
+					<X>0.1799375</X>
+					<Y>0.3320313</Y>
+					<Width>0.0281875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ä">
+				<UV>
+					<X>0.2159375</X>
+					<Y>0.3320313</Y>
+					<Width>0.0281875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Å">
+				<UV>
+					<X>0.2519375</X>
+					<Y>0.3320313</Y>
+					<Width>0.0281875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Æ">
+				<UV>
+					<X>0.2879375</X>
+					<Y>0.3320313</Y>
+					<Width>0.03987499</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ç">
+				<UV>
+					<X>0.335625</X>
+					<Y>0.3320313</Y>
+					<Width>0.030125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="È">
+				<UV>
+					<X>0.3735625</X>
+					<Y>0.3320313</Y>
+					<Width>0.0240625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="É">
+				<UV>
+					<X>0.4054375</X>
+					<Y>0.3320313</Y>
+					<Width>0.0240625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ê">
+				<UV>
+					<X>0.4373125</X>
+					<Y>0.3320313</Y>
+					<Width>0.0240625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ë">
+				<UV>
+					<X>0.4691875</X>
+					<Y>0.3320313</Y>
+					<Width>0.0240625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ì">
+				<UV>
+					<X>0.5010625</X>
+					<Y>0.3320313</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Í">
+				<UV>
+					<X>0.5200625</X>
+					<Y>0.3320313</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Î">
+				<UV>
+					<X>0.5390625</X>
+					<Y>0.3320313</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ï">
+				<UV>
+					<X>0.5580625</X>
+					<Y>0.3320313</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ð">
+				<UV>
+					<X>0.5770625</X>
+					<Y>0.3320313</Y>
+					<Width>0.0310625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ñ">
+				<UV>
+					<X>0.6159375</X>
+					<Y>0.3320313</Y>
+					<Width>0.029625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ò">
+				<UV>
+					<X>0.653375</X>
+					<Y>0.3320313</Y>
+					<Width>0.03256249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ó">
+				<UV>
+					<X>0.69375</X>
+					<Y>0.3320313</Y>
+					<Width>0.03256249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ô">
+				<UV>
+					<X>0.734125</X>
+					<Y>0.3320313</Y>
+					<Width>0.03256249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Õ">
+				<UV>
+					<X>0.7745</X>
+					<Y>0.3320313</Y>
+					<Width>0.03256249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ö">
+				<UV>
+					<X>0.8148749</X>
+					<Y>0.3320313</Y>
+					<Width>0.03256249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="×">
+				<UV>
+					<X>0.8552499</X>
+					<Y>0.3320313</Y>
+					<Width>0.03649902</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ø">
+				<UV>
+					<X>0.8995615</X>
+					<Y>0.3320313</Y>
+					<Width>0.03256249</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ù">
+				<UV>
+					<X>0.9399365</X>
+					<Y>0.3320313</Y>
+					<Width>0.029125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ú">
+				<UV>
+					<X>0</X>
+					<Y>0.3984375</Y>
+					<Width>0.029125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Û">
+				<UV>
+					<X>0.0369375</X>
+					<Y>0.3984375</Y>
+					<Width>0.029125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ü">
+				<UV>
+					<X>0.073875</X>
+					<Y>0.3984375</Y>
+					<Width>0.029125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ý">
+				<UV>
+					<X>0.1108125</X>
+					<Y>0.3984375</Y>
+					<Width>0.0295</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Þ">
+				<UV>
+					<X>0.148125</X>
+					<Y>0.3984375</Y>
+					<Width>0.0256875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ß">
+				<UV>
+					<X>0.181625</X>
+					<Y>0.3984375</Y>
+					<Width>0.0275625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="à">
+				<UV>
+					<X>0.217</X>
+					<Y>0.3984375</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="á">
+				<UV>
+					<X>0.24925</X>
+					<Y>0.3984375</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="â">
+				<UV>
+					<X>0.2815</X>
+					<Y>0.3984375</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ã">
+				<UV>
+					<X>0.31375</X>
+					<Y>0.3984375</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ä">
+				<UV>
+					<X>0.346</X>
+					<Y>0.3984375</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="å">
+				<UV>
+					<X>0.3782499</X>
+					<Y>0.3984375</Y>
+					<Width>0.0244375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="æ">
+				<UV>
+					<X>0.4104999</X>
+					<Y>0.3984375</Y>
+					<Width>0.03493749</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ç">
+				<UV>
+					<X>0.4532499</X>
+					<Y>0.3984375</Y>
+					<Width>0.022375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="è">
+				<UV>
+					<X>0.4834374</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="é">
+				<UV>
+					<X>0.5165624</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ê">
+				<UV>
+					<X>0.5496874</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ë">
+				<UV>
+					<X>0.5828124</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ì">
+				<UV>
+					<X>0.6159374</X>
+					<Y>0.3984375</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="í">
+				<UV>
+					<X>0.6349373</X>
+					<Y>0.3984375</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="î">
+				<UV>
+					<X>0.6539373</X>
+					<Y>0.3984375</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ï">
+				<UV>
+					<X>0.6729373</X>
+					<Y>0.3984375</Y>
+					<Width>0.0111875</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ð">
+				<UV>
+					<X>0.6919373</X>
+					<Y>0.3984375</Y>
+					<Width>0.0248125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ñ">
+				<UV>
+					<X>0.7245623</X>
+					<Y>0.3984375</Y>
+					<Width>0.0254375</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ò">
+				<UV>
+					<X>0.7578123</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ó">
+				<UV>
+					<X>0.7909373</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ô">
+				<UV>
+					<X>0.8240623</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="õ">
+				<UV>
+					<X>0.8571873</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ö">
+				<UV>
+					<X>0.8903123</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="÷">
+				<UV>
+					<X>0.9234372</X>
+					<Y>0.3984375</Y>
+					<Width>0.03649902</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ø">
+				<UV>
+					<X>0.9677488</X>
+					<Y>0.3984375</Y>
+					<Width>0.0253125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ù">
+				<UV>
+					<X>0</X>
+					<Y>0.4648438</Y>
+					<Width>0.0255625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ú">
+				<UV>
+					<X>0.03337499</X>
+					<Y>0.4648438</Y>
+					<Width>0.0255625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="û">
+				<UV>
+					<X>0.06674999</X>
+					<Y>0.4648438</Y>
+					<Width>0.0255625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ü">
+				<UV>
+					<X>0.100125</X>
+					<Y>0.4648438</Y>
+					<Width>0.0255625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ý">
+				<UV>
+					<X>0.1335</X>
+					<Y>0.4648438</Y>
+					<Width>0.0245625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="þ">
+				<UV>
+					<X>0.165875</X>
+					<Y>0.4648438</Y>
+					<Width>0.025125</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ÿ">
+				<UV>
+					<X>0.1988125</X>
+					<Y>0.4648438</Y>
+					<Width>0.0245625</Width>
+					<Height>0.05859375</Height>
+				</UV>
+			</Glyph>
+		</Glyphs>
+	</ImageFont>
+	<!--
+		size 90
+	-->
+	<ImageFont Name="Celestia">
+		<FileName>celestia.ttf_Regular_90_96.png</FileName>
+		<Leading>158</Leading>
+		<SpaceWidth>39</SpaceWidth>
+		<TabSize>3</TabSize>
+		<Tracking>0</Tracking>
+		<Glyphs>
+			<Glyph Char=" ">
+				<UV>
+					<X>0</X>
+					<Y>0</Y>
+					<Width>0.01953125</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="!">
+				<UV>
+					<X>0.0009765625</X>
+					<Y>0</Y>
+					<Width>0.01477718</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&quot;">
+				<UV>
+					<X>0.01673031</X>
+					<Y>0</Y>
+					<Width>0.02604961</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="#">
+				<UV>
+					<X>0.04375648</X>
+					<Y>0</Y>
+					<Width>0.02574205</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="$">
+				<UV>
+					<X>0.07047509</X>
+					<Y>0</Y>
+					<Width>0.02741575</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="%">
+				<UV>
+					<X>0.09886741</X>
+					<Y>0</Y>
+					<Width>0.03958225</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&amp;">
+				<UV>
+					<X>0.1394262</X>
+					<Y>0</Y>
+					<Width>0.0339818</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="'">
+				<UV>
+					<X>0.1743846</X>
+					<Y>0</Y>
+					<Width>0.0128603</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="(">
+				<UV>
+					<X>0.1882214</X>
+					<Y>0</Y>
+					<Width>0.01478433</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=")">
+				<UV>
+					<X>0.2039823</X>
+					<Y>0</Y>
+					<Width>0.01602173</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="*">
+				<UV>
+					<X>0.2209806</X>
+					<Y>0</Y>
+					<Width>0.02511978</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="+">
+				<UV>
+					<X>0.247077</X>
+					<Y>0</Y>
+					<Width>0.0261426</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=",">
+				<UV>
+					<X>0.2741961</X>
+					<Y>0</Y>
+					<Width>0.01283169</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="-">
+				<UV>
+					<X>0.2880044</X>
+					<Y>0</Y>
+					<Width>0.02503395</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=".">
+				<UV>
+					<X>0.3140149</X>
+					<Y>0</Y>
+					<Width>0.01264572</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="/">
+				<UV>
+					<X>0.3276372</X>
+					<Y>0</Y>
+					<Width>0.02921104</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="0">
+				<UV>
+					<X>0.3578248</X>
+					<Y>0</Y>
+					<Width>0.02512693</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="1">
+				<UV>
+					<X>0.3839283</X>
+					<Y>0</Y>
+					<Width>0.01843929</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="2">
+				<UV>
+					<X>0.4033441</X>
+					<Y>0</Y>
+					<Width>0.02898216</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="3">
+				<UV>
+					<X>0.4333028</X>
+					<Y>0</Y>
+					<Width>0.02939701</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="4">
+				<UV>
+					<X>0.4636764</X>
+					<Y>0</Y>
+					<Width>0.02929687</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="5">
+				<UV>
+					<X>0.4939499</X>
+					<Y>0</Y>
+					<Width>0.02761602</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="6">
+				<UV>
+					<X>0.5225424</X>
+					<Y>0</Y>
+					<Width>0.02939701</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="7">
+				<UV>
+					<X>0.552916</X>
+					<Y>0</Y>
+					<Width>0.02861023</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="8">
+				<UV>
+					<X>0.5825028</X>
+					<Y>0</Y>
+					<Width>0.0264287</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="9">
+				<UV>
+					<X>0.609908</X>
+					<Y>0</Y>
+					<Width>0.02374649</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=":">
+				<UV>
+					<X>0.6346311</X>
+					<Y>0</Y>
+					<Width>0.01311779</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=";">
+				<UV>
+					<X>0.6487255</X>
+					<Y>0</Y>
+					<Width>0.01387596</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&lt;">
+				<UV>
+					<X>0.663578</X>
+					<Y>0</Y>
+					<Width>0.02539873</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="=">
+				<UV>
+					<X>0.6899533</X>
+					<Y>0</Y>
+					<Width>0.02557754</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&gt;">
+				<UV>
+					<X>0.7165074</X>
+					<Y>0</Y>
+					<Width>0.02426863</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="?">
+				<UV>
+					<X>0.7417526</X>
+					<Y>0</Y>
+					<Width>0.02489805</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="@">
+				<UV>
+					<X>0.7676272</X>
+					<Y>0</Y>
+					<Width>0.03851652</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="A">
+				<UV>
+					<X>0.8071203</X>
+					<Y>0</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="B">
+				<UV>
+					<X>0.8366427</X>
+					<Y>0</Y>
+					<Width>0.03001213</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="C">
+				<UV>
+					<X>0.8676314</X>
+					<Y>0</Y>
+					<Width>0.02767324</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="D">
+				<UV>
+					<X>0.8962812</X>
+					<Y>0</Y>
+					<Width>0.02901792</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="E">
+				<UV>
+					<X>0.9262757</X>
+					<Y>0</Y>
+					<Width>0.02892494</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="F">
+				<UV>
+					<X>0.9561772</X>
+					<Y>0</Y>
+					<Width>0.02535581</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="G">
+				<UV>
+					<X>0</X>
+					<Y>0.078125</Y>
+					<Width>0.02758026</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="H">
+				<UV>
+					<X>0.02855682</X>
+					<Y>0.078125</Y>
+					<Width>0.03171444</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="I">
+				<UV>
+					<X>0.06124782</X>
+					<Y>0.078125</Y>
+					<Width>0.0178957</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="J">
+				<UV>
+					<X>0.08012008</X>
+					<Y>0.078125</Y>
+					<Width>0.02973318</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="K">
+				<UV>
+					<X>0.1108298</X>
+					<Y>0.078125</Y>
+					<Width>0.0293827</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="L">
+				<UV>
+					<X>0.1411891</X>
+					<Y>0.078125</Y>
+					<Width>0.02677917</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="M">
+				<UV>
+					<X>0.1689448</X>
+					<Y>0.078125</Y>
+					<Width>0.03724336</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="N">
+				<UV>
+					<X>0.2071647</X>
+					<Y>0.078125</Y>
+					<Width>0.03290891</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="O">
+				<UV>
+					<X>0.2410502</X>
+					<Y>0.078125</Y>
+					<Width>0.02480507</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="P">
+				<UV>
+					<X>0.2668318</X>
+					<Y>0.078125</Y>
+					<Width>0.02837419</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Q">
+				<UV>
+					<X>0.2961826</X>
+					<Y>0.078125</Y>
+					<Width>0.02655744</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="R">
+				<UV>
+					<X>0.3237166</X>
+					<Y>0.078125</Y>
+					<Width>0.026443</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="S">
+				<UV>
+					<X>0.3511362</X>
+					<Y>0.078125</Y>
+					<Width>0.0258708</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="T">
+				<UV>
+					<X>0.3779835</X>
+					<Y>0.078125</Y>
+					<Width>0.03068447</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="U">
+				<UV>
+					<X>0.4096446</X>
+					<Y>0.078125</Y>
+					<Width>0.03174305</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="V">
+				<UV>
+					<X>0.4423642</X>
+					<Y>0.078125</Y>
+					<Width>0.03779411</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="W">
+				<UV>
+					<X>0.4811349</X>
+					<Y>0.078125</Y>
+					<Width>0.04348039</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="X">
+				<UV>
+					<X>0.5255918</X>
+					<Y>0.078125</Y>
+					<Width>0.03584861</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Y">
+				<UV>
+					<X>0.562417</X>
+					<Y>0.078125</Y>
+					<Width>0.03751516</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Z">
+				<UV>
+					<X>0.6009087</X>
+					<Y>0.078125</Y>
+					<Width>0.03531217</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="[">
+				<UV>
+					<X>0.6371974</X>
+					<Y>0.078125</Y>
+					<Width>0.01734495</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="\">
+				<UV>
+					<X>0.6555189</X>
+					<Y>0.078125</Y>
+					<Width>0.02907514</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="]">
+				<UV>
+					<X>0.6855707</X>
+					<Y>0.078125</Y>
+					<Width>0.01743793</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="^">
+				<UV>
+					<X>0.7039852</X>
+					<Y>0.078125</Y>
+					<Width>0.02682924</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="_">
+				<UV>
+					<X>0.731791</X>
+					<Y>0.078125</Y>
+					<Width>0.02878904</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="`">
+				<UV>
+					<X>0.7615566</X>
+					<Y>0.078125</Y>
+					<Width>0.01276731</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="a">
+				<UV>
+					<X>0.7753004</X>
+					<Y>0.078125</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="b">
+				<UV>
+					<X>0.8048229</X>
+					<Y>0.078125</Y>
+					<Width>0.03001213</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="c">
+				<UV>
+					<X>0.8358116</X>
+					<Y>0.078125</Y>
+					<Width>0.02767324</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="d">
+				<UV>
+					<X>0.8644614</X>
+					<Y>0.078125</Y>
+					<Width>0.02901792</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="e">
+				<UV>
+					<X>0.8944559</X>
+					<Y>0.078125</Y>
+					<Width>0.02892494</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="f">
+				<UV>
+					<X>0.9243574</X>
+					<Y>0.078125</Y>
+					<Width>0.02535581</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="g">
+				<UV>
+					<X>0.9506897</X>
+					<Y>0.078125</Y>
+					<Width>0.02758026</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="h">
+				<UV>
+					<X>0</X>
+					<Y>0.15625</Y>
+					<Width>0.03171444</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="i">
+				<UV>
+					<X>0.032691</X>
+					<Y>0.15625</Y>
+					<Width>0.01667261</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="j">
+				<UV>
+					<X>0.05034017</X>
+					<Y>0.15625</Y>
+					<Width>0.02973318</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="k">
+				<UV>
+					<X>0.0810499</X>
+					<Y>0.15625</Y>
+					<Width>0.0293827</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="l">
+				<UV>
+					<X>0.1114092</X>
+					<Y>0.15625</Y>
+					<Width>0.02677917</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="m">
+				<UV>
+					<X>0.1391649</X>
+					<Y>0.15625</Y>
+					<Width>0.03724336</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="n">
+				<UV>
+					<X>0.1773848</X>
+					<Y>0.15625</Y>
+					<Width>0.03290891</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="o">
+				<UV>
+					<X>0.2112703</X>
+					<Y>0.15625</Y>
+					<Width>0.02183676</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="p">
+				<UV>
+					<X>0.2340836</X>
+					<Y>0.15625</Y>
+					<Width>0.02837419</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="q">
+				<UV>
+					<X>0.2634344</X>
+					<Y>0.15625</Y>
+					<Width>0.02655744</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="r">
+				<UV>
+					<X>0.2909684</X>
+					<Y>0.15625</Y>
+					<Width>0.026443</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="s">
+				<UV>
+					<X>0.318388</X>
+					<Y>0.15625</Y>
+					<Width>0.0258708</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="t">
+				<UV>
+					<X>0.3452353</X>
+					<Y>0.15625</Y>
+					<Width>0.03068447</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="u">
+				<UV>
+					<X>0.3768964</X>
+					<Y>0.15625</Y>
+					<Width>0.03174305</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="v">
+				<UV>
+					<X>0.409616</X>
+					<Y>0.15625</Y>
+					<Width>0.03779411</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="w">
+				<UV>
+					<X>0.4483866</X>
+					<Y>0.15625</Y>
+					<Width>0.04348039</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="x">
+				<UV>
+					<X>0.4928436</X>
+					<Y>0.15625</Y>
+					<Width>0.03494739</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="y">
+				<UV>
+					<X>0.5287675</X>
+					<Y>0.15625</Y>
+					<Width>0.03751516</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="z">
+				<UV>
+					<X>0.5672593</X>
+					<Y>0.15625</Y>
+					<Width>0.03531217</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="{">
+				<UV>
+					<X>0.603548</X>
+					<Y>0.15625</Y>
+					<Width>0.01693725</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="|">
+				<UV>
+					<X>0.6214618</X>
+					<Y>0.15625</Y>
+					<Width>0.009384154</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="}">
+				<UV>
+					<X>0.6318225</X>
+					<Y>0.15625</Y>
+					<Width>0.01737356</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="~">
+				<UV>
+					<X>0.6501727</X>
+					<Y>0.15625</Y>
+					<Width>0.0282526</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="">
+				<UV>
+					<X>0.6794018</X>
+					<Y>0.15625</Y>
+					<Width>0</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¡">
+				<UV>
+					<X>0.4824485</X>
+					<Y>0.234375</Y>
+					<Width>0.01460552</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¢">
+				<UV>
+					<X>0.4980306</X>
+					<Y>0.234375</Y>
+					<Width>0.02493381</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="£">
+				<UV>
+					<X>0.523941</X>
+					<Y>0.234375</Y>
+					<Width>0.02913952</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¤">
+				<UV>
+					<X>0.5540571</X>
+					<Y>0.234375</Y>
+					<Width>0.03584861</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¥">
+				<UV>
+					<X>0.5908822</X>
+					<Y>0.234375</Y>
+					<Width>0.0364995</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¦">
+				<UV>
+					<X>0.6283583</X>
+					<Y>0.234375</Y>
+					<Width>0.00856161</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="§">
+				<UV>
+					<X>0.6378965</X>
+					<Y>0.234375</Y>
+					<Width>0.03584861</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¨">
+				<UV>
+					<X>0.6747217</X>
+					<Y>0.234375</Y>
+					<Width>0.02486229</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="©">
+				<UV>
+					<X>0.7005605</X>
+					<Y>0.234375</Y>
+					<Width>0.04265785</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ª">
+				<UV>
+					<X>0.7441949</X>
+					<Y>0.234375</Y>
+					<Width>0.02386093</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="«">
+				<UV>
+					<X>0.7690324</X>
+					<Y>0.234375</Y>
+					<Width>0.03204345</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¬">
+				<UV>
+					<X>0.8020524</X>
+					<Y>0.234375</Y>
+					<Width>0.03995418</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="­">
+				<UV>
+					<X>0.8429832</X>
+					<Y>0.234375</Y>
+					<Width>0</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="®">
+				<UV>
+					<X>0.8439597</X>
+					<Y>0.234375</Y>
+					<Width>0.04256487</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¯">
+				<UV>
+					<X>0.8875012</X>
+					<Y>0.234375</Y>
+					<Width>0.02231598</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="°">
+				<UV>
+					<X>0.9107937</X>
+					<Y>0.234375</Y>
+					<Width>0.01822471</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="±">
+				<UV>
+					<X>0.929995</X>
+					<Y>0.234375</Y>
+					<Width>0.02512693</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="²">
+				<UV>
+					<X>0.9560985</X>
+					<Y>0.234375</Y>
+					<Width>0.02145767</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="³">
+				<UV>
+					<X>0.9785327</X>
+					<Y>0.234375</Y>
+					<Width>0.02145767</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="´">
+				<UV>
+					<X>0</X>
+					<Y>0.3125</Y>
+					<Width>0.0128603</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="µ">
+				<UV>
+					<X>0.01383686</X>
+					<Y>0.3125</Y>
+					<Width>0.03064155</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¶">
+				<UV>
+					<X>0.04545498</X>
+					<Y>0.3125</Y>
+					<Width>0.03461837</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="·">
+				<UV>
+					<X>0.08104991</X>
+					<Y>0.3125</Y>
+					<Width>0.01110077</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¸">
+				<UV>
+					<X>0.09312724</X>
+					<Y>0.3125</Y>
+					<Width>0.01319647</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¹">
+				<UV>
+					<X>0.1073003</X>
+					<Y>0.3125</Y>
+					<Width>0.02145767</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="º">
+				<UV>
+					<X>0.1297345</X>
+					<Y>0.3125</Y>
+					<Width>0.01822471</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="»">
+				<UV>
+					<X>0.1489358</X>
+					<Y>0.3125</Y>
+					<Width>0.03752946</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¼">
+				<UV>
+					<X>0.1874418</X>
+					<Y>0.3125</Y>
+					<Width>0.05375862</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="½">
+				<UV>
+					<X>0.242177</X>
+					<Y>0.3125</Y>
+					<Width>0.05375862</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¾">
+				<UV>
+					<X>0.2969122</X>
+					<Y>0.3125</Y>
+					<Width>0.05375862</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¿">
+				<UV>
+					<X>0.3516473</X>
+					<Y>0.3125</Y>
+					<Width>0.02491951</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="À">
+				<UV>
+					<X>0.3775434</X>
+					<Y>0.3125</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Á">
+				<UV>
+					<X>0.4070658</X>
+					<Y>0.3125</Y>
+					<Width>0.02851009</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Â">
+				<UV>
+					<X>0.4365525</X>
+					<Y>0.3125</Y>
+					<Width>0.02851009</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ã">
+				<UV>
+					<X>0.4660392</X>
+					<Y>0.3125</Y>
+					<Width>0.02851009</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ä">
+				<UV>
+					<X>0.4955258</X>
+					<Y>0.3125</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Å">
+				<UV>
+					<X>0.5250482</X>
+					<Y>0.3125</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Æ">
+				<UV>
+					<X>0.5545706</X>
+					<Y>0.3125</Y>
+					<Width>0.04522562</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ç">
+				<UV>
+					<X>0.6007728</X>
+					<Y>0.3125</Y>
+					<Width>0.02767324</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="È">
+				<UV>
+					<X>0.6294226</X>
+					<Y>0.3125</Y>
+					<Width>0.02895355</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="É">
+				<UV>
+					<X>0.6593527</X>
+					<Y>0.3125</Y>
+					<Width>0.02899647</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ê">
+				<UV>
+					<X>0.6893257</X>
+					<Y>0.3125</Y>
+					<Width>0.02892494</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ë">
+				<UV>
+					<X>0.7192273</X>
+					<Y>0.3125</Y>
+					<Width>0.02888202</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ì">
+				<UV>
+					<X>0.7490858</X>
+					<Y>0.3125</Y>
+					<Width>0.0178957</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Í">
+				<UV>
+					<X>0.7679581</X>
+					<Y>0.3125</Y>
+					<Width>0.0178957</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Î">
+				<UV>
+					<X>0.7868304</X>
+					<Y>0.3125</Y>
+					<Width>0.0178957</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ï">
+				<UV>
+					<X>0.8057026</X>
+					<Y>0.3125</Y>
+					<Width>0.0178957</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ð">
+				<UV>
+					<X>0.8245749</X>
+					<Y>0.3125</Y>
+					<Width>0.02901792</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ñ">
+				<UV>
+					<X>0.8545694</X>
+					<Y>0.3125</Y>
+					<Width>0.03572702</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ò">
+				<UV>
+					<X>0.891273</X>
+					<Y>0.3125</Y>
+					<Width>0.02476215</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ó">
+				<UV>
+					<X>0.9170117</X>
+					<Y>0.3125</Y>
+					<Width>0.02478361</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ô">
+				<UV>
+					<X>0.9427719</X>
+					<Y>0.3125</Y>
+					<Width>0.02479076</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Õ">
+				<UV>
+					<X>0.9685392</X>
+					<Y>0.3125</Y>
+					<Width>0.02478361</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ö">
+				<UV>
+					<X>0</X>
+					<Y>0.390625</Y>
+					<Width>0.0247693</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="×">
+				<UV>
+					<X>0.02574587</X>
+					<Y>0.390625</Y>
+					<Width>0.0377798</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ø">
+				<UV>
+					<X>0.06450223</X>
+					<Y>0.390625</Y>
+					<Width>0.02480507</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ù">
+				<UV>
+					<X>0.09028386</X>
+					<Y>0.390625</Y>
+					<Width>0.03152847</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ú">
+				<UV>
+					<X>0.1227889</X>
+					<Y>0.390625</Y>
+					<Width>0.03174305</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Û">
+				<UV>
+					<X>0.1555085</X>
+					<Y>0.390625</Y>
+					<Width>0.0318861</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ü">
+				<UV>
+					<X>0.1883712</X>
+					<Y>0.390625</Y>
+					<Width>0.03174305</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ý">
+				<UV>
+					<X>0.2210908</X>
+					<Y>0.390625</Y>
+					<Width>0.03751516</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Þ">
+				<UV>
+					<X>0.2595825</X>
+					<Y>0.390625</Y>
+					<Width>0.02837419</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ß">
+				<UV>
+					<X>0.2889332</X>
+					<Y>0.390625</Y>
+					<Width>0.03173589</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="à">
+				<UV>
+					<X>0.3216457</X>
+					<Y>0.390625</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="á">
+				<UV>
+					<X>0.3511681</X>
+					<Y>0.390625</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="â">
+				<UV>
+					<X>0.3806905</X>
+					<Y>0.390625</Y>
+					<Width>0.02851009</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ã">
+				<UV>
+					<X>0.4101772</X>
+					<Y>0.390625</Y>
+					<Width>0.02851009</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ä">
+				<UV>
+					<X>0.4396639</X>
+					<Y>0.390625</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="å">
+				<UV>
+					<X>0.4691863</X>
+					<Y>0.390625</Y>
+					<Width>0.02854585</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="æ">
+				<UV>
+					<X>0.4987087</X>
+					<Y>0.390625</Y>
+					<Width>0.04522562</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ç">
+				<UV>
+					<X>0.5449108</X>
+					<Y>0.390625</Y>
+					<Width>0.02767324</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="è">
+				<UV>
+					<X>0.5735607</X>
+					<Y>0.390625</Y>
+					<Width>0.02895355</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="é">
+				<UV>
+					<X>0.6034908</X>
+					<Y>0.390625</Y>
+					<Width>0.02899647</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ê">
+				<UV>
+					<X>0.6334638</X>
+					<Y>0.390625</Y>
+					<Width>0.02892494</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ë">
+				<UV>
+					<X>0.6633653</X>
+					<Y>0.390625</Y>
+					<Width>0.02888202</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ì">
+				<UV>
+					<X>0.6932239</X>
+					<Y>0.390625</Y>
+					<Width>0.01667261</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="í">
+				<UV>
+					<X>0.7108731</X>
+					<Y>0.390625</Y>
+					<Width>0.01667261</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="î">
+				<UV>
+					<X>0.7285222</X>
+					<Y>0.390625</Y>
+					<Width>0.01785278</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ï">
+				<UV>
+					<X>0.7473516</X>
+					<Y>0.390625</Y>
+					<Width>0.01714468</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ð">
+				<UV>
+					<X>0.7654728</X>
+					<Y>0.390625</Y>
+					<Width>0.02901792</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ñ">
+				<UV>
+					<X>0.7954673</X>
+					<Y>0.390625</Y>
+					<Width>0.03572702</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ò">
+				<UV>
+					<X>0.8321709</X>
+					<Y>0.390625</Y>
+					<Width>0.02476215</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ó">
+				<UV>
+					<X>0.8579096</X>
+					<Y>0.390625</Y>
+					<Width>0.02478361</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ô">
+				<UV>
+					<X>0.8836698</X>
+					<Y>0.390625</Y>
+					<Width>0.02479076</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="õ">
+				<UV>
+					<X>0.9094371</X>
+					<Y>0.390625</Y>
+					<Width>0.02478361</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ö">
+				<UV>
+					<X>0.9351973</X>
+					<Y>0.390625</Y>
+					<Width>0.0247693</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="÷">
+				<UV>
+					<X>0.9609432</X>
+					<Y>0.390625</Y>
+					<Width>0.03235817</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ø">
+				<UV>
+					<X>0</X>
+					<Y>0.46875</Y>
+					<Width>0.02480507</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ù">
+				<UV>
+					<X>0.02578163</X>
+					<Y>0.46875</Y>
+					<Width>0.03152847</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ú">
+				<UV>
+					<X>0.05828666</X>
+					<Y>0.46875</Y>
+					<Width>0.03174305</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="û">
+				<UV>
+					<X>0.09100626</X>
+					<Y>0.46875</Y>
+					<Width>0.0318861</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ü">
+				<UV>
+					<X>0.1238689</X>
+					<Y>0.46875</Y>
+					<Width>0.03174305</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ý">
+				<UV>
+					<X>0.1565885</X>
+					<Y>0.46875</Y>
+					<Width>0.03751516</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="þ">
+				<UV>
+					<X>0.1950803</X>
+					<Y>0.46875</Y>
+					<Width>0.02837419</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ÿ">
+				<UV>
+					<X>0.224431</X>
+					<Y>0.46875</Y>
+					<Width>0.03751516</Width>
+					<Height>0.07714844</Height>
+				</UV>
+			</Glyph>
+		</Glyphs>
+	</ImageFont>
+	<!-- size 16 -->
+	<ImageFont Name="Zil">
+		<FileName>zil.ttf_Regular_16_96.png</FileName>
+		<Leading>26</Leading>
+		<SpaceWidth>7</SpaceWidth>
+		<TabSize>3</TabSize>
+		<Tracking>0</Tracking>
+		<Glyphs>
+			<Glyph Char=" ">
+				<UV>
+					<X>0</X>
+					<Y>0</Y>
+					<Width>0.01388889</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="!">
+				<UV>
+					<X>0.00390625</X>
+					<Y>0</Y>
+					<Width>0.008874998</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&quot;">
+				<UV>
+					<X>0.0166875</X>
+					<Y>0</Y>
+					<Width>0.01395833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="#">
+				<UV>
+					<X>0.03455208</X>
+					<Y>0</Y>
+					<Width>0.02275</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="$">
+				<UV>
+					<X>0.06120833</X>
+					<Y>0</Y>
+					<Width>0.02545833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="%">
+				<UV>
+					<X>0.09057291</X>
+					<Y>0</Y>
+					<Width>0.03896077</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&amp;">
+				<UV>
+					<X>0.1334399</X>
+					<Y>0</Y>
+					<Width>0.02825</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="'">
+				<UV>
+					<X>0.1655962</X>
+					<Y>0</Y>
+					<Width>0.006499999</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="(">
+				<UV>
+					<X>0.1760024</X>
+					<Y>0</Y>
+					<Width>0.01279166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=")">
+				<UV>
+					<X>0.1927003</X>
+					<Y>0</Y>
+					<Width>0.01279166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="*">
+				<UV>
+					<X>0.2093983</X>
+					<Y>0</Y>
+					<Width>0.01495833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="+">
+				<UV>
+					<X>0.2282628</X>
+					<Y>0</Y>
+					<Width>0.0215</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=",">
+				<UV>
+					<X>0.2536691</X>
+					<Y>0</Y>
+					<Width>0.008416666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="-">
+				<UV>
+					<X>0.265992</X>
+					<Y>0</Y>
+					<Width>0.014</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=".">
+				<UV>
+					<X>0.2838982</X>
+					<Y>0</Y>
+					<Width>0.008541666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="/">
+				<UV>
+					<X>0.2963462</X>
+					<Y>0</Y>
+					<Width>0.01475</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="0">
+				<UV>
+					<X>0.3150024</X>
+					<Y>0</Y>
+					<Width>0.02229166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="1">
+				<UV>
+					<X>0.3412003</X>
+					<Y>0</Y>
+					<Width>0.01508333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="2">
+				<UV>
+					<X>0.3601899</X>
+					<Y>0</Y>
+					<Width>0.02320833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="3">
+				<UV>
+					<X>0.3873045</X>
+					<Y>0</Y>
+					<Width>0.02195833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="4">
+				<UV>
+					<X>0.4131691</X>
+					<Y>0</Y>
+					<Width>0.02245833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="5">
+				<UV>
+					<X>0.4395337</X>
+					<Y>0</Y>
+					<Width>0.02204166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="6">
+				<UV>
+					<X>0.4654816</X>
+					<Y>0</Y>
+					<Width>0.02208333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="7">
+				<UV>
+					<X>0.4914712</X>
+					<Y>0</Y>
+					<Width>0.02208333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="8">
+				<UV>
+					<X>0.5174608</X>
+					<Y>0</Y>
+					<Width>0.02216666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="9">
+				<UV>
+					<X>0.5435337</X>
+					<Y>0</Y>
+					<Width>0.02208333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=":">
+				<UV>
+					<X>0.5695233</X>
+					<Y>0</Y>
+					<Width>0.008708332</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char=";">
+				<UV>
+					<X>0.5821379</X>
+					<Y>0</Y>
+					<Width>0.008458331</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&lt;">
+				<UV>
+					<X>0.5945024</X>
+					<Y>0</Y>
+					<Width>0.022</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="=">
+				<UV>
+					<X>0.6204087</X>
+					<Y>0</Y>
+					<Width>0.02275</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="&gt;">
+				<UV>
+					<X>0.647065</X>
+					<Y>0</Y>
+					<Width>0.02241666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="?">
+				<UV>
+					<X>0.6733879</X>
+					<Y>0</Y>
+					<Width>0.021625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="@">
+				<UV>
+					<X>0.6989191</X>
+					<Y>0</Y>
+					<Width>0.03233333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="A">
+				<UV>
+					<X>0.7351587</X>
+					<Y>0</Y>
+					<Width>0.03337499</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="B">
+				<UV>
+					<X>0.77244</X>
+					<Y>0</Y>
+					<Width>0.02970833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="C">
+				<UV>
+					<X>0.8060545</X>
+					<Y>0</Y>
+					<Width>0.02779166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="D">
+				<UV>
+					<X>0.8377525</X>
+					<Y>0</Y>
+					<Width>0.03033333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="E">
+				<UV>
+					<X>0.8719921</X>
+					<Y>0</Y>
+					<Width>0.02783333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="F">
+				<UV>
+					<X>0.9037316</X>
+					<Y>0</Y>
+					<Width>0.02633333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="G">
+				<UV>
+					<X>0.9339712</X>
+					<Y>0</Y>
+					<Width>0.02970833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="H">
+				<UV>
+					<X>0.9675858</X>
+					<Y>0</Y>
+					<Width>0.03216666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="I">
+				<UV>
+					<X>0</X>
+					<Y>0.109375</Y>
+					<Width>0.01575</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="J">
+				<UV>
+					<X>0.01965625</X>
+					<Y>0.109375</Y>
+					<Width>0.02075</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="K">
+				<UV>
+					<X>0.0443125</X>
+					<Y>0.109375</Y>
+					<Width>0.032125</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="L">
+				<UV>
+					<X>0.08034374</X>
+					<Y>0.109375</Y>
+					<Width>0.02375</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="M">
+				<UV>
+					<X>0.108</X>
+					<Y>0.109375</Y>
+					<Width>0.03841666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="N">
+				<UV>
+					<X>0.1503229</X>
+					<Y>0.109375</Y>
+					<Width>0.03283333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="O">
+				<UV>
+					<X>0.1870625</X>
+					<Y>0.109375</Y>
+					<Width>0.03041666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="P">
+				<UV>
+					<X>0.2213854</X>
+					<Y>0.109375</Y>
+					<Width>0.027375</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Q">
+				<UV>
+					<X>0.2526667</X>
+					<Y>0.109375</Y>
+					<Width>0.03029166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="R">
+				<UV>
+					<X>0.2868646</X>
+					<Y>0.109375</Y>
+					<Width>0.03020833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="S">
+				<UV>
+					<X>0.3209791</X>
+					<Y>0.109375</Y>
+					<Width>0.02591666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="T">
+				<UV>
+					<X>0.3508021</X>
+					<Y>0.109375</Y>
+					<Width>0.02783333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="U">
+				<UV>
+					<X>0.3825417</X>
+					<Y>0.109375</Y>
+					<Width>0.03145833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="V">
+				<UV>
+					<X>0.4179062</X>
+					<Y>0.109375</Y>
+					<Width>0.02920833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="W">
+				<UV>
+					<X>0.4510208</X>
+					<Y>0.109375</Y>
+					<Width>0.04370833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="X">
+				<UV>
+					<X>0.4986354</X>
+					<Y>0.109375</Y>
+					<Width>0.02941666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Y">
+				<UV>
+					<X>0.5319583</X>
+					<Y>0.109375</Y>
+					<Width>0.02933333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Z">
+				<UV>
+					<X>0.5651979</X>
+					<Y>0.109375</Y>
+					<Width>0.02554166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="[">
+				<UV>
+					<X>0.5946458</X>
+					<Y>0.109375</Y>
+					<Width>0.01208333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="\">
+				<UV>
+					<X>0.6106354</X>
+					<Y>0.109375</Y>
+					<Width>0.01475</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="]">
+				<UV>
+					<X>0.6292917</X>
+					<Y>0.109375</Y>
+					<Width>0.01208333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="^">
+				<UV>
+					<X>0.6452813</X>
+					<Y>0.109375</Y>
+					<Width>0.02025</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="_">
+				<UV>
+					<X>0.6694375</X>
+					<Y>0.109375</Y>
+					<Width>0.0255</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="`">
+				<UV>
+					<X>0.6988438</X>
+					<Y>0.109375</Y>
+					<Width>0.01116666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="a">
+				<UV>
+					<X>0.7139167</X>
+					<Y>0.109375</Y>
+					<Width>0.02716666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="b">
+				<UV>
+					<X>0.7449896</X>
+					<Y>0.109375</Y>
+					<Width>0.02570833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="c">
+				<UV>
+					<X>0.7746042</X>
+					<Y>0.109375</Y>
+					<Width>0.022</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="d">
+				<UV>
+					<X>0.8005105</X>
+					<Y>0.109375</Y>
+					<Width>0.02570833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="e">
+				<UV>
+					<X>0.830125</X>
+					<Y>0.109375</Y>
+					<Width>0.02270833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="f">
+				<UV>
+					<X>0.8567396</X>
+					<Y>0.109375</Y>
+					<Width>0.01495833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="g">
+				<UV>
+					<X>0.8756042</X>
+					<Y>0.109375</Y>
+					<Width>0.02558333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="h">
+				<UV>
+					<X>0.9050938</X>
+					<Y>0.109375</Y>
+					<Width>0.026625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="i">
+				<UV>
+					<X>0.935625</X>
+					<Y>0.109375</Y>
+					<Width>0.01204166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="j">
+				<UV>
+					<X>0.951573</X>
+					<Y>0.109375</Y>
+					<Width>0.0115</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="k">
+				<UV>
+					<X>0.9669792</X>
+					<Y>0.109375</Y>
+					<Width>0.02416666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="l">
+				<UV>
+					<X>0</X>
+					<Y>0.21875</Y>
+					<Width>0.01408333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="m">
+				<UV>
+					<X>0.01798958</X>
+					<Y>0.21875</Y>
+					<Width>0.03883333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="n">
+				<UV>
+					<X>0.06072916</X>
+					<Y>0.21875</Y>
+					<Width>0.02695833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="o">
+				<UV>
+					<X>0.09159374</X>
+					<Y>0.21875</Y>
+					<Width>0.02433333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="p">
+				<UV>
+					<X>0.1198333</X>
+					<Y>0.21875</Y>
+					<Width>0.02570833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="q">
+				<UV>
+					<X>0.1494479</X>
+					<Y>0.21875</Y>
+					<Width>0.02570833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="r">
+				<UV>
+					<X>0.1790625</X>
+					<Y>0.21875</Y>
+					<Width>0.01654166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="s">
+				<UV>
+					<X>0.1995104</X>
+					<Y>0.21875</Y>
+					<Width>0.021875</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="t">
+				<UV>
+					<X>0.2252916</X>
+					<Y>0.21875</Y>
+					<Width>0.013625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="u">
+				<UV>
+					<X>0.2428229</X>
+					<Y>0.21875</Y>
+					<Width>0.02666666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="v">
+				<UV>
+					<X>0.2733958</X>
+					<Y>0.21875</Y>
+					<Width>0.025625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="w">
+				<UV>
+					<X>0.302927</X>
+					<Y>0.21875</Y>
+					<Width>0.03616666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="x">
+				<UV>
+					<X>0.343</X>
+					<Y>0.21875</Y>
+					<Width>0.02304166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="y">
+				<UV>
+					<X>0.3699479</X>
+					<Y>0.21875</Y>
+					<Width>0.02570833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="z">
+				<UV>
+					<X>0.3995624</X>
+					<Y>0.21875</Y>
+					<Width>0.02125</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="{">
+				<UV>
+					<X>0.4247187</X>
+					<Y>0.21875</Y>
+					<Width>0.01433333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="|">
+				<UV>
+					<X>0.4429583</X>
+					<Y>0.21875</Y>
+					<Width>0.007083332</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="}">
+				<UV>
+					<X>0.4539479</X>
+					<Y>0.21875</Y>
+					<Width>0.01429166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="~">
+				<UV>
+					<X>0.4721458</X>
+					<Y>0.21875</Y>
+					<Width>0.02108333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="">
+				<UV>
+					<X>0.4971354</X>
+					<Y>0.21875</Y>
+					<Width>0</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¡">
+				<UV>
+					<X>0.1802949</X>
+					<Y>0.328125</Y>
+					<Width>0.008874998</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¢">
+				<UV>
+					<X>0.1930762</X>
+					<Y>0.328125</Y>
+					<Width>0.021375</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="£">
+				<UV>
+					<X>0.2183574</X>
+					<Y>0.328125</Y>
+					<Width>0.02308333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¤">
+				<UV>
+					<X>0.245347</X>
+					<Y>0.328125</Y>
+					<Width>0.02541666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¥">
+				<UV>
+					<X>0.2746699</X>
+					<Y>0.328125</Y>
+					<Width>0.02941666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¦">
+				<UV>
+					<X>0.3079928</X>
+					<Y>0.328125</Y>
+					<Width>0.006708332</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="§">
+				<UV>
+					<X>0.3186074</X>
+					<Y>0.328125</Y>
+					<Width>0.02183333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¨">
+				<UV>
+					<X>0.344347</X>
+					<Y>0.328125</Y>
+					<Width>0.01858333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="©">
+				<UV>
+					<X>0.3668365</X>
+					<Y>0.328125</Y>
+					<Width>0.03333333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ª">
+				<UV>
+					<X>0.4040761</X>
+					<Y>0.328125</Y>
+					<Width>0.01575</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="«">
+				<UV>
+					<X>0.4237324</X>
+					<Y>0.328125</Y>
+					<Width>0.0175</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¬">
+				<UV>
+					<X>0.4451386</X>
+					<Y>0.328125</Y>
+					<Width>0.02233333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="­">
+				<UV>
+					<X>0.4713782</X>
+					<Y>0.328125</Y>
+					<Width>0</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="®">
+				<UV>
+					<X>0.4752844</X>
+					<Y>0.328125</Y>
+					<Width>0.03329166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¯">
+				<UV>
+					<X>0.5124823</X>
+					<Y>0.328125</Y>
+					<Width>0.01675</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="°">
+				<UV>
+					<X>0.5331386</X>
+					<Y>0.328125</Y>
+					<Width>0.0135</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="±">
+				<UV>
+					<X>0.5505448</X>
+					<Y>0.328125</Y>
+					<Width>0.02241666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="²">
+				<UV>
+					<X>0.5768677</X>
+					<Y>0.328125</Y>
+					<Width>0.014625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="³">
+				<UV>
+					<X>0.595399</X>
+					<Y>0.328125</Y>
+					<Width>0.01483333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="´">
+				<UV>
+					<X>0.6141385</X>
+					<Y>0.328125</Y>
+					<Width>0.01116666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="µ">
+				<UV>
+					<X>0.6292115</X>
+					<Y>0.328125</Y>
+					<Width>0.02658333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¶">
+				<UV>
+					<X>0.659701</X>
+					<Y>0.328125</Y>
+					<Width>0.02441666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="·">
+				<UV>
+					<X>0.688024</X>
+					<Y>0.328125</Y>
+					<Width>0.008416666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¸">
+				<UV>
+					<X>0.7003469</X>
+					<Y>0.328125</Y>
+					<Width>0.011125</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¹">
+				<UV>
+					<X>0.7153782</X>
+					<Y>0.328125</Y>
+					<Width>0.009791666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="º">
+				<UV>
+					<X>0.7290761</X>
+					<Y>0.328125</Y>
+					<Width>0.01641666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="»">
+				<UV>
+					<X>0.749399</X>
+					<Y>0.328125</Y>
+					<Width>0.017625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¼">
+				<UV>
+					<X>0.7709302</X>
+					<Y>0.328125</Y>
+					<Width>0.03404166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="½">
+				<UV>
+					<X>0.8088781</X>
+					<Y>0.328125</Y>
+					<Width>0.03475</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¾">
+				<UV>
+					<X>0.8475344</X>
+					<Y>0.328125</Y>
+					<Width>0.03441666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="¿">
+				<UV>
+					<X>0.8858573</X>
+					<Y>0.328125</Y>
+					<Width>0.021625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="À">
+				<UV>
+					<X>0.9113885</X>
+					<Y>0.328125</Y>
+					<Width>0.03312499</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Á">
+				<UV>
+					<X>0.9484197</X>
+					<Y>0.328125</Y>
+					<Width>0.03316666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Â">
+				<UV>
+					<X>0</X>
+					<Y>0.4375</Y>
+					<Width>0.03329166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ã">
+				<UV>
+					<X>0.03719791</X>
+					<Y>0.4375</Y>
+					<Width>0.03320833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ä">
+				<UV>
+					<X>0.07431249</X>
+					<Y>0.4375</Y>
+					<Width>0.033625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Å">
+				<UV>
+					<X>0.1118437</X>
+					<Y>0.4375</Y>
+					<Width>0.03324999</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Æ">
+				<UV>
+					<X>0.149</X>
+					<Y>0.4375</Y>
+					<Width>0.04379166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ç">
+				<UV>
+					<X>0.1966979</X>
+					<Y>0.4375</Y>
+					<Width>0.02779166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="È">
+				<UV>
+					<X>0.2283958</X>
+					<Y>0.4375</Y>
+					<Width>0.02683333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="É">
+				<UV>
+					<X>0.2591354</X>
+					<Y>0.4375</Y>
+					<Width>0.026875</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ê">
+				<UV>
+					<X>0.2899166</X>
+					<Y>0.4375</Y>
+					<Width>0.027</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ë">
+				<UV>
+					<X>0.3208229</X>
+					<Y>0.4375</Y>
+					<Width>0.02729166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ì">
+				<UV>
+					<X>0.3520208</X>
+					<Y>0.4375</Y>
+					<Width>0.01583333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Í">
+				<UV>
+					<X>0.3717604</X>
+					<Y>0.4375</Y>
+					<Width>0.01504166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Î">
+				<UV>
+					<X>0.3907083</X>
+					<Y>0.4375</Y>
+					<Width>0.01620833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ï">
+				<UV>
+					<X>0.4108228</X>
+					<Y>0.4375</Y>
+					<Width>0.01829166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ð">
+				<UV>
+					<X>0.4330207</X>
+					<Y>0.4375</Y>
+					<Width>0.0305</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ñ">
+				<UV>
+					<X>0.467427</X>
+					<Y>0.4375</Y>
+					<Width>0.03229166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ò">
+				<UV>
+					<X>0.5036249</X>
+					<Y>0.4375</Y>
+					<Width>0.03</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ó">
+				<UV>
+					<X>0.5375311</X>
+					<Y>0.4375</Y>
+					<Width>0.03</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ô">
+				<UV>
+					<X>0.5714374</X>
+					<Y>0.4375</Y>
+					<Width>0.03008333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Õ">
+				<UV>
+					<X>0.6054269</X>
+					<Y>0.4375</Y>
+					<Width>0.03008333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ö">
+				<UV>
+					<X>0.6394165</X>
+					<Y>0.4375</Y>
+					<Width>0.03025</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="×">
+				<UV>
+					<X>0.6735727</X>
+					<Y>0.4375</Y>
+					<Width>0.022875</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ø">
+				<UV>
+					<X>0.700354</X>
+					<Y>0.4375</Y>
+					<Width>0.03137499</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ù">
+				<UV>
+					<X>0.7356352</X>
+					<Y>0.4375</Y>
+					<Width>0.03095833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ú">
+				<UV>
+					<X>0.7704998</X>
+					<Y>0.4375</Y>
+					<Width>0.03095833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Û">
+				<UV>
+					<X>0.8053644</X>
+					<Y>0.4375</Y>
+					<Width>0.03104166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ü">
+				<UV>
+					<X>0.8403124</X>
+					<Y>0.4375</Y>
+					<Width>0.03120833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Ý">
+				<UV>
+					<X>0.8754269</X>
+					<Y>0.4375</Y>
+					<Width>0.02883333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="Þ">
+				<UV>
+					<X>0.9081665</X>
+					<Y>0.4375</Y>
+					<Width>0.024375</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ß">
+				<UV>
+					<X>0.9364478</X>
+					<Y>0.4375</Y>
+					<Width>0.02654166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="à">
+				<UV>
+					<X>0.9668957</X>
+					<Y>0.4375</Y>
+					<Width>0.02666666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="á">
+				<UV>
+					<X>0</X>
+					<Y>0.546875</Y>
+					<Width>0.02666666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="â">
+				<UV>
+					<X>0.03057291</X>
+					<Y>0.546875</Y>
+					<Width>0.02679166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ã">
+				<UV>
+					<X>0.06127083</X>
+					<Y>0.546875</Y>
+					<Width>0.026875</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ä">
+				<UV>
+					<X>0.09205207</X>
+					<Y>0.546875</Y>
+					<Width>0.027</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="å">
+				<UV>
+					<X>0.1229583</X>
+					<Y>0.546875</Y>
+					<Width>0.02670833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="æ">
+				<UV>
+					<X>0.1535729</X>
+					<Y>0.546875</Y>
+					<Width>0.03641666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ç">
+				<UV>
+					<X>0.1938958</X>
+					<Y>0.546875</Y>
+					<Width>0.02158333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="è">
+				<UV>
+					<X>0.2193854</X>
+					<Y>0.546875</Y>
+					<Width>0.02225</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="é">
+				<UV>
+					<X>0.2455416</X>
+					<Y>0.546875</Y>
+					<Width>0.02229166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ê">
+				<UV>
+					<X>0.2717396</X>
+					<Y>0.546875</Y>
+					<Width>0.02241666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ë">
+				<UV>
+					<X>0.2980625</X>
+					<Y>0.546875</Y>
+					<Width>0.02266666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ì">
+				<UV>
+					<X>0.3246354</X>
+					<Y>0.546875</Y>
+					<Width>0.01558333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="í">
+				<UV>
+					<X>0.344125</X>
+					<Y>0.546875</Y>
+					<Width>0.01266667</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="î">
+				<UV>
+					<X>0.3606979</X>
+					<Y>0.546875</Y>
+					<Width>0.01575</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ï">
+				<UV>
+					<X>0.3803541</X>
+					<Y>0.546875</Y>
+					<Width>0.01791666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ð">
+				<UV>
+					<X>0.402177</X>
+					<Y>0.546875</Y>
+					<Width>0.024125</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ñ">
+				<UV>
+					<X>0.4302083</X>
+					<Y>0.546875</Y>
+					<Width>0.026625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ò">
+				<UV>
+					<X>0.4607396</X>
+					<Y>0.546875</Y>
+					<Width>0.02391666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ó">
+				<UV>
+					<X>0.4885625</X>
+					<Y>0.546875</Y>
+					<Width>0.02391666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ô">
+				<UV>
+					<X>0.5163854</X>
+					<Y>0.546875</Y>
+					<Width>0.024</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="õ">
+				<UV>
+					<X>0.5442916</X>
+					<Y>0.546875</Y>
+					<Width>0.02416666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ö">
+				<UV>
+					<X>0.5723645</X>
+					<Y>0.546875</Y>
+					<Width>0.02425</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="÷">
+				<UV>
+					<X>0.6005207</X>
+					<Y>0.546875</Y>
+					<Width>0.02158333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ø">
+				<UV>
+					<X>0.6260103</X>
+					<Y>0.546875</Y>
+					<Width>0.02529166</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ù">
+				<UV>
+					<X>0.6552082</X>
+					<Y>0.546875</Y>
+					<Width>0.02616666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ú">
+				<UV>
+					<X>0.6852812</X>
+					<Y>0.546875</Y>
+					<Width>0.02616666</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="û">
+				<UV>
+					<X>0.7153541</X>
+					<Y>0.546875</Y>
+					<Width>0.02625</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ü">
+				<UV>
+					<X>0.7455103</X>
+					<Y>0.546875</Y>
+					<Width>0.02645833</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ý">
+				<UV>
+					<X>0.7758749</X>
+					<Y>0.546875</Y>
+					<Width>0.02508333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="þ">
+				<UV>
+					<X>0.8048645</X>
+					<Y>0.546875</Y>
+					<Width>0.02533333</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+			<Glyph Char="ÿ">
+				<UV>
+					<X>0.8341041</X>
+					<Y>0.546875</Y>
+					<Width>0.025375</Width>
+					<Height>0.1015625</Height>
+				</UV>
+			</Glyph>
+		</Glyphs>
+	</ImageFont>
 </ImageFonts>

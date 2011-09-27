@@ -27,7 +27,7 @@ namespace Ponykart.Handlers {
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,
 					ForegroundColour = Colours.Red,
-					Font = UIResources.Fonts["CelestiaHuge"],
+					Font = UIResources.Fonts["Celestia"],
 				},
 				Text = "PAUSED",
 			};

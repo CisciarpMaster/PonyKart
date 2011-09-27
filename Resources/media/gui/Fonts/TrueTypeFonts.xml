@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TrueTypeFonts>
-  <TrueTypeFont Name="BlueHighwaySmall">
+<!--<TrueTypeFont Name="BlueHighwaySmall">
     <FileName>media\gui\fonts\bluehigh.ttf</FileName>
     <FontStyle>Regular</FontStyle>
     <Resolution>96</Resolution>
@@ -29,5 +29,5 @@
     <FontStyle>Regular</FontStyle>
     <Resolution>96</Resolution>
     <Size>16</Size>
-  </TrueTypeFont>
+  </TrueTypeFont>-->
 </TrueTypeFonts>

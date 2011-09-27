@@ -69,9 +69,6 @@ namespace Ponykart.Handlers {
 					WordWrap = true,
 					Multiline = true
 				},
-				UserData = new UIUserData {
-					ObstructsViewport = false,
-				},
 				Visible = false,
 				Text =
 @"[W A S D] Move and turn

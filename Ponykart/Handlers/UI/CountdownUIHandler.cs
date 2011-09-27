@@ -22,7 +22,7 @@ namespace Ponykart.Handlers {
 				TextStyle = {
 					Alignment = Alignment.MiddleCenter,
 					ForegroundColour = Colours.Magenta,
-					Font = UIResources.Fonts["CelestiaHuge"],
+					Font = UIResources.Fonts["Celestia"],
 				},
 				Visible = false,
 				Text = string.Empty,
