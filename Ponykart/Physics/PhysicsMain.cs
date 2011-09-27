@@ -150,6 +150,11 @@ namespace Ponykart.Physics {
 				solver.Dispose();
 				dcc.Dispose();
 				dispatcher.Dispose();
+				for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
+					var obj = world.CollisionObjectArray[a];
+					if (obj != null && !obj.IsDisposed)
+						obj.Dispose();
+				}
 				world.Dispose();
 			}
 		}

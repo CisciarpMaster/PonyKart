@@ -3,11 +3,11 @@
         <colourAmbient r="0.8" g="0.8" b="0.8" />
     </environment>
     <nodes>
-        <node name="shittyterrain">
+        <node name="terrain">
             <position x="0" y="-2" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="shittyterrain" static="true" castShadows="true" receiveShadows="true" meshFile="shittyterrain.mesh">
+            <entity name="terrain" static="true" castShadows="true" receiveShadows="true" meshFile="terrain.mesh">
                 <subentities>
                     <subentity index="0" materialName="cell_background" />
                 </subentities>
