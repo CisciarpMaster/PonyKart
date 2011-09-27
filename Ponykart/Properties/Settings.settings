@@ -99,7 +99,7 @@
       <Value Profile="(Default)">0.05</Value>
     </Setting>
     <Setting Name="SelfRighterShortRayLength" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">1.2</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="SelfRighterLongRayLength" Type="System.Single" Scope="User">
       <Value Profile="(Default)">4</Value>

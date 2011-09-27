@@ -53,7 +53,7 @@ namespace Ponykart.Handlers {
 					break;
 				case KeyCode.KC_U:
 					//LKernel.GetG<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 100000, 0), Vector3.ZERO);
-					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity += new Vector3(0, 10, 0);
+					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity += new Vector3(0, 20, 0);
 					break;
 				case KeyCode.KC_F:
 					LKernel.GetG<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;

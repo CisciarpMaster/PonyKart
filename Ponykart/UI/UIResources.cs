@@ -71,7 +71,7 @@ namespace Ponykart.UI {
 		/// Loads up our GUI from an xml file
 		/// </summary>
 		private static void CreateFromSerialized(MiyagiSystem system) {
-			system.SerializationManager.ImportFromFile(Settings.Default.MiyagiResourcesFileLocation + "serialize" + Settings.Default.MiyagiXMLExtension);
+			system.SerializationManager.ImportFromFile(Settings.Default.MiyagiResourcesFileLocation + "GUI/cerealized" + Settings.Default.MiyagiXMLExtension);
 
 			// the XML only gives us SkinNames and FontNames, so now we have to get them to all use the correct skins/fonts
 			foreach (var control in system.GUIManager.AllControls) {

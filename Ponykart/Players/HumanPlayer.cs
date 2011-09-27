@@ -63,59 +63,61 @@ namespace Ponykart.Players {
 		#region key events
 		protected void OnPressAccelerate(LKey k) {
 			if (IsControlEnabled) {
-				// do nothing if the brake is pressed
-				//if (!bindings.IsKeyPressed(LKey.Drift)) {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Reverse))
-					Kart.Accelerate(0);
+					Kart.Acceleration = 0;
 				// otherwise go forwards as normal
 				else
-					Kart.Accelerate(1);
-				//}
+					Kart.Acceleration = 1;
 			}
 		}
 		protected void OnReleaseAccelerate(LKey k) {
 			if (IsControlEnabled) {
 				// if reverse is still held down, then we start reversing
 				if (bindings.IsKeyPressed(LKey.Reverse))
-					Kart.Accelerate(-1);
+					Kart.Acceleration = -1;
 				// otherwise we just stop accelerating
 				else
-					Kart.Accelerate(0);
+					Kart.Acceleration = 0;
 			}
 		}
 
 
 		protected void OnPressDrift(LKey k) {
-
+			if (IsControlEnabled) {
+				Kart.Bounce();
+			}
 		}
-		protected void OnReleaseDrift(LKey k) {
 
+		/// <summary>
+		/// cancel the drift
+		/// </summary>
+		protected void OnReleaseDrift(LKey k) {
+			if (IsControlEnabled) {
+				Kart.IsBouncing = false;
+				Kart.StopDrifting();
+			}
 		}
 
 
 		protected void OnPressReverse(LKey k) {
 			if (IsControlEnabled) {
-				// do nothing if the brake is pressed
-				//if (!bindings.IsKeyPressed(LKey.Drift)) {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Accelerate))
-					Kart.Accelerate(0);
+					Kart.Acceleration = 0;
 				// otherwise go forwards as normal
 				else
-					Kart.Accelerate(-1);
-
-				//}
+					Kart.Acceleration = -1;
 			}
 		}
 		protected void OnReleaseReverse(LKey k) {
 			if (IsControlEnabled) {
 				// if forward is still held down, then we start going forwards
 				if (bindings.IsKeyPressed(LKey.Accelerate))
-					Kart.Accelerate(1);
+					Kart.Acceleration = 1;
 				// otherwise we just stop accelerating
 				else
-					Kart.Accelerate(0);
+					Kart.Acceleration = 0;
 			}
 		}
 
@@ -124,20 +126,20 @@ namespace Ponykart.Players {
 			if (IsControlEnabled) {
 				// if both turns are pressed, we go straight
 				if (bindings.IsKeyPressed(LKey.TurnRight))
-					Kart.Turn(0);
+					Kart.TurnMultiplier = 0;
 				// otherwise go left
 				else
-					Kart.Turn(1);
+					Kart.TurnMultiplier = 1;
 			}
 		}
 		protected void OnReleaseTurnLeft(LKey k) {
 			if (IsControlEnabled) {
 				// if right is still pressed, turn right
 				if (bindings.IsKeyPressed(LKey.TurnRight))
-					Kart.Turn(-1);
+					Kart.TurnMultiplier = -1;
 				// otherwise go straight
 				else
-					Kart.Turn(0);
+					Kart.TurnMultiplier = 0;
 			}
 		}
 
@@ -146,20 +148,20 @@ namespace Ponykart.Players {
 			if (IsControlEnabled) {
 				// if both turns are pressed, we go straight
 				if (bindings.IsKeyPressed(LKey.TurnLeft))
-					Kart.Turn(0);
+					Kart.TurnMultiplier = 0;
 				// otherwise go right
 				else
-					Kart.Turn(-1);
+					Kart.TurnMultiplier = -1;
 			}
 		}
 		protected void OnReleaseTurnRight(LKey k) {
 			if (IsControlEnabled) {
 				// if left is still pressed, turn left
 				if (bindings.IsKeyPressed(LKey.TurnLeft))
-					Kart.Turn(1);
+					Kart.TurnMultiplier = 1;
 				// otherwise go straight
 				else
-					Kart.Turn(0);
+					Kart.TurnMultiplier = 0;
 			}
 		}
 		#endregion

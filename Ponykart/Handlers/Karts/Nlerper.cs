@@ -9,17 +9,17 @@ namespace Ponykart.Handlers {
 	/// A little class to help us nlerp things
 	/// </summary>
 	public class Nlerper {
-		Quaternion _orientSrc;
-		Quaternion _orientDest;
-		float _progress = 0;
-		float _duration;
-		Kart _kart;
+		Quaternion orientSrc;
+		Quaternion orientDest;
+		float progress = 0;
+		float duration;
+		Kart kart;
 
 		public Nlerper(Kart kart, float duration, Quaternion orientDest) {
-			_duration = duration;
-			_orientSrc = kart.Body.Orientation;
-			_orientDest = orientDest;
-			_kart = kart;
+			this.duration = duration;
+			this.orientSrc = kart.Body.Orientation;
+			this.orientDest = orientDest;
+			this.kart = kart;
 
 			LKernel.GetG<PhysicsMain>().PreSimulate += Update;
 		}
@@ -28,26 +28,26 @@ namespace Ponykart.Handlers {
 		/// nlerp!
 		/// </summary>
 		void Update(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (_kart == null || Pauser.IsPaused)
+			if (kart == null || Pauser.IsPaused)
 				return;
 
 			// don't do this more than we have to
-			_progress += evt.timeSinceLastFrame;
-			if (_progress > _duration) {
+			progress += evt.timeSinceLastFrame;
+			if (progress > duration) {
 				Detach();
 				return;
 			}
 
-			Quaternion delta = Quaternion.Nlerp(_progress / _duration, _orientSrc, _orientDest, true);
-			_kart.Body.SetOrientation(delta);
+			Quaternion delta = Quaternion.Nlerp(progress / duration, orientSrc, orientDest, true);
+			kart.Body.SetOrientation(delta);
 		}
 
 		public void Detach() {
-			if (_kart != null) {
+			if (kart != null) {
 				LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
 				Nlerper temp;
-				LKernel.Get<KartHandler>().Nlerpers.TryRemove(_kart, out temp);
-				_kart = null;
+				LKernel.Get<KartHandler>().Nlerpers.TryRemove(kart, out temp);
+				kart = null;
 			}
 		}
 	}

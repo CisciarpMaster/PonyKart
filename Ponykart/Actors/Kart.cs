@@ -1,4 +1,5 @@
-﻿using BulletSharp;
+﻿using System;
+using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
 using PonykartParsers;
@@ -18,9 +19,17 @@ namespace Ponykart.Actors {
 		public float MaxSpeedSquared { get; private set; }
 		public float MaxReverseSpeedSquared { get; private set; }
 		/// <summary>
-		/// Should only be set by StopKartsFromRollingOverHandler
+		/// Should only be set by KartHandler
 		/// </summary>
 		public bool IsInAir { get; set; }
+		/// <summary>
+		/// For the bounce you do before a drift
+		/// </summary>
+		public bool IsBouncing { get; set; }
+		/// <summary>
+		/// When you're actually drifting
+		/// </summary>
+		public bool IsDrifting { get; set; }
 
 		// our wheelshapes
 		public Wheel WheelFL { get; protected set; }
@@ -51,8 +60,8 @@ namespace Ponykart.Actors {
 				return;
 			}
 
-			RootNode.Orientation = Body.InterpolationWorldTransform.ExtractQuaternion();
-			RootNode.Position = Body.InterpolationWorldTransform.GetTrans();
+			RootNode.Orientation = Body.WorldTransform.ExtractQuaternion();
+			RootNode.Position = Body.WorldTransform.GetTrans();
 		}
 
 		/// <summary>
@@ -79,28 +88,36 @@ namespace Ponykart.Actors {
 			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null), false);
 		}
 
+		private float _accelerate;
 		/// <summary>
 		/// Sets the motor torque of all wheels and sets their brake torque to 0.
 		/// </summary>
-		public void Accelerate(float multiplier) {
-			Body.Activate();
+		public float Acceleration {
+			get {
+				return _accelerate;
+			}
+			set {
+				Body.Activate();
+				this._accelerate = value;
 
-			WheelBR.AccelerateMultiplier =
-				WheelBL.AccelerateMultiplier =
-				WheelFR.AccelerateMultiplier =
-				WheelFL.AccelerateMultiplier
-					= multiplier;
+				WheelBR.AccelerateMultiplier =
+					WheelBL.AccelerateMultiplier =
+					WheelFR.AccelerateMultiplier =
+					WheelFL.AccelerateMultiplier
+						= value;
 
-			WheelBR.IsBrakeOn =
-				WheelBL.IsBrakeOn =
-				WheelFR.IsBrakeOn =
-				WheelFL.IsBrakeOn
-					= false;
+				WheelBR.IsBrakeOn =
+					WheelBL.IsBrakeOn =
+					WheelFR.IsBrakeOn =
+					WheelFL.IsBrakeOn
+						= false;
+			}
 		}
 
 		/// <summary>
 		/// Sets the motor torque of all wheels to 0 and applies a brake torque.
 		/// </summary>
+		[Obsolete]
 		public void Brake() {
 			WheelBR.IsBrakeOn =
 				WheelBL.IsBrakeOn =
@@ -115,20 +132,57 @@ namespace Ponykart.Actors {
 					= 0;
 		}
 
+		private float _multiplier;
 		/// <summary>
 		/// Turns the wheels
 		/// </summary>
-		public void Turn(float multiplier) {
-			WheelFR.TurnMultiplier =
-				WheelFL.TurnMultiplier =
-				WheelBR.TurnMultiplier =
-				WheelBL.TurnMultiplier
-					= multiplier;
+		public float TurnMultiplier {
+			get {
+				return _multiplier;
+			}
+			set {
+				this._multiplier = value;
+
+				WheelFR.TurnMultiplier =
+					WheelFL.TurnMultiplier =
+					WheelBR.TurnMultiplier =
+					WheelBL.TurnMultiplier
+						= value;
+			}
 		}
 
-		public void SetWheelFriction(float friction) {
-			for (int a = 0; a < 4; a++) {
-				Vehicle.GetWheelInfo(a).FrictionSlip = friction;
+		/// <summary>
+		/// Make the kart bounce up in preparation for drifting, but only if it isn't in the air already
+		/// </summary>
+		public void Bounce() {
+			IsBouncing = true;
+			if (!IsInAir) {
+				Body.LinearVelocity += Body.Orientation.YAxis * new Vector3(0, 10, 0);
+			}
+		}
+
+		public void StartDrifting() {
+
+		}
+
+		public void StopDrifting() {
+
+		}
+
+		private float _friction;
+		/// <summary>
+		/// Sets the friction of the wheels
+		/// </summary>
+		public float WheelFriction {
+			get {
+				return _friction;
+			}
+			set {
+				this._friction = value;
+
+				for (int a = 0; a < 4; a++) {
+					Vehicle.GetWheelInfo(a).FrictionSlip = value;
+				}
 			}
 		}
 
@@ -141,8 +195,20 @@ namespace Ponykart.Actors {
 			}
 		}
 
+		/// <summary>
+		/// Gets a wheel
+		/// </summary>
+		/// <param name="id">Must be between 0 and 3!</param>
 		public Wheel GetWheel(int id) {
-			WheelID wid = (WheelID) id;
+			if (id < 0 || id > 3)
+				throw new ArgumentOutOfRangeException("id", "The ID number must be between 0 and 3 inclusive!");
+			return GetWheel((WheelID) id);
+		}
+
+		/// <summary>
+		/// Gets a wheel
+		/// </summary>
+		public Wheel GetWheel(WheelID wid) {
 			switch (wid) {
 				case WheelID.FrontLeft:
 					return WheelFL;
