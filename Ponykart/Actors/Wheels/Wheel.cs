@@ -302,11 +302,11 @@ namespace Ponykart.Actors {
 		/// </summary>
 		Normal,
 		/// <summary>
-		/// Turn angle is positive
+		/// Turn angle is negative
 		/// </summary>
 		DriftLeft,
 		/// <summary>
-		/// Turn angle is negative
+		/// Turn angle is positive
 		/// </summary>
 		DriftRight,
 	}

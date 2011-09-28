@@ -130,6 +130,11 @@ namespace Ponykart.Actors {
 			IsDrifting = false;
 
 			if (!IsInAir) {
+				if (TurnMultiplier < 0)
+					Body.AngularVelocity += RootNode.GetLocalYAxis() * -1f;
+				else if (TurnMultiplier > 0)
+					Body.AngularVelocity += RootNode.GetLocalYAxis() * 1f;
+
 				Body.LinearVelocity += RootNode.GetLocalYAxis() * 10;
 			}
 		}

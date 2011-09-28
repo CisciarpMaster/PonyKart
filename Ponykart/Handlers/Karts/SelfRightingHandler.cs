@@ -43,8 +43,9 @@ namespace Ponykart.Handlers {
 				return;
 			}
 
-			// stop it spinning
-			kart.Body.AngularVelocity = Vector3.ZERO;
+			// stop it spinning, but only if it's not on purpose
+			if (!kart.IsBouncing)
+				kart.Body.AngularVelocity = Vector3.ZERO;
 
 			// update its rotation to point upwards
 			var quat = kart.Body.WorldTransform.ExtractQuaternion();
