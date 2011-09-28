@@ -5,7 +5,7 @@
 -- This is basically a randomiser that picks one mesh and one material
 -- out of the options available and creates one of the 4 colors of apple.
 function apple(lthing)
-	num = math.random(4)
+	local num = math.random(4)
 	local name
 	local mat
 	
@@ -21,7 +21,7 @@ function apple(lthing)
 		mat = "GreenApple"
 	end
 	
-	t = spawn(name, lthing.SpawnPosition)
+	local t = spawn(name, lthing.SpawnPosition)
 	setMaterial(t, mat)
 	deactivateThing(t)
 	

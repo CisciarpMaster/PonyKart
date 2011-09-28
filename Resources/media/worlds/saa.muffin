@@ -142,18 +142,18 @@ CMC_Treehouse {
 	Position = 302.149, 30.8791, -550.78
 	Orientation = 0.0613301, 0.0911103, 0.00562195, 0.993935
 }
-FlowerBarrelGreen {
+FlowerBarrel {
 	Position = 183.886, 0.32491, 233.664
 }
-FlowerBarrelGreen {
+FlowerBarrel {
 	Position = 190.223, 0.32491, 229.591
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 }
 // the one by the barn
-FlowerBarrelGreen {
+FlowerBarrel {
 	Position = 83.7244, -0.642549, 212.17
 }
-FlowerBarrelGreen {
+FlowerBarrel {
 	Position = 192.055, 0.37155, 197.47
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 }
