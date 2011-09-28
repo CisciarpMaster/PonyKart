@@ -37,10 +37,9 @@ namespace Ponykart.Handlers {
 
 			float fraction = progress / duration;
 			// update friction
-			kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = kart.WheelFL.FrictionSlip * fraction;
-			kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = kart.WheelFR.FrictionSlip * fraction;
-			kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = kart.WheelBL.FrictionSlip * fraction;
-			kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = kart.WheelBR.FrictionSlip * fraction;
+			kart.ForEachWheel(w => {
+				kart.Vehicle.GetWheelInfo(w.IntWheelID).FrictionSlip = w.FrictionSlip * fraction;
+			});
 
 			// limit angular velocity
 			Vector3 vec = new Vector3(kart.Body.AngularVelocity.x, kart.Body.AngularVelocity.y, kart.Body.AngularVelocity.z);
@@ -65,10 +64,9 @@ namespace Ponykart.Handlers {
 		public void Detach() {
 			if (kart != null) {
 				// reset it back to normal
-				kart.Vehicle.GetWheelInfo((int) WheelID.FrontLeft).FrictionSlip = kart.WheelFL.FrictionSlip;
-				kart.Vehicle.GetWheelInfo((int) WheelID.FrontRight).FrictionSlip = kart.WheelFR.FrictionSlip;
-				kart.Vehicle.GetWheelInfo((int) WheelID.BackLeft).FrictionSlip = kart.WheelBL.FrictionSlip;
-				kart.Vehicle.GetWheelInfo((int) WheelID.BackRight).FrictionSlip = kart.WheelBR.FrictionSlip;
+				kart.ForEachWheel(w => {
+					kart.Vehicle.GetWheelInfo(w.IntWheelID).FrictionSlip = w.FrictionSlip;
+				});
 
 				LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
 				Skidder temp;

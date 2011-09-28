@@ -9,7 +9,6 @@ namespace Ponykart.Actors {
 	public class Wheel : LDisposable {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
-		public long ID { get; protected set; }
 
 		public float Radius { get; set; } // 0.5 (lymph)
 		public float Width { get; set; } // 0.4 (demo)
@@ -28,8 +27,11 @@ namespace Ponykart.Actors {
 		protected readonly Vector3 WheelDirection = Vector3.NEGATIVE_UNIT_Y;
 		protected readonly Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
 		public bool IsFrontWheel { get; protected set; }
-		public WheelID WheelID { get; private set; }
-		protected readonly int IntWheelID;
+
+		public WheelID ID { get; private set; }
+		public readonly int IntWheelID;
+
+		public WheelTurnState TurnState { get; set; }
 
 		// we use these three things to control the wheels
 		/// <summary>
@@ -51,13 +53,11 @@ namespace Ponykart.Actors {
 		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID) {
 			kart = owner;
 			vehicle = kart.Vehicle;
-			WheelID = wheelID;
+			ID = wheelID;
 			IntWheelID = (int) wheelID;
 
-			ID = IDs.New;
-
-			Node = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + ID);
-			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + ID, "kart/KartWheel.mesh");
+			Node = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + kart.ID + ID);
+			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + kart.ID + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
@@ -113,7 +113,22 @@ namespace Ponykart.Actors {
 			}
 			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
 			else if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour > -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour < 10)) {
-				vehicle.ApplyEngineForce(MotorForce * AccelerateMultiplier, IntWheelID);
+				float _motorForce = 0;
+				// the wheels with motor force change depending on whether the kart is drifting or not
+				// rear-wheel drive, remember!
+				if (TurnState == WheelTurnState.Normal) {
+					if (ID == WheelID.BackLeft || ID == WheelID.BackRight)
+						_motorForce = MotorForce;
+				}
+				else if (TurnState == WheelTurnState.DriftLeft) {
+					if (ID == WheelID.FrontRight || ID == WheelID.BackRight)
+						_motorForce = MotorForce;
+				}
+				else if (TurnState == WheelTurnState.DriftRight) {
+					if (ID == WheelID.FrontLeft || ID == WheelID.BackLeft)
+						_motorForce = MotorForce;
+				}
+				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
 				IsBrakeOn = false;
 			}
 		}
@@ -170,33 +185,64 @@ namespace Ponykart.Actors {
 			timeSinceLastFrame *= 100;
 
 			// first we figure out what our maximum turn angle is depending on kart speed
-
 			float axleSpeed = vehicle.CurrentSpeedKmHour;
-			// less than the slow speed = extra turn multiplier
-			if (axleSpeed < slowSpeed)
-				speedTurnMultiplier = speedTurnMultiplierAtSlowSpeeds;
-			// more than the high speed = no extra multiplier
-			else if (axleSpeed > highSpeed)
-				speedTurnMultiplier = 1;
-			// somewhere in between = time for a cosine curve!
-			else {
-				float relativeSpeed = axleSpeed - slowSpeed;
-				float maxRelativeSpeed = highSpeed - slowSpeed;
-				speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2f)) * (speedTurnMultiplierAtSlowSpeeds - 1f));
-			}
-			float targetSteerAngle = (TurnAngle.ValueRadians * TurnMultiplier * speedTurnMultiplier) + idealSteerAngle.ValueRadians;
+			
+
+				// less than the slow speed = extra turn multiplier
+				if (axleSpeed < slowSpeed)
+					speedTurnMultiplier = speedTurnMultiplierAtSlowSpeeds;
+				// more than the high speed = no extra multiplier
+				else if (axleSpeed > highSpeed)
+					speedTurnMultiplier = 1;
+				// somewhere in between = time for a cosine curve!
+				else {
+					float relativeSpeed = axleSpeed - slowSpeed;
+					float maxRelativeSpeed = highSpeed - slowSpeed;
+					speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2f)) * (speedTurnMultiplierAtSlowSpeeds - 1f));
+				}
+
+
+			// pick whether the wheel can turn or not depending on whether it's drifting
+			// only "front" wheels turn!
+			float _turnAngle = 0;
+
+
+				if (TurnState == WheelTurnState.Normal) {
+					if (ID == WheelID.FrontLeft || ID == WheelID.FrontRight)
+						_turnAngle = TurnAngle.ValueRadians;
+				}
+				else if (TurnState == WheelTurnState.DriftLeft) {
+					if (ID == WheelID.FrontLeft || ID == WheelID.BackLeft)
+						_turnAngle = TurnAngle.ValueRadians;
+				}
+				else if (TurnState == WheelTurnState.DriftRight) {
+					if (ID == WheelID.FrontRight || ID == WheelID.BackRight)
+						_turnAngle = TurnAngle.ValueRadians;
+				}
+
+
+			// okay so now we know what angle the wheel should try to be at
+			float targetSteerAngle = (_turnAngle * TurnMultiplier * speedTurnMultiplier) + idealSteerAngle.ValueRadians;
 
 			float currentAngle = vehicle.GetSteeringValue(IntWheelID);
 			float steerChange;
 
-			if (Math.Abs(targetSteerAngle) < Math.Abs(currentAngle))
-				// we are not turning any more, so the wheels are moving back to their forward positions
-				steerChange = steerDecrementTurn.ValueRadians * timeSinceLastFrame;
-			else
-				// we are turning, so the wheels are moving to their turned positions
-				steerChange = steerIncrementTurn.ValueRadians * timeSinceLastFrame;
-
+			// now we have to figure out how much we have to change by
 			// smooth out the turning
+
+
+				if (Math.Abs(targetSteerAngle - idealSteerAngle.ValueRadians) < Math.Abs(currentAngle - idealSteerAngle.ValueRadians))
+					// we are not turning any more, so the wheels are moving back to their forward positions
+					steerChange = steerDecrementTurn.ValueRadians * timeSinceLastFrame;
+				else
+					// we are turning, so the wheels are moving to their turned positions
+					steerChange = steerIncrementTurn.ValueRadians * timeSinceLastFrame;
+
+
+			// turn the wheels! All of the logic here makes sure that we don't turn further than the wheel can turn,
+			// and don't turn too far when we're straightening out
+
+
 			if (currentAngle < targetSteerAngle) {
 				if (currentAngle + steerChange <= targetSteerAngle)
 					vehicle.SetSteeringValue(currentAngle + steerChange, IntWheelID);
@@ -248,5 +294,20 @@ namespace Ponykart.Actors {
 		/// 3
 		/// </summary>
 		BackRight = 3,
+	}
+
+	public enum WheelTurnState {
+		/// <summary>
+		/// Turn angle is zero
+		/// </summary>
+		Normal,
+		/// <summary>
+		/// Turn angle is positive
+		/// </summary>
+		DriftLeft,
+		/// <summary>
+		/// Turn angle is negative
+		/// </summary>
+		DriftRight,
 	}
 }

@@ -34,11 +34,11 @@ namespace Ponykart.Handlers {
 						string.Concat("Speed: ", kart.Vehicle.CurrentSpeedKmHour, _ret, 
 						"Turn angle: ", kart.Vehicle.GetSteeringValue((int) WheelID.FrontLeft), _ret, 
 						"Linear Velocity: ", kart.Body.LinearVelocity.Length, "  ", kart.Body.LinearVelocity, _ret, 
-						"WheelFriction: ", kart.GetWheel(0).FrictionSlip, " , ", kart.GetWheel(2).FrictionSlip, _ret, 
+						"WheelFriction: ", kart.WheelFL.FrictionSlip, " , ", kart.WheelBL.FrictionSlip, _ret, 
 						"Brake? ", kart.WheelFL.IsBrakeOn, _ret, 
 						"AccelMultiplier: ", kart.Acceleration, _ret, 
 						"Gravity: ", kart.Body.Gravity, _ret,
-						"Bouncing: ", kart.IsBouncing, " , Drifting: ", kart.IsDrifting);
+						"Bouncing: ", kart.IsBouncing, " , Drifting: ", kart.IsDrifting, " , ", kart.WheelFL.TurnState);
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

@@ -85,17 +85,10 @@ namespace Ponykart.Actors {
 				Body.Activate();
 				this._accelerate = value;
 
-				WheelBR.AccelerateMultiplier =
-					WheelBL.AccelerateMultiplier =
-					WheelFR.AccelerateMultiplier =
-					WheelFL.AccelerateMultiplier
-						= value;
-
-				WheelBR.IsBrakeOn =
-					WheelBL.IsBrakeOn =
-					WheelFR.IsBrakeOn =
-					WheelFL.IsBrakeOn
-						= false;
+				ForEachWheel(w => {
+					w.AccelerateMultiplier = value;
+					w.IsBrakeOn = false;
+				});
 			}
 		}
 
@@ -104,17 +97,10 @@ namespace Ponykart.Actors {
 		/// </summary>
 		[Obsolete]
 		public void Brake() {
-			WheelBR.IsBrakeOn =
-				WheelBL.IsBrakeOn =
-				WheelFR.IsBrakeOn =
-				WheelFL.IsBrakeOn
-					= true;
-
-			WheelBR.AccelerateMultiplier =
-				WheelBL.AccelerateMultiplier =
-				WheelFR.AccelerateMultiplier =
-				WheelFL.AccelerateMultiplier
-					= 0;
+			ForEachWheel(w => {
+				w.IsBrakeOn = true;
+				w.AccelerateMultiplier = 0;
+			});
 		}
 
 		private float _multiplier;
@@ -128,11 +114,9 @@ namespace Ponykart.Actors {
 			set {
 				this._multiplier = value;
 
-				WheelFR.TurnMultiplier =
-					WheelFL.TurnMultiplier =
-					WheelBR.TurnMultiplier =
-					WheelBL.TurnMultiplier
-						= value;
+				ForEachWheel(w => {
+					w.TurnMultiplier = value;
+				});
 			}
 		}
 
@@ -150,14 +134,36 @@ namespace Ponykart.Actors {
 			}
 		}
 
+		/// <summary>
+		/// Start drifting! This is run right after we land from bouncing, if the drift button is still pressed
+		/// </summary>
 		public void StartDrifting() {
 			IsDrifting = true;
-			WheelFL.idealSteerAngle = WheelFR.idealSteerAngle = WheelBL.idealSteerAngle = WheelBR.idealSteerAngle = 90;
+			ForEachWheel(w => {
+				// left
+				if (TurnMultiplier < 0) {
+					w.TurnState = WheelTurnState.DriftLeft;
+					w.idealSteerAngle = 90;
+					Vehicle.SetSteeringValue(1.57f, w.IntWheelID);
+				}
+				// right
+				else if (TurnMultiplier > 0) {
+					w.TurnState = WheelTurnState.DriftRight;
+					w.idealSteerAngle = -90;
+					Vehicle.SetSteeringValue(-1.57f, w.IntWheelID);
+				}
+			});
 		}
 
+		/// <summary>
+		/// Stop drifting. This is run when we let go of the drift button.
+		/// </summary>
 		public void StopDrifting() {
 			IsDrifting = false;
-			WheelFL.idealSteerAngle = WheelFR.idealSteerAngle = WheelBL.idealSteerAngle = WheelBR.idealSteerAngle = 0;
+			ForEachWheel(w => {
+				w.TurnState = WheelTurnState.Normal;
+				w.idealSteerAngle = 0;
+			});
 		}
 
 		private float _friction;
@@ -184,6 +190,17 @@ namespace Ponykart.Actors {
 			get {
 				return Vehicle.CurrentSpeedKmHour;
 			}
+		}
+
+		/// <summary>
+		/// A little helper method since we do stuff to all four wheels so often
+		/// </summary>
+		/// <param name="action"></param>
+		public void ForEachWheel(Action<Wheel> action) {
+			action(WheelFL);
+			action(WheelFR);
+			action(WheelBL);
+			action(WheelBR);
 		}
 
 		/// <summary>
