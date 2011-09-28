@@ -118,11 +118,13 @@ namespace Ponykart.Handlers {
 		/// turn on the appropriate particles
 		/// </summary>
 		void OnTouchdown(Kart kart, CollisionWorld.ClosestRayResultCallback callback) {
-			string name = callback.CollisionObject.GetName();
-			if (IsDirt(name))
-				DirtEmitting(kart.OwnerID, true);
-			else if (IsGrass(name))
-				GrassEmitting(kart.OwnerID, true);
+			if (kart.WheelSpeed > 20f || kart.WheelSpeed < -20f) {
+				string name = callback.CollisionObject.GetName();
+				if (IsDirt(name))
+					DirtEmitting(kart.OwnerID, true);
+				else if (IsGrass(name))
+					GrassEmitting(kart.OwnerID, true);
+			}
 		}
 
 		/// <summary>

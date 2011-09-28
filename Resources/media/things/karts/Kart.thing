@@ -4,8 +4,8 @@ CollisionGroup = Karts
 CollidesWith = Karts
 MaxSpeed = 70
 MaxReverseSpeed = 20
-FrontWheel = "MultiWheel"
-BackWheel = "MultiWheel"
+FrontWheel = "FrontWheel"
+BackWheel = "BackWheel"
 PhysicsMaterial = "Kart"
 
 FrontLeftWheelPosition = 1.388, 0.302, 1.0203
@@ -13,8 +13,8 @@ FrontRightWheelPosition = -1.388, 0.302, 1.0203
 BackLeftWheelPosition = 1.388, 0.302, -1.70428
 BackRightWheelPosition = -1.388, 0.302, -1.70428
 
-FrontDriftAngle = 86
-BackDriftAngle = 89
+FrontDriftAngle = 56
+BackDriftAngle = 59
 
 Model {
 	Mesh = "kart/KartChassis.mesh"

@@ -170,15 +170,11 @@ namespace Ponykart.Handlers {
 			// getting rid of our SRH means that we're close to landing but we haven't landed yet
 			if (Settings.Default.UseSelfRightingHandlers) {
 				srh.Detach();
-				SelfRightingHandler temp;
-				SRHs.TryRemove(kart, out temp);
+				SRHs.TryRemove(kart, out srh);
 			}
 
-			if (kart.Body.LinearVelocity.y > 20)
-				kart.Body.LinearVelocity = new Vector3(kart.Body.LinearVelocity.x, 20, kart.Body.LinearVelocity.z);
-
 			if (Settings.Default.UseNlerpers)
-				AlignKartWithNormal(kart, callback, true, 0.3f);
+				AlignKartWithNormal(kart, callback, true, 0.2f);
 
 			if (OnCloseToTouchdown != null)
 				OnCloseToTouchdown(kart, callback);
@@ -196,18 +192,16 @@ namespace Ponykart.Handlers {
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
 					n.Detach();
-					Nlerper temp;
-					Nlerpers.TryRemove(kart, out temp);
+					Nlerpers.TryRemove(kart, out n);
 				}
 			}
 
 			// add a skidder!
-			if (Settings.Default.UseSkidders) {
+			if (Settings.Default.UseSkidders /*&& !kart.WantsDrifting*/) {
 				Skidder s;
 				if (Skidders.TryGetValue(kart, out s)) {
 					s.Detach();
-					Skidder temp;
-					Skidders.TryRemove(kart, out temp);
+					Skidders.TryRemove(kart, out s);
 				}
 				Skidders[kart] = new Skidder(kart, Settings.Default.SkidderDuration);
 			}
@@ -259,7 +253,7 @@ namespace Ponykart.Handlers {
 			// rotTo * old orientation is the same as rotate(rotTo) on SceneNodes, but since this isn't a scene node we have to do it this way
 			Quaternion newOrientation = rotTo * kart.Body.Orientation;
 
-			if (useNlerp) {
+			if (useNlerp && Settings.Default.UseNlerpers) {
 				// if we already have a nlerper, get rid of it
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {

@@ -14,7 +14,7 @@ namespace Ponykart.Handlers {
 				return;
 
 			if (eventArgs.key == KeyCode.KC_G) {
-				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.FrictionSlip = w.InitialFrictionSlip);
+				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.Friction = w.FrictionSlip);
 			}
 		}
 
@@ -23,7 +23,7 @@ namespace Ponykart.Handlers {
 				return;
 
 			if (eventArgs.key == KeyCode.KC_G)
-				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.FrictionSlip = 0.8f);
+				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.Friction = 0.8f);
 		}
 
 		public void Detach() {

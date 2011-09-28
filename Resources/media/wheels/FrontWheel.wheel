@@ -8,8 +8,8 @@ SpringDamping = 40
 FrictionSlip = 4
 RollInfluence = 0.05
 
-BrakeForce = 40
-MotorForce = 0
+BrakeForce = 35
+MotorForce = 1500
 TurnAngle = 5
 
 SlowSpeed = 60

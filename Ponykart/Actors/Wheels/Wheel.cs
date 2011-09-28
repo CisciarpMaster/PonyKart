@@ -11,41 +11,101 @@ namespace Ponykart.Actors {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 
+		/// <summary>
+		/// The radius of the wheel
+		/// </summary>
 		protected readonly float Radius; // 0.5 (lymph)
+		/// <summary>
+		/// The width of the wheel
+		/// </summary>
 		protected readonly float Width; // 0.4 (demo)
+		/// <summary>
+		/// The length of the suspension when it's fully extended
+		/// </summary>
 		protected readonly float SuspensionRestLength; // 0.6 (demo) // 0.3 (zg)
 
+		/// <summary>
+		/// The stiffness of the suspension spring. Higher values can help make the suspension return to rest length more quickly,
+		/// but can also make the suspension oscillate.
+		/// </summary>
 		protected readonly float SpringStiffness; // 100 (zg)
+		/// <summary>
+		/// I have no idea what this does, since changing it doesn't seem to have any effect on the suspension whatsoever
+		/// </summary>
 		protected readonly float SpringCompression; // 4.2 (zg)
+		/// <summary>
+		/// How much force the suspension spring can absorb before returning to rest length. Higher numbers can make the kart smoother,
+		/// but too high and the kart starts to shake (around 100)
+		/// </summary>
 		protected readonly float SpringDamping; // 20 (zg)
-		public float FrictionSlip { get; set; } // 1000 (demo)
-		public readonly float InitialFrictionSlip;
+		/// <summary>
+		/// The friction of the wheel. Higher numbers give more friction, 0 gives no friction.
+		/// </summary>
+		public readonly float FrictionSlip; // 1000 (demo)
+		/// <summary>
+		/// How much the wheel resists rolling (around its "forward" axis). Lower numbers give more resistance.
+		/// </summary>
 		protected readonly float RollInfluence; // 1 (zg)
 
+		/// <summary>
+		/// How much force the wheel exerts when braking.
+		/// </summary>
 		protected readonly float BrakeForce;
+		/// <summary>
+		/// How much force the wheel's motor exerts, if it's a back wheel.
+		/// </summary>
 		protected readonly float MotorForce;
+		/// <summary>
+		/// The maximum amount the wheel can turn by, if it's a front wheel.
+		/// </summary>
 		protected readonly Degree TurnAngle; // 0.3 rads (demo)
 
+		/// <summary>
+		/// Which way is "up"?
+		/// </summary>
 		protected readonly Vector3 WheelDirection = Vector3.NEGATIVE_UNIT_Y;
+		/// <summary>
+		/// Which axis does the wheel rotate around?
+		/// </summary>
 		protected readonly Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
-		public bool IsFrontWheel { get; protected set; }
 
+		/// <summary>
+		/// Lets us keep track of which wheel this is on the kart
+		/// </summary>
 		public WheelID ID { get; private set; }
+		/// <summary>
+		/// Since we want the ID number of this wheel in int form so much, this is used to keep track of it without casting it every time.
+		/// </summary>
 		public readonly int IntWheelID;
 
-		// any slower than this and you will have the fully multiplied turn angle
+		/// <summary>
+		/// any slower than this and you will have the fully multiplied turn angle
+		/// </summary>
 		protected readonly float SlowSpeed;
-		// any faster than this and you will have the regular turn angle
+		/// <summary>
+		/// any faster than this and you will have the regular turn angle
+		/// </summary>
 		protected readonly float HighSpeed;
-		// how much should the wheel's turn angle increase by at slow speeds?
+		/// <summary>
+		/// how much should the wheel's turn angle increase by at slow speeds?
+		/// </summary>
 		protected readonly float SlowTurnMultiplier;
-		// how much should the wheel's turn angle increase by when drifting?
+		/// <summary>
+		/// how much should the wheel's turn angle increase by when drifting?
+		/// </summary>
 		protected readonly float DriftingTurnMultiplier;
-		// how much to increment the wheel's angle by, each frame
+		/// <summary>
+		/// how much to increment the wheel's angle by, each frame
+		/// </summary>
 		protected readonly Degree SteerIncrementTurn;
-		// how much to decrement the wheel's angle by, each frame
+		/// <summary>
+		/// how much to decrement the wheel's angle by, each frame
+		/// </summary>
 		protected readonly Degree SteerDecrementTurn;
 
+		/// <summary>
+		/// Keeps track of whether we're drifting or not, and if we are, which direction we're moving in.
+		/// </summary>
 		public DriftState DriftState { get; set; }
 
 		// we use these three things to control the wheels
@@ -65,6 +125,7 @@ namespace Ponykart.Actors {
 		/// the angle wheels should try to be at when they aren't turning
 		/// </summary>
 		public Degree IdealSteerAngle { get; set; }
+		public float Friction { get; set; } 
 
 		Kart kart;
 		RaycastVehicle vehicle;
@@ -88,7 +149,7 @@ namespace Ponykart.Actors {
 			SpringStiffness = dict["SpringStiffness"];
 			SpringCompression = dict["SpringCompression"];
 			SpringDamping = dict["SpringDamping"];
-			InitialFrictionSlip = dict["FrictionSlip"];
+			Friction = dict["FrictionSlip"];
 			RollInfluence = dict["RollInfluence"];
 			BrakeForce = dict["BrakeForce"];
 			MotorForce = dict["MotorForce"];
@@ -106,7 +167,7 @@ namespace Ponykart.Actors {
 			IsBrakeOn = false;
 			DriftState = DriftState.Normal;
 			IntWheelID = (int) wheelID;
-			InitialFrictionSlip = FrictionSlip;
+			FrictionSlip = Friction;
 			IdealSteerAngle = new Degree(0);
 
 			// and then hook up to the event
@@ -126,13 +187,11 @@ namespace Ponykart.Actors {
 
 			vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, kart.Tuning, isFrontWheel);
 
-			IsFrontWheel = isFrontWheel;
-
 			WheelInfo info = vehicle.GetWheelInfo(IntWheelID);
 			info.SuspensionStiffness = SpringStiffness;
 			info.WheelDampingRelaxation = SpringDamping;
 			info.WheelDampingCompression = SpringCompression;
-			info.FrictionSlip = FrictionSlip;
+			info.FrictionSlip = Friction;
 			info.RollInfluence = RollInfluence;
 		}
 
@@ -156,11 +215,13 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void Accelerate() {
 			// if we are trying to accelerate in the opposite direction that we're moving, then brake
-			if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour < -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour > 10)) {
+			if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour < -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour > 10))
+			{
 				IsBrakeOn = true;
 			}
 			// if we're mostly stopped and we aren't trying to accelerate, then brake
-			else if (AccelerateMultiplier == 0 && (vehicle.CurrentSpeedKmHour > -10 || vehicle.CurrentSpeedKmHour < 10)) {
+			else if (AccelerateMultiplier == 0 && (vehicle.CurrentSpeedKmHour > -10 || vehicle.CurrentSpeedKmHour < 10))
+			{
 				IsBrakeOn = true;
 			}
 			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
@@ -194,24 +255,24 @@ namespace Ponykart.Actors {
 				if (AccelerateMultiplier == 0 && (vehicle.CurrentSpeedKmHour > -10 && vehicle.CurrentSpeedKmHour < 10)) {
 					// the point of this is to lock the wheels in place so we don't move when we're stopped
 					vehicle.SetBrake(BrakeForce * 100, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip * 100;
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction * 100;
 				}
 				// normal brake
 				else if ((AccelerateMultiplier > 0 && vehicle.CurrentSpeedKmHour < -10) || (AccelerateMultiplier < 0 && vehicle.CurrentSpeedKmHour > 10)) {
 					// brake to apply when we're changing direction
 					vehicle.SetBrake(BrakeForce, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip;
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
 				}
 				// normal brake
 				else {
 					// brake to apply when we're just slowing down
 					vehicle.SetBrake(BrakeForce * 0.75f, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip;
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
 				}
 			}
 			else {
 				vehicle.SetBrake(0, IntWheelID);
-				vehicle.GetWheelInfo(IntWheelID).FrictionSlip = FrictionSlip;
+				vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
 			}
 		}
 
@@ -320,39 +381,5 @@ namespace Ponykart.Actors {
 
 			base.Dispose(disposing);
 		}
-	}
-
-	public enum WheelID {
-		/// <summary>
-		/// 0
-		/// </summary>
-		FrontLeft = 0,
-		/// <summary>
-		/// 1
-		/// </summary>
-		FrontRight = 1,
-		/// <summary>
-		/// 2
-		/// </summary>
-		BackLeft = 2,
-		/// <summary>
-		/// 3
-		/// </summary>
-		BackRight = 3,
-	}
-
-	public enum DriftState {
-		/// <summary>
-		/// Turn angle is zero
-		/// </summary>
-		Normal,
-		/// <summary>
-		/// Turn angle is negative
-		/// </summary>
-		DriftLeft,
-		/// <summary>
-		/// Turn angle is positive
-		/// </summary>
-		DriftRight,
 	}
 }

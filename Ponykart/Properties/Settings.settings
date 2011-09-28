@@ -87,7 +87,7 @@
       <Value Profile="(Default)">0.7</Value>
     </Setting>
     <Setting Name="UseNlerpers" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="UseSkidders" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -99,7 +99,7 @@
       <Value Profile="(Default)">0.05</Value>
     </Setting>
     <Setting Name="SelfRighterShortRayLength" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">0.6</Value>
+      <Value Profile="(Default)">1.2</Value>
     </Setting>
     <Setting Name="SelfRighterLongRayLength" Type="System.Single" Scope="User">
       <Value Profile="(Default)">4</Value>

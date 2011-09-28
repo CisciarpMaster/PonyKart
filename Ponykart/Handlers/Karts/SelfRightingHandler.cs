@@ -18,6 +18,8 @@ namespace Ponykart.Handlers {
 			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
 		}
 
+		readonly Radian closeEnoughToUp = new Degree(3);
+
 		/// <summary>
 		/// We can't use constraints because otherwise we wouldn't be able to do loops.
 		/// </summary>
@@ -38,13 +40,13 @@ namespace Ponykart.Handlers {
 			Vector3 locY = matrix.GetLocalYAxis();
 
 			// first of all, if we're self righted enough, we can get rid of this handler
-			if (locY.DirectionEquals(Vector3.UNIT_Y, 0.0523f)) { // 3 degrees
+			if (locY.DirectionEquals(Vector3.UNIT_Y, closeEnoughToUp)) { // 3 degrees
 				Detach();
 				return;
 			}
 
 			// stop it spinning, but only if it's not on purpose
-			if (!kart.IsBouncing)
+			//if (!kart.IsBouncing)
 				kart.Body.AngularVelocity = Vector3.ZERO;
 
 			// update its rotation to point upwards

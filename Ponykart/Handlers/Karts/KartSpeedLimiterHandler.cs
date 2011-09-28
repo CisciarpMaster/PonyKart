@@ -37,7 +37,10 @@ namespace Ponykart.Handlers {
 
 				// going forwards
 				// using 20 because we don't need to check the kart's linear velocity if it's going really slowly
-				if (kart.Vehicle.CurrentSpeedKmHour > 20 && !kart.IsInAir) {
+				if ((kart.Vehicle.CurrentSpeedKmHour > 20 && !kart.IsInAir && !kart.IsDrifting) 
+					|| kart.Vehicle.CurrentSpeedKmHour < -20 && kart.IsDrifting
+					|| kart.Vehicle.CurrentSpeedKmHour > 20 && kart.IsDrifting)
+				{
 					// check its velocity against the max velocity (both are squared to avoid unnecessary square roots)
 					if (kart.Body.LinearVelocity.SquaredLength > kart.MaxSpeedSquared) {
 						Vector3 vec = kart.Body.LinearVelocity;
@@ -47,7 +50,7 @@ namespace Ponykart.Handlers {
 					}
 				}
 				// going in reverse, so we want to limit the speed even more
-				else if (kart.Vehicle.CurrentSpeedKmHour < -20 && !kart.IsInAir) {
+				else if (kart.Vehicle.CurrentSpeedKmHour < -20 && !kart.IsInAir && !kart.IsDrifting) {
 					if (kart.Body.LinearVelocity.SquaredLength > kart.MaxReverseSpeedSquared) {
 						Vector3 vec = kart.Body.LinearVelocity;
 						vec.Normalise();
