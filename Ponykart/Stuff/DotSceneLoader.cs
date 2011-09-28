@@ -16,8 +16,6 @@ namespace Ponykart.Stuff {
 
 		public List<string> DynamicObjects; //String
 		public List<string> StaticObjects; //String
-		public IDictionary<string, Vector3> Positions, Scales;
-		public IDictionary<string, Quaternion> Orientations;
 
 		protected SceneNode attachNode;
 		protected SceneManager sceneMgr;
@@ -26,11 +24,11 @@ namespace Ponykart.Stuff {
 		protected string sceneFileName;
 
 		public void ParseDotScene(String SceneName, String groupName) {
-			ParseDotScene(SceneName, groupName, null, string.Empty);
+			ParseDotScene(SceneName, groupName, null, "");
 		}
 
 		public void ParseDotScene(String SceneName, String groupName, SceneNode pAttachNode) {
-			ParseDotScene(SceneName, groupName, pAttachNode, string.Empty);
+			ParseDotScene(SceneName, groupName, pAttachNode, "");
 		}
 
 		public void ParseDotScene(String SceneName, String groupName1, SceneNode pAttachNode, String sPrependNode) {
@@ -41,9 +39,6 @@ namespace Ponykart.Stuff {
 			this.sceneFileName = SceneName;
 			this.StaticObjects = new List<string>();
 			this.DynamicObjects = new List<string>();
-			this.Positions = new Dictionary<string, Vector3>();
-			this.Orientations = new Dictionary<string, Quaternion>();
-			this.Scales = new Dictionary<string, Vector3>();
 
 			XmlDocument XMLDoc = null;
 			XmlElement XMLRoot;
@@ -79,7 +74,7 @@ namespace Ponykart.Stuff {
 		}
 
 		protected String getAttrib(XmlElement XMLNode, String attrib) {
-			return getAttrib(XMLNode, attrib, string.Empty);
+			return getAttrib(XMLNode, attrib, "");
 		}
 
 		protected String getAttrib(XmlElement XMLNode, String attrib, String defaultValue) {
@@ -196,7 +191,7 @@ namespace Ponykart.Stuff {
 			Launch.Log("[DotSceneLoader] Successfully processed camera \"" + name + "\"");
 		}
 
-		protected Entity processEntity(XmlElement XMLNode) {
+		protected void processEntity(XmlElement XMLNode, SceneNode pParent) {
 			// Process attributes
 			String name = getAttrib(XMLNode, "name");
 			String meshFile = getAttrib(XMLNode, "meshFile");
@@ -235,13 +230,14 @@ namespace Ponykart.Stuff {
 						pElement = (XmlElement) pElement.NextSibling;
 					}
 				}
+
+				pParent.AttachObject(pEntity);
 			}
 			catch (Exception e) {
 				Launch.Log("[DotSceneLoader] Error loading an entity!" + e.Message + " [File: " + sceneFileName + "]");
 			}
 
 			Launch.Log("[DotSceneLoader] Successfully processed entity \"" + name + "\"");
-			return pEntity;
 		}
 
 		protected void processEnvironment(XmlElement XMLNode) {
@@ -384,73 +380,98 @@ namespace Ponykart.Stuff {
 			Launch.Log("[DotSceneLoader] Successfully processed light range");
 		}
 
-		protected void processStaticGeom(XmlElement XMLNode) {
+		protected void processNode(XmlElement XMLNode, SceneNode pParent) {
 			// Construct the node's name
 			String name = prependNode + getAttrib(XMLNode, "name");
 
 			// Create the scene node
-			StaticGeometry pStaticGeom;
-			pStaticGeom = sceneMgr.CreateStaticGeometry(name);
+			SceneNode pNode;
+			if (name.Length == 0) {
+				// Let Ogre choose the name
+				if (pParent != null)
+					pNode = pParent.CreateChildSceneNode();
+				else
+					pNode = attachNode.CreateChildSceneNode();
+			}
+			else {
+				// Provide the name
+				if (pParent != null)
+					pNode = pParent.CreateChildSceneNode(name);
+				else
+					pNode = attachNode.CreateChildSceneNode(name);
+			}
 
 			// Process other attributes
 			XmlElement pElement;
-			Vector3 pos = Vector3.ZERO, sca = Vector3.UNIT_SCALE;
-			Quaternion orient = Quaternion.IDENTITY;
 
 			// Process position (?)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("position");
 			if (pElement != null) {
-				pos = parseVector3(pElement);
+				pNode.Position = parseVector3(pElement);
+				pNode.SetInitialState();
 			}
-			Positions.Add(name, pos);
 
 			// Process quaternion (?)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("quaternion");
 			if (pElement != null) {
-				orient = parseQuaternion(pElement);
+				pNode.Orientation = parseQuaternion(pElement);
+				pNode.SetInitialState();
 			}
 
 			// Process rotation (?)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("rotation");
 			if (pElement != null) {
-				orient = parseRotation(pElement);
+				pNode.Orientation = parseRotation(pElement);
+				pNode.SetInitialState();
 			}
-			Orientations.Add(name, orient);
 
 			// Process scale (?)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("scale");
 			if (pElement != null) {
-				sca = parseVector3(pElement);
+				pNode.SetScale(parseVector3(pElement));
+				pNode.SetInitialState();
 			}
-			Scales.Add(name, sca);
 
 			// Process entity (*)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("entity");
 			if (pElement != null) {
-				pStaticGeom.AddEntity(processEntity(pElement), pos, orient, sca);
+				processEntity(pElement, pNode);
 			}
 
 			// Process light (*)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("light");
 			if (pElement != null) {
-				processLight(pElement, attachNode);
+				processLight(pElement, pNode);
 			}
+
+			// Process plane (*)
+			pElement = (XmlElement) XMLNode.SelectSingleNode("plane");
+			while (pElement != null) {
+				processPlane(pElement, pNode);
+				pElement = (XmlElement) pElement.NextSibling;
+			}
+
+
 
 			// Process camera (*)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("camera");
 			if (pElement != null) {
-				processCamera(pElement, attachNode);
+				processCamera(pElement, pNode);
 			}
+
+			// Process userDataReference (?)
+			pElement = (XmlElement) XMLNode.SelectSingleNode("userData");
+			if (pElement != null)
+				processUserDataReference(pElement, pNode);
 
 			// Process childnodes
 			pElement = (XmlElement) XMLNode.SelectSingleNode("node");
 			while (pElement != null) {
-				processStaticGeom(pElement);
+				processNode(pElement, pNode);
 				pElement = (XmlElement) pElement.NextSibling;
 			}
 
-			pStaticGeom.Build();
-			Launch.Log("[DotSceneLoader] Successfully processed static geometry \"" + name + "\"");
+			Launch.Log("[DotSceneLoader] Successfully processed scene node \"" + name + "\"");
 		}
 
 		protected void processPlane(XmlElement XMLNode, SceneNode pParent) {
@@ -496,13 +517,13 @@ namespace Ponykart.Stuff {
 			Launch.Log("[DotSceneLoader] Successfully processed plane \"" + name + "\"");
 		}
 
-		protected void processGeom(XmlElement XMLNode) {
+		protected void processNodes(XmlElement XMLNode) {
 			XmlElement pElement;
 
 			// Process node (*)
 			pElement = (XmlElement) XMLNode.SelectSingleNode("node");
 			while (pElement != null) {
-				processStaticGeom(pElement);
+				processNode(pElement, null);
 				XmlNode nextNode = pElement.NextSibling;
 				pElement = nextNode as XmlElement;
 				while (pElement == null && nextNode != null) {
@@ -523,7 +544,7 @@ namespace Ponykart.Stuff {
 			// Process nodes (?)
 			pElement = (XmlElement) XMLRoot.SelectSingleNode("nodes");
 			if (pElement != null)
-				processGeom(pElement);
+				processNodes(pElement);
 
 			// Process environment (?)
 			pElement = (XmlElement) XMLRoot.SelectSingleNode("environment");
