@@ -7,7 +7,7 @@ ForceCompound = true
 // Entity#0
 Model {
 	Mesh = "FlowerBarrel.mesh"
-	Material = "FlowerBarrelGreen"
+	Material = "FlowerBarrelYellow"
 	Position = 0, 2.10882, 0
 	Scale = 2, 2, 2
 }
@@ -18,14 +18,11 @@ Shape {
 	Dimensions = 4.05386, 3.92334, 4.05386
 }
 
-// need to add something to specify the coordinates of the texture
 BillboardSet {
 	Material = "FlowerBarrelTransparent"
 	Type = OrientedCommon
 	Width = 1
 	Height = 1.562
-	// left, top, right, bottom
-	//TextureCoords = 0.57, 0.938, 0.984, 0.156
 	TextureCoords = 0.57, 0.062, 0.984, 0.844
 	
 	Billboard {
