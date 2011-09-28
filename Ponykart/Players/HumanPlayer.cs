@@ -85,6 +85,7 @@ namespace Ponykart.Players {
 
 		protected void OnPressDrift(LKey k) {
 			if (IsControlEnabled) {
+				Kart.WantsDrifting = true;
 				Kart.Bounce();
 			}
 		}
@@ -93,7 +94,7 @@ namespace Ponykart.Players {
 		/// </summary>
 		protected void OnReleaseDrift(LKey k) {
 			if (IsControlEnabled) {
-				Kart.IsBouncing = false;
+				Kart.WantsDrifting = false;
 				Kart.StopDrifting();
 			}
 		}

@@ -1,4 +1,5 @@
-﻿using BulletSharp;
+﻿using System.Collections.Generic;
+using BulletSharp;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Physics;
@@ -10,19 +11,20 @@ namespace Ponykart.Actors {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 
-		public float Radius { get; set; } // 0.5 (lymph)
-		public float Width { get; set; } // 0.4 (demo)
-		public float SuspensionRestLength { get; set; } // 0.6 (demo) // 0.3 (zg)
+		protected readonly float Radius; // 0.5 (lymph)
+		protected readonly float Width; // 0.4 (demo)
+		protected readonly float SuspensionRestLength; // 0.6 (demo) // 0.3 (zg)
 
-		public float SpringStiffness { get; set; } // 100 (zg)
-		public float SpringCompression { get; set; } // 4.2 (zg)
-		public float SpringDamping { get; set; } // 20 (zg)
+		protected readonly float SpringStiffness; // 100 (zg)
+		protected readonly float SpringCompression; // 4.2 (zg)
+		protected readonly float SpringDamping; // 20 (zg)
 		public float FrictionSlip { get; set; } // 1000 (demo)
-		public float RollInfluence { get; set; } // 1 (zg)
+		public readonly float InitialFrictionSlip;
+		protected readonly float RollInfluence; // 1 (zg)
 
-		public float BrakeForce { get; set; }
-		public float MotorForce { get; set; }
-		public Degree TurnAngle { get; set; } // 0.3 rads (demo)
+		protected readonly float BrakeForce;
+		protected readonly float MotorForce;
+		protected readonly Degree TurnAngle; // 0.3 rads (demo)
 
 		protected readonly Vector3 WheelDirection = Vector3.NEGATIVE_UNIT_Y;
 		protected readonly Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
@@ -31,7 +33,20 @@ namespace Ponykart.Actors {
 		public WheelID ID { get; private set; }
 		public readonly int IntWheelID;
 
-		public WheelTurnState TurnState { get; set; }
+		// any slower than this and you will have the fully multiplied turn angle
+		protected readonly float SlowSpeed;
+		// any faster than this and you will have the regular turn angle
+		protected readonly float HighSpeed;
+		// how much should the wheel's turn angle increase by at slow speeds?
+		protected readonly float SlowTurnMultiplier;
+		// how much should the wheel's turn angle increase by when drifting?
+		protected readonly float DriftingTurnMultiplier;
+		// how much to increment the wheel's angle by, each frame
+		protected readonly Degree SteerIncrementTurn;
+		// how much to decrement the wheel's angle by, each frame
+		protected readonly Degree SteerDecrementTurn;
+
+		public DriftState DriftState { get; set; }
 
 		// we use these three things to control the wheels
 		/// <summary>
@@ -46,32 +61,69 @@ namespace Ponykart.Actors {
 		/// true for brake on, false for brake off
 		/// </summary>
 		public bool IsBrakeOn { get; set; }
+		/// <summary>
+		/// the angle wheels should try to be at when they aren't turning
+		/// </summary>
+		public Degree IdealSteerAngle { get; set; }
 
 		Kart kart;
 		RaycastVehicle vehicle;
 
-		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID) {
+		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID, IDictionary<string, float> dict) {
+			// set up these
 			kart = owner;
 			vehicle = kart.Vehicle;
 			ID = wheelID;
-			IntWheelID = (int) wheelID;
 
+			// create our node and entity
 			Node = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + kart.ID + ID);
 			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + kart.ID + ID, "kart/KartWheel.mesh");
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
+			// set up our readonlies
+			Radius = dict["Radius"];
+			Width = dict["Width"];
+			SuspensionRestLength = dict["SuspensionRestLength"];
+			SpringStiffness = dict["SpringStiffness"];
+			SpringCompression = dict["SpringCompression"];
+			SpringDamping = dict["SpringDamping"];
+			InitialFrictionSlip = dict["FrictionSlip"];
+			RollInfluence = dict["RollInfluence"];
+			BrakeForce = dict["BrakeForce"];
+			MotorForce = dict["MotorForce"];
+			TurnAngle = new Degree(dict["TurnAngle"]);
+			SlowSpeed = dict["SlowSpeed"];
+			HighSpeed = dict["HighSpeed"];
+			SlowTurnMultiplier = dict["SlowTurnMultiplier"];
+			DriftingTurnMultiplier = dict["DriftingTurnMultiplier"];
+			SteerIncrementTurn = new Degree(dict["SteerIncrementTurn"]);
+			SteerDecrementTurn = new Degree(dict["SteerDecrementTurn"]);
+
+			// give our fields some default values
 			AccelerateMultiplier = 0;
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
+			DriftState = DriftState.Normal;
+			IntWheelID = (int) wheelID;
+			InitialFrictionSlip = FrictionSlip;
+			IdealSteerAngle = new Degree(0);
 
+			// and then hook up to the event
 			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
 		}
 
 		/// <summary>
 		/// Makes a wheel at the given position
 		/// </summary>
-		public void CreateWheel(Vector3 connectionPoint, bool isFrontWheel) {
+		public void CreateWheel(Vector3 connectionPoint) {
+			// need to tell bullet whether it's a front wheel or not
+			bool isFrontWheel;
+			if (ID == WheelID.FrontLeft || ID == WheelID.FrontRight)
+				isFrontWheel = true;
+			else
+				isFrontWheel = false;
+
 			vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, kart.Tuning, isFrontWheel);
 
 			IsFrontWheel = isFrontWheel;
@@ -116,15 +168,15 @@ namespace Ponykart.Actors {
 				float _motorForce = 0;
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
-				if (TurnState == WheelTurnState.Normal) {
+				if (DriftState == DriftState.Normal) {
 					if (ID == WheelID.BackLeft || ID == WheelID.BackRight)
 						_motorForce = MotorForce;
 				}
-				else if (TurnState == WheelTurnState.DriftLeft) {
+				else if (DriftState == DriftState.DriftLeft) {
 					if (ID == WheelID.FrontRight || ID == WheelID.BackRight)
 						_motorForce = MotorForce;
 				}
-				else if (TurnState == WheelTurnState.DriftRight) {
+				else if (DriftState == DriftState.DriftRight) {
 					if (ID == WheelID.FrontLeft || ID == WheelID.BackLeft)
 						_motorForce = MotorForce;
 				}
@@ -163,18 +215,8 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		// any slower than this and you will have the fully multiplied turn angle
-		readonly float slowSpeed = 60;
-		// any faster than this and you will have the regular turn angle
-		readonly float highSpeed = 160;
-		// how much should the wheel's turn angle increase by at slow speeds?
-		readonly float speedTurnMultiplierAtSlowSpeeds = 3f;
-		// how much to increment the wheel's angle by, each frame
-		static readonly Degree steerIncrementTurn = 0.4f;
-		// how much to decrement the whee's angle by, each frame
-		static readonly Degree steerDecrementTurn = 1f;
-		// the angle wheels should try to be at when they aren't turning
-		public Degree idealSteerAngle = 0;
+
+
 
 		/// <summary>
 		/// Rotates our wheels.
@@ -186,43 +228,42 @@ namespace Ponykart.Actors {
 
 			// first we figure out what our maximum turn angle is depending on kart speed
 			float axleSpeed = vehicle.CurrentSpeedKmHour;
-			
 
+
+			if (DriftState == DriftState.Normal) {
 				// less than the slow speed = extra turn multiplier
-				if (axleSpeed < slowSpeed)
-					speedTurnMultiplier = speedTurnMultiplierAtSlowSpeeds;
+				if (axleSpeed < SlowSpeed)
+					speedTurnMultiplier = SlowTurnMultiplier;
 				// more than the high speed = no extra multiplier
-				else if (axleSpeed > highSpeed)
+				else if (axleSpeed > HighSpeed)
 					speedTurnMultiplier = 1;
 				// somewhere in between = time for a cosine curve!
 				else {
-					float relativeSpeed = axleSpeed - slowSpeed;
-					float maxRelativeSpeed = highSpeed - slowSpeed;
-					speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2f)) * (speedTurnMultiplierAtSlowSpeeds - 1f));
+					float relativeSpeed = axleSpeed - SlowSpeed;
+					float maxRelativeSpeed = HighSpeed - SlowSpeed;
+					speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnMultiplier - 1f));
 				}
+			}
+			// no multiplier when we're drifting
+			else {
+				speedTurnMultiplier = DriftingTurnMultiplier;
+			}
 
 
 			// pick whether the wheel can turn or not depending on whether it's drifting
 			// only "front" wheels turn!
 			float _turnAngle = 0;
 
-
-				if (TurnState == WheelTurnState.Normal) {
-					if (ID == WheelID.FrontLeft || ID == WheelID.FrontRight)
-						_turnAngle = TurnAngle.ValueRadians;
-				}
-				else if (TurnState == WheelTurnState.DriftLeft) {
-					if (ID == WheelID.FrontLeft || ID == WheelID.BackLeft)
-						_turnAngle = TurnAngle.ValueRadians;
-				}
-				else if (TurnState == WheelTurnState.DriftRight) {
-					if (ID == WheelID.FrontRight || ID == WheelID.BackRight)
-						_turnAngle = TurnAngle.ValueRadians;
-				}
+			if ((DriftState == DriftState.Normal && (ID == WheelID.FrontLeft || ID == WheelID.FrontRight))
+				|| (DriftState == DriftState.DriftLeft && (ID == WheelID.FrontLeft || ID == WheelID.BackLeft))
+				|| (DriftState == DriftState.DriftRight && (ID == WheelID.FrontRight || ID == WheelID.BackRight)))
+			{
+				_turnAngle = TurnAngle.ValueRadians;
+			}
 
 
 			// okay so now we know what angle the wheel should try to be at
-			float targetSteerAngle = (_turnAngle * TurnMultiplier * speedTurnMultiplier) + idealSteerAngle.ValueRadians;
+			float targetSteerAngle = (_turnAngle * TurnMultiplier * speedTurnMultiplier) + IdealSteerAngle.ValueRadians;
 
 			float currentAngle = vehicle.GetSteeringValue(IntWheelID);
 			float steerChange;
@@ -230,13 +271,17 @@ namespace Ponykart.Actors {
 			// now we have to figure out how much we have to change by
 			// smooth out the turning
 
-
-				if (Math.Abs(targetSteerAngle - idealSteerAngle.ValueRadians) < Math.Abs(currentAngle - idealSteerAngle.ValueRadians))
+			if (DriftState == DriftState.Normal) {
+				if (Math.Abs(targetSteerAngle - IdealSteerAngle.ValueRadians) < Math.Abs(currentAngle - IdealSteerAngle.ValueRadians))
 					// we are not turning any more, so the wheels are moving back to their forward positions
-					steerChange = steerDecrementTurn.ValueRadians * timeSinceLastFrame;
+					steerChange = SteerDecrementTurn.ValueRadians * timeSinceLastFrame;
 				else
 					// we are turning, so the wheels are moving to their turned positions
-					steerChange = steerIncrementTurn.ValueRadians * timeSinceLastFrame;
+					steerChange = SteerIncrementTurn.ValueRadians * timeSinceLastFrame;
+			}
+			else {
+				steerChange = SteerIncrementTurn.ValueRadians * timeSinceLastFrame;
+			}
 
 
 			// turn the wheels! All of the logic here makes sure that we don't turn further than the wheel can turn,
@@ -296,7 +341,7 @@ namespace Ponykart.Actors {
 		BackRight = 3,
 	}
 
-	public enum WheelTurnState {
+	public enum DriftState {
 		/// <summary>
 		/// Turn angle is zero
 		/// </summary>

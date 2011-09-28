@@ -10,13 +10,20 @@ namespace Ponykart.Handlers {
 		}
 
 		void Release(KeyEvent eventArgs) {
-			if (eventArgs.key == KeyCode.KC_G)
-				LKernel.GetG<PlayerManager>().MainPlayer.Kart.WheelFriction = 5;
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
+				return;
+
+			if (eventArgs.key == KeyCode.KC_G) {
+				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.FrictionSlip = w.InitialFrictionSlip);
+			}
 		}
 
 		void Press(KeyEvent eventArgs) {
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
+				return;
+
 			if (eventArgs.key == KeyCode.KC_G)
-				LKernel.GetG<PlayerManager>().MainPlayer.Kart.WheelFriction = 0;
+				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.FrictionSlip = 0.8f);
 		}
 
 		public void Detach() {

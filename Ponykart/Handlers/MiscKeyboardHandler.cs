@@ -61,10 +61,10 @@ namespace Ponykart.Handlers {
 				/*case KeyCode.KC_L:
 					LKernel.GetG<LuaMain>().DoFile(Settings.Default.LuaFileLocation + "test" + Settings.Default.LuaFileExtension);
 					break;*/
-				case KeyCode.KC_G:
+				//case KeyCode.KC_G:
 					//LKernel.GetG<UI.UIMain>().MiyagiSys.SerializationManager.ExportToFile("media/gui/serialize.xml");
 					//Miyagi.Common.Resources.TrueTypeFont.TrueTypeToImageFont("media/gui/Fonts/", "media/gui/Fonts/bluehigh.ttf", System.Drawing.FontStyle.Regular, 12, 96);
-					break;
+					//break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
 					Process proc = new Process();

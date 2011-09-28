@@ -1,5 +1,6 @@
 ﻿using System;
 using BulletSharp;
+using Mogre;
 using Ponykart.Physics;
 using PonykartParsers;
 
@@ -29,12 +30,19 @@ namespace Ponykart.Actors {
 		/// When you're actually drifting
 		/// </summary>
 		public bool IsDrifting { get; set; }
+		/// <summary>
+		/// Whether the player has indicated that they want to drift or not. Used to cancel drifting if you've already started bouncing.
+		/// </summary>
+		public bool WantsDrifting { get; set; }
 
 		// our wheelshapes
 		public Wheel WheelFL { get; protected set; }
 		public Wheel WheelFR { get; protected set; }
 		public Wheel WheelBL { get; protected set; }
 		public Wheel WheelBR { get; protected set; }
+
+		protected readonly Degree FrontDriftAngle;
+		protected readonly Degree BackDriftAngle;
 
 		public RaycastVehicle Vehicle { get; protected set; }
 		public RaycastVehicle.VehicleTuning Tuning { get; protected set; }
@@ -47,6 +55,9 @@ namespace Ponykart.Actors {
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
 			IsInAir = false;
+
+			FrontDriftAngle = new Degree(def.GetFloatProperty("FrontDriftAngle", 86));
+			BackDriftAngle = new Degree(def.GetFloatProperty("BackDriftAngle", 89));
 		}
 
 		/// <summary>
@@ -67,10 +78,10 @@ namespace Ponykart.Actors {
 			var wheelFac = LKernel.GetG<WheelFactory>();
 			string frontWheelName = def.GetStringProperty("frontwheel", null);
 			string backWheelName = def.GetStringProperty("backwheel", null);
-			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("frontleftwheelposition", null), true);
-			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("frontrightwheelposition", null), true);
-			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("backleftwheelposition", null), false);
-			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null), false);
+			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("frontleftwheelposition", null));
+			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("frontrightwheelposition", null));
+			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("backleftwheelposition", null));
+			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null));
 		}
 
 		private float _accelerate;
@@ -130,10 +141,17 @@ namespace Ponykart.Actors {
 			IsDrifting = false;
 
 			if (!IsInAir) {
-				if (TurnMultiplier < 0)
+				if (TurnMultiplier < 0) {
 					Body.AngularVelocity += RootNode.GetLocalYAxis() * -1f;
-				else if (TurnMultiplier > 0)
+					WantDriftState = DriftState.DriftLeft;
+				}
+				else if (TurnMultiplier > 0) {
 					Body.AngularVelocity += RootNode.GetLocalYAxis() * 1f;
+					WantDriftState = DriftState.DriftRight;
+				}
+				else {
+					WantDriftState = DriftState.Normal;
+				}
 
 				Body.LinearVelocity += RootNode.GetLocalYAxis() * 10;
 			}
@@ -144,18 +162,37 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void StartDrifting() {
 			IsDrifting = true;
+
 			ForEachWheel(w => {
 				// left
-				if (TurnMultiplier < 0) {
-					w.TurnState = WheelTurnState.DriftLeft;
-					w.idealSteerAngle = 90;
-					Vehicle.SetSteeringValue(1.57f, w.IntWheelID);
+				if (WantDriftState == DriftState.DriftLeft) {
+					w.DriftState = DriftState.DriftLeft;
+
+					// change the back wheels' angles
+					if (w.ID == WheelID.FrontRight || w.ID == WheelID.BackRight) {
+						w.IdealSteerAngle = BackDriftAngle;
+						Vehicle.SetSteeringValue(BackDriftAngle.ValueRadians, w.IntWheelID);
+					}
+					// change the front wheels' angles
+					else {
+						w.IdealSteerAngle = FrontDriftAngle;
+						Vehicle.SetSteeringValue(FrontDriftAngle.ValueRadians, w.IntWheelID);
+					}
 				}
 				// right
-				else if (TurnMultiplier > 0) {
-					w.TurnState = WheelTurnState.DriftRight;
-					w.idealSteerAngle = -90;
-					Vehicle.SetSteeringValue(-1.57f, w.IntWheelID);
+				else if (WantDriftState == DriftState.DriftRight) {
+					w.DriftState = DriftState.DriftRight;
+
+					// change the back wheels' angles
+					if (w.ID == WheelID.FrontLeft || w.ID == WheelID.BackLeft) {
+						w.IdealSteerAngle = -BackDriftAngle;
+						Vehicle.SetSteeringValue(-BackDriftAngle.ValueRadians, w.IntWheelID);
+					}
+					// change the front wheels' angles
+					else {
+						w.IdealSteerAngle = -FrontDriftAngle;
+						Vehicle.SetSteeringValue(-FrontDriftAngle.ValueRadians, w.IntWheelID);
+					}
 				}
 			});
 		}
@@ -165,9 +202,12 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void StopDrifting() {
 			IsDrifting = false;
+			WantsDrifting = false;
+			WantDriftState = DriftState.Normal;
+
 			ForEachWheel(w => {
-				w.TurnState = WheelTurnState.Normal;
-				w.idealSteerAngle = 0;
+				w.DriftState = DriftState.Normal;
+				w.IdealSteerAngle = 0;
 			});
 		}
 
@@ -182,9 +222,9 @@ namespace Ponykart.Actors {
 			set {
 				this._friction = value;
 
-				for (int a = 0; a < 4; a++) {
-					Vehicle.GetWheelInfo(a).FrictionSlip = value;
-				}
+				ForEachWheel(w => {
+					w.FrictionSlip = value;
+				});
 			}
 		}
 
@@ -196,6 +236,8 @@ namespace Ponykart.Actors {
 				return Vehicle.CurrentSpeedKmHour;
 			}
 		}
+
+		public DriftState WantDriftState { get; set; }
 
 		/// <summary>
 		/// A little helper method since we do stuff to all four wheels so often

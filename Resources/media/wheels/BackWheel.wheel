@@ -11,3 +11,10 @@ RollInfluence = 0.05
 BrakeForce = 40
 MotorForce = 1500
 TurnAngle = 0
+
+SlowSpeed = 60
+HighSpeed = 160
+SlowTurnMultiplier = 3
+DriftingTurnMultiplier = 0.5
+SteerIncrementTurn = 0.4
+SteerDecrementTurn = 1

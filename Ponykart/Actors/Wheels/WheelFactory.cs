@@ -64,8 +64,8 @@ namespace Ponykart.Actors {
 			IDictionary<string, float> wheeldict = new Dictionary<string, float>();
 
 			// get rid of whitespace
-			wheelcontents.Replace(" ", string.Empty);
-			wheelcontents.Replace("\t", string.Empty);
+			wheelcontents = wheelcontents.Replace(" ", string.Empty);
+			wheelcontents = wheelcontents.Replace("\t", string.Empty);
 
 			string[] splits = wheelcontents.Split('\n');
 
@@ -87,24 +87,12 @@ namespace Ponykart.Actors {
 		/// <param name="wheelName">
 		/// The name of the wheel type you want to create. Should be the same as the filename, minus the extension. Case sensitive!
 		/// </param>
-		public Wheel CreateWheel(string wheelName, WheelID ID, Kart owner, Vector3 position, bool isFrontWheel) {
+		public Wheel CreateWheel(string wheelName, WheelID ID, Kart owner, Vector3 position) {
 			IDictionary<string, float> dict = wheels[wheelName];
-			Wheel wheel = new Wheel(owner, position, ID) {
-				Radius = dict["Radius"],
-				Width = dict["Width"],
-				SuspensionRestLength = dict["SuspensionRestLength"],
 
-				SpringStiffness = dict["SpringStiffness"],
-				SpringCompression = dict["SpringCompression"],
-				SpringDamping = dict["SpringDamping"],
-				FrictionSlip = dict["FrictionSlip"],
-				RollInfluence = dict["RollInfluence"],
+			Wheel wheel = new Wheel(owner, position, ID, dict);
+			wheel.CreateWheel(position);
 
-				BrakeForce = dict["BrakeForce"],
-				MotorForce = dict["MotorForce"],
-				TurnAngle = dict["TurnAngle"],
-			};
-			wheel.CreateWheel(position, isFrontWheel);
 			return wheel;
 		}
 	}

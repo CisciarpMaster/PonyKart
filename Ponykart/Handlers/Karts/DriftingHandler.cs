@@ -16,8 +16,8 @@ namespace Ponykart.Handlers {
 			if (kart.IsBouncing) {
 
 				kart.IsBouncing = false;
-				// and turning
-				if (kart.TurnMultiplier != 0) {
+				// and want to drift
+				if (kart.WantDriftState != DriftState.Normal) {
 					// then we need to drift, if we aren't already!
 					if (!kart.IsDrifting) {
 						kart.StartDrifting();
@@ -25,10 +25,10 @@ namespace Ponykart.Handlers {
 				}
 				// otherwise if we aren't turning, but still drifting from before
 				else if (kart.IsDrifting) {
-					// then we aren't drifting
+					// then we keep drifting
 
 				}
-				// otherwise if we aren't drifting and aren't turning
+				// otherwise if we aren't drifting and aren't wanting to drift
 				else {
 					// do nothing
 				}

@@ -38,7 +38,7 @@ namespace Ponykart.Handlers {
 			float fraction = progress / duration;
 			// update friction
 			kart.ForEachWheel(w => {
-				kart.Vehicle.GetWheelInfo(w.IntWheelID).FrictionSlip = w.FrictionSlip * fraction;
+				//w.FrictionSlip = w.InitialFrictionSlip * fraction;
 			});
 
 			// limit angular velocity
@@ -65,7 +65,7 @@ namespace Ponykart.Handlers {
 			if (kart != null) {
 				// reset it back to normal
 				kart.ForEachWheel(w => {
-					kart.Vehicle.GetWheelInfo(w.IntWheelID).FrictionSlip = w.FrictionSlip;
+					//w.FrictionSlip = w.InitialFrictionSlip;
 				});
 
 				LKernel.GetG<PhysicsMain>().PreSimulate -= Update;

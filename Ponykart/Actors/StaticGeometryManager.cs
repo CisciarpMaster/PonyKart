@@ -27,7 +27,8 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Adds all of the geometry attached to a node to some static geometry
+		/// Adds all of the geometry used by a model component to the static geometry.
+		/// This is used by the ModelComponent.
 		/// </summary>
 		/// <param name="name">The name this geometry is identified by</param>
 		public void Add(ModelComponent mc, ThingBlock template, ModelBlock def) {
@@ -44,10 +45,28 @@ namespace Ponykart.Actors {
 			}
 
 			Vector3 pos = def.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
-			Quaternion rot = def.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
+			Quaternion orient = def.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
 			Vector3 sca = def.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 			
-			geom.AddEntity(ent, pos, rot, sca);
+			geom.AddEntity(ent, pos, orient, sca);
+		}
+
+		/// <summary>
+		/// Adds all of the geometry used by an entity to the static geometry.
+		/// This is used by the DotSceneLoader.
+		/// </summary>
+		public void Add(Entity ent, Vector3 pos, Quaternion orient, Vector3 sca) {
+			// add the entity to the static geometry
+			geom.AddEntity(ent, pos, orient, sca);
+
+			if (!ents.ContainsKey(ent.GetMesh().Name))
+				// if the entity dictionary doesn't contain this entity, add it
+				ents.Add(ent.GetMesh().Name, ent);
+			else {
+				// otherwise we already have it and should get rid of it
+				LKernel.GetG<SceneManager>().DestroyEntity(ent);
+				ent.Dispose();
+			}
 		}
 
 		/// <summary>
