@@ -279,6 +279,9 @@ namespace Ponykart.Actors {
 			else if (te.HasFlag(ThingEnum.Kinematic))
 				Body.CollisionFlags |= CollisionFlags.KinematicObject;
 
+			if (def.GetBoolProperty("DisableVisualization", false))
+				Body.CollisionFlags |= CollisionFlags.DisableVisualizeObject;
+
 			Body.WorldTransform = Info.StartWorldTransform;
 
 			LKernel.GetG<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);

@@ -12,20 +12,6 @@ material 11-Default
 	}
 }
 
-material 15-Default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture spiky_bush_tex.png
-			}
-		}
-	}
-}
-
 material 10-Default
 {
 	technique

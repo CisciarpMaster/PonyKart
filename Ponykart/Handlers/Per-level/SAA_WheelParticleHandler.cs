@@ -125,6 +125,10 @@ namespace Ponykart.Handlers {
 				else if (IsGrass(name))
 					GrassEmitting(kart.OwnerID, true);
 			}
+			else {
+				DirtEmitting(kart.OwnerID, false);
+				GrassEmitting(kart.OwnerID, false);
+			}
 		}
 
 		/// <summary>

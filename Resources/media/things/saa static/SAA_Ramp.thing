@@ -1,0 +1,21 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Environment
+CollidesWith = Environment
+DisableVisualization = true
+
+// SAA_Ramp
+Model {
+	Mesh = "SAA_Ramp.mesh"
+	Material = "SAA_Bridge"
+	Position = 0, 0, 0
+	CastsShadows = true
+}
+// SAA_Ramp_phys
+Shape {
+	Type = Mesh
+	Mesh = "SAA_Ramp_phys.bullet"
+	Position = 0.958, 7.442, 0
+	Orientation = 0, 0, 0, 1
+	Scale = 1, 1, 1
+}

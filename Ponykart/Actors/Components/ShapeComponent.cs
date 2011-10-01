@@ -45,8 +45,55 @@ namespace Ponykart.Actors {
 					LKernel.GetG<SceneManager>().DestroyEntity(ent);
 					ent.Dispose();
 
-					// TODO: figure out how to deal with convex triangle mesh shapes since apparently they aren't being exported
+					// TODO: figure out how to deal with concave triangle mesh shapes since apparently they aren't being exported
 					//LKernel.GetG<PhysicsMain>().SerializeShape(Shape, name);
+				}
+			}
+			// for a trimesh
+			else if (block.EnumTokens["type"] == ThingEnum.Mesh) {
+				// example.mesh
+				string meshName = block.GetStringProperty("mesh", null);
+				// example
+				// physics/example.bullet
+				string name, bulletFilePath;
+
+				if (meshName.EndsWith(".mesh")) {
+					name = meshName.Remove(meshName.IndexOf(".mesh"));
+					bulletFilePath = Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension;
+				}
+				else if (meshName.EndsWith(".bullet")) {
+					name = meshName.Remove(meshName.IndexOf(".bullet"));
+					bulletFilePath = Settings.Default.BulletFileLocation + meshName;
+				}
+				else {
+					throw new System.ApplicationException("Your \"Mesh\" property needs to end in either .mesh or .bullet!");
+				}
+
+				// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
+				if (File.Exists(bulletFilePath)) {
+					// so it has a file
+					Launch.Log("[ShapeComponent] Loading " + bulletFilePath + "...");
+					Shape = LKernel.GetG<PhysicsMain>().ImportCollisionShape(name);
+				}
+				else {
+					Launch.Log("[ShapeComponent] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
+
+					// it does not have a file, so we need to convert our ogre mesh
+					Entity ent = LKernel.GetG<SceneManager>().CreateEntity(meshName);
+
+					Shape = new BvhTriangleMeshShape(
+						OgreToBulletMesh.Convert(
+							ent.GetMesh(),
+							block.GetVectorProperty("Position", null),
+							block.GetQuatProperty("Orientation", Quaternion.IDENTITY),
+							block.GetVectorProperty("Scale", Vector3.UNIT_SCALE)),
+						true, true);
+
+					// and then export it as a .bullet file
+					LKernel.GetG<PhysicsMain>().SerializeShape(Shape, name);
+
+					LKernel.GetG<SceneManager>().DestroyEntity(ent);
+					ent.Dispose();
 				}
 			}
 		}

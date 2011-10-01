@@ -20,6 +20,7 @@ namespace PonykartParsers {
 		Cylinder,
 		Cone,
 		Hull,
+		Mesh,
 
 		// collision groups
 		//None,

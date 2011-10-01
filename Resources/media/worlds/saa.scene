@@ -3,16 +3,6 @@
 		<colourAmbient r="0.8" g="0.8" b="0.8" />
 	</environment>
 	<nodes>
-		<node name="Ramp_1">
-			<position x="-106.811" y="48.649" z="-672.68" />
-			<scale x="1.5634" y="2.5" z="2.86408" />
-			<rotation qx="0.697776" qy="0.114492" qz="0.114492" qw="0.697776" />
-			<entity name="Ramp_1" castShadows="true" receiveShadows="true" meshFile="Ramp_1.mesh" static="true">
-				<subentities>
-					<subentity index="0" materialName="bluebrick" />
-				</subentities>
-			</entity>
-		</node>
 		<node name="SAA_LP_Ground">
 			<position x="-18.8938" y="-6.96937" z="-171.604" />
 			<scale x="2.5" y="2.5" z="2.5" />
