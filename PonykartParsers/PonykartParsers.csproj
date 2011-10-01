@@ -93,7 +93,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Muffin\LevelType.cs" />
     <Compile Include="Muffin\ThingBlock.cs" />
     <Compile Include="Thing\BillboardBlock.cs" />
     <Compile Include="Thing\BillboardSetBlock.cs" />

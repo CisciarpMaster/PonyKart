@@ -7,7 +7,6 @@ namespace PonykartParsers {
 	/// </summary>
 	public class MuffinDefinition : TokenHolder {
 		public string Name { get; private set; }
-		public LevelType Type { get; private set; }
 		public ICollection<ThingBlock> ThingBlocks { get; protected set; }
 		/// <summary>
 		/// Other .muffin files this one should load.

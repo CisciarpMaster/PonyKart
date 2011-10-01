@@ -6,13 +6,13 @@ using System;
 using System.Collections.Generic;
 
 namespace PonykartParsers.MuffinParser {
-	public class ParserException : Exception {
+	internal class ParserException : Exception {
 		public ParserException(string message) :
 			base(message) {
 		}
 	}
 
-	public enum NodeType {
+	internal enum NodeType {
 		Tok_EOF,
 		Tok_Assign,
 		Tok_Comma,
@@ -39,7 +39,7 @@ namespace PonykartParsers.MuffinParser {
 		Rule_AnyName
 	}
 
-	public abstract class Node {
+	internal abstract class Node {
 		public static string TypeName(NodeType type) {
 			string s = type.ToString();
 			return s.Substring(s.IndexOf('_') + 1);
@@ -53,7 +53,7 @@ namespace PonykartParsers.MuffinParser {
 	}
 
 	///<summary>represents an inner node</summary>
-	public class RuleInstance : Node {
+	internal class RuleInstance : Node {
 		public readonly Node[] Children;
 
 		public RuleInstance(NodeType type, Node[] children) :
@@ -63,7 +63,7 @@ namespace PonykartParsers.MuffinParser {
 	}
 
 	///<summary>represents a leaf node</summary>
-	public class Token : Node {
+	internal class Token : Node {
 		public readonly Token[] PrecedingFillerTokens;
 		public readonly string Image;
 		public readonly int LineNr, CharNr;
@@ -98,7 +98,7 @@ namespace PonykartParsers.MuffinParser {
 		}
 	}
 
-	public class Parser {
+	internal class Parser {
 		private string source;
 		private int index, length, currLine, currChar, laOffset;
 		private readonly List <Token> fetchedTokens;
