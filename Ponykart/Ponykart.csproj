@@ -136,7 +136,7 @@
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\KartHandler.cs" />
     <Compile Include="Levels\LevelType.cs" />
-    <Compile Include="Kernel\HandlerAttributes.cs" />
+    <Compile Include="Kernel\HandlerAttribute.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
     <Compile Include="Lua\LuaMainWrapper.cs" />
     <Compile Include="Lua\MogreWrapper.cs" />
