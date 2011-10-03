@@ -15,10 +15,10 @@ namespace Ponykart.Handlers {
 		public SelfRightingHandler(Kart kartToFlip) {
 			kart = kartToFlip;
 
-			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
+			PhysicsMain.PreSimulate += PreSimulate;
 		}
 
-		readonly Radian closeEnoughToUp = new Degree(3);
+		private static readonly Radian closeEnoughToUp = new Degree(2);
 
 		/// <summary>
 		/// We can't use constraints because otherwise we wouldn't be able to do loops.
@@ -33,11 +33,13 @@ namespace Ponykart.Handlers {
 			else if (Pauser.IsPaused)
 				return;
 
+			//TODO: cleanup comments and junk
 			
 			// so first we get the kart's orientation
-			Matrix3 matrix = kart.Body.WorldTransform.Extract3x3Matrix();
+			//Matrix3 matrix = kart.Body.WorldTransform.Extract3x3Matrix();
 			// then we basically get its local Y axis and average it with the global Y axis to make more of a smooth transition
-			Vector3 locY = matrix.GetLocalYAxis();
+			//Vector3 locY = matrix.GetLocalYAxis();
+			Vector3 locY = kart.Body.Orientation.YAxis;
 
 			// first of all, if we're self righted enough, we can get rid of this handler
 			if (locY.DirectionEquals(Vector3.UNIT_Y, closeEnoughToUp)) { // 3 degrees
@@ -50,7 +52,7 @@ namespace Ponykart.Handlers {
 				kart.Body.AngularVelocity = Vector3.ZERO;
 
 			// update its rotation to point upwards
-			var quat = kart.Body.WorldTransform.ExtractQuaternion();
+			var quat = kart.Body.Orientation;
 			// make the x and z factors smaller, so that all that's left at the end is the Y pointing upwards
 			quat.x *= 0.96f;
 			quat.z *= 0.96f;
@@ -61,7 +63,7 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Detach() {
-			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
+			PhysicsMain.PreSimulate -= PreSimulate;
 			kart = null;
 		}
 	}

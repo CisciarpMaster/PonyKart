@@ -1,11 +1,13 @@
 ﻿using System;
 using BulletSharp;
 using Mogre;
-using Ponykart.Handlers;
 using Ponykart.Physics;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
+
+	public delegate void KartEvent(Kart kart);
+
 	/// <summary>
 	/// Base class for karts. Eventually this'll be abstract.
 	/// Z is forwards!
@@ -23,18 +25,8 @@ namespace Ponykart.Actors {
 		/// Should only be set by KartHandler
 		/// </summary>
 		public bool IsInAir { get; set; }
-		/// <summary>
-		/// For the bounce you do before a drift. Used to tell whether we should start drifting when we land.
-		/// </summary>
-		public bool IsBouncing { get; set; }
-		/// <summary>
-		/// When you're actually drifting
-		/// </summary>
-		public bool IsDrifting { get; set; }
-		/// <summary>
-		/// Whether the player has indicated that they want to drift or not. Used to cancel drifting if you've already started bouncing.
-		/// </summary>
-		public bool WantsDrifting { get; set; }
+		
+		public KartDriftState DriftState { get; set; }
 
 		// our wheelshapes
 		public Wheel WheelFL { get; protected set; }
@@ -42,12 +34,18 @@ namespace Ponykart.Actors {
 		public Wheel WheelBL { get; protected set; }
 		public Wheel WheelBR { get; protected set; }
 
-		protected readonly Degree FrontDriftAngle;
-		protected readonly Degree BackDriftAngle;
+		public readonly Degree FrontDriftAngle;
+		public readonly Degree BackDriftAngle;
 
 		public RaycastVehicle Vehicle { get; protected set; }
 		public RaycastVehicle.VehicleTuning Tuning { get; protected set; }
 		protected VehicleRaycaster Raycaster;
+
+
+		public static event KartEvent OnStartDrifting;
+		public static event KartEvent OnDrifting;
+		public static event KartEvent OnStopDrifting;
+		public static event KartEvent OnFinishDrifting;
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
@@ -83,6 +81,125 @@ namespace Ponykart.Actors {
 			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("frontrightwheelposition", null));
 			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("backleftwheelposition", null));
 			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null));
+		}
+
+
+
+		/// <summary>
+		/// Start drifting in a certain direction
+		/// </summary>
+		/// <param name="state">This must be either StartDriftLeft or StartDriftRight</param>
+		public void StartDrifting(KartDriftState state) {
+			// first check to make sure we weren't passed an incorrect argument
+			if (!(KartDriftState.StartLeft | KartDriftState.StartRight).HasFlag(state))
+				throw new ArgumentException("You must pass either StartDriftLeft or StartDriftRight!", "state");
+
+			// update our state
+			DriftState = state;
+
+			if (OnStartDrifting != null)
+				OnStartDrifting(this);
+		}
+
+		public void StartActuallyDrifting() {
+			// "upgrade" our drift states
+			if (DriftState == KartDriftState.StartLeft)
+				DriftState = KartDriftState.FullLeft;
+			else if (DriftState == KartDriftState.StartRight)
+				DriftState = KartDriftState.FullRight;
+
+			if (OnDrifting != null)
+				OnDrifting(this);
+
+			ForEachWheel(wheel => {
+				// left
+				if (this.DriftState == KartDriftState.FullLeft) {
+					wheel.DriftState = WheelDriftState.Left;
+
+					// change the back wheels' angles
+					if (wheel.ID == WheelID.FrontRight || wheel.ID == WheelID.BackRight) {
+						wheel.IdealSteerAngle = BackDriftAngle;
+						Vehicle.SetSteeringValue(BackDriftAngle.ValueRadians, wheel.IntWheelID);
+						Vehicle.GetWheelInfo(wheel.IntWheelID).IsFrontWheel = false;
+					}
+					// change the front wheels' angles
+					else {
+						wheel.IdealSteerAngle = FrontDriftAngle;
+						Vehicle.SetSteeringValue(FrontDriftAngle.ValueRadians, wheel.IntWheelID);
+						Vehicle.GetWheelInfo(wheel.IntWheelID).IsFrontWheel = true;
+					}
+				}
+				// right
+				else if (this.DriftState == KartDriftState.FullRight) {
+					wheel.DriftState = WheelDriftState.Right;
+
+					// change the back wheels' angles
+					if (wheel.ID == WheelID.FrontLeft || wheel.ID == WheelID.BackLeft) {
+						wheel.IdealSteerAngle = -BackDriftAngle;
+						Vehicle.SetSteeringValue(-BackDriftAngle.ValueRadians, wheel.IntWheelID);
+						Vehicle.GetWheelInfo(wheel.IntWheelID).IsFrontWheel = false;
+					}
+					// change the front wheels' angles
+					else {
+						wheel.IdealSteerAngle = -FrontDriftAngle;
+						Vehicle.SetSteeringValue(-FrontDriftAngle.ValueRadians, wheel.IntWheelID);
+						Vehicle.GetWheelInfo(wheel.IntWheelID).IsFrontWheel = true;
+					}
+				}
+			});
+		}
+
+		/// <summary>
+		/// Stop drifting. This is run when we let go of the drift button.
+		/// </summary>
+		public void StopDrifting() {
+			// "upgrade" our events
+			if (DriftState == KartDriftState.FullLeft || DriftState == KartDriftState.StartLeft)
+				DriftState = KartDriftState.StopLeft;
+			else if (DriftState == KartDriftState.FullRight || DriftState == KartDriftState.StartRight)
+				DriftState = KartDriftState.StopRight;
+
+			// eeeeeveeeeeent
+			if (OnStopDrifting != null)
+				OnStopDrifting(this);
+
+			// make the wheels back to normal
+			ForEachWheel(w => {
+				w.DriftState = WheelDriftState.None;
+				w.IdealSteerAngle = 0;
+			});
+
+			Vehicle.GetWheelInfo((int) WheelID.FrontLeft).IsFrontWheel = true;
+			Vehicle.GetWheelInfo((int) WheelID.FrontRight).IsFrontWheel = true;
+			Vehicle.GetWheelInfo((int) WheelID.BackLeft).IsFrontWheel = false;
+			Vehicle.GetWheelInfo((int) WheelID.BackRight).IsFrontWheel = false;
+		}
+
+		public void FinishDrifting() {
+			DriftState = KartDriftState.None;
+
+			if (OnFinishDrifting != null)
+				OnFinishDrifting(this);
+		}
+
+
+
+		#region Properties
+		private float _friction;
+		/// <summary>
+		/// Sets the friction of the wheels
+		/// </summary>
+		public float WheelFriction {
+			get {
+				return _friction;
+			}
+			set {
+				this._friction = value;
+
+				ForEachWheel(w => {
+					w.Friction = value;
+				});
+			}
 		}
 
 		private float _accelerate;
@@ -122,133 +239,6 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// Make the kart bounce up in preparation for drifting, but only if it isn't in the air already
-		/// </summary>
-		public void Bounce() {
-			Body.Activate();
-
-			IsBouncing = true;
-			IsDrifting = false;
-
-			if (!IsInAir) {
-				if (TurnMultiplier < 0) {
-					//Body.AngularVelocity += RootNode.GetLocalYAxis() * -1f;
-					WantDriftState = DriftState.DriftLeft;
-				}
-				else if (TurnMultiplier > 0) {
-					//Body.AngularVelocity += RootNode.GetLocalYAxis() * 1f;
-					WantDriftState = DriftState.DriftRight;
-				}
-				else {
-					WantDriftState = DriftState.Normal;
-				}
-
-				Body.LinearVelocity += RootNode.GetLocalYAxis() * 10;
-			}
-
-			// make the kart spin as it flies in the air
-			if (WantDriftState != DriftState.Normal/* && Settings.Default.UseNlerpers*/) {
-				var kartHandler = LKernel.GetG<KartHandler>();
-
-				Nlerper n;
-				if (kartHandler.Nlerpers.TryGetValue(this, out n)) {
-					n.Detach();
-					kartHandler.Nlerpers.TryRemove(this, out n);
-				}
-				Degree angle;
-				if (WantDriftState == DriftState.DriftLeft)
-					angle = new Degree(-FrontDriftAngle);
-				else
-					angle = new Degree(FrontDriftAngle);
-
-				Quaternion rot = new Quaternion(angle, Body.Orientation.YAxis);
-				Quaternion newOrientation = Body.Orientation * rot;
-
-				/*kartHandler.Nlerpers[this] = */new Nlerper(this, 0.2f, newOrientation);
-			}
-		}
-
-		/// <summary>
-		/// Start drifting! This is run right after we land from bouncing, if the drift button is still pressed
-		/// </summary>
-		public void StartDrifting() {
-			IsDrifting = true;
-
-			ForEachWheel(w => {
-				// left
-				if (WantDriftState == DriftState.DriftLeft) {
-					w.DriftState = DriftState.DriftLeft;
-
-					// change the back wheels' angles
-					if (w.ID == WheelID.FrontRight || w.ID == WheelID.BackRight) {
-						w.IdealSteerAngle = BackDriftAngle;
-						Vehicle.SetSteeringValue(BackDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
-					}
-					// change the front wheels' angles
-					else {
-						w.IdealSteerAngle = FrontDriftAngle;
-						Vehicle.SetSteeringValue(FrontDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
-					}
-				}
-				// right
-				else if (WantDriftState == DriftState.DriftRight) {
-					w.DriftState = DriftState.DriftRight;
-
-					// change the back wheels' angles
-					if (w.ID == WheelID.FrontLeft || w.ID == WheelID.BackLeft) {
-						w.IdealSteerAngle = -BackDriftAngle;
-						Vehicle.SetSteeringValue(-BackDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
-					}
-					// change the front wheels' angles
-					else {
-						w.IdealSteerAngle = -FrontDriftAngle;
-						Vehicle.SetSteeringValue(-FrontDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
-					}
-				}
-			});
-		}
-
-		/// <summary>
-		/// Stop drifting. This is run when we let go of the drift button.
-		/// </summary>
-		public void StopDrifting() {
-			IsDrifting = false;
-			WantsDrifting = false;
-			WantDriftState = DriftState.Normal;
-
-			ForEachWheel(w => {
-				w.DriftState = DriftState.Normal;
-				w.IdealSteerAngle = 0;
-			});
-
-			Vehicle.GetWheelInfo((int) WheelID.FrontLeft).IsFrontWheel = true;
-			Vehicle.GetWheelInfo((int) WheelID.FrontRight).IsFrontWheel = true;
-			Vehicle.GetWheelInfo((int) WheelID.BackLeft).IsFrontWheel = false;
-			Vehicle.GetWheelInfo((int) WheelID.BackRight).IsFrontWheel = false;
-		}
-
-		private float _friction;
-		/// <summary>
-		/// Sets the friction of the wheels
-		/// </summary>
-		public float WheelFriction {
-			get {
-				return _friction;
-			}
-			set {
-				this._friction = value;
-
-				ForEachWheel(w => {
-					w.Friction = value;
-				});
-			}
-		}
-
-		/// <summary>
 		/// shortcut
 		/// </summary>
 		public float WheelSpeed {
@@ -257,7 +247,44 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		public DriftState WantDriftState { get; set; }
+		/// <summary>
+		/// Returns true if we're completely drifting - not starting, not stopping, but in between.
+		/// </summary>
+		public bool IsCompletelyDrifting {
+			get {
+				return DriftState == KartDriftState.FullLeft || DriftState == KartDriftState.FullRight;
+			}
+		}
+
+		/// <summary>
+		/// Returns true if we're starting to drift
+		/// </summary>
+		public bool IsStartingDrifting {
+			get {
+				return DriftState == KartDriftState.StartLeft || DriftState == KartDriftState.StartRight;
+			}
+		}
+
+		/// <summary>
+		/// Returns true if we're stopping drifting
+		/// </summary>
+		public bool IsStoppingDrifting {
+			get {
+				return DriftState == KartDriftState.StopLeft || DriftState == KartDriftState.StopRight;
+			}
+		}
+
+		/// <summary>
+		/// Returns true if we're drifting at all - starting, stopping, or in between.
+		/// </summary>
+		public bool IsDriftingAtAll {
+			get {
+				return DriftState == KartDriftState.FullLeft || DriftState == KartDriftState.FullRight
+					|| DriftState == KartDriftState.StartLeft || DriftState == KartDriftState.StartRight
+					|| DriftState == KartDriftState.StopLeft || DriftState == KartDriftState.StopRight;
+			}
+		}
+		#endregion
 
 		/// <summary>
 		/// A little helper method since we do stuff to all four wheels so often

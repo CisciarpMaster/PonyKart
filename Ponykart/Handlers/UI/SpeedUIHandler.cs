@@ -40,7 +40,7 @@ namespace Ponykart.Handlers {
 						"Brake? ", kart.WheelFL.IsBrakeOn, _ret, 
 						"AccelMultiplier: ", kart.Acceleration, _ret, 
 						"Gravity: ", kart.Body.Gravity, _ret,
-						"Bouncing: ", kart.IsBouncing, " , Drifting: ", kart.IsDrifting, _comma, kart.WheelFL.DriftState);
+						"KartDriftState: ", kart.DriftState, " , WheelDriftState: ", kart.WheelFL.DriftState);
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

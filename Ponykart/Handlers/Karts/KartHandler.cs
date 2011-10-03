@@ -9,7 +9,7 @@ using Ponykart.Players;
 using Ponykart.Properties;
 
 namespace Ponykart.Handlers {
-	public delegate void KartEvent(Kart kart, DynamicsWorld.ClosestRayResultCallback callback);
+	public delegate void KartRayEvent(Kart kart, DynamicsWorld.ClosestRayResultCallback callback);
 	public delegate void KartGroundEvent(Kart kart, CollisionObject newGround, CollisionObject oldGround);
 
 	/// <summary>
@@ -37,16 +37,34 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		public ConcurrentDictionary<Kart, CollisionObject> CurrentlyDrivingOn { get; private set; }
 
-		public event KartEvent OnLiftoff;
-		public event KartEvent OnInAir;
-		public event KartEvent OnCloseToTouchdown;
-		public event KartEvent OnTouchdown;
-		public event KartEvent OnGround;
-		public event KartGroundEvent OnGroundChanged;
+		/// <summary>
+		/// Fired once when a kart stops touching the ground and is now in the air, i.e. the short ray doesn't penetrate the ground
+		/// </summary>
+		public static event KartRayEvent OnLiftoff;
+		/// <summary>
+		/// Fired every frame when a kart is in the air
+		/// </summary>
+		public static event KartRayEvent OnInAir;
+		/// <summary>
+		/// Fired once just before a kart lands, i.e. when the long ray penetrates the ground
+		/// </summary>
+		public static event KartRayEvent OnCloseToTouchdown;
+		/// <summary>
+		/// Fired once when the kart lands, i.e. when the short ray penetrates the ground again
+		/// </summary>
+		public static event KartRayEvent OnTouchdown;
+		/// <summary>
+		/// Fired every frame when a kart is on the ground
+		/// </summary>
+		public static event KartRayEvent OnGround;
+		/// <summary>
+		/// Fired once when the mesh the kart is currently driving on changes
+		/// </summary>
+		public static event KartGroundEvent OnGroundChanged;
 
 		public KartHandler() {
-			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEvent(OnLevelLoad);
-			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEvent(OnLevelUnload);
+			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
+			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
 
 		/// <summary>
@@ -59,7 +77,7 @@ namespace Ponykart.Handlers {
 				Skidders = new ConcurrentDictionary<Kart, Skidder>();
 				CurrentlyDrivingOn = new ConcurrentDictionary<Kart, CollisionObject>();
 
-				LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
+				PhysicsMain.PreSimulate += PreSimulate;
 			}
 		}
 
@@ -134,7 +152,7 @@ namespace Ponykart.Handlers {
 			
 			world.RayTest(from, to, callback);
 #if DEBUG
-			//MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.Red);
+			MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.Red);
 #endif
 			return callback;
 		}
@@ -144,7 +162,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void Liftoff(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// make a new SRH
-			if (Settings.Default.UseSelfRightingHandlers)
+			if (Settings.Default.KartHandler_UseSelfRightingHandlers)
 				SRHs.GetOrAdd(kart, new SelfRightingHandler(kart));
 			// we are in the air
 			kart.IsInAir = true;
@@ -168,13 +186,13 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void GettingCloseToTouchingDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback, SelfRightingHandler srh) {
 			// getting rid of our SRH means that we're close to landing but we haven't landed yet
-			if (Settings.Default.UseSelfRightingHandlers) {
+			if (Settings.Default.KartHandler_UseSelfRightingHandlers) {
 				srh.Detach();
 				SRHs.TryRemove(kart, out srh);
 			}
 
-			if (Settings.Default.UseNlerpers)
-				AlignKartWithNormal(kart, callback, true, 0.2f);
+			if (Settings.Default.KartHandler_UseNlerpers)
+				AlignKartWithNormal(kart, callback, true, 0.5f);
 
 			if (OnCloseToTouchdown != null)
 				OnCloseToTouchdown(kart, callback);
@@ -188,7 +206,7 @@ namespace Ponykart.Handlers {
 			kart.IsInAir = false;
 
 			// if we have a nlerper, get rid of it
-			if (Settings.Default.UseNlerpers) {
+			if (Settings.Default.KartHandler_UseNlerpers) {
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
 					n.Detach();
@@ -197,7 +215,7 @@ namespace Ponykart.Handlers {
 			}
 
 			// add a skidder!
-			if (Settings.Default.UseSkidders /*&& !kart.WantsDrifting*/) {
+			if (Settings.Default.KartHandler_UseSkidders /*&& !kart.WantsDrifting*/) {
 				Skidder s;
 				if (Skidders.TryGetValue(kart, out s)) {
 					s.Detach();
@@ -207,8 +225,8 @@ namespace Ponykart.Handlers {
 			}
 
 			// align the kart just to make sure
-			if (Settings.Default.UseNlerpers)
-				AlignKartWithNormal(kart, callback, true, 0.1f);
+			if (Settings.Default.KartHandler_UseNlerpers)
+				AlignKartWithNormal(kart, callback, true, 0.3f);
 
 			CurrentlyDrivingOn[kart] = callback.CollisionObject;
 
@@ -253,7 +271,7 @@ namespace Ponykart.Handlers {
 			// rotTo * old orientation is the same as rotate(rotTo) on SceneNodes, but since this isn't a scene node we have to do it this way
 			Quaternion newOrientation = rotTo * kart.Body.Orientation;
 
-			if (useNlerp && Settings.Default.UseNlerpers) {
+			if (useNlerp && Settings.Default.KartHandler_UseNlerpers && !kart.IsDriftingAtAll) {
 				// if we already have a nlerper, get rid of it
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
@@ -272,7 +290,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.OldLevel.Type == LevelType.Race) {
-				LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
+				PhysicsMain.PreSimulate -= PreSimulate;
 
 				// clean up these
 				foreach (SelfRightingHandler h in SRHs.Values) {

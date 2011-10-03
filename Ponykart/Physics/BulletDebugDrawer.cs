@@ -56,8 +56,8 @@ namespace Ponykart.Physics {
 
 			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb | DebugDrawModes.DrawContactPoints;
 
-			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
-			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
+			PhysicsMain.PreSimulate += PreSimulate;
+			PhysicsMain.PostSimulate += PostSimulate;
 
 			LKernel.GetG<PhysicsMain>().World.DebugDrawer = this;
 		}
@@ -79,8 +79,8 @@ namespace Ponykart.Physics {
 		}
 
 		public void Detach() {
-			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
-			LKernel.GetG<PhysicsMain>().PostSimulate -= PostSimulate;
+			PhysicsMain.PreSimulate -= PreSimulate;
+			PhysicsMain.PostSimulate -= PostSimulate;
 
 			Dispose();
 		}

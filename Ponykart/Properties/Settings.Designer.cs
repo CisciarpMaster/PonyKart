@@ -325,37 +325,37 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UseNlerpers {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KartHandler_UseNlerpers {
             get {
-                return ((bool)(this["UseNlerpers"]));
+                return ((bool)(this["KartHandler_UseNlerpers"]));
             }
             set {
-                this["UseNlerpers"] = value;
+                this["KartHandler_UseNlerpers"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UseSkidders {
+        public bool KartHandler_UseSkidders {
             get {
-                return ((bool)(this["UseSkidders"]));
+                return ((bool)(this["KartHandler_UseSkidders"]));
             }
             set {
-                this["UseSkidders"] = value;
+                this["KartHandler_UseSkidders"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UseSelfRightingHandlers {
+        public bool KartHandler_UseSelfRightingHandlers {
             get {
-                return ((bool)(this["UseSelfRightingHandlers"]));
+                return ((bool)(this["KartHandler_UseSelfRightingHandlers"]));
             }
             set {
-                this["UseSelfRightingHandlers"] = value;
+                this["KartHandler_UseSelfRightingHandlers"] = value;
             }
         }
         

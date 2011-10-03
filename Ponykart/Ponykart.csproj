@@ -121,8 +121,9 @@
     <Compile Include="Actors\Components\RibbonComponent.cs" />
     <Compile Include="Actors\Components\ShapeComponent.cs" />
     <Compile Include="Actors\Kart.cs" />
-    <Compile Include="Handlers\DisableWheelFrictionHandler.cs" />
+    <Compile Include="Handlers\Karts\DisableWheelFrictionHandler.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
+    <Compile Include="Handlers\Karts\KartRotater.cs" />
     <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />
     <Compile Include="Handlers\Karts\Nlerper.cs" />
     <Compile Include="Handlers\Per-level\SAA_JumpAround.cs" />
@@ -187,7 +188,6 @@
     <Compile Include="Lua\PauserWrapper.cs" />
     <Compile Include="UI\UIUserData.cs" />
     <Compile Include="UI\UIResources.cs" />
-    <Compile Include="Handlers\MovementHandler.cs" />
     <Compile Include="Handlers\GlowHandler.cs" />
     <Compile Include="UI\UIMain.cs" />
     <Compile Include="Core\Spawner.cs" />

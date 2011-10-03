@@ -14,8 +14,8 @@ namespace Ponykart.Players {
 		/// </summary>
 		public PlayerManager() {
 			Launch.Log("[Loading] Creating PlayerManager...");
-			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEvent(OnLevelLoad);
-			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEvent(OnLevelUnload);
+			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
+			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
 
 		/// <summary>

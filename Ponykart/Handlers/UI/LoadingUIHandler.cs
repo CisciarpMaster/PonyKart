@@ -11,8 +11,8 @@ namespace Ponykart.Handlers {
 		GUI loadingGui;
 
 		public LoadingUIHandler() {
-			LKernel.GetG<LevelManager>().OnLevelPostLoad += OnLevelPostLoad;
-			LKernel.GetG<LevelManager>().OnLevelPreUnload += OnLevelPreUnload;
+			LevelManager.OnLevelPostLoad += OnLevelPostLoad;
+			LevelManager.OnLevelPreUnload += OnLevelPreUnload;
 
 			loadingGui = LKernel.GetG<UIMain>().GetGUI("loading screen gui");
 		}

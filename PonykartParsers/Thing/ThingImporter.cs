@@ -14,15 +14,16 @@ namespace PonykartParsers {
 		private RuleInstance root;
 		private static CultureInfo culture = CultureInfo.InvariantCulture;
 		private static IEnumerable<string> fileList;
+#if !DEBUG
 		private static bool hasPreparedFileList = false;
-
+#endif
 		private static void PrepareFileList() {
 #if !DEBUG
 			if (!hasPreparedFileList) {
 #endif
 				fileList = Directory.EnumerateFiles(Settings.Default.ThingFileLocation, "*" + Settings.Default.ThingFileExtension, SearchOption.AllDirectories);
-				hasPreparedFileList = true;
 #if !DEBUG
+				hasPreparedFileList = true;
 			}
 #endif
 		}

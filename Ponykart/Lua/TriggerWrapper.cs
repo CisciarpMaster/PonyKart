@@ -18,7 +18,7 @@ namespace Ponykart.Lua {
 
 			toDispose = new List<KeyValuePair<TriggerRegion, TriggerReportEvent>>();
 
-			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LevelManager.OnLevelUnload += OnLevelUnload;
 		}
 
 		/// <summary>

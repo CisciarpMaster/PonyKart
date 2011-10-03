@@ -17,8 +17,8 @@ namespace Ponykart.Handlers {
 		public LevelUIHandler() {
 			Launch.Log("[Loading] Creating LevelUIHandler");
 
-			LKernel.GetG<LevelManager>().OnLevelLoad += OnLevelLoad;
-			LKernel.GetG<LevelManager>().OnLevelPreUnload += OnLevelPreUnload;
+			LevelManager.OnLevelLoad += OnLevelLoad;
+			LevelManager.OnLevelPreUnload += OnLevelPreUnload;
 
 			SetupLevelUI();
 			SetupMainMenuUI();

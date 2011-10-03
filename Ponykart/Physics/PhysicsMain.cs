@@ -31,15 +31,15 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Is invoked right after the physics world is created.
 		/// </summary>
-		public event PhysicsWorldEvent PostCreateWorld;
+		public static event PhysicsWorldEvent PostCreateWorld;
 		/// <summary>
 		/// Is invoked right before the physics world is simulated.
 		/// </summary>
-		public event PhysicsSimulateEvent PreSimulate;
+		public static event PhysicsSimulateEvent PreSimulate;
 		/// <summary>
 		/// Is invoked right after the physics world is simulated.
 		/// </summary>
-		public event PhysicsSimulateEvent PostSimulate;
+		public static event PhysicsSimulateEvent PostSimulate;
 
 		/// <summary>
 		/// Should we draw debug lines or not?
@@ -62,7 +62,7 @@ namespace Ponykart.Physics {
 		public PhysicsMain() {
 			Launch.Log("[Loading] Creating PhysicsMain...");
 
-			LKernel.GetG<LevelManager>().OnLevelUnload += OnLevelUnload;
+			LevelManager.OnLevelUnload += OnLevelUnload;
 
 			PhysicsStuffToDispose = new List<IDisposable>();
 

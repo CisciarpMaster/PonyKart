@@ -1,10 +1,29 @@
-﻿using Ponykart.Core;
+﻿using Ponykart.Actors;
+using Ponykart.Core;
 using PonykartParsers;
 
 namespace Ponykart.Players {
 	public class HumanPlayer : Player {
 		KeyBindingManager bindings;
 
+
+		public HumanPlayer(MuffinDefinition def, int id)
+			: base(def, id) {
+
+			// hook up to input events
+			bindings = LKernel.Get<KeyBindingManager>();
+
+			bindings.PressEventsDict[LKey.Accelerate] += OnPressAccelerate;
+			bindings.ReleaseEventsDict[LKey.Accelerate] += OnReleaseAccelerate;
+			bindings.PressEventsDict[LKey.Drift] += OnPressDrift;
+			bindings.ReleaseEventsDict[LKey.Drift] += OnReleaseDrift;
+			bindings.PressEventsDict[LKey.Reverse] += OnPressReverse;
+			bindings.ReleaseEventsDict[LKey.Reverse] += OnReleaseReverse;
+			bindings.PressEventsDict[LKey.TurnLeft] += OnPressTurnLeft;
+			bindings.ReleaseEventsDict[LKey.TurnLeft] += OnReleaseTurnLeft;
+			bindings.PressEventsDict[LKey.TurnRight] += OnPressTurnRight;
+			bindings.ReleaseEventsDict[LKey.TurnRight] += OnReleaseTurnRight;
+		}
 
 		public override bool IsControlEnabled {
 			get {
@@ -43,22 +62,6 @@ namespace Ponykart.Players {
 			}
 		}
 
-		public HumanPlayer(MuffinDefinition def, int id) : base(def, id) {
-
-			// hook up to input events
-			bindings = LKernel.Get<KeyBindingManager>();
-
-			bindings.PressEventsDict[LKey.Accelerate] += OnPressAccelerate;
-			bindings.ReleaseEventsDict[LKey.Accelerate] += OnReleaseAccelerate;
-			bindings.PressEventsDict[LKey.Drift] += OnPressDrift;
-			bindings.ReleaseEventsDict[LKey.Drift] += OnReleaseDrift;
-			bindings.PressEventsDict[LKey.Reverse] += OnPressReverse;
-			bindings.ReleaseEventsDict[LKey.Reverse] += OnReleaseReverse;
-			bindings.PressEventsDict[LKey.TurnLeft] += OnPressTurnLeft;
-			bindings.ReleaseEventsDict[LKey.TurnLeft] += OnReleaseTurnLeft;
-			bindings.PressEventsDict[LKey.TurnRight] += OnPressTurnRight;
-			bindings.ReleaseEventsDict[LKey.TurnRight] += OnReleaseTurnRight;
-		}
 
 		#region key events
 		protected void OnPressAccelerate(LKey k) {
@@ -85,8 +88,18 @@ namespace Ponykart.Players {
 
 		protected void OnPressDrift(LKey k) {
 			if (IsControlEnabled) {
-				Kart.WantsDrifting = true;
-				Kart.Bounce();
+				// if left is pressed and right isn't, start drifting left
+				if (bindings.IsKeyPressed(LKey.TurnLeft) && !bindings.IsKeyPressed(LKey.TurnRight)) {
+					Kart.StartDrifting(KartDriftState.StartRight);
+				}
+				// otherwise if right is pressed and left isn't, start drifting right
+				else if (bindings.IsKeyPressed(LKey.TurnRight) && !bindings.IsKeyPressed(LKey.TurnLeft)) {
+					Kart.StartDrifting(KartDriftState.StartLeft);
+				}
+				// otherwise it wants to drift but we don't have a direction yet
+				else {
+					Kart.DriftState = KartDriftState.WantsDriftingButNotTurning;
+				}
 			}
 		}
 		/// <summary>
@@ -94,8 +107,18 @@ namespace Ponykart.Players {
 		/// </summary>
 		protected void OnReleaseDrift(LKey k) {
 			if (IsControlEnabled) {
-				Kart.WantsDrifting = false;
-				Kart.StopDrifting();
+				// if we were drifting left
+				if (Kart.DriftState == KartDriftState.FullLeft || Kart.DriftState == KartDriftState.StartLeft) {
+					Kart.StopDrifting();
+				}
+				// if we were drifting right
+				else if (Kart.DriftState == KartDriftState.FullRight || Kart.DriftState == KartDriftState.StartRight) {
+					Kart.StopDrifting();
+				}
+				// if we had the drift button down but weren't actually drifting
+				else if (Kart.DriftState == KartDriftState.WantsDriftingButNotTurning) {
+					Kart.DriftState = KartDriftState.None;
+				}
 			}
 		}
 
@@ -124,12 +147,19 @@ namespace Ponykart.Players {
 
 		protected void OnPressTurnLeft(LKey k) {
 			if (IsControlEnabled) {
-				// if both turns are pressed, we go straight
-				if (bindings.IsKeyPressed(LKey.TurnRight))
-					Kart.TurnMultiplier = 0;
-				// otherwise go left
-				else
-					Kart.TurnMultiplier = 1;
+				// if we're waiting to drift
+				if (Kart.DriftState == KartDriftState.WantsDriftingButNotTurning) {
+					Kart.StartDrifting(KartDriftState.StartRight);
+				}
+				// normal steering
+				else {
+					// if both turns are pressed, we go straight
+					if (bindings.IsKeyPressed(LKey.TurnRight))
+						Kart.TurnMultiplier = 0;
+					// otherwise go left
+					else
+						Kart.TurnMultiplier = 1;
+				}
 			}
 		}
 		protected void OnReleaseTurnLeft(LKey k) {
@@ -146,12 +176,18 @@ namespace Ponykart.Players {
 
 		protected void OnPressTurnRight(LKey k) {
 			if (IsControlEnabled) {
-				// if both turns are pressed, we go straight
-				if (bindings.IsKeyPressed(LKey.TurnLeft))
-					Kart.TurnMultiplier = 0;
-				// otherwise go right
-				else
-					Kart.TurnMultiplier = -1;
+				if (Kart.DriftState == KartDriftState.WantsDriftingButNotTurning) {
+					Kart.StartDrifting(KartDriftState.StartLeft);
+				}
+				// normal steering
+				else {
+					// if both turns are pressed, we go straight
+					if (bindings.IsKeyPressed(LKey.TurnLeft))
+						Kart.TurnMultiplier = 0;
+					// otherwise go right
+					else
+						Kart.TurnMultiplier = -1;
+				}
 			}
 		}
 		protected void OnReleaseTurnRight(LKey k) {

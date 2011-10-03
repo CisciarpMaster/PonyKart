@@ -17,8 +17,8 @@ namespace Ponykart.Handlers {
 			countLabel = countGui.GetControl<Label>("countdown label");
 
 			// hook up to events
-			LKernel.GetG<RaceCountdown>().OnCountdown += new RaceCountdownEvent(OnCountdown);
-			LKernel.GetG<LevelManager>().OnLevelPreUnload += new LevelEvent(OnLevelPreUnload);
+			RaceCountdown.OnCountdown += new RaceCountdownEvent(OnCountdown);
+			LevelManager.OnLevelPreUnload += new LevelEvent(OnLevelPreUnload);
 		}
 
 		void OnLevelPreUnload(LevelChangedEventArgs eventArgs) {

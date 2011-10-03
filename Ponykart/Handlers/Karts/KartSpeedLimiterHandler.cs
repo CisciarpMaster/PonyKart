@@ -15,7 +15,7 @@ namespace Ponykart.Handlers {
 
 		public KartSpeedLimiterHandler() {
 			playerManager = LKernel.GetG<PlayerManager>();
-			LKernel.GetG<PhysicsMain>().PreSimulate += PreSimulate;
+			PhysicsMain.PreSimulate += PreSimulate;
 		}
 
 		/// <summary>
@@ -37,9 +37,9 @@ namespace Ponykart.Handlers {
 
 				// going forwards
 				// using 20 because we don't need to check the kart's linear velocity if it's going really slowly
-				if ((kart.Vehicle.CurrentSpeedKmHour > 20 && !kart.IsInAir && !kart.IsDrifting) 
-					|| kart.Vehicle.CurrentSpeedKmHour < -20 && kart.IsDrifting
-					|| kart.Vehicle.CurrentSpeedKmHour > 20 && kart.IsDrifting)
+				if ((kart.Vehicle.CurrentSpeedKmHour > 20 && !kart.IsInAir && !kart.IsDriftingAtAll)
+					|| kart.Vehicle.CurrentSpeedKmHour < -20 && kart.IsDriftingAtAll
+					|| kart.Vehicle.CurrentSpeedKmHour > 20 && kart.IsDriftingAtAll)
 				{
 					// check its velocity against the max velocity (both are squared to avoid unnecessary square roots)
 					if (kart.Body.LinearVelocity.SquaredLength > kart.MaxSpeedSquared) {
@@ -50,7 +50,7 @@ namespace Ponykart.Handlers {
 					}
 				}
 				// going in reverse, so we want to limit the speed even more
-				else if (kart.Vehicle.CurrentSpeedKmHour < -20 && !kart.IsInAir && !kart.IsDrifting) {
+				else if (kart.Vehicle.CurrentSpeedKmHour < -20 && !kart.IsInAir && !kart.IsDriftingAtAll) {
 					if (kart.Body.LinearVelocity.SquaredLength > kart.MaxReverseSpeedSquared) {
 						Vector3 vec = kart.Body.LinearVelocity;
 						vec.Normalise();
@@ -62,7 +62,7 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Detach() {
-			LKernel.GetG<PhysicsMain>().PreSimulate -= PreSimulate;
+			PhysicsMain.PreSimulate -= PreSimulate;
 		}
 	}
 }

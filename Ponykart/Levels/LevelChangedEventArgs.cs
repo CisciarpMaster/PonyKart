@@ -1,6 +1,6 @@
 ﻿
 namespace Ponykart.Levels {
-	public class LevelChangedEventArgs {
+	public struct LevelChangedEventArgs {
 
 		/// <summary>
 		/// If you're reading this from OnLevelUnload or OnLevelPreUnload, keep in mind that the new level has not been

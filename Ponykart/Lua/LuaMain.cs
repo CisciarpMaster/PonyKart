@@ -24,7 +24,7 @@ namespace Ponykart.Lua {
 			// we don't have to register them on level load because this is a global singleton, not a level one
 			RegisterLuaFunctions(this);
 			// though we do have to restart lua when we change levels
-			LKernel.GetG<LevelManager>().OnLevelLoad +=
+			LevelManager.OnLevelLoad +=
 				(e) => {
 					Restart();
 				};

@@ -18,13 +18,13 @@ namespace Ponykart.Handlers {
 			this.kart = kart;
 			this.duration = duration;
 
-			LKernel.GetG<PhysicsMain>().PreSimulate += Update;
+			PhysicsMain.PreSimulate += PreSimulate;
 		}
 
 		/// <summary>
 		/// It's just a linear function
 		/// </summary>
-		void Update(DiscreteDynamicsWorld world, FrameEvent evt) {
+		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (kart == null || Pauser.IsPaused)
 				return;
 
@@ -68,7 +68,7 @@ namespace Ponykart.Handlers {
 					w.Friction = w.FrictionSlip;
 				});
 
-				LKernel.GetG<PhysicsMain>().PreSimulate -= Update;
+				PhysicsMain.PreSimulate -= PreSimulate;
 				Skidder temp;
 				LKernel.Get<KartHandler>().Skidders.TryRemove(kart, out temp);
 				kart = null;

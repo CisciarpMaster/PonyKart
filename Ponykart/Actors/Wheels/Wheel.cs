@@ -106,7 +106,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Keeps track of whether we're drifting or not, and if we are, which direction we're moving in.
 		/// </summary>
-		public DriftState DriftState { get; set; }
+		public WheelDriftState DriftState { get; set; }
 
 		// we use these three things to control the wheels
 		/// <summary>
@@ -165,13 +165,13 @@ namespace Ponykart.Actors {
 			AccelerateMultiplier = 0;
 			TurnMultiplier = 0;
 			IsBrakeOn = false;
-			DriftState = DriftState.Normal;
+			DriftState = WheelDriftState.None;
 			IntWheelID = (int) wheelID;
 			FrictionSlip = Friction;
 			IdealSteerAngle = new Degree(0);
 
 			// and then hook up to the event
-			LKernel.GetG<PhysicsMain>().PostSimulate += PostSimulate;
+			PhysicsMain.PostSimulate += PostSimulate;
 		}
 
 		/// <summary>
@@ -229,15 +229,15 @@ namespace Ponykart.Actors {
 				float _motorForce = 0;
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
-				if (DriftState == DriftState.Normal) {
+				if (DriftState == WheelDriftState.None) {
 					if (ID == WheelID.BackLeft || ID == WheelID.BackRight)
 						_motorForce = MotorForce;
 				}
-				else if (DriftState == DriftState.DriftLeft) {
+				else if (DriftState == WheelDriftState.Left) {
 					if (ID == WheelID.FrontRight || ID == WheelID.BackRight)
 						_motorForce = MotorForce;
 				}
-				else if (DriftState == DriftState.DriftRight) {
+				else if (DriftState == WheelDriftState.Right) {
 					if (ID == WheelID.FrontLeft || ID == WheelID.BackLeft)
 						_motorForce = MotorForce;
 				}
@@ -291,7 +291,7 @@ namespace Ponykart.Actors {
 			float axleSpeed = vehicle.CurrentSpeedKmHour;
 
 
-			if (DriftState == DriftState.Normal) {
+			if (DriftState == WheelDriftState.None) {
 				// less than the slow speed = extra turn multiplier
 				if (axleSpeed < SlowSpeed)
 					speedTurnMultiplier = SlowTurnMultiplier;
@@ -315,9 +315,9 @@ namespace Ponykart.Actors {
 			// only "front" wheels turn!
 			float _turnAngle = 0;
 
-			if ((DriftState == DriftState.Normal && (ID == WheelID.FrontLeft || ID == WheelID.FrontRight))
-				|| (DriftState == DriftState.DriftLeft && (ID == WheelID.FrontLeft || ID == WheelID.BackLeft))
-				|| (DriftState == DriftState.DriftRight && (ID == WheelID.FrontRight || ID == WheelID.BackRight)))
+			if ((DriftState == WheelDriftState.None && (ID == WheelID.FrontLeft || ID == WheelID.FrontRight))
+				|| (DriftState == WheelDriftState.Left && (ID == WheelID.FrontLeft || ID == WheelID.BackLeft))
+				|| (DriftState == WheelDriftState.Right && (ID == WheelID.FrontRight || ID == WheelID.BackRight)))
 			{
 				_turnAngle = TurnAngle.ValueRadians;
 			}
@@ -332,7 +332,7 @@ namespace Ponykart.Actors {
 			// now we have to figure out how much we have to change by
 			// smooth out the turning
 
-			if (DriftState == DriftState.Normal) {
+			if (DriftState == WheelDriftState.None) {
 				if (Math.Abs(targetSteerAngle - IdealSteerAngle.ValueRadians) < Math.Abs(currentAngle - IdealSteerAngle.ValueRadians))
 					// we are not turning any more, so the wheels are moving back to their forward positions
 					steerChange = SteerDecrementTurn.ValueRadians * timeSinceLastFrame;
@@ -372,7 +372,7 @@ namespace Ponykart.Actors {
 			if (IsDisposed)
 				return;
 
-			LKernel.GetG<PhysicsMain>().PostSimulate -= PostSimulate;
+			PhysicsMain.PostSimulate -= PostSimulate;
 
 			Node.Dispose();
 			Node = null;

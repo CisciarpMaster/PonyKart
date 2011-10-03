@@ -6,7 +6,7 @@ namespace Ponykart.Handlers {
 	/// If you want something to have the nice transparency when glowing, just set the entity's render queue group to one of the two groups
 	/// defined here.
 	/// </summary>
-	[Handler(HandlerScope.Global)]
+	//[Handler(HandlerScope.Global)]
 	public class GlowHandler {
 
 		public GlowHandler()

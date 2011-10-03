@@ -86,13 +86,13 @@
     <Setting Name="SkidderDuration" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.7</Value>
     </Setting>
-    <Setting Name="UseNlerpers" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="UseSkidders" Type="System.Boolean" Scope="User">
+    <Setting Name="KartHandler_UseNlerpers" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="UseSelfRightingHandlers" Type="System.Boolean" Scope="User">
+    <Setting Name="KartHandler_UseSkidders" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="KartHandler_UseSelfRightingHandlers" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="SelfRighterRaycastTime" Type="System.Single" Scope="User">

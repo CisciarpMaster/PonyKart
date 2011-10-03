@@ -25,14 +25,14 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// our events
 		/// </summary>
-		public event RaceCountdownEvent OnCountdown;
+		public static event RaceCountdownEvent OnCountdown;
 
 		/// <summary>
 		/// Hook up to the level un/load events
 		/// </summary>
 		public RaceCountdown() {
-			LKernel.GetG<LevelManager>().OnLevelPostLoad += new LevelEvent(OnLevelPostLoad);
-			LKernel.GetG<LevelManager>().OnLevelUnload += (ea) => Detach();
+			LevelManager.OnLevelPostLoad += new LevelEvent(OnLevelPostLoad);
+			LevelManager.OnLevelUnload += (ea) => Detach();
 		}
 
 		/// <summary>

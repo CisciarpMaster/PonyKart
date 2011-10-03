@@ -154,7 +154,7 @@ namespace Ponykart {
 
 			IEnumerable<Type> e = LevelHandlerTypes.Where(
 				t => ((HandlerAttribute[]) t.GetCustomAttributes(typeof(HandlerAttribute), false))
-					 .Where(a => a.LevelType.HasFlag(newLevel.Type) && (a.LevelNames != null && a.LevelNames.Contains(newLevel.Name)))
+					 .Where(a => a.LevelType.HasFlag(newLevel.Type) && (a.LevelNames == null || a.LevelNames.Contains(newLevel.Name)))
 					 .Count() > 0);
 
 			foreach (Type t in e) {

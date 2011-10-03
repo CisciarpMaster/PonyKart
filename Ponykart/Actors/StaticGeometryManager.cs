@@ -10,8 +10,8 @@ namespace Ponykart.Actors {
 
 		public StaticGeometryManager() {
 			ents = new Dictionary<string, Entity>();
-			LKernel.GetG<LevelManager>().OnLevelUnload += new LevelEvent(OnLevelUnload);
-			LKernel.GetG<LevelManager>().OnLevelLoad += new LevelEvent(OnLevelLoad);
+			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
+			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 		}
 
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {

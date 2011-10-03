@@ -28,11 +28,10 @@ namespace Ponykart.Handlers {
 			kartSpeedStates = new List<KartSpeedState>();
 
 			// hook up to events
-			var kartHandler = LKernel.Get<KartHandler>();
-			kartHandler.OnGround += OnGround;
-			kartHandler.OnGroundChanged += OnGroundChanged;
-			kartHandler.OnTouchdown += OnTouchdown;
-			kartHandler.OnLiftoff += OnLiftoff;
+			KartHandler.OnGround += OnGround;
+			KartHandler.OnGroundChanged += OnGroundChanged;
+			KartHandler.OnTouchdown += OnTouchdown;
+			KartHandler.OnLiftoff += OnLiftoff;
 
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
@@ -206,11 +205,10 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Detach() {
-			var kartHandler = LKernel.Get<KartHandler>();
-			kartHandler.OnGround -= OnGround;
-			kartHandler.OnGroundChanged -= OnGroundChanged;
-			kartHandler.OnTouchdown -= OnTouchdown;
-			kartHandler.OnLiftoff -= OnLiftoff;
+			KartHandler.OnGround -= OnGround;
+			KartHandler.OnGroundChanged -= OnGroundChanged;
+			KartHandler.OnTouchdown -= OnTouchdown;
+			KartHandler.OnLiftoff -= OnLiftoff;
 		}
 	}
 }

@@ -17,13 +17,12 @@ namespace Ponykart.Sound {
 		public SoundMain() {
 			Launch.Log("[Loading] Creating IrrKlang and SoundMain...");
 
-			var levelManager = LKernel.GetG<LevelManager>();
-			levelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
-			levelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
+			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
+			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 
 			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 
-			LKernel.GetG<RaceCountdown>().OnCountdown += new RaceCountdownEvent(OnCountdown);
+			RaceCountdown.OnCountdown += new RaceCountdownEvent(OnCountdown);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);

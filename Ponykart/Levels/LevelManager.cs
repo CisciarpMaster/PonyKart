@@ -13,19 +13,19 @@ namespace Ponykart.Levels {
 		/// <summary>
 		/// Is fired a few frames before we even start unloading anything. Mostly used for stuff that still requires screen rendering, such as putting up a loading screen
 		/// </summary>
-		public event LevelEvent OnLevelPreUnload;
+		public static event LevelEvent OnLevelPreUnload;
 		/// <summary>
 		/// Is fired after the .muffins have been read and the .scene file has been used, but before we start actually creating any Things
 		/// </summary>
-		public event LevelEvent OnLevelLoad;
+		public static event LevelEvent OnLevelLoad;
 		/// <summary>
 		/// Is fired after the level handlers have been disposed, but before we clean out the scene manager.
 		/// </summary>
-		public event LevelEvent OnLevelUnload;
+		public static event LevelEvent OnLevelUnload;
 		/// <summary>
 		/// Is fired a few frames after the entire level load process, including after scripts have been run.
 		/// </summary>
-		public event LevelEvent OnLevelPostLoad;
+		public static event LevelEvent OnLevelPostLoad;
 
 		/// <summary>
 		/// constructor

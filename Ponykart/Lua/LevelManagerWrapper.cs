@@ -34,7 +34,7 @@ namespace Ponykart.Lua {
 		[LuaFunction("hookFunctionToLevelUnloadEvent", "Hook up a lua function so it will run whenever a level is about to unload.",
 			"function(LevelChangedEventArgs)")]
 		public static void HookFunctionToLevelUnloadEvent(LevelEvent func) {
-			LKernel.GetG<LevelManager>().OnLevelPreUnload += func;
+			LevelManager.OnLevelPreUnload += func;
 		}
 	}
 }

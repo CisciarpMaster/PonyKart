@@ -10,11 +10,11 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// Fires whenever anything is spawned.
 		/// </summary>
-		public event SpawnEvent<LThing> OnThingCreation;
+		public static event SpawnEvent<LThing> OnThingCreation;
 		/// <summary>
 		/// Fires whenever a Kart is spawned.
 		/// </summary>
-		public event SpawnEvent<Kart> OnKartCreation;
+		public static event SpawnEvent<Kart> OnKartCreation;
 
 		/// <summary>
 		/// Spawns something!
