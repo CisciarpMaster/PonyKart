@@ -1,7 +1,4 @@
-Physics = Static
-Mass = 0
-CollisionGroup = Environment
-CollidesWith = Environment
+Physics = None
 
 // main tree model
 Model {

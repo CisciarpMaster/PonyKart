@@ -1,17 +1,5 @@
-Physics = Static
-Mass = 0
-PhysicsMaterial = "Fences"
-CollisionGroup = Walls
-CollidesWith = Walls
-ForceCompound = true
-Static = true
+Physics = None
 
-// box#0
-Shape {
-	Type = Box
-	Position = 0, 22, 0
-	Dimensions = 9.44014, 50, 1
-}
 Model {
 	Mesh = "FencePartial.mesh"
 	Material = "Fences"

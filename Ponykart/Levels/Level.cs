@@ -36,11 +36,9 @@ namespace Ponykart.Levels {
 		public Level(string name) {
 			Name = name;
 			Things = new ConcurrentDictionary<string, LThing>();
+
 			if (string.IsNullOrEmpty(name))
 				Type = LevelType.EmptyLevel;
-
-			// don't use anonymous methods here because we have to disconnect it when we change levels
-			//LKernel.GetG<Spawner>().OnThingCreation += OnSpawnEvent;
 		}
 
 		/// <summary>
@@ -118,7 +116,6 @@ namespace Ponykart.Levels {
 				return;
 
 			if (disposing) {
-				//LKernel.GetG<Spawner>().OnThingCreation -= OnSpawnEvent;
 				if (Things != null) {
 					foreach (LThing t in Things.Values)
 						t.Dispose();

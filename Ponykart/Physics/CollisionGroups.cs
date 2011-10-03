@@ -36,9 +36,9 @@ namespace Ponykart.Physics {
 		/// </summary>
 		Affectors = CollisionFilterGroups.KinematicFilter, // 4
 		/// <summary>
-		/// Fences, invisible walls, and stuff that we don't want to be able to drive up
+		/// For things we want to be able to drive on.
 		/// </summary>
-		Walls = CollisionFilterGroups.DebrisFilter, // 8
+		Road = CollisionFilterGroups.DebrisFilter, // 8
 		/// <summary>
 		/// Trigger regions and stuff
 		/// </summary>
@@ -47,6 +47,10 @@ namespace Ponykart.Physics {
 		/// Our karts!
 		/// </summary>
 		Karts = CollisionFilterGroups.CharacterFilter, // 32
+		/// <summary>
+		/// For our invisible walls. We want to be able to collide with them, but not drive on them.
+		/// </summary>
+		InvisibleWalls = 64,
 	}
 
 	/// <summary>
@@ -65,13 +69,14 @@ namespace Ponykart.Physics {
 		None = PonykartCollisionGroups.None,
 
 		/// <summary>
-		/// Collides with other defaults, environment, kinematic, debris, and karts.
+		/// Collides with other defaults, environment, kinematic, debris, karts, and invisible walls.
 		/// </summary>
 		Default = PonykartCollisionGroups.Default
 				| PonykartCollisionGroups.Environment
 				| PonykartCollisionGroups.Affectors
-				| PonykartCollisionGroups.Walls
-				| PonykartCollisionGroups.Karts,
+				| PonykartCollisionGroups.Road
+				| PonykartCollisionGroups.Karts
+				| PonykartCollisionGroups.InvisibleWalls,
 
 		/// <summary>
 		/// Collides with default, debris, and karts.
@@ -88,8 +93,8 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Collides with default and karts.
 		/// </summary>
-		Walls = PonykartCollisionGroups.Default
-			  | PonykartCollisionGroups.Karts,
+		Road = PonykartCollisionGroups.Default
+			 | PonykartCollisionGroups.Karts,
 
 		/// <summary>
 		/// Only collides with karts.
@@ -97,14 +102,21 @@ namespace Ponykart.Physics {
 		Triggers = PonykartCollisionGroups.Karts,
 
 		/// <summary>
-		/// Collides with default, environment, kinematic, debris, triggers, and other karts.
+		/// Collides with default, environment, kinematic, debris, triggers, other karts, and invisible walls.
 		/// </summary>
 		Karts = PonykartCollisionGroups.Default
 			  | PonykartCollisionGroups.Environment
 			  | PonykartCollisionGroups.Affectors
-			  | PonykartCollisionGroups.Walls
+			  | PonykartCollisionGroups.Road
 			  | PonykartCollisionGroups.Triggers
-			  | PonykartCollisionGroups.Karts,
+			  | PonykartCollisionGroups.Karts
+			  | PonykartCollisionGroups.InvisibleWalls,
+
+		/// <summary>
+		/// Collides with default and karts.
+		/// </summary>
+		InvisibleWalls = PonykartCollisionGroups.Default
+					   | PonykartCollisionGroups.Karts,
 	}
 
 	/// <summary>

@@ -3,21 +3,42 @@
 		<colourAmbient r="0.8" g="0.8" b="0.8" />
 	</environment>
 	<nodes>
-		<node name="SAA_LP_Ground">
-			<position x="-18.8938" y="-6.96937" z="-171.604" />
-			<scale x="2.5" y="2.5" z="2.5" />
+		<!--<node name="SAA_InvisibleWalls">
+			<position x="0" y="0" z="0" />
+			<scale x="1" y="1" z="1" />
 			<rotation qx="0" qy="0" qz="0" qw="1" />
-			<entity name="SAA_LP_Ground" castShadows="true" receiveShadows="true" meshFile="SAA_LP_Ground.mesh" static="false">
+			<entity name="SAA_InvisibleWalls" meshFile="SAA_InvisibleWalls.mesh" static="true">
 				<subentities>
 					<subentity index="0" materialName="Grass" />
 				</subentities>
 			</entity>
+		</node>-->
+		
+		<node name="SAA_Road">
+			<position x="-69.9466" y="14.9867" z="290.972" />
+			<scale x="2.5" y="2.5" z="2.5" />
+			<rotation qx="0" qy="0.707107" qz="-3.09086E-08" qw="0.707107" />
+			<entity name="SAA_Road" meshFile="SAA_road.mesh" static="true">
+				<subentities>
+					<subentity index="0" materialName="SAA_Road" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="SAA_Barn_Area">
+			<position x="85.8292" y="-0.609074" z="262.329" />
+			<scale x="1" y="0.0120714" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_Barn_Area" meshFile="SAA_Barn_Area.mesh" static="true">
+				<subentities>
+					<subentity index="0" materialName="SAA_Barn_Area" />
+				</subentities>
+			</entity>
 		</node>
 		<node name="SAA_HP_Ground_Collidable">
-            <position x="119.19" y="-49.0117" z="-224.722" />
-            <scale x="3.61437" y="2.5" z="3.61437" />
+            <position x="0" y="0" z="0" />
+            <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="SAA_HP_Ground_Collidable" castShadows="true" receiveShadows="true" meshFile="SAA_HP_Ground_Collidable.mesh" static="true">
+            <entity name="SAA_HP_Ground_Collidable" meshFile="SAA_HP_Ground_Collidable.mesh" static="true">
                 <subentities>
                     <subentity index="0" materialName="Grass" />
                 </subentities>
@@ -27,17 +48,30 @@
             <position x="119.19" y="-49.0117" z="-224.722" />
             <scale x="3.61437" y="2.5" z="3.61437" />
             <rotation qx="0" qy="0.707107" qz="-3.09086e-008" qw="0.707107" />
-            <entity name="SAA_HP_Ground" castShadows="true" receiveShadows="true" meshFile="SAA_HP_Ground.mesh" static="false">
+            <entity name="SAA_HP_Ground" meshFile="SAA_HP_Ground.mesh" static="false">
                 <subentities>
                     <subentity index="0" materialName="Grass" />
                 </subentities>
             </entity>
         </node>
+		<node name="SAA_LP_Ground">
+			<position x="-18.8938" y="-6.96937" z="-171.604" />
+			<scale x="2.5" y="2.5" z="2.5" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_LP_Ground" meshFile="SAA_LP_Ground.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Grass" />
+				</subentities>
+			</entity>
+		</node>
+		
+		
+		
 		<node name="Banner">
 			<position x="-6.13099" y="23.95" z="324.679" />
 			<scale x="2.94578" y="2.82536" z="2.09351" />
 			<rotation qx="0" qy="-0.707107" qz="3.09086E-08" qw="0.707107" />
-			<entity name="Banner" castShadows="true" receiveShadows="true" meshFile="Banner.mesh" static="false">
+			<entity name="Banner" meshFile="Banner.mesh" static="false">
 				<subentities>
 					<subentity index="0" materialName="10-Default" />
 				</subentities>
@@ -47,29 +81,9 @@
 			<position x="-6.15035" y="11.5763" z="323.646" />
 			<scale x="2.09351" y="2.94578" z="2.82536" />
 			<rotation qx="1.78814E-07" qy="0.727982" qz="-0.685596" qw="-3.8743E-07" />
-			<entity name="BannerPost" castShadows="true" receiveShadows="true" meshFile="BannerPost.mesh" static="false">
+			<entity name="BannerPost" meshFile="BannerPost.mesh" static="false">
 				<subentities>
 					<subentity index="0" materialName="11-Default" />
-				</subentities>
-			</entity>
-		</node>
-		<node name="SAA_Barn_Area">
-			<position x="85.8292" y="-0.609074" z="262.329" />
-			<scale x="1" y="0.0120714" z="1" />
-			<rotation qx="0" qy="0" qz="0" qw="1" />
-			<entity name="SAA_Barn_Area" castShadows="false" receiveShadows="true" meshFile="SAA_Barn_Area.mesh" static="true">
-				<subentities>
-					<subentity index="0" materialName="SAA_Barn_Area" />
-				</subentities>
-			</entity>
-		</node>
-		<node name="SAA_Road">
-			<position x="-69.9466" y="14.9867" z="290.972" />
-			<scale x="2.5" y="2.5" z="2.5" />
-			<rotation qx="0" qy="0.707107" qz="-3.09086E-08" qw="0.707107" />
-			<entity name="SAA_Road" castShadows="False" receiveShadows="true" meshFile="SAA_road.mesh" static="true">
-				<subentities>
-					<subentity index="0" materialName="SAA_Road" />
 				</subentities>
 			</entity>
 		</node>

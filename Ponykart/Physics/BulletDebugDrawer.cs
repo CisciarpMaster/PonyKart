@@ -5,7 +5,7 @@ using Ponykart.Levels;
 using Ponykart.Players;
 
 namespace Ponykart.Physics {
-	[Handler(HandlerScope.Level)]
+	[Handler(HandlerScope.Level, LevelType.Race)]
 	public class BulletDebugDrawer : LDisposable, IDebugDraw, ILevelHandler {
 		SceneManager sceneMgr;
 		ManualObject lines;
@@ -54,7 +54,7 @@ namespace Ponykart.Physics {
 			triangles.End();
 			begin = false;
 
-			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb | DebugDrawModes.DrawContactPoints;
+			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb | DebugDrawModes.FastWireframe;
 
 			PhysicsMain.PreSimulate += PreSimulate;
 			PhysicsMain.PostSimulate += PostSimulate;

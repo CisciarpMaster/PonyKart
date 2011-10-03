@@ -31,7 +31,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// remember to update this!
 		/// </summary>
-		static readonly int HIGHEST_BIT_IN_COLLISION_GROUPS = 32;
+		static readonly int HIGHEST_BIT_IN_COLLISION_GROUPS = 64;
 
 		#endregion //-----------------------------------------------------------
 

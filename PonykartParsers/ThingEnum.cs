@@ -58,7 +58,7 @@ namespace PonykartParsers {
 		Default,
 		Environment,
 		Affectors,
-		Walls,
+		Road,
 		Triggers,
 		Karts,
 

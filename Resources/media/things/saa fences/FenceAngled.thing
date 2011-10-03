@@ -1,20 +1,8 @@
-Physics = Static
-Mass = 0
-PhysicsMaterial = "Fences"
-CollisionGroup = Walls
-CollidesWith = Walls
-ForceCompound = true
-Static = true
+Physics = None
 
 Model {
 	Mesh = "FenceAngled.mesh"
 	Material = "Fences"
 	Position = 0, 0, 0
 	CastsShadows = false
-}
-// box#0
-Shape {
-	Type = Box
-	Position = 0, 20.7995, 0
-	Dimensions = 9.5, 50, 1
 }

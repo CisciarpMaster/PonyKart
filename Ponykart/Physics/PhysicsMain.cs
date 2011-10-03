@@ -115,14 +115,17 @@ namespace Ponykart.Physics {
 				// then do the rest as usual
 				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
 				var body = new RigidBody(info);
-				body.SetCollisionGroup(PonykartCollisionGroups.Environment);
+				body.SetCollisionGroup(PonykartCollisionGroups.Road);
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 				body.SetName(dslNode.Name);
-				world.AddRigidBody(body, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
+				world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
 
 				PhysicsStuffToDispose.Add(body);
 				PhysicsStuffToDispose.Add(shape);
 			}
+
+			// load up our invisible walls
+			CreateInvisibleWall();
 
 			// make a ground plane for us
 			CreateGroundPlane(-10);
@@ -211,6 +214,32 @@ namespace Ponykart.Physics {
 		}
 
 		/// <summary>
+		/// Create our invisible walls and ceiling mesh as a CollisionObject instead of a RigidBody. This prevents the kart from driving on it.
+		/// </summary>
+		void CreateInvisibleWall() {
+			Level currentLevel = LKernel.GetG<LevelManager>().CurrentLevel;
+
+			string wallsFilename;
+			if (currentLevel != null && currentLevel.Type == LevelType.Race && currentLevel.Definition.StringTokens.TryGetValue("invisiblewalls", out wallsFilename)) {
+				Launch.Log("[PhysicsMain] Setting up invisible walls and ceiling...");
+
+				wallsFilename = wallsFilename.Replace(".bullet", string.Empty);
+				CollisionShape shape = ImportCollisionShape(wallsFilename);
+
+				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
+				var obj = new RigidBody(info);
+
+				obj.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
+				obj.SetCollisionGroup(PonykartCollisionGroups.InvisibleWalls);
+				obj.SetName("InvisibleWalls");
+				world.AddRigidBody(obj, PonykartCollisionGroups.InvisibleWalls, PonykartCollidesWithGroups.InvisibleWalls);
+
+				PhysicsStuffToDispose.Add(shape);
+				PhysicsStuffToDispose.Add(obj);
+			}
+		}
+
+		/// <summary>
 		/// Create a static ground plane facing upwards.
 		/// </summary>
 		/// <param name="yposition">The Y position that the plane is located at.</param>
@@ -256,12 +285,14 @@ namespace Ponykart.Physics {
 		/// Imports a collision shape from a .bullet file.
 		/// </summary>
 		/// <param name="name">Part of the filename. "media/physics/" + name + ".bullet"</param>
-		/// <returns>The collision shape from the file</returns>
 		/// <remarks>
 		/// This only imports the first collision shape from the file. If it has multiple, they will be ignored.
 		/// </remarks>
 		public CollisionShape ImportCollisionShape(string name) {
 			BulletWorldImporter importer = new BulletWorldImporter(world);
+
+			PhysicsStuffToDispose.Add(importer);
+
 			// load that file
 			if (importer.LoadFile(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
 				// these should only have one collision shape in them, so we'll just use that

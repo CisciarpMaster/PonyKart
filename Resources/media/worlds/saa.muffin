@@ -5,6 +5,7 @@ LoadFile = "saa fences"
 LoadFile = "saa spawn positions"
 LoadFile = "saa trees"
 Music = "Sweet Apple Acres 128bpm.ogg"
+InvisibleWalls = "SAA_InvisibleWalls.bullet"
 
 SAA_Bridge {
 	Position = 280.454, 0, -210.054

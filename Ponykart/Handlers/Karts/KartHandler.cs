@@ -98,16 +98,17 @@ namespace Ponykart.Handlers {
 					if (kart == null || kart.Body.IsDisposed)
 						continue;
 
+					// then cast our ray!
+					var callback = CastRay(kart, (kart.IsInAir && SelfRighters.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);
+
+
 					// this helps it stick to the road more
 					if (Settings.Default.AdjustKartGravityEnabled) {
 						if (kart.IsInAir)
 							kart.Body.Gravity = gravity;
-						else
+						else if (callback.CollisionObject.GetCollisionGroup() == PonykartCollisionGroups.Road)
 							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * Settings.Default.AdjustKartGravityMultiplier);
 					}
-
-					// then cast our ray!
-					var callback = CastRay(kart, (kart.IsInAir && SelfRighters.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);
 
 					// if the ray did not hit
 					if (!callback.HasHit) {
@@ -136,6 +137,7 @@ namespace Ponykart.Handlers {
 			elapsed += evt.timeSinceLastFrame;
 		}
 
+		readonly CollisionFilterGroups rayFilterGroup = (PonykartCollisionGroups.Environment | PonykartCollisionGroups.Road).ToBullet();
 		/// <summary>
 		/// Casts a ray downwards from the given kart
 		/// </summary>
@@ -148,7 +150,7 @@ namespace Ponykart.Handlers {
 			// make our ray
 			var callback = new DynamicsWorld.ClosestRayResultCallback(from, to);
 			// we only want the ray to collide with the environment and nothing else
-			callback.CollisionFilterMask = PonykartCollisionGroups.Environment.ToBullet();
+			callback.CollisionFilterMask = rayFilterGroup;
 			
 			world.RayTest(from, to, callback);
 #if DEBUG
@@ -192,7 +194,7 @@ namespace Ponykart.Handlers {
 			}
 
 			if (Settings.Default.KartHandler_UseNlerpers)
-				AlignKartWithNormal(kart, callback, true, 0.5f);
+				AlignKartWithNormal(kart, callback, true, 0.2f);
 
 			if (OnCloseToTouchdown != null)
 				OnCloseToTouchdown(kart, callback);
@@ -226,7 +228,7 @@ namespace Ponykart.Handlers {
 
 			// align the kart just to make sure
 			if (Settings.Default.KartHandler_UseNlerpers)
-				AlignKartWithNormal(kart, callback, true, 0.3f);
+				AlignKartWithNormal(kart, callback, true, 0.1f);
 
 			CurrentlyDrivingOn[kart] = callback.CollisionObject;
 

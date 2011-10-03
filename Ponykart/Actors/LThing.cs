@@ -238,7 +238,7 @@ namespace Ponykart.Actors {
 			else if (physicsType.HasFlag(ThingEnum.Static))
 				defaultGroup = ThingEnum.Environment;
 			else // kinematic
-				defaultGroup = ThingEnum.Walls;
+				defaultGroup = ThingEnum.Default;
 
 			// collision group
 			ThingEnum collisionGroup = def.GetEnumProperty("CollisionGroup", defaultGroup);

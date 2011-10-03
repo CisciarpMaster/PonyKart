@@ -32,24 +32,19 @@ namespace Ponykart.Handlers {
 			// don't self-right if we're paused
 			else if (Pauser.IsPaused)
 				return;
-
-			//TODO: cleanup comments and junk
 			
 			// so first we get the kart's orientation
-			//Matrix3 matrix = kart.Body.WorldTransform.Extract3x3Matrix();
 			// then we basically get its local Y axis and average it with the global Y axis to make more of a smooth transition
-			//Vector3 locY = matrix.GetLocalYAxis();
 			Vector3 locY = kart.Body.Orientation.YAxis;
 
 			// first of all, if we're self righted enough, we can get rid of this handler
 			if (locY.DirectionEquals(Vector3.UNIT_Y, closeEnoughToUp)) { // 3 degrees
-				Detach();
+				//Detach();
 				return;
 			}
 
-			// stop it spinning, but only if it's not on purpose
-			//if (!kart.IsBouncing)
-				kart.Body.AngularVelocity = Vector3.ZERO;
+			// stop it spinning
+			kart.Body.AngularVelocity = Vector3.ZERO;
 
 			// update its rotation to point upwards
 			var quat = kart.Body.Orientation;
