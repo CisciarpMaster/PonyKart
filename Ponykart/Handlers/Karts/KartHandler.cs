@@ -23,7 +23,7 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// This holds all of our self-righting handlers
 		/// </summary>
-		public ConcurrentDictionary<Kart, SelfRightingHandler> SRHs { get; private set; }
+		public ConcurrentDictionary<Kart, SelfRighter> SelfRighters { get; private set; }
 		/// <summary>
 		/// Dictionary of our nlerpers
 		/// </summary>
@@ -72,7 +72,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
-				SRHs = new ConcurrentDictionary<Kart, SelfRightingHandler>();
+				SelfRighters = new ConcurrentDictionary<Kart, SelfRighter>();
 				Nlerpers = new ConcurrentDictionary<Kart, Nlerper>();
 				Skidders = new ConcurrentDictionary<Kart, Skidder>();
 				CurrentlyDrivingOn = new ConcurrentDictionary<Kart, CollisionObject>();
@@ -107,12 +107,12 @@ namespace Ponykart.Handlers {
 					}
 
 					// then cast our ray!
-					var callback = CastRay(kart, (kart.IsInAir && SRHs.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);
+					var callback = CastRay(kart, (kart.IsInAir && SelfRighters.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);
 
 					// if the ray did not hit
 					if (!callback.HasHit) {
 						// if we do not have an SRH, that means we were just on the ground
-						if (!SRHs.ContainsKey(kart))
+						if (!SelfRighters.ContainsKey(kart))
 							Liftoff(kart, callback);
 						// if we do have one, that means we're still in the air
 						else
@@ -120,9 +120,9 @@ namespace Ponykart.Handlers {
 					}
 					// if the ray did hit
 					else {
-						SelfRightingHandler srh;
+						SelfRighter srh;
 						// if we have an SRH, that means we were just in the air but we haven't touched down yet
-						if (SRHs.TryGetValue(kart, out srh))
+						if (SelfRighters.TryGetValue(kart, out srh))
 							GettingCloseToTouchingDown(kart, callback, srh);
 						// we don't have an SRH, so we're near the ground, but we aren't quite there yet
 						else if (kart.IsInAir)
@@ -152,7 +152,7 @@ namespace Ponykart.Handlers {
 			
 			world.RayTest(from, to, callback);
 #if DEBUG
-			MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.Red);
+			//MogreDebugDrawer.Singleton.DrawLine(from, to, ColourValue.Red);
 #endif
 			return callback;
 		}
@@ -162,8 +162,8 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void Liftoff(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// make a new SRH
-			if (Settings.Default.KartHandler_UseSelfRightingHandlers)
-				SRHs.GetOrAdd(kart, new SelfRightingHandler(kart));
+			if (Settings.Default.KartHandler_UseSelfRighters)
+				SelfRighters.GetOrAdd(kart, new SelfRighter(kart));
 			// we are in the air
 			kart.IsInAir = true;
 
@@ -184,11 +184,11 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// Run when our long ray penetrates the ground
 		/// </summary>
-		private void GettingCloseToTouchingDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback, SelfRightingHandler srh) {
+		private void GettingCloseToTouchingDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback, SelfRighter srh) {
 			// getting rid of our SRH means that we're close to landing but we haven't landed yet
-			if (Settings.Default.KartHandler_UseSelfRightingHandlers) {
+			if (Settings.Default.KartHandler_UseSelfRighters) {
 				srh.Detach();
-				SRHs.TryRemove(kart, out srh);
+				SelfRighters.TryRemove(kart, out srh);
 			}
 
 			if (Settings.Default.KartHandler_UseNlerpers)
@@ -262,6 +262,10 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		/// <param name="useNlerp">Should we use a nlerper? If false, this just updates the orientation instantly.</param>
 		private void AlignKartWithNormal(Kart kart, DynamicsWorld.ClosestRayResultCallback callback, bool useNlerp, float duration = 1) {
+			// don't add a nlerper if we're drifting
+			if (kart.IsDriftingAtAll)
+				return;
+
 			// don't bother if they're already within 1 degree of each other
 			if (kart.Body.Orientation.YAxis.DirectionEquals(callback.HitNormalWorld, 0.01745f))
 				return;
@@ -271,7 +275,7 @@ namespace Ponykart.Handlers {
 			// rotTo * old orientation is the same as rotate(rotTo) on SceneNodes, but since this isn't a scene node we have to do it this way
 			Quaternion newOrientation = rotTo * kart.Body.Orientation;
 
-			if (useNlerp && Settings.Default.KartHandler_UseNlerpers && !kart.IsDriftingAtAll) {
+			if (useNlerp && Settings.Default.KartHandler_UseNlerpers) {
 				// if we already have a nlerper, get rid of it
 				Nlerper n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
@@ -293,10 +297,10 @@ namespace Ponykart.Handlers {
 				PhysicsMain.PreSimulate -= PreSimulate;
 
 				// clean up these
-				foreach (SelfRightingHandler h in SRHs.Values) {
+				foreach (SelfRighter h in SelfRighters.Values) {
 					h.Detach();
 				}
-				SRHs.Clear();
+				SelfRighters.Clear();
 
 				// same for these
 				foreach (Nlerper n in Nlerpers.Values) {

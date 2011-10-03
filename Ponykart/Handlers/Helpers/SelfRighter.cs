@@ -9,10 +9,10 @@ namespace Ponykart.Handlers {
 	/// Instead of doing 8 raycasts every frame to self-right stuff, instead we only raycast every few frames and then only run
 	/// this when we need to self-right, and then get rid of it afterwards
 	/// </summary>
-	public class SelfRightingHandler {
+	public class SelfRighter {
 		Kart kart;
 
-		public SelfRightingHandler(Kart kartToFlip) {
+		public SelfRighter(Kart kartToFlip) {
 			kart = kartToFlip;
 
 			PhysicsMain.PreSimulate += PreSimulate;

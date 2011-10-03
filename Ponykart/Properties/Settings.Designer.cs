@@ -350,12 +350,12 @@ namespace Ponykart.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool KartHandler_UseSelfRightingHandlers {
+        public bool KartHandler_UseSelfRighters {
             get {
-                return ((bool)(this["KartHandler_UseSelfRightingHandlers"]));
+                return ((bool)(this["KartHandler_UseSelfRighters"]));
             }
             set {
-                this["KartHandler_UseSelfRightingHandlers"] = value;
+                this["KartHandler_UseSelfRighters"] = value;
             }
         }
         

@@ -67,10 +67,9 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		/// <param name="kart"></param>
 		void OnStopDrifting(Kart kart) {
-			//Quaternion newOrientation = makeNewOrientation(kart, StartOrStopState.StopDrifting);
-			stopNlerpers.Add(new Nlerper(kart, 0.2f, /*newOrientation*/kart.Body.Orientation));
+			stopNlerpers.Add(new Nlerper(kart, 0.15f, kart.Body.Orientation));
 
-			kart.ForEachWheel(w => w.Friction = 0.5f);
+			kart.ForEachWheel(w => w.Friction = 1f);
 		}
 
 		/// <summary>
