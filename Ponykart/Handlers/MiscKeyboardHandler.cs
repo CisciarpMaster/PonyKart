@@ -65,6 +65,12 @@ namespace Ponykart.Handlers {
 					//LKernel.GetG<UI.UIMain>().MiyagiSys.SerializationManager.ExportToFile("media/gui/serialize.xml");
 					//Miyagi.Common.Resources.TrueTypeFont.TrueTypeToImageFont("media/gui/Fonts/", "media/gui/Fonts/bluehigh.ttf", System.Drawing.FontStyle.Regular, 12, 96);
 					//break;
+
+				case KeyCode.KC_BACKSLASH:
+					ParticleSystem system = LKernel.GetG<SceneManager>().CreateParticleSystem("explosions" + IDs.New, "explosionTemplate");
+					system.FastForward(1);
+					LKernel.GetG<PlayerManager>().MainPlayer.Kart.RootNode.AttachObject(system);
+					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
 					Process proc = new Process();

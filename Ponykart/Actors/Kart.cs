@@ -70,7 +70,7 @@ namespace Ponykart.Actors {
 			Raycaster = new DefaultVehicleRaycaster(LKernel.GetG<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();
 			Vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
-			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a matrix?
+			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a rotation matrix?
 
 			LKernel.GetG<PhysicsMain>().World.AddAction(Vehicle);
 

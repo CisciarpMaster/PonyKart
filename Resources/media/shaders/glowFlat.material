@@ -1,5 +1,5 @@
-vertex_program glow_vs_cg cg {
-	source vs_glow.cg
+vertex_program glowFlat_vs cg {
+	source glowFlat_vs.cg
 	entry_point main
 	profiles vs_2_0 vs_2_x vs_3_0 arbvp1
 	
@@ -14,8 +14,8 @@ vertex_program glow_vs_cg cg {
 	}
 }
 
-fragment_program glow_ps_cg cg {
-	source ps_glow.cg
+fragment_program glowFlat_ps cg {
+	source glowFlat_ps.cg
 	entry_point main
 	profiles ps_2_0 ps_2_x ps_3_0 ps_3_x arbfp1
 	

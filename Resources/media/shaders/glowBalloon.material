@@ -1,5 +1,5 @@
-vertex_program glowBalloon_vs cg {
-	source vs_fresnel.cg
+vertex_program glowBalloon_vp cg {
+	source fresnel_vp.cg
 	entry_point main
 	profiles vs_2_0 arbvp1 vs_2_x vs_3_0 vp40
 	
@@ -12,8 +12,8 @@ vertex_program glowBalloon_vs cg {
 	}
 }
 
-fragment_program glowBalloon_ps cg {
-	source ps_fresnel.cg
+fragment_program glowBalloon_fp cg {
+	source fresnel_fp.cg
 	entry_point main
 	profiles ps_2_0 arbfp1 ps_2_x ps_3_0 ps_3_x fp40
 	

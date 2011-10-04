@@ -5,7 +5,7 @@ particle_system dirt
 	material	Particles/Dirt
 	particle_width	0.5
 	particle_height	0.5
-	cull_each	false
+	cull_each	true
 	billboard_type	point
 
 	emitter Box

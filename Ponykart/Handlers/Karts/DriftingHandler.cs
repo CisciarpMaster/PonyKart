@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 
@@ -22,6 +23,15 @@ namespace Ponykart.Handlers {
 			Kart.OnStartDrifting += OnStartDrifting;
 			Kart.OnStopDrifting += OnStopDrifting;
 			Nlerper.Finished += NlerperFinished;
+			KartHandler.OnGround += OnGround;
+		}
+
+		/// <summary>
+		/// If we're going in reverse or start moving slowly, stop drifting.
+		/// </summary>
+		void OnGround(Kart kart, CollisionWorld.ClosestRayResultCallback callback) {
+			if (kart.WheelSpeed < 100)
+				kart.StopDrifting();
 		}
 
 		/// <summary>
@@ -112,6 +122,7 @@ namespace Ponykart.Handlers {
 			Kart.OnStartDrifting -= OnStartDrifting;
 			Kart.OnStopDrifting -= OnStopDrifting;
 			Nlerper.Finished -= NlerperFinished;
+			KartHandler.OnGround -= OnGround;
 		}
 
 		enum StartOrStopState {

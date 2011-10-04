@@ -11,9 +11,9 @@ material BalloonGlow {
 			depth_check on
 			lighting on
 			
-			vertex_program_ref glowBalloon_vs {
+			vertex_program_ref glowBalloon_vp {
 			}
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				//param_named GlowColor float3 1 1 1
 				param_named GlowExpon float 1
 			}
@@ -23,7 +23,7 @@ material BalloonGlow {
 material BalloonGlow_red : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 1 0 0
 			}
 		}
@@ -32,7 +32,7 @@ material BalloonGlow_red : BalloonGlow {
 material BalloonGlow_blue : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 0 0.4 1
 			}
 		}
@@ -41,7 +41,7 @@ material BalloonGlow_blue : BalloonGlow {
 material BalloonGlow_yellow : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 1 1 0
 			}
 		}
@@ -50,7 +50,7 @@ material BalloonGlow_yellow : BalloonGlow {
 material BalloonGlow_green : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 0 0.95 0
 			}
 		}
@@ -59,7 +59,7 @@ material BalloonGlow_green : BalloonGlow {
 material BalloonGlow_orange : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 1 0.6 0
 			}
 		}
@@ -68,7 +68,7 @@ material BalloonGlow_orange : BalloonGlow {
 material BalloonGlow_magenta : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 1 0 1
 			}
 		}
@@ -77,7 +77,7 @@ material BalloonGlow_magenta : BalloonGlow {
 material BalloonGlow_purple : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 0.65 0 1
 			}
 		}
@@ -86,7 +86,7 @@ material BalloonGlow_purple : BalloonGlow {
 material BalloonGlow_cyan : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 0 1 1
 			}
 		}
@@ -95,7 +95,7 @@ material BalloonGlow_cyan : BalloonGlow {
 material BalloonGlow_white : BalloonGlow {
 	technique {
 		pass {
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 1 1 1
 			}
 		}
@@ -113,7 +113,7 @@ material FlatGlow {
 			depth_check off
 			lighting off
 			
-			vertex_program_ref glow_vs_cg {
+			vertex_program_ref glowFlat_vp {
 				param_named size_add_value float -1
 				param_named size_mult_value float 1
 			}		
@@ -124,7 +124,7 @@ material FlatGlow {
 material FlatGlow_red : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 1.0 0.0 0.0 0.4
 			}
 		}
@@ -133,7 +133,7 @@ material FlatGlow_red : FlatGlow {
 material FlatGlow_blue : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 0.0 0.4 1.0 0.4
 			}
 		}
@@ -142,7 +142,7 @@ material FlatGlow_blue : FlatGlow {
 material FlatGlow_yellow : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 1.0 1.0 0.0 0.4
 			}
 		}
@@ -151,7 +151,7 @@ material FlatGlow_yellow : FlatGlow {
 material FlatGlow_green : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 0 0.95 0 0.4
 			}
 		}
@@ -160,7 +160,7 @@ material FlatGlow_green : FlatGlow {
 material FlatGlow_orange : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 1 0.6 0 0.4
 			}
 		}
@@ -169,7 +169,7 @@ material FlatGlow_orange : FlatGlow {
 material FlatGlow_magenta : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 1 0 1 0.4
 			}
 		}
@@ -178,7 +178,7 @@ material FlatGlow_magenta : FlatGlow {
 material FlatGlow_purple : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 0.65 0 1 0.4
 			}
 		}
@@ -187,7 +187,7 @@ material FlatGlow_purple : FlatGlow {
 material FlatGlow_cyan : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 0 1 1 0.4
 			}
 		}
@@ -196,7 +196,7 @@ material FlatGlow_cyan : FlatGlow {
 material FlatGlow_white : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 1 1 1 0.4
 			}
 		}
@@ -205,7 +205,7 @@ material FlatGlow_white : FlatGlow {
 material FlatGlow_black : FlatGlow {
 	technique {
 		pass {
-			fragment_program_ref glow_ps_cg {
+			fragment_program_ref glowFlat_fp {
 				param_named colours float4 0 0 0 0.4
 			}
 		}
