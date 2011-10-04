@@ -121,7 +121,7 @@ namespace Ponykart.Physics {
 				world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
 
 				PhysicsStuffToDispose.Add(body);
-				PhysicsStuffToDispose.Add(shape);
+				//PhysicsStuffToDispose.Add(shape);
 			}
 
 			// load up our invisible walls
@@ -143,8 +143,13 @@ namespace Ponykart.Physics {
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
-			foreach (IDisposable shape in PhysicsStuffToDispose) {
-				shape.Dispose();
+			foreach (IDisposable stuff in PhysicsStuffToDispose) {
+				if (!stuff.IsDisposed) {
+					if ((stuff as BulletWorldImporter) != null) {
+						(stuff as BulletWorldImporter).DeleteAllData();
+					}
+					stuff.Dispose();
+				}
 			}
 			PhysicsStuffToDispose.Clear();
 
@@ -234,7 +239,7 @@ namespace Ponykart.Physics {
 				obj.SetName("InvisibleWalls");
 				world.AddRigidBody(obj, PonykartCollisionGroups.InvisibleWalls, PonykartCollidesWithGroups.InvisibleWalls);
 
-				PhysicsStuffToDispose.Add(shape);
+				//PhysicsStuffToDispose.Add(shape);
 				PhysicsStuffToDispose.Add(obj);
 			}
 		}
@@ -298,9 +303,10 @@ namespace Ponykart.Physics {
 				// these should only have one collision shape in them, so we'll just use that
 				return importer.GetCollisionShapeByIndex(0);
 			}
-			else
+			else {
 				// if the file wasn't able to be loaded, throw an exception
 				throw new IOException(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension + " was unable to be imported!");
+			}
 		}
 
 		public DiscreteDynamicsWorld World {

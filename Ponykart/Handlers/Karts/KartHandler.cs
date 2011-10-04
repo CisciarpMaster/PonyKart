@@ -84,14 +84,17 @@ namespace Ponykart.Handlers {
 		private Vector3 gravity = new Vector3(0, Settings.Default.Gravity, 0);
 		private float elapsed;
 		private void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
+			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsValidLevel)
+				return;
+
 			if (elapsed > Settings.Default.SelfRighterRaycastTime) {
 				elapsed = 0;
 
 				// loop through each player's kart
 				foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
 					// if the player is null, then skip it
-					if (p == null || Pauser.IsPaused)
-						continue;
+					//if (p == null)
+					//	continue;
 
 					Kart kart = p.Kart;
 					// don't raycast for karts that don't exist
@@ -106,7 +109,7 @@ namespace Ponykart.Handlers {
 					if (Settings.Default.AdjustKartGravityEnabled) {
 						if (kart.IsInAir)
 							kart.Body.Gravity = gravity;
-						else if (callback.CollisionObject.GetCollisionGroup() == PonykartCollisionGroups.Road)
+						else if (callback.HasHit && callback.CollisionObject.GetCollisionGroup() == PonykartCollisionGroups.Road)
 							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * Settings.Default.AdjustKartGravityMultiplier);
 					}
 

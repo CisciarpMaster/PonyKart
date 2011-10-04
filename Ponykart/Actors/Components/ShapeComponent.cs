@@ -12,12 +12,14 @@ namespace Ponykart.Actors {
 	public class ShapeComponent : LDisposable {
 		public CollisionShape Shape { get; protected set; }
 		public Matrix4 Transform { get; protected set; }
+		// if your shape is imported from a .bullet file, then when the BulletWorldImporter destroys everything we don't want to try to
+		// dispose our shape, otherwise we get an exception
+		private bool IsShapeImportedFromBulletFile = false;
 
 		/// <summary>
 		/// For physics
 		/// </summary>
 		/// <param name="lthing">The Thing this component is attached to</param>
-		/// 
 		/// <param name="block">The block we're creating this component from</param>
 		public ShapeComponent(LThing lthing, ShapeBlock block) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
@@ -32,6 +34,7 @@ namespace Ponykart.Actors {
 
 				if (!string.IsNullOrEmpty(name) && File.Exists(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
 					Shape = LKernel.GetG<PhysicsMain>().ImportCollisionShape(name);
+					IsShapeImportedFromBulletFile = true;
 				}
 				else {
 					string meshName = block.GetStringProperty("mesh", null);
@@ -74,6 +77,7 @@ namespace Ponykart.Actors {
 					// so it has a file
 					Launch.Log("[ShapeComponent] Loading " + bulletFilePath + "...");
 					Shape = LKernel.GetG<PhysicsMain>().ImportCollisionShape(name);
+					IsShapeImportedFromBulletFile = true;
 				}
 				else {
 					Launch.Log("[ShapeComponent] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
@@ -102,7 +106,7 @@ namespace Ponykart.Actors {
 			if (IsDisposed)
 				return;
 
-			if (!Shape.IsDisposed)
+			if (!Shape.IsDisposed && !IsShapeImportedFromBulletFile)
 				Shape.Dispose();
 
 			base.Dispose(disposing);
