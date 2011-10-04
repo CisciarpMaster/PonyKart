@@ -15,7 +15,6 @@ namespace Ponykart {
 			LKernel.Initialise();
 
 			LKernel.GetG<Main>().Go();
-
 		}
 
 		/// <summary>

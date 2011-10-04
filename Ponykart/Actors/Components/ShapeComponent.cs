@@ -75,7 +75,6 @@ namespace Ponykart.Actors {
 				// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
 				if (File.Exists(bulletFilePath)) {
 					// so it has a file
-					Launch.Log("[ShapeComponent] Loading " + bulletFilePath + "...");
 					Shape = LKernel.GetG<PhysicsMain>().ImportCollisionShape(name);
 					IsShapeImportedFromBulletFile = true;
 				}

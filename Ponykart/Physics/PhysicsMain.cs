@@ -14,8 +14,6 @@ namespace Ponykart.Physics {
 	public delegate void PhysicsSimulateEvent(DiscreteDynamicsWorld world, FrameEvent evt);
 
 	public class PhysicsMain : LDisposable {
-		private bool quit = false;
-
 		private BroadphaseInterface broadphase;
 		private DefaultCollisionConfiguration dcc;
 		private CollisionDispatcher dispatcher;
@@ -101,7 +99,6 @@ namespace Ponykart.Physics {
 				// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
 				if (File.Exists(bulletFilePath)) {
 					// so it has a file
-					Launch.Log("[PhysicsMain] Loading " + bulletFilePath + "...");
 					shape = ImportCollisionShape(dslNode.Name);
 				}
 				else {
@@ -215,7 +212,7 @@ namespace Ponykart.Physics {
 			if (DrawLines)
 				world.DebugDrawWorld();
 
-			return !quit;
+			return true;
 		}
 
 		/// <summary>
@@ -271,6 +268,7 @@ namespace Ponykart.Physics {
 		/// <param name="shape">The shape you want to serialize.</param>
 		/// <param name="name">The name of the shape - this will be used as part of its filename. "media/physics/" + name + ".bullet"</param>
 		public void SerializeShape(CollisionShape shape, string name) {
+			Launch.Log(string.Concat("[PhysicsMain] Serializing new bullet mesh: ", Settings.Default.BulletFileLocation, name, Settings.Default.BulletFileExtension, "..."));
 			// so we don't have to do this in the future, we make a .bullet file out of it
 			DefaultSerializer serializer = new DefaultSerializer();
 			serializer.StartSerialization();
@@ -300,6 +298,7 @@ namespace Ponykart.Physics {
 
 			// load that file
 			if (importer.LoadFile(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
+				Launch.Log(string.Concat("[PhysicsMain] Importing ", Settings.Default.BulletFileLocation, name, Settings.Default.BulletFileExtension, "..."));
 				// these should only have one collision shape in them, so we'll just use that
 				return importer.GetCollisionShapeByIndex(0);
 			}

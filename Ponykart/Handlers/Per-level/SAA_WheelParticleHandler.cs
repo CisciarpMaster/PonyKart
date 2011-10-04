@@ -66,13 +66,13 @@ namespace Ponykart.Handlers {
 		/// little helper
 		/// </summary>
 		bool IsDirt(string objName) {
-			return objName == "SAA_Road" || objName == "SAA_Barn_Area";
+			return objName == "SAA_Road_Combined";
 		}
 		/// <summary>
 		/// little helper
 		/// </summary>
 		bool IsGrass(string objName) {
-			return objName == "SAA_HP_Ground_Collidable";
+			return objName == "SAA_Ground_Collidable";
 		}
 
 		/// <summary>
