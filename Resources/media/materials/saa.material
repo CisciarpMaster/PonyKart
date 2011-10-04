@@ -18,10 +18,6 @@ material 10-Default
 	{
 		pass
 		{
-			scene_blend alpha_blend
-			depth_write off
-			transparent_sorting on
-			
 			texture_unit
 			{
 				texture banner.png
@@ -50,33 +46,8 @@ material SAA_Barn_Area
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				param_named GlowColor float3 0.274 0.209 0.126
-				param_named GlowExpon float  3
-			}
-		}
-	}
-}
-
-material Grass
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture grasstexture.dds
-			}
-		}
-		pass {
-			scene_blend colour_blend
-			depth_bias 1
-			light_scissor on
-			
-			vertex_program_ref glowBalloon_vs {
-			}
-			fragment_program_ref glowBalloon_ps {
-				param_named GlowColor float3 0.651 0.78 0.224
+				param_named GlowColor float3 0.09982 0.08235 0.04471
+				//param_named GlowColor float3 0.1 0.1 0.1 
 				param_named GlowExpon float  3
 			}
 		}
@@ -104,7 +75,36 @@ material SAA_Road
 			vertex_program_ref glowBalloon_vs {
 			}
 			fragment_program_ref glowBalloon_ps {
-				param_named GlowColor float3 0.24 0.21 0.126
+				//param_named GlowColor float3 0.9982 0.8235 0.4471
+				param_named GlowColor float3 0.09982 0.08235 0.04471
+				param_named GlowExpon float  3
+			}
+		}
+	}
+}
+
+material SAA_Cliff
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture saa_cliff.dds
+			}
+		}
+		
+		pass {
+			scene_blend add
+			depth_bias 1
+			light_scissor on
+			
+			vertex_program_ref glowBalloon_vs {
+			}
+			fragment_program_ref glowBalloon_ps {
+				param_named GlowColor float3 0.09982 0.08235 0.04471
+				//param_named GlowColor float3 0.1 0.1 0.1
 				param_named GlowExpon float  3
 			}
 		}
@@ -119,7 +119,8 @@ material SAA_Grass
 		{
 			texture_unit
 			{
-				texture grasstexture.dds
+				texture saa_grass.dds
+				scale 0.01 0.01
 			}
 		}
 		pass {

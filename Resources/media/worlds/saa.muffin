@@ -1,9 +1,9 @@
 Type = Race
 
 // load up the other stuff
-LoadFile = "saa fences"
-LoadFile = "saa spawn positions"
-LoadFile = "saa trees"
+LoadFile = "saa/fences"
+LoadFile = "saa/spawn positions"
+LoadFile = "saa/trees"
 Music = "Sweet Apple Acres 128bpm.ogg"
 InvisibleWalls = "SAA_InvisibleWalls.bullet"
 
@@ -13,7 +13,16 @@ SAA_Bridge {
 SAA_Ramp {
 	Position = -107.915, 40.8328, -693.665
 }
+// the physics mesh for the road
+SAA_Road_Combined {
+	Position = 0, 0, 0
+}
 
+CMC_Treehouse {
+	Position = 313.039, 32.0541, -547.766
+	// this treehouse is just being really annoying so it gets to use the rotation
+	Rotation = 6.823, 10.8, -1.308
+}
 
 ChickenCoop {
 	Position = 145.826, -0.6, 145.18
@@ -143,10 +152,6 @@ Bucket {
 Bucket {
 	Position = 172.885, 8.29738, 226.458
 	Orientation = 0, 0.683684, -2.98848E-08, 0.729778
-}
-CMC_Treehouse {
-	Position = 302.149, 30.8791, -550.78
-	Orientation = 0.0613301, 0.0911103, 0.00562195, 0.993935
 }
 FlowerBarrel {
 	Position = 183.886, 0.32491, 233.664

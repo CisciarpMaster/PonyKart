@@ -101,7 +101,7 @@ Shape {
 	Type = Capsule
 	Position = 0, 7.13439, 0
 	Height = 14.9148
-	Radius = 2.275845
+	Radius = 1.3379225
 }
 // sphere#0
 Shape {

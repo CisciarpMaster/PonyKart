@@ -1,0 +1,11 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Road
+CollidesWith = Road
+DisableVisualization = true
+
+Shape {
+	Type = Mesh
+	Mesh = "SAA_Road_Combined.bullet"
+	Position = 0, 0, 0
+}

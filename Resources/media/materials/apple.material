@@ -8,6 +8,7 @@ material RedApple
 		{
 			texture_unit
 			{
+				tex_address_mode clamp
 				texture redapple.dds
 			}
 		}
@@ -24,6 +25,7 @@ material GreenApple
 		{
 			texture_unit
 			{
+				tex_address_mode clamp
 				texture greenapple.dds
 			}
 		}
