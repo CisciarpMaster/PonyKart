@@ -25,6 +25,8 @@ particle_system explosionTemplate
    	affector ColourFader
    	{
 		// Each second the alpha value is changed by this amount - so in one second our alpha goes from 1 to 0
+		// This is used by the shader to choose which "frame" from the texture to use and does not affect the actual alpha value
+		// if you want the alpha to change, edit the texture's alpha
    		alpha -1        
    	}
 }
