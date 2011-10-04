@@ -68,7 +68,6 @@ namespace Ponykart.Handlers {
 
 				case KeyCode.KC_BACKSLASH:
 					ParticleSystem system = LKernel.GetG<SceneManager>().CreateParticleSystem("explosions" + IDs.New, "explosionTemplate");
-					system.FastForward(1);
 					LKernel.GetG<PlayerManager>().MainPlayer.Kart.RootNode.AttachObject(system);
 					break;
 				case KeyCode.KC_C:
