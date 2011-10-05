@@ -164,7 +164,6 @@ namespace SceneToThing {
 				using (var stream = File.Create(filename)) {
 					using (var writer = new StreamWriter(stream)) {
 						// write out the "overall" stuff
-						//writer.WriteLine("Name = \"" + nameBox.Text + "\"");
 						writer.WriteLine("Physics = " + physicsBox.Text);
 						if (physicsBox.Text != "None")
 							writer.WriteLine("Mass = " + massBox.Text);
@@ -180,12 +179,13 @@ namespace SceneToThing {
 							if (node != null) {
 								writer.WriteLine("// " + node.Name);
 								writer.WriteLine("Model {");
-								writer.WriteLine("\tMesh = \"" + node.Entity.Mesh + "\"");
-								writer.WriteLine("\tMaterial = \"" + node.Entity.Material + "\"");
-								writer.WriteLine("\tPosition = " + f(node.Position.x) + ", " + f(node.Position.y) + ", " + f(node.Position.z));
-								writer.WriteLine("\tOrientation = " + f(node.Orientation.x) + ", " + f(node.Orientation.y) + ", " + f(node.Orientation.z) + ", " + f(node.Orientation.w));
-								writer.WriteLine("\tScale = " + f(node.Dimensions.x) + ", " + f(node.Dimensions.y) + ", " + f(node.Dimensions.z));
-								writer.WriteLine("\tCastsShadows = " + b(node.Entity.CastShadows));
+								writer.WriteLine(string.Format(culture, @"	Mesh = ""{0}""", node.Entity.Mesh));
+								writer.WriteLine(string.Format(culture, @"	Material = ""{0}""", node.Entity.Material));
+								writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", node.Position.x, node.Position.y, node.Position.z));
+								writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
+									node.Orientation.x, node.Orientation.y, node.Orientation.z, node.Orientation.w));
+								writer.WriteLine(string.Format(culture, @"	Scale = {0}, {1}, {2}", node.Dimensions.x, node.Dimensions.y, node.Dimensions.z));
+								writer.WriteLine(string.Format(culture, @"	CastsShadows = {0}", b(node.Entity.CastShadows)));
 								writer.WriteLine("}");
 								continue;
 							}
@@ -195,17 +195,21 @@ namespace SceneToThing {
 							if (shape != null) {
 								writer.WriteLine("// " + shape.Name);
 								writer.WriteLine("Shape {");
-								writer.WriteLine("\tType = " + shape.Type);
-								writer.WriteLine("\tPosition = " + f(shape.Position.x) + ", " + f(shape.Position.y) + ", " + f(shape.Position.z));
-								writer.WriteLine("\tOrientation = " + f(shape.Orientation.x) + ", " + f(shape.Orientation.y) + ", " + f(shape.Orientation.z) + ", " + f(shape.Orientation.w));
-								if (shape.Type == ShapeTypes.Box || shape.Type == ShapeTypes.Cylinder)
-									writer.WriteLine("\tDimensions = " + f(shape.Dimensions.x) + ", " + f(shape.Dimensions.y) + ", " + f(shape.Dimensions.z));
-								else if (shape.Type == ShapeTypes.Capsule || shape.Type == ShapeTypes.Cone) {
-									writer.WriteLine("\tHeight = " + f(shape.Height));
-									writer.WriteLine("\tRadius = " + f(shape.Radius));
+								writer.WriteLine(string.Format(culture, @"	Type = {0}", shape.Type));
+								writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", node.Position.x, node.Position.y, node.Position.z));
+								writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
+									node.Orientation.x, node.Orientation.y, node.Orientation.z, node.Orientation.w));
+
+								if (shape.Type == ShapeTypes.Box || shape.Type == ShapeTypes.Cylinder) {
+									writer.WriteLine(string.Format(culture, @"	Dimensions = {0}, {1}, {2}", shape.Dimensions.x, shape.Dimensions.y, shape.Dimensions.z));
 								}
-								else if (shape.Type == ShapeTypes.Sphere)
-									writer.WriteLine("\tRadius = " + f(shape.Radius));
+								else if (shape.Type == ShapeTypes.Capsule || shape.Type == ShapeTypes.Cone) {
+									writer.WriteLine(string.Format(culture, @"	Height = {0}", shape.Height));
+									writer.WriteLine(string.Format(culture, @"	Radius = {0}", shape.Radius));
+								}
+								else if (shape.Type == ShapeTypes.Sphere) {
+									writer.WriteLine(string.Format(culture, @"	Radius = {0}", shape.Radius));
+								}
 								writer.WriteLine("}");
 								continue;
 							}
@@ -216,10 +220,6 @@ namespace SceneToThing {
 				}
 				MessageBox.Show("Export successful!", filename, MessageBoxButton.OK, MessageBoxImage.Information);
 			}
-		}
-
-		string f(float cookie) {
-			return cookie.ToString(culture);
 		}
 
 		string b(bool squishyMarshmallowButthole) {
@@ -235,18 +235,18 @@ namespace SceneToThing {
 
 			// if we have nothing selected, disable all of the boxes
 			if (e.AddedItems.Count == 0) {
-				positionXBox.Text = "";
-				positionYBox.Text = "";
-				positionZBox.Text = "";
-				orientationXBox.Text = "";
-				orientationYBox.Text = "";
-				orientationZBox.Text = "";
-				orientationWBox.Text = "";
-				dimensionsXBox.Text = "";
-				dimensionsYBox.Text = "";
-				dimensionsZBox.Text = "";
-				radiusBox.Text = "";
-				heightBox.Text = "";
+				positionXBox.Text = string.Empty;
+				positionYBox.Text = string.Empty;
+				positionZBox.Text = string.Empty;
+				orientationXBox.Text = string.Empty;
+				orientationYBox.Text = string.Empty;
+				orientationZBox.Text = string.Empty;
+				orientationWBox.Text = string.Empty;
+				dimensionsXBox.Text = string.Empty;
+				dimensionsYBox.Text = string.Empty;
+				dimensionsZBox.Text = string.Empty;
+				radiusBox.Text = string.Empty;
+				heightBox.Text = string.Empty;
 
 				typeComboBox.IsEnabled = false;
 				positionXBox.IsEnabled = false;
@@ -294,16 +294,16 @@ namespace SceneToThing {
 			if (node != null) {
 				typeComboBox.IsEnabled = false;
 				dimensionsLabel.Content = "Scale:";
-				positionXBox.Text = node.Position.x + "";
-				positionYBox.Text = node.Position.y + "";
-				positionZBox.Text = node.Position.z + "";
-				orientationXBox.Text = node.Orientation.x + "";
-				orientationYBox.Text = node.Orientation.y + "";
-				orientationZBox.Text = node.Orientation.z + "";
-				orientationWBox.Text = node.Orientation.w + "";
-				dimensionsXBox.Text = node.Dimensions.x + "";
-				dimensionsYBox.Text = node.Dimensions.y + "";
-				dimensionsZBox.Text = node.Dimensions.z + "";
+				positionXBox.Text = node.Position.x + string.Empty;
+				positionYBox.Text = node.Position.y + string.Empty;
+				positionZBox.Text = node.Position.z + string.Empty;
+				orientationXBox.Text = node.Orientation.x + string.Empty;
+				orientationYBox.Text = node.Orientation.y + string.Empty;
+				orientationZBox.Text = node.Orientation.z + string.Empty;
+				orientationWBox.Text = node.Orientation.w + string.Empty;
+				dimensionsXBox.Text = node.Dimensions.x + string.Empty;
+				dimensionsYBox.Text = node.Dimensions.y + string.Empty;
+				dimensionsZBox.Text = node.Dimensions.z + string.Empty;
 				radiusBox.IsEnabled = false;
 				heightBox.IsEnabled = false;
 				return;
@@ -315,43 +315,43 @@ namespace SceneToThing {
 				typeComboBox.SelectedIndex = (int) shape.Type;
 				typeComboBox.IsEnabled = true;
 				dimensionsLabel.Content = "Dimensions:";
-				positionXBox.Text = shape.Position.x + "";
-				positionYBox.Text = shape.Position.y + "";
-				positionZBox.Text = shape.Position.z + "";
-				orientationXBox.Text = shape.Orientation.x + "";
-				orientationYBox.Text = shape.Orientation.y + "";
-				orientationZBox.Text = shape.Orientation.z + "";
-				orientationWBox.Text = shape.Orientation.w + "";
+				positionXBox.Text = shape.Position.x + string.Empty;
+				positionYBox.Text = shape.Position.y + string.Empty;
+				positionZBox.Text = shape.Position.z + string.Empty;
+				orientationXBox.Text = shape.Orientation.x + string.Empty;
+				orientationYBox.Text = shape.Orientation.y + string.Empty;
+				orientationZBox.Text = shape.Orientation.z + string.Empty;
+				orientationWBox.Text = shape.Orientation.w + string.Empty;
 
 				// since all of the different shapes use different boxes, we have to disable the ones we don't want
 				if (shape.Type == ShapeTypes.Box || shape.Type == ShapeTypes.Cylinder) {
-					dimensionsXBox.Text = shape.Dimensions.x + "";
-					dimensionsYBox.Text = shape.Dimensions.y + "";
-					dimensionsZBox.Text = shape.Dimensions.z + "";
-					radiusBox.Text = "";
+					dimensionsXBox.Text = shape.Dimensions.x + string.Empty;
+					dimensionsYBox.Text = shape.Dimensions.y + string.Empty;
+					dimensionsZBox.Text = shape.Dimensions.z + string.Empty;
+					radiusBox.Text = string.Empty;
 					radiusBox.IsEnabled = false;
-					heightBox.Text = "";
+					heightBox.Text = string.Empty;
 					heightBox.IsEnabled = false;
 				}
 				else if (shape.Type == ShapeTypes.Capsule || shape.Type == ShapeTypes.Cone) {
-					dimensionsXBox.Text = "";
+					dimensionsXBox.Text = string.Empty;
 					dimensionsXBox.IsEnabled = false;
-					dimensionsYBox.Text = "";
+					dimensionsYBox.Text = string.Empty;
 					dimensionsYBox.IsEnabled = false;
-					dimensionsZBox.Text = "";
+					dimensionsZBox.Text = string.Empty;
 					dimensionsZBox.IsEnabled = false;
-					radiusBox.Text = shape.Radius + "";
-					heightBox.Text = shape.Height + "";
+					radiusBox.Text = shape.Radius + string.Empty;
+					heightBox.Text = shape.Height + string.Empty;
 				}
 				else if (shape.Type == ShapeTypes.Sphere) {
-					dimensionsXBox.Text = "";
+					dimensionsXBox.Text = string.Empty;
 					dimensionsXBox.IsEnabled = false;
-					dimensionsYBox.Text = "";
+					dimensionsYBox.Text = string.Empty;
 					dimensionsYBox.IsEnabled = false;
-					dimensionsZBox.Text = "";
+					dimensionsZBox.Text = string.Empty;
 					dimensionsZBox.IsEnabled = false;
-					radiusBox.Text = shape.Radius + "";
-					heightBox.Text = "";
+					radiusBox.Text = shape.Radius + string.Empty;
+					heightBox.Text = string.Empty;
 					heightBox.IsEnabled = false;
 				}
 			}
@@ -434,20 +434,20 @@ namespace SceneToThing {
 			ShapeTypes newType = (ShapeTypes) typeComboBox.SelectedIndex;
 			try {
 				// x is either the x scale or the radius
-				float x = dimensionsXBox.Text != "" ? float.Parse(dimensionsXBox.Text) : float.Parse(radiusBox.Text);
+				float x = dimensionsXBox.Text != string.Empty ? float.Parse(dimensionsXBox.Text) : float.Parse(radiusBox.Text);
 				// y is either the y scale or the height, or if both of those don't exist, then the radius
-				float y = dimensionsYBox.Text != "" ? float.Parse(dimensionsYBox.Text) : (heightBox.Text != "" ? float.Parse(heightBox.Text) : float.Parse(radiusBox.Text));
+				float y = dimensionsYBox.Text != string.Empty ? float.Parse(dimensionsYBox.Text) : (heightBox.Text != string.Empty ? float.Parse(heightBox.Text) : float.Parse(radiusBox.Text));
 				// z is either the z scale or the radius
-				float z = dimensionsZBox.Text != "" ? float.Parse(dimensionsZBox.Text) : float.Parse(radiusBox.Text);
+				float z = dimensionsZBox.Text != string.Empty ? float.Parse(dimensionsZBox.Text) : float.Parse(radiusBox.Text);
 
 				// update our boxes
 				if (newType == ShapeTypes.Box || newType == ShapeTypes.Cylinder) {
 					dimensionsXBox.IsEnabled = true;
-					dimensionsXBox.Text = x + "";
+					dimensionsXBox.Text = x + string.Empty;
 					dimensionsYBox.IsEnabled = true;
-					dimensionsYBox.Text = y + "";
+					dimensionsYBox.Text = y + string.Empty;
 					dimensionsZBox.IsEnabled = true;
-					dimensionsZBox.Text = z + "";
+					dimensionsZBox.Text = z + string.Empty;
 					radiusBox.IsEnabled = false;
 					heightBox.IsEnabled = false;
 				}
@@ -456,9 +456,9 @@ namespace SceneToThing {
 					dimensionsYBox.IsEnabled = false;
 					dimensionsZBox.IsEnabled = false;
 					radiusBox.IsEnabled = true;
-					radiusBox.Text = x + "";
+					radiusBox.Text = x + string.Empty;
 					heightBox.IsEnabled = true;
-					heightBox.Text = y + "";
+					heightBox.Text = y + string.Empty;
 				}
 				else if (newType == ShapeTypes.Sphere) {
 					dimensionsXBox.IsEnabled = false;
@@ -466,7 +466,7 @@ namespace SceneToThing {
 					dimensionsZBox.IsEnabled = false;
 					heightBox.IsEnabled = false;
 					radiusBox.IsEnabled = true;
-					radiusBox.Text = x + "";
+					radiusBox.Text = x + string.Empty;
 				}
 			}
 			catch (Exception ex) {

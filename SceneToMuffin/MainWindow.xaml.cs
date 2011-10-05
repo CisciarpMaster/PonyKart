@@ -91,18 +91,6 @@ namespace SceneToMuffin {
 					ReceiveShadows = node.Entity != null ? node.Entity.ReceiveShadows : false,
 				};
 
-				/*Mogre.Quaternion quat = new Mogre.Quaternion(data.OrientW, data.OrientX, data.OrientY, data.OrientZ);
-				Matrix3 mat = quat.ToRotationMatrix();
-				Mogre.Quaternion quat2 = new Mogre.Quaternion();
-				quat2.FromAngleAxis(new Degree(-90), mat.GetColumn(0));
-				quat = quat2 * quat;
-
-				data.OrientX = quat.x;
-				data.OrientY = quat.y;
-				data.OrientZ = quat.z;
-				data.OrientW = quat.w;*/
-
-
 				Data.Add(data);
 			}
 			dataGrid.ItemsSource = Data;
@@ -115,7 +103,7 @@ namespace SceneToMuffin {
 			SaveFileDialog dlg = new SaveFileDialog();
 			dlg.DefaultExt = ".muffin";
 			dlg.Filter = "Lymph Muffin files|*.muffin";
-			dlg.FileName = originalFilename.Substring(originalFilename.LastIndexOf("/") + 1).Replace(".scene", ".muffin");
+			dlg.FileName = originalFilename.Substring(originalFilename.LastIndexOf("\\") + 1).Replace(".scene", ".muffin");
 
 			bool? result = dlg.ShowDialog();
 
@@ -135,14 +123,14 @@ namespace SceneToMuffin {
 							// .thing file
 							writer.WriteLine(data.ThingFile + " {");
 							// name and position are required
-							writer.WriteLine("\tName = \"" + data.Name + "\"");
-							writer.WriteLine("\tPosition = " + f(data.PosX) + ", " + f(data.PosY) + ", " + f(data.PosZ));
+							writer.WriteLine(string.Format(culture, @"	Name = ""{0}""", data.Name));
+							writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", data.PosX, data.PosY, data.PosZ));
 							// orientation isn't required
 							if (data.OrientX != 0 || data.OrientY != 0 || data.OrientZ != 0 || data.OrientW != 1)
-								writer.WriteLine("\tOrientation = " + f(data.OrientX) + ", " + f(data.OrientY) + ", " + f(data.OrientZ) + ", " + f(data.OrientW));
+								writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}", data.OrientX, data.OrientY, data.OrientZ, data.OrientW));
 							// neither is scale
 							if (data.ScaleX != 1 || data.ScaleY != 1 || data.ScaleZ != 1)
-								writer.WriteLine("\tScale = " + f(data.ScaleX) + ", " + f(data.ScaleY) + ", " + f(data.ScaleZ));
+								writer.WriteLine(string.Format(culture, @"	Scale = {0}, {1}, {2}", data.ScaleX, data.ScaleY, data.ScaleZ));
 							// don't forget this bit!
 							writer.WriteLine("}");
 						}
@@ -163,16 +151,16 @@ namespace SceneToMuffin {
 	<nodes>");
 							// only use the ones that aren't going in the muffin file
 							foreach (NodeData data in orderedData.Where(d => !d.UsesThing)) {
-								writer.WriteLine("\t\t<node name=\"" + data.Name + "\">");
-								writer.WriteLine("\t\t\t<position x=\"" + f(data.PosX) + "\" y=\"" + f(data.PosY) + "\" z=\"" + f(data.PosZ) + "\" />");
-								writer.WriteLine("\t\t\t<scale x=\"" + f(data.ScaleX) + "\" y=\"" + f(data.ScaleY) + "\" z=\"" + f(data.ScaleZ) + "\" />");
-								writer.WriteLine("\t\t\t<rotation qx=\"" + f(data.OrientX) + "\" qy=\"" + f(data.OrientY) + "\" qz=\"" + f(data.OrientZ)
-									+ "\" qw=\"" + f(data.OrientW) + "\" />");
-								writer.WriteLine("\t\t\t<entity name=\"" + data.Name + "\" castShadows=\"" + b(data.CastShadows) + "\" receiveShadows=\""
-									+ data.ReceiveShadows + "\" meshFile=\"" + data.Mesh + "\" static=\"" + b(data.Static) + "\">");
+								writer.WriteLine(string.Format(culture, @"		<node name=""{0}"">", data.Name));
+								writer.WriteLine(string.Format(culture, @"			<position x=""{0}"" y=""{1}"" z=""{2}"" />", data.PosX, data.PosY, data.PosZ));
+								writer.WriteLine(string.Format(culture, @"			<scale x=""{0}"" y=""{1}"" z=""{2}"" />", data.ScaleX, data.ScaleY, data.ScaleZ));
+								writer.WriteLine(string.Format(culture, @"			<rotation qx=""{0}"" qy=""{1}"" qz=""{2}"" qw=""{3}"" />",
+									data.OrientX, data.OrientY, data.OrientZ, data.OrientW));
+								writer.WriteLine(string.Format(culture, @"			<entity name=""{0}"" castShadows=""{1}"" receiveShadows=""{2}"" meshFile=""{3}"" static=""{4}"">",
+									data.Name, b(data.CastShadows), b(data.ReceiveShadows), data.Mesh, b(data.Static)));
 								// material
-								writer.WriteLine("\t\t\t\t<subentities>");
-								writer.WriteLine("\t\t\t\t\t<subentity index=\"0\" materialName=\"" + data.Material + "\" />");
+								writer.WriteLine(						@"				<subentities>");
+								writer.WriteLine(string.Format(culture, @"					<subentity index=""0"" materialName=""{0}"" />", data.Material));
 								// this stuff
 								writer.WriteLine(
 @"				</subentities>
@@ -187,15 +175,6 @@ namespace SceneToMuffin {
 				}
 				MessageBox.Show("Export successful!", filename, MessageBoxButton.OK, MessageBoxImage.Information);
 			}
-		}
-
-		/// <summary>
-		/// should help stop printing decimals as commas since that's dumb, it's stupid, and I hate it
-		/// </summary>
-		/// <param name="cookie"></param>
-		/// <returns></returns>
-		string f(float cookie) {
-			return cookie.ToString(culture);
 		}
 
 		string b(bool squishyMarshmallowButthole) {
