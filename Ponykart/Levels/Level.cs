@@ -45,9 +45,9 @@ namespace Ponykart.Levels {
 		/// Reads the main .muffin file for this level and loads any extra ones that were "linked" from the main one
 		/// </summary>
 		public void ReadMuffin() {
-			Definition = new MuffinImporter().Parse(Name);
+			Definition = new MuffinImporter().ParseByName(Name);
 			foreach (string file in Definition.ExtraFiles) {
-				Definition = new MuffinImporter().Parse(file, Definition);
+				Definition = new MuffinImporter().ParseByName(file, Definition);
 			}
 
 			// get the type of the level

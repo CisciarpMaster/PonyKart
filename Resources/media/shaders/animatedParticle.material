@@ -1,34 +1,13 @@
-vertex_program animatedParticle_vp_hlsl hlsl {
+vertex_program animatedParticle_vp hlsl {
 	source animatedParticle.hlsl
 	entry_point main_vp
 	target vs_2_0
 }
  
-vertex_program animatedParticle_vp_glsl glsl {
-	source animatedParticle_vp.glsl
-}
- 
-vertex_program animatedParticle_vp unified {
-	delegate animatedParticle_vp_hlsl
-	delegate animatedParticle_vp_glsl
-}
- 
-fragment_program animatedParticle_fp_hlsl hlsl {
+fragment_program animatedParticle_fp hlsl {
 	source animatedParticle.hlsl
 	entry_point main_fp
 	target ps_2_0
-}
- 
-fragment_program animatedParticle_fp_glsl glsl {
-	source animatedParticle_fp.glsl
-	default_params {
-		param_named tex int 0
-	}
-}
- 
-fragment_program animatedParticle_fp unified {
-	delegate animatedParticle_fp_hlsl
-	delegate animatedParticle_fp_glsl
 }
  
 material animatedParticleMaterial {

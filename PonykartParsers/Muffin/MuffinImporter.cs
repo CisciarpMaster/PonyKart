@@ -23,7 +23,7 @@ namespace PonykartParsers {
 		/// instead of making a new one.
 		/// </param>
 		/// <returns>A world definition with the stuff from the specified muffin file.</returns>
-		public MuffinDefinition Parse(string nameOfWorld, MuffinDefinition worldDef = null) {
+		public MuffinDefinition ParseByName(string nameOfWorld, MuffinDefinition worldDef = null) {
 			// the initial level before we start loading one is "null", so we need to avoid doing anything with that.
 			if (nameOfWorld == null) {
 				MuffinDefinition emptyDef = new MuffinDefinition(string.Empty);
@@ -32,13 +32,12 @@ namespace PonykartParsers {
 				return emptyDef;
 			}
 
-			string fileContents = string.Empty;
-
 			// make the file path
 			string filePath = Settings.Default.MuffinFileLocation + nameOfWorld + Settings.Default.MuffinFileExtension;
 			// if we don't have a muffin file for this level yet, use the "default" one
 			if (!File.Exists(filePath)) {
-				LogManager.Singleton.LogMessage("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
+				if (LogManager.Singleton != null)
+					LogManager.Singleton.LogMessage("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
 				Debug.WriteLine("** [WARNING] [MuffinImporter] " + nameOfWorld + ".muffin not found!");
 
 				MuffinDefinition def = new MuffinDefinition(nameOfWorld);
@@ -47,7 +46,23 @@ namespace PonykartParsers {
 				return def;
 			}
 
-			LogManager.Singleton.LogMessage("[MuffinImporter] Importing and parsing world: " + filePath);
+			return ParseByFile(filePath, worldDef);
+		}
+
+		/// <summary>
+		/// Parses a .muffin file and puts it into a WorldDefinition
+		/// </summary>
+		/// <param name="filePath">The filepath of the world to load.</param>
+		/// <param name="worldDef">
+		/// If you've already got a world definition, pass it here and this method will add to it
+		/// instead of making a new one.
+		/// </param>
+		/// <returns>A world definition with the stuff from the specified muffin file.</returns>
+		public MuffinDefinition ParseByFile(string filePath, MuffinDefinition worldDef = null) {
+			string fileContents = string.Empty;
+
+			if (LogManager.Singleton != null)
+				LogManager.Singleton.LogMessage("[MuffinImporter] Importing and parsing world: " + filePath);
 			Debug.WriteLine("[MuffinImporter] Importing and parsing world: " + filePath);
 
 			// read stuff
@@ -69,7 +84,7 @@ namespace PonykartParsers {
 
 
 			if (worldDef == null)
-				worldDef = new MuffinDefinition(nameOfWorld);
+				worldDef = new MuffinDefinition(filePath);
 
 			Parse(worldDef);
 
