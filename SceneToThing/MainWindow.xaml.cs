@@ -196,9 +196,9 @@ namespace SceneToThing {
 								writer.WriteLine("// " + shape.Name);
 								writer.WriteLine("Shape {");
 								writer.WriteLine(string.Format(culture, @"	Type = {0}", shape.Type));
-								writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", node.Position.x, node.Position.y, node.Position.z));
+								writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", shape.Position.x, shape.Position.y, shape.Position.z));
 								writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
-									node.Orientation.x, node.Orientation.y, node.Orientation.z, node.Orientation.w));
+									shape.Orientation.x, shape.Orientation.y, shape.Orientation.z, shape.Orientation.w));
 
 								if (shape.Type == ShapeTypes.Box || shape.Type == ShapeTypes.Cylinder) {
 									writer.WriteLine(string.Format(culture, @"	Dimensions = {0}, {1}, {2}", shape.Dimensions.x, shape.Dimensions.y, shape.Dimensions.z));
