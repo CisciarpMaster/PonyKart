@@ -1,0 +1,20 @@
+material saa_sky
+{
+	receive_shadows off
+	
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+			
+			texture_unit
+			{
+				// front (-Z), back (+Z), left (-X?), right (+X?), up (+Y), down (-Y)
+				cubic_texture saa_sky.png saa_sky.png saa_sky.png saa_sky.png saa_sky.png saa_sky.png separateUV
+				tex_address_mode clamp
+			}
+		}
+	}
+}

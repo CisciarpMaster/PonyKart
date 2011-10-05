@@ -25,7 +25,7 @@ namespace Ponykart.Core {
 			Camera = manager.CreateCamera("Camera");
 
 			Camera.NearClipDistance = 0.5f;
-			Camera.FarClipDistance = 1000f;
+			Camera.FarClipDistance = 5000f;
 			Camera.AspectRatio = ((float) Settings.Default.WindowWidth) / ((float) Settings.Default.WindowHeight);
 
 			CameraNode = manager.RootSceneNode.CreateChildSceneNode("CameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));

@@ -94,6 +94,9 @@ namespace Ponykart.Actors {
 			if (!(KartDriftState.StartLeft | KartDriftState.StartRight).HasFlag(state))
 				throw new ArgumentException("You must pass either StartDriftLeft or StartDriftRight!", "state");
 
+			if (WheelSpeed < 100 || IsDriftingAtAll)
+				return;
+
 			// update our state
 			DriftState = state;
 

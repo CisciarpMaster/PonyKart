@@ -30,6 +30,8 @@ namespace Ponykart.Handlers {
 			light.DiffuseColour = new ColourValue(1, 1, 1);
 			light.CastShadows = true;
 
+			sceneMgr.SetSkyBox(true, "saa_sky", 1995f);
+
 #if DEBUG
 			// make some axes
 			LKernel.GetG<Spawner>().Spawn("Axis", Vector3.ZERO);
