@@ -298,14 +298,13 @@ namespace Ponykart {
 		}
 
 		/// <summary>
-		/// This is where resources are actually loaded into memory. In a game with lots of files
-		/// you want to group them and load them as necessary - right now this method just loads
-		/// everything at once.
+		/// This is where resources are actually loaded into memory.
 		/// </summary>
 		private static void LoadResourceGroups() {
 			TextureManager.Singleton.DefaultNumMipmaps = 1;
-			// vvvvvvv this vvvvvvv
-			ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
+
+			ResourceGroupManager.Singleton.InitialiseResourceGroup("Bootstrap");
+			ResourceGroupManager.Singleton.InitialiseResourceGroup("General");
 		}
 	}
 }

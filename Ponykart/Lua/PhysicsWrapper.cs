@@ -42,6 +42,12 @@ namespace Ponykart.Lua {
 			body.WorldTransform.SetTrans(vec);
 		}
 
+		[LuaFunction("hingeConstraint", "Connects two bodies with a hinge constraint",
+			"RigidBody body1", "RigidBody body2", "Vector3 pivotOn1", "Vector3 pivotOn2", "Vector3 axisOn1", "Vector3 axisOn2")]
+		public static HingeConstraint HingeConstraint(RigidBody body1, RigidBody body2, Vector3 pivotOn1, Vector3 pivotOn2, Vector3 axisOn1, Vector3 axisOn2) {
+			return new HingeConstraint(body1, body2, pivotOn1, pivotOn2, axisOn1, axisOn2);
+		}
+
 		/*
 		 * ActiveTag = 1,
 		 * IslandSleeping = 2,

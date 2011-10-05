@@ -83,8 +83,6 @@ namespace Ponykart.Actors {
 			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null));
 		}
 
-
-
 		/// <summary>
 		/// Start drifting in a certain direction
 		/// </summary>

@@ -63,6 +63,8 @@ material SAA_Bridge {
 		pass {
 			texture_unit {
 				texture bridge_wood.dds
+				// used by the wood posts on the banner
+				tex_address_mode mirror
 			}
 		}
 	}
@@ -96,6 +98,41 @@ material Bucket {
 		pass {
 			texture_unit {
 				texture Bucket.dds
+			}
+		}
+	}
+}
+
+
+material SAA_BannerSign {
+	technique {
+		pass {
+			texture_unit {
+				texture banner.png
+			}
+		}
+	}
+}
+
+
+material Rope {
+	technique {
+		pass {
+			texture_unit {
+				texture rope.dds
+			}
+		}
+	}
+}
+
+
+material PicnicTablecloth {
+	technique {
+		pass {
+			cull_hardware none
+			
+			texture_unit {
+				texture picnictable.dds
 			}
 		}
 	}

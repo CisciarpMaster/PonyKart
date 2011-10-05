@@ -1,4 +1,5 @@
 Physics = None
+Static = true
 
 Model {
 	Mesh = "FenceAngled.mesh"

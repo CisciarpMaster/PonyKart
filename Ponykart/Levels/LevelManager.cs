@@ -105,6 +105,12 @@ namespace Ponykart.Levels {
 			// Load new Level
 			if (newLevel != null) {
 				Launch.Log("======= Level loading: " + newLevel.Name + " =======");
+				// load our resource group, if we have one
+				if (ResourceGroupManager.Singleton.ResourceGroupExists(newLevel.Name) && !ResourceGroupManager.Singleton.IsResourceGroupInitialised(newLevel.Name)) {
+					Launch.Log("[Loading] Initialising resource group: " + newLevel.Name);
+					ResourceGroupManager.Singleton.InitialiseResourceGroup(newLevel.Name);
+				}
+
 				// load up the world definition from the .muffin file
 				newLevel.ReadMuffin();
 

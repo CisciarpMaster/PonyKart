@@ -6,7 +6,7 @@ using Ponykart.Physics;
 using Ponykart.Players;
 
 namespace Ponykart.Handlers {
-	[Handler(HandlerScope.Level, LevelType.Race, "saa")]
+	[Handler(HandlerScope.Level, LevelType.Race, "SweetAppleAcres")]
 	public class SAA_WheelParticleHandler : ILevelHandler {
 		// our dictionaries of particles
 		private IDictionary<string, ParticleSystem> dirtParticles, grassParticles;

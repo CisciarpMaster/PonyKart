@@ -5,7 +5,7 @@ using Ponykart.Players;
 using Vector3 = Mogre.Vector3;
 
 namespace Ponykart.Handlers {
-	[Handler(HandlerScope.Level, LevelType.Race, "saa")]
+	[Handler(HandlerScope.Level, LevelType.Race, "SweetAppleAcres")]
 	public class SAA_JumpAround : ILevelHandler {
 
 		public SAA_JumpAround() {

@@ -1,31 +1,3 @@
-material 11-Default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture shared.jpg
-			}
-		}
-	}
-}
-
-material 10-Default
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture banner.png
-			}
-		}
-	}
-}
-
 material SAA_Barn_Area
 {
 	technique

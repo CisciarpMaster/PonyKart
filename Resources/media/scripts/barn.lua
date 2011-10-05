@@ -1,6 +1,4 @@
 -- load up our types
-luanet.load_assembly("BulletSharp")
-HingeConstraint = luanet.import_type("BulletSharp.HingeConstraint")
 
 function barn(lthing)
 	local unit_y = vector(0, 1, 0)
@@ -17,11 +15,11 @@ function barn(lthing)
 	
 	
 	-- make hinges
-	local TLhinge = HingeConstraint(topleft.Body, lthing.Body, vector(3.75, 0, 0), vector(-6.8, 7.4, 16.929), unit_y, unit_y)
-	local BLhinge = HingeConstraint(bottomleft.Body, lthing.Body, vector(3.75, 0, 0), vector(-6.8, 1.9, 16.929), unit_y, unit_y)
+	local TLhinge = hingeConstraint(topleft.Body, lthing.Body, vector(3.75, 0, 0), vector(-6.8, 7.4, 16.929), unit_y, unit_y)
+	local BLhinge = hingeConstraint(bottomleft.Body, lthing.Body, vector(3.75, 0, 0), vector(-6.8, 1.9, 16.929), unit_y, unit_y)
 	
-	local TRhinge = HingeConstraint(topright.Body, lthing.Body, vector(3.75, 0, 0), vector(8.685, 7.4, 16.929), unit_y, unit_y)
-	local BRhinge = HingeConstraint(bottomright.Body, lthing.Body, vector(3.75, 0, 0), vector(8.685, 1.9, 16.929), unit_y, unit_y)
+	local TRhinge = hingeConstraint(topright.Body, lthing.Body, vector(3.75, 0, 0), vector(8.685, 7.4, 16.929), unit_y, unit_y)
+	local BRhinge = hingeConstraint(bottomright.Body, lthing.Body, vector(3.75, 0, 0), vector(8.685, 1.9, 16.929), unit_y, unit_y)
 	
 	
 	-- remember that methods use : and not .!
