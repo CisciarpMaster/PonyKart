@@ -43,9 +43,9 @@ material SAA_Barn_Area
 			depth_bias 1
 			light_scissor on
 			
-			vertex_program_ref glowBalloon_vs {
+			vertex_program_ref glowBalloon_vp {
 			}
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 0.09982 0.08235 0.04471
 				//param_named GlowColor float3 0.1 0.1 0.1 
 				param_named GlowExpon float  3
@@ -72,9 +72,9 @@ material SAA_Road
 			depth_bias 1
 			light_scissor on
 			
-			vertex_program_ref glowBalloon_vs {
+			vertex_program_ref glowBalloon_vp {
 			}
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				//param_named GlowColor float3 0.9982 0.8235 0.4471
 				param_named GlowColor float3 0.09982 0.08235 0.04471
 				param_named GlowExpon float  3
@@ -100,9 +100,9 @@ material SAA_Cliff
 			depth_bias 1
 			light_scissor on
 			
-			vertex_program_ref glowBalloon_vs {
+			vertex_program_ref glowBalloon_vp {
 			}
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 0.09982 0.08235 0.04471
 				//param_named GlowColor float3 0.1 0.1 0.1
 				param_named GlowExpon float  3
@@ -128,9 +128,9 @@ material SAA_Grass
 			depth_bias 1
 			light_scissor on
 			
-			vertex_program_ref glowBalloon_vs {
+			vertex_program_ref glowBalloon_vp {
 			}
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 0.651 0.78 0.224
 				param_named GlowExpon float  3
 			}

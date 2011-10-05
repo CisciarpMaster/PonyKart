@@ -1,8 +1,7 @@
 -- fills the apple cart with 5 apples
--- it could probably hold more, but they tend to spill really easily
+-- it could probably hold more, but it tends to spill really easily
 function applecart(lthing)
 	spawnMoreApples(lthing, -1, 2, 0, 1, 5, 1)
-	--deactivateThing(lthing)
 end
 
 -- normally this could hold around 60 apples, but that really slowed down the game, so now it only has 16

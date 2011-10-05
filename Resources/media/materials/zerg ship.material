@@ -22,9 +22,9 @@ material zerg
 			depth_check on
 			lighting on
 			
-			vertex_program_ref glowBalloon_vs {
+			vertex_program_ref glowBalloon_vp {
 			}
-			fragment_program_ref glowBalloon_ps {
+			fragment_program_ref glowBalloon_fp {
 				param_named GlowColor float3 1 1 1
 				param_named GlowExpon float  2.5
 			}
