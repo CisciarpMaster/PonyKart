@@ -46,7 +46,7 @@ namespace Ponykart.Lua {
 			return new Quaternion(w, x, y, z);
 		}
 
-		[LuaFunction("multiplyQuaternion", "Multiplies two quaternions", "quat 1", "quat 2")]
+		[LuaFunction("multiplyQuaternions", "Multiplies two quaternions", "quat 1", "quat 2")]
 		public static Quaternion multiplyQuat(Quaternion quat1, Quaternion quat2) {
 			return quat1 * quat2;
 		}

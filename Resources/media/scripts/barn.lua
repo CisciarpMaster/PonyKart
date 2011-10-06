@@ -27,13 +27,16 @@ function barn(lthing)
 	BLhinge:SetLimit(1.57, 3.14)
 	TRhinge:SetLimit(0, 1.57)
 	BRhinge:SetLimit(0, 1.57)
+	
 	-- and then add our constraints to the world
 	addConstraint(TLhinge, false)
 	addConstraint(BLhinge, false)
 	addConstraint(TRhinge, false)
 	addConstraint(BRhinge, false)
+	
 	-- make them stop moving so they're always completely closed
 	local vecZero = vector(0, 0, 0)
+	
 	topleft.Body.AngularVelocity = vecZero
 	topleft.Body.LinearVelocity = vecZero
 	bottomleft.Body.AngularVelocity = vecZero

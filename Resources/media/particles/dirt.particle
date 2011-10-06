@@ -72,10 +72,9 @@ particle_system dirtPoof
 	emitter Box
 	{
 		angle	45
-		/*colour	0.619608 0.501961 0.380392 1
-		colour_range_start	0.835294 0.623529 0.341176 1
-		colour_range_end	0.682352 0.525490 0.290196 1
-		*/
+		//colour	0.619608 0.501961 0.380392 1
+		//colour_range_start	0.835294 0.623529 0.341176 1
+		//colour_range_end	0.682352 0.525490 0.290196 1
 		colour 1 0 0 1
 		direction	0 1 0
 		emission_rate	100
