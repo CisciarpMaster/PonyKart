@@ -11,6 +11,7 @@ namespace Ponykart.Actors {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 
+		protected Vector3 AxlePoint;
 		/// <summary>
 		/// The radius of the wheel
 		/// </summary>
@@ -122,9 +123,12 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsBrakeOn { get; set; }
 		/// <summary>
-		/// the angle wheels should try to be at when they aren't turning
+		/// the angle the wheel should try to be at when they aren't turning
 		/// </summary>
 		public Degree IdealSteerAngle { get; set; }
+		/// <summary>
+		/// The current friction of the wheel
+		/// </summary>
 		public float Friction { get; set; } 
 
 		Kart kart;
@@ -193,15 +197,26 @@ namespace Ponykart.Actors {
 			info.WheelDampingCompression = SpringCompression;
 			info.FrictionSlip = Friction;
 			info.RollInfluence = RollInfluence;
+
+			AxlePoint = connectionPoint + new Vector3(0, -SuspensionRestLength, 0);
 		}
 
 		/// <summary>
 		/// Update our node's position and orientation, and also accelerate/brake/turn if we aren't paused
 		/// </summary>
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
-			Node.Position = info.WorldTransform.GetTrans();
-			Node.Orientation = info.WorldTransform.ExtractQuaternion();
+
+			// don't change the kart's orientation when we're drifting
+			if (kart.IsDriftingAtAll) {
+				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
+				Node.Position = kart.RootNode.ConvertLocalToWorldPosition(AxlePoint);
+				Node.Orientation = kart.RootNode.Orientation;
+			}
+			else {
+				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
+				Node.Position = info.WorldTransform.GetTrans();
+				Node.Orientation = info.WorldTransform.ExtractQuaternion();
+			}
 
 			if (!Pauser.IsPaused) {
 				Accelerate();

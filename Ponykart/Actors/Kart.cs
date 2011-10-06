@@ -1,6 +1,7 @@
 ﻿using System;
 using BulletSharp;
 using Mogre;
+using Ponykart.Handlers;
 using Ponykart.Physics;
 using PonykartParsers;
 
@@ -112,6 +113,13 @@ namespace Ponykart.Actors {
 			if (OnDrifting != null)
 				OnDrifting(this);
 
+			if (DriftState == KartDriftState.FullLeft) {
+				new Rotater<Kart>(this, 0.3f, new Degree(-FrontDriftAngle / 2f), RotaterAxisMode.RelativeY);
+			}
+			else if (DriftState == KartDriftState.FullRight) {
+				new Rotater<Kart>(this, 0.3f, new Degree(FrontDriftAngle / 2f), RotaterAxisMode.RelativeY);
+			}
+
 			ForEachWheel(wheel => {
 				// left
 				if (this.DriftState == KartDriftState.FullLeft) {
@@ -222,16 +230,27 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		private float _multiplier;
+		private float _turnMultiplier;
 		/// <summary>
 		/// Turns the wheels
+		/// 
+		/// Turn left is positive, turn right is negative
 		/// </summary>
 		public float TurnMultiplier {
 			get {
-				return _multiplier;
+				return _turnMultiplier;
 			}
 			set {
-				this._multiplier = value;
+				if (IsCompletelyDrifting) {
+					if (this._turnMultiplier - value < 0) {
+						new Rotater<Kart>(this, 0.3f, new Degree(10), RotaterAxisMode.RelativeY);
+					}
+					else if (this._turnMultiplier - value > 0) {
+						new Rotater<Kart>(this, 0.3f, new Degree(-10), RotaterAxisMode.RelativeY);
+					}
+				}
+
+				this._turnMultiplier = value;
 
 				ForEachWheel(w => {
 					w.TurnMultiplier = value;

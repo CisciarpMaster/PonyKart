@@ -75,8 +75,8 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// This happens right at the end and helps "finish" the drifting - rotates the kart appropriately and lowers the friction while doing so.
 		/// </summary>
-		/// <param name="kart"></param>
 		void OnStopDrifting(Kart kart) {
+			// making it nlerp without actually changing its orientation is a way of "locking" its orientation for a duration
 			stopNlerpers.Add(new Nlerper<Kart>(kart, 0.15f, kart.Body.Orientation));
 
 			kart.ForEachWheel(w => w.Friction = 1f);
@@ -101,12 +101,12 @@ namespace Ponykart.Handlers {
 			if ((state == StartOrStopState.StartDrifting && kart.DriftState == KartDriftState.StartLeft)
 				|| (state == StartOrStopState.StopDrifting && kart.DriftState == KartDriftState.StopRight))
 			{
-				angle = new Degree(-kart.FrontDriftAngle);
+				angle = new Degree(-kart.FrontDriftAngle / 2f);
 			}
 			else if ((state == StartOrStopState.StartDrifting && kart.DriftState == KartDriftState.StartRight)
 				|| (state == StartOrStopState.StopDrifting && kart.DriftState == KartDriftState.StopLeft))
 			{
-				angle = new Degree(kart.FrontDriftAngle);
+				angle = new Degree(kart.FrontDriftAngle / 2f);
 			}
 			else
 				throw new ApplicationException("How did we get here?");

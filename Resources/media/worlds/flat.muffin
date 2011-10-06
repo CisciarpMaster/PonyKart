@@ -2,7 +2,7 @@ Type = Race
 LoadFile = "default spawn positions"
 
 // two big squares
-Obstacle {
+/*Obstacle {
 	Name = "obs1"
 	Position = 20, -1, -20
 	Rotation = 45, 0, 0
@@ -32,7 +32,7 @@ Obstacle {
 	Name = "obs5"
 	Position = 20.2, -1, -32
 	Rotation = -50, 0, 0
-}
+}*/
 // a bunch of low ramps
 Obstacle {
 	Name = "obs6"

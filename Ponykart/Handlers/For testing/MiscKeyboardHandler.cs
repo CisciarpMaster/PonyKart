@@ -79,7 +79,8 @@ namespace Ponykart.Handlers {
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
 					ResourceGroupManager.Singleton.InitialiseResourceGroup("General");
-					ResourceGroupManager.Singleton.InitialiseResourceGroup(LKernel.GetG<LevelManager>().CurrentLevel.Name);
+					if (ResourceGroupManager.Singleton.ResourceGroupExists(LKernel.GetG<LevelManager>().CurrentLevel.Name))
+						ResourceGroupManager.Singleton.InitialiseResourceGroup(LKernel.GetG<LevelManager>().CurrentLevel.Name);
 					MaterialManager.Singleton.ReloadAll(false);
 					MeshManager.Singleton.ReloadAll(false);
 					Settings.Default.Reload();

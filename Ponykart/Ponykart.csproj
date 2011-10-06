@@ -121,7 +121,7 @@
     <Compile Include="Actors\Components\RibbonComponent.cs" />
     <Compile Include="Actors\Components\ShapeComponent.cs" />
     <Compile Include="Actors\Kart.cs" />
-    <Compile Include="Handlers\Karts\DisableWheelFrictionHandler.cs" />
+    <Compile Include="Handlers\For testing\DisableWheelFrictionHandler.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
     <Compile Include="Handlers\Helpers\Rotater.cs" />
     <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />
@@ -129,7 +129,7 @@
     <Compile Include="Handlers\Per-level\SAA_JumpAround.cs" />
     <Compile Include="Handlers\Per-level\SAA_WheelParticleHandler.cs" />
     <Compile Include="Handlers\Helpers\Skidder.cs" />
-    <Compile Include="Handlers\PrimitiveCreatorHandler.cs" />
+    <Compile Include="Handlers\For testing\PrimitiveCreatorHandler.cs" />
     <Compile Include="Core\RaceCountdown.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\Helpers\SelfRighter.cs" />
@@ -184,7 +184,7 @@
     <Compile Include="Handlers\UI\LevelUIHandler.cs" />
     <Compile Include="Handlers\UI\LoadingUIHandler.cs" />
     <Compile Include="Handlers\UI\PauseUIHandler.cs" />
-    <Compile Include="Handlers\TriggerRegionsTest.cs" />
+    <Compile Include="Handlers\For testing\TriggerRegionsTest.cs" />
     <Compile Include="Lua\PauserWrapper.cs" />
     <Compile Include="UI\UIUserData.cs" />
     <Compile Include="UI\UIResources.cs" />
@@ -192,7 +192,7 @@
     <Compile Include="UI\UIMain.cs" />
     <Compile Include="Core\Spawner.cs" />
     <Compile Include="Core\InputMain.cs" />
-    <Compile Include="Handlers\LevelChangerHandler.cs" />
+    <Compile Include="Handlers\For testing\LevelChangerHandler.cs" />
     <Compile Include="Physics\Collision Reports\CollisionReporter.cs" />
     <Compile Include="Physics\CollisionGroups.cs" />
     <Compile Include="Core\PlayerCamera.cs" />
@@ -200,7 +200,7 @@
     <Compile Include="Levels\LevelChangedEventArgs.cs" />
     <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Physics\PhysicsMain.cs" />
-    <Compile Include="Handlers\MiscKeyboardHandler.cs" />
+    <Compile Include="Handlers\For testing\MiscKeyboardHandler.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

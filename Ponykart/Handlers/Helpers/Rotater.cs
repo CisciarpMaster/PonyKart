@@ -67,9 +67,9 @@ namespace Ponykart.Handlers {
 			orient.FromAngleAxis(angleThisFrame, axisThisFrame);
 
 			// and then rotate the body
-			if (thing.Body.IsActive)
+			if (!thing.Body.IsActive)
 				// if we rotate while we're deactivated, only the wheels will rotate and not our node
-				thing.Body.ForceActivationState(ActivationState.WantsDeactivation);
+				thing.Body.Activate(true);
 			thing.Body.SetOrientation(orient * thing.Body.Orientation);
 
 			lastProgress = progress;

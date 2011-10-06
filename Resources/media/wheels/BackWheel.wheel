@@ -15,6 +15,6 @@ TurnAngle = 5
 SlowSpeed = 60
 HighSpeed = 160
 SlowTurnMultiplier = 3
-DriftingTurnMultiplier = 0.5
+DriftingTurnMultiplier = 0.8
 SteerIncrementTurn = 0.4
 SteerDecrementTurn = 1
