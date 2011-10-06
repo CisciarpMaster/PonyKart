@@ -4,7 +4,8 @@ CollisionGroup = Default
 CollidesWith = Default
 Friction = 0.6
 LinearDamping = 0.6
-Script = "containerLarge"
+Script = "appleContainerLarge"
+Deactivated = true
 
 Model {
 	Mesh = "AppleContainerLarge.mesh"

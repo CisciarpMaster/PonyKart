@@ -5,13 +5,11 @@ function applecart(lthing)
 end
 
 -- normally this could hold around 60 apples, but that really slowed down the game, so now it only has 16
-function containerLarge(lthing)
+function appleContainerLarge(lthing)
 	spawnMoreApples(lthing, -1.14589, 2.02102, -1.11799, 4, 1, 4)
-	deactivateThing(lthing)
 end
 
 -- this could hold around 20ish but that slowed down the game so now it only has 9
-function containerSmall(lthing)
+function appleContainerSmall(lthing)
 	spawnMoreApples(lthing, -0.662419, 1.5571, -0.639155, 3, 1, 3)
-	deactivateThing(lthing)
 end

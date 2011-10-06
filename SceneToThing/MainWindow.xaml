@@ -54,9 +54,10 @@
 			<ComboBoxItem Content="Default" />
 			<ComboBoxItem Content="Environment" />
 			<ComboBoxItem Content="Affectors" />
-			<ComboBoxItem Content="Walls" />
+			<ComboBoxItem Content="Road" />
 			<ComboBoxItem Content="Triggers" />
 			<ComboBoxItem Content="Karts" />
+			<ComboBoxItem Content="InvisibleWalls" />
 		</ComboBox>
 	</Grid>
 </Window>

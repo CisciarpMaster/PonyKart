@@ -1,0 +1,16 @@
+Physics = Dynamic
+Mass = 1
+PhysicsMaterial = "Apples"
+Deactivated = true
+
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "GreenApple"
+	Position = 0, 0.05, 0
+	CastsShadows = true
+}
+Shape {
+	Type = Sphere
+	Position = 0, 0, 0
+	Radius = 0.375
+}

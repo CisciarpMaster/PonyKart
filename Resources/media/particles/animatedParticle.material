@@ -10,7 +10,7 @@ fragment_program animatedParticle_fp hlsl {
 	target ps_2_0
 }
  
-material animatedParticleMaterial {
+material animatedParticle {
 	technique {
 		pass {
 			vertex_program_ref animatedParticle_vp {
@@ -23,7 +23,7 @@ material animatedParticleMaterial {
 	}
 }
 
-material explosionMaterial : animatedParticleMaterial {
+material explosionMaterial : animatedParticle {
 	technique {
 		pass {
 			lighting off
@@ -36,6 +36,43 @@ material explosionMaterial : animatedParticleMaterial {
 				texture Lords.dds 3d
 				tex_address_mode clamp
 				filtering linear linear none
+			}
+		}
+	}
+}
+
+
+material Particles/Mud : animatedParticle {
+	receive_shadows off
+	
+	technique {
+		pass {
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+ 
+			texture_unit {
+				texture mudparticle.dds 3d
+				tex_address_mode clamp
+				filtering linear linear none
+			}
+		}
+	}
+}
+
+material Particles/Dust {
+	receive_shadows off
+
+	technique {
+		pass {
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			transparent_sorting on
+			
+			texture_unit {
+				texture Dust3.png
+				tex_address_mode clamp
 			}
 		}
 	}

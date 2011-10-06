@@ -3,6 +3,7 @@ Mass = 200
 CollisionGroup = Default
 CollidesWith = Default
 PhysicsMaterial = "HayBale"
+Deactivated = true
 
 // box#0
 Shape {

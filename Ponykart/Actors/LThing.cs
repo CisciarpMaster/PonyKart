@@ -285,6 +285,9 @@ namespace Ponykart.Actors {
 			Body.WorldTransform = Info.StartWorldTransform;
 
 			LKernel.GetG<PhysicsMain>().World.AddRigidBody(Body, CollisionGroup, CollidesWith);
+
+			if (def.GetBoolProperty("Deactivated", false))
+				Body.ForceActivationState(ActivationState.WantsDeactivation);
 		}
 
 		/// <summary>
