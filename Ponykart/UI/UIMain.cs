@@ -1,4 +1,6 @@
-﻿using Miyagi.Common;
+﻿using System.Drawing;
+using Miyagi.Common;
+using Miyagi.Common.Resources;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Mogre;
@@ -68,6 +70,14 @@ namespace Ponykart.UI {
 
 		public GUI GetGUI(string name) {
 			return MiyagiSys.GUIManager.GetGUI(name);
+		}
+
+		public void Serialize() {
+			MiyagiSys.SerializationManager.ExportToFile("media/gui/serialize.mgx");
+		}
+
+		public void ExportImageFont(string ttfName, FontStyle style = FontStyle.Regular, int size = 12, int resolution = 96) {
+			TrueTypeFont.TrueTypeToImageFont("media/gui/Fonts/", "media/gui/Fonts/" + ttfName, style, size, resolution);
 		}
 
 		protected override void Dispose(bool disposing) {

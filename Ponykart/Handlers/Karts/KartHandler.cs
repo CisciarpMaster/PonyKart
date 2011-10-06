@@ -27,7 +27,7 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// Dictionary of our nlerpers
 		/// </summary>
-		public ConcurrentDictionary<Kart, Nlerper> Nlerpers { get; private set; }
+		public ConcurrentDictionary<Kart, Nlerper<Kart>> Nlerpers { get; private set; }
 		/// <summary>
 		/// Dictionary of our skidders
 		/// </summary>
@@ -73,7 +73,7 @@ namespace Ponykart.Handlers {
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
 				SelfRighters = new ConcurrentDictionary<Kart, SelfRighter>();
-				Nlerpers = new ConcurrentDictionary<Kart, Nlerper>();
+				Nlerpers = new ConcurrentDictionary<Kart, Nlerper<Kart>>();
 				Skidders = new ConcurrentDictionary<Kart, Skidder>();
 				CurrentlyDrivingOn = new ConcurrentDictionary<Kart, CollisionObject>();
 
@@ -212,7 +212,7 @@ namespace Ponykart.Handlers {
 
 			// if we have a nlerper, get rid of it
 			if (Settings.Default.KartHandler_UseNlerpers) {
-				Nlerper n;
+				Nlerper<Kart> n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
 					n.Detach();
 					Nlerpers.TryRemove(kart, out n);
@@ -220,7 +220,7 @@ namespace Ponykart.Handlers {
 			}
 
 			// add a skidder!
-			if (Settings.Default.KartHandler_UseSkidders /*&& !kart.WantsDrifting*/) {
+			if (Settings.Default.KartHandler_UseSkidders) {
 				Skidder s;
 				if (Skidders.TryGetValue(kart, out s)) {
 					s.Detach();
@@ -282,11 +282,11 @@ namespace Ponykart.Handlers {
 
 			if (useNlerp && Settings.Default.KartHandler_UseNlerpers) {
 				// if we already have a nlerper, get rid of it
-				Nlerper n;
+				Nlerper<Kart> n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
 					n.Detach();
 				}
-				Nlerpers[kart] = new Nlerper(kart, duration, newOrientation);
+				Nlerpers[kart] = new Nlerper<Kart>(kart, duration, newOrientation);
 			}
 			else {
 				// update our body
@@ -308,7 +308,7 @@ namespace Ponykart.Handlers {
 				SelfRighters.Clear();
 
 				// same for these
-				foreach (Nlerper n in Nlerpers.Values) {
+				foreach (Nlerper<Kart> n in Nlerpers.Values) {
 					n.Detach();
 				}
 				Nlerpers.Clear();

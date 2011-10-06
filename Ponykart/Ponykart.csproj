@@ -123,7 +123,7 @@
     <Compile Include="Actors\Kart.cs" />
     <Compile Include="Handlers\Karts\DisableWheelFrictionHandler.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
-    <Compile Include="Handlers\Helpers\KartRotater.cs" />
+    <Compile Include="Handlers\Helpers\Rotater.cs" />
     <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />
     <Compile Include="Handlers\Helpers\Nlerper.cs" />
     <Compile Include="Handlers\Per-level\SAA_JumpAround.cs" />

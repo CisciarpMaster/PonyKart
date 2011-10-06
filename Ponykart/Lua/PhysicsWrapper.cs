@@ -29,12 +29,7 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("setBodyOrientation", "Sets the orientation of a RigidBody", "RigidBody", "Quaternion")]
 		public static void SetBodyOrientation(RigidBody body, Quaternion quat) {
-			Matrix4 mat = new Matrix4(quat);
-			mat[0, 3] = body.WorldTransform[0, 3];
-			mat[1, 3] = body.WorldTransform[1, 3];
-			mat[2, 3] = body.WorldTransform[2, 3];
-			mat[3, 3] = body.WorldTransform[3, 3];
-			body.WorldTransform = mat;
+			body.SetOrientation(quat);
 		}
 
 		[LuaFunction("setBodyPosition", "Sets the position of a RigidBody", "RigidBody", "Vector3")]

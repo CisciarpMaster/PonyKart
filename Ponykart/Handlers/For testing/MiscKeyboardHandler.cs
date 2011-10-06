@@ -3,6 +3,7 @@ using Mogre;
 using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.Levels;
 using Ponykart.Lua;
 using Ponykart.Physics;
 using Ponykart.Players;
@@ -52,20 +53,17 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<SoundMain>().Play2D("Sweet Apple Acres 128bpm.ogg", true);
 					break;
 				case KeyCode.KC_U:
-					//LKernel.GetG<PlayerManager>().MainPlayer.Body.ApplyForce(new Vector3(0, 100000, 0), Vector3.ZERO);
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity += new Vector3(0, 20, 0);
 					break;
 				case KeyCode.KC_F:
-					LKernel.GetG<PlayerManager>().MainPlayer.Kart.Body.LinearVelocity *= 2f;
+					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity *= 2f;
 					break;
 				/*case KeyCode.KC_L:
 					LKernel.GetG<LuaMain>().DoFile(Settings.Default.LuaFileLocation + "test" + Settings.Default.LuaFileExtension);
 					break;*/
-				//case KeyCode.KC_G:
-					//LKernel.GetG<UI.UIMain>().MiyagiSys.SerializationManager.ExportToFile("media/gui/serialize.xml");
-					//Miyagi.Common.Resources.TrueTypeFont.TrueTypeToImageFont("media/gui/Fonts/", "media/gui/Fonts/bluehigh.ttf", System.Drawing.FontStyle.Regular, 12, 96);
-					//break;
-
+				case KeyCode.KC_R:
+					new Rotater<Kart>(LKernel.GetG<PlayerManager>().MainPlayer.Kart, 1, new Degree(90), RotaterAxisMode.RelativeY);
+					break;
 				case KeyCode.KC_BACKSLASH:
 					ParticleSystem system = LKernel.GetG<SceneManager>().CreateParticleSystem("explosions" + IDs.New, "explosionTemplate");
 					LKernel.GetG<PlayerManager>().MainPlayer.Kart.RootNode.AttachObject(system);
@@ -80,6 +78,8 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
+					ResourceGroupManager.Singleton.InitialiseResourceGroup("General");
+					ResourceGroupManager.Singleton.InitialiseResourceGroup(LKernel.GetG<LevelManager>().CurrentLevel.Name);
 					MaterialManager.Singleton.ReloadAll(false);
 					MeshManager.Singleton.ReloadAll(false);
 					Settings.Default.Reload();

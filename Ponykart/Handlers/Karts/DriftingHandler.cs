@@ -13,16 +13,16 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// Need to keep track of which nlerpers are ours and which ones we're using
 		/// </summary>
-		IList<Nlerper> startNlerpers, stopNlerpers;
+		IList<Nlerper<Kart>> startNlerpers, stopNlerpers;
 
 
 		public DriftingHandler() {
-			startNlerpers = new List<Nlerper>();
-			stopNlerpers = new List<Nlerper>();
+			startNlerpers = new List<Nlerper<Kart>>();
+			stopNlerpers = new List<Nlerper<Kart>>();
 
 			Kart.OnStartDrifting += OnStartDrifting;
 			Kart.OnStopDrifting += OnStopDrifting;
-			Nlerper.Finished += NlerperFinished;
+			Nlerper<Kart>.Finished += NlerperFinished;
 			KartHandler.OnGround += OnGround;
 		}
 
@@ -39,7 +39,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnStartDrifting(Kart kart) {
 			Quaternion newOrientation = makeNewOrientation(kart, StartOrStopState.StartDrifting);
-			startNlerpers.Add(new Nlerper(kart, 0.2f, newOrientation));
+			startNlerpers.Add(new Nlerper<Kart>(kart, 0.2f, newOrientation));
 
 			kart.ForEachWheel(w => w.Friction = 0.5f);
 		}
@@ -48,7 +48,7 @@ namespace Ponykart.Handlers {
 		/// When a nlerper is finished doing its job, we want the kart to start drifting.
 		/// This method listens for when the nlerpers finish, and if it's a nlerper we're interested in, do something with it!
 		/// </summary>
-		void NlerperFinished(Nlerper nlerper, Kart kart) {
+		void NlerperFinished(Nlerper<Kart> nlerper, Kart kart) {
 			// first see if it's a nlerper used to start off the drifting
 			int index = startNlerpers.IndexOf(nlerper);
 			if (index != -1) {
@@ -77,7 +77,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		/// <param name="kart"></param>
 		void OnStopDrifting(Kart kart) {
-			stopNlerpers.Add(new Nlerper(kart, 0.15f, kart.Body.Orientation));
+			stopNlerpers.Add(new Nlerper<Kart>(kart, 0.15f, kart.Body.Orientation));
 
 			kart.ForEachWheel(w => w.Friction = 1f);
 		}
@@ -91,7 +91,7 @@ namespace Ponykart.Handlers {
 			var kartHandler = LKernel.GetG<KartHandler>();
 
 			// if we already have a nlerper from the kart handler, detach it. The kart handler won't try to make one if we're drifting.
-			Nlerper n;
+			Nlerper<Kart> n;
 			if (kartHandler.Nlerpers.TryGetValue(kart, out n)) {
 				n.Detach();
 				kartHandler.Nlerpers.TryRemove(kart, out n);
@@ -121,7 +121,7 @@ namespace Ponykart.Handlers {
 		public void Detach() {
 			Kart.OnStartDrifting -= OnStartDrifting;
 			Kart.OnStopDrifting -= OnStopDrifting;
-			Nlerper.Finished -= NlerperFinished;
+			Nlerper<Kart>.Finished -= NlerperFinished;
 			KartHandler.OnGround -= OnGround;
 		}
 
