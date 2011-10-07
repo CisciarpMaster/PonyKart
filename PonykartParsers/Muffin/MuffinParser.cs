@@ -1,4 +1,4 @@
-//Generated with Imperator Parser Generator v. 1.2.1 @ 2011-05-11
+//Generated with Imperator Parser Generator v. 1.2.2-BETA @ 2011-09-22
 //Imperator by Max 'Shrinker' Wieden
 //http://shrinker.beyond-veils.de/projects/IterationX/Imperator/
 //http://shrinker.scottbaker.eu/projects/IterationX/Imperator/
@@ -6,13 +6,13 @@ using System;
 using System.Collections.Generic;
 
 namespace PonykartParsers.MuffinParser {
-	internal class ParserException : Exception {
+	public class ParserException : Exception {
 		public ParserException(string message) :
 			base(message) {
 		}
 	}
 
-	internal enum NodeType {
+	public enum NodeType {
 		Tok_EOF,
 		Tok_Assign,
 		Tok_Comma,
@@ -39,7 +39,7 @@ namespace PonykartParsers.MuffinParser {
 		Rule_AnyName
 	}
 
-	internal abstract class Node {
+	public abstract class Node {
 		public static string TypeName(NodeType type) {
 			string s = type.ToString();
 			return s.Substring(s.IndexOf('_') + 1);
@@ -53,7 +53,7 @@ namespace PonykartParsers.MuffinParser {
 	}
 
 	///<summary>represents an inner node</summary>
-	internal class RuleInstance : Node {
+	public class RuleInstance : Node {
 		public readonly Node[] Children;
 
 		public RuleInstance(NodeType type, Node[] children) :
@@ -63,7 +63,7 @@ namespace PonykartParsers.MuffinParser {
 	}
 
 	///<summary>represents a leaf node</summary>
-	internal class Token : Node {
+	public class Token : Node {
 		public readonly Token[] PrecedingFillerTokens;
 		public readonly string Image;
 		public readonly int LineNr, CharNr;
@@ -98,7 +98,7 @@ namespace PonykartParsers.MuffinParser {
 		}
 	}
 
-	internal class Parser {
+	public class Parser {
 		private string source;
 		private int index, length, currLine, currChar, laOffset;
 		private readonly List <Token> fetchedTokens;
@@ -172,7 +172,7 @@ namespace PonykartParsers.MuffinParser {
 				indices.Push(index);
 				currLines.Push(currLine);
 				currChars.Push(currChar);
-				if (index + 2 < length && source.Substring(index, 2).Equals("//")) {
+				if (index + 2 < length && string.Compare(source, index, "//", 0, 2) == 0) {
 					index += 2;
 					currChar += 2;
 				}
@@ -206,7 +206,7 @@ namespace PonykartParsers.MuffinParser {
 						indices.Push(index);
 						currLines.Push(currLine);
 						currChars.Push(currChar);
-						if (index + 2 < length && source.Substring(index, 2).Equals("\r\n")) {
+						if (index + 2 < length && string.Compare(source, index, "\r\n", 0, 2) == 0) {
 							index += 2;
 							currLine++;
 							currChar = 1;
@@ -261,7 +261,7 @@ namespace PonykartParsers.MuffinParser {
 				indices.Push(index);
 				currLines.Push(currLine);
 				currChars.Push(currChar);
-				if (index + 2 < length && source.Substring(index, 2).Equals("/*")) {
+				if (index + 2 < length && string.Compare(source, index, "/*", 0, 2) == 0) {
 					index += 2;
 					currChar += 2;
 				}
