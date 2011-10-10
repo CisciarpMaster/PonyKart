@@ -15,8 +15,6 @@ namespace Ponykart.Handlers {
 		private GUI levelGui, mainMenuGui;
 
 		public LevelUIHandler() {
-			Launch.Log("[Loading] Creating LevelUIHandler");
-
 			LevelManager.OnLevelLoad += OnLevelLoad;
 			LevelManager.OnLevelPreUnload += OnLevelPreUnload;
 
@@ -56,9 +54,6 @@ namespace Ponykart.Handlers {
 			//Panel playMenuPanel = mainMenuGui.GetControl<Panel>("play menu panel");
 
 			// some buttons
-			Button level1Button = mainMenuGui.GetControl<Button>("shittyterrain");
-			level1Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("shittyterrain");
-
 			Button level2Button = mainMenuGui.GetControl<Button>("flat");
 			level2Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("flat");
 

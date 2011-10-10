@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Miyagi.Common;
 using Miyagi.Common.Data;
@@ -35,17 +36,15 @@ namespace Ponykart.UI {
 		/// Creates all the fonts
 		/// </summary>
 		private static void CreateFonts(MiyagiSystem system) {
-			var fonts = new[]
-				{
-					// load ttf definitions from xml file
-					TrueTypeFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "Fonts/TrueTypeFonts" + Settings.Default.MiyagiXMLExtension, system)
-						.Cast<Font>().ToDictionary(f => f.Name),
-					// load image font definitions from xml file
-					ImageFont.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "Fonts/ImageFonts" + Settings.Default.MiyagiXMLExtension, system)
-						.Cast<Font>().ToDictionary(f => f.Name)
-				};
+			var files = Directory.EnumerateFiles(Settings.Default.MiyagiResourcesFileLocation + "Fonts", "*" + Settings.Default.MiyagiXMLExtension, SearchOption.AllDirectories);
 
-			Fonts = fonts.SelectMany(dict => dict).ToDictionary(pair => pair.Key, pair => pair.Value);
+			var fonts = new List<Font>();
+
+			foreach (string file in files) {
+				fonts.AddRange(ImageFont.CreateFromXml(file, system));
+			}
+
+			Fonts = fonts.ToDictionary(f => f.Name);
 
 			// set BlueHighway as default font
 			Font.Default = Fonts["BlueHighway"];
@@ -55,13 +54,14 @@ namespace Ponykart.UI {
 		/// Creates all the skins we will use
 		/// </summary>
 		private static void CreateSkins() {
-			// auto create Skin
+			// get all of our .mgx files
+			var files = Directory.EnumerateFiles(Settings.Default.MiyagiResourcesFileLocation + "GUI", "*" + Settings.Default.MiyagiXMLExtension, SearchOption.AllDirectories);
 
 			var skins = new List<Skin>();
 
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "GUI/Skins" + Settings.Default.MiyagiXMLExtension));
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "GUI/PonykartSkins" + Settings.Default.MiyagiXMLExtension));
-			skins.AddRange(Skin.CreateFromXml(Settings.Default.MiyagiResourcesFileLocation + "Cursor/CursorSkin" + Settings.Default.MiyagiXMLExtension));
+			foreach (string file in files) {
+				skins.AddRange(Skin.CreateFromXml(file));
+			}
 
 			// done
 			Skins = skins.ToDictionary(s => s.Name);
@@ -71,7 +71,7 @@ namespace Ponykart.UI {
 		/// Loads up our GUI from an xml file
 		/// </summary>
 		private static void CreateFromSerialized(MiyagiSystem system) {
-			system.SerializationManager.ImportFromFile(Settings.Default.MiyagiResourcesFileLocation + "GUI/cerealized" + Settings.Default.MiyagiXMLExtension);
+			system.SerializationManager.ImportFromFile(Settings.Default.MiyagiResourcesFileLocation + "cerealized" + Settings.Default.MiyagiXMLExtension);
 
 			// the XML only gives us SkinNames and FontNames, so now we have to get them to all use the correct skins/fonts
 			foreach (var control in system.GUIManager.AllControls) {

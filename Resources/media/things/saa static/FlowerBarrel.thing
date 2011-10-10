@@ -26,7 +26,7 @@ BillboardSet {
 	Height = 1.562
 	// left, top, right, bottom?
 	// texture coords are a bit weird
-	TextureCoords = 0.57, 0.062, 0.984, 0.844
+	TextureCoords = 0.58, 0.062, 0.984, 0.844
 	
 	Billboard {
 		Position = -0.738, 3.73, 0.234

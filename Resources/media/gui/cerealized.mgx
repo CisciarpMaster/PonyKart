@@ -55,7 +55,7 @@
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Name>show/hide commands button</Name>
 						<Rectangle>10,10,120,25</Rectangle>
-						<SkinName>ButtonSkin</SkinName>
+						<SkinName>PKButtonSkin</SkinName>
 						<Text>Show Commands</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>MiddleCenter</Alignment>
@@ -92,7 +92,7 @@
 					</Control>
 					<!-- level selection buttons -->
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
+						<Enabled>False</Enabled>
 						<Name>shittyterrain</Name>
 						<Rectangle>512,250,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
@@ -177,7 +177,7 @@
 						<Name>lua console panel</Name>
 						<Rectangle>0,0,768,300</Rectangle>
 						<ResizeThreshold>0</ResizeThreshold>
-						<SkinName>PanelSkin</SkinName>
+						<SkinName>PKPanelSkin</SkinName>
 						<VScrollBarStyle Type="Miyagi.UI.Controls.Styles.ScrollBarStyle">
 							<Extent>16</Extent>
 							<ThumbStyle Type="Miyagi.UI.Controls.Styles.ThumbStyle">
@@ -193,7 +193,7 @@
 						<Name>lua console text box</Name>
 						<Padding>9,0,8,0</Padding>
 						<Rectangle>0,300,768,32</Rectangle>
-						<SkinName>TextBoxSkin</SkinName>
+						<SkinName>PKTextBoxSkin</SkinName>
 						<TextBoxStyle Type="Miyagi.UI.Controls.Styles.TextBoxStyle">
 							<CaretStyle Type="Miyagi.UI.Controls.Styles.CaretStyle">
 								<Colour>-16777216</Colour>

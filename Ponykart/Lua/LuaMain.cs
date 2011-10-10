@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using LuaInterface;
@@ -113,6 +114,9 @@ namespace Ponykart.Lua {
 				}
 				catch (LuaException ex) {
 					HandleException(ex);
+				}
+				catch (Exception ex) {
+					LKernel.GetG<LuaConsoleManager>().AddLabel(ex.Message);
 				}
 			}
 		}

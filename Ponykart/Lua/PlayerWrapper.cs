@@ -1,6 +1,8 @@
 ﻿using System;
 using LuaNetInterface;
 using Ponykart.Actors;
+using Ponykart.Handlers;
+using Ponykart.Levels;
 using Ponykart.Players;
 
 namespace Ponykart.Lua {
@@ -25,6 +27,20 @@ namespace Ponykart.Lua {
 			foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
 				action.Invoke(p.Kart, p.ID);
 			}
+		}
+
+		[LuaFunction("playerKart", "Returns the player's kart")]
+		public static Kart GetPlayerKart() {
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
+				return LKernel.GetG<PlayerManager>().MainPlayer.Kart;
+			}
+			else
+				return null;
+		}
+
+		[LuaFunction("getKartHandler", "Gets the KartHandler")]
+		public static KartHandler GetKartHandler() {
+			return LKernel.GetG<KartHandler>();
 		}
 	}
 }

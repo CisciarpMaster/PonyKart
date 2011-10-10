@@ -1,4 +1,4 @@
-﻿using LuaNetInterface;
+﻿/*using LuaNetInterface;
 using Ponykart.Core;
 
 namespace Ponykart.Lua {
@@ -56,3 +56,4 @@ namespace Ponykart.Lua {
 		}
 	}
 }
+*/

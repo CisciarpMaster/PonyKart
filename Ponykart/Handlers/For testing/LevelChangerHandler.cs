@@ -23,12 +23,10 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_0:
 					s = Settings.Default.MainMenuName; break;
 				case KeyCode.KC_1:
-					s = "shittyterrain"; break;
-				case KeyCode.KC_2:
 					s = "flat"; break;
-				case KeyCode.KC_3:
+				case KeyCode.KC_2:
 					s = "testlevel"; break;
-				case KeyCode.KC_4:
+				case KeyCode.KC_3:
 					s = "SweetAppleAcres"; break;
 			}
 			if (!string.IsNullOrEmpty(s))

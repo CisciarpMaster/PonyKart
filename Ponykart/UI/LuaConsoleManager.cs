@@ -120,7 +120,7 @@ namespace Ponykart.UI {
 			lastInput = vea.Data;
 			AddLabel("> " + vea.Data);
 			Launch.Log("[Lua] <Input> " + vea.Data);
-			LKernel.GetG<LuaMain>().DoString("print(" + vea.Data + ")");
+			LKernel.GetG<LuaMain>().DoString(vea.Data);
 
 			textBox.Text = string.Empty;
 

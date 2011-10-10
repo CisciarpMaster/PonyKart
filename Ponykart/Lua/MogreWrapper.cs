@@ -64,5 +64,15 @@ namespace Ponykart.Lua {
 		public static ParticleSystem createParticleSystem(string name, string template) {
 			return LKernel.GetG<SceneManager>().CreateParticleSystem(name, template);
 		}
+
+		[LuaFunction("initResourceGroup", "Initialises a mogre resource group", "string resGroup")]
+		public static void InitialiseResourceGroup(string resGroup) {
+			ResourceGroupManager.Singleton.InitialiseResourceGroup(resGroup);
+		}
+
+		[LuaFunction("initAllResourceGroups", "Initialises all mogre resource groups")]
+		public static void InitAllResGroups() {
+			ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
+		}
 	}
 }

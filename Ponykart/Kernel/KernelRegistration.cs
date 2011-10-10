@@ -303,8 +303,12 @@ namespace Ponykart {
 		private static void LoadResourceGroups() {
 			TextureManager.Singleton.DefaultNumMipmaps = 1;
 
+#if DEBUG
+			ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
+#else
 			ResourceGroupManager.Singleton.InitialiseResourceGroup("Bootstrap");
 			ResourceGroupManager.Singleton.InitialiseResourceGroup("General");
+#endif
 		}
 	}
 }

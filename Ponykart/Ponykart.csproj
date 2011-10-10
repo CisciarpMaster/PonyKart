@@ -179,7 +179,6 @@
     <Compile Include="Kernel\KernelRegistration.cs" />
     <Compile Include="Kernel\LKernel.cs" />
     <Compile Include="Core\Pauser.cs" />
-    <Compile Include="Lua\LKernelWrapper.cs" />
     <Compile Include="Physics\Trigger Regions\TriggerReporter.cs" />
     <Compile Include="Handlers\UI\LevelUIHandler.cs" />
     <Compile Include="Handlers\UI\LoadingUIHandler.cs" />
