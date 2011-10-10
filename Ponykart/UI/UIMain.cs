@@ -64,7 +64,7 @@ namespace Ponykart.UI {
 			//}
 
 			if (MiyagiSys != null && !MiyagiSys.IsDisposed)
-				this.MiyagiSys.Update();
+				MiyagiSys.Update();
 			return true;
 		}
 

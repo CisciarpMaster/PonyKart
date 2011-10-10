@@ -55,7 +55,7 @@ namespace Ponykart.UI {
 		/// </summary>
 		private static void CreateSkins() {
 			// get all of our .mgx files
-			var files = Directory.EnumerateFiles(Settings.Default.MiyagiResourcesFileLocation + "GUI", "*" + Settings.Default.MiyagiXMLExtension, SearchOption.AllDirectories);
+			var files = Directory.EnumerateFiles(Settings.Default.MiyagiResourcesFileLocation + "Skins", "*" + Settings.Default.MiyagiXMLExtension, SearchOption.AllDirectories);
 
 			var skins = new List<Skin>();
 
