@@ -140,27 +140,29 @@ namespace Ponykart.Physics {
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
-			foreach (IDisposable stuff in PhysicsStuffToDispose) {
-				if (!stuff.IsDisposed) {
-					if ((stuff as BulletWorldImporter) != null) {
-						(stuff as BulletWorldImporter).DeleteAllData();
+			lock (this) {
+				foreach (IDisposable stuff in PhysicsStuffToDispose) {
+					if (!stuff.IsDisposed) {
+						if ((stuff as BulletWorldImporter) != null) {
+							(stuff as BulletWorldImporter).DeleteAllData();
+						}
+						stuff.Dispose();
 					}
-					stuff.Dispose();
 				}
-			}
-			PhysicsStuffToDispose.Clear();
+				PhysicsStuffToDispose.Clear();
 
-			if (!world.IsDisposed) {
-				broadphase.Dispose();
-				solver.Dispose();
-				dcc.Dispose();
-				dispatcher.Dispose();
-				for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
-					var obj = world.CollisionObjectArray[a];
-					if (obj != null && !obj.IsDisposed)
-						obj.Dispose();
+				if (!world.IsDisposed) {
+					broadphase.Dispose();
+					solver.Dispose();
+					dcc.Dispose();
+					dispatcher.Dispose();
+					for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
+						var obj = world.CollisionObjectArray[a];
+						if (obj != null && !obj.IsDisposed)
+							obj.Dispose();
+					}
+					world.Dispose();
 				}
-				world.Dispose();
 			}
 		}
 

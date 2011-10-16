@@ -59,7 +59,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// The maximum amount the wheel can turn by, if it's a front wheel.
 		/// </summary>
-		protected readonly Degree TurnAngle; // 0.3 rads (demo)
+		protected readonly Degree MaxTurnAngle; // 0.3 rads (demo)
 
 		/// <summary>
 		/// Which way is "up"?
@@ -131,13 +131,19 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public float Friction { get; set; } 
 
-		Kart kart;
-		RaycastVehicle vehicle;
+		readonly Kart kart;
+		RaycastVehicle vehicle { get { return kart.Vehicle; } }
 
+		/// <summary>
+		/// This should only be used by the WheelFactory
+		/// </summary>
+		/// <param name="owner">Which kart is the wheel attached to?</param>
+		/// <param name="connectionPoint">Where is the wheel attached?</param>
+		/// <param name="wheelID">ID number of the wheel</param>
+		/// <param name="dict">The properties and values from the .wheel file this wheel was built from</param>
 		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID, IDictionary<string, float> dict) {
 			// set up these
 			kart = owner;
-			vehicle = kart.Vehicle;
 			ID = wheelID;
 
 			// create our node and entity
@@ -157,7 +163,7 @@ namespace Ponykart.Actors {
 			RollInfluence = dict["RollInfluence"];
 			BrakeForce = dict["BrakeForce"];
 			MotorForce = dict["MotorForce"];
-			TurnAngle = new Degree(dict["TurnAngle"]);
+			MaxTurnAngle = new Degree(dict["TurnAngle"]);
 			SlowSpeed = dict["SlowSpeed"];
 			HighSpeed = dict["HighSpeed"];
 			SlowTurnMultiplier = dict["SlowTurnMultiplier"];
@@ -205,15 +211,13 @@ namespace Ponykart.Actors {
 		/// Update our node's position and orientation, and also accelerate/brake/turn if we aren't paused
 		/// </summary>
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-
+			WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
 			// don't change the kart's orientation when we're drifting
-			if (kart.IsDriftingAtAll) {
-				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
+			if (kart.IsDriftingAtAll || Math.Abs(info.Steering) > Math.Abs(MaxTurnAngle.ValueRadians * speedTurnMultiplier)) {
 				Node.Position = kart.RootNode.ConvertLocalToWorldPosition(AxlePoint);
 				Node.Orientation = kart.RootNode.Orientation;
 			}
 			else {
-				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
 				Node.Position = info.WorldTransform.GetTrans();
 				Node.Orientation = info.WorldTransform.ExtractQuaternion();
 			}
@@ -291,15 +295,14 @@ namespace Ponykart.Actors {
 			}
 		}
 
-
-
+		// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
+		float speedTurnMultiplier;
 
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
 		protected void Turn(float timeSinceLastFrame) {
-			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
-			float speedTurnMultiplier;
+			
 			timeSinceLastFrame *= 100;
 
 			// first we figure out what our maximum turn angle is depending on kart speed
@@ -334,7 +337,7 @@ namespace Ponykart.Actors {
 				|| (DriftState == WheelDriftState.Left && (ID == WheelID.FrontLeft || ID == WheelID.BackLeft))
 				|| (DriftState == WheelDriftState.Right && (ID == WheelID.FrontRight || ID == WheelID.BackRight)))
 			{
-				_turnAngle = TurnAngle.ValueRadians;
+				_turnAngle = MaxTurnAngle.ValueRadians;
 			}
 
 

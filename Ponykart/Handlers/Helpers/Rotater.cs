@@ -23,7 +23,8 @@ namespace Ponykart.Handlers {
 		Quaternion orient;
 
 		public Rotater(T thingToRotate, float duration, Radian angle, RotaterAxisMode mode)
-			: this(thingToRotate, duration, angle, default(Vector3), mode) { }
+			: this(thingToRotate, duration, angle, default(Vector3), mode)
+		{ }
 
 		public Rotater(T thingToRotate, float duration, Radian angle, Vector3 axis, RotaterAxisMode mode = RotaterAxisMode.Explicit) {
 			this.thing = thingToRotate;
@@ -82,9 +83,21 @@ namespace Ponykart.Handlers {
 	}
 
 	public enum RotaterAxisMode {
+		/// <summary>
+		/// Rotate around an explicit axis
+		/// </summary>
 		Explicit,
+		/// <summary>
+		/// Rotate around the thing's local X axis
+		/// </summary>
 		RelativeX,
+		/// <summary>
+		/// Rotate around the thing's local Y axis
+		/// </summary>
 		RelativeY,
+		/// <summary>
+		/// Rotate around the thing's local Z axis
+		/// </summary>
 		RelativeZ,
 	}
 }
