@@ -126,11 +126,11 @@ namespace ShadowsTest {
 
 		SceneNode CreateBox(Vector3 pos, string material = "brick") {
 			SceneNode boxNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
-			Entity ent = sceneMgr.CreateEntity("box.mesh");
+			Entity ent = sceneMgr.CreateEntity("kartchassis.mesh");
 			ent.CastShadows = true;
 			boxNode.AttachObject(ent);
 			boxNode.Position = pos;
-			boxNode.SetScale(10, 10, 10);
+			boxNode.SetScale(5, 5, 5);
 			ent.SetMaterialName(material);
 
 			return boxNode;
