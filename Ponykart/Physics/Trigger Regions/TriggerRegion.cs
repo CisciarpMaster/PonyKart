@@ -68,7 +68,7 @@ namespace Ponykart.Physics {
 						Entity = sceneMgr.CreateEntity(name, "primitives/box.mesh");
 						break;
 				}
-				GlowColor = BalloonGlowColor.red;
+				GlowColor = BalloonGlowColour.red;
 				Entity.RenderQueueGroup = GlowHandler.RENDER_QUEUE_BUBBLE_GLOW;
 				Entity.CastShadows = false;
 
@@ -105,7 +105,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Must be one of: red, blue, yellow, green, orange, magenta, purple, cyan, white
 		/// </summary>
-		public BalloonGlowColor GlowColor {
+		public BalloonGlowColour GlowColor {
 			get {
 				return balloonColor;
 			}
@@ -115,7 +115,7 @@ namespace Ponykart.Physics {
 					Entity.SetMaterialName("BalloonGlow_" + value);
 			}
 		}
-		BalloonGlowColor balloonColor = BalloonGlowColor.red;
+		BalloonGlowColour balloonColor = BalloonGlowColour.red;
 
 		/// <summary>
 		/// we can assume our trigger regions are permanent

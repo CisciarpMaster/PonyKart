@@ -27,7 +27,8 @@ namespace Ponykart.Handlers {
 			light.Type = Light.LightTypes.LT_DIRECTIONAL;
 			light.Direction = new Vector3(0.1f, -1, 0.1f);
 			light.Direction.Normalise();
-			light.DiffuseColour = new ColourValue(1, 1, 1);
+			light.DiffuseColour = new ColourValue(0.8f, 0.8f, 0.8f);
+			light.SpecularColour = new ColourValue(0.8f, 0.8f, 0.8f);
 			light.CastShadows = true;
 
 			sceneMgr.SetSkyBox(true, "saa_sky", 1995f);

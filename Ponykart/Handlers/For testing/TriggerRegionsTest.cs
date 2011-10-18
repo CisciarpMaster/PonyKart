@@ -38,12 +38,12 @@ namespace Ponykart.Handlers {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
 				// cycle through the balloon colors
 				if (Settings.Default.EnableGlowyRegions) 
-					region.GlowColor = (BalloonGlowColor) (((int) region.GlowColor + 1) % 8);
+					region.GlowColor = (BalloonGlowColour) (((int) region.GlowColor + 1) % 8);
 			}
 			else {
 				Console.WriteLine(otherBody.GetName() + " has left trigger area \"" + region.Name + "\"");
 				if (Settings.Default.EnableGlowyRegions)
-					region.GlowColor = (BalloonGlowColor) (((int) region.GlowColor + 1) % 8);
+					region.GlowColor = (BalloonGlowColour) (((int) region.GlowColor + 1) % 8);
 			}
 		}
 

@@ -66,7 +66,6 @@ namespace Ponykart.Actors {
 		protected override void PostCreateBody(ThingDefinition def) {
 			Body.CcdMotionThreshold = 0.001f;
 			Body.CcdSweptSphereRadius = 0.2f;
-			//Body.ActivationState = ActivationState.DisableDeactivation;
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.GetG<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();

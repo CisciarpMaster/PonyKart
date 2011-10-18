@@ -25,11 +25,13 @@ namespace Ponykart.UI {
 		/// <summary>
 		/// Creates the fonts and the skins we will use
 		/// </summary>
-		public static void Create(MiyagiSystem system) {
+		public static void CreateResources(MiyagiSystem system) {
 			CreateFonts(system);
 			CreateSkins();
 
 			CreateFromSerialized(system);
+
+			CreateCursor(system.GUIManager);
 		}
 
 		/// <summary>

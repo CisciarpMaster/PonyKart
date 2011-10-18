@@ -136,6 +136,9 @@
     <Compile Include="Handlers\UI\CountdownUIHandler.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\KartHandler.cs" />
+    <Compile Include="Kernel\KernelHandlers.cs" />
+    <Compile Include="Kernel\KernelLevelCleanup.cs" />
+    <Compile Include="Kernel\KernelOgreInitialisers.cs" />
     <Compile Include="Levels\LevelType.cs" />
     <Compile Include="Kernel\HandlerAttribute.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />

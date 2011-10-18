@@ -58,7 +58,7 @@ namespace Ponykart.Actors {
 					Entity.SetMaterialName(materialName);
 
 				// some other properties
-				Entity.CastShadows = block.GetBoolProperty("castsshadows", true);
+				Entity.CastShadows = block.GetBoolProperty("CastsShadows", true);
 
 				// then attach it to the node!
 				Node.AttachObject(Entity);

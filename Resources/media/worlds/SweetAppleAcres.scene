@@ -18,7 +18,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Road" meshFile="SAA_Road.mesh" static="false">
+            <entity name="SAA_Road" meshFile="SAA_Road.mesh" castShadows="false" receiveShadows="true" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Road" />
                 </subentities>
@@ -28,7 +28,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Barn_Area" meshFile="SAA_Barn_Area.mesh" static="false">
+            <entity name="SAA_Barn_Area" meshFile="SAA_Barn_Area.mesh" castShadows="false" receiveShadows="true" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Barn_Area" />
                 </subentities>
@@ -38,7 +38,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Ground" meshFile="SAA_Ground.mesh" static="false">
+            <entity name="SAA_Ground" meshFile="SAA_Ground.mesh" castShadows="false" receiveShadows="true" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
@@ -48,7 +48,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Ground_Collidable" meshFile="SAA_Ground_Collidable.mesh" static="true">
+            <entity name="SAA_Ground_Collidable" meshFile="SAA_Ground_Collidable.mesh" castShadows="false" receiveShadows="true" static="true">
                 <subentities>
                     <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
@@ -59,7 +59,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Cliff" meshFile="SAA_Cliff.mesh" static="false">
+            <entity name="SAA_Cliff" meshFile="SAA_Cliff.mesh" castShadows="false" receiveShadows="true" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Cliff" />
                 </subentities>
@@ -69,7 +69,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Riverbed" meshFile="SAA_Riverbed.mesh" static="false">
+            <entity name="SAA_Riverbed" meshFile="SAA_Riverbed.mesh" castShadows="false" receiveShadows="true" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Cliff" />
                 </subentities>
@@ -79,7 +79,7 @@
             <position x="754.799" y="-3.61741" z="-104.361" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0.707099" qy="0.00331864" qz="-0.00331864" qw="0.707099" />
-            <entity name="SAA_Riverbed_East" meshFile="SAA_Riverbed_East.mesh" static="false">
+            <entity name="SAA_Riverbed_East" meshFile="SAA_Riverbed_East.mesh" castShadows="false" receiveShadows="true" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Cliff" />
                 </subentities>
@@ -89,7 +89,7 @@
             <position x="-99.4591" y="22.3021" z="-1133.55" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Riverbed_North" meshFile="SAA_Riverbed_North.mesh" static="false">
+            <entity name="SAA_Riverbed_North" meshFile="SAA_Riverbed_North.mesh" castShadows="false" receiveShadows="true" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Cliff" />
                 </subentities>

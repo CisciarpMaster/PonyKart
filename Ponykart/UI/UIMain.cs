@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Miyagi.Backend.Mogre;
 using Miyagi.Common;
 using Miyagi.Common.Resources;
 using Miyagi.UI;
@@ -42,8 +43,7 @@ namespace Ponykart.UI {
 			MiyagiSys.PluginManager.LoadPlugin("Miyagi.Plugin.Input.Mois.dll", input.InputKeyboard, input.InputMouse);
 
 			// load the resources
-			UIResources.Create(MiyagiSys);
-			UIResources.CreateCursor(MiyagiSys.GUIManager);
+			UIResources.CreateResources(MiyagiSys);
 
 			// add a default GUI to the GUIManager
 			var gui = new GUI("default GUI");
@@ -68,10 +68,30 @@ namespace Ponykart.UI {
 			return true;
 		}
 
+		/// <summary>
+		/// Shortcut method to get a GUI from the GUIManager.
+		/// </summary>
+		/// <param name="name">The name of the GUI you want to get</param>
+		/// <returns>The GUI</returns>
 		public GUI GetGUI(string name) {
 			return MiyagiSys.GUIManager.GetGUI(name);
 		}
 
+		/// <summary>
+		/// Changes the scene manager miyagi should render to.
+		/// </summary>
+		/// <param name="newSceneManager">The new scene manager it should use</param>
+		public void ChangeSceneManager(SceneManager newSceneManager) {
+
+			MogreRenderManager mrm = (MogreRenderManager) MiyagiSys.RenderManager;
+			if (mrm == null)
+				throw new System.ApplicationException();
+
+			mrm.SceneManager = newSceneManager;
+		}
+
+
+		#region helpers
 		public void Serialize() {
 			MiyagiSys.SerializationManager.ExportToFile("media/gui/serialize.mgx");
 		}
@@ -79,6 +99,7 @@ namespace Ponykart.UI {
 		public void ExportImageFont(string ttfName, FontStyle style = FontStyle.Regular, int size = 12, int resolution = 96) {
 			TrueTypeFont.TrueTypeToImageFont("media/gui/Fonts/", "media/gui/Fonts/" + ttfName, style, size, resolution);
 		}
+		#endregion
 
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)

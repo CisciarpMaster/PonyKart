@@ -73,11 +73,11 @@ namespace Ponykart.Handlers {
 	}
 
 	/// <summary>
-	/// Colors available for balloon glow.
+	/// Colours available for balloon glow.
 	/// 
 	/// If you're using these, remember to put the entity into the RENDER_QUEUE_BUBBLE_GLOW render queue!
 	/// </summary>
-	public enum BalloonGlowColor {
+	public enum BalloonGlowColour {
 		red,
 		blue,
 		yellow,
@@ -90,11 +90,11 @@ namespace Ponykart.Handlers {
 	}
 
 	/// <summary>
-	/// Colors available for flat glow.
+	/// Colours available for flat glow.
 	/// 
 	/// If you're using these, remember to put the entity into the RENDER_QUEUE_FLAT_GLOW render queue!
 	/// </summary>
-	public enum FlatGlowColor {
+	public enum FlatGlowColour {
 		red,
 		blue,
 		yellow,
