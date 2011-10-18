@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonykartParsers", "Ponykart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneFromMuffin", "SceneFromMuffin\SceneFromMuffin.csproj", "{6189BBCA-E653-44A1-85DA-9D0C9C8602DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowsTest", "ShadowsTest\ShadowsTest.csproj", "{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Cupcake|Any CPU = Cupcake|Any CPU
@@ -74,6 +76,15 @@ Global
 		{6189BBCA-E653-44A1-85DA-9D0C9C8602DE}.Release|Any CPU.ActiveCfg = Release|x86
 		{6189BBCA-E653-44A1-85DA-9D0C9C8602DE}.Release|x86.ActiveCfg = Release|x86
 		{6189BBCA-E653-44A1-85DA-9D0C9C8602DE}.Release|x86.Build.0 = Release|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|Any CPU.ActiveCfg = Release|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.ActiveCfg = Debug|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.Build.0 = Debug|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Debug|x86.ActiveCfg = Debug|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Debug|x86.Build.0 = Debug|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Release|Any CPU.ActiveCfg = Release|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Release|x86.ActiveCfg = Release|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

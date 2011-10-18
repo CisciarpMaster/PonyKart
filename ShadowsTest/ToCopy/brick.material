@@ -1,0 +1,76 @@
+
+material brick
+{
+	receive_shadows on
+	
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			
+			texture_unit
+			{
+				texture checker.dds
+			}
+		}
+	}
+}
+
+
+
+material bluebrick
+{
+	receive_shadows on
+	
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+
+			texture_unit
+			{
+				texture bluebrick.dds
+			}
+		}
+	}
+}
+
+
+material redbrick
+{
+	receive_shadows on
+	
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			
+			texture_unit
+			{
+				texture redbrick.dds
+			}
+		}
+	}
+}
+
+
+material yellowbrick
+{
+	receive_shadows on
+	
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+
+			texture_unit
+			{
+				texture yellowbrick.dds
+			}
+		}
+	}
+}
