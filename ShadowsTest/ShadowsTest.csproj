@@ -33,6 +33,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ShadowsTest.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mogre">
       <HintPath>..\References\Mogre.dll</HintPath>
@@ -59,7 +65,8 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)Resources\OgreMain.dll" "$(TargetDir)" /S /C /Q /Y
 xcopy "$(SolutionDir)Resources\RenderSystem_Direct3D9.dll" "$(TargetDir)" /S /C /Q /Y
-xcopy "$(SolutionDir)Resources\media\OgreCore.zip" "$(TargetDir)" /S /C /Q /Y
+xcopy "$(SolutionDir)Resources\cg.dll" "$(TargetDir)" /S /C /Q /Y
+xcopy "$(SolutionDir)Resources\Plugin_CgProgramManager.dll" "$(TargetDir)" /S /C /Q /Y
 xcopy "$(ProjectDir)ToCopy\*" "$(TargetDir)" /S /C /Q /Y
 </PostBuildEvent>
   </PropertyGroup>
