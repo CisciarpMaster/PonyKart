@@ -1,6 +1,6 @@
-particle_system mud
+particle_system SAA/mud
 {
-	quota	200
+	quota	100
 	material	Particles/Mud
 	particle_width	1
 	particle_height	1
@@ -25,7 +25,7 @@ particle_system mud
 	}
 }
 
-particle_system grass
+particle_system SAA/grass
 {
 	quota	200
 	material	Particles/Dust
@@ -60,7 +60,7 @@ particle_system grass
 	}
 }
 
-particle_system dirtPoof
+particle_system SAA/dirtPoof
 {
 	quota	20
 	material	Particles/Dust
