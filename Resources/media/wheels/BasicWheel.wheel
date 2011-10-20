@@ -1,0 +1,49 @@
+# A basic wheel. This wheel is too overpowered for regular play - it turns to well,
+# accelerates too quickly, and would generally be imbalanced.
+# Still, it's good for testing.
+
+[FrontWheel]
+
+Radius = 0.5
+Width = 0.5
+SuspensionRestLength = 0.323326
+
+SpringStiffness = 200
+SpringCompression = 4.2
+SpringDamping = 40
+FrictionSlip = 4
+RollInfluence = 0.05
+
+BrakeForce = 35
+MotorForce = 1500
+TurnAngle = 5
+
+SlowSpeed = 60
+HighSpeed = 160
+SlowTurnMultiplier = 3
+DriftingTurnMultiplier = 0.8
+SteerIncrementTurn = 0.4
+SteerDecrementTurn = 1
+
+[BackWheel]
+
+Radius = 0.5
+Width = 0.5
+SuspensionRestLength = 0.323326
+
+SpringStiffness = 200
+SpringCompression = 4.2
+SpringDamping = 40
+FrictionSlip = 5
+RollInfluence = 0.05
+
+BrakeForce = 40
+MotorForce = 1500
+TurnAngle = 5
+
+SlowSpeed = 60
+HighSpeed = 160
+SlowTurnMultiplier = 3
+DriftingTurnMultiplier = 0.8
+SteerIncrementTurn = 0.4
+SteerDecrementTurn = 1

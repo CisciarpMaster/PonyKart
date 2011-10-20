@@ -39,7 +39,6 @@ namespace Ponykart {
 				AddGlobalObject(new PhysicsMain());
 				AddGlobalObject(new CollisionReporter());
 				AddGlobalObject(new TriggerReporter());
-				AddGlobalObject(new PhysicsMaterialManager());
 				AddGlobalObject(new PhysicsMaterialFactory());
 			}
 			catch {

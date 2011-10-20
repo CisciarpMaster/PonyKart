@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using BulletSharp;
+using Mogre;
 using Ponykart.Properties;
 
 namespace Ponykart.Physics {
 	public class PhysicsMaterialFactory {
 		IDictionary<string, PhysicsMaterial> materials;
+		PhysicsMaterial defaultMat;
 
-		CultureInfo culture = CultureInfo.InvariantCulture;
+		static CultureInfo culture = CultureInfo.InvariantCulture;
 
 		public PhysicsMaterialFactory() {
 			materials = new Dictionary<string, PhysicsMaterial>();
+			defaultMat = new PhysicsMaterial();
 
 			ReadMaterialsFromFiles();
 		}
@@ -27,58 +31,24 @@ namespace Ponykart.Physics {
 			IEnumerable<string> files = Directory.EnumerateFiles(Settings.Default.PhysicsMaterialFileLocation, "*" + Settings.Default.PhysicsMaterialFileExtension);
 
 			foreach (string filename in files) {
-				// our matname is the filename minus the file extension
-				string matname = filename.Remove(filename.IndexOf(Settings.Default.PhysicsMaterialFileExtension));
-				// this gets rid of the "media/physicsmaterials/" bit
-				matname = matname.Replace(Settings.Default.PhysicsMaterialFileLocation, string.Empty);
+				// rev up those files
+				ConfigFile cfile = new ConfigFile();
+				cfile.Load(filename, "=", true);
 
-				string matcontents = string.Empty;
+				ConfigFile.SectionIterator sectionIterator = cfile.GetSectionIterator();
+				while (sectionIterator.MoveNext()) {
+					string matname = sectionIterator.CurrentKey;
 
-				// open up the file and read everything from it
-				using (var stream = File.Open(filename, FileMode.Open)) {
-					using (var reader = new StreamReader(stream)) {
-						while (!reader.EndOfStream) {
-							matcontents += reader.ReadLine() + "\n";
-						}
-						reader.Close();
-					}
+					PhysicsMaterial mat = new PhysicsMaterial {
+						Friction = float.Parse(cfile.GetSetting("Friction", matname, PhysicsMaterial.DEFAULT_FRICTION.ToString()), culture),
+						Bounciness = float.Parse(cfile.GetSetting("Bounciness", matname, PhysicsMaterial.DEFAULT_BOUNCINESS.ToString()), culture),
+						AngularDamping = float.Parse(cfile.GetSetting("AngularDamping", matname, PhysicsMaterial.DEFAULT_ANGULAR_DAMPING.ToString()), culture),
+						LinearDamping = float.Parse(cfile.GetSetting("LinearDamping", matname, PhysicsMaterial.DEFAULT_LINEAR_DAMPING.ToString()), culture),
+					};
+
+					materials[matname] = mat;
 				}
-
-				materials[matname] = ParseMaterial(matname, matcontents);
 			}
-		}
-
-		/// <summary>
-		/// Take the contents of a .physicsmaterial file and puts it in an object
-		/// </summary>
-		private PhysicsMaterial ParseMaterial(string matname, string matcontents) {
-			PhysicsMaterial mat = new PhysicsMaterial();
-
-			// get rid of whitespace
-			matcontents.Replace(" ", string.Empty);
-			matcontents.Replace("\t", string.Empty);
-
-			string[] splits = matcontents.Split('\n');
-
-			foreach (string line in splits) {
-				// ignore newlines and comments
-				if (line.Length == 0 || line.StartsWith("//"))
-					continue;
-
-				string[] splitline = line.Split('=');
-				string prop = splitline[0].TrimEnd().ToLower(culture);
-
-				if (prop == "friction")
-					mat.Friction = float.Parse(splitline[1], culture);
-				else if (prop == "bounciness")
-					mat.Bounciness = float.Parse(splitline[1], culture);
-				else if (prop == "angulardamping")
-					mat.AngularDamping = float.Parse(splitline[1], culture);
-				else if (prop == "lineardamping")
-					mat.LinearDamping = float.Parse(splitline[1], culture);
-			}
-
-			return mat;
 		}
 
 		/// <summary>
@@ -91,8 +61,30 @@ namespace Ponykart.Physics {
 				return mat;
 			else {
 				Launch.Log("[PhysicsMaterialFactory] That material did not exist! Applying default...");
-				return materials["Default"];
+				return defaultMat;
 			}
+		}
+
+		/// <summary>
+		/// Only applies friction and bounciness. Use a RigidBodyConstructionInfo if you want to set the damping.
+		/// </summary>
+		public void ApplyMaterial(RigidBody body, string material) {
+			PhysicsMaterial mat = GetMaterial(material);
+
+			body.Friction = mat.Friction;
+			body.Restitution = mat.Bounciness;
+		}
+
+		/// <summary>
+		/// Applies friction, bounciness, angular damping, and linear damping
+		/// </summary>
+		public void ApplyMaterial(RigidBodyConstructionInfo info, string material) {
+			PhysicsMaterial mat = GetMaterial(material);
+
+			info.Friction = mat.Friction;
+			info.Restitution = mat.Bounciness;
+			info.AngularDamping = mat.AngularDamping;
+			info.LinearDamping = mat.LinearDamping;
 		}
 	}
 }

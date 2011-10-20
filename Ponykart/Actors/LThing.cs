@@ -220,7 +220,7 @@ namespace Ponykart.Actors {
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
 			// physics material stuff from a .physmat file
 			string physmat = def.GetStringProperty("PhysicsMaterial", "Default");
-			LKernel.GetG<PhysicsMaterialManager>().ApplyMaterial(Info, physmat);
+			LKernel.GetG<PhysicsMaterialFactory>().ApplyMaterial(Info, physmat);
 			// we can override some of them in the .thing file
 			if (def.FloatTokens.ContainsKey("bounciness"))
 				Info.Restitution = def.GetFloatProperty("bounciness", PhysicsMaterial.DEFAULT_BOUNCINESS);

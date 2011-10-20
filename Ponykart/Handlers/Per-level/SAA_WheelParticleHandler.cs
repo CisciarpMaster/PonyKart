@@ -38,8 +38,8 @@ namespace Ponykart.Handlers {
 			// create particles for each wheel
 			foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
 				for (int a = 0; a < 4; a++) {
-					var dirt = sceneMgr.CreateParticleSystem(string.Concat("wheelDirtParticle", p.ID, _hyphen, a), "mud");
-					var grass = sceneMgr.CreateParticleSystem(string.Concat("wheelGrassParticle", p.ID, _hyphen, a), "grass");
+					var dirt = sceneMgr.CreateParticleSystem(string.Concat("wheelDirtParticle", p.ID, _hyphen, a), "SAA/mud");
+					var grass = sceneMgr.CreateParticleSystem(string.Concat("wheelGrassParticle", p.ID, _hyphen, a), "SAA/grass");
 
 					dirt.Emitting = false;
 					grass.Emitting = false;

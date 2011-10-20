@@ -153,7 +153,6 @@
     <Compile Include="Physics\PhysicsExtensions.cs" />
     <Compile Include="Physics\Materials\PhysicsMaterial.cs" />
     <Compile Include="Physics\Materials\PhysicsMaterialFactory.cs" />
-    <Compile Include="Physics\Materials\PhysicsMaterialManager.cs" />
     <Compile Include="Physics\Trigger Regions\TriggerReportFlags.cs" />
     <Compile Include="Physics\Trigger Regions\TriggerRegion.cs" />
     <Compile Include="Players\ComputerPlayer.cs" />

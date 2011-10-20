@@ -75,7 +75,8 @@ namespace ShadowsTest {
 
 Press 1, 2, 3, 4 to enable/disable lights, or Esc to quit.
 The red and blue textures have PSSM and self-shadowing enabled.
-The yellow one does not."
+The yellow one does not.
+You can also use WASDQE to move the camera around."
 			);
 		}
 
