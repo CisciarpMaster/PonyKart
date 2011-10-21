@@ -1,7 +1,4 @@
-Physics = Static
-Mass = 0
-CollisionGroup = Environment
-CollidesWith = Environment
+Physics = None
 Static = true
 
 // main tree model
@@ -104,26 +101,4 @@ Model {
 	Position = -4.832235, 14.57223, 5.16642
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-}
-
-// and then our shapes
-
-// capsule#0
-Shape {
-	Type = Capsule
-	Position = 0, 7.13439, 0
-	Height = 14.9148
-	Radius = 1.3379225
-}
-// sphere#0
-Shape {
-	Type = Sphere
-	Position = 2.215005, 13.18011, -2.03904
-	Radius = 7.366208
-}
-// sphere#1
-Shape {
-	Type = Sphere
-	Position = -1.53654, 13.4562, -2.823645
-	Radius = 6.430402
 }

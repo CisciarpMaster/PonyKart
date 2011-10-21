@@ -5,6 +5,13 @@ LoadFile = "saa/fences"
 LoadFile = "saa/spawn positions"
 LoadFile = "saa/trees"
 LoadFile = "saa/hay bales"
+
+// choose which trees to use
+// this one loads up the billboarded ones
+LoadFile = "saa/noncollidable billboard trees"
+// this one loads up the mesh ones
+//LoadFile = "saa/noncollidable polygon trees"
+
 Music = "Sweet Apple Acres 128bpm.ogg"
 InvisibleWalls = "SAA_InvisibleWalls.bullet"
 

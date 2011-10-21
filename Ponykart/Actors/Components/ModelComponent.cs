@@ -27,6 +27,7 @@ namespace Ponykart.Actors {
 			// if we're static, set up the static geometry
 			if (def.GetBoolProperty("static", false) || block.GetBoolProperty("static", false)) {
 				LKernel.GetG<StaticGeometryManager>().Add(this, template, block);
+				Entity = null;
 			}
 			// otherwise continue as normal
 			else {

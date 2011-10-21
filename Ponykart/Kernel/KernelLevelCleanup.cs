@@ -30,8 +30,32 @@ namespace Ponykart {
 			// then dispose of the old one
 			oldMgr.Dispose();
 
-
-			newMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED;
+			//SetupShadows(newMgr);
 		}
+
+		/*private static void SetupShadows(SceneManager sceneMgr) {
+			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_TEXTURE_MODULATIVE_INTEGRATED;
+
+			sceneMgr.SetShadowTextureCountPerLightType(Light.LightTypes.LT_DIRECTIONAL, 3);
+			sceneMgr.ShadowTextureCount = 3;
+			sceneMgr.SetShadowTextureConfig(0, 1024, 1024, PixelFormat.PF_FLOAT32_R);
+			sceneMgr.SetShadowTextureConfig(1, 512, 512, PixelFormat.PF_FLOAT32_R);
+			sceneMgr.SetShadowTextureConfig(2, 512, 512, PixelFormat.PF_FLOAT32_R);
+			sceneMgr.ShadowTextureSelfShadow = true;
+			sceneMgr.ShadowCasterRenderBackFaces = false;
+			sceneMgr.ShadowFarDistance = 150;
+			sceneMgr.SetShadowTextureCasterMaterial("PSSM/shadow_caster");
+			sceneMgr.SetShadowTextureFadeStart(0.7f);
+
+			PSSMShadowCameraSetup pssm = new PSSMShadowCameraSetup();
+			pssm.SplitPadding = 1f;
+			pssm.CalculateSplitPoints(3, 0.01f, sceneMgr.ShadowFarDistance - 10);
+			pssm.SetOptimalAdjustFactor(0, 2);
+			pssm.SetOptimalAdjustFactor(1, 1f);
+			pssm.SetOptimalAdjustFactor(2, 0.5f);
+			pssm.UseSimpleOptimalAdjust = false;
+
+			sceneMgr.SetShadowCameraSetup(new ShadowCameraSetupPtr(pssm));
+		}*/
 	}
 }

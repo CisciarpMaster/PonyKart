@@ -21,13 +21,6 @@ namespace Ponykart {
 		/// Fired whan an unhandled exception bubbles up to the AppDomain
 		/// </summary>
 		static void UnhandledException(object sender, UnhandledExceptionEventArgs e) {
-
-			// open up Ogre.log so we can take a look at what happened
-			ProcessStartInfo p = new ProcessStartInfo("notepad.exe Ogre.log");
-			Process proc = new Process();
-			proc.StartInfo = p;
-			proc.Start();
-
 			// message box
 			if (OgreException.IsThrown)
 				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred!");

@@ -59,8 +59,10 @@ namespace Ponykart.Physics {
 			PhysicsMaterial mat;
 			if (materials.TryGetValue(materialName, out mat))
 				return mat;
+			else if (materialName == "Default")
+				return defaultMat;
 			else {
-				Launch.Log("[PhysicsMaterialFactory] That material did not exist! Applying default...");
+				Launch.Log("[PhysicsMaterialFactory] Material \"" + materialName + "\" did not exist! Applying default...");
 				return defaultMat;
 			}
 		}

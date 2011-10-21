@@ -6,18 +6,21 @@ CollidesWith = Environment
 
 Model {
 	Mesh = "CMC_Treehouse_Extras.mesh"
+	Material = "CMC_Treehouse_Extras"
 	Position = 0, 0, 0
 	Scale = 0.3, 0.3, 0.3
 	CastsShadows = true
 }
 Model {
 	Mesh = "CMC_Treehouse_Main.mesh"
+	Material = "CMC_Treehouse_Main"
 	Position = 0, 0, 0
 	Scale = 0.3, 0.3, 0.3
 	CastsShadows = true
 }
 Model {
 	Mesh = "CMC_Treehouse_Ramps.mesh"
+	Material = "CMC_Treehouse_Ramps"
 	Position = 0, 0, 0
 	Scale = 0.3, 0.3, 0.3
 	CastsShadows = true
@@ -30,6 +33,7 @@ Model {
 }
 Model {
 	Mesh = "CMC_Treehouse_Tree.mesh"
+	Material = "CMC_Treehouse_Tree"
 	Position = 0, 0, 0
 	Scale = 0.3, 0.3, 0.3
 	CastsShadows = true

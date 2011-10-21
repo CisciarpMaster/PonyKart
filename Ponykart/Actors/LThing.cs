@@ -130,6 +130,8 @@ namespace Ponykart.Actors {
 				if (LKernel.GetG<LevelManager>().IsValidLevel)
 					RunScript();
 			}
+
+			DisposeIfStatic(def);
 		}
 
 		/// <summary>
@@ -216,11 +218,19 @@ namespace Ponykart.Actors {
 			// create our construction info thingy
 			Vector3 inertia;
 			shape.CalculateLocalInertia(mass, out inertia);
-			MotionState = InitializationMotionState;
+
+			// if it's static and doesn't have a sound, we don't need a mogre motion state because we'll be disposing of the root node afterwards
+			if (def.GetBoolProperty("Static", false) && SoundComponents.Count == 0)
+				MotionState = new DefaultMotionState();
+			else
+				MotionState = InitializationMotionState;
+
 			Info = new RigidBodyConstructionInfo(mass, MotionState, shape, inertia);
+
 			// physics material stuff from a .physmat file
 			string physmat = def.GetStringProperty("PhysicsMaterial", "Default");
 			LKernel.GetG<PhysicsMaterialFactory>().ApplyMaterial(Info, physmat);
+
 			// we can override some of them in the .thing file
 			if (def.FloatTokens.ContainsKey("bounciness"))
 				Info.Restitution = def.GetFloatProperty("bounciness", PhysicsMaterial.DEFAULT_BOUNCINESS);
@@ -312,6 +322,38 @@ namespace Ponykart.Actors {
 		public virtual void RunScript() {
 			if (Script != null)
 				LKernel.GetG<LuaMain>().DoFunctionForLThing(Script, this);
+		}
+
+		/// <summary>
+		/// If this is a static thing with no ribbons, billboards, or sounds, we can clean up a whole bunch of stuff
+		/// to make it faster for ogre.
+		/// </summary>
+		/// <param name="def"></param>
+		protected void DisposeIfStatic(ThingDefinition def) {
+			if (def.GetBoolProperty("Static", false)) {
+				if (IsDisposed)
+					return;
+
+				var sceneMgr = LKernel.GetG<SceneManager>();
+
+				// dispose of all of the model components
+				foreach (ModelComponent mc in ModelComponents)
+					mc.Dispose();
+
+				// if we have no ribbons, billboards, or sounds, we can get rid of the root node
+				if (RibbonComponents.Count == 0 && BillboardSetComponents.Count == 0 && SoundComponents.Count == 0) {
+					// if we have no shapes, we can get rid of everything
+					if (ShapeComponents.Count == 0) {
+						Dispose(true);
+					}
+					// but otherwise we can still get rid of the root scene node
+					else {
+						sceneMgr.DestroySceneNode(RootNode);
+						RootNode.Dispose();
+						RootNode = null;
+					}
+				}
+			}
 		}
 
 		/// <summary>

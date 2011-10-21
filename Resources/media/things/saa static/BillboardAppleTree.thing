@@ -1,4 +1,5 @@
 Physics = None
+Static = true
 
 // main tree model
 Model {
@@ -6,7 +7,7 @@ Model {
 	Material = "AppleTree"
 	Position = 0.0175422, -0.235272, -0.1130097
 	Scale = 1.5, 1.5, 1.5
-	CastsShadows = true
+	CastsShadows = false
 }
 
 BillboardSet {
