@@ -1,0 +1,7 @@
+Physics = None
+
+Model {
+	Mesh = "LilyPad.mesh"
+	Material = "LilyPads"
+	Position = 0, 0, 0
+}

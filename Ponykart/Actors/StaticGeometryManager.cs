@@ -18,7 +18,7 @@ namespace Ponykart.Actors {
 			if (eventArgs.NewLevel.Type != LevelType.EmptyLevel) {
 				geom = LKernel.Get<SceneManager>().CreateStaticGeometry(eventArgs.NewLevel.Name);
 
-				geom.RegionDimensions = new Vector3(200, 1000, 200);
+				geom.RegionDimensions = new Vector3(50, 1000, 50);
 				geom.RenderingDistance = 1000;
 				geom.CastShadows = false;
 			}

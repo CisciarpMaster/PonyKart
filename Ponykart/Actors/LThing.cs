@@ -120,6 +120,8 @@ namespace Ponykart.Actors {
 				RootNode.Scale(SpawnScale);
 			RootNode.SetInitialState();
 
+			PostInitialiseComponents(template, def);
+
 			SetupPhysics(template, def);
 
 			// get our script token and run it, if it has one and if this thing was created on the fly instead
@@ -169,14 +171,16 @@ namespace Ponykart.Actors {
 				SoundComponents.Add(new SoundComponent(this, template, sblock));
 		}
 
+		protected virtual void PostInitialiseComponents(ThingBlock template, ThingDefinition def) { }
+
 		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
 			// if we have no shape components then we don't set up physics
 			if (ShapeComponents.Count == 0)
 				return;
 
-			PreSetUpBodyInfo();
+			PreSetUpBodyInfo(def);
 			SetUpBodyInfo(def);
-			PostSetUpBodyInfo();
+			PostSetUpBodyInfo(def);
 			CreateBody(def);
 			PostCreateBody(def);
 			SetBodyUserData();
@@ -185,7 +189,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// If you need anything before we set up the body info
 		/// </summary>
-		protected virtual void PreSetUpBodyInfo() { }
+		protected virtual void PreSetUpBodyInfo(ThingDefinition def) { }
 
 		/// <summary>
 		/// Set up all of the stuff needed before we create our body
@@ -274,7 +278,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Override this if you want to do more to the construction info before it's used to create the body but after it's been created
 		/// </summary>
-		protected virtual void PostSetUpBodyInfo() { }
+		protected virtual void PostSetUpBodyInfo(ThingDefinition def) { }
 
 		/// <summary>
 		/// Creates the body and makes it static/kinematic if specified.
