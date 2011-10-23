@@ -10,7 +10,7 @@ fragment_program animatedParticle_fp hlsl {
 	target ps_2_0
 }
  
-material animatedParticle {
+abstract material animatedParticle {
 	technique {
 		pass {
 			vertex_program_ref animatedParticle_vp {
@@ -22,25 +22,6 @@ material animatedParticle {
 		}
 	}
 }
-
-material explosionMaterial : animatedParticle {
-	technique {
-		pass {
-			lighting off
-			scene_blend alpha_blend
-			depth_write off
- 
- 			// texture unit 0 - our volume texture
-			texture_unit
-			{
-				texture Lords.dds 3d
-				tex_address_mode clamp
-				filtering linear linear none
-			}
-		}
-	}
-}
-
 
 material Particles/Mud : animatedParticle {
 	receive_shadows off

@@ -1,4 +1,5 @@
 ﻿using Mogre;
+using Ponykart.Core;
 using Ponykart.Levels;
 using PonykartParsers;
 
@@ -11,6 +12,7 @@ namespace Ponykart.Actors {
 		public Entity Entity { get; protected set; }
 		public long ID { get; protected set; }
 		public string Name { get; protected set; }
+		public AnimationState Animation { get; protected set; }
 
 		/// <summary>
 		/// Creates a model component for a Thing.
@@ -59,16 +61,44 @@ namespace Ponykart.Actors {
 					Entity.SetMaterialName(materialName);
 
 				// some other properties
-				Entity.CastShadows = block.GetBoolProperty("CastsShadows", true);
+				Entity.CastShadows = block.GetBoolProperty("CastsShadows", false);
+
+				SetupAnimation(block, def);
 
 				// then attach it to the node!
 				Node.AttachObject(Entity);
 			}
 		}
 
+		/// <summary>
+		/// Only does simple animations for now
+		/// </summary>
+		protected void SetupAnimation(ModelBlock block, ThingDefinition def) {
+			if (block.GetBoolProperty("animated", false)) {
+				Animation = Entity.GetAnimationState(block.GetStringProperty("AnimationName", null));
+				Animation.Loop = block.GetBoolProperty("AnimationLooping", true);
+				Animation.Enabled = block.GetBoolProperty("AnimationEnabled", true);
+
+				LKernel.Get<Root>().FrameStarted += FrameStarted;
+			}
+		}
+
+		/// <summary>
+		/// For the animation
+		/// </summary>
+		bool FrameStarted(FrameEvent evt) {
+			if (!Pauser.IsPaused)
+				Animation.AddTime(evt.timeSinceLastFrame);
+			return true;
+		}
+
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)
 				return;
+
+			// for the animation
+			if (disposing)
+				LKernel.Get<Root>().FrameStarted -= FrameStarted;
 
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;

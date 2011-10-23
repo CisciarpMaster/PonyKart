@@ -37,11 +37,6 @@ namespace Ponykart.Core {
 					thing = new Kart(template, definition);
 					Invoke(OnKartCreation, thing as Kart);
 				}
-#if DEBUG
-				else if (thingName == "LilyPad") {
-					thing = new LilypadTest(template, definition);
-				}
-#endif
 				else
 					thing = new LThing(template, definition);
 

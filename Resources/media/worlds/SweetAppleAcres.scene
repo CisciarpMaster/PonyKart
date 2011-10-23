@@ -95,6 +95,16 @@
                 </subentities>
             </entity>
         </node>
+		<node name="SAA_River">
+			<position x="368.972" y="6.93615" z="-677.336" />
+			<scale x="1" y="1" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_River" castShadows="false" receiveShadows="false" meshFile="SAA_River.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Water" />
+				</subentities>
+			</entity>
+		</node>
 		
 		<node name="SAA_Fence">
             <position x="-5.11868" y="30.7113" z="-177.583" />

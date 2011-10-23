@@ -110,7 +110,6 @@
   <ItemGroup>
     <Compile Include="Actors\Components\BillboardSetComponent.cs" />
     <Compile Include="Actors\Components\SoundComponent.cs" />
-    <Compile Include="Actors\LilypadTest.cs" />
     <Compile Include="Actors\StaticGeometryManager.cs" />
     <Compile Include="Actors\Wheels\DriftState.cs" />
     <Compile Include="Actors\Wheels\WheelID.cs" />

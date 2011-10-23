@@ -4,6 +4,7 @@ Type = Race
 LoadFile = "saa/spawn positions"
 LoadFile = "saa/trees"
 LoadFile = "saa/hay bales"
+LoadFile = "saa/river"
 
 LoadFile = "saa/billboard trees"
 

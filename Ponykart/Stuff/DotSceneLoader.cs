@@ -196,7 +196,7 @@ namespace Ponykart.Stuff {
 			String name = getAttrib(XMLNode, "name");
 			String meshFile = getAttrib(XMLNode, "meshFile");
 
-			bool bstatic = getAttribBool(XMLNode, "static", true);
+			bool bstatic = getAttribBool(XMLNode, "static", false);
 			if (bstatic)
 				StaticObjects.Add(name);
 			else

@@ -64,10 +64,6 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_R:
 					new Rotater<Kart>(LKernel.GetG<PlayerManager>().MainPlayer.Kart, 1, new Degree(90), RotaterAxisMode.RelativeY);
 					break;
-				case KeyCode.KC_BACKSLASH:
-					ParticleSystem system = LKernel.GetG<SceneManager>().CreateParticleSystem("explosions" + IDs.New, "explosionTemplate");
-					LKernel.GetG<PlayerManager>().MainPlayer.Kart.RootNode.AttachObject(system);
-					break;
 				case KeyCode.KC_G:
 					LKernel.GetG<StaticGeometryManager>().Geometry.SetVisible(!LKernel.GetG<StaticGeometryManager>().Geometry.IsVisible);
 					break;
@@ -81,11 +77,13 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
+
 					ResourceGroupManager.Singleton.InitialiseResourceGroup("General");
 					if (ResourceGroupManager.Singleton.ResourceGroupExists(LKernel.GetG<LevelManager>().CurrentLevel.Name))
 						ResourceGroupManager.Singleton.InitialiseResourceGroup(LKernel.GetG<LevelManager>().CurrentLevel.Name);
-					MaterialManager.Singleton.ReloadAll(false);
-					MeshManager.Singleton.ReloadAll(false);
+					//MaterialManager.Singleton.ReloadAll(false);
+					//MeshManager.Singleton.ReloadAll(false);
+
 					Settings.Default.Reload();
 					break;
 			}
