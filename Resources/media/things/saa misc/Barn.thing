@@ -3,7 +3,6 @@ Mass = 0
 Script = "barn"
 CollisionGroup = Environment
 CollidesWith = Environment
-//Static = true
 
 // main barn
 Model {

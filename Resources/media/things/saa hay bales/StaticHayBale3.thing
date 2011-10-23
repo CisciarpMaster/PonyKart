@@ -14,6 +14,7 @@ Shape {
 Model {
 	Mesh = "HayBale3.mesh"
 	Position = 0, 0, 0
+	CastsShadows = false
 }
 // box#1
 Shape {

@@ -5,7 +5,7 @@ using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class StaticGeometryManager {
-		StaticGeometry geom;
+		public StaticGeometry Geometry { get; private set; }
 		IDictionary<string, Entity> ents;
 
 		public StaticGeometryManager() {
@@ -16,18 +16,18 @@ namespace Ponykart.Actors {
 
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type != LevelType.EmptyLevel) {
-				geom = LKernel.Get<SceneManager>().CreateStaticGeometry(eventArgs.NewLevel.Name);
+				Geometry = LKernel.Get<SceneManager>().CreateStaticGeometry(eventArgs.NewLevel.Name);
 
-				geom.RegionDimensions = new Vector3(50, 1000, 50);
-				geom.RenderingDistance = 1000;
-				geom.CastShadows = false;
+				Geometry.RegionDimensions = new Vector3(50, 1000, 50);
+				//Geometry.RenderingDistance = 1000;
+				Geometry.CastShadows = false;
 			}
 		}
 
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			ents.Clear();
-			if (geom != null)
-				geom.Dispose();
+			if (Geometry != null)
+				Geometry.Dispose();
 		}
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace Ponykart.Actors {
 			Quaternion orient = def.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
 			Vector3 sca = def.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 			
-			geom.AddEntity(ent, pos, orient, sca);
+			Geometry.AddEntity(ent, pos, orient, sca);
 		}
 
 		/// <summary>
@@ -61,7 +61,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Add(Entity ent, Vector3 pos, Quaternion orient, Vector3 sca) {
 			// add the entity to the static geometry
-			geom.AddEntity(ent, pos, orient, sca);
+			Geometry.AddEntity(ent, pos, orient, sca);
 
 			if (!ents.ContainsKey(ent.GetMesh().Name))
 				// if the entity dictionary doesn't contain this entity, add it
@@ -77,7 +77,7 @@ namespace Ponykart.Actors {
 		/// builds the geometry. Is called after everything else has been created.
 		/// </summary>
 		public void Build() {
-			geom.Build();
+			Geometry.Build();
 
 			var sceneMgr = LKernel.Get<SceneManager>();
 			foreach (Entity e in ents.Values) {

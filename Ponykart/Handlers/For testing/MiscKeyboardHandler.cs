@@ -68,6 +68,9 @@ namespace Ponykart.Handlers {
 					ParticleSystem system = LKernel.GetG<SceneManager>().CreateParticleSystem("explosions" + IDs.New, "explosionTemplate");
 					LKernel.GetG<PlayerManager>().MainPlayer.Kart.RootNode.AttachObject(system);
 					break;
+				case KeyCode.KC_G:
+					LKernel.GetG<StaticGeometryManager>().Geometry.SetVisible(!LKernel.GetG<StaticGeometryManager>().Geometry.IsVisible);
+					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
 					Process proc = new Process();
