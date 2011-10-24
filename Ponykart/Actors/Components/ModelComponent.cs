@@ -27,11 +27,11 @@ namespace Ponykart.Actors {
 			Name = block.GetStringProperty("name", template.ThingName);
 
 			// if we're static, set up the static geometry
-			if (def.GetBoolProperty("static", false) || block.GetBoolProperty("static", false)) {
+			if (block.GetBoolProperty("static", false) || def.GetBoolProperty("static", false)) {
 				LKernel.GetG<StaticGeometryManager>().Add(this, template, block);
 				Entity = null;
 			}
-			else if (def.GetBoolProperty("instanced", false) || block.GetBoolProperty("instanced", false)) {
+			else if (block.GetBoolProperty("instanced", false) || def.GetBoolProperty("instanced", false)) {
 				LKernel.GetG<InstancedGeometryManager>().Add(this, template, block);
 				Entity = null;
 			}
