@@ -1,8 +1,10 @@
 Physics = None
+//Instanced = true
 Static = true
 
 Model {
 	Mesh = "AppleTree3.mesh"
+	//Material = "AppleTreeInstanced"
 	Material = "AppleTree"
 	Position = 0.1111965, -3, 0.1604475
 	Scale = 1.5, 1.5, 1.5
@@ -15,7 +17,6 @@ BillboardSet {
 	Width = 2.25
 	Height = 2.25
 	Type = OrientedCommon
-	
 	
 	Billboard {
 		Position = -3.5109, 9.15005, -7.156965

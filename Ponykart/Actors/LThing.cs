@@ -133,7 +133,7 @@ namespace Ponykart.Actors {
 					RunScript();
 			}
 
-			DisposeIfStatic(def);
+			DisposeIfStaticOrInstanced(def);
 		}
 
 		/// <summary>
@@ -329,12 +329,12 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
-		/// If this is a static thing with no ribbons, billboards, or sounds, we can clean up a whole bunch of stuff
+		/// If this is a static/instanced thing with no ribbons, billboards, or sounds, we can clean up a whole bunch of stuff
 		/// to make it faster for ogre.
 		/// </summary>
 		/// <param name="def"></param>
-		protected void DisposeIfStatic(ThingDefinition def) {
-			if (def.GetBoolProperty("Static", false)) {
+		protected void DisposeIfStaticOrInstanced(ThingDefinition def) {
+			if (def.GetBoolProperty("Static", false) || def.GetBoolProperty("Instanced", false)) {
 				if (IsDisposed)
 					return;
 

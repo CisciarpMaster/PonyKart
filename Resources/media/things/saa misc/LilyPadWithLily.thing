@@ -4,7 +4,7 @@ Script = "lilypad"
 // LilyPad
 Model {
 	Mesh = "LilyPad.mesh"
-	Material = "LilyPad1"
+	Material = "Lilypad1"
 	Position = 0, 0, 0
 	Scale = 1, 1, 1
 	CastsShadows = false

@@ -5,29 +5,28 @@ using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class StaticGeometryManager {
-		public StaticGeometry Geometry { get; private set; }
+		IDictionary<string, StaticGeometry> sgeoms;
 		IDictionary<string, Entity> ents;
 
 		public StaticGeometryManager() {
 			ents = new Dictionary<string, Entity>();
+			sgeoms = new Dictionary<string, StaticGeometry>();
+
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
-			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
-		}
-
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (eventArgs.NewLevel.Type != LevelType.EmptyLevel) {
-				Geometry = LKernel.Get<SceneManager>().CreateStaticGeometry(eventArgs.NewLevel.Name);
-
-				Geometry.RegionDimensions = new Vector3(50, 1000, 50);
-				//Geometry.RenderingDistance = 1000;
-				Geometry.CastShadows = false;
-			}
 		}
 
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			ents.Clear();
-			if (Geometry != null)
-				Geometry.Dispose();
+
+			var sceneMgr = LKernel.GetG<SceneManager>();
+			foreach (StaticGeometry sg in sgeoms.Values) {
+				if (sg != null) {
+					sceneMgr.DestroyStaticGeometry(sg);
+					sg.Dispose();
+				}				
+			}
+			sgeoms.Clear();
+
 		}
 
 		/// <summary>
@@ -36,7 +35,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		/// <param name="name">The name this geometry is identified by</param>
 		public void Add(ModelComponent mc, ThingBlock template, ModelBlock def) {
-			var sceneMgr = LKernel.Get<SceneManager>();
+			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			string meshName = def.GetStringProperty("mesh", null);
 			Entity ent;
@@ -45,44 +44,46 @@ namespace Ponykart.Actors {
 			if (!ents.TryGetValue(meshName, out ent)) {
 				// getting the entity was not successful, so we have to create it
 				ent = sceneMgr.CreateEntity(mc.Name + mc.ID, meshName);
+				ent.SetMaterialName(def.GetStringProperty("Material", ""));
 				ents.Add(meshName, ent);
 			}
 
 			Vector3 pos = def.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
 			Quaternion orient = def.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
 			Vector3 sca = def.GetVectorProperty("scale", Vector3.UNIT_SCALE);
-			
-			Geometry.AddEntity(ent, pos, orient, sca);
-		}
 
-		/// <summary>
-		/// Adds all of the geometry used by an entity to the static geometry.
-		/// This is used by the DotSceneLoader.
-		/// </summary>
-		public void Add(Entity ent, Vector3 pos, Quaternion orient, Vector3 sca) {
-			// add the entity to the static geometry
-			Geometry.AddEntity(ent, pos, orient, sca);
+			StaticGeometry sg;
+			if (!sgeoms.TryGetValue(meshName, out sg)) {
+				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(meshName);
 
-			if (!ents.ContainsKey(ent.GetMesh().Name))
-				// if the entity dictionary doesn't contain this entity, add it
-				ents.Add(ent.GetMesh().Name, ent);
-			else {
-				// otherwise we already have it and should get rid of it
-				LKernel.GetG<SceneManager>().DestroyEntity(ent);
-				ent.Dispose();
+				sg.RegionDimensions = new Vector3(50, 1000, 50);
+				//sg.RenderingDistance = 1000;
+				sg.CastShadows = false;
+
+				sgeoms.Add(meshName, sg);
 			}
+			
+			sg.AddEntity(ent, pos, orient, sca);
 		}
 
 		/// <summary>
 		/// builds the geometry. Is called after everything else has been created.
 		/// </summary>
 		public void Build() {
-			Geometry.Build();
+			foreach (StaticGeometry sg in sgeoms.Values) {
+				sg.Build();
+			}
 
 			var sceneMgr = LKernel.Get<SceneManager>();
 			foreach (Entity e in ents.Values) {
 				sceneMgr.DestroyEntity(e);
 				e.Dispose();
+			}
+		}
+
+		public void ToggleVisible() {
+			foreach (StaticGeometry sg in sgeoms.Values) {
+				sg.SetVisible(!sg.IsVisible);
 			}
 		}
 	}

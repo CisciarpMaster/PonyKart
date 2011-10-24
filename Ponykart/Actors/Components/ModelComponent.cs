@@ -31,6 +31,10 @@ namespace Ponykart.Actors {
 				LKernel.GetG<StaticGeometryManager>().Add(this, template, block);
 				Entity = null;
 			}
+			else if (def.GetBoolProperty("instanced", false) || block.GetBoolProperty("instanced", false)) {
+				LKernel.GetG<InstancedGeometryManager>().Add(this, template, block);
+				Entity = null;
+			}
 			// otherwise continue as normal
 			else {
 				Node = lthing.RootNode.CreateChildSceneNode(Name + "Node" + ID);

@@ -134,6 +134,7 @@ namespace Ponykart.Levels {
 				newLevel.RunThingScripts();
 
 				LKernel.GetG<StaticGeometryManager>().Build();
+				LKernel.GetG<InstancedGeometryManager>().Build();
 			}
 
 			// if we're on the main menu, pause it

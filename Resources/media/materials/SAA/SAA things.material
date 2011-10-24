@@ -10,6 +10,22 @@ material AppleTree {
 	}
 }
 
+material AppleTreeInstanced {
+	receive_shadows off
+	
+	technique {
+		pass {
+			lighting off
+			
+			vertex_program_ref Instancing { }
+		
+			texture_unit {
+				texture apple_tree_v2_diff.dds
+			}
+		}
+	}
+}
+
 material AppleBillboard {
 	receive_shadows off
 	

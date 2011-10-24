@@ -1,8 +1,10 @@
 Physics = None
 Static = true
+//Instanced = true
 
 Model {
 	Mesh = "AppleTree1.mesh"
+	//Material = "AppleTreeInstanced"
 	Material = "AppleTree"
 	Position = 0, -3, 0
 	Scale = 1.5, 1.5, 1.5

@@ -93,8 +93,9 @@ namespace Ponykart {
 			AddGlobalObject(new RaceCountdown());
 
 			// more mogre stuff
-			splash.Increment("Setting up static geometry manager...");
+			splash.Increment("Setting up static and instanced geometry managers...");
 			AddGlobalObject(new StaticGeometryManager());
+			AddGlobalObject(new InstancedGeometryManager());
 
 			// sound stuff
 			splash.Increment("Setting up sound system...");

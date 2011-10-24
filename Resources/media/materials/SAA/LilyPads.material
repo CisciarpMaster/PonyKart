@@ -1,3 +1,19 @@
+// this is the default material the lily pads want
+material LilyPads {
+	technique {
+		pass {
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit {
+				texture lilypad_001.dds
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
 material Lilypad1 {
 	technique {
 		pass {

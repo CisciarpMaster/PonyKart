@@ -47,6 +47,7 @@ namespace Ponykart {
 			if (form.Handle != IntPtr.Zero)
 				miscParams["externalWindowHandle"] = form.Handle.ToString();
 
+			//miscParams["FSAA"] = "4";
 			miscParams["vsync"] = "true";    // by Ogre default: false
 
 			return root.CreateRenderWindow("Ponykart main RenderWindow", Settings.Default.WindowWidth, Settings.Default.WindowHeight, false, miscParams);

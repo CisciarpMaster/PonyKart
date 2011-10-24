@@ -65,7 +65,7 @@ namespace Ponykart.Handlers {
 					new Rotater<Kart>(LKernel.GetG<PlayerManager>().MainPlayer.Kart, 1, new Degree(90), RotaterAxisMode.RelativeY);
 					break;
 				case KeyCode.KC_G:
-					LKernel.GetG<StaticGeometryManager>().Geometry.SetVisible(!LKernel.GetG<StaticGeometryManager>().Geometry.IsVisible);
+					LKernel.GetG<StaticGeometryManager>().ToggleVisible();
 					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
