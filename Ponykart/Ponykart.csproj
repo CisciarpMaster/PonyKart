@@ -121,6 +121,7 @@
     <Compile Include="Actors\Components\RibbonComponent.cs" />
     <Compile Include="Actors\Components\ShapeComponent.cs" />
     <Compile Include="Actors\Kart.cs" />
+    <Compile Include="Core\AnimationManager.cs" />
     <Compile Include="Handlers\For testing\DisableWheelFrictionHandler.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
     <Compile Include="Handlers\Helpers\Rotater.cs" />

@@ -12,7 +12,7 @@ namespace Ponykart.Actors {
 		public Entity Entity { get; protected set; }
 		public long ID { get; protected set; }
 		public string Name { get; protected set; }
-		public AnimationState Animation { get; protected set; }
+		AnimationState Animation;
 
 		/// <summary>
 		/// Creates a model component for a Thing.
@@ -79,26 +79,18 @@ namespace Ponykart.Actors {
 				Animation.Loop = block.GetBoolProperty("AnimationLooping", true);
 				Animation.Enabled = block.GetBoolProperty("AnimationEnabled", true);
 
-				LKernel.Get<Root>().FrameStarted += FrameStarted;
+				LKernel.GetG<AnimationManager>().Add(Animation);
 			}
-		}
-
-		/// <summary>
-		/// For the animation
-		/// </summary>
-		bool FrameStarted(FrameEvent evt) {
-			if (!Pauser.IsPaused)
-				Animation.AddTime(evt.timeSinceLastFrame);
-			return true;
 		}
 
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)
 				return;
 
-			// for the animation
-			if (disposing)
-				LKernel.Get<Root>().FrameStarted -= FrameStarted;
+			// stop updating the animation if we have one
+			if (disposing && Animation != null) {
+				LKernel.GetG<AnimationManager>().Remove(Animation);
+			}
 
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;

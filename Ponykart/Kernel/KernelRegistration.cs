@@ -69,6 +69,7 @@ namespace Ponykart {
 			AddGlobalObject(new WheelFactory());
 			AddGlobalObject(new ThingDatabase());
 			AddGlobalObject(new Spawner());
+			AddGlobalObject(new AnimationManager());
 
 			// Miyagi and stuff
 			splash.Increment("Initialising Miyagi...");
