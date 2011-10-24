@@ -1,4 +1,17 @@
-void main(float4 position : POSITION,
+float4 main_fp(uniform float4 colours) : COLOR
+{
+	float4 color;
+	color.rgba = colours.xyzw;
+	// color.a = colours.w * ((sin(time * 5.0) / 3.14 + 1.0) / 2.0 );
+	return color;
+}
+
+// 		x y z w
+// 		r g b a
+// for example, 1.0 0.0 1.0 0.2 gives a neon pink transparent glow
+
+
+void main_vp(float4 position : POSITION,
 		  float3 normal   : NORMAL,
 		  float2 uv		  : TEXCOORD0,
 		  out float4 oPosition : POSITION,

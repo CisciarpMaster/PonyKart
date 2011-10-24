@@ -1,6 +1,6 @@
 vertex_program glowFlat_vp cg {
-	source glowFlat_vp.cg
-	entry_point main
+	source glowFlat.cg
+	entry_point main_vp
 	profiles vs_2_0 vs_2_x vs_3_0 arbvp1
 	
 	default_params {
@@ -15,8 +15,8 @@ vertex_program glowFlat_vp cg {
 }
 
 fragment_program glowFlat_fp cg {
-	source glowFlat_fp.cg
-	entry_point main
+	source glowFlat.cg
+	entry_point main_fp
 	profiles ps_2_0 ps_2_x ps_3_0 ps_3_x arbfp1
 	
 	default_params {

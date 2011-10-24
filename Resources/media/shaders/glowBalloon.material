@@ -1,6 +1,6 @@
 vertex_program glowBalloon_vp cg {
-	source fresnel_vp.cg
-	entry_point main
+	source fresnel.cg
+	entry_point main_vp
 	profiles vs_2_0 arbvp1 vs_2_x vs_3_0 vp40
 	
 	default_params {
@@ -13,8 +13,8 @@ vertex_program glowBalloon_vp cg {
 }
 
 fragment_program glowBalloon_fp cg {
-	source fresnel_fp.cg
-	entry_point main
+	source fresnel.cg
+	entry_point main_fp
 	profiles ps_2_0 arbfp1 ps_2_x ps_3_0 ps_3_x fp40
 	
 	default_params {
