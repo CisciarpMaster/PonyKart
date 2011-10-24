@@ -55,6 +55,7 @@
             </entity>
         </node>
 		
+		
 		<node name="SAA_Cliff">
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
@@ -106,15 +107,56 @@
 			</entity>
 		</node>
 		
-		<node name="SAA_Fence">
-            <position x="-5.11868" y="30.7113" z="-177.583" />
-            <scale x="1" y="1" z="1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Fence" castShadows="false" receiveShadows="false" meshFile="SAA_Fence.mesh" static="false">
-                <subentities>
-                    <subentity index="0" materialName="Fences" />
-                </subentities>
-            </entity>
-        </node>
+		
+		<node name="SAA_Fence1">
+			<position x="79.8523" y="-19.6812" z="-274.898" />
+			<scale x="1" y="1" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_Fence1" castShadows="false" receiveShadows="false" meshFile="SAA_Fence1.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Fences" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="SAA_Fence2">
+			<position x="79.8523" y="-19.6816" z="-274.898" />
+			<scale x="1" y="1" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_Fence2" castShadows="false" receiveShadows="false" meshFile="SAA_Fence2.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Fences" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="SAA_Fence3">
+			<position x="79.8523" y="-20.6998" z="-274.898" />
+			<scale x="1" y="1" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_Fence3" castShadows="false" receiveShadows="false" meshFile="SAA_Fence3.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Fences" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="SAA_Fence4">
+			<position x="53.2025" y="-6.82825" z="-491.058" />
+			<scale x="1" y="1" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_Fence4" castShadows="false" receiveShadows="false" meshFile="SAA_Fence4.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Fences" />
+				</subentities>
+			</entity>
+		</node>
+		<node name="SAA_Fence5">
+			<position x="53.2025" y="-6.25403" z="-491.058" />
+			<scale x="1" y="1" z="1" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="SAA_Fence5" castShadows="false" receiveShadows="false" meshFile="SAA_Fence5.mesh" static="false">
+				<subentities>
+					<subentity index="0" materialName="Fences" />
+				</subentities>
+			</entity>
+		</node>
 	</nodes>
 </scene>

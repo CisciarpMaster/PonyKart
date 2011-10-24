@@ -1,9 +1,0 @@
-Physics = None
-Static = true
-
-Model {
-	Mesh = "FenceAngled.mesh"
-	Material = "Fences"
-	Position = 0, 0, 0
-	CastsShadows = false
-}

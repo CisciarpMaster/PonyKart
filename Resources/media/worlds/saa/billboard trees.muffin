@@ -1,3 +1,6 @@
+BillboardAppleTree2 {
+	Position = -5, 1, 30
+}
 BillboardAppleTree1 {
 	Name = "BillboardAppleTree1#"
 	Position = -379.591, 71.036, 128.274

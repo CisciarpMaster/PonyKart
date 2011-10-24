@@ -1,9 +1,0 @@
-Physics = None
-Static = true
-
-Model {
-	Mesh = "FencePartial.mesh"
-	Material = "Fences"
-	Position = 0, 0, 0
-	CastsShadows = false
-}
