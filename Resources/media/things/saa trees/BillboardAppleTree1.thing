@@ -1,13 +1,13 @@
 Physics = None
-Static = true
-//Instanced = true
+Instanced = true
+//Static = true
 
 Model {
 	Mesh = "AppleTree1.mesh"
-	//Material = "AppleTreeInstanced"
-	Material = "AppleTree"
+	Material = "AppleTreeInstanced"
+	//Material = "AppleTree"
 	Position = 0, -3, 0
-	Scale = 1.5, 1.5, 1.5
+	Scale = 1, 1, 1
 	CastsShadows = false
 }
 

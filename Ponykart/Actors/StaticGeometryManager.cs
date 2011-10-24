@@ -57,7 +57,7 @@ namespace Ponykart.Actors {
 				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(meshName);
 
 				sg.RegionDimensions = new Vector3(50, 1000, 50);
-				//sg.RenderingDistance = 1000;
+				sg.RenderingDistance = 500;
 				sg.CastShadows = false;
 
 				sgeoms.Add(meshName, sg);

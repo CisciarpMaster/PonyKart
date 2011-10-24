@@ -65,6 +65,8 @@ namespace Ponykart.Actors {
 			transforms[meshName].Add(trans);
 		}
 
+		const int MAX_ENTITIES_PER_BATCH = 1;
+
 		/// <summary>
 		/// 1: Create the entity
 		/// 2: Create the instanced geometry
@@ -84,21 +86,22 @@ namespace Ponykart.Actors {
 				// its name is the mesh name
 				InstancedGeometry igeom = sceneMgr.CreateInstancedGeometry(ent.Key);
 				igeom.CastShadows = false;
-				//igeom.BatchInstanceDimensions = new Vector3(50, 1000, 50);
+				igeom.BatchInstanceDimensions = new Vector3(50, 1000, 50);
 
 				// add the entities to our batch
 				int numEnts = transforms[ent.Key].Count;
+				int numEntsToAdd = numEnts > MAX_ENTITIES_PER_BATCH ? MAX_ENTITIES_PER_BATCH : numEnts;
 
-				// add the entity 80 times or less to the geometry
-				for (int a = 0; a < (numEnts > 80 ? 80 : numEnts); a++) {
+				// add the entity ~80 times or less to the geometry
+				for (int a = 0; a < numEntsToAdd; a++) {
 					igeom.AddEntity(ent.Value, Vector3.ZERO);
 				}
 
 				igeom.Origin = Vector3.ZERO;
 				igeom.Build();
 
-				// number of batch instances we need is number of entities / 80, since that's the maximum number of instances a batch can do
-				for (int a = 0; a < (int) (numEnts / 80f); a++) {
+				// number of batch instances we need is number of entities / ~80, since that's the maximum number of instances a batch can do
+				for (int a = 0; a < (int) ((float) numEnts / (float) MAX_ENTITIES_PER_BATCH); a++) {
 					igeom.AddBatchInstance();
 				}
 

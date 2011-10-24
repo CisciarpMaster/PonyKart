@@ -5,22 +5,13 @@ material LilyPads {
 			lighting off
 			scene_blend alpha_blend
 			depth_write off
-
-			texture_unit {
-				texture lilypad_001.dds
-				tex_address_mode clamp
-			}
 		}
 	}
 }
 
-material Lilypad1 {
+material Lilypad1 : LilyPads {
 	technique {
 		pass {
-			lighting off
-			scene_blend alpha_blend
-			depth_write off
-
 			texture_unit {
 				texture lilypad_001.dds
 				tex_address_mode clamp
@@ -30,13 +21,9 @@ material Lilypad1 {
 }
 
 
-material Lilypad2 {
+material Lilypad2 : LilyPads {
 	technique {
 		pass {
-			lighting off
-			scene_blend alpha_blend
-			depth_write off
-
 			texture_unit {
 				texture lilypad_002.dds
 				tex_address_mode clamp
@@ -46,13 +33,9 @@ material Lilypad2 {
 }
 
 
-material Lilypad3 {
+material Lilypad3 : LilyPads {
 	technique {
 		pass {
-			lighting off
-			scene_blend alpha_blend
-			depth_write off
-
 			texture_unit {
 				texture lilypad_003.dds
 				tex_address_mode clamp
@@ -62,13 +45,9 @@ material Lilypad3 {
 }
 
 
-material Lilypad4 {
+material Lilypad4 : LilyPads {
 	technique {
 		pass {
-			lighting off
-			scene_blend alpha_blend
-			depth_write off
-
 			texture_unit {
 				texture lilypad_004.dds
 				tex_address_mode clamp
@@ -79,12 +58,9 @@ material Lilypad4 {
 
 
 
-material Lily {
+material Lily : LilyPads {
 	technique {
 		pass {
-			lighting off
-			scene_blend alpha_blend
-			depth_write off
 			transparent_sorting on
 
 			texture_unit {

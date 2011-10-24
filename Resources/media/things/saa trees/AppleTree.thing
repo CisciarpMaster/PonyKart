@@ -10,7 +10,7 @@ Model {
 	Material = "AppleTree"
 	Position = 0.0175422, -0.235272, -0.1130097
 	CastsShadows = false
-	Scale = 1.5, 1.5, 1.5
+	Scale = 1, 1, 1
 }
 
 // loads of apples
