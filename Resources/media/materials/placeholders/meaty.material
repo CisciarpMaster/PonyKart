@@ -6,8 +6,8 @@ material cell_background {
 			cull_hardware none
 
 			texture_unit {
-				texture 2734-diffuse.jpg
-				scale 0.1 0.1
+				texture saa/saa_road.dds
+				scale 0.01 0.01
 			}
 		}
 	}

@@ -24,8 +24,7 @@ BillboardSet {
 	Type = OrientedCommon
 	Width = 1
 	Height = 1.562
-	// left, top, right, bottom?
-	// texture coords are a bit weird
+	// left border, top border, right border, bottom border. Origin is top left
 	TextureCoords = 0.58, 0.062, 0.984, 0.844
 	
 	Billboard {

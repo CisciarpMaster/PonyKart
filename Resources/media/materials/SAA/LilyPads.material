@@ -64,7 +64,7 @@ material Lily : LilyPads {
 			transparent_sorting on
 
 			texture_unit {
-				texture lily.dds
+				texture billboards.dds
 				tex_address_mode clamp
 			}
 		}

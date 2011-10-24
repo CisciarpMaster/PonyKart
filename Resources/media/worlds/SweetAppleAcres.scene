@@ -38,7 +38,7 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Ground" meshFile="SAA_Ground.mesh" castShadows="false" receiveShadows="true" static="false">
+            <entity name="SAA_Ground" castShadows="true" receiveShadows="true" meshFile="SAA_Ground.mesh" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
@@ -70,42 +70,22 @@
             <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Riverbed" meshFile="SAA_Riverbed.mesh" castShadows="false" receiveShadows="true" static="false">
-                <subentities>
-                    <subentity index="0" materialName="SAA_Cliff" />
-                </subentities>
-            </entity>
-        </node>
-		<node name="SAA_Riverbed_East">
-            <position x="754.799" y="-3.61741" z="-104.361" />
-            <scale x="1" y="1" z="1" />
-            <rotation qx="0.707099" qy="0.00331864" qz="-0.00331864" qw="0.707099" />
-            <entity name="SAA_Riverbed_East" meshFile="SAA_Riverbed_East.mesh" castShadows="false" receiveShadows="true" static="false">
-                <subentities>
-                    <subentity index="0" materialName="SAA_Cliff" />
-                </subentities>
-            </entity>
-        </node>
-        <node name="SAA_Riverbed_North">
-            <position x="-99.4591" y="22.3021" z="-1133.55" />
-            <scale x="1" y="1" z="1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="SAA_Riverbed_North" meshFile="SAA_Riverbed_North.mesh" castShadows="false" receiveShadows="true" static="false">
+            <entity name="SAA_Riverbed" castShadows="false" receiveShadows="true" meshFile="SAA_Riverbed.mesh" static="false">
                 <subentities>
                     <subentity index="0" materialName="SAA_Cliff" />
                 </subentities>
             </entity>
         </node>
 		<node name="SAA_River">
-			<position x="368.972" y="6.93615" z="-677.336" />
-			<scale x="1" y="1" z="1" />
-			<rotation qx="0" qy="0" qz="0" qw="1" />
-			<entity name="SAA_River" castShadows="false" receiveShadows="false" meshFile="SAA_River.mesh" static="false">
-				<subentities>
-					<subentity index="0" materialName="Water" />
-				</subentities>
-			</entity>
-		</node>
+            <position x="368.972" y="6.93615" z="-677.336" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="SAA_River" castShadows="false" receiveShadows="false" meshFile="SAA_River.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="Water" />
+                </subentities>
+            </entity>
+        </node>
 		
 		
 		<node name="SAA_Fence1">

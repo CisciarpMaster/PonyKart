@@ -20,6 +20,8 @@ BillboardSet {
 	Height = 3
 	Type = OrientedCommon
 	Origin = BottomCenter
+	// left, top, right, bottom
+	TextureCoords = 0.375, 0.75, 0.5, 0.875
 	
 	Billboard {
 		Position = 0, 1.5, 0
