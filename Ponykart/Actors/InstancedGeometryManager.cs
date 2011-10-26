@@ -46,7 +46,16 @@ namespace Ponykart.Actors {
 			}
 
 			// get our transforms
-			Vector3 pos = def.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
+			Vector3 pos;
+			// two ways to get the position
+			// inherit it from the lthing, the default (if we were using nodes, this would be the default too)
+			if (def.GetBoolProperty("InheritOrientation", true)) {
+				pos = (mc.Owner.SpawnOrientation * def.GetVectorProperty("position", Vector3.ZERO)) + template.VectorTokens["position"];
+			}
+			// or we can choose not to inherit it for whatever reason
+			else {
+				pos = def.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
+			}
 			Quaternion orient = def.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
 			Vector3 sca = def.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 

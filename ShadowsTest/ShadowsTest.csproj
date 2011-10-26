@@ -64,6 +64,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)Resources\OgreMain.dll" "$(TargetDir)" /S /C /Q /Y
+xcopy "$(SolutionDir)Resources\Plugin_ParticleFX.dll" "$(TargetDir)" /S /C /Q /Y
 xcopy "$(SolutionDir)Resources\RenderSystem_Direct3D9.dll" "$(TargetDir)" /S /C /Q /Y
 xcopy "$(SolutionDir)Resources\cg.dll" "$(TargetDir)" /S /C /Q /Y
 xcopy "$(SolutionDir)Resources\Plugin_CgProgramManager.dll" "$(TargetDir)" /S /C /Q /Y

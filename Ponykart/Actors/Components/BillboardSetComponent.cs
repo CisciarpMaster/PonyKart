@@ -51,7 +51,7 @@ namespace Ponykart.Actors {
 			// make them point the right way
 			BillboardSet.CommonDirection = block.GetVectorProperty("Direction", Vector3.UNIT_Y);
 			// rotation type
-			BillboardSet.BillboardRotationType = block.GetBoolProperty("UseVertexRotation", false) ? BillboardRotationType.BBR_TEXCOORD : BillboardRotationType.BBR_VERTEX;
+			BillboardSet.BillboardRotationType = block.GetBoolProperty("UseVertexRotation", false) ? BillboardRotationType.BBR_VERTEX : BillboardRotationType.BBR_TEXCOORD;
 			// origin
 			ThingEnum originToken;
 			if (block.EnumTokens.TryGetValue("origin", out originToken)) {

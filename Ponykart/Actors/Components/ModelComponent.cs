@@ -13,6 +13,10 @@ namespace Ponykart.Actors {
 		public long ID { get; protected set; }
 		public string Name { get; protected set; }
 		AnimationState Animation;
+		public LThing Owner { get; protected set; }
+		public readonly Vector3 SpawnPosition;
+		public readonly Quaternion SpawnOrientation;
+		public readonly Vector3 SpawnScale;
 
 		/// <summary>
 		/// Creates a model component for a Thing.
@@ -22,9 +26,25 @@ namespace Ponykart.Actors {
 		/// <param name="block">The block we're creating this component from</param>
 		public ModelComponent(LThing lthing, ThingBlock template, ModelBlock block, ThingDefinition def) {
 			ID = IDs.New;
+			Owner = lthing;
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Name = block.GetStringProperty("name", template.ThingName);
+
+			// set these up here because static/instanced geometry might need them
+			// position
+			SpawnPosition = block.GetVectorProperty("position", Vector3.ZERO);
+
+			// orientation
+			SpawnOrientation = block.GetQuatProperty("orientation", Quaternion.IDENTITY);
+			// if orientation was not found, we fall back to rotation
+			if (SpawnOrientation == Quaternion.IDENTITY) {
+				Vector3 rot = block.GetVectorProperty("rotation", Vector3.ZERO);
+				if (rot != Vector3.ZERO)
+					SpawnOrientation = rot.DegreeVectorToGlobalQuaternion();
+			}
+			// scale
+			SpawnScale = block.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			// if we're static, set up the static geometry
 			if (block.GetBoolProperty("static", false) || def.GetBoolProperty("static", false)) {
@@ -39,21 +59,12 @@ namespace Ponykart.Actors {
 			else {
 				Node = lthing.RootNode.CreateChildSceneNode(Name + "Node" + ID);
 
-				// position
-				Node.Position = block.GetVectorProperty("position", Vector3.ZERO);
-				// orientation
-				Node.Orientation = block.GetQuatProperty("orientation", Quaternion.IDENTITY);
-				// if orientation was not found, we fall back to rotation
-				if (Node.Orientation == Quaternion.IDENTITY) {
-					Vector3 rot = block.GetVectorProperty("rotation", Vector3.ZERO);
-					if (rot != Vector3.ZERO)
-						Node.Orientation = rot.DegreeVectorToGlobalQuaternion();
-				}
-				// scale
-				Node.Scale(block.GetVectorProperty("scale", Vector3.UNIT_SCALE));
+				Node.Position = SpawnPosition;
+				Node.Orientation = SpawnOrientation;
+				Node.Scale(SpawnScale);
 
-				Node.InheritScale = true;
-				Node.InheritOrientation = true;
+				Node.InheritScale = block.GetBoolProperty("InheritScale", true);
+				Node.InheritOrientation = block.GetBoolProperty("InheritOrientation", true);
 				Node.SetInitialState();
 
 				// make our entity

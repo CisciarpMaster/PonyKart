@@ -1,11 +1,11 @@
-float4 main_fp(float3 WorldNormal : TEXCOORD0,
-			float3 WorldView   : TEXCOORD1,
-			// float Depth		   : TEXCOORD2,
+float4 main_fp(float3 WorldNormal 	: TEXCOORD0,
+			   float3 WorldView   	: TEXCOORD1,
+			   // float Depth		: TEXCOORD2,
 			
-			uniform float3 GlowColor,
-			uniform float GlowExpon,
-			uniform float Alpha
-		   ) : COLOR
+			   uniform float3 GlowColor,
+			   uniform float GlowExpon,
+			   uniform float Alpha)
+: COLOR
 {
     float3 Nn = normalize(WorldNormal);
     float3 Vn = normalize(WorldView);
@@ -19,8 +19,8 @@ float4 main_fp(float3 WorldNormal : TEXCOORD0,
 
 
 
-void main_vp(float4 Position : POSITION,
-		  float4 Normal   : NORMAL,
+void main_vp(float4 Position	 : POSITION,
+		  float4 Normal  		 : NORMAL,
 		  out float4 HPosition   : POSITION,
 		  out float3 WorldNormal : TEXCOORD0,
 		  out float3 WorldView   : TEXCOORD1,

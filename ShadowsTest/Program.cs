@@ -62,7 +62,8 @@ namespace ShadowsTest {
 
 			CreateThings();
 
-			SetupShadows();
+			SetupParticles();
+			//SetupShadows();
 
 			SetupInput();
 
@@ -98,6 +99,12 @@ You can also use WASDQE to move the camera around."
 			}
 		}
 
+		void SetupParticles() {
+			var particle = sceneMgr.CreateParticleSystem("particleSys", "part");
+			var particleNode = sceneMgr.RootSceneNode.CreateChildSceneNode("particleNode");
+			particleNode.AttachObject(particle);
+		}
+
 		void SetupShadows() {
 			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED;
 
@@ -128,14 +135,14 @@ You can also use WASDQE to move the camera around."
 		/// </summary>
 		void CreateThings() {
 			// a directional light to cast shadows
-			directionalLight = sceneMgr.CreateLight("sun");
+			/*directionalLight = sceneMgr.CreateLight("sun");
 			directionalLight.Type = Light.LightTypes.LT_DIRECTIONAL;
 			directionalLight.Direction = new Vector3(0.5f, -1, -0.2f);
 			directionalLight.Direction.Normalise();
 			directionalLight.DiffuseColour = ColourValue.Red;
 			directionalLight.SpecularColour = ColourValue.Red;
 			directionalLight.Position = new Vector3(0, 10, 0);
-			directionalLight.CastShadows = true;
+			directionalLight.CastShadows = true;*/
 
 			directionalLight2 = sceneMgr.CreateLight("sun2");
 			directionalLight2.Type = Light.LightTypes.LT_DIRECTIONAL;
@@ -143,11 +150,11 @@ You can also use WASDQE to move the camera around."
 			directionalLight2.Direction.Normalise();
 			directionalLight2.DiffuseColour = new ColourValue(0.7f, 0.7f, 0.7f);
 			directionalLight2.SpecularColour = new ColourValue(0.7f, 0.7f, 0.7f);
-			directionalLight.Position = new Vector3(0, 10, 0);
+			directionalLight2.Position = new Vector3(0, 10, 0);
 			directionalLight2.CastShadows = true;
 
 			// and a point light
-			pointLight = sceneMgr.CreateLight("pointLight");
+			/*pointLight = sceneMgr.CreateLight("pointLight");
 			pointLight.Type = Light.LightTypes.LT_POINT;
 			pointLight.Position = new Vector3(-3, 10, 3);
 			pointLight.DiffuseColour = ColourValue.Blue;
@@ -162,7 +169,7 @@ You can also use WASDQE to move the camera around."
 			spotLight.Direction = new Vector3(-1, -1, 0);
 			spotLight.Position = new Vector3(10, 10, 0);
 			spotLight.SetSpotlightRange(new Degree(35), new Degree(50));
-			spotLight.CastShadows = true;
+			spotLight.CastShadows = true;*/
 
 			// a plane for the shadows to be cast on
 			Plane plane = new Plane(Vector3.UNIT_Y, 0);
