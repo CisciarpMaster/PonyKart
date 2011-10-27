@@ -2,12 +2,18 @@ Type = Race
 
 // load up the other stuff
 LoadFile = "saa/spawn positions"
-LoadFile = "saa/trees"
 LoadFile = "saa/hay bales"
 LoadFile = "saa/river"
 LoadFile = "saa/fences"
 
-LoadFile = "saa/billboard trees"
+LoadFile = "saa/bridge trees"
+LoadFile = "saa/barn trees"
+LoadFile = "saa/river trees"
+LoadFile = "saa/start trees"
+LoadFile = "saa/ramp trees"
+LoadFile = "saa/treehouse trees"
+LoadFile = "saa/cliff trees"
+LoadFile = "saa/bucket trees"
 
 Music = "Sweet Apple Acres 128bpm.ogg"
 InvisibleWalls = "SAA_InvisibleWalls.bullet"
@@ -209,4 +215,35 @@ FlowerBarrel {
 FlowerBarrel {
 	Position = 192.055, 0.37155, 197.47
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
+}
+
+
+// stuff in the drivable grass area on that S-turn
+AppleCart {
+	Name = "AppleCart#002_1"
+	Position = 0, 0, 0
+}
+AppleCart {
+	Name = "AppleCart#006"
+	Position = 0, 0, 0
+}
+AppleContainerSmall {
+	Name = "AppleContainerSmall#_1"
+	Position = 0, 0, 0
+}
+AppleContainerSmall {
+	Name = "AppleContainerSmall#005_1"
+	Position = 0, 0, 0
+}
+Bucket {
+	Name = "Bucket#001_1"
+	Position = 0, 0, 0
+}
+Bucket {
+	Name = "Bucket#003_1"
+	Position = 0, 0, 0
+}
+Bucket {
+	Name = "Bucket#004_1"
+	Position = 0, 0, 0
 }
