@@ -78,9 +78,9 @@ namespace Ponykart.Levels {
 		}
 
 		/// <summary>
-		/// Runs all of the scripts in a level's init directory.
-		/// If this documentation is up to date, it should look like:
-		/// "media/scripts/" + Name + "/init/"
+		/// Runs the lua function that uses this level's name, if it exists.
+		/// If this documentation is up to date, it should be in
+		/// "media/scripts/levelNameGoesHere"
 		/// </summary>
 		public void RunLevelScript() {
 			if (Directory.Exists(Settings.Default.LevelScriptLocation + Name + "/"))

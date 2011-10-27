@@ -9,7 +9,7 @@ Model {
 	CastsShadows = false
 	Scale = 1, 1, 1
 }
-
+/*
 // loads of apples
 Model {
 	Mesh = "Apple.mesh"
@@ -101,4 +101,4 @@ Model {
 	Position = -4.832235, 14.57223, 5.16642
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-}
+}*/

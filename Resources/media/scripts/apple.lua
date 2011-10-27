@@ -31,7 +31,7 @@ function spawnApple(position)
 		name = "BrightGreenApple"
 	end
 	
-	vspawn(name, position)
+	spawn(name, position)
 end
 
 function spawnApple(lthing, offset)

@@ -19,13 +19,6 @@ namespace Ponykart.Lua {
 			return LKernel.Get<Spawner>().Spawn(type, pos);
 		}
 
-		[LuaFunction("vspawn", "Spawns a game object! This one does not return anything.",
-			"string type - the name of the .thing you want to spawn. Not case sensitive.",
-			"Vector3 pos - Spawn position")]
-		public static void VSpawn(string type, Vector3 pos) {
-			Spawn(type, pos);
-		}
-
 		[LuaFunction("relativeSpawn", "Spawns a game object relative to another game object. This does not return anything.", 
 			"string type - the name of the .thing you want to spawn. Not case sensitive.",
 			"LThing thing - the 'parent' game object",

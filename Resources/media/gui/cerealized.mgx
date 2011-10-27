@@ -28,7 +28,6 @@
 [W A S D] Move and turn
 [Space] Brake
 [0 1 2 3...] Change level
-[K] Spawn another kart
 [Esc] Exit / Close lua console
 [-] Toggle OGRE debug info
 [M] Turn music on or off
@@ -40,6 +39,9 @@
 [F] Multiply your speed by 2
 [I] Toggles debug lines
 [X] Clears debug lines
+[F1] Toggles visibility of static geometry
+[F2] Toggles visibility of instanced geometry
+[F3] Toggles visibility of billboards
 [backtick] Pause
 [enter] Open Lua console
 						</Text>

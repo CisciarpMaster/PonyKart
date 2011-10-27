@@ -5,12 +5,16 @@ using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class InstancedGeometryManager {
-		// uses mesh name as a key
+		// uses map group + mesh name as a key
 		IDictionary<string, InstancedGeometry> igeoms;
-		// mesh name as key, then model component name as key
+		// mesh map group + mesh name as a key
 		IDictionary<string, IList<Transform>> transforms;
-		// uses mesh name as a key
+		// uses map group + mesh name as a key
 		IDictionary<string, Entity> ents;
+
+		readonly Vector3 regionDimensions = new Vector3(200, 1000, 200);
+		// even though 80 means fewer batches, that also means less culling. So for whatever reason, one mesh per batch seems to be the fastest.
+		const int MAX_ENTITIES_PER_BATCH = 1;
 
 		public InstancedGeometryManager() {
 			igeoms = new Dictionary<string, InstancedGeometry>();
@@ -36,13 +40,15 @@ namespace Ponykart.Actors {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			string meshName = def.GetStringProperty("mesh", null);
+			string mapGroup = template.GetStringProperty("MapGroup", string.Empty);
+			string key = mapGroup + meshName;
 
 			// create our entity if it doesn't exist
-			if (!ents.ContainsKey(meshName)) {
+			if (!ents.ContainsKey(key)) {
 				Entity ent = sceneMgr.CreateEntity(mc.Name + mc.ID, meshName);
-				ent.SetMaterialName(def.GetStringProperty("Material", ""));
+				ent.SetMaterialName(def.GetStringProperty("Material", string.Empty));
 				// then add it to our dictionary
-				ents.Add(meshName, ent);
+				ents.Add(key, ent);
 			}
 
 			// get our transforms
@@ -67,14 +73,12 @@ namespace Ponykart.Actors {
 			};
 
 			// if the transforms dictionary doesn't contain the mesh yet, add a new one
-			if (!transforms.ContainsKey(meshName)) {
-				transforms.Add(meshName, new List<Transform>());
+			if (!transforms.ContainsKey(key)) {
+				transforms.Add(key, new List<Transform>());
 			}
 			// then put our transform into the dictionary
-			transforms[meshName].Add(trans);
+			transforms[key].Add(trans);
 		}
-
-		const int MAX_ENTITIES_PER_BATCH = 1;
 
 		/// <summary>
 		/// 1: Create the entity
@@ -95,7 +99,7 @@ namespace Ponykart.Actors {
 				// its name is the mesh name
 				InstancedGeometry igeom = sceneMgr.CreateInstancedGeometry(ent.Key);
 				igeom.CastShadows = false;
-				igeom.BatchInstanceDimensions = new Vector3(50, 1000, 50);
+				igeom.BatchInstanceDimensions = regionDimensions;
 
 				// add the entities to our batch
 				int numEnts = transforms[ent.Key].Count;
@@ -144,6 +148,14 @@ namespace Ponykart.Actors {
 				}
 				sceneMgr.DestroyEntity(ent.Value);
 				ent.Value.Dispose();
+
+				igeoms.Add(ent.Key, igeom);
+			}
+		}
+
+		public void ToggleVisible() {
+			foreach (InstancedGeometry ig in igeoms.Values) {
+				ig.SetVisible(!ig.IsVisible);
 			}
 		}
 

@@ -2,7 +2,6 @@
 using Mogre;
 using MOIS;
 using Ponykart.Actors;
-using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Lua;
 using Ponykart.Physics;
@@ -33,9 +32,6 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<DebugOverlayManager>().ToggleDebugOverlay();
 					break;
 #if DEBUG
-				case KeyCode.KC_K:
-					LKernel.GetG<Spawner>().Spawn("Kart", LKernel.GetG<PlayerManager>().MainPlayer.NodePosition);
-					break;
 				case KeyCode.KC_X:
 					MogreDebugDrawer.Singleton.Clear();
 					break;
@@ -58,14 +54,19 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_F:
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity *= 2f;
 					break;
-				/*case KeyCode.KC_L:
-					LKernel.GetG<LuaMain>().DoFile(Settings.Default.LuaFileLocation + "test" + Settings.Default.LuaFileExtension);
-					break;*/
-				case KeyCode.KC_R:
-					new Rotater<Kart>(LKernel.GetG<PlayerManager>().MainPlayer.Kart, 1, new Degree(90), RotaterAxisMode.RelativeY);
-					break;
-				case KeyCode.KC_G:
+				case KeyCode.KC_F1:
 					LKernel.GetG<StaticGeometryManager>().ToggleVisible();
+					break;
+				case KeyCode.KC_F2:
+					LKernel.GetG<InstancedGeometryManager>().ToggleVisible();
+					break;
+				case KeyCode.KC_F3:
+					var level = LKernel.GetG<LevelManager>().CurrentLevel;
+					foreach (LThing t in level.Things.Values) {
+						foreach (BillboardSetComponent bsc in t.BillboardSetComponents) {
+							bsc.BillboardSet.Visible = !bsc.BillboardSet.Visible;
+						}
+					}
 					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");

@@ -7,6 +7,7 @@ namespace Ponykart.Actors {
 	public class StaticGeometryManager {
 		IDictionary<string, StaticGeometry> sgeoms;
 		IDictionary<string, Entity> ents;
+		readonly Vector3 regionDimensions = new Vector3(200, 1000, 200);
 
 		public StaticGeometryManager() {
 			ents = new Dictionary<string, Entity>();
@@ -38,14 +39,16 @@ namespace Ponykart.Actors {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			string meshName = def.GetStringProperty("mesh", null);
+			string mapGroup = template.GetStringProperty("MapGroup", string.Empty);
+			string key = mapGroup + meshName;
 			Entity ent;
 
 			// get our entity if it already exists
-			if (!ents.TryGetValue(meshName, out ent)) {
+			if (!ents.TryGetValue(key, out ent)) {
 				// getting the entity was not successful, so we have to create it
 				ent = sceneMgr.CreateEntity(mc.Name + mc.ID, meshName);
-				ent.SetMaterialName(def.GetStringProperty("Material", ""));
-				ents.Add(meshName, ent);
+				ent.SetMaterialName(def.GetStringProperty("Material", string.Empty));
+				ents.Add(key, ent);
 			}
 
 			Vector3 pos;
@@ -62,14 +65,14 @@ namespace Ponykart.Actors {
 			Vector3 sca = def.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			StaticGeometry sg;
-			if (!sgeoms.TryGetValue(meshName, out sg)) {
-				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(meshName);
+			if (!sgeoms.TryGetValue(key, out sg)) {
+				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(key);
 
-				sg.RegionDimensions = new Vector3(50, 1000, 50);
+				sg.RegionDimensions = regionDimensions;
 				sg.RenderingDistance = 500;
 				sg.CastShadows = false;
 
-				sgeoms.Add(meshName, sg);
+				sgeoms.Add(key, sg);
 			}
 			
 			sg.AddEntity(ent, pos, orient, sca);

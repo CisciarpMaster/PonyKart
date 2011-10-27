@@ -140,7 +140,7 @@ namespace Ponykart.Physics {
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
-			lock (this) {
+			lock (world) {
 				foreach (IDisposable stuff in PhysicsStuffToDispose) {
 					if (!stuff.IsDisposed) {
 						if ((stuff as BulletWorldImporter) != null) {
