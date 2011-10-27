@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define VERBOSE
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
@@ -14,8 +16,8 @@ namespace Ponykart.Stuff {
 	/// </summary>
 	public class DotSceneLoader {
 
-		public List<string> DynamicObjects; //String
-		public List<string> StaticObjects; //String
+		public List<string> DynamicObjects;
+		public List<string> StaticObjects;
 
 		protected SceneNode attachNode;
 		protected SceneManager sceneMgr;
@@ -24,11 +26,11 @@ namespace Ponykart.Stuff {
 		protected string sceneFileName;
 
 		public void ParseDotScene(String SceneName, String groupName) {
-			ParseDotScene(SceneName, groupName, null, "");
+			ParseDotScene(SceneName, groupName, null, string.Empty);
 		}
 
 		public void ParseDotScene(String SceneName, String groupName, SceneNode pAttachNode) {
-			ParseDotScene(SceneName, groupName, pAttachNode, "");
+			ParseDotScene(SceneName, groupName, pAttachNode, string.Empty);
 		}
 
 		public void ParseDotScene(String SceneName, String groupName1, SceneNode pAttachNode, String sPrependNode) {
@@ -188,7 +190,9 @@ namespace Ponykart.Stuff {
 				}
 				pCamera.FarClipDistance = farDist;
 			}
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed camera \"" + name + "\"");
+#endif
 		}
 
 		protected void processEntity(XmlElement XMLNode, SceneNode pParent) {
@@ -237,7 +241,9 @@ namespace Ponykart.Stuff {
 				Launch.Log("[DotSceneLoader] Error loading an entity!" + e.Message + " [File: " + sceneFileName + "]");
 			}
 
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed entity \"" + name + "\"");
+#endif
 		}
 
 		protected void processEnvironment(XmlElement XMLNode) {
@@ -263,7 +269,9 @@ namespace Ponykart.Stuff {
 			//            pElement = (XmlElement)XMLNode.SelectSingleNode("userData");
 			//            if (pElement != null)
 			//                processUserDataReference(pElement);
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed environment");
+#endif
 		}
 
 		protected void processFog(XmlElement XMLNode) {
@@ -293,8 +301,9 @@ namespace Ponykart.Stuff {
 
 			// Setup the fog
 			sceneMgr.SetFog(mode, colourDiffuse, 0.001f, linearStart, linearEnd);
-
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed fog");
+#endif
 		}
 
 		protected void processLight(XmlElement XMLNode, SceneNode pParent) {
@@ -352,7 +361,9 @@ namespace Ponykart.Stuff {
 			if (pElement != null)
 				processLightAttenuation(pElement, pLight);
 
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed light \"" + name + "\"");
+#endif
 		}
 
 		protected void processLightAttenuation(XmlElement XMLNode, Light pLight) {
@@ -365,7 +376,9 @@ namespace Ponykart.Stuff {
 			// Setup the light attenuation
 			pLight.SetAttenuation(range, constant, linear, quadratic);
 
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed light attenuation");
+#endif
 		}
 
 		protected void processLightRange(XmlElement XMLNode, Light pLight) {
@@ -377,7 +390,9 @@ namespace Ponykart.Stuff {
 			// Setup the light range
 			pLight.SetSpotlightRange(new Radian((Degree) inner), new Radian((Degree) outer), falloff);
 
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed light range");
+#endif
 		}
 
 		protected void processNode(XmlElement XMLNode, SceneNode pParent) {
@@ -471,7 +486,9 @@ namespace Ponykart.Stuff {
 				pElement = (XmlElement) pElement.NextSibling;
 			}
 
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed scene node \"" + name + "\"");
+#endif
 		}
 
 		protected void processPlane(XmlElement XMLNode, SceneNode pParent) {
@@ -514,7 +531,9 @@ namespace Ponykart.Stuff {
 				Launch.Log("[DotSceneLoader] Error loading an entity!" + e.Message + " [File: " + sceneFileName + "]");
 			}
 
+#if VERBOSE
 			Launch.Log("[DotSceneLoader] Successfully processed plane \"" + name + "\"");
+#endif
 		}
 
 		protected void processNodes(XmlElement XMLNode) {

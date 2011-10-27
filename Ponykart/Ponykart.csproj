@@ -305,7 +305,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>rmdir /S /Q "$(TargetDir)media"
-xcopy "$(SolutionDir)Resources\*" "$(TargetDir)" /S /C /Q /Y</PostBuildEvent>
+    <PostBuildEvent>REM rmdir /S /Q "$(TargetDir)media"
+robocopy "$(SolutionDir)Resources" $(TargetDir) /E /NFL /NJS /NJH /NDL /NP
+
+REM Following is a hack to remove the error code becuase robocopy returns 1 for success
+dir %25TEMP%25 &gt;nul</PostBuildEvent>
   </PropertyGroup>
 </Project>
