@@ -40,7 +40,7 @@ namespace Ponykart.Actors {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			string meshName = def.GetStringProperty("mesh", null);
-			string mapGroup = template.GetStringProperty("MapGroup", string.Empty);
+			string mapGroup = template.GetStringProperty("MapRegion", string.Empty);
 			string key = mapGroup + meshName;
 
 			// create our entity if it doesn't exist
