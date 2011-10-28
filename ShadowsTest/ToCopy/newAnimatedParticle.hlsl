@@ -11,19 +11,17 @@ void main_vp(float2 uv : TEXCOORD0,
 			 
 			 uniform float4x4 worldViewProj)
 {
-	int numTilesTotal = numTilesU*numTilesV;
-	int selectedTile = (int)(numTilesTotal * color.a);
-	if (selectedTile == numTilesTotal)
-		selectedTile = numTilesTotal - 1;
-	int selTileU = selectedTile % numTilesU;
-	int selTileV = selectedTile / numTilesU;
-	float offsetU = selTileU;
-	float offsetV = selTileV;
-	oUv.x = uv.x + offsetU;
-	oUv.y = uv.y + offsetV;
-	oUv.x /= numTilesU;
-	oUv.y /= numTilesV;
-	
+
+
+numTilesU = 8;
+numTilesV = 8;
+int numTilesTotal = numTilesU*numTilesV;
+int selectedTile = (int)(numTilesTotal * color.a);
+if (selectedTile == numTilesTotal)
+	selectedTile = numTilesTotal - 1;
+oUv.x = (uv.x+selectedTile%numTilesU)/numTilesU;///selectedTile;
+oUv.y = (uv.y+selectedTile/numTilesU)/numTilesV;///selectedTile;
+
 	oPosition = mul(worldViewProj, position);
 	oColor = color;
 }
@@ -33,5 +31,5 @@ float4 main_fp (float2 uv : TEXCOORD0,
 : COLOR
 {
 	return tex2D(tex, uv.xy);
-	//return float4(uv.x, 0, 0, 1);
+	//return float4(1, 1, 1, 1);
 }
