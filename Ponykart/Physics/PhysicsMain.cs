@@ -150,6 +150,7 @@ namespace Ponykart.Physics {
 					}
 				}
 				PhysicsStuffToDispose.Clear();
+				PhysicsExtensions.CollisionObjectNames.Clear();
 
 				if (!world.IsDisposed) {
 					broadphase.Dispose();

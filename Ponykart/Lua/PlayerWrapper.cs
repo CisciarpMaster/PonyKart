@@ -17,15 +17,19 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("forEachPlayer", "Runs a function for each player.", "function(player, int playerID)")]
 		public static void ForEachPlayer(Action<Player, int> action) {
-			foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
-				action.Invoke(p, p.ID);
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
+				foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
+					action.Invoke(p, p.ID);
+				}
 			}
 		}
 
 		[LuaFunction("forEachKart", "Runs a function for each kart.", "function(kart, int playerID)")]
 		public static void ForEachKart(Action<Kart, int> action) {
-			foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
-				action.Invoke(p.Kart, p.ID);
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
+				foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
+					action.Invoke(p.Kart, p.ID);
+				}
 			}
 		}
 

@@ -10,7 +10,7 @@ namespace Ponykart.Physics {
 	static class PhysicsExtensions {
 		#region CollisionObject
 
-		private static IDictionary<CollisionObject, string> CollisionObjectNames = new Dictionary<CollisionObject, string>();
+		public static IDictionary<CollisionObject, string> CollisionObjectNames = new Dictionary<CollisionObject, string>();
 
 		/// <summary>
 		/// Hackish method for getting a name from a collision object

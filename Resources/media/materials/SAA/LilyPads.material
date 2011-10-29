@@ -41,6 +41,7 @@ material Lily {
 			transparent_sorting on
 			scene_blend alpha_blend
 			depth_write off
+			lighting off
 
 			texture_unit {
 				texture billboards.dds

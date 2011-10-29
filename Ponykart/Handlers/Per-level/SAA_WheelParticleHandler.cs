@@ -210,6 +210,8 @@ namespace Ponykart.Handlers {
 			KartHandler.OnGroundChanged -= OnGroundChanged;
 			KartHandler.OnTouchdown -= OnTouchdown;
 			KartHandler.OnLiftoff -= OnLiftoff;
+
+			wheelHelpers.Clear();
 		}
 
 		private enum KartSpeedState {

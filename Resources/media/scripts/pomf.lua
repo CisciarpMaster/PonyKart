@@ -10,7 +10,7 @@ local function emitting(kartID, isEmitting)
 end
 
 -- creates the particles and attaches them to the kart
-function poofParticles_init(kart, id)
+function pomfParticles_init(kart, id)
 	local dirt = createParticleSystem("kartPomfParticle" .. id, "Pomf")
 	
 	-- turn off our particles so they don't emit for now
@@ -24,13 +24,16 @@ function poofParticles_init(kart, id)
 end
 
 -- run this on every kart
-forEachKart(poofParticles_init)
+forEachKart(pomfParticles_init)
 
 local onGroundHandler
 local function onGround(kart, callback)
 	emitting(kart.OwnerID, false)
 	
-	kartHandler.OnGround:Remove(onGroundHandler)
+	if onGroundHandler ~= nil then
+		kartHandler.OnGround:Remove(onGroundHandler)
+		onGroundHandler = nil
+	end
 end
 
 -- runs when we land
@@ -42,3 +45,6 @@ end
 
 -- then hook up to the events
 kartHandler.OnTouchdown:Add(onTouchdown)
+-- hopefully prevents a bug where sometimes the pomf particle would stay visible
+kartHandler.OnCloseToTouchdown:Add(onGround)
+kartHandler.OnLiftoff:Add(onGround)

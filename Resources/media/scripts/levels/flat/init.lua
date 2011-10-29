@@ -1,4 +1,6 @@
+
 function flat(level)
+--[[
 	local x, z, n
 	
 	for x = -20, 20 do
@@ -14,4 +16,5 @@ function flat(level)
 			spawn("BillboardAppleTree" .. n, vector(x * 10, 0, z * 10))
 		end
 	end
+	]]
 end
