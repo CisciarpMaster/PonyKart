@@ -57,54 +57,17 @@ material Particles/Dust {
 			lighting off
 			scene_blend alpha_blend
 			depth_write off
-			transparent_sorting on
+			
+			vertex_program_ref randomParticle_vp {
+				param_named numTilesU float 4
+				param_named numTilesV float 1
+			}
+			
+			fragment_program_ref randomParticle_fp {
+			}
 			
 			texture_unit {
-				texture Dust3.png
-				tex_address_mode clamp
-			}
-		}
-	}
-}
-
-material Particles/Dust1 : Particles/Dust {
-	technique {
-		pass {
-			texture_unit {
-				texture "dust 1.dds"
-				tex_address_mode clamp
-			}
-		}
-	}
-}
-
-material Particles/Dust2 : Particles/Dust {
-	technique {
-		pass {
-			texture_unit {
-				texture "dust 2.dds"
-				tex_address_mode clamp
-			}
-		}
-	}
-}
-
-material Particles/Dust3 : Particles/Dust {
-	technique {
-		pass {
-			texture_unit {
-				texture "dust 3.dds"
-				tex_address_mode clamp
-			}
-		}
-	}
-}
-
-material Particles/Dust4 : Particles/Dust {
-	technique {
-		pass {
-			texture_unit {
-				texture "dust 4.dds"
+				texture "dustparticle.dds"
 				tex_address_mode clamp
 			}
 		}

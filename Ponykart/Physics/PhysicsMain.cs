@@ -125,7 +125,7 @@ namespace Ponykart.Physics {
 			CreateInvisibleWall();
 
 			// make a ground plane for us
-			CreateGroundPlane(-10);
+			CreateGroundPlane(-15);
 
 			// run some events
 			if (PostCreateWorld != null)

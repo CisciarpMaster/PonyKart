@@ -1,20 +1,23 @@
 particle_system SAA/mud {
 	quota 100
 	material Particles/Mud
-	particle_width	1
-	particle_height	1
+	particle_width	1.2
+	particle_height	1.2
 	billboard_type point
 	sorted true
 
 	emitter Box {
-		angle 82
-		direction 0 1 0
-		velocity 0
-		emission_rate 15
-		position 0 0 0
+		angle 90
+		duration 0.3333
+		emission_rate 20
+		velocity 0.5
+		repeat_delay 0.1
 		time_to_live 0.3333
-		width 0.5
-		height 0.1
+		
+		position 0 0 -0.5
+		
+		width 1
+		height 1
 		depth 1
 	}
 	affector ColourFader {

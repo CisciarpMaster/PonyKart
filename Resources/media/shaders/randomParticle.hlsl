@@ -17,12 +17,12 @@ void main_vp(float2 uv : TEXCOORD0,
 	int iNumTilesV = (int)numTilesV;
 	
 	int numTilesTotal = iNumTilesU * iNumTilesV;
-	int selectedTile = (int)(numTilesTotal * color.a);
+	int selectedTile = (int)(numTilesTotal * color.r);
 	
 	if (selectedTile == numTilesTotal)
 		selectedTile = numTilesTotal - 1;
-	// the "1 - " bit is because otherwise it goes from right to left
-	oUv.x = 1 - ((uv.x + selectedTile % iNumTilesU) / iNumTilesU); ///selectedTile;
+		
+	oUv.x = (uv.x + selectedTile % iNumTilesU) / iNumTilesU; ///selectedTile;
 	oUv.y = (uv.y + selectedTile / iNumTilesU) / iNumTilesV; ///selectedTile;
 
 	// pass these on
@@ -31,8 +31,13 @@ void main_vp(float2 uv : TEXCOORD0,
 }
 
 float4 main_fp (float2 uv : TEXCOORD0,
+				float4 color : COLOR0,
 				uniform sampler2D tex : register(s0))
 : COLOR
 {
-	return tex2D(tex, uv.xy);
+	// keep any transparency we're using in the particle, like from a ColourFader
+	float4 oColor;
+	oColor = tex2D(tex, uv.xy);
+	oColor.a *= color.a;
+	return oColor;
 }

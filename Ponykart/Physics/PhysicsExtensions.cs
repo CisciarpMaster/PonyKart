@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BulletSharp;
 using Mogre;
 
@@ -29,6 +30,15 @@ namespace Ponykart.Physics {
 		/// <param name="newName">The new name of the collision object</param>
 		public static void SetName(this CollisionObject obj, string newName) {
 			CollisionObjectNames[obj] = newName;
+		}
+
+		/// <summary>
+		/// Gets a collision object by its name.
+		/// </summary>
+		/// <param name="name">The name of the collision object you want to search for.</param>
+		/// <returns>If successful, returns the collision object, otherwise returns null.</returns>
+		public static CollisionObject GetCollisionObjectByName(this PhysicsMain physMain, string name) {
+			return CollisionObjectNames.FirstOrDefault(p => p.Value == name).Key;
 		}
 
 		//---------------------------------------------------------------------------
