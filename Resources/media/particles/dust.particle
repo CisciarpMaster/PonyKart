@@ -1,4 +1,4 @@
-particle_system SAA/dust {
+particle_system dust {
 	quota 200
 	material Particles/Dust
 	particle_width 0.7

@@ -1,4 +1,4 @@
-particle_system SAA/Pomf {
+particle_system Pomf {
 	quota 50
 	material Particles/Pomf
 	particle_width 7

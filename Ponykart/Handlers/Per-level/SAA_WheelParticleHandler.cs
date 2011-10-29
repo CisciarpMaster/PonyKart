@@ -19,8 +19,6 @@ namespace Ponykart.Handlers {
 		float defaultDustEmissionRate = -1;
 		float defaultMudEmissionRate = -1;
 		float defaultGrassEmissionRate = -1;
-		// woo microimprovements
-		static readonly string _hyphen = "-";
 
 		/// <summary>
 		/// I mostly put this in C# because running a lua function 10 times every second per kart seemed like it could cause some slowdowns
@@ -44,9 +42,9 @@ namespace Ponykart.Handlers {
 
 				WheelHelper lefthelper = new WheelHelper();
 
-				lefthelper.dust = sceneMgr.CreateParticleSystem("wheelDustLeftParticle" + p.ID, "SAA/dust");
-				lefthelper.mud = sceneMgr.CreateParticleSystem("wheelMudLeftParticle" + p.ID, "SAA/mud");
-				lefthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassLeftParticle" + p.ID, "SAA/grass");
+				lefthelper.dust = sceneMgr.CreateParticleSystem("wheelDustLeftParticle" + p.ID, "dust");
+				lefthelper.mud = sceneMgr.CreateParticleSystem("wheelMudLeftParticle" + p.ID, "mud");
+				lefthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassLeftParticle" + p.ID, "grass");
 
 				p.Kart.LeftParticleNode.AttachObject(lefthelper.dust);
 				p.Kart.LeftParticleNode.AttachObject(lefthelper.mud);
@@ -57,9 +55,9 @@ namespace Ponykart.Handlers {
 
 				WheelHelper righthelper = new WheelHelper();
 
-				righthelper.dust = sceneMgr.CreateParticleSystem("wheelDustRightParticle" + p.ID, "SAA/dust");
-				righthelper.mud = sceneMgr.CreateParticleSystem("wheelMudRightParticle" + p.ID, "SAA/mud");
-				righthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassRightParticle" + p.ID, "SAA/grass");
+				righthelper.dust = sceneMgr.CreateParticleSystem("wheelDustRightParticle" + p.ID, "dust");
+				righthelper.mud = sceneMgr.CreateParticleSystem("wheelMudRightParticle" + p.ID, "mud");
+				righthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassRightParticle" + p.ID, "grass");
 
 				p.Kart.RightParticleNode.AttachObject(righthelper.dust);
 				p.Kart.RightParticleNode.AttachObject(righthelper.mud);

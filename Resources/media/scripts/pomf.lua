@@ -11,7 +11,7 @@ end
 
 -- creates the particles and attaches them to the kart
 function poofParticles_init(kart, id)
-	local dirt = createParticleSystem("kartPomfParticle" .. id, "SAA/Pomf")
+	local dirt = createParticleSystem("kartPomfParticle" .. id, "Pomf")
 	
 	-- turn off our particles so they don't emit for now
 	dirt.Emitting = false

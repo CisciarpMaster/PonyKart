@@ -59,7 +59,7 @@ material Particles/Dust {
 			depth_write off
 			
 			vertex_program_ref randomParticle_vp {
-				param_named numTilesU float 4
+				param_named numTilesU float 8
 				param_named numTilesV float 1
 			}
 			
@@ -67,7 +67,7 @@ material Particles/Dust {
 			}
 			
 			texture_unit {
-				texture "dustparticle.dds"
+				texture "saa dust particles.dds"
 				tex_address_mode clamp
 			}
 		}

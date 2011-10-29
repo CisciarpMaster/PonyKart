@@ -15,8 +15,6 @@ material AppleTreeInstanced {
 	
 	technique {
 		pass {
-			lighting off
-			
 			vertex_program_ref Instancing { }
 		
 			texture_unit {
@@ -149,6 +147,21 @@ material PicnicTablecloth {
 			
 			texture_unit {
 				texture picnictable.dds
+			}
+		}
+	}
+}
+
+material Billboards {
+	technique {
+		pass {
+			transparent_sorting on
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit {
+				texture billboards.dds
+				tex_address_mode clamp
 			}
 		}
 	}
