@@ -35,6 +35,9 @@ namespace Ponykart.Actors {
 		public Wheel WheelBL { get; protected set; }
 		public Wheel WheelBR { get; protected set; }
 
+		public SceneNode LeftParticleNode { get; private set; }
+		public SceneNode RightParticleNode { get; private set; }
+
 		public readonly Degree FrontDriftAngle;
 		public readonly Degree BackDriftAngle;
 
@@ -58,6 +61,18 @@ namespace Ponykart.Actors {
 
 			FrontDriftAngle = new Degree(def.GetFloatProperty("FrontDriftAngle", 86));
 			BackDriftAngle = new Degree(def.GetFloatProperty("BackDriftAngle", 89));
+		}
+
+		/// <summary>
+		/// Make some nodes for us to attach wheel particles to
+		/// </summary>
+		protected override void PostInitialiseComponents(ThingBlock template, ThingDefinition def) {
+			Vector3 frontleft = def.GetVectorProperty("frontleftwheelposition", null);
+			Vector3 frontright = def.GetVectorProperty("frontrightwheelposition", null);
+			Vector3 backleft = def.GetVectorProperty("backleftwheelposition", null);
+			Vector3 backright = def.GetVectorProperty("backrightwheelposition", null);
+			LeftParticleNode = RootNode.CreateChildSceneNode(frontleft.MidPoint(backleft));
+			RightParticleNode = RootNode.CreateChildSceneNode(frontright.MidPoint(backright));
 		}
 
 		/// <summary>

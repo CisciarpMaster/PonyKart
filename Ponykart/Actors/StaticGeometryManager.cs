@@ -35,34 +35,34 @@ namespace Ponykart.Actors {
 		/// This is used by the ModelComponent.
 		/// </summary>
 		/// <param name="name">The name this geometry is identified by</param>
-		public void Add(ModelComponent mc, ThingBlock template, ModelBlock def) {
+		public void Add(ModelComponent mc, ThingBlock template, ModelBlock block) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
-			string meshName = def.GetStringProperty("mesh", null);
-			string mapGroup = template.GetStringProperty("MapRegion", string.Empty);
-			string key = mapGroup + meshName;
+			string meshName = block.GetStringProperty("mesh", null);
+			string mapRegion = template.GetStringProperty("MapRegion", string.Empty);
+			string key = mapRegion + meshName;
 			Entity ent;
 
 			// get our entity if it already exists
-			if (!ents.TryGetValue(key, out ent)) {
+			if (!ents.TryGetValue(meshName, out ent)) {
 				// getting the entity was not successful, so we have to create it
-				ent = sceneMgr.CreateEntity(mc.Name + mc.ID, meshName);
-				ent.SetMaterialName(def.GetStringProperty("Material", string.Empty));
-				ents.Add(key, ent);
+				ent = sceneMgr.CreateEntity(meshName + mc.ID, meshName);
+				ent.SetMaterialName(block.GetStringProperty("Material", string.Empty));
+				ents.Add(meshName, ent);
 			}
 
 			Vector3 pos;
 			// two ways to get the position
 			// inherit it from the lthing, the default (if we were using nodes, this would be the default too)
-			if (def.GetBoolProperty("InheritOrientation", true)) {
-				pos = (mc.Owner.SpawnOrientation * def.GetVectorProperty("position", Vector3.ZERO)) + template.VectorTokens["position"];
+			if (block.GetBoolProperty("InheritOrientation", true)) {
+				pos = (mc.Owner.SpawnOrientation * block.GetVectorProperty("position", Vector3.ZERO)) + template.VectorTokens["position"];
 			}
 			// or we can choose not to inherit it for whatever reason
 			else {
-				pos = def.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
+				pos = block.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
 			}
-			Quaternion orient = def.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
-			Vector3 sca = def.GetVectorProperty("scale", Vector3.UNIT_SCALE);
+			Quaternion orient = block.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
+			Vector3 sca = block.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			StaticGeometry sg;
 			if (!sgeoms.TryGetValue(key, out sg)) {
@@ -83,6 +83,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Build() {
 			foreach (StaticGeometry sg in sgeoms.Values) {
+				System.Console.WriteLine("Static Geometry: " + sg.Name);
 				sg.Build();
 			}
 

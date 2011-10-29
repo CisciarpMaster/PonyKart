@@ -15,6 +15,8 @@ LoadFile = "saa/treehouse trees"
 LoadFile = "saa/cliff trees"
 LoadFile = "saa/bucket trees"
 
+LoadFile = "saa/collidable trees"
+
 Music = "Sweet Apple Acres 128bpm.ogg"
 InvisibleWalls = "SAA_InvisibleWalls.bullet"
 
@@ -220,30 +222,30 @@ FlowerBarrel {
 
 // stuff in the drivable grass area on that S-turn
 AppleCart {
-	Name = "AppleCart#002_1"
-	Position = 0, 0, 0
+	Position = 151.38, 2.4844, 37.0723
+	Orientation = 0, 0.544802, -2.38141E-08, 0.838565
 }
 AppleCart {
-	Name = "AppleCart#006"
-	Position = 0, 0, 0
+	Position = 89.3131, 1.53173, -42.7306
+	Orientation = 0.0110251, 0.991424, -0.0810175, 0.101942
 }
 AppleContainerSmall {
-	Name = "AppleContainerSmall#_1"
-	Position = 0, 0, 0
+	Position = 68.8546, 0.79243, -12.8642
+	Orientation = 0.0178886, -0.030182, 0.0511453, 0.998075
 }
 AppleContainerSmall {
-	Name = "AppleContainerSmall#005_1"
-	Position = 0, 0, 0
+	Position = 96.0349, 2.29395, -2.70654
+	Orientation = 0, -0.555358, 2.42754E-08, 0.831612
 }
 Bucket {
-	Name = "Bucket#001_1"
-	Position = 0, 0, 0
+	Position = 181.303, 4.30353, 19.4632
+	Orientation = -0.0862961, -0.0145952, 0.0985059, 0.99128
 }
 Bucket {
-	Name = "Bucket#003_1"
-	Position = 0, 0, 0
+	Position = 118.332, 0.766, 45.3913
+	Orientation = 0.0468018, 0.0961371, 0.0412593, 0.993411
 }
 Bucket {
-	Name = "Bucket#004_1"
-	Position = 0, 0, 0
+	Position = 106.251, 0.54157, -39.2153
+	Orientation = -0.0918146, -0.0828616, -0.0508696, 0.991018
 }

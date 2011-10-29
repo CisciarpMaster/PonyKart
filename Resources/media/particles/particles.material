@@ -1,29 +1,4 @@
-vertex_program animatedParticle_vp hlsl {
-	source animatedParticle.hlsl
-	entry_point main_vp
-	target vs_2_0
-}
- 
-fragment_program animatedParticle_fp hlsl {
-	source animatedParticle.hlsl
-	entry_point main_fp
-	target ps_2_0
-}
- 
-abstract material animatedParticle {
-	technique {
-		pass {
-			vertex_program_ref animatedParticle_vp {
-				param_named_auto worldViewProj worldviewproj_matrix
-			}
- 
-			fragment_program_ref animatedParticle_fp {
-			}
-		}
-	}
-}
-
-material Particles/Mud : animatedParticle {
+material Particles/Mud {
 	receive_shadows off
 	
 	technique {
@@ -31,11 +6,44 @@ material Particles/Mud : animatedParticle {
 			lighting off
 			scene_blend alpha_blend
 			depth_write off
+			
+			vertex_program_ref animatedParticle_vp {
+				param_named numTilesU float 8
+				param_named numTilesV float 1
+			}
+			
+			fragment_program_ref animatedParticle_fp {
+			}
  
 			texture_unit {
-				texture mudparticle.dds 3d
+				texture "mudparticle.dds"
 				tex_address_mode clamp
-				filtering linear linear none
+			}
+		}
+	}
+}
+
+material Particles/Pomf {
+	receive_shadows off
+	
+	technique {
+		pass {
+			lighting off
+			scene_blend add
+			depth_write off
+			cull_hardware off
+			
+			vertex_program_ref animatedParticle_vp {
+				param_named numTilesU float 6
+				param_named numTilesV float 1
+			}
+			
+			fragment_program_ref animatedParticle_fp {
+			}
+			
+			texture_unit {
+				texture "pomf.dds"
+				tex_address_mode clamp
 			}
 		}
 	}
@@ -53,6 +61,50 @@ material Particles/Dust {
 			
 			texture_unit {
 				texture Dust3.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Particles/Dust1 : Particles/Dust {
+	technique {
+		pass {
+			texture_unit {
+				texture "dust 1.dds"
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Particles/Dust2 : Particles/Dust {
+	technique {
+		pass {
+			texture_unit {
+				texture "dust 2.dds"
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Particles/Dust3 : Particles/Dust {
+	technique {
+		pass {
+			texture_unit {
+				texture "dust 3.dds"
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Particles/Dust4 : Particles/Dust {
+	technique {
+		pass {
+			texture_unit {
+				texture "dust 4.dds"
 				tex_address_mode clamp
 			}
 		}

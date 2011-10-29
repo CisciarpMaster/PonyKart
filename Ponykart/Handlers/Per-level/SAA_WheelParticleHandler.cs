@@ -9,12 +9,12 @@ namespace Ponykart.Handlers {
 	[Handler(HandlerScope.Level, LevelType.Race, "SweetAppleAcres")]
 	public class SAA_WheelParticleHandler : ILevelHandler {
 		// our dictionaries of particles
-		private IDictionary<string, ParticleSystem> dirtParticles, grassParticles;
+		private IDictionary<int, Pair<WheelHelper, WheelHelper>> wheelHelpers;
 		private IList<KartSpeedState> kartSpeedStates;
 
 		// default emission rates
-		float defaultDirtEmissionRate = -1;
-		float defaultGrassEmissionRate = -1;
+		//float defaultDustEmissionRate = -1;
+		//float defaultGrassEmissionRate = -1;
 		// woo microimprovements
 		static readonly string _hyphen = "-";
 
@@ -23,8 +23,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		public SAA_WheelParticleHandler() {
 			// init the dictionaries
-			dirtParticles = new Dictionary<string, ParticleSystem>();
-			grassParticles = new Dictionary<string, ParticleSystem>();
+			wheelHelpers = new Dictionary<int, Pair<WheelHelper, WheelHelper>>();
 			kartSpeedStates = new List<KartSpeedState>();
 
 			// hook up to events
@@ -37,25 +36,52 @@ namespace Ponykart.Handlers {
 
 			// create particles for each wheel
 			foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
-				for (int a = 0; a < 4; a++) {
-					var dirt = sceneMgr.CreateParticleSystem(string.Concat("wheelDirtParticle", p.ID, _hyphen, a), "SAA/mud");
-					var grass = sceneMgr.CreateParticleSystem(string.Concat("wheelGrassParticle", p.ID, _hyphen, a), "SAA/grass");
+				
 
-					dirt.Emitting = false;
-					grass.Emitting = false;
+				WheelHelper lefthelper = new WheelHelper();
 
-					var wheel = p.Kart.GetWheel(a);
-					wheel.Node.AttachObject(dirt);
-					wheel.Node.AttachObject(grass);
+				lefthelper.dust1 = sceneMgr.CreateParticleSystem("wheelDust1LeftParticle" + p.ID, "dust1");
+				lefthelper.dust2 = sceneMgr.CreateParticleSystem("wheelDust2LeftParticle" + p.ID, "dust1");
+				lefthelper.dust3 = sceneMgr.CreateParticleSystem("wheelDust3LeftParticle" + p.ID, "dust1");
+				lefthelper.dust4 = sceneMgr.CreateParticleSystem("wheelDust4LeftParticle" + p.ID, "dust1");
+				lefthelper.mud = sceneMgr.CreateParticleSystem("wheelMudLeftParticle" + p.ID, "SAA/mud");
+				lefthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassLeftParticle" + p.ID, "SAA/grass");
 
-					dirtParticles[string.Concat(p.ID, _hyphen, a)] = dirt;
-					grassParticles[string.Concat(p.ID, _hyphen, a)] = grass;
+				p.Kart.LeftParticleNode.AttachObject(lefthelper.dust1);
+				p.Kart.LeftParticleNode.AttachObject(lefthelper.dust2);
+				p.Kart.LeftParticleNode.AttachObject(lefthelper.dust3);
+				p.Kart.LeftParticleNode.AttachObject(lefthelper.dust4);
+				p.Kart.LeftParticleNode.AttachObject(lefthelper.mud);
+				//p.Kart.LeftParticleNode.AttachObject(lefthelper.grass);
 
-					if (defaultDirtEmissionRate == -1)
-						defaultDirtEmissionRate = dirt.GetEmitter(0).EmissionRate;
-					if (defaultGrassEmissionRate == -1)
-						defaultGrassEmissionRate = grass.GetEmitter(0).EmissionRate;
-				}
+				lefthelper.DisableDust();
+				lefthelper.DisableGrass();
+
+				WheelHelper righthelper = new WheelHelper();
+
+				righthelper.dust1 = sceneMgr.CreateParticleSystem("wheelDust1RightParticle" + p.ID, "dust1");
+				righthelper.dust2 = sceneMgr.CreateParticleSystem("wheelDust2RightParticle" + p.ID, "dust1");
+				righthelper.dust3 = sceneMgr.CreateParticleSystem("wheelDust3RightParticle" + p.ID, "dust1");
+				righthelper.dust4 = sceneMgr.CreateParticleSystem("wheelDust4RightParticle" + p.ID, "dust1");
+				righthelper.mud = sceneMgr.CreateParticleSystem("wheelMudRightParticle" + p.ID, "SAA/mud");
+				righthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassRightParticle" + p.ID, "SAA/grass");
+
+				p.Kart.RightParticleNode.AttachObject(righthelper.dust1);
+				p.Kart.RightParticleNode.AttachObject(righthelper.dust2);
+				p.Kart.RightParticleNode.AttachObject(righthelper.dust3);
+				p.Kart.RightParticleNode.AttachObject(righthelper.dust4);
+				p.Kart.RightParticleNode.AttachObject(righthelper.mud);
+				//p.Kart.RightParticleNode.AttachObject(righthelper.grass);
+
+				righthelper.DisableDust();
+				righthelper.DisableGrass();
+
+				/*if (defaultDustEmissionRate == -1)
+					defaultDustEmissionRate = helper.dust1.GetEmitter(0).EmissionRate;
+				if (defaultGrassEmissionRate == -1)
+					defaultGrassEmissionRate = helper.grass.GetEmitter(0).EmissionRate;*/
+
+				wheelHelpers.Add(p.ID, new Pair<WheelHelper, WheelHelper>(lefthelper, righthelper));
 
 				// add one of these to the states list
 				kartSpeedStates.Add(KartSpeedState.None);
@@ -79,31 +105,27 @@ namespace Ponykart.Handlers {
 		/// Sets all of the emission states of the dirt particles of a kart
 		/// </summary>
 		void DirtEmitting(int kartID, bool isEmitting) {
-			string idWithHyphen = kartID + _hyphen;
-			for (int a = 0; a < 4; a++) {
-				dirtParticles[idWithHyphen + a].Emitting = isEmitting;
-			}
+			wheelHelpers[kartID].first.Dust(isEmitting);
+			wheelHelpers[kartID].second.Dust(isEmitting);
 		}
 
 		/// <summary>
 		/// Sets all of the emission states of the grass particles of a kart
 		/// </summary>
 		void GrassEmitting(int kartID, bool isEmitting) {
-			string idWithHyphen = kartID + _hyphen;
-			for (int a = 0; a < 4; a++) {
-				grassParticles[idWithHyphen + a].Emitting = isEmitting;
-			}
+			wheelHelpers[kartID].first.Grass(isEmitting);
+			wheelHelpers[kartID].second.Grass(isEmitting);
 		}
 
 		/// <summary>
 		/// Sets all of the emission states of both the dirt and grass particles of a kart
 		/// </summary>
 		void BothEmitting(int kartID, bool isEmitting) {
-			string idWithHyphen = kartID + _hyphen;
-			for (int a = 0; a < 4; a++) {
-				dirtParticles[idWithHyphen + a].Emitting = isEmitting;
-				grassParticles[idWithHyphen + a].Emitting = isEmitting;
-			}
+			wheelHelpers[kartID].first.Dust(isEmitting);
+			wheelHelpers[kartID].second.Dust(isEmitting);
+
+			wheelHelpers[kartID].first.Grass(isEmitting);
+			wheelHelpers[kartID].second.Grass(isEmitting);
 		}
 
 		/// <summary>
@@ -148,10 +170,6 @@ namespace Ponykart.Handlers {
 				GrassEmitting(kart.OwnerID, false);
 		}
 
-		enum KartSpeedState {
-			None, Slow, Medium, Fast
-		}
-
 		/// <summary>
 		/// update the particle emission rates depending on speed
 		/// </summary>
@@ -179,28 +197,28 @@ namespace Ponykart.Handlers {
 				}
 
 				// update the particles
-				string idWithHypen = kart.OwnerID + _hyphen;
+				/*string idWithHypen = kart.OwnerID + _hyphen;
 				// make some new emission rates
-				float dirtEmissionRate = (speed / 150) * defaultDirtEmissionRate;
+				float dirtEmissionRate = (speed / 150) * defaultDustEmissionRate;
 				float grassEmissionRate = (speed / 150) * defaultGrassEmissionRate;
 				for (int a = 0; a < 4; a++) {
 					// and update the particles
 					dirtParticles[idWithHypen + a].GetEmitter(0).EmissionRate = dirtEmissionRate;
 					grassParticles[idWithHypen + a].GetEmitter(0).EmissionRate = grassEmissionRate;
-				}
+				}*/
 			}
 			// and if we're moving at a fast speed
 			else {
-				if (kartSpeedStates[kart.OwnerID] != KartSpeedState.Fast) {
+				/*if (kartSpeedStates[kart.OwnerID] != KartSpeedState.Fast) {
 					kartSpeedStates[kart.OwnerID] = KartSpeedState.Fast;
 
 					string idWithHypen = kart.OwnerID + _hyphen;
 					for (int a = 0; a < 4; a++) {
 						// update all of the particles to use the default emission rate instead of whatever it was set to before
-						dirtParticles[idWithHypen + a].GetEmitter(0).EmissionRate = defaultDirtEmissionRate;
+						dirtParticles[idWithHypen + a].GetEmitter(0).EmissionRate = defaultDustEmissionRate;
 						grassParticles[idWithHypen + a].GetEmitter(0).EmissionRate = defaultGrassEmissionRate;
 					}
-				}
+				}*/
 			}
 		}
 
@@ -209,6 +227,38 @@ namespace Ponykart.Handlers {
 			KartHandler.OnGroundChanged -= OnGroundChanged;
 			KartHandler.OnTouchdown -= OnTouchdown;
 			KartHandler.OnLiftoff -= OnLiftoff;
+		}
+
+		private enum KartSpeedState {
+			None, Slow, Medium, Fast
+		}
+
+		private class WheelHelper {
+			public ParticleSystem mud, grass, dust1, dust2, dust3, dust4;
+
+			public void EnableGrass() {
+				mud.Emitting = grass.Emitting = true;
+			}
+
+			public void Grass(bool enabled) {
+				mud.Emitting = grass.Emitting = enabled;
+			}
+
+			public void DisableGrass() {
+				mud.Emitting = grass.Emitting = false;
+			}
+
+			public void EnableDust() {
+				dust1.Emitting = dust2.Emitting = dust3.Emitting = dust4.Emitting = true;
+			}
+
+			public void Dust(bool enabled) {
+				dust1.Emitting = dust2.Emitting = dust3.Emitting = dust4.Emitting = enabled;
+			}
+
+			public void DisableDust() {
+				dust1.Emitting = dust2.Emitting = dust3.Emitting = dust4.Emitting = false;
+			}
 		}
 	}
 }

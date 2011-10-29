@@ -1,0 +1,155 @@
+particle_system dust1 {
+	quota 100
+	material Particles/Dust1
+	particle_width 0.5
+	particle_height	0.5
+	billboard_type point
+
+	emitter Box {
+		angle 90
+		//direction	0 0 1
+		duration 0.3
+		emission_rate 5
+		velocity 1
+		repeat_delay 0.1
+		time_to_live 0.3
+		width 0.5
+		height 0.1
+		depth 1
+	}
+	affector ColourFader {
+		alpha -3
+	}
+
+	affector Scaler {
+		rate 5
+	}
+	
+	affector Rotator {
+		rotation_speed_range_start	-360
+		rotation_speed_range_end	360
+		rotation_range_start		-360
+		rotation_range_end			360
+	}
+}
+
+particle_system dust2
+{
+	quota	50
+	material	Particles/Dust2
+	particle_width	0.5
+	particle_height	0.5
+	billboard_type	point
+
+	emitter Box
+	{
+		angle	90
+		//direction	0 0 1
+		duration 0.3
+		emission_rate	5.1
+		velocity	1
+		repeat_delay 0.1
+		time_to_live	0.3
+		width	0.5
+		height	0.1
+		depth	1
+	}
+	affector ColourFader
+	{
+		alpha -3
+	}
+
+	affector Scaler
+	{
+		rate	5
+	}
+	
+	affector Rotator
+	{
+		rotation_speed_range_start	90
+		rotation_speed_range_end	360
+		rotation_range_start		0
+		rotation_range_end			360
+	}
+}
+
+particle_system dust3
+{
+	quota	50
+	material	Particles/Dust3
+	particle_width	0.5
+	particle_height	0.5
+	billboard_type	point
+
+	emitter Box
+	{
+		angle	90
+		//direction	0 0 1
+		duration 0.3
+		emission_rate	4.9
+		velocity	1
+		repeat_delay 0.1
+		time_to_live	0.3
+		width	0.5
+		height	0.1
+		depth	1
+	}
+	affector ColourFader
+	{
+		alpha -3
+	}
+
+	affector Scaler
+	{
+		rate	5
+	}
+	
+	affector Rotator
+	{
+		rotation_speed_range_start	90
+		rotation_speed_range_end	360
+		rotation_range_start		0
+		rotation_range_end			360
+	}
+}
+
+// this one is bigger, at 256x256 instead of 128x128 like the others
+particle_system dust4
+{
+	quota	50
+	material	Particles/Dust4
+	particle_width	1
+	particle_height	1
+	billboard_type	point
+
+	emitter Box
+	{
+		angle	90
+		//direction	0 0 1
+		duration 0.3
+		emission_rate	4.8
+		velocity	1
+		repeat_delay 0.1
+		time_to_live	0.3
+		width	0.5
+		height	0.1
+		depth	1
+	}
+	affector ColourFader
+	{
+		alpha -3
+	}
+
+	affector Scaler
+	{
+		rate	5
+	}
+	
+	affector Rotator
+	{
+		rotation_speed_range_start	90
+		rotation_speed_range_end	360
+		rotation_range_start		0
+		rotation_range_end			360
+	}
+}

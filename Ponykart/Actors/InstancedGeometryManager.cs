@@ -36,17 +36,17 @@ namespace Ponykart.Actors {
 			igeoms.Clear();
 		}
 
-		public void Add(ModelComponent mc, ThingBlock template, ModelBlock def) {
+		public void Add(ModelComponent mc, ThingBlock template, ModelBlock block) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
-			string meshName = def.GetStringProperty("mesh", null);
-			string mapGroup = template.GetStringProperty("MapRegion", string.Empty);
-			string key = mapGroup + meshName;
+			string meshName = block.GetStringProperty("mesh", null);
+			string mapRegion = template.GetStringProperty("MapRegion", string.Empty);
+			string key = mapRegion + meshName;
 
 			// create our entity if it doesn't exist
 			if (!ents.ContainsKey(key)) {
 				Entity ent = sceneMgr.CreateEntity(mc.Name + mc.ID, meshName);
-				ent.SetMaterialName(def.GetStringProperty("Material", string.Empty));
+				ent.SetMaterialName(block.GetStringProperty("Material", string.Empty));
 				// then add it to our dictionary
 				ents.Add(key, ent);
 			}
@@ -55,15 +55,15 @@ namespace Ponykart.Actors {
 			Vector3 pos;
 			// two ways to get the position
 			// inherit it from the lthing, the default (if we were using nodes, this would be the default too)
-			if (def.GetBoolProperty("InheritOrientation", true)) {
-				pos = (mc.Owner.SpawnOrientation * def.GetVectorProperty("position", Vector3.ZERO)) + template.VectorTokens["position"];
+			if (block.GetBoolProperty("InheritOrientation", true)) {
+				pos = (mc.Owner.SpawnOrientation * block.GetVectorProperty("position", Vector3.ZERO)) + template.VectorTokens["position"];
 			}
 			// or we can choose not to inherit it for whatever reason
 			else {
-				pos = def.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
+				pos = block.GetVectorProperty("position", Vector3.ZERO) + template.VectorTokens["position"];
 			}
-			Quaternion orient = def.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
-			Vector3 sca = def.GetVectorProperty("scale", Vector3.UNIT_SCALE);
+			Quaternion orient = block.GetQuatProperty("orientation", Quaternion.IDENTITY) * template.GetQuatProperty("orientation", Quaternion.IDENTITY);
+			Vector3 sca = block.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			// put them in one class
 			Transform trans = new Transform {
@@ -149,6 +149,7 @@ namespace Ponykart.Actors {
 				sceneMgr.DestroyEntity(ent.Value);
 				ent.Value.Dispose();
 
+				System.Console.WriteLine("Instanced Geometry: " + igeom.Name);
 				igeoms.Add(ent.Key, igeom);
 			}
 		}

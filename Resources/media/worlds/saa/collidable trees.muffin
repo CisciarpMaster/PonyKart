@@ -246,92 +246,92 @@ AppleTree {
 
 
 AppleTree {
-	Position = 57.615, 1.87435, -20.5439
+	Position = 57.615, -1.12565, -20.5439
 	Orientation = 0, 0.357932, -1.56457E-08, 0.933748
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 174.13, 4.04679, 6.64804
+	Position = 174.13, 1.04679, 6.64804
 	Orientation = 0, 0.726548, -3.17584E-08, 0.687116
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 158.442, 5.24921, 48.4256
+	Position = 158.442, 2.24921, 48.4256
 	Orientation = 0, 0.781589, -3.41644E-08, 0.623793
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 151.209, 2.42878, 5.49927
+	Position = 151.209, -0.57122, 5.49927
 	Orientation = 0, 0.972045, -4.24894E-08, 0.234795
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 143.621, 1.94114, -10.4259
+	Position = 143.621, -1.05886, -10.4259
 	Orientation = 0, 0.338982, -1.48174E-08, 0.940793
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 133.883, 3.23944, 52.7416
+	Position = 133.883, 0.23944, 52.7416
 	Orientation = 0, 0.705277, -3.08286E-08, 0.708932
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 132.599, 3.79526, 8.72736
+	Position = 132.599, 0.79526, 8.72736
 	Orientation = 0, 0.397526, -1.73764E-08, 0.917591
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 128.159, 3.69473, 35.591
+	Position = 128.159, 0.69473, 35.591
 	Orientation = 0, 0.875437, -3.82666E-08, 0.483333
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 120.727, 4.16487, -7.44352
+	Position = 120.727, 1.16487, -7.44352
 	Orientation = 0, 0.369899, -1.61688E-08, 0.929072
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 117.135, 2.02508, 81.2422
+	Position = 117.135, -0.97492, 81.2422
 	Orientation = 0, 0.99397, -4.34478E-08, -0.109651
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 109.611, 3.61424, 24.8767
+	Position = 109.611, 0.61424, 24.8767
 	Orientation = 0, 0.917349, -4.00986E-08, 0.398083
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 116.679, 3.10811, -27.6416
+	Position = 116.679, 0.10811, -27.6416
 	Orientation = 0, -0.407744, 1.7823E-08, 0.913096
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 106.431, 1.59116, 45.9015
+	Position = 106.431, -1.40884, 45.9015
 	Orientation = 0, 0.969026, -4.23575E-08, 0.24696
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 104.274, 4.32796, 1.9553
+	Position = 104.274, 1.32796, 1.9553
 	Orientation = 0, 0.996187, -4.35447E-08, 0.0872475
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 91.8838, 1.6335, 44.5249
+	Position = 91.8838, -1.3665, 44.5249
 	Orientation = 0, 0.986701, -4.31301E-08, 0.162548
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 84.8398, 4.18266, -13.2077
+	Position = 84.8398, 1.18266, -13.2077
 	Orientation = 0, 0.975538, -4.26421E-08, 0.219832
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 71.4572, 3.69696, -28.9715
+	Position = 71.4572, 0.69696, -28.9715
 	Orientation = 0, -0.803535, 3.51236E-08, 0.595258
 	MapRegion = "Bridge"
 }
 AppleTree {
-	Position = 70.1101, 2.05638, -52.4134
+	Position = 70.1101, -0.94362, -52.4134
 	Orientation = 0, -0.451225, 1.97237E-08, 0.89241
 	MapRegion = "Bridge"
 }

@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 40
+Mass = 20
 CollisionGroup = Default
 CollidesWith = Default
 Friction = 1
