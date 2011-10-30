@@ -48,10 +48,7 @@ namespace Ponykart.Levels {
 			CurrentLevel.ReadMuffin();
 
 			// run level loading events
-			var args = new LevelChangedEventArgs {
-				OldLevel = new Level(null),
-				NewLevel = CurrentLevel,
-			};
+			var args = new LevelChangedEventArgs(new Level(null), CurrentLevel);
 			Invoke(OnLevelLoad, args);
 			LKernel.LoadLevelHandlers(args.NewLevel);
 
@@ -74,7 +71,9 @@ namespace Ponykart.Levels {
 		/// </summary>
 		private void UnloadLevel(LevelChangedEventArgs eventArgs) {
 			if (CurrentLevel.Name != null) {
+				Launch.Log("==========================================================");
 				Launch.Log("======= Level unloading: " + CurrentLevel.Name + " =======");
+				Launch.Log("==========================================================");
 
 				IsValidLevel = false;
 
@@ -104,7 +103,9 @@ namespace Ponykart.Levels {
 
 			// Load new Level
 			if (newLevel != null) {
+				Launch.Log("==========================================================");
 				Launch.Log("======= Level loading: " + newLevel.Name + " =======");
+				Launch.Log("==========================================================");
 				// load our resource group, if we have one
 				if (ResourceGroupManager.Singleton.ResourceGroupExists(newLevel.Name) && !ResourceGroupManager.Singleton.IsResourceGroupInitialised(newLevel.Name)) {
 					Launch.Log("[Loading] Initialising resource group: " + newLevel.Name);
@@ -169,10 +170,7 @@ namespace Ponykart.Levels {
 		/// </param>
 		public void LoadLevel(string newLevelName, float delay = INITIAL_DELAY) {
 			Pauser.IsPaused = false;
-			var eventArgs = new LevelChangedEventArgs {
-				NewLevel = new Level(newLevelName),
-				OldLevel = CurrentLevel,
-			};
+			var eventArgs = new LevelChangedEventArgs(new Level(newLevelName), CurrentLevel);
 
 			// fire our preUnload events
 			Invoke(OnLevelPreUnload, eventArgs);

@@ -202,7 +202,7 @@ namespace PonykartParsers {
 		/// <summary>
 		/// Parse a quaternion property, i.e. a quartet of floats separated by commas.
 		/// 
-		/// Note that the .scene format uses xyzw but ogre uses wxyz!
+		/// Note that the .thing format uses xyzw but ogre uses wxyz!
 		/// </summary>
 		Quaternion ParseQuatProperty(RuleInstance prop) {
 			Token tok1 = prop.Children[2] as Token;

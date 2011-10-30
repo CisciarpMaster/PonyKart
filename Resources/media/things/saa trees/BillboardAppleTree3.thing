@@ -1,10 +1,14 @@
 Physics = None
-//Instanced = true
 Static = true
+
+Imposters = true
+ImposterMaterial = "AppleTree"
+ImposterWidth = 10
+ImposterHeight = 10
+ImposterOffset = 0.1111965, -3, 0.1604475
 
 Model {
 	Mesh = "AppleTree3.mesh"
-	//Material = "AppleTreeInstanced"
 	Material = "AppleTree"
 	Position = 0.1111965, -3, 0.1604475
 	Scale = 1, 1, 1

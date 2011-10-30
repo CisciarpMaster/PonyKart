@@ -7,7 +7,7 @@ namespace Ponykart.Actors {
 	public class StaticGeometryManager {
 		IDictionary<string, StaticGeometry> sgeoms;
 		IDictionary<string, Entity> ents;
-		readonly Vector3 regionDimensions = new Vector3(200, 1000, 200);
+		readonly Vector3 regionDimensions = new Vector3(100, 1000, 100);
 
 		public StaticGeometryManager() {
 			ents = new Dictionary<string, Entity>();
@@ -40,7 +40,6 @@ namespace Ponykart.Actors {
 
 			string meshName = block.GetStringProperty("mesh", null);
 			string mapRegion = template.GetStringProperty("MapRegion", string.Empty);
-			string key = mapRegion + meshName;
 			Entity ent;
 
 			// get our entity if it already exists
@@ -65,14 +64,14 @@ namespace Ponykart.Actors {
 			Vector3 sca = block.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			StaticGeometry sg;
-			if (!sgeoms.TryGetValue(key, out sg)) {
-				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(key);
+			if (!sgeoms.TryGetValue(mapRegion, out sg)) {
+				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(mapRegion);
 
 				sg.RegionDimensions = regionDimensions;
-				sg.RenderingDistance = 500;
+				sg.RenderingDistance = 300;
 				sg.CastShadows = false;
 
-				sgeoms.Add(key, sg);
+				sgeoms.Add(mapRegion, sg);
 			}
 			
 			sg.AddEntity(ent, pos, orient, sca);
