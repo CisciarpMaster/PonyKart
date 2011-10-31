@@ -1,5 +1,6 @@
 ﻿using LuaNetInterface;
 using Mogre;
+using Ponykart.Actors;
 
 namespace Ponykart.Lua {
 	[LuaPackage(null, null)]
@@ -12,6 +13,12 @@ namespace Ponykart.Lua {
 		[LuaFunction("vector", "Creates a Mogre.Vector3 object", "x", "y", "z")]
 		public static Vector3 vec(float x, float y, float z) {
 			return new Vector3(x, y, z);
+		}
+
+		// shorter form. The wrapper won't let us have two attributes on one method, so we have to make a duplicate method.
+		[LuaFunction("vec", "Creates a Mogre.Vector3 object", "x", "y", "z")]
+		public static Vector3 vec2(float x, float y, float z) {
+			return vec(x, y, z);
 		}
 
 		[LuaFunction("vectorToQuaternion", "Turns a degree vector into a global quaternion", "Vector3 vec")]
@@ -46,6 +53,12 @@ namespace Ponykart.Lua {
 			return new Quaternion(w, x, y, z);
 		}
 
+		// shorter form. The wrapper won't let us have two attributes on one method, so we have to make a duplicate method.
+		[LuaFunction("quat", "Creates a Mogre.Quaternion object", "x", "y", "z", "w")]
+		public static Quaternion quat2(float x, float y, float z, float w) {
+			return quat(w, x, y, z);
+		}
+
 		[LuaFunction("multiplyQuaternions", "Multiplies two quaternions", "quat 1", "quat 2")]
 		public static Quaternion multiplyQuat(Quaternion quat1, Quaternion quat2) {
 			return quat1 * quat2;
@@ -53,9 +66,7 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("quaternionFromAngleAxis", "Creates a quaternion from an angle and an axis", "float - angle, in radians", "Vector3 - the axis")]
 		public static Quaternion quatFromAngleAxis(float radians, Vector3 axis) {
-			var quaternion = Quaternion.IDENTITY;
-			quaternion.FromAngleAxis(radians, axis);
-			return quaternion;
+			return new Quaternion(radians, axis);
 		}
 
 		// ------------------------------------
@@ -73,6 +84,32 @@ namespace Ponykart.Lua {
 		[LuaFunction("initAllResourceGroups", "Initialises all mogre resource groups")]
 		public static void InitAllResGroups() {
 			ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
+		}
+
+		// ------------------------------------
+
+		[LuaFunction("setInstancedGeometryVisibility", "Sets the visibility of all of the instanced geometry in a map region.",
+			"string regionName - the name of the region. Case insensitive.", "bool visible")]
+		public static void SetInstancedGeometryVisibility(string regionName, bool visible) {
+			LKernel.GetG<InstancedGeometryManager>().SetVisibility(regionName, visible);
+		}
+
+		[LuaFunction("setStaticGeometryVisibility", "Sets the visibility of all of the static geometry in a map region.",
+			"string regionName - the name of the region. Case insensitive.", "bool visible")]
+		public static void SetStaticGeometryVisibility(string regionName, bool visible) {
+			LKernel.GetG<StaticGeometryManager>().SetVisibility(regionName, visible);
+		}
+
+		[LuaFunction("setImposterVisibility", "Sets the visibility of all of the imposter billboards in a map region.",
+			"string regionName - the name of the region. Case sensitive!", "bool visible")]
+		public static void SetImposterVisibility(string regionName, bool visible) {
+			LKernel.GetG<ImposterBillboarder>().SetVisibility(regionName, visible);
+		}
+
+		[LuaFunction("setRegionNodeVisibility", "Sets the visibility of the scene node for the specified map region.", 
+			"string regionName - the name of the region. Case sensitive!", "bool visible")]
+		public static void SetRegionNodeVisibility(string regionName, bool visible) {
+			LKernel.GetG<SceneManager>().GetSceneNode(regionName + "Node").SetVisible(visible);
 		}
 	}
 }

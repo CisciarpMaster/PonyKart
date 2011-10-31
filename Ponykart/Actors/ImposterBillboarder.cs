@@ -5,7 +5,7 @@ using Mogre;
 using Ponykart.Levels;
 using PonykartParsers;
 
-namespace Ponykart.Handlers {
+namespace Ponykart.Actors {
 	/// <summary>
 	/// In order to speed up rendering, we split the world into various regions (kinda like chunks in minecraft) and then make billboards for things like
 	/// far-off trees. Then when we're far away from the region, we can hide the actual geometry and show these billboards instead, since billboards are
@@ -13,7 +13,6 @@ namespace Ponykart.Handlers {
 	/// Of course if you have a high-end computer you won't need any of this and can just render all of the geometry fine with no problems, but for other
 	/// "decent" computers this gives us a good way of speeding things up.
 	/// </summary>
-	[Handler(HandlerScope.Global)]
 	public class ImposterBillboarder {
 		// region + thingName for the key
 		IDictionary<string, BillboardSet> billboards;
@@ -21,6 +20,7 @@ namespace Ponykart.Handlers {
 		public ImposterBillboarder() {
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
+
 			billboards = new Dictionary<string, BillboardSet>();
 		}
 
@@ -39,16 +39,13 @@ namespace Ponykart.Handlers {
 			SceneManager sceneMgr = LKernel.GetG<SceneManager>();
 			ThingDatabase database = LKernel.GetG<ThingDatabase>();
 
-			// this sorts all of the blocks into groups divided by their map region
+			// this sorts all of the blocks into groups divided by their map region, excluding ones with no region
 			// I fucking love linq
-			var blockGroups = eventArgs.NewLevel.Definition.ThingBlocks.GroupBy(b => b.GetStringProperty("MapRegion", string.Empty));
+			var blockGroups = eventArgs.NewLevel.Definition.ThingBlocks.GroupBy(b => b.GetStringProperty("MapRegion", string.Empty))
+																	   .Where(c => !string.IsNullOrEmpty(c.Key));
 
 			// then we just iterate through each group
 			foreach (var group in blockGroups) {
-				// skip the group of things that don't have a map region property, since we're not interested in them
-				if (string.IsNullOrEmpty(group.Key))
-					continue;
-
 				// make an average position that we'll use to place the billboards
 				float avgX = group.Select(b => b.Position.x).Average();
 				float avgY = group.Select(b => b.Position.y).Average();
@@ -79,7 +76,7 @@ namespace Ponykart.Handlers {
 						billboardSet.CommonDirection = billboardSet.CommonUpVector = Vector3.UNIT_Y;
 						billboardSet.BillboardOrigin = BillboardOrigin.BBO_BOTTOM_CENTER;
 						billboardSet.RenderingDistance = 2000;
-						billboardSet.Visible = true;
+						billboardSet.Visible = false;
 
 						// attach the new billboard set
 						node.AttachObject(billboardSet);
@@ -91,6 +88,19 @@ namespace Ponykart.Handlers {
 					billboardSet.CreateBillboard((block.Position - averagePosition) + def.GetVectorProperty("ImposterOffset", Vector3.ZERO));
 				}
 			}
+		}
+
+		public void SetBillboardVisibility(string nameOfBillboard, bool visible) {
+			billboards[nameOfBillboard].Visible = visible;
+		}
+
+		/// <summary>
+		/// Sets the visibility of all billboards in the specified map region.
+		/// </summary>
+		/// <param name="regionName">The name of the map region. Case sensitive.</param>
+		/// <param name="visible">Do you want to make them visible or not?</param>
+		public void SetVisibility(string regionName, bool visible) {
+			LKernel.GetG<SceneManager>().GetSceneNode(regionName + "BillboardNode").SetVisible(visible, true);
 		}
 	}
 }

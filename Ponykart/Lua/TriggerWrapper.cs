@@ -55,14 +55,9 @@ namespace Ponykart.Lua {
 		/// </summary>
 		[LuaFunction("createBoxTriggerRegion", "Creates a box trigger region given a name and some info and a function to call.",
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
-			"number width", "number height", "number length", "number posX", "number posY", "number posZ", "number rotX", "number rotY", "number rotZ")]
-		public static void CreateBoxTriggerRegion(
-			string name, TriggerReportEvent trh,
-			float width, float height, float length,
-			float posX, float posY, float posZ,
-			float rotX, float rotY, float rotZ)
-		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ).DegreeVectorToGlobalQuaternion(), new BoxShape(new Vector3(width, height, length)));
+			"vector3 dimensions", "vector3 position", "quaternion orientation")]
+		public static void CreateBoxTriggerRegion(string name, TriggerReportEvent trh, Vector3 dimensions, Vector3 position, Quaternion orientation) {
+			var tr = new TriggerRegion(name, position, orientation, new BoxShape(dimensions));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}
@@ -72,14 +67,11 @@ namespace Ponykart.Lua {
 		/// </summary>
 		[LuaFunction("createCapsuleTriggerRegion", "Creates a capsule trigger region given a name and some info and a function to call.", 
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
-			"number radius", "number height", "number posX", "number posY", "number posZ", "number rotX", "number rotY", "number rotZ")]
+			"number radius", "number height", "vector3 position", "quaternion orientation")]
 		public static void CreateCapsuleTriggerRegion(
-			string name, TriggerReportEvent trh,
-			float radius, float height,
-			float posX, float posY, float posZ, 
-			float rotX, float rotY, float rotZ)
+			string name, TriggerReportEvent trh, float radius, float height, Vector3 position, Quaternion orientation)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ).DegreeVectorToGlobalQuaternion(), new CapsuleShape(radius, height));
+			var tr = new TriggerRegion(name, position, orientation, new CapsuleShape(radius, height));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}
@@ -89,13 +81,10 @@ namespace Ponykart.Lua {
 		/// </summary>
 		[LuaFunction("createSphereTriggerRegion", "Creates a sphere trigger region given a name and some info and a function to call.",
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
-			"number radius", "number posX", "number posY", "number posZ")]
-		public static void CreateSphereTriggerRegion(
-			string name, TriggerReportEvent trh,
-			float radius,
-			float posX, float posY, float posZ)
+			"number radius", "vector3 position")]
+		public static void CreateSphereTriggerRegion( string name, TriggerReportEvent trh, float radius, Vector3 position)
 		{
-			var tr = new TriggerRegion(name, new Vector3(posX, posY, posZ), new SphereShape(radius));
+			var tr = new TriggerRegion(name, position, new SphereShape(radius));
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
 		}

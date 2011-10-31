@@ -129,8 +129,7 @@ namespace Ponykart.Actors {
 			string script;
 			if (def.StringTokens.TryGetValue("script", out script)) {
 				this.Script = script;
-				if (LKernel.GetG<LevelManager>().IsValidLevel)
-					RunScript();
+				RunScript();
 			}
 
 			DisposeIfStaticOrInstanced(def);
@@ -146,8 +145,28 @@ namespace Ponykart.Actors {
 		/// Sets up mogre stuff, like our root scene node
 		/// </summary>
 		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
+			var sceneMgr = LKernel.GetG<SceneManager>();
+
 			// create our root node
-			RootNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID);
+			// need to check for map regions
+			string mapRegion = template.GetStringProperty("MapRegion", string.Empty);
+			if (string.IsNullOrEmpty(mapRegion)) {
+				// no map region, continue on as normal
+				this.RootNode = sceneMgr.RootSceneNode.CreateChildSceneNode(Name + ID);
+			}
+			else {
+				// there is a map region, make our root node a child of a node with the region's name
+				// first check to see if that node exists already
+				if (sceneMgr.HasSceneNode(mapRegion + "Node")) {
+					// if it does, just attach our node to it
+					this.RootNode = sceneMgr.GetSceneNode(mapRegion + "Node").CreateChildSceneNode(Name + ID);
+				}
+				else {
+					// if it doesn't, create it first, then attach our node to it
+					SceneNode newSceneNode = sceneMgr.RootSceneNode.CreateChildSceneNode(mapRegion + "Node");
+					this.RootNode = newSceneNode.CreateChildSceneNode(Name + ID);
+				}
+			}
 		}
 
 		/// <summary>

@@ -149,7 +149,7 @@
     <Compile Include="Handlers\Helpers\Skidder.cs" />
     <Compile Include="Handlers\For testing\PrimitiveCreatorHandler.cs" />
     <Compile Include="Core\RaceCountdown.cs" />
-    <Compile Include="Handlers\ImposterBillboarder.cs" />
+    <Compile Include="Actors\ImposterBillboarder.cs" />
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\Helpers\SelfRighter.cs" />
     <Compile Include="Handlers\UI\CountdownUIHandler.cs" />

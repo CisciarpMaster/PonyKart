@@ -31,7 +31,7 @@ material Particles/Pomf {
 			lighting off
 			scene_blend add
 			depth_write off
-			cull_hardware off
+			cull_hardware none
 			
 			vertex_program_ref animatedParticle_vp {
 				param_named numTilesU float 6

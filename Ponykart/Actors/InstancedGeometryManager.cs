@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Mogre;
 using Ponykart.Levels;
 using PonykartParsers;
@@ -7,7 +9,7 @@ namespace Ponykart.Actors {
 	public class InstancedGeometryManager {
 		// uses map group + mesh name as a key
 		IDictionary<string, InstancedGeometry> igeoms;
-		// mesh map group + mesh name as a key
+		// uses map group + mesh name as a key
 		IDictionary<string, IList<Transform>> transforms;
 		// uses map group + mesh name as a key
 		IDictionary<string, Entity> ents;
@@ -157,6 +159,18 @@ namespace Ponykart.Actors {
 		public void ToggleVisible() {
 			foreach (InstancedGeometry ig in igeoms.Values) {
 				ig.SetVisible(!ig.IsVisible);
+			}
+		}
+
+		/// <summary>
+		/// Sets the visibility of all instanced geometry objects in the specified map region.
+		/// </summary>
+		/// <param name="regionName">The name of the map region. Case insensitive</param>
+		/// <param name="visible">Do you want to make them visible or not?</param>
+		public void SetVisibility(string regionName, bool visible) {
+			var matchingGeoms = igeoms.Where(k => k.Key.StartsWith(regionName, StringComparison.CurrentCultureIgnoreCase));
+			foreach (var pair in matchingGeoms) {
+				pair.Value.SetVisible(visible);
 			}
 		}
 

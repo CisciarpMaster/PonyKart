@@ -96,6 +96,7 @@ namespace Ponykart {
 			splash.Increment("Setting up static and instanced geometry managers...");
 			AddGlobalObject(new StaticGeometryManager());
 			AddGlobalObject(new InstancedGeometryManager());
+			AddGlobalObject(new ImposterBillboarder());
 
 			// sound stuff
 			splash.Increment("Setting up sound system...");

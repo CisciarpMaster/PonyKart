@@ -75,7 +75,6 @@ namespace Ponykart.Actors {
 				BillboardSet.SetTextureStacksAndSlices((byte) block.GetFloatProperty("TextureStacks", 1), (byte) block.GetFloatProperty("TextureSlices", 1));
 			}
 
-			// and then attach it to our root node
 			lthing.RootNode.AttachObject(BillboardSet);
 
 			// and then go through each billboard block and create a billboard from it
