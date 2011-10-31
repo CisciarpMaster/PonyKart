@@ -2,6 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
+Static = true
 
 Imposters = true
 ImposterMaterial = "AppleTree"
@@ -16,7 +17,6 @@ Model {
 	Position = 0.0175422, -0.235272, -0.1130097
 	CastsShadows = false
 	Scale = 1, 1, 1
-	Static = true
 }
 
 // loads of apples
@@ -26,7 +26,6 @@ Model {
 	Position = -1.167828, 13.03811, -9.333674
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple2.mesh"
@@ -34,7 +33,6 @@ Model {
 	Position = -3.689985, 16.215, -9.43362
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple.mesh"
@@ -42,7 +40,6 @@ Model {
 	Position = 4.23183, 15.15465, -9.597734
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple2.mesh"
@@ -50,7 +47,6 @@ Model {
 	Position = 0.220545, 10.04031, 5.166975
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple.mesh"
@@ -58,7 +54,6 @@ Model {
 	Position = 4.00458, 16.35705, 4.9818
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple2.mesh"
@@ -66,7 +61,6 @@ Model {
 	Position = -2.030355, 17.82585, 1.60974
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple2.mesh"
@@ -74,7 +68,6 @@ Model {
 	Position = 0.279309, 8.253825, -4.644
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple.mesh"
@@ -82,7 +75,6 @@ Model {
 	Position = -7.01982, 11.92245, -5.759235
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple2.mesh"
@@ -90,7 +82,6 @@ Model {
 	Position = -4.26234, 7.201185, -3.877875
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple.mesh"
@@ -98,7 +89,6 @@ Model {
 	Position = 7.970865, 13.72552, -5.39634
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple2.mesh"
@@ -106,7 +96,6 @@ Model {
 	Position = 6.427335, 9.537225, -0.322968
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple.mesh"
@@ -114,7 +103,6 @@ Model {
 	Position = -7.848015, 16.836, -2.11506
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 Model {
 	Mesh = "Apple2.mesh"
@@ -122,7 +110,6 @@ Model {
 	Position = -4.832235, 14.57223, 5.16642
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
-	Static = true
 }
 
 // and then our shapes
