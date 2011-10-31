@@ -1,0 +1,29 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Road
+CollidesWith = Road
+DisableVisualization = true
+Static = true
+
+Model {
+	Mesh = "SAA_Ground.mesh"
+	Material = "SAA_Grass"
+	Position = 0, 0, 0
+	CastsShadows = false
+	StaticGroup = "Ground"
+}
+
+Model {
+	Mesh = "SAA_Ground_Collidable.mesh"
+	Material = "SAA_Grass"
+	Position = 0, 0, 0
+	CastsShadows = false
+	StaticGroup = "Ground"
+}
+
+
+Shape {
+	Type = Mesh
+	Mesh = "SAA_Ground_Collidable.bullet"
+	Position = 0, 0, 0
+}

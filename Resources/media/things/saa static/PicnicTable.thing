@@ -3,6 +3,7 @@ Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
 ForceCompound = true
+Static = true
 
 // Entity#0
 Model {
@@ -11,6 +12,7 @@ Model {
 	Orientation = 0, 0, 0, 1
 	Scale = 0.1, 0.1, 0.1
 	CastsShadows = true
+	StaticGroup = "Wood"
 }
 // box#0
 Shape {

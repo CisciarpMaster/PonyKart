@@ -1,11 +1,17 @@
 Physics = None
 Static = true
 
+Imposters = true
+ImposterMaterial = "AppleTree"
+ImposterWidth = 10
+ImposterHeight = 10
+ImposterOffset = 0.1111965, -3, 0.1604475
+
 // main tree model
 Model {
 	Mesh = "AppleTree2.mesh"
 	Material = "AppleTree"
-	Position = 0.0175422, -0.235272, -0.1130097
+	Position = 0.1111965, -3, 0.1604475
 	CastsShadows = false
 	Scale = 1, 1, 1
 }
@@ -14,91 +20,77 @@ Model {
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = -1.167828, 13.03811, -9.333674
+	Position = -3.5109, 9.15005, -7.156965
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = -3.689985, 16.215, -9.43362
+	Position = 8.276085, 11.70485, -0.1958985
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = 4.23183, 15.15465, -9.597734
+	Position = -0.9397575, 9.34721, 4.858845
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = 0.220545, 10.04031, 5.166975
+	Position = 4.07943, 7.72698, 1.92267
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = 4.00458, 16.35705, 4.9818
+	Position = -5.824875, 12.5025, 0.8656305
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = -2.030355, 17.82585, 1.60974
+	Position = -1.82709, 4.308525, -3.829995
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = 0.279309, 8.253825, -4.644
+	Position = 4.93791, 3.918105, 4.223385
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = -7.01982, 11.92245, -5.759235
+	Position = 7.00158, 14.118, -4.254195
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = -4.26234, 7.201185, -3.877875
+	Position = 0.92769, 12.62085, -10.59087
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple.mesh"
 	Material = "RedApple"
-	Position = 7.970865, 13.72552, -5.39634
+	Position = -7.26633, 8.57529, -2.60628
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }
 Model {
 	Mesh = "Apple2.mesh"
 	Material = "RedApple"
-	Position = 6.427335, 9.537225, -0.322968
-	Scale = 2.25, 2.25, 2.25
-	CastsShadows = false
-}
-Model {
-	Mesh = "Apple.mesh"
-	Material = "RedApple"
-	Position = -7.848015, 16.836, -2.11506
-	Scale = 2.25, 2.25, 2.25
-	CastsShadows = false
-}
-Model {
-	Mesh = "Apple2.mesh"
-	Material = "RedApple"
-	Position = -4.832235, 14.57223, 5.16642
+	Position = 6.896805, 7.9801, -3.301695
 	Scale = 2.25, 2.25, 2.25
 	CastsShadows = false
 }

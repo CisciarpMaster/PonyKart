@@ -34,6 +34,9 @@ SAA_Ramp {
 SAA_Road_Combined {
 	Position = 0, 0, 0
 }
+SAA_Ground {
+	Position = 0, 0, 0
+}
 
 
 CMC_Treehouse {

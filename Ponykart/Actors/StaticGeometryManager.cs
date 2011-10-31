@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Mogre;
 using Ponykart.Levels;
+using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class StaticGeometryManager {
 		IDictionary<string, StaticGeometry> sgeoms;
 		IDictionary<string, Entity> ents;
-		readonly Vector3 regionDimensions = new Vector3(100, 1000, 100);
+		readonly Vector3 regionDimensions = new Vector3(Settings.Default.StaticRegionSize, 1000, Settings.Default.StaticRegionSize);
 
 		public StaticGeometryManager() {
 			ents = new Dictionary<string, Entity>();
@@ -41,14 +42,19 @@ namespace Ponykart.Actors {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			string meshName = block.GetStringProperty("mesh", null);
-			string mapRegion = template.GetStringProperty("MapRegion", string.Empty);
+			// map region goes first
+			string sgeomName = template.GetStringProperty("MapRegion", "(Default)");
+			// static group can override map region
+			sgeomName = block.GetStringProperty("StaticGroup", sgeomName);
 			Entity ent;
 
 			// get our entity if it already exists
 			if (!ents.TryGetValue(meshName, out ent)) {
 				// getting the entity was not successful, so we have to create it
 				ent = sceneMgr.CreateEntity(meshName + mc.ID, meshName);
-				ent.SetMaterialName(block.GetStringProperty("Material", string.Empty));
+				string material;
+				if (block.StringTokens.TryGetValue("material", out material))
+					ent.SetMaterialName(material);
 				ents.Add(meshName, ent);
 			}
 
@@ -66,14 +72,14 @@ namespace Ponykart.Actors {
 			Vector3 sca = block.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			StaticGeometry sg;
-			if (!sgeoms.TryGetValue(mapRegion, out sg)) {
-				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(mapRegion);
+			if (!sgeoms.TryGetValue(sgeomName, out sg)) {
+				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(sgeomName);
 
 				sg.RegionDimensions = regionDimensions;
 				sg.RenderingDistance = 300;
 				sg.CastShadows = false;
 
-				sgeoms.Add(mapRegion, sg);
+				sgeoms.Add(sgeomName, sg);
 			}
 			
 			sg.AddEntity(ent, pos, orient, sca);

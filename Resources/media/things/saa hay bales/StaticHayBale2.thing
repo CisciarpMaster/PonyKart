@@ -3,6 +3,8 @@ Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
 PhysicsMaterial = "HayBale"
+Static = true
+
 
 // box#0
 Shape {
@@ -15,4 +17,5 @@ Model {
 	Mesh = "HayBale2.mesh"
 	Position = 0, 0, 0
 	CastsShadows = false
+	StaticGroup = "Hay"
 }

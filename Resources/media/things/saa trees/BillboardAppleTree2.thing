@@ -5,12 +5,12 @@ Imposters = true
 ImposterMaterial = "AppleTree"
 ImposterWidth = 10
 ImposterHeight = 10
-ImposterOffset = 0.0175422, -3.235272, -0.1130097
+ImposterOffset = 0, -3, 0
 
 Model {
 	Mesh = "AppleTree2.mesh"
 	Material = "AppleTree"
-	Position = 0.0175422, -3.235272, -0.1130097
+	Position = 0, -3, 0
 	Scale = 1, 1, 1
 	CastsShadows = false
 }

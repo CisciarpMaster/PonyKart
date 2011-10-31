@@ -59,7 +59,7 @@ namespace Ponykart.Actors {
 				if (Enum.TryParse<BillboardOrigin>(originToken + string.Empty, true, out origin))
 					BillboardSet.BillboardOrigin = origin;
 			}
-			BillboardSet.RenderingDistance = block.GetFloatProperty("RenderingDistance", 400);
+			BillboardSet.RenderingDistance = block.GetFloatProperty("RenderingDistance", 600);
 
 			// texture coordinates
 			Quaternion rectQ;

@@ -2,12 +2,14 @@ Physics = Static
 Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
+Static = true
 
 Model {
 	Name = "Entity#0"
 	Mesh = "Farmhouse.mesh"
 	Position = 0, 4.91424, 0
 	CastsShadows = True
+	StaticGroup = "Farmhouses"
 }
 
 // box#0

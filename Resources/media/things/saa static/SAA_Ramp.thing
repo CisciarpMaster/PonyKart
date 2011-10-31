@@ -3,6 +3,7 @@ Mass = 0
 CollisionGroup = Road
 CollidesWith = Road
 DisableVisualization = true
+Static = true
 
 // SAA_Ramp
 Model {
@@ -10,6 +11,7 @@ Model {
 	Material = "SAA_Bridge"
 	Position = 0, 0, 0
 	CastsShadows = true
+	StaticGroup = "Wood"
 }
 // SAA_Ramp_phys
 Shape {

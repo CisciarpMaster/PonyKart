@@ -439,5 +439,41 @@ namespace Ponykart.Properties {
                 this["MiyagiXMLExtension"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("75")]
+        public float StaticRegionSize {
+            get {
+                return ((float)(this["StaticRegionSize"]));
+            }
+            set {
+                this["StaticRegionSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("75")]
+        public float InstancedRegionSize {
+            get {
+                return ((float)(this["InstancedRegionSize"]));
+            }
+            set {
+                this["InstancedRegionSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int InstancedEntitiesPerBatch {
+            get {
+                return ((int)(this["InstancedEntitiesPerBatch"]));
+            }
+            set {
+                this["InstancedEntitiesPerBatch"] = value;
+            }
+        }
     }
 }

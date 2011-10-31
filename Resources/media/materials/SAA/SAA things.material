@@ -4,7 +4,7 @@ material AppleTree {
 	technique {
 		pass {
 			texture_unit {
-				texture apple_tree_v2_diff.dds
+				texture "tree texture gradient.png"
 			}
 		}
 	}
@@ -18,7 +18,7 @@ material AppleTreeInstanced {
 			vertex_program_ref Instancing { }
 		
 			texture_unit {
-				texture apple_tree_v2_diff.dds
+				texture "tree texture gradient.png"
 			}
 		}
 	}

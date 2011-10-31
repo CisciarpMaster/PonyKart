@@ -23,6 +23,8 @@ Model {
 	Position = 0, 0, 0
 	Scale = 2.721563, 2.721563, 2.721563
 	CastsShadows = true
+	Static = true
+	StaticGroup = "Wood"
 }
 // box#1
 Shape {
