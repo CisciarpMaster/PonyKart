@@ -80,7 +80,7 @@ namespace Ponykart.Handlers {
 			}
 
 			dirtCollisionObject = LKernel.GetG<PhysicsMain>().GetCollisionObjectByName("SAA_Road_Combined");
-			grassCollisionObject = LKernel.GetG<PhysicsMain>().GetCollisionObjectByName("SAA_Ground_Collidable");
+			grassCollisionObject = LKernel.GetG<PhysicsMain>().GetCollisionObjectByName("SAA_Ground");
 		}
 
 		/// <summary>

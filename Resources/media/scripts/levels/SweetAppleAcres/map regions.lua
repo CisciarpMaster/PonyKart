@@ -24,6 +24,16 @@ local function hideImposter(regionName)
 	setImposterVisibility(regionName, false)
 end
 
+local function show(regionName)
+	showGeom(regionName)
+	hideImposter(regionName)
+end
+
+local function hide(regionName)
+	hideGeom(regionName)
+	showImposter(regionName)
+end
+
 -- returns whether the given shape is the player's kart, since we only want the player to be affecting geometry
 local function checkPlayer(shape)
 	return player.Body == shape
@@ -35,11 +45,14 @@ end
 local function startTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			showGeom("Buckets")
-			hideImposter("Buckets")
-		else
-			showGeom("Bridge")
-			hideImposter("Bridge")
+			show("Start")
+			show("Cliff")
+			show("Buckets")
+			hide("Ramp")
+			hide("River")
+			hide("Treehouse")
+			hide("Bridge")
+			show("Barn")
 		end
 	end
 end
@@ -48,14 +61,14 @@ end
 local function cliffTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			showGeom("Ramp")
-			hideImposter("Ramp")
-		else
-			hideGeom("Barn")
-			showImposter("Barn")
-			
-			hideGeom("Bridge")
-			showImposter("Bridge")
+			show("Start")
+			show("Cliff")
+			show("Buckets")
+			show("Ramp")
+			hide("River")
+			hide("Treehouse")
+			show("Bridge")
+			show("Barn")
 		end
 	end
 end
@@ -64,11 +77,14 @@ end
 local function bucketsTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			showGeom("River")
-			hideImposter("River")
-		else
-			hideGeom("Start")
-			showImposter("Start")
+			show("Start")
+			show("Cliff")
+			show("Buckets")
+			show("Ramp")
+			show("River")
+			hide("Treehouse")
+			hide("Bridge")
+			hide("Barn")
 		end
 	end
 end
@@ -77,11 +93,14 @@ end
 local function rampTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			showGeom("Treehouse")
-			hideImposter("Treehouse")
-			
-			hideGeom("Cliff")
-			showImposter("Cliff")
+			hide("Start")
+			hide("Cliff")
+			show("Buckets")
+			show("Ramp")
+			show("River")
+			show("Treehouse")
+			hide("Bridge")
+			hide("Barn")
 		end
 	end
 end
@@ -90,11 +109,14 @@ end
 local function riverTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			hideGeom("Buckets")
-			showImposter("Buckets")
-		else
-			hideGeom("Ramp")
-			showImposter("Ramp")
+			hide("Start")
+			hide("Cliff")
+			hide("Buckets")
+			show("Ramp")
+			show("River")
+			show("Treehouse")
+			hide("Bridge")
+			hide("Barn")
 		end
 	end
 end
@@ -103,11 +125,14 @@ end
 local function treehouseTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			showGeom("Bridge")
-			hideImposter("Bridge")
-		else
-			hideGeom("River")
-			showImposter("River")
+			hide("Start")
+			hide("Cliff")
+			hide("Buckets")
+			hide("Ramp")
+			show("River")
+			show("Treehouse")
+			show("Bridge")
+			hide("Barn")
 		end
 	end
 end
@@ -116,11 +141,14 @@ end
 local function bridgeTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			showGeom("Barn")
-			hideImposter("Barn")
-		else
-			hideGeom("Treehouse")
-			showImposter("Treehouse")
+			hide("Start")
+			hide("Cliff")
+			hide("Buckets")
+			hide("Ramp")
+			hide("River")
+			show("Treehouse")
+			show("Bridge")
+			show("Barn")
 		end
 	end
 end
@@ -129,14 +157,14 @@ end
 local function barnTriggerRegion(region, shape, flags)
 	if checkPlayer(shape) then
 		if isEnterFlag(flags) then
-			showGeom("Start")
-			hideImposter("Start")
-			
-			showGeom("Cliff")
-			hideImposter("Cliff")
-		else
-			hideGeom("Bridge")
-			showImposter("Bridge")
+			show("Start")
+			show("Cliff")
+			hide("Buckets")
+			hide("Ramp")
+			hide("River")
+			hide("Treehouse")
+			show("Bridge")
+			show("Barn")
 		end
 	end
 end
@@ -155,13 +183,8 @@ createBoxTriggerRegion("bridgeTriggerRegion", bridgeTriggerRegion, vec(178.2205,
 createBoxTriggerRegion("barnTriggerRegion", barnTriggerRegion, vec(153.9025, 44.6625, 153.9025), vec(101.665, -33.559, 257.315), iden)
 
 -- hide some things when we start up
-hideGeom("Bridge")
-showImposter("Bridge")
-hideGeom("Treehouse")
-showImposter("Treehouse")
-hideGeom("River")
-showImposter("River")
-hideGeom("Ramp")
-showImposter("Ramp")
-hideGeom("Buckets")
-showImposter("Buckets")
+hide("Bridge")
+hide("Treehouse")
+hide("River")
+hide("Ramp")
+hide("Buckets")

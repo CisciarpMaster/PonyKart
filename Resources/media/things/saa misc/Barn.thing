@@ -11,7 +11,7 @@ Model {
 	Material = "Barn"
 	Position = 7.96297, 26.8586, 0
 	Scale = 1.5, 1.5, 1.5
-	StaticGroup = "BarnBuilding"
+	StaticGroup = "AJBarn"
 }
 // frontleftbottomdoor
 Model {
@@ -20,7 +20,7 @@ Model {
 	Position = 11.2229, 2.01974, -17.6692
 	Orientation = 0, -0.930418, 0, 0.366501
 	Scale = 1.5, 1.5, 1.5
-	StaticGroup = "BarnBuilding"
+	StaticGroup = "AJBarn"
 }
 // frontrighttopdoor
 Model {
@@ -29,7 +29,7 @@ Model {
 	Position = -9.10718, 7.31765, -17.7276
 	Orientation = 0, -0.406737, 0, 0.913545
 	Scale = 1.5, 1.5, 1.5
-	StaticGroup = "BarnBuilding"
+	StaticGroup = "AJBarn"
 }
 // frontlefttopdoor
 Model {
@@ -38,7 +38,7 @@ Model {
 	Position = 9.93524, 7.38608, -18.4935
 	Orientation = 0, -0.845728, 0, 0.533614
 	Scale = 1.5, 1.5, 1.5
-	StaticGroup = "BarnBuilding"
+	StaticGroup = "AJBarn"
 }
 // frontrightbottomdoor
 Model {
@@ -47,7 +47,7 @@ Model {
 	Position = -8.6534, 1.93295, -17.8905
 	Orientation = 0, -0.492424, 0, 0.870356
 	Scale = 1.5, 1.5, 1.5
-	StaticGroup = "BarnBuilding"
+	StaticGroup = "AJBarn"
 }
 Model {
 	Mesh = "Barn_Plants.mesh"
@@ -55,7 +55,7 @@ Model {
 	Position = 5.48586, 32.0336, 1.00634
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = false
-	StaticGroup = "BarnBuilding"
+	StaticGroup = "AJBarn"
 }
 
 
