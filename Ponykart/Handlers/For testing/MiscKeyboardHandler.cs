@@ -68,6 +68,9 @@ namespace Ponykart.Handlers {
 						}
 					}
 					break;
+				case KeyCode.KC_F11:
+					LKernel.GetG<RenderWindow>().SetFullscreen(!LKernel.GetG<RenderWindow>().IsFullScreen, Settings.Default.WindowWidth, Settings.Default.WindowHeight);
+					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
 					Process proc = new Process();
@@ -78,6 +81,7 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
+					LKernel.GetG<CollisionShapeManager>().Clear();
 
 					ResourceGroupManager.Singleton.InitialiseResourceGroup("General");
 					if (ResourceGroupManager.Singleton.ResourceGroupExists(LKernel.GetG<LevelManager>().CurrentLevel.Name))

@@ -77,6 +77,7 @@ namespace Ponykart {
 				Application.DoEvents();
 			}
 			LKernel.GetG<UIMain>().Dispose();
+			LKernel.GetG<Physics.PhysicsMain>().Dispose();
 			if (root != null)
 				root.Shutdown();
 		}
@@ -84,8 +85,6 @@ namespace Ponykart {
 		// ====================================================================
 
 		protected override void Dispose(bool disposing) {
-			if (LKernel.GetG<UIMain>() != null)
-				LKernel.GetG<UIMain>().Dispose();
 			base.Dispose(disposing);
 		}
 	}

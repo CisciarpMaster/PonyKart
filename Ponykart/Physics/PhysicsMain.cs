@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using BulletSharp;
-using BulletSharp.Serialize;
+﻿using BulletSharp;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using Ponykart.Stuff;
-using IDisposable = BulletSharp.IDisposable;
 
 namespace Ponykart.Physics {
 	public delegate void PhysicsWorldEvent(DiscreteDynamicsWorld world);
@@ -50,21 +46,12 @@ namespace Ponykart.Physics {
 #endif
 
 		/// <summary>
-		/// our collection of shapes and stuff to dispose at the end of a level. This is for stuff that isn't associated with a Thing.
-		/// </summary>
-		public IList<IDisposable> PhysicsStuffToDispose { get; private set; }
-
-		/// <summary>
 		/// Constructor
 		/// </summary>
 		public PhysicsMain() {
 			Launch.Log("[Loading] Creating PhysicsMain...");
 
 			LevelManager.OnLevelUnload += OnLevelUnload;
-
-			PhysicsStuffToDispose = new List<IDisposable>();
-
-			Launch.Log("[Loading] PhysicsMain created!");
 		}
 
 		/// <summary>
@@ -73,7 +60,7 @@ namespace Ponykart.Physics {
 		/// This is called manually from LevelManager at the moment because the Scene needs to be set up before anything else is put in it.
 		/// </summary>
 		public void LoadPhysicsLevel(string levelName) {
-			Launch.Log("[Loading] Setting up Physics scene");
+			Launch.Log("[Loading] Setting up Physics world and loading shapes from .scene file");
 
 			CreateWorld(levelName);
 
@@ -81,7 +68,7 @@ namespace Ponykart.Physics {
 			// get the scene manager
 			SceneManager sceneMgr = LKernel.GetG<SceneManager>();
 			// create a node that will be the root of all of these static level meshes
-			SceneNode levelNode = sceneMgr.RootSceneNode.CreateChildSceneNode("RootLevelNode", new Vector3(0, 0, 0));
+			SceneNode levelNode = sceneMgr.RootSceneNode.CreateChildSceneNode("RootLevelNode", Vector3.ZERO);
 			// parse our .scene file
 			DotSceneLoader dsl = new DotSceneLoader();
 			dsl.ParseDotScene(levelName + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, levelNode);
@@ -96,18 +83,7 @@ namespace Ponykart.Physics {
 
 				string bulletFilePath = Settings.Default.BulletFileLocation + dslNode.Name + Settings.Default.BulletFileExtension;
 
-				// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
-				if (File.Exists(bulletFilePath)) {
-					// so it has a file
-					shape = ImportCollisionShape(dslNode.Name);
-				}
-				else {
-					Launch.Log("[PhysicsMain] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
-					// it does not have a file, so we need to convert our ogre mesh
-					shape = new BvhTriangleMeshShape(OgreToBulletMesh.Convert(dslEnt, dslNode), true, true);
-					// and then export it as a .bullet file
-					SerializeShape(shape, dslNode.Name);
-				}
+				shape = LKernel.GetG<CollisionShapeManager>().GetShapeFromFile(bulletFilePath, dslEnt, dslNode);
 
 				// then do the rest as usual
 				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
@@ -116,9 +92,6 @@ namespace Ponykart.Physics {
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 				body.SetName(dslNode.Name);
 				world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
-
-				PhysicsStuffToDispose.Add(body);
-				//PhysicsStuffToDispose.Add(shape);
 			}
 
 			// load up our invisible walls
@@ -141,27 +114,23 @@ namespace Ponykart.Physics {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
 			lock (world) {
-				foreach (IDisposable stuff in PhysicsStuffToDispose) {
-					if (!stuff.IsDisposed) {
-						if ((stuff as BulletWorldImporter) != null) {
-							(stuff as BulletWorldImporter).DeleteAllData();
-						}
-						stuff.Dispose();
-					}
-				}
-				PhysicsStuffToDispose.Clear();
 				PhysicsExtensions.CollisionObjectNames.Clear();
 
 				if (!world.IsDisposed) {
+					for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
+						var obj = world.CollisionObjectArray[a];
+
+						if (obj != null && !obj.IsDisposed) {
+							world.RemoveCollisionObject(obj);
+							obj.Dispose();
+						}
+					}
+
 					broadphase.Dispose();
 					solver.Dispose();
 					dcc.Dispose();
 					dispatcher.Dispose();
-					for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
-						var obj = world.CollisionObjectArray[a];
-						if (obj != null && !obj.IsDisposed)
-							obj.Dispose();
-					}
+
 					world.Dispose();
 				}
 			}
@@ -219,7 +188,7 @@ namespace Ponykart.Physics {
 		}
 
 		/// <summary>
-		/// Create our invisible walls and ceiling mesh as a CollisionObject instead of a RigidBody. This prevents the kart from driving on it.
+		/// Create our invisible walls from a .bullet file.
 		/// </summary>
 		void CreateInvisibleWall() {
 			Level currentLevel = LKernel.GetG<LevelManager>().CurrentLevel;
@@ -228,8 +197,7 @@ namespace Ponykart.Physics {
 			if (currentLevel != null && currentLevel.Type == LevelType.Race && currentLevel.Definition.StringTokens.TryGetValue("invisiblewalls", out wallsFilename)) {
 				Launch.Log("[PhysicsMain] Setting up invisible walls and ceiling...");
 
-				wallsFilename = wallsFilename.Replace(".bullet", string.Empty);
-				CollisionShape shape = ImportCollisionShape(wallsFilename);
+				CollisionShape shape = LKernel.GetG<CollisionShapeManager>().GetShapeFromFile(wallsFilename, null, null);
 
 				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
 				var obj = new RigidBody(info);
@@ -238,9 +206,6 @@ namespace Ponykart.Physics {
 				obj.SetCollisionGroup(PonykartCollisionGroups.InvisibleWalls);
 				obj.SetName("InvisibleWalls");
 				world.AddRigidBody(obj, PonykartCollisionGroups.InvisibleWalls, PonykartCollidesWithGroups.InvisibleWalls);
-
-				//PhysicsStuffToDispose.Add(shape);
-				PhysicsStuffToDispose.Add(obj);
 			}
 		}
 
@@ -260,55 +225,6 @@ namespace Ponykart.Physics {
 			groundBody.SetCollisionGroup(PonykartCollisionGroups.Environment);
 			groundBody.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 			world.AddRigidBody(groundBody, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
-
-			PhysicsStuffToDispose.Add(groundShape);
-			PhysicsStuffToDispose.Add(groundBody);
-		}
-
-		/// <summary>
-		/// Serializes a collision shape and exports a .bullet file.
-		/// </summary>
-		/// <param name="shape">The shape you want to serialize.</param>
-		/// <param name="name">The name of the shape - this will be used as part of its filename. "media/physics/" + name + ".bullet"</param>
-		public void SerializeShape(CollisionShape shape, string name) {
-			Launch.Log(string.Concat("[PhysicsMain] Serializing new bullet mesh: ", Settings.Default.BulletFileLocation, name, Settings.Default.BulletFileExtension, "..."));
-			// so we don't have to do this in the future, we make a .bullet file out of it
-			DefaultSerializer serializer = new DefaultSerializer();
-			serializer.StartSerialization();
-			shape.SerializeSingleShape(serializer);
-			serializer.FinishSerialization();
-			var stream = serializer.LockBuffer();
-
-			// export it
-			using (var filestream = File.Create(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension, serializer.CurrentBufferSize)) {
-				stream.CopyTo(filestream);
-				filestream.Close();
-			}
-			stream.Close();
-		}
-
-		/// <summary>
-		/// Imports a collision shape from a .bullet file.
-		/// </summary>
-		/// <param name="name">Part of the filename. "media/physics/" + name + ".bullet"</param>
-		/// <remarks>
-		/// This only imports the first collision shape from the file. If it has multiple, they will be ignored.
-		/// </remarks>
-		public CollisionShape ImportCollisionShape(string name) {
-			BulletWorldImporter importer = new BulletWorldImporter(world);
-
-			PhysicsStuffToDispose.Add(importer);
-
-			// load that file
-			if (importer.LoadFile(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
-				Launch.Log(string.Concat("[PhysicsMain] Importing ", Settings.Default.BulletFileLocation, name, Settings.Default.BulletFileExtension, "..."));
-				// these should only have one collision shape in them, so we'll just use that
-				return importer.GetCollisionShapeByIndex(0);
-			}
-			else {
-				// if the file wasn't able to be loaded, throw an exception
-				throw new IOException(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension + " was unable to be imported!");
-			}
 		}
 
 		public DiscreteDynamicsWorld World {
@@ -319,12 +235,7 @@ namespace Ponykart.Physics {
 			if (IsDisposed)
 				return;
 
-			foreach (IDisposable shape in PhysicsStuffToDispose)
-				shape.Dispose();
-			PhysicsStuffToDispose.Clear();
-
-			if (!world.IsDisposed)
-				world.Dispose();
+			OnLevelUnload(default(LevelChangedEventArgs));
 
 			base.Dispose(disposing);
 		}

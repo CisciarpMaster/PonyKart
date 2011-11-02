@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
 using Ponykart.Handlers;
@@ -98,8 +99,14 @@ namespace Ponykart.Physics {
 		/// </summary>
 		public void InvokeTrigger(RigidBody otherBody, TriggerReportFlags flags) {
 			// at the moment this only triggers when the "main" shape of an actor enters. Do we want to change this?
-			if (OnTrigger != null)
-				OnTrigger(this, otherBody, flags);
+			if (OnTrigger != null) {
+				try {
+					OnTrigger(this, otherBody, flags);
+				}
+				catch (Exception e) {
+					Launch.Log("Exception at TriggerRegion.InvokeTrigger: " + e.Message + "  " + e.Source);
+				}
+			}
 		}
 
 		/// <summary>

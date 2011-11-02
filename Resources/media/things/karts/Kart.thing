@@ -13,8 +13,8 @@ FrontRightWheelPosition = -1.388, 0.302, 1.0203
 BackLeftWheelPosition = 1.388, 0.302, -1.70428
 BackRightWheelPosition = -1.388, 0.302, -1.70428
 
-FrontDriftAngle = 53 //56
-BackDriftAngle = 60 //59
+FrontDriftAngle = 35 //53
+BackDriftAngle = 45 //60
 
 Model {
 	Mesh = "kart/KartChassis.mesh"

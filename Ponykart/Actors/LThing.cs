@@ -215,28 +215,11 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void SetUpBodyInfo(ThingDefinition def) {
 			// set up our collision shapes
-			CollisionShape shape;
-			// if we just have one shape component, we use its shape as the main one
-			if (ShapeComponents.Count == 1) {
-				shape = ShapeComponents[0].Shape;
-			}
-			// if we have more than one component we'll need a compound shape
-			else {
-				CompoundShape comp = new CompoundShape();
-				foreach (var sc in ShapeComponents) {
-					comp.AddChildShape(sc.Transform, sc.Shape);
-				}
-				shape = comp;
-			}
+			CollisionShape shape = LKernel.GetG<CollisionShapeManager>().CreateAndRegisterShape(this, def);
 
 			// get the physics type and set up the mass of the body
 			ThingEnum physicsType = def.GetEnumProperty("physics", null);
-			float mass;
-			if (physicsType.HasFlag(ThingEnum.Static))
-				mass = 0;
-			else {
-				mass = def.GetFloatProperty("mass", 1);
-			}
+			float mass = physicsType.HasFlag(ThingEnum.Static) ? 0 : def.GetFloatProperty("mass", 1);
 
 			// create our construction info thingy
 			Vector3 inertia;

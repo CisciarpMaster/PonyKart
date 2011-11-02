@@ -7,9 +7,12 @@ using Ponykart.Properties;
 
 namespace Ponykart.Levels {
 	public delegate void LevelEvent(LevelChangedEventArgs eventArgs);
+	public delegate void LevelProgressEvent(LevelChangedEventArgs eventArgs, string message);
 
 	public class LevelManager {
 		public Level CurrentLevel { get; private set; }
+
+		public static event LevelProgressEvent OnLevelLoadProgress;
 		/// <summary>
 		/// Is fired a few frames before we even start unloading anything. Mostly used for stuff that still requires screen rendering, such as putting up a loading screen
 		/// </summary>
@@ -79,11 +82,14 @@ namespace Ponykart.Levels {
 
 				//CurrentLevel.Save();
 
+				InvokeLevelProgress(eventArgs, "Unloading level handlers...");
 				LKernel.UnloadLevelHandlers();
 
+				InvokeLevelProgress(eventArgs, "Invoking level unload event...");
 				// invoke the level unloading events
 				Invoke(OnLevelUnload, eventArgs);
 
+				InvokeLevelProgress(eventArgs, "Cleaning up...");
 				LKernel.Cleanup();
 
 				CurrentLevel.Dispose();
@@ -106,34 +112,43 @@ namespace Ponykart.Levels {
 				Launch.Log("==========================================================");
 				Launch.Log("======= Level loading: " + newLevel.Name + " =======");
 				Launch.Log("==========================================================");
+
 				// load our resource group, if we have one
+				InvokeLevelProgress(args, "Initialising new resource group...");
 				if (ResourceGroupManager.Singleton.ResourceGroupExists(newLevel.Name) && !ResourceGroupManager.Singleton.IsResourceGroupInitialised(newLevel.Name)) {
 					Launch.Log("[Loading] Initialising resource group: " + newLevel.Name);
 					ResourceGroupManager.Singleton.InitialiseResourceGroup(newLevel.Name);
 				}
 
 				// load up the world definition from the .muffin file
+				InvokeLevelProgress(args, "Reading .muffin files...");
 				newLevel.ReadMuffin();
 
 				// create the enviroment
+				InvokeLevelProgress(args, "Creating environment...");
 				newLevel.CreateEnvironment();
 
 				// run our level loading events
 				Launch.Log("[Loading] Loading everything else...");
+				InvokeLevelProgress(args, "Invoking level load event...");
 				Invoke(OnLevelLoad, args);
 
 				// then put Things into our world
+				InvokeLevelProgress(args, "Creating entities...");
 				newLevel.CreateEntities();
 				// then load the rest of the handlers
+				InvokeLevelProgress(args, "Loading level handlers...");
 				LKernel.LoadLevelHandlers(newLevel);
 
 				IsValidLevel = true;
 
 				// run our scripts
+				InvokeLevelProgress(args, "Running scripts...");
 				LKernel.GetG<LuaMain>().LoadScriptFiles(newLevel.Name);
 				newLevel.RunLevelScript();
 				newLevel.RunThingScripts();
 
+				InvokeLevelProgress(args, "Building static and instanced geometry...");
 				LKernel.GetG<StaticGeometryManager>().Build();
 				LKernel.GetG<InstancedGeometryManager>().Build();
 			}
@@ -143,6 +158,7 @@ namespace Ponykart.Levels {
 				Pauser.IsPaused = true;
 
 			// last bit of cleanup
+			InvokeLevelProgress(args, "Garbage collecting...");
 			GC.Collect();
 
 			// post load event needs to be delayed
@@ -176,6 +192,9 @@ namespace Ponykart.Levels {
 			Invoke(OnLevelPreUnload, eventArgs);
 
 			if (delay > 0) {
+				// we need to have this because otherwise we start loading before we manage to render a frame, and we need to render a frame to
+				// show stuff like a loading screen
+
 				// reset these
 				elapsed = 0;
 				frameOneRendered = frameTwoRendered = false;
@@ -197,7 +216,7 @@ namespace Ponykart.Levels {
 		private FrameListener.FrameStartedHandler preUnloadFrameStartedHandler;
 		private FrameListener.FrameStartedHandler postLoadFrameStartedHandler;
 		// time to wait until we run the event
-		private const float INITIAL_DELAY = 0.2f;
+		private const float INITIAL_DELAY = 0.1f;
 		// used in the FrameStarted method
 		private float elapsed = 0;
 		/// keeps track of how many frames we've rendered
@@ -246,6 +265,11 @@ namespace Ponykart.Levels {
 		private void Invoke(LevelEvent e, LevelChangedEventArgs args) {
 			if (e != null)
 				e(args);
+		}
+
+		private void InvokeLevelProgress(LevelChangedEventArgs args, string message) {
+			if (OnLevelLoadProgress != null)
+				OnLevelLoadProgress(args, message);
 		}
 
 		/// <summary>
