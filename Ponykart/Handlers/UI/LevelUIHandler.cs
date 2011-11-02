@@ -64,7 +64,7 @@ namespace Ponykart.Handlers {
 			level4Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("SweetAppleAcres");
 
 			Button quitButton = mainMenuGui.GetControl<Button>("Quit");
-			quitButton.MouseClick += (o, e) => Main.quit = true;
+			quitButton.MouseClick += (o, e) => Launch.Quit = true;
 		}
 
 		/// <summary>

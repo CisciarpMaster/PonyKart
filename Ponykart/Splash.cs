@@ -85,6 +85,7 @@ namespace Ponykart {
 			this.Progress.Step = 1;
 			this.Progress.TabIndex = 1;
 			this.Progress.UseWaitCursor = true;
+			this.Progress.Style = ProgressBarStyle.Continuous;
 			// 
 			// Splash
 			// 

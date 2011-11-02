@@ -27,7 +27,7 @@ namespace Ponykart {
 			splash.Increment("Initialising render system...");
 			var renderSystem = AddGlobalObject(InitRenderSystem(root));
 			splash.Increment("Creating render window...");
-			var renderWindow = AddGlobalObject(InitRenderWindow(root, GetG<Main>(), renderSystem));
+			var renderWindow = AddGlobalObject(InitRenderWindow(root, renderSystem));
 
 			splash.Increment("Initialising resources and resource groups...");
 			InitResources();

@@ -1,4 +1,7 @@
-﻿using IrrKlang;
+﻿using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using IrrKlang;
 using Mogre;
 using Math = Mogre.Math;
 
@@ -197,7 +200,7 @@ namespace Ponykart {
 
 		#endregion Quaternion
 
-			#region Matrix3
+		#region Matrix3
 
 			#region Getters
 			/// <summary>
@@ -270,5 +273,37 @@ namespace Ponykart {
 			return node.LocalAxes.GetColumn(2);
 		}
 		#endregion Node
+
+		#region RenderWindow
+
+		// How to change the icon of the window ogre created
+		// from http://www.ogre3d.org/tikiwiki/Set+icon+of+Window+(Mogre)
+
+		[DllImport("user32.dll")]
+		private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+		[DllImport("user32.dll")]
+		private static extern int DrawMenuBar(int currentWindow);
+
+		private const int WM_SETICON = 0x80;
+		private const int ICON_SMALL = 0;
+
+		/// <summary>
+		/// Sets the icon of a render window.
+		/// </summary>
+		public static void SetIcon(this RenderWindow window, Icon icon) {
+			IntPtr hwnd = new IntPtr();
+			window.GetCustomAttribute("WINDOW", out hwnd);
+
+			// check parameters
+			if (icon == null || hwnd == null || hwnd == IntPtr.Zero)
+				return;
+
+			// Set the icon with SendMessage
+			SendMessage(hwnd, WM_SETICON, (IntPtr) ICON_SMALL, (IntPtr) icon.Handle);
+			// Force windows to update the icon
+			DrawMenuBar((int) hwnd);
+		}
+
+		#endregion
 	}
 }

@@ -23,7 +23,7 @@ namespace Ponykart.Handlers {
 			if (lcm.IsVisible)
 				lcm.Hide();
 			else
-				Main.quit = true;
+				Launch.Quit = true;
 		}
 	}
 }

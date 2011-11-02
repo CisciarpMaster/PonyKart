@@ -2,9 +2,13 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using Mogre;
+using Ponykart.Physics;
+using Ponykart.UI;
 
 namespace Ponykart {
 	public static class Launch {
+
+		public static bool Quit = false;
 
 		[STAThread]
 		public static void Main() {
@@ -14,7 +18,44 @@ namespace Ponykart {
 
 			LKernel.Initialise();
 
-			LKernel.GetG<Main>().Go();
+			InitializeOgre();
+			StartRendering();
+		}
+
+		private static void InitializeOgre() {
+			Splash splash = new Splash();
+			splash.Show();
+			try {
+				LKernel.LoadInitialObjects(splash);
+				GC.Collect();
+			}
+			finally {
+				splash.Close();
+				splash.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Starts the render loop!
+		/// </summary>
+		[DebuggerStepThrough]
+		private static void StartRendering() {
+			Root root = LKernel.GetG<Root>();
+			RenderWindow window = LKernel.GetG<RenderWindow>();
+
+			root.RenderOneFrame();
+			window.SetVisible(true);
+
+			while (!Quit && !window.IsClosed && root != null) {
+				if (!root.RenderOneFrame())
+					break;
+				Application.DoEvents();
+			}
+
+			LKernel.GetG<UIMain>().Dispose();
+			LKernel.GetG<PhysicsMain>().Dispose();
+			if (root != null)
+				root.Shutdown();
 		}
 
 		/// <summary>

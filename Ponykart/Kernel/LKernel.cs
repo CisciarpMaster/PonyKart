@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace Ponykart {
 	public static partial class LKernel {
@@ -14,10 +13,6 @@ namespace Ponykart {
 		public static void Initialise() {
 			GlobalObjects = new Dictionary<Type, object>();
 			LevelObjects = new Dictionary<Type, object>();
-
-			var main = new Main();
-			AddGlobalObject<Main>(main);
-			AddGlobalObject<Form>(main);
 		}
 
 		/// <summary>

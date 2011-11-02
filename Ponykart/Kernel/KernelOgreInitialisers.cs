@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Forms;
 using Mogre;
 using Ponykart.Properties;
 
@@ -30,19 +29,38 @@ namespace Ponykart {
 				root.RenderSystem = renderSystem;
 			}
 
+#if DEBUG
+			// print out the things we can support
+			var renderList = root.GetAvailableRenderers();
+			foreach (var renderSystem in renderList) {
+				Launch.Log("\n**** Available options for Render System: " + renderSystem.Name + " ****");
+				foreach (var option in renderSystem.GetConfigOptions()) {
+					Launch.Log("\t" + option.Key);
+					foreach (var p in option.Value.possibleValues) {
+						Launch.Log("\t\t" + p);
+					}
+				}
+				Launch.Log("***********************************");
+			}
+#endif
+
 			return root.RenderSystem;
 		}
 
 		/// <summary>
 		/// Creates the render window, tells it to use our WinForms window, and enables vsync
 		/// </summary>
-		private static RenderWindow InitRenderWindow(Root root, Form form, RenderSystem renderSystem) {
+		private static RenderWindow InitRenderWindow(Root root, RenderSystem renderSystem) {
 			Launch.Log("[Loading] Creating RenderWindow...");
 
 			//Ensure RenderSystem has been Initialised
 			root.RenderSystem = renderSystem;
 
-			return root.Initialise(true, "Ponykart");
+			var window = root.Initialise(true, "Ponykart");
+			window.SetVisible(false);
+			window.SetIcon(Resources.Icon_2);
+
+			return window;
 		}
 
 		/// <summary>
@@ -84,7 +102,7 @@ namespace Ponykart {
 		/// This is where resources are actually loaded into memory.
 		/// </summary>
 		private static void LoadResourceGroups() {
-			TextureManager.Singleton.DefaultNumMipmaps = 2;
+			TextureManager.Singleton.DefaultNumMipmaps = 1;
 
 #if DEBUG
 			ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
