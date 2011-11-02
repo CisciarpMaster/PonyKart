@@ -34,7 +34,7 @@ namespace ShadowsTest {
 			root = new Root("plugins.cfg", "", "Ogre.log");
 
 			renderSystem = root.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
-			renderSystem.SetConfigOption("Full Screen", "No");
+			renderSystem.SetConfigOption("Full Screen", "Yes");
 			renderSystem.SetConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
 			root.RenderSystem = renderSystem;
 

@@ -39,10 +39,10 @@
       <Value Profile="(Default)">.bullet</Value>
     </Setting>
     <Setting Name="WindowWidth" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">1365</Value>
+      <Value Profile="(Default)">1280</Value>
     </Setting>
     <Setting Name="WindowHeight" Type="System.UInt32" Scope="User">
-      <Value Profile="(Default)">768</Value>
+      <Value Profile="(Default)">800</Value>
     </Setting>
     <Setting Name="CameraNodeYOffset" Type="System.Single" Scope="User">
       <Value Profile="(Default)">5</Value>
@@ -124,6 +124,9 @@
     </Setting>
     <Setting Name="InstancedEntitiesPerBatch" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="EnableFullscreen" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

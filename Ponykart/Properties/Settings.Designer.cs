@@ -133,7 +133,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1365")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1280")]
         public uint WindowWidth {
             get {
                 return ((uint)(this["WindowWidth"]));
@@ -145,7 +145,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("768")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
         public uint WindowHeight {
             get {
                 return ((uint)(this["WindowHeight"]));
@@ -473,6 +473,18 @@ namespace Ponykart.Properties {
             }
             set {
                 this["InstancedEntitiesPerBatch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableFullscreen {
+            get {
+                return ((bool)(this["EnableFullscreen"]));
+            }
+            set {
+                this["EnableFullscreen"] = value;
             }
         }
     }

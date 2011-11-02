@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using Mogre;
 using Ponykart.Properties;
@@ -23,6 +22,9 @@ namespace Ponykart {
 			if (root.RenderSystem == null) {
 				var renderSystem = root.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
 				renderSystem.SetConfigOption("Full Screen", "No");
+				renderSystem.SetConfigOption("Floating-point mode", "Fastest");
+				renderSystem.SetConfigOption("VSync", "No");
+				renderSystem.SetConfigOption("FSAA", "0");
 				renderSystem.SetConfigOption("Video Mode", Settings.Default.WindowWidth + " x " + Settings.Default.WindowHeight + " @ 32-bit colour");
 
 				root.RenderSystem = renderSystem;
@@ -40,17 +42,7 @@ namespace Ponykart {
 			//Ensure RenderSystem has been Initialised
 			root.RenderSystem = renderSystem;
 
-			root.Initialise(false, "Ponykart");
-			NameValuePairList miscParams = new NameValuePairList();
-
-			// this lets us use a winforms window instead of one from ogre
-			if (form.Handle != IntPtr.Zero)
-				miscParams["externalWindowHandle"] = form.Handle.ToString();
-
-			//miscParams["FSAA"] = "4";
-			miscParams["vsync"] = "true";    // by Ogre default: false
-
-			return root.CreateRenderWindow("Ponykart main RenderWindow", Settings.Default.WindowWidth, Settings.Default.WindowHeight, false, miscParams);
+			return root.Initialise(true, "Ponykart");
 		}
 
 		/// <summary>
@@ -92,7 +84,7 @@ namespace Ponykart {
 		/// This is where resources are actually loaded into memory.
 		/// </summary>
 		private static void LoadResourceGroups() {
-			TextureManager.Singleton.DefaultNumMipmaps = 1;
+			TextureManager.Singleton.DefaultNumMipmaps = 2;
 
 #if DEBUG
 			ResourceGroupManager.Singleton.InitialiseAllResourceGroups();

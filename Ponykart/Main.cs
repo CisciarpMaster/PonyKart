@@ -19,7 +19,7 @@ namespace Ponykart {
 		public void Go() {
 			InitializeComponent();
 			InitializeOgre();
-			base.Show();
+			//base.Show();
 			StartRendering();
 		}
 
