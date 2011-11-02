@@ -2,7 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Road
 CollidesWith = Road
-DisableVisualization = true
+//DisableVisualization = true
 Static = true
 
 // SAA_Ramp
@@ -16,7 +16,7 @@ Model {
 // SAA_Ramp_phys
 Shape {
 	Type = Mesh
-	Mesh = "SAA_Ramp_phys.bullet"
+	Mesh = "SAA_Ramp_phys.mesh"
 	Position = 0.958, 7.442, 0
 	Orientation = 0, 0, 0, 1
 	Scale = 1, 1, 1
