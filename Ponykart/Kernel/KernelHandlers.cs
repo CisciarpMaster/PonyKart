@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using LuaNetInterface;
-using Mogre;
-using Ponykart.Core;
 using Ponykart.Levels;
 
 namespace Ponykart {
@@ -54,11 +52,6 @@ namespace Ponykart {
 			foreach (Type t in e) {
 				Launch.Log("[Loading] \tCreating " + t);
 				AddLevelObject(Activator.CreateInstance(t), t);
-			}
-			// the camera's a bit weird
-			if (!GetG<SceneManager>().HasCamera("Camera")) {
-				var playerCam = AddLevelObject(new PlayerCamera());
-				GetG<Viewport>().Camera = playerCam.Camera;
 			}
 		}
 

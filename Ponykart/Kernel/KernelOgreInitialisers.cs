@@ -75,9 +75,10 @@ namespace Ponykart {
 		/// <summary>
 		/// Creates the viewport
 		/// </summary>
-		private static Viewport InitViewport(RenderWindow window, Camera camera) {
+		private static Viewport InitViewport(RenderWindow window) {
 			Launch.Log("[Loading] Creating Viewport...");
-			return window.AddViewport(camera);
+			// just make a temporary camera now for this
+			return window.AddViewport(GetG<SceneManager>().CreateCamera("tempCam"));
 		}
 
 		/// <summary>

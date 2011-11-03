@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Mogre;
 using Ponykart.Levels;
@@ -56,13 +55,14 @@ namespace Ponykart.Actors {
 				SceneNode node = sceneMgr.RootSceneNode.CreateChildSceneNode(group.Key + "BillboardNode", averagePosition);
 
 				foreach (var block in group) {
-					string region = block.GetStringProperty("MapRegion", null);
 					ThingDefinition def = database.GetThingDefinition(block.ThingName);
 
-					// it doesn't make much sense if a thing that has regions doesn't want to use them
+					// if the thing doesn't want imposters, then we leave it alone
+					// examples of something that might want map regions but no billboards: bushes, flowers, grass
 					if (!def.GetBoolProperty("Imposters", false))
-						throw new ApplicationException("A ThingBlock had a MapRegion property, but its ThingDefinition doesn't want to be impostered!");
-					
+						continue;
+
+					string region = block.GetStringProperty("MapRegion", null);					
 
 					BillboardSet billboardSet;
 					if (!billboards.TryGetValue(region + block.ThingName, out billboardSet)) {

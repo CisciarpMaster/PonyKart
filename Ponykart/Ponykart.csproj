@@ -130,6 +130,9 @@
     <Compile Include="Actors\StaticGeometryManager.cs" />
     <Compile Include="Actors\Wheels\DriftState.cs" />
     <Compile Include="Actors\Wheels\WheelID.cs" />
+    <Compile Include="Core\Cameras\BasicCamera.cs" />
+    <Compile Include="Core\Cameras\CameraManager.cs" />
+    <Compile Include="Core\Cameras\LCamera.cs" />
     <Compile Include="Core\LDisposable.cs" />
     <Compile Include="Actors\Wheels\Wheel.cs" />
     <Compile Include="Actors\Wheels\WheelFactory.cs" />
@@ -216,7 +219,7 @@
     <Compile Include="Handlers\For testing\LevelChangerHandler.cs" />
     <Compile Include="Physics\Collision Reports\CollisionReporter.cs" />
     <Compile Include="Physics\CollisionGroups.cs" />
-    <Compile Include="Core\PlayerCamera.cs" />
+    <Compile Include="Core\Cameras\PlayerCamera.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelChangedEventArgs.cs" />
     <Compile Include="Levels\LevelManager.cs" />

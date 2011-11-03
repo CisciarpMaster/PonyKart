@@ -7,29 +7,27 @@ using Ponykart.Properties;
 namespace Ponykart.Core {
 	/// <summary>
 	/// A basic third-person camera with some smoothing.
-	/// TODO: Make more camera types and a way to switch between them more effectively.
 	/// </summary>
-	public class PlayerCamera : LDisposable, ILevelHandler {
-		
-		public Camera Camera { get; private set; }
+	public class PlayerCamera : LCamera {
 		SceneNode TargetNode;
 		SceneNode CameraNode;
 		Kart followKart;
 		SceneNode kartCamNode;
 		SceneNode kartTargetNode;
 
-		public PlayerCamera() {
+		public PlayerCamera() :base () {
 			var manager = LKernel.GetG<SceneManager>();
 			Launch.Log("[Loading] Creating new PlayerCamera");
 
-			Camera = manager.CreateCamera("Camera");
+			Camera = manager.CreateCamera("PlayerCamera");
 
 			Camera.NearClipDistance = 0.5f;
-			Camera.FarClipDistance = 5000f;
-			Camera.AspectRatio = ((float) Settings.Default.WindowWidth) / ((float) Settings.Default.WindowHeight);
+			Camera.FarClipDistance = 3000f;
+			Camera.AutoAspectRatio = true;
+			//Camera.AspectRatio = ((float) Settings.Default.WindowWidth) / ((float) Settings.Default.WindowHeight);
 
-			CameraNode = manager.RootSceneNode.CreateChildSceneNode("CameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
-			TargetNode = manager.RootSceneNode.CreateChildSceneNode("CameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
+			CameraNode = manager.RootSceneNode.CreateChildSceneNode("PlayerCameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
+			TargetNode = manager.RootSceneNode.CreateChildSceneNode("PlayerCameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
 
 			CameraNode.SetAutoTracking(true, TargetNode);
 			CameraNode.SetFixedYawAxis(true);
@@ -40,7 +38,7 @@ namespace Ponykart.Core {
 			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
 				OnKartCreation(LKernel.GetG<PlayerManager>().MainPlayer.Kart);
 
-				LKernel.GetG<Root>().FrameStarted += UpdateCamera;
+				//LKernel.GetG<Root>().FrameStarted += UpdateCamera;
 			}
 		}
 
@@ -60,7 +58,7 @@ namespace Ponykart.Core {
 		/// Updates the camera
 		/// TODO: stop it from going through the terrain
 		/// </summary>
-		bool UpdateCamera(FrameEvent evt) {
+		protected override bool UpdateCamera(FrameEvent evt) {
 			Vector3 displacement;
 
 			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * Settings.Default.CameraTightness * evt.timeSinceLastFrame;
@@ -70,13 +68,6 @@ namespace Ponykart.Core {
 			TargetNode.Translate(displacement);
 
 			return true;
-		}
-
-		public void Detach() {
-			//LKernel.Get<Spawner>().OnKartCreation -= OnKartCreation;
-			LKernel.GetG<Root>().FrameStarted -= UpdateCamera;
-
-			Dispose();
 		}
 
 		protected override void Dispose(bool disposing) {

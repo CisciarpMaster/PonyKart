@@ -43,7 +43,7 @@ namespace Ponykart.Lua {
 		/// <param name="o">The class whose functions you want to add to the Lua VM</param>
 		/// <remarks>Shorthand</remarks>
 		public void RegisterLuaFunctions(object o) {
-			Launch.Log("[LuaMain] \tRegistering lua functions from " + o.GetType());
+			//Launch.Log("[LuaMain] \tRegistering lua functions from " + o.GetType());
 
 			OnRegister += () => LuaVM.RegisterLuaFunctions(o);
 		}

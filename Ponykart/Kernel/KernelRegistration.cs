@@ -55,8 +55,8 @@ namespace Ponykart {
 			GetG<PhysicsMain>().LoadPhysicsLevel(Settings.Default.MainMenuName);
 
 			splash.Increment("Creating player camera and viewport...");
-			var playerCamera = AddLevelObject(new PlayerCamera());
-			AddGlobalObject(InitViewport(renderWindow, playerCamera.Camera));
+			AddGlobalObject(InitViewport(renderWindow));
+			AddGlobalObject(new CameraManager());
 
 			// MOIS and input stuff
 			splash.Increment("Starting input system...");

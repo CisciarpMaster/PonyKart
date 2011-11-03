@@ -39,6 +39,8 @@ namespace Ponykart.Levels {
 
 			if (string.IsNullOrEmpty(name))
 				Type = LevelType.EmptyLevel;
+			else if (name == Settings.Default.MainMenuName)
+				Type = LevelType.Menu;
 		}
 
 		/// <summary>
