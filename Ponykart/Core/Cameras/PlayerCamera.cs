@@ -15,9 +15,8 @@ namespace Ponykart.Core {
 		SceneNode kartCamNode;
 		SceneNode kartTargetNode;
 
-		public PlayerCamera() :base () {
+		public PlayerCamera() : base () {
 			var manager = LKernel.GetG<SceneManager>();
-			Launch.Log("[Loading] Creating new PlayerCamera");
 
 			Camera = manager.CreateCamera("PlayerCamera");
 
@@ -34,21 +33,9 @@ namespace Ponykart.Core {
 
 			CameraNode.AttachObject(Camera);
 
-			// don't want to do any camera shenanigans on the first level
-			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
-				OnKartCreation(LKernel.GetG<PlayerManager>().MainPlayer.Kart);
-
-				//LKernel.GetG<Root>().FrameStarted += UpdateCamera;
-			}
-		}
-
-		/// <summary>
-		/// Attaches two SceneNodes to the main kart so we can use them for camera stuff.
-		/// </summary>
-		void OnKartCreation(Kart kart) {
-			kartCamNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_cam", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
-			kartTargetNode = kart.RootNode.CreateChildSceneNode(kart.Name + "_camtarget", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
-			followKart = kart;
+			followKart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
+			kartCamNode = followKart.RootNode.CreateChildSceneNode("KartCameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
+			kartTargetNode = followKart.RootNode.CreateChildSceneNode("KartCameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
 
 			CameraNode.Position = kartCamNode._getDerivedPosition();
 			TargetNode.Position = kartTargetNode._getDerivedPosition();

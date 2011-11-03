@@ -143,6 +143,7 @@
     <Compile Include="Actors\Kart.cs" />
     <Compile Include="Core\AnimationManager.cs" />
     <Compile Include="Handlers\For testing\DisableWheelFrictionHandler.cs" />
+    <Compile Include="Handlers\Karts\KartCameraCreator.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
     <Compile Include="Handlers\Helpers\Rotater.cs" />
     <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />

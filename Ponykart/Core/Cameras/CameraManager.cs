@@ -76,7 +76,6 @@ namespace Ponykart.Core {
 		/// Registers a new camera. This camera must not've already been registered.
 		/// If we aren't using a camera yet, this will switch our rendering to use it.
 		/// </summary>
-		/// <param name="newCamera"></param>
 		public void RegisterCamera(LCamera newCamera) {
 			if (cameras.Contains(newCamera)) {
 				throw new ApplicationException("Tried to register a camera that was already registered!");

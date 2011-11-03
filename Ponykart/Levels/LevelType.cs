@@ -14,14 +14,14 @@ namespace Ponykart {
 		/// <summary>
 		/// Used for the "empty" level that's created when the game's first started.
 		/// </summary>
-		EmptyLevel = 0,
+		EmptyLevel = 1,
 		/// <summary>
 		/// For menus and stuff. Race-specific stuff and players are not created here.
 		/// </summary>
-		Menu = 1,
+		Menu = 2,
 		/// <summary>
 		/// For races.
 		/// </summary>
-		Race = 2
+		Race = 4
 	}
 }
