@@ -9,6 +9,7 @@ material AppleCartExtras
 			scene_blend alpha_blend
 			cull_hardware none
 			depth_write off
+			alpha_rejection greater_equal 64
 			
 			texture_unit
 			{

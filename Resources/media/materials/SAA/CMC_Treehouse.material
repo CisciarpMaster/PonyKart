@@ -52,6 +52,7 @@ material CMC_Treehouse_Transparent
 			scene_blend alpha_blend
 			transparent_sorting on
 			depth_write off
+			alpha_rejection greater_equal 64
 
 			texture_unit
 			{

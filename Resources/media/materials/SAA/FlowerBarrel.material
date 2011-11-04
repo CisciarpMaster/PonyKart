@@ -40,6 +40,7 @@ material FlowerBarrelTransparent {
 			scene_blend alpha_blend
 			depth_write off
 			transparent_sorting on
+			alpha_rejection greater_equal 64
 			
 			texture_unit {
 				texture FBgreen_tex.dds

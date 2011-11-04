@@ -33,6 +33,7 @@ material AppleBillboard {
 			scene_blend alpha_blend
 			depth_write off
 			transparent_sorting on
+			alpha_rejection greater_equal 128
 			
 			texture_unit {
 				texture apple_alpha.dds
@@ -158,6 +159,7 @@ material Billboards {
 			transparent_sorting on
 			scene_blend alpha_blend
 			depth_write off
+			alpha_rejection greater_equal 128
 
 			texture_unit {
 				texture billboards.dds

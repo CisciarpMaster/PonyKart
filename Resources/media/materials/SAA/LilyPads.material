@@ -4,6 +4,7 @@ material LilyPads {
 		pass {
 			scene_blend alpha_blend
 			depth_write off
+			alpha_rejection greater_equal 64
 			
 			texture_unit {
 				texture_alias Diffuse
@@ -42,6 +43,7 @@ material Lily {
 			scene_blend alpha_blend
 			depth_write off
 			lighting off
+			alpha_rejection greater_equal 64
 
 			texture_unit {
 				texture billboards.dds

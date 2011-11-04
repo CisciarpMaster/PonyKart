@@ -6,6 +6,7 @@ material Particles/Mud {
 			lighting off
 			scene_blend alpha_blend
 			depth_write off
+			alpha_rejection greater_equal 64
 			
 			vertex_program_ref animatedParticle_vp {
 				param_named numTilesU float 8
@@ -31,7 +32,7 @@ material Particles/Pomf {
 			lighting off
 			scene_blend add
 			depth_write off
-			cull_hardware none
+			alpha_rejection greater_equal 64
 			
 			vertex_program_ref animatedParticle_vp {
 				param_named numTilesU float 6

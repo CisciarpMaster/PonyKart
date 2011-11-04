@@ -28,6 +28,7 @@ material Barn_Plants
 			depth_write off
 			cull_hardware none
 			transparent_sorting on
+			alpha_rejection greater_equal 64
 
 			texture_unit
 			{

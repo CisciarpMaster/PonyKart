@@ -21,7 +21,7 @@ namespace Ponykart.Core {
 			Camera = manager.CreateCamera("PlayerCamera");
 
 			Camera.NearClipDistance = 0.5f;
-			Camera.FarClipDistance = 3000f;
+			Camera.FarClipDistance = 3500f;
 			Camera.AutoAspectRatio = true;
 			//Camera.AspectRatio = ((float) Settings.Default.WindowWidth) / ((float) Settings.Default.WindowHeight);
 
