@@ -27,7 +27,6 @@ material Barn_Plants
 			scene_blend alpha_blend
 			depth_write off
 			cull_hardware none
-			transparent_sorting on
 			alpha_rejection greater_equal 64
 
 			texture_unit

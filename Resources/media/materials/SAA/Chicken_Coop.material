@@ -10,6 +10,11 @@ material Chicken_coop_sign
 			depth_write off
 			alpha_rejection greater_equal 64
 			
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit
 			{
 				texture chickencoopsign.dds
@@ -27,37 +32,14 @@ material Chicken_Coop
 		{
 			cull_hardware none
 			
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit
 			{
 				texture chickencoop.dds
-			}
-		}
-	}
-}
-
-material Fences
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture fencetex.dds
-			}
-		}
-	}
-}
-
-material CMC_Treehouse_Ramps
-{
-	technique
-	{
-		pass
-		{
-			texture_unit
-			{
-				texture CMC_Treehouse_Ramp.dds
 			}
 		}
 	}

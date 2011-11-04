@@ -1,0 +1,111 @@
+void main_vp(float2 uv 				: TEXCOORD0,
+			 float4 Position	 	: POSITION,
+			 float4 Normal  		: NORMAL,
+		  
+			 uniform float uScale,
+			 uniform float vScale,
+		  
+			 out float4 oPosition   : POSITION,
+			 out float2 oUv		 	: TEXCOORD0,
+		  
+			 out float3 WorldNormal : TEXCOORD1,
+			 out float3 WorldView   : TEXCOORD2,
+
+			 uniform float4x4 WorldITXf, // our four standard "untweakable" xforms
+			 uniform float4x4 WorldXf,
+			 uniform float4x4 ViewIXf,
+			 uniform float4x4 WvpXf
+) {
+    WorldNormal = mul(WorldITXf, Normal).xyz;
+	
+    float4 Pw = mul(WorldXf, Position);
+    WorldView = normalize(float3(ViewIXf[0].w, ViewIXf[1].w, ViewIXf[2].w) - Pw.xyz);
+    oPosition = mul(WvpXf, Position);
+	
+	// get our new UV coordinates
+	oUv.x = uv.x * uScale;
+	oUv.y = uv.y * vScale;
+}
+
+// like "scene_blend colour_blend"
+float4 blend_fp(float2 uv 			: TEXCOORD0,
+			    float3 WorldNormal 	: TEXCOORD1,
+			    float3 WorldView   	: TEXCOORD2,
+			   
+			    uniform sampler2D tex : register(s0),
+			
+			    uniform float3 GlowColour,
+			    uniform float GlowExpon,
+			    uniform float Alpha)
+: COLOR
+{
+    float3 Nn = normalize(WorldNormal);
+    float3 Vn = normalize(WorldView);
+    float edge = 1.0 - dot(Nn, Vn);
+	
+    edge = pow(edge, GlowExpon) * Alpha;
+	
+	float4 texture = tex2D(tex, uv.xy);
+	
+	// The second part of this blends the colors together.
+	// This means areas most affected by the fresnel lose texture detail and are eventually
+	// completely replaced by the fresnel colour
+    float3 result = (edge * GlowColour.rgb) + ((1.0 - edge) * texture.rgb);
+	
+	return float4(result, texture.a);
+}
+
+// like "scene_blend add"
+float4 additive_fp( float2 uv 			: TEXCOORD0,
+					float3 WorldNormal 	: TEXCOORD1,
+					float3 WorldView   	: TEXCOORD2,
+			   
+					uniform sampler2D tex : register(s0),
+			
+					uniform float3 GlowColour,
+					uniform float GlowExpon,
+					uniform float Alpha)
+: COLOR
+{
+    float3 Nn = normalize(WorldNormal);
+    float3 Vn = normalize(WorldView);
+    float edge = 1.0 - dot(Nn, Vn);
+	
+    edge = pow(edge, GlowExpon) * Alpha;
+	
+	float4 texture = tex2D(tex, uv.xy);
+	
+	// The second part of this adds the colors together.
+	// This means areas most affected by the fresnel are brighter than the texture,
+	// but the texture detail is still present.
+    float3 result = (edge * GlowColour.rgb) + texture.rgb;
+	
+	return float4(result, texture.a);
+}
+
+// like "scene_blend add", but we use the color of the pixel of the texture as our glow texture
+float4 self_fp(float2 uv 			: TEXCOORD0,
+			   float3 WorldNormal 	: TEXCOORD1,
+			   float3 WorldView   	: TEXCOORD2,
+			   
+			   uniform sampler2D tex : register(s0),
+			   
+			   uniform float GlowExpon,
+			   uniform float Alpha)
+: COLOR
+{
+    float3 Nn = normalize(WorldNormal);
+    float3 Vn = normalize(WorldView);
+    float edge = 1.0 - dot(Nn, Vn);
+	
+    edge = pow(edge, GlowExpon) * Alpha;
+	
+	float4 texture = tex2D(tex, uv.xy);
+	
+	// The second part of this adds the colors together.
+	// This means areas most affected by the fresnel are brighter than the texture,
+	// but the texture detail is still present.
+    float3 result = (edge * texture.rgb) + texture.rgb;
+	
+	return float4(result, texture.a);
+}

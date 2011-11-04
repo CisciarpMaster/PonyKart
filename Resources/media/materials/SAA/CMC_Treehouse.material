@@ -4,6 +4,11 @@ material CMC_Treehouse_Main
 	{
 		pass
 		{
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit
 			{
 				texture CMC_Treehouse_Main.dds
@@ -20,6 +25,11 @@ material CMC_Treehouse_Extras
 		{
 			// two-sided for the big planks between the fences
 			cull_hardware none
+			
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
 
 			texture_unit
 			{
@@ -35,6 +45,12 @@ material CMC_Treehouse_Ramps
 	{
 		pass
 		{
+			
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit
 			{
 				texture CMC_Treehouse_Ramp.dds
@@ -49,6 +65,11 @@ material CMC_Treehouse_Transparent
 	{
 		pass
 		{
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			scene_blend alpha_blend
 			transparent_sorting on
 			depth_write off
@@ -69,6 +90,13 @@ material CMC_Treehouse_Tree
 	{
 		pass
 		{
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.6
+				param_named GlowExpon float 2
+			}
+			
 			texture_unit
 			{
 				texture CMC_Treehouse_Tree.jpg

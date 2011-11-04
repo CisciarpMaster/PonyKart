@@ -3,6 +3,13 @@ material AppleTree {
 	
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 2
+				param_named Alpha float 0.5
+			}
+			
 			texture_unit {
 				texture "tree texture gradient.png"
 			}
@@ -46,6 +53,11 @@ material AppleBillboard {
 material Farmhouse {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture farmhouse.dds
 			}
@@ -56,6 +68,13 @@ material Farmhouse {
 material Fences {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 5
+				param_named Alpha float 0.1
+			}
+			
 			texture_unit {
 				texture fencetex.dds
 			}
@@ -66,6 +85,13 @@ material Fences {
 material Well {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 2
+				param_named Alpha float 0.5
+			}
+			
 			texture_unit {
 				texture well.dds
 			}
@@ -76,6 +102,12 @@ material Well {
 material SAA_Bridge {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.3
+			}
+			
 			texture_unit {
 				texture bridge_wood.dds
 				// used by the wood posts on the banner
@@ -89,6 +121,11 @@ material SAA_Bridge {
 material AppleContainer {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture apple_container.dds
 			}
@@ -100,6 +137,11 @@ material AppleContainer {
 material HayBale {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture HAYBALE.png
 			}
@@ -111,6 +153,11 @@ material HayBale {
 material Bucket {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture Bucket.dds
 			}
@@ -133,6 +180,11 @@ material SAA_BannerSign {
 material Rope {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture rope.dds
 			}

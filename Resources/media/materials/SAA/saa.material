@@ -1,6 +1,14 @@
 material SAA_Barn_Area {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Additive_fp {
+				param_named GlowExpon float 10
+				param_named GlowColour float3 0.15 0.15 0.15
+				param_named Alpha float 1
+			}
+			
 			texture_unit {
 				texture saa_dirt.dds
 			}
@@ -11,9 +19,19 @@ material SAA_Barn_Area {
 material SAA_Road {
 	technique {
 		pass {
+			 vertex_program_ref fresnelTex_vp {
+				param_named uScale float 2
+				param_named vScale float 2
+			}
+			fragment_program_ref fresnelTex_Additive_fp {
+				param_named GlowExpon float 10
+				param_named GlowColour float3 0.15 0.15 0.15
+				param_named Alpha float 1
+			}
+			
 			texture_unit {
 				texture saa_road.dds
-				scale 0.5 0.5
+				// scale 0.5 0.5
 			}
 		}
 	}
@@ -22,6 +40,14 @@ material SAA_Road {
 material SAA_Cliff {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Additive_fp {
+				param_named GlowExpon float 10
+				param_named GlowColour float3 0.15 0.15 0.15
+				param_named Alpha float 1
+			}
+			
 			texture_unit {
 				texture saa_cliff.dds
 			}
@@ -32,21 +58,18 @@ material SAA_Cliff {
 material SAA_Grass {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+				param_named uScale float 100
+				param_named vScale float 100
+			}
+			fragment_program_ref fresnelTex_Additive_fp {
+				//param_named GlowColour float3 0.651 0.78 0.224
+				param_named GlowColour float3 0.217 0.26 0.0746
+				param_named GlowExpon float 3
+			}
+			
 			texture_unit {
 				texture saa_grass.dds
-				scale 0.01 0.01
-			}
-		}
-		pass {
-			scene_blend colour_blend
-			depth_bias 1
-			light_scissor on
-			
-			vertex_program_ref glowBalloon_vp {
-			}
-			fragment_program_ref glowBalloon_fp {
-				param_named GlowColor float3 0.651 0.78 0.224
-				param_named GlowExpon float  3
 			}
 		}
 	}

@@ -6,6 +6,13 @@ material RedApple
 	{
 		pass
 		{
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.5
+				param_named GlowExpon float 2
+			}
+			
 			texture_unit
 			{
 				tex_address_mode clamp
@@ -23,6 +30,13 @@ material GreenApple
 	{
 		pass
 		{
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.5
+				param_named GlowExpon float 2
+			}
+			
 			texture_unit
 			{
 				tex_address_mode clamp

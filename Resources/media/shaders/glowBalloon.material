@@ -8,7 +8,6 @@ vertex_program glowBalloon_vp cg {
 		param_named_auto WorldXf      world_matrix
 		param_named_auto ViewIXf      inverse_view_matrix
 		param_named_auto WvpXf        worldviewproj_matrix
-		// param_named_auto CameraPos		camera_position
 	}
 }
 

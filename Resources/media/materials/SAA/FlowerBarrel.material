@@ -1,6 +1,11 @@
 material FlowerBarrelGreen {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture FBgreen_tex.dds
 				tex_address_mode clamp
@@ -12,6 +17,11 @@ material FlowerBarrelGreen {
 material FlowerBarrelRed {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture FBred_tex.dds
 				tex_address_mode clamp
@@ -23,6 +33,11 @@ material FlowerBarrelRed {
 material FlowerBarrelYellow {
 	technique {
 		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				texture FByellow_tex.dds
 				tex_address_mode clamp
