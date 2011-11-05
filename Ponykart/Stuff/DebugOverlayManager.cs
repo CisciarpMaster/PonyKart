@@ -6,10 +6,6 @@ namespace Ponykart.Stuff {
 		/// The Ogre DebugOverlay.
 		/// </summary>
 		private Overlay overlay;
-		/// <summary>
-		/// String to be displayed in the middle of the DebugOverlay.
-		/// </summary>
-		private string debugText = "";
 
 		public DebugOverlayManager() {
 			this.overlay = OverlayManager.Singleton.GetByName("Core/DebugOverlay");

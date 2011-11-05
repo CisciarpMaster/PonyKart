@@ -59,6 +59,7 @@ namespace Ponykart {
 			var window = root.Initialise(true, "Ponykart");
 			window.SetVisible(false);
 			window.SetIcon(Resources.Icon_2);
+			window.SetDeactivateOnFocusChange(false);
 
 			return window;
 		}

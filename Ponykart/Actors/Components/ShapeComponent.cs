@@ -7,9 +7,6 @@ namespace Ponykart.Actors {
 	/// </summary>
 	public class ShapeComponent : LDisposable {
 		public Matrix4 Transform { get; protected set; }
-		// if your shape is imported from a .bullet file, then when the BulletWorldImporter destroys everything we don't want to try to
-		// dispose our shape, otherwise we get an exception
-		private bool IsShapeImportedFromBulletFile = false;
 
 		public ThingEnum Type { get; private set; }
 		public Vector3 Dimensions { get; private set; }

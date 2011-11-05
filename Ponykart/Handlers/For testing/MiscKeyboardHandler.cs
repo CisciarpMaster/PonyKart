@@ -71,6 +71,9 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_F11:
 					LKernel.GetG<RenderWindow>().SetFullscreen(!LKernel.GetG<RenderWindow>().IsFullScreen, Settings.Default.WindowWidth, Settings.Default.WindowHeight);
 					break;
+				case KeyCode.KC_G:
+					System.GC.Collect(0, System.GCCollectionMode.Forced);
+					break;
 				case KeyCode.KC_C:
 					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
 					Process proc = new Process();

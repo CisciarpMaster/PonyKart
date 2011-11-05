@@ -1,11 +1,8 @@
-material RedApple
-{
+material RedApple {
 	receive_shadows off
 	
-	technique
-	{
-		pass
-		{
+	technique {
+		pass {
 			vertex_program_ref fresnelTex_vp {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
@@ -13,8 +10,7 @@ material RedApple
 				param_named GlowExpon float 2
 			}
 			
-			texture_unit
-			{
+			texture_unit {
 				tex_address_mode clamp
 				texture redapple.dds
 			}
@@ -22,14 +18,11 @@ material RedApple
 	}
 }
 
-material GreenApple
-{
+material GreenApple {
 	receive_shadows off
 	
-	technique
-	{
-		pass
-		{
+	technique {
+		pass {
 			vertex_program_ref fresnelTex_vp {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
@@ -37,8 +30,51 @@ material GreenApple
 				param_named GlowExpon float 2
 			}
 			
-			texture_unit
-			{
+			texture_unit {
+				tex_address_mode clamp
+				texture greenapple.dds
+			}
+		}
+	}
+}
+
+material RedAppleInstanced {
+	receive_shadows off
+	
+	technique {
+		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.5
+				param_named GlowExpon float 2
+			}
+			
+			vertex_program_ref Instancing { }
+			
+			texture_unit {
+				tex_address_mode clamp
+				texture redapple.dds
+			}
+		}
+	}
+}
+
+material GreenAppleInstanced {
+	receive_shadows off
+	
+	technique {
+		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.5
+				param_named GlowExpon float 2
+			}
+			
+			vertex_program_ref Instancing { }
+			
+			texture_unit {
 				tex_address_mode clamp
 				texture greenapple.dds
 			}

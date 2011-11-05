@@ -13,6 +13,16 @@
 				</subentities>
 			</entity>
 		</node>-->
+		<node name="SAA_Hills">
+            <position x="-48.8263" y="220.165" z="-230.609" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="SAA_Hills" castShadows="true" receiveShadows="false" meshFile="SAA_Hills.mesh" static="false">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Hills" />
+                </subentities>
+            </entity>
+        </node>
 		
 		<node name="SAA_River">
             <position x="368.972" y="6.93615" z="-677.336" />

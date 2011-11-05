@@ -74,3 +74,16 @@ material SAA_Grass {
 		}
 	}
 }
+
+material SAA_Hills {
+	technique {
+		pass {
+			scene_blend alpha_blend
+			depth_write off
+			
+			texture_unit {
+				texture hills.png
+			}
+		}
+	}
+}

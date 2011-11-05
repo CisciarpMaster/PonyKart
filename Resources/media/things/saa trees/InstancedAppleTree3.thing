@@ -1,0 +1,96 @@
+Physics = None
+Instanced = true
+
+Imposters = true
+ImposterMaterial = "AppleTree"
+ImposterWidth = 10
+ImposterHeight = 10
+ImposterOffset = 0.1111965, -3, 0.1604475
+
+// main tree model
+Model {
+	Mesh = "AppleTree3.mesh"
+	Material = "AppleTreeInstanced"
+	Position = 0, -3, 0
+	CastsShadows = false
+	Scale = 1, 1, 1
+}
+
+// loads of apples
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedAppleInstanced"
+	Position = -3.5109, 9.15005, -7.156965
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedAppleInstanced"
+	Position = 8.276085, 11.70485, -0.1958985
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedAppleInstanced"
+	Position = -0.9397575, 9.34721, 4.858845
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedAppleInstanced"
+	Position = 4.07943, 7.72698, 1.92267
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedAppleInstanced"
+	Position = -5.824875, 12.5025, 0.8656305
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedAppleInstanced"
+	Position = -1.82709, 4.308525, -3.829995
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedAppleInstanced"
+	Position = 4.93791, 3.918105, 4.223385
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedAppleInstanced"
+	Position = 7.00158, 14.118, -4.254195
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedAppleInstanced"
+	Position = 0.92769, 12.62085, -10.59087
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple.mesh"
+	Material = "RedAppleInstanced"
+	Position = -7.26633, 8.57529, -2.60628
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
+Model {
+	Mesh = "Apple2.mesh"
+	Material = "RedAppleInstanced"
+	Position = 6.896805, 7.9801, -3.301695
+	Scale = 2.25, 2.25, 2.25
+	CastsShadows = false
+}
