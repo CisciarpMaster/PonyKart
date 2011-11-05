@@ -11,7 +11,7 @@ ImposterOffset = 0.1111965, -3, 0.1604475
 Model {
 	Mesh = "AppleTree3.mesh"
 	Material = "AppleTree"
-	Position = 0.1111965, -3, 0.1604475
+	Position = 0, -3, 0
 	CastsShadows = false
 	Scale = 1, 1, 1
 }
