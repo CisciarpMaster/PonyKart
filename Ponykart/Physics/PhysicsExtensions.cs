@@ -10,7 +10,7 @@ namespace Ponykart.Physics {
 	static class PhysicsExtensions {
 		#region CollisionObject
 
-		public static IDictionary<CollisionObject, string> CollisionObjectNames = new Dictionary<CollisionObject, string>();
+		public static IDictionary<CollisionObject, string> CollisionObjectNames = new SortedDictionary<CollisionObject, string>();
 
 		/// <summary>
 		/// Hackish method for getting a name from a collision object
@@ -43,7 +43,7 @@ namespace Ponykart.Physics {
 
 		//---------------------------------------------------------------------------
 
-		private static IDictionary<CollisionObject, PonykartCollisionGroups> CollisionGroups = new Dictionary<CollisionObject, PonykartCollisionGroups>();
+		private static IDictionary<CollisionObject, PonykartCollisionGroups> CollisionGroups = new SortedDictionary<CollisionObject, PonykartCollisionGroups>();
 
 		/// <summary>
 		/// Hackish method for getting a collision group from a collision object

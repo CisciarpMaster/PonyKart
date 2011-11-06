@@ -22,7 +22,7 @@ namespace Ponykart {
 				var renderSystem = root.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
 				renderSystem.SetConfigOption("Full Screen", "No");
 				renderSystem.SetConfigOption("Floating-point mode", "Fastest");
-				renderSystem.SetConfigOption("VSync", "No");
+				renderSystem.SetConfigOption("VSync", "Yes");
 				renderSystem.SetConfigOption("FSAA", "0");
 				renderSystem.SetConfigOption("Video Mode", Settings.Default.WindowWidth + " x " + Settings.Default.WindowHeight + " @ 32-bit colour");
 

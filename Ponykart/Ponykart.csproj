@@ -196,6 +196,7 @@
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Core\IDs.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />
+    <Compile Include="Stuff\WrappedSortedDictonary.cs" />
     <Compile Include="UI\LuaConsoleManager.cs" />
     <Compile Include="Lua\SpawnerWrapper.cs" />
     <Compile Include="Lua\SoundWrapper.cs" />

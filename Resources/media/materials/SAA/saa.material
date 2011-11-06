@@ -81,6 +81,8 @@ material SAA_Hills {
 			scene_blend alpha_blend
 			depth_write off
 			
+			alpha_rejection greater_equal 64
+			
 			texture_unit {
 				texture hills.png
 			}

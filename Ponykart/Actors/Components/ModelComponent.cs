@@ -25,7 +25,7 @@ namespace Ponykart.Actors {
 		/// <param name="template">The template from the Thing</param>
 		/// <param name="block">The block we're creating this component from</param>
 		public ModelComponent(LThing lthing, ThingBlock template, ModelBlock block, ThingDefinition def) {
-			ID = IDs.New;
+			ID = IDs.Incremental;
 			Owner = lthing;
 			var sceneMgr = LKernel.GetG<SceneManager>();
 

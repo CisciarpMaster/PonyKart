@@ -6,6 +6,7 @@ CollidesWith = Environment
 Model {
 	Mesh = "Chicken_Coop.mesh"
 	Position = 0, 5.084, 0
+	Static = true
 }
 Model {
 	Mesh = "Chicken_Coop_Ramp.mesh"
@@ -14,6 +15,8 @@ Model {
 Model {
 	Mesh = "Chicken_Coop_Signpost.mesh"
 	Position = -2.61342, 8.09612, 7.30329
+	Static = true
+	StaticGroup = "Fences"
 }
 Model {
 	Mesh = "Chicken_Coop_Sign.mesh"

@@ -26,7 +26,7 @@ namespace Ponykart.Actors {
 		/// <param name="template">The template from the Thing</param>
 		/// <param name="block">The block we're creating this component from</param>
 		public RibbonComponent(LThing lthing, ThingBlock template, RibbonBlock block) {
-			ID = IDs.New;
+			ID = IDs.Incremental;
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Name = block.GetStringProperty("name", template.ThingName);

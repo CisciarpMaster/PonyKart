@@ -85,7 +85,7 @@ namespace Ponykart.Actors {
 		/// information about all of its components.
 		/// </param>
 		public LThing(ThingBlock template, ThingDefinition def) {
-			ID = IDs.New;
+			ID = IDs.Incremental;
 			Name = template.ThingName;
 
 			ModelComponents = new List<ModelComponent>();

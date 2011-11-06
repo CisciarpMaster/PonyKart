@@ -2,14 +2,12 @@ Physics = Static
 Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
-Static = true
 
 Model {
 	Mesh = "Well.mesh"
 	Material = "Well"
 	Position = 0, 6.88901, 0
 	CastsShadows = true
-	StaticGroup = "Well"
 }
 
 // box#0

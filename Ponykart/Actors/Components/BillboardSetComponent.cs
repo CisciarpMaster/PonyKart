@@ -19,7 +19,7 @@ namespace Ponykart.Actors {
 		/// <param name="template">The template from the Thing</param>
 		/// <param name="block">The block we're creating this component from</param>
 		public BillboardSetComponent(LThing lthing, ThingBlock template, BillboardSetBlock block) {
-			ID = IDs.New;
+			ID = IDs.Incremental;
 			Name = block.GetStringProperty("name", template.ThingName);
 
 			// set it up

@@ -72,14 +72,14 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<RenderWindow>().SetFullscreen(!LKernel.GetG<RenderWindow>().IsFullScreen, Settings.Default.WindowWidth, Settings.Default.WindowHeight);
 					break;
 				case KeyCode.KC_G:
-					System.GC.Collect(0, System.GCCollectionMode.Forced);
+					System.GC.Collect(System.GC.MaxGeneration, System.GCCollectionMode.Forced);
 					break;
 				case KeyCode.KC_C:
-					ProcessStartInfo p = new ProcessStartInfo("syncmedia.cmd");
-					Process proc = new Process();
-					proc.StartInfo = p;
-					proc.Start();
-					proc.WaitForExit();
+					if (!System.IO.File.Exists("syncmedia.cmd"))
+						break;
+					using (var proc = Process.Start("syncmedia.cmd")) {
+						proc.WaitForExit();
+					}
 
 					LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
