@@ -14,7 +14,7 @@ SpringDamping = 40
 FrictionSlip = 4
 RollInfluence = 0.05
 
-BrakeForce = 35
+BrakeForce = 40
 MotorForce = 1300
 TurnAngle = 3.5
 
@@ -38,7 +38,7 @@ SpringDamping = 40
 FrictionSlip = 5
 RollInfluence = 0.05
 
-BrakeForce = 40
+BrakeForce = 45
 MotorForce = 1300
 TurnAngle = 3.5
 

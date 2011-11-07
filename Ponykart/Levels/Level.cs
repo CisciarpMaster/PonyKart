@@ -107,9 +107,10 @@ namespace Ponykart.Levels {
 			// try adding it without its ID
 			if (!Things.TryAdd(newThing.Name, newThing)) {
 				// okay that didn't work, now try adding it with its ID
-				if (!Things.TryAdd(newThing.Name + newThing.ID, newThing))
+				if (!Things.TryAdd(newThing.Name + newThing.ID, newThing)) {
 					// still didn't work so we must've had a problem while adding it.
 					Launch.Log("[Level] **WARNING** (AddThing) A problem occurred when we tried to add this new LThing to the Things dictionary!");
+				}
 			}
 		}
 

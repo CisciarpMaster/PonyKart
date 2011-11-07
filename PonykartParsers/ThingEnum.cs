@@ -61,6 +61,7 @@ namespace PonykartParsers {
 		Road,
 		Triggers,
 		Karts,
+		InvisibleWalls,
 
 
 		// billboard types

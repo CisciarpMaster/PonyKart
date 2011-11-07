@@ -87,7 +87,7 @@ namespace Ponykart.Physics {
 			Body.CollisionFlags = CollisionFlags.NoContactResponse;
 			Body.CollisionShape = shape;
 			Body.WorldTransform = transform;
-			Body.SetName(name);
+			Body.UserObject = new CollisionObjectDataHolder(PonykartCollisionGroups.Triggers, name, true);
 			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
 
 			// then add this to the trigger reporter

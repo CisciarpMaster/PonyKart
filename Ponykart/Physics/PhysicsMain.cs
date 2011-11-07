@@ -88,14 +88,10 @@ namespace Ponykart.Physics {
 				// then do the rest as usual
 				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
 				var body = new RigidBody(info);
-				body.SetCollisionGroup(PonykartCollisionGroups.Road);
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
-				body.SetName(dslNode.Name);
+				body.UserObject = new CollisionObjectDataHolder(PonykartCollisionGroups.Road, dslNode.Name, true);
 				world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
 			}
-
-			// load up our invisible walls
-			CreateInvisibleWall();
 
 			// make a ground plane for us
 			CreateGroundPlane(-15);
@@ -114,8 +110,6 @@ namespace Ponykart.Physics {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
 
 			lock (world) {
-				PhysicsExtensions.CollisionObjectNames.Clear();
-
 				if (!world.IsDisposed) {
 					for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
 						var obj = world.CollisionObjectArray[a];
@@ -188,28 +182,6 @@ namespace Ponykart.Physics {
 		}
 
 		/// <summary>
-		/// Create our invisible walls from a .bullet file.
-		/// </summary>
-		void CreateInvisibleWall() {
-			Level currentLevel = LKernel.GetG<LevelManager>().CurrentLevel;
-
-			string wallsFilename;
-			if (currentLevel != null && currentLevel.Type == LevelType.Race && currentLevel.Definition.StringTokens.TryGetValue("invisiblewalls", out wallsFilename)) {
-				Launch.Log("[PhysicsMain] Setting up invisible walls and ceiling...");
-
-				CollisionShape shape = LKernel.GetG<CollisionShapeManager>().GetShapeFromFile(wallsFilename, null, null);
-
-				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
-				var obj = new RigidBody(info);
-
-				obj.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
-				obj.SetCollisionGroup(PonykartCollisionGroups.InvisibleWalls);
-				obj.SetName("InvisibleWalls");
-				world.AddRigidBody(obj, PonykartCollisionGroups.InvisibleWalls, PonykartCollidesWithGroups.InvisibleWalls);
-			}
-		}
-
-		/// <summary>
 		/// Create a static ground plane facing upwards.
 		/// </summary>
 		/// <param name="yposition">The Y position that the plane is located at.</param>
@@ -221,8 +193,7 @@ namespace Ponykart.Physics {
 			CollisionShape groundShape = new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1);
 			var groundInfo = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), groundShape, Vector3.ZERO);
 			var groundBody = new RigidBody(groundInfo);
-			groundBody.SetName("ground");
-			groundBody.SetCollisionGroup(PonykartCollisionGroups.Environment);
+			groundBody.UserObject = new CollisionObjectDataHolder(PonykartCollisionGroups.Environment, "ground", true);
 			groundBody.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 			world.AddRigidBody(groundBody, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 		}

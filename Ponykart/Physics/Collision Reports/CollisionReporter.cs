@@ -47,6 +47,8 @@ namespace Ponykart.Physics {
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
 
+		Dictionary<CollisionObject, HashSet<CollisionObject>> newCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
+
 		/// <summary>
 		/// Loop through all of the contacts and does the following:
 		/// - Finds new collision pairs and fires events for them
@@ -57,20 +59,41 @@ namespace Ponykart.Physics {
 
 			// we start with an empty dict and then gradually build it up. After the frame, we replace the old dict with this one,
 			// and then find which pairs did not exist in the new one and fire stoppedtouching events for them
-			var newCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
+			newCollidingWith.Clear();
 
 			// go through all of the contacts and find the ones we're interested in
-			for (int a = 0; a < world.Dispatcher.NumManifolds; a++) {
 
+			//var stopwatch = new System.Diagnostics.Stopwatch();
+			//stopwatch.Start();
+
+			for (int a = 0; a < world.Dispatcher.NumManifolds; a++) {
 				PersistentManifold manifold = world.Dispatcher.GetManifoldByIndexInternal(a);
+
+				// I'm not quite sure why it's giving manifolds for pairs that aren't even colliding, but oh well
+				if (manifold.NumContacts <= 0)
+					continue;
+
 				// here are our two objects
 				CollisionObject objectA = manifold.Body0 as CollisionObject;
 				CollisionObject objectB = manifold.Body1 as CollisionObject;
 
-				// do we have any events that care about these groups? if not, then skip this collision pair
-				if (reporters[(int) objectA.GetCollisionGroup(), (int) objectB.GetCollisionGroup()] == null
-						&& reporters[(int) objectB.GetCollisionGroup(), (int) objectA.GetCollisionGroup()] == null)
+				// if one of the two objects is deactivated, we don't care
+				if (!objectA.IsActive && !objectB.IsActive)
 					continue;
+
+				// do we even care about collision groups for this pair?
+				// Note: Both objects have to care in order for this to pass
+				if (!objectA.CareAboutCollisionEvents() && !objectB.CareAboutCollisionEvents())
+					continue;
+
+				int objectACollisionGroup = (int) objectA.GetCollisionGroup();
+				int objectBCollisionGroup = (int) objectB.GetCollisionGroup();
+
+				// do we have any events that care about these groups? if not, then skip this collision pair
+				if (reporters[objectACollisionGroup, objectBCollisionGroup] == null
+						&& reporters[objectBCollisionGroup, objectACollisionGroup] == null)
+					continue;
+
 
 				// get the lists
 				HashSet<CollisionObject> objectAList = GetCollisionListForObject(objectA, CurrentlyCollidingWith),
@@ -128,10 +151,11 @@ namespace Ponykart.Physics {
 					//}
 				}
 			}
+			//stopwatch.Stop();
+			//System.Diagnostics.Debug.WriteLine("Physics pt 1: " + stopwatch.Elapsed);
 
-			// now we have to find the collision pairs that weren't in this frame, and get rid of them
-			// go through each "entry" in the new dictionary
-			foreach (KeyValuePair<CollisionObject, HashSet<CollisionObject>> pair in CurrentlyCollidingWith) {
+			//stopwatch.Reset();
+			CurrentlyCollidingWith.AsParallel().ForAll(pair => {
 				// does the new dict have the old key?
 				if (newCollidingWith.ContainsKey(pair.Key)) {
 					// find all of the objects that were in the old list but weren't in the new one
@@ -153,7 +177,10 @@ namespace Ponykart.Physics {
 					if (toStopObjectA.GetCollisionGroup() < toStopObjectB.GetCollisionGroup())
 						SetupAndFireEvent(toStopObjectA, toStopObjectB, null, null, ObjectTouchingFlags.StoppedTouching);
 				}
-			}
+			});
+			//stopwatch.Stop();
+			//System.Diagnostics.Debug.WriteLine("Physics pt 2: " + stopwatch.Elapsed);
+
 
 			// then we replace the old dictionary with the new one
 			CurrentlyCollidingWith = newCollidingWith;

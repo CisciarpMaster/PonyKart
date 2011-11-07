@@ -8,6 +8,8 @@ FrontWheel = "FrontWheel"
 BackWheel = "BackWheel"
 PhysicsMaterial = "Kart"
 
+CareAboutCollisionEvents = true
+
 FrontLeftWheelPosition = 1.388, 0.302, 1.0203
 FrontRightWheelPosition = -1.388, 0.302, 1.0203
 BackLeftWheelPosition = 1.388, 0.302, -1.70428

@@ -18,7 +18,6 @@ LoadFile = "saa/bucket trees"
 LoadFile = "saa/collidable trees"
 
 Music = "Sweet Apple Acres 128bpm.ogg"
-InvisibleWalls = "SAA_InvisibleWalls.bullet"
 
 SAA_Banner {
 	Position = -7.06332, -5.37894, 325.076
@@ -35,6 +34,9 @@ SAA_Road_Combined {
 	Position = 0, 0, 0
 }
 SAA_Ground {
+	Position = 0, 0, 0
+}
+SAA_Invisible_Walls {
 	Position = 0, 0, 0
 }
 

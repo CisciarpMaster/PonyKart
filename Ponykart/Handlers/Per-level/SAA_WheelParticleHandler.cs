@@ -2,7 +2,7 @@
 using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
-using Ponykart.Physics;
+using Ponykart.Levels;
 using Ponykart.Players;
 
 namespace Ponykart.Handlers {
@@ -12,8 +12,8 @@ namespace Ponykart.Handlers {
 		private IDictionary<int, Pair<WheelHelper, WheelHelper>> wheelHelpers;
 		private IList<KartSpeedState> kartSpeedStates;
 
-		private CollisionObject dirtCollisionObject;
-		private CollisionObject grassCollisionObject;
+		private RigidBody dirtBody;
+		private RigidBody grassBody;
 
 		// default emission rates
 		float defaultDustEmissionRate = -1;
@@ -79,8 +79,8 @@ namespace Ponykart.Handlers {
 				kartSpeedStates.Add(KartSpeedState.None);
 			}
 
-			dirtCollisionObject = LKernel.GetG<PhysicsMain>().GetCollisionObjectByName("SAA_Road_Combined");
-			grassCollisionObject = LKernel.GetG<PhysicsMain>().GetCollisionObjectByName("SAA_Ground");
+			dirtBody = LKernel.GetG<LevelManager>().CurrentLevel.Things["SAA_Road_Combined"].Body;
+			grassBody = LKernel.GetG<LevelManager>().CurrentLevel.Things["SAA_Ground"].Body;
 		}
 
 		/// <summary>
@@ -122,9 +122,9 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnTouchdown(Kart kart, CollisionWorld.ClosestRayResultCallback callback) {
 			if (kart.WheelSpeed > 20f || kart.WheelSpeed < -20f) {
-				if (callback.CollisionObject == dirtCollisionObject)
+				if (callback.CollisionObject == dirtBody)
 					DirtEmitting(kart.OwnerID, true);
-				else if (callback.CollisionObject == grassCollisionObject)
+				else if (callback.CollisionObject == grassBody)
 					GrassEmitting(kart.OwnerID, true);
 			}
 			else {
@@ -137,14 +137,14 @@ namespace Ponykart.Handlers {
 		/// Change the particles appropriately
 		/// </summary>
 		void OnGroundChanged(Kart kart, CollisionObject newGround, CollisionObject oldGround) {
-			if (newGround == dirtCollisionObject)
+			if (newGround == dirtBody)
 				DirtEmitting(kart.OwnerID, true);
-			else if (oldGround == dirtCollisionObject)
+			else if (oldGround == dirtBody)
 				DirtEmitting(kart.OwnerID, false);
 
-			if (newGround == grassCollisionObject)
+			if (newGround == grassBody)
 				GrassEmitting(kart.OwnerID, true);
-			else if (oldGround == grassCollisionObject)
+			else if (oldGround == grassBody)
 				GrassEmitting(kart.OwnerID, false);
 		}
 
@@ -168,9 +168,9 @@ namespace Ponykart.Handlers {
 					// update this if we need to
 					kartSpeedStates[kart.OwnerID] = KartSpeedState.Medium;
 
-					if (callback.CollisionObject == dirtCollisionObject)
+					if (callback.CollisionObject == dirtBody)
 						DirtEmitting(kart.OwnerID, true);
-					else if (callback.CollisionObject == grassCollisionObject)
+					else if (callback.CollisionObject == grassBody)
 						GrassEmitting(kart.OwnerID, true);
 				}
 

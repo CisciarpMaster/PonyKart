@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using BulletSharp;
 using Mogre;
 
@@ -10,60 +9,39 @@ namespace Ponykart.Physics {
 	static class PhysicsExtensions {
 		#region CollisionObject
 
-		public static IDictionary<CollisionObject, string> CollisionObjectNames = new SortedDictionary<CollisionObject, string>();
-
 		/// <summary>
-		/// Hackish method for getting a name from a collision object
+		/// Helper method for getting a name out of a collision object.
 		/// </summary>
-		/// <returns>The name of the collision object if it has one, or "(NoName)" if it doesn't</returns>
+		/// <returns>The name of the collision object if it has one</returns>
 		public static string GetName(this CollisionObject obj) {
-			string name;
-			if (CollisionObjectNames.TryGetValue(obj, out name)) {
-				return name;
+			CollisionObjectDataHolder holder = obj.UserObject as CollisionObjectDataHolder;
+			if (holder != null) {
+				return holder.Name;
 			}
-			return "(NoName)";
+			throw new ArgumentException("This collision object does not have a CollisionObjectDataHolder associated with it!", "obj");
 		}
 
 		/// <summary>
-		/// Hackish method for assigning a name to a collision object
+		/// Helper method for getting a collision group from a collision object
 		/// </summary>
-		/// <param name="newName">The new name of the collision object</param>
-		public static void SetName(this CollisionObject obj, string newName) {
-			CollisionObjectNames[obj] = newName;
-		}
-
-		/// <summary>
-		/// Gets a collision object by its name.
-		/// </summary>
-		/// <param name="name">The name of the collision object you want to search for.</param>
-		/// <returns>If successful, returns the collision object, otherwise returns null.</returns>
-		public static CollisionObject GetCollisionObjectByName(this PhysicsMain physMain, string name) {
-			return CollisionObjectNames.FirstOrDefault(p => p.Value == name).Key;
-		}
-
-		//---------------------------------------------------------------------------
-
-		private static IDictionary<CollisionObject, PonykartCollisionGroups> CollisionGroups = new SortedDictionary<CollisionObject, PonykartCollisionGroups>();
-
-		/// <summary>
-		/// Hackish method for getting a collision group from a collision object
-		/// </summary>
-		/// <returns>The group of the collision object if it has one, or Default if it doesn't</returns>
+		/// <returns>The group of the collision object if it has one</returns>
 		public static PonykartCollisionGroups GetCollisionGroup(this CollisionObject obj) {
-			PonykartCollisionGroups group;
-			if (CollisionGroups.TryGetValue(obj, out group)) {
-				return group;
+			CollisionObjectDataHolder holder = obj.UserObject as CollisionObjectDataHolder;
+			if (holder != null) {
+				return holder.CollisionGroup;
 			}
-			return PonykartCollisionGroups.Default;
+			throw new ArgumentException("This collision object does not have a CollisionObjectDataHolder associated with it!", "obj");
 		}
 
 		/// <summary>
-		/// Hackish method for assigning a group to a collision object.
-		/// Note that this does NOT affect the object's actual collision group and should only be used to store its group for later reference!
+		/// Do we care about collision events for this collision object?
 		/// </summary>
-		/// <param name="newGroup">The group to store in this collision object.</param>
-		public static void SetCollisionGroup(this CollisionObject obj, PonykartCollisionGroups newGroup) {
-			CollisionGroups[obj] = newGroup;
+		public static bool CareAboutCollisionEvents(this CollisionObject obj) {
+			CollisionObjectDataHolder holder = obj.UserObject as CollisionObjectDataHolder;
+			if (holder != null) {
+				return holder.CareAboutCollisionEvents;
+			}
+			throw new ArgumentException("This collision object does not have a CollisionObjectDataHolder associated with it!", "obj");
 		}
 
 		// -------------------------------------------------------------------------
@@ -86,12 +64,10 @@ namespace Ponykart.Physics {
 
 		#region World
 		public static void AddRigidBody(this DynamicsWorld world, RigidBody body, PonykartCollisionGroups collisionGroup, PonykartCollidesWithGroups collidesWith) {
-			body.SetCollisionGroup(collisionGroup);
 			world.AddRigidBody(body, collisionGroup.ToBullet(), collidesWith.ToBullet());
 		}
 
 		public static void AddCollisionObject(this DynamicsWorld world, CollisionObject obj, PonykartCollisionGroups collisionGroup, PonykartCollidesWithGroups collidesWith) {
-			obj.SetCollisionGroup(collisionGroup);
 			world.AddCollisionObject(obj, collisionGroup.ToBullet(), collidesWith.ToBullet());
 		}
 		#endregion
