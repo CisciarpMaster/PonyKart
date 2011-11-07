@@ -65,7 +65,6 @@ namespace Ponykart.Actors {
 
 		protected RigidBodyConstructionInfo Info;
 		public string Script { get; private set; }
-		public bool CareAboutCollisionEvents { get; private set; }
 
 
 		public List<ModelComponent> ModelComponents { get; protected set; }
@@ -238,9 +237,6 @@ namespace Ponykart.Actors {
 			string physmat = def.GetStringProperty("PhysicsMaterial", "Default");
 			LKernel.GetG<PhysicsMaterialFactory>().ApplyMaterial(Info, physmat);
 
-			// do we care about collision events?
-			CareAboutCollisionEvents = def.GetBoolProperty("CareAboutCollisionEvents", false);
-
 			// we can override some of them in the .thing file
 			if (def.FloatTokens.ContainsKey("bounciness"))
 				Info.Restitution = def.GetFloatProperty("bounciness", PhysicsMaterial.DEFAULT_BOUNCINESS);
@@ -299,7 +295,7 @@ namespace Ponykart.Actors {
 			else if (te.HasFlag(ThingEnum.Kinematic))
 				Body.CollisionFlags |= CollisionFlags.KinematicObject;
 
-			if (def.GetBoolProperty("CareAboutCollisionEvents", false))
+			if (def.GetBoolProperty("CollisionEvents", false))
 				Body.CollisionFlags |= CollisionFlags.CustomMaterialCallback;
 
 			if (def.GetBoolProperty("DisableVisualization", false))

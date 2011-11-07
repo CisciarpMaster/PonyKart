@@ -13,6 +13,11 @@ namespace Ponykart.Physics {
 
 	/// <summary>
 	/// Our class for handling all collision reports, firing events when physics objects collide.
+	/// 
+	/// I'm sure there's a better way of dealing with these to speed it up, but hey how it is now is pretty efficient and isn't very high up on the
+	/// profiling thing yet, so it's good enough for now.
+	/// 
+	/// Remember that things you want to be collided with need to have their CollisionFlags.CustomMaterialCallback flag set!
 	/// </summary>
 	public class CollisionReporter {
 		/// <summary>
@@ -81,8 +86,6 @@ namespace Ponykart.Physics {
 			}
 
 			CurrentlyCollidingWith = NewCollidingWith;
-			//NewCollidingWith.Clear();
-
 		}
 
 		/// <summary>
@@ -155,20 +158,12 @@ namespace Ponykart.Physics {
 			return false;
 		}
 
-		/// <summary>
-		/// Loop through all of the contacts and does the following:
-		/// - Finds new collision pairs and fires events for them
-		/// - Finds collision pairs that don't exist any more and fires events for them
-		/// - Keeps an updated list of every contact pair currently in the world
-		/// </summary>
 		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 
 			// we start with an empty dict and then gradually build it up. After the frame, we replace the old dict with this one,
 			// and then find which pairs did not exist in the new one and fire stoppedtouching events for them
 
 			NewCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>(CurrentlyCollidingWith.Count);
-
-			return;
 		}
 
 		/// <summary>

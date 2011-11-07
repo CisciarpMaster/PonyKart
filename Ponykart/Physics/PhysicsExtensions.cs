@@ -33,17 +33,6 @@ namespace Ponykart.Physics {
 			throw new ArgumentException("This collision object does not have a CollisionObjectDataHolder associated with it!", "obj");
 		}
 
-		/// <summary>
-		/// Do we care about collision events for this collision object?
-		/// </summary>
-		public static bool CareAboutCollisionEvents(this CollisionObject obj) {
-			CollisionObjectDataHolder holder = obj.UserObject as CollisionObjectDataHolder;
-			if (holder != null) {
-				return holder.CareAboutCollisionEvents;
-			}
-			throw new ArgumentException("This collision object does not have a CollisionObjectDataHolder associated with it!", "obj");
-		}
-
 		// -------------------------------------------------------------------------
 
 		/// <summary>

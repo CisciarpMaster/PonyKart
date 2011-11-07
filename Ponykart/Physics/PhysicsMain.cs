@@ -171,7 +171,7 @@ namespace Ponykart.Physics {
 				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
 				var body = new RigidBody(info);
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
-				body.UserObject = new CollisionObjectDataHolder(body, PonykartCollisionGroups.Road, dslNode.Name, true);
+				body.UserObject = new CollisionObjectDataHolder(body, PonykartCollisionGroups.Road, dslNode.Name);
 				world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
 			}
 
@@ -197,7 +197,7 @@ namespace Ponykart.Physics {
 			CollisionShape groundShape = new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1);
 			var groundInfo = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), groundShape, Vector3.ZERO);
 			var groundBody = new RigidBody(groundInfo);
-			groundBody.UserObject = new CollisionObjectDataHolder(groundBody, PonykartCollisionGroups.Environment, "ground", true);
+			groundBody.UserObject = new CollisionObjectDataHolder(groundBody, PonykartCollisionGroups.Environment, "ground");
 			groundBody.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 			world.AddRigidBody(groundBody, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 		}
