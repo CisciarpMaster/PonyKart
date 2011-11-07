@@ -117,10 +117,10 @@
       <Value Profile="(Default)">.mgx</Value>
     </Setting>
     <Setting Name="StaticRegionSize" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">500</Value>
+      <Value Profile="(Default)">300</Value>
     </Setting>
     <Setting Name="InstancedRegionSize" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">75</Value>
+      <Value Profile="(Default)">300</Value>
     </Setting>
     <Setting Name="InstancedEntitiesPerBatch" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
