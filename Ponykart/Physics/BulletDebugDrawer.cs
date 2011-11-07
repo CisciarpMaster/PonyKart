@@ -99,7 +99,7 @@ namespace Ponykart.Physics {
 		/// A little condition to check whether we should render a line or not
 		/// </summary>
 		bool DrawCondition(Vector3 compare) {
-			return !LKernel.GetG<LevelManager>().IsValidLevel
+			return !PhysicsMain.DrawLines || !LKernel.GetG<LevelManager>().IsValidLevel
 				|| (LKernel.GetG<PlayerManager>().MainPlayer.NodePosition - compare).SquaredLength > maxRenderDistanceSquared;
 		}
 

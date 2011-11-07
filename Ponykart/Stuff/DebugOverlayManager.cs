@@ -6,6 +6,7 @@ namespace Ponykart.Stuff {
 		/// The Ogre DebugOverlay.
 		/// </summary>
 		private Overlay overlay;
+		private OverlayElement guiAvg, guiCurr, guiTris, guiBatches;
 
 		public DebugOverlayManager() {
 			this.overlay = OverlayManager.Singleton.GetByName("Core/DebugOverlay");
@@ -14,29 +15,10 @@ namespace Ponykart.Stuff {
 #if DEBUG
 			ShowDebugOverlay(true);
 #endif
-		}
-
-		/// <summary>
-		/// Copypasta'd. Updates DebugOverlay. Called every frame.
-		/// </summary>
-		protected void UpdateStats() {
-			string currFps = "Current FPS: ";
-			string avgFps = "Average FPS: ";
-			string tris = "Triangle Count: ";
-			string batches = "Batch Count: ";
-
-			// update stats when necessary
-			OverlayElement guiAvg = OverlayManager.Singleton.GetOverlayElement("Core/AverageFps", false);
-			OverlayElement guiCurr = OverlayManager.Singleton.GetOverlayElement("Core/CurrFps", false);
-			OverlayElement guiTris = OverlayManager.Singleton.GetOverlayElement("Core/NumTris", false);
-			OverlayElement guiBatches = OverlayManager.Singleton.GetOverlayElement("Core/NumBatches", false);
-
-			RenderTarget.FrameStats stats = LKernel.GetG<RenderWindow>().GetStatistics();
-
-			guiAvg.Caption = avgFps + stats.AvgFPS;
-			guiCurr.Caption = currFps + stats.LastFPS;
-			guiTris.Caption = tris + stats.TriangleCount;
-			guiBatches.Caption = batches + stats.BatchCount;
+			guiAvg = OverlayManager.Singleton.GetOverlayElement("Core/AverageFps", false);
+			guiCurr = OverlayManager.Singleton.GetOverlayElement("Core/CurrFps", false);
+			guiTris = OverlayManager.Singleton.GetOverlayElement("Core/NumTris", false);
+			guiBatches = OverlayManager.Singleton.GetOverlayElement("Core/NumBatches", false);
 		}
 
 		/// <summary> 
@@ -55,8 +37,21 @@ namespace Ponykart.Stuff {
 			ShowDebugOverlay(!overlay.IsVisible);
 		}
 
+		float elapsed = 0;
 		public bool FrameStarted(FrameEvent e) {
-			UpdateStats();
+			if (elapsed > 0.1f) {
+				// update stats when necessary
+				RenderTarget.FrameStats stats = LKernel.GetG<RenderWindow>().GetStatistics();
+
+				guiAvg.Caption = "Average FPS: " + stats.AvgFPS;
+				guiCurr.Caption = "Current FPS: " + stats.LastFPS;
+				guiTris.Caption = "Triangle Count: " + stats.TriangleCount;
+				guiBatches.Caption = "Batch Count: " + stats.BatchCount;
+
+				elapsed = 0;
+			}
+			elapsed += e.timeSinceLastFrame;
+
 			return true;
 		}
 	}

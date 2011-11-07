@@ -10,7 +10,7 @@ namespace Ponykart.Actors {
 	public class ModelComponent : LDisposable {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
-		public long ID { get; protected set; }
+		public uint ID { get; protected set; }
 		public string Name { get; protected set; }
 		AnimationState Animation;
 		public LThing Owner { get; protected set; }

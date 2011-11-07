@@ -15,7 +15,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Every lthing has an ID, though it's mostly just used to stop ogre complaining about duplicate names
 		/// </summary>
-		public long ID { get; protected set; }
+		public uint ID { get; protected set; }
 		/// <summary>
 		/// This lthing's name. It's usually the same as its .thing filename.
 		/// </summary>
@@ -203,7 +203,7 @@ namespace Ponykart.Actors {
 			PostSetUpBodyInfo(def);
 			CreateBody(def);
 			PostCreateBody(def);
-			SetBodyUserData();
+			SetBodyUserObject();
 		}
 
 		/// <summary>
@@ -299,6 +299,9 @@ namespace Ponykart.Actors {
 			else if (te.HasFlag(ThingEnum.Kinematic))
 				Body.CollisionFlags |= CollisionFlags.KinematicObject;
 
+			if (def.GetBoolProperty("CareAboutCollisionEvents", false))
+				Body.CollisionFlags |= CollisionFlags.CustomMaterialCallback;
+
 			if (def.GetBoolProperty("DisableVisualization", false))
 				Body.CollisionFlags |= CollisionFlags.DisableVisualizeObject;
 
@@ -316,9 +319,9 @@ namespace Ponykart.Actors {
 		protected virtual void PostCreateBody(ThingDefinition td) { }
 
 		/// <summary>
-		/// Sets the Actor's UserData to this class so we can easily get to it.
+		/// Sets the body's UserObject
 		/// </summary>
-		protected void SetBodyUserData() {
+		protected void SetBodyUserObject() {
 			Body.UserObject = new CollisionObjectDataHolder(this);
 		}
 
@@ -336,7 +339,6 @@ namespace Ponykart.Actors {
 		/// If this is a static/instanced thing with no ribbons, billboards, or sounds, we can clean up a whole bunch of stuff
 		/// to make it faster for ogre.
 		/// </summary>
-		/// <param name="def"></param>
 		protected void DisposeIfStaticOrInstanced(ThingDefinition def) {
 			if (def.GetBoolProperty("Static", false) || def.GetBoolProperty("Instanced", false)) {
 				if (IsDisposed)
@@ -411,6 +413,10 @@ namespace Ponykart.Actors {
 			}
 
 			base.Dispose(disposing);
+		}
+
+		public override int GetHashCode() {
+			return (int) ID;
 		}
 	}
 }

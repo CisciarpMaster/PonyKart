@@ -25,6 +25,10 @@ namespace Ponykart.Physics {
 		/// They just silently ignore it (though .Add does return whether the adding was successful or not)
 		/// </summary>
 		private IDictionary<CollisionObject, HashSet<CollisionObject>> CurrentlyCollidingWith;
+		/// <summary>
+		/// This dictionary contains objects that collided *this* frame.
+		/// </summary>
+		private IDictionary<CollisionObject, HashSet<CollisionObject>> NewCollidingWith;
 
 
 		#region -------------------- HEY THIS IS IMPORTANT ---------------------
@@ -33,7 +37,7 @@ namespace Ponykart.Physics {
 		/// </summary>
 		static readonly int HIGHEST_BIT_IN_COLLISION_GROUPS = 64;
 
-		#endregion //-----------------------------------------------------------
+		#endregion -------------------- HEY THIS IS IMPORTANT ---------------------
 
 
 		/// <summary>
@@ -42,12 +46,114 @@ namespace Ponykart.Physics {
 		public CollisionReporter() {
 			reporters = new CollisionReportEvent[HIGHEST_BIT_IN_COLLISION_GROUPS + 1, HIGHEST_BIT_IN_COLLISION_GROUPS + 1];
 			CurrentlyCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
+			NewCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
 
-			PhysicsMain.PostSimulate += PostSimulate;
+			PhysicsMain.PreSimulate += new PhysicsSimulateEvent(PreSimulate);
+			PhysicsMain.PostSimulate += new PhysicsSimulateEvent(PostSimulate);
+			PhysicsMain.ContactAdded += new ContactAdded(ContactAdded);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
 
-		Dictionary<CollisionObject, HashSet<CollisionObject>> newCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>();
+		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
+
+			foreach (var oldPair in CurrentlyCollidingWith) {
+				// does the new dict have the old key?
+				if (NewCollidingWith.ContainsKey(oldPair.Key)) {
+					// find all of the objects that were in the old list but weren't in the new one
+					IEnumerable<CollisionObject> oldSet = oldPair.Value.Except(NewCollidingWith[oldPair.Key]);
+
+					foreach (CollisionObject obj in oldSet) {
+						// fire events for each of them
+						// this stops us from firing events twice
+						if (oldPair.Key.GetCollisionGroup() < obj.GetCollisionGroup())
+							SetupAndFireEvent(oldPair.Key, obj, null, null, ObjectTouchingFlags.StoppedTouching);
+					}
+				}
+				// if it doesn't, that means two things stopped touching, and the new dict only had one object for that key.
+				else if (oldPair.Value.Count > 0) {
+					// this stops us from firing events twice
+					CollisionObject toStopObjectA = oldPair.Key;
+					CollisionObject toStopObjectB = oldPair.Value.First();
+
+					if (toStopObjectA.GetCollisionGroup() < toStopObjectB.GetCollisionGroup())
+						SetupAndFireEvent(toStopObjectA, toStopObjectB, null, null, ObjectTouchingFlags.StoppedTouching);
+				}
+			}
+
+			CurrentlyCollidingWith = NewCollidingWith;
+			//NewCollidingWith.Clear();
+
+		}
+
+		/// <summary>
+		/// Fired every frame when an object is inside another object.
+		/// </summary>
+		bool ContactAdded(ManifoldPoint point, CollisionObject objectA, int partId0, int index0, CollisionObject objectB, int partId1, int index1) {
+			// if one of the two objects is deactivated, we don't care
+			if (!objectA.IsActive && !objectB.IsActive)
+				return false;
+
+			int objectACollisionGroup = (int) objectA.GetCollisionGroup();
+			int objectBCollisionGroup = (int) objectB.GetCollisionGroup();
+
+			// do we have any events that care about these groups? if not, then skip this collision pair
+			if (reporters[objectACollisionGroup, objectBCollisionGroup] == null
+					&& reporters[objectBCollisionGroup, objectACollisionGroup] == null)
+				return false;
+
+			// when the actual bodies are touching and not just their AABB's
+			if (point.Distance <= 0.05) {
+				// get the lists
+				HashSet<CollisionObject> objectAList = GetCollisionListForObject(objectA, CurrentlyCollidingWith),
+										 newObjectAList = GetCollisionListForObject(objectA, NewCollidingWith),
+										 objectBList = GetCollisionListForObject(objectB, CurrentlyCollidingWith),
+										 newObjectBList = GetCollisionListForObject(objectB, NewCollidingWith);
+
+				// see if the other object is in there
+				if (!objectAList.Contains(objectB) || !objectBList.Contains(objectA)) {
+					/*
+					 * if it isn't, add it! this means we have a new collision and need to fire off an event!
+					 * okay now we need to get the point where it contacted!
+					 * Limitation with this system: if we're already colliding with B and then collide with it in a different place without
+					 * leaving the original place, we won't get another event. Why? Well because what if something's sliding along?
+					 * Don't need loads of events for that
+					 */
+					// make sure we add it to our collections! The hashset means we don't have to worry about duplicates
+					objectAList.Add(objectB);
+					objectBList.Add(objectA);
+					newObjectAList.Add(objectB);
+					newObjectBList.Add(objectA);
+
+					// update the dictionaries (is this necessary?)
+					CurrentlyCollidingWith[objectA] = objectAList;
+					CurrentlyCollidingWith[objectB] = objectBList;
+					NewCollidingWith[objectA] = newObjectAList;
+					NewCollidingWith[objectB] = newObjectBList;
+
+
+					Vector3 pos = point.PositionWorldOnA.MidPoint(point.PositionWorldOnB);
+					Vector3 normal = point.NormalWorldOnB;
+
+					// woop woop they started touching, so we fire off an event!
+					SetupAndFireEvent(objectA, objectB, pos, normal, ObjectTouchingFlags.StartedTouching);
+				}
+				else {
+					// already in the dictionary, no new collisions. Add it to the new dictionary anyway though, because if we don't then it thinks
+					// they stopped colliding. Which we don't want!
+					newObjectAList.Add(objectB);
+					newObjectBList.Add(objectA);
+
+					NewCollidingWith[objectA] = newObjectAList;
+					NewCollidingWith[objectB] = newObjectBList;
+				}
+			}
+			// This means they're still inside each other's AABB's, but they aren't actually touching
+			//else {
+
+			//}
+
+			return false;
+		}
 
 		/// <summary>
 		/// Loop through all of the contacts and does the following:
@@ -55,135 +161,14 @@ namespace Ponykart.Physics {
 		/// - Finds collision pairs that don't exist any more and fires events for them
 		/// - Keeps an updated list of every contact pair currently in the world
 		/// </summary>
-		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
+		void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 
 			// we start with an empty dict and then gradually build it up. After the frame, we replace the old dict with this one,
 			// and then find which pairs did not exist in the new one and fire stoppedtouching events for them
-			newCollidingWith.Clear();
 
-			// go through all of the contacts and find the ones we're interested in
+			NewCollidingWith = new Dictionary<CollisionObject, HashSet<CollisionObject>>(CurrentlyCollidingWith.Count);
 
-			//var stopwatch = new System.Diagnostics.Stopwatch();
-			//stopwatch.Start();
-
-			for (int a = 0; a < world.Dispatcher.NumManifolds; a++) {
-				PersistentManifold manifold = world.Dispatcher.GetManifoldByIndexInternal(a);
-
-				// I'm not quite sure why it's giving manifolds for pairs that aren't even colliding, but oh well
-				if (manifold.NumContacts <= 0)
-					continue;
-
-				// here are our two objects
-				CollisionObject objectA = manifold.Body0 as CollisionObject;
-				CollisionObject objectB = manifold.Body1 as CollisionObject;
-
-				// if one of the two objects is deactivated, we don't care
-				if (!objectA.IsActive && !objectB.IsActive)
-					continue;
-
-				// do we even care about collision groups for this pair?
-				// Note: Both objects have to care in order for this to pass
-				if (!objectA.CareAboutCollisionEvents() && !objectB.CareAboutCollisionEvents())
-					continue;
-
-				int objectACollisionGroup = (int) objectA.GetCollisionGroup();
-				int objectBCollisionGroup = (int) objectB.GetCollisionGroup();
-
-				// do we have any events that care about these groups? if not, then skip this collision pair
-				if (reporters[objectACollisionGroup, objectBCollisionGroup] == null
-						&& reporters[objectBCollisionGroup, objectACollisionGroup] == null)
-					continue;
-
-
-				// get the lists
-				HashSet<CollisionObject> objectAList = GetCollisionListForObject(objectA, CurrentlyCollidingWith),
-										 newObjectAList = GetCollisionListForObject(objectA, newCollidingWith),
-										 objectBList = GetCollisionListForObject(objectB, CurrentlyCollidingWith),
-										 newObjectBList = GetCollisionListForObject(objectB, newCollidingWith);
-
-				// sanity check
-				if (manifold.NumContacts > 0) {
-					ManifoldPoint point = manifold.GetContactPoint(0);
-
-					// when the actual bodies are touching and not just their AABB's
-					if (point.Distance <= 0.05) {
-						// see if the other object is in there
-						if (!objectAList.Contains(objectB) || !objectBList.Contains(objectA)) {
-							/*
-							 * if it isn't, add it! this means we have a new collision and need to fire off an event!
-							 * okay now we need to get the point where it contacted!
-							 * Limitation with this system: if we're already colliding with B and then collide with it in a different place without
-							 * leaving the original place, we won't get another event. Why? Well because what if something's sliding along?
-							 * Don't need loads of events for that
-							 */
-							// make sure we add it to our collections! The hashmap means we don't have to worry about duplicates
-							objectAList.Add(objectB);
-							objectBList.Add(objectA);
-							newObjectAList.Add(objectB);
-							newObjectBList.Add(objectA);
-
-							// update the dictionaries (is this necessary?)
-							CurrentlyCollidingWith[objectA] = objectAList;
-							CurrentlyCollidingWith[objectB] = objectBList;
-							newCollidingWith[objectA] = newObjectAList;
-							newCollidingWith[objectB] = newObjectBList;
-
-
-							Vector3 pos = point.PositionWorldOnA.MidPoint(point.PositionWorldOnB);
-							Vector3 normal = point.NormalWorldOnB;
-
-							// woop woop they started touching, so we fire off an event!
-							SetupAndFireEvent(objectA, objectB, pos, normal, ObjectTouchingFlags.StartedTouching);
-						}
-						else {
-							// already in the dictionary, no new collisions. Add it to the new dictionary anyway though, because if we don't then it thinks
-							// they stopped colliding. Which we don't want!
-							newObjectAList.Add(objectB);
-							newObjectBList.Add(objectA);
-
-							newCollidingWith[objectA] = newObjectAList;
-							newCollidingWith[objectB] = newObjectBList;
-						}
-					}
-					// This means they're still inside each other's AABB's, but they aren't actually touching
-					//else {
-						
-					//}
-				}
-			}
-			//stopwatch.Stop();
-			//System.Diagnostics.Debug.WriteLine("Physics pt 1: " + stopwatch.Elapsed);
-
-			//stopwatch.Reset();
-			CurrentlyCollidingWith.AsParallel().ForAll(pair => {
-				// does the new dict have the old key?
-				if (newCollidingWith.ContainsKey(pair.Key)) {
-					// find all of the objects that were in the old list but weren't in the new one
-					IEnumerable<CollisionObject> oldSet = pair.Value.Except(newCollidingWith[pair.Key]);
-
-					foreach (CollisionObject obj in oldSet) {
-						// fire events for each of them
-						// this stops us from firing events twice
-						if (pair.Key.GetCollisionGroup() < obj.GetCollisionGroup())
-							SetupAndFireEvent(pair.Key, obj, null, null, ObjectTouchingFlags.StoppedTouching);
-					}
-				}
-				// if it doesn't, that means two things stopped touching, and the new dict only had one object for that key.
-				else if (pair.Value.Count > 0) {
-					// this stops us from firing events twice
-					CollisionObject toStopObjectA = pair.Key;
-					CollisionObject toStopObjectB = pair.Value.First();
-
-					if (toStopObjectA.GetCollisionGroup() < toStopObjectB.GetCollisionGroup())
-						SetupAndFireEvent(toStopObjectA, toStopObjectB, null, null, ObjectTouchingFlags.StoppedTouching);
-				}
-			});
-			//stopwatch.Stop();
-			//System.Diagnostics.Debug.WriteLine("Physics pt 2: " + stopwatch.Elapsed);
-
-
-			// then we replace the old dictionary with the new one
-			CurrentlyCollidingWith = newCollidingWith;
+			return;
 		}
 
 		/// <summary>
@@ -204,6 +189,8 @@ namespace Ponykart.Physics {
 				Normal = normal,
 				Flags = flags
 			};
+
+			System.Console.WriteLine(flags + " " + objectA.GetName() + " " + objectB.GetName());
 
 			FireEvent(info);
 		}

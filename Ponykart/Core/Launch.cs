@@ -49,6 +49,7 @@ namespace Ponykart {
 			while (!Quit && !window.IsClosed && root != null) {
 				if (!root.RenderOneFrame())
 					break;
+				// this is for stuff like window selection, moving, etc
 				Application.DoEvents();
 			}
 

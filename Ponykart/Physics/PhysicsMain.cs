@@ -18,11 +18,6 @@ namespace Ponykart.Physics {
 		private DiscreteDynamicsWorld world;
 
 		/// <summary>
-		/// This is invoked after every physics "tick", which occur multiple times per frame.
-		/// Want to change a speed based on a maximum velocity or whatever? Do it with this.
-		/// </summary>
-		public event DynamicsWorld.InternalTickCallback PostTick;
-		/// <summary>
 		/// Is invoked right after the physics world is created.
 		/// </summary>
 		public static event PhysicsWorldEvent PostCreateWorld;
@@ -34,6 +29,8 @@ namespace Ponykart.Physics {
 		/// Is invoked right after the physics world is simulated.
 		/// </summary>
 		public static event PhysicsSimulateEvent PostSimulate;
+
+		public static event ContactAdded ContactAdded;
 
 		/// <summary>
 		/// Should we draw debug lines or not?
@@ -52,6 +49,91 @@ namespace Ponykart.Physics {
 			Launch.Log("[Loading] Creating PhysicsMain...");
 
 			LevelManager.OnLevelUnload += OnLevelUnload;
+		}
+
+		/// <summary>
+		/// Disposes the world
+		/// </summary>
+		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
+			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
+
+			lock (world) {
+				if (!world.IsDisposed) {
+					for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
+						var obj = world.CollisionObjectArray[a];
+
+						if (obj != null && !obj.IsDisposed) {
+							world.RemoveCollisionObject(obj);
+							obj.Dispose();
+						}
+					}
+
+					broadphase.Dispose();
+					solver.Dispose();
+					dcc.Dispose();
+					dispatcher.Dispose();
+
+					world.Dispose();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Runs just before every frame. Simulates one frame of physics.
+		/// Physics simulation should be the only thing that's using FrameEnded!
+		/// </summary>
+		bool FrameEnded(FrameEvent evt) {
+			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsPlayableLevel || !LKernel.GetG<LevelManager>().IsValidLevel || world.IsDisposed)
+				return true;
+
+			// run the events that go just before we simulate
+			if (PreSimulate != null)
+				PreSimulate(world, evt);
+
+			world.StepSimulation(evt.timeSinceLastFrame, Settings.Default.PhysicsMaxSubsteps, Settings.Default.PhysicsFixedTimestep);
+
+			// run the events that go just after we simulate
+			if (PostSimulate != null)
+				PostSimulate(world, evt);
+
+			if (DrawLines)
+				world.DebugDrawWorld();
+
+			return true;
+		}
+
+		/// <summary>
+		/// Creates the world
+		/// </summary>
+		void CreateWorld(string levelName) {
+			Launch.Log("[PhysicsMain] Creating new world...");
+			// have to make more of these every level because disposing the world apparently disposes of them too.
+			broadphase = new DbvtBroadphase();
+			solver = new SequentialImpulseConstraintSolver();
+			dcc = new DefaultCollisionConfiguration();
+			dispatcher = new CollisionDispatcher(dcc);
+			// set up this stuff... not quite sure what it's for, but you need it if you want the CCD to work for the karts
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape));
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape,
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
+
+			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
+			// and then turn on CCD
+			world.DispatchInfo.UseContinuous = true;
+
+			world.Gravity = new Vector3(0, Settings.Default.Gravity, 0);
+
+			ManifoldPoint.ContactAddedCallback = OnContactAdded;
+		}
+
+		bool OnContactAdded(ManifoldPoint cp, CollisionObject colObj0, int partId0, int index0, CollisionObject colObj1, int partId1, int index1) {
+			if (ContactAdded != null)
+				ContactAdded(cp, colObj0, partId0, index0, colObj1, partId1, index1);
+
+			return false;
 		}
 
 		/// <summary>
@@ -89,7 +171,7 @@ namespace Ponykart.Physics {
 				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
 				var body = new RigidBody(info);
 				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
-				body.UserObject = new CollisionObjectDataHolder(PonykartCollisionGroups.Road, dslNode.Name, true);
+				body.UserObject = new CollisionObjectDataHolder(body, PonykartCollisionGroups.Road, dslNode.Name, true);
 				world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
 			}
 
@@ -104,84 +186,6 @@ namespace Ponykart.Physics {
 		}
 
 		/// <summary>
-		/// Disposes the world
-		/// </summary>
-		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
-
-			lock (world) {
-				if (!world.IsDisposed) {
-					for (int a = 0; a < world.CollisionObjectArray.Count; a++) {
-						var obj = world.CollisionObjectArray[a];
-
-						if (obj != null && !obj.IsDisposed) {
-							world.RemoveCollisionObject(obj);
-							obj.Dispose();
-						}
-					}
-
-					broadphase.Dispose();
-					solver.Dispose();
-					dcc.Dispose();
-					dispatcher.Dispose();
-
-					world.Dispose();
-				}
-			}
-		}
-
-		/// <summary>
-		/// Creates the world
-		/// </summary>
-		void CreateWorld(string levelName) {
-			Launch.Log("[PhysicsMain] Creating new world...");
-			// have to make more of these every level because disposing the world apparently disposes of them too.
-			broadphase = new DbvtBroadphase();
-			solver = new SequentialImpulseConstraintSolver();
-			dcc = new DefaultCollisionConfiguration();
-			dispatcher = new CollisionDispatcher(dcc);
-			// set up this stuff... not quite sure what it's for, but you need it if you want the CCD to work for the karts
-			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
-				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape));
-			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape,
-				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
-			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
-				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
-
-			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
-			// and then turn on CCD
-			world.DispatchInfo.UseContinuous = true;
-
-			world.Gravity = new Vector3(0, Settings.Default.Gravity, 0);
-			// TODO: this isn't working for some reason
-			world.SetInternalTickCallback(PostTick);
-		}
-
-		/// <summary>
-		/// Runs just before every frame. Simulates one frame of physics.
-		/// Physics simulation should be the only thing that's using FrameEnded!
-		/// </summary>
-		bool FrameEnded(FrameEvent evt) {
-			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsPlayableLevel || !LKernel.GetG<LevelManager>().IsValidLevel || world.IsDisposed)
-				return true;
-
-			// run the events that go just before we simulate
-			if (PreSimulate != null)
-				PreSimulate(world, evt);
-
-			world.StepSimulation(evt.timeSinceLastFrame, Settings.Default.PhysicsMaxSubsteps, Settings.Default.PhysicsFixedTimestep);
-
-			// run the events that go just after we simulate
-			if (PostSimulate != null)
-				PostSimulate(world, evt);
-
-			if (DrawLines)
-				world.DebugDrawWorld();
-
-			return true;
-		}
-
-		/// <summary>
 		/// Create a static ground plane facing upwards.
 		/// </summary>
 		/// <param name="yposition">The Y position that the plane is located at.</param>
@@ -193,7 +197,7 @@ namespace Ponykart.Physics {
 			CollisionShape groundShape = new StaticPlaneShape(Vector3.NEGATIVE_UNIT_Y, 1);
 			var groundInfo = new RigidBodyConstructionInfo(0, new DefaultMotionState(matrix), groundShape, Vector3.ZERO);
 			var groundBody = new RigidBody(groundInfo);
-			groundBody.UserObject = new CollisionObjectDataHolder(PonykartCollisionGroups.Environment, "ground", true);
+			groundBody.UserObject = new CollisionObjectDataHolder(groundBody, PonykartCollisionGroups.Environment, "ground", true);
 			groundBody.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
 			world.AddRigidBody(groundBody, PonykartCollisionGroups.Environment, PonykartCollidesWithGroups.Environment);
 		}

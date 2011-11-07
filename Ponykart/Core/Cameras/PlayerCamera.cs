@@ -1,6 +1,5 @@
 ﻿using Mogre;
 using Ponykart.Actors;
-using Ponykart.Levels;
 using Ponykart.Players;
 using Ponykart.Properties;
 
@@ -41,6 +40,7 @@ namespace Ponykart.Core {
 			TargetNode.Position = kartTargetNode._getDerivedPosition();
 		}
 
+		private readonly float _cameraTightness = Settings.Default.CameraTightness;
 		/// <summary>
 		/// Updates the camera
 		/// TODO: stop it from going through the terrain
@@ -48,10 +48,10 @@ namespace Ponykart.Core {
 		protected override bool UpdateCamera(FrameEvent evt) {
 			Vector3 displacement;
 
-			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * Settings.Default.CameraTightness * evt.timeSinceLastFrame;
+			displacement = (kartCamNode._getDerivedPosition() - CameraNode.Position) * _cameraTightness * evt.timeSinceLastFrame;
 			CameraNode.Translate(displacement);
 
-			displacement = (kartTargetNode._getDerivedPosition() - TargetNode.Position) * Settings.Default.CameraTightness * evt.timeSinceLastFrame;
+			displacement = (kartTargetNode._getDerivedPosition() - TargetNode.Position) * _cameraTightness * evt.timeSinceLastFrame;
 			TargetNode.Translate(displacement);
 
 			return true;

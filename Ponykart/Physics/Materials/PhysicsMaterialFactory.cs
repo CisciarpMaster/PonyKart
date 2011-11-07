@@ -48,6 +48,9 @@ namespace Ponykart.Physics {
 
 					materials[matname] = mat;
 				}
+
+				cfile.Dispose();
+				sectionIterator.Dispose();
 			}
 		}
 

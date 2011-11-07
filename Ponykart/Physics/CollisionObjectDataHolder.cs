@@ -1,10 +1,15 @@
-﻿using Ponykart.Actors;
+﻿using BulletSharp;
+using Ponykart.Actors;
 
 namespace Ponykart.Physics {
 	/// <summary>
 	/// A little helper object for CollisionObjects that don't have an LThing associated with them. This holds some data for them instead.
 	/// </summary>
 	public class CollisionObjectDataHolder {
+		/// <summary>
+		/// The collision object this data holder is attached to.
+		/// </summary>
+		public CollisionObject Owner { get; private set; }
 		/// <summary>
 		/// The object's collision group
 		/// </summary>
@@ -21,6 +26,10 @@ namespace Ponykart.Physics {
 		/// If this has a LThing associated with it, this points to it.
 		/// </summary>
 		public LThing Thing { get; private set; }
+		/// <summary>
+		/// Identificiation number. Is not the same as the Thing's ID!
+		/// </summary>
+		public int ID { get; private set; }
 
 
 		/// <summary>
@@ -29,19 +38,27 @@ namespace Ponykart.Physics {
 		/// <param name="collisionGroup">The collision group of the object</param>
 		/// <param name="name">The name of the object, excluding an ID</param>
 		/// <param name="careAboutCollisionEvents">Do we care about collision events?</param>
-		public CollisionObjectDataHolder(PonykartCollisionGroups collisionGroup, string name, bool careAboutCollisionEvents) {
+		/// <param name="owner">The collision object this data holder is attached to</param>
+		public CollisionObjectDataHolder(CollisionObject owner, PonykartCollisionGroups collisionGroup, string name, bool careAboutCollisionEvents) {
+			this.Owner = owner;
 			this.CollisionGroup = collisionGroup;
 			this.Name = name;
 			this.CareAboutCollisionEvents = careAboutCollisionEvents;
+
+			this.ID = IDs.Random;
 		}
 
 		/// <summary>
 		/// Create a data holder using properties of an LThing object.
 		/// </summary>
 		public CollisionObjectDataHolder(LThing thing)
-			: this(thing.CollisionGroup, thing.Name, thing.CareAboutCollisionEvents)
+			: this(thing.Body, thing.CollisionGroup, thing.Name, thing.CareAboutCollisionEvents)
 		{
 			this.Thing = thing;
+		}
+
+		public override int GetHashCode() {
+			return ID;
 		}
 	}
 }

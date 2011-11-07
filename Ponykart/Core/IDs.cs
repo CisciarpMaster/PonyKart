@@ -4,8 +4,8 @@ namespace Ponykart {
 	/// Handles getting ID numbers
 	/// </summary>
 	public abstract class IDs {
-		private static long Counter = 0;
-		private static readonly Random _rand = new Random();
+		private static uint counter = 0;
+		private static readonly Random rand = new Random();
 
 		/// <summary>
 		/// Just get this property and it'll give you a new ID number.
@@ -14,14 +14,16 @@ namespace Ponykart {
 		/// <example>
 		/// something.IDNumber = IDs.New;
 		/// </example>
-		public static long Incremental {
+		public static uint Incremental {
 			get {
-				return Counter++;
+				return counter++;
 			}
 		}
 
 		public static int Random {
-			get { return _rand.Next(); }
+			get {
+				return rand.Next();
+			}
 		}
 	}
 }

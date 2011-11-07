@@ -52,6 +52,9 @@ namespace Ponykart.Actors {
 
 					wheels[wheelname] = wheeldict;
 				}
+
+				cfile.Dispose();
+				sectionIterator.Dispose();
 			}
 		}
 

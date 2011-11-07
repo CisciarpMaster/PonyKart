@@ -8,7 +8,7 @@ namespace Ponykart.Actors {
 	/// Represents a billboard set, aka a collection of billboards that share the same material, direction, etc.
 	/// </summary>
 	public class BillboardSetComponent : LDisposable {
-		public long ID { get; protected set; }
+		public uint ID { get; protected set; }
 		public string Name { get; protected set; }
 		public BillboardSet BillboardSet { get; protected set; }
 

@@ -84,10 +84,10 @@ namespace Ponykart.Physics {
 
 			// make our ghost object
 			Body = new RigidBody(new RigidBodyConstructionInfo(0, new MogreMotionState(null, Node), shape));
-			Body.CollisionFlags = CollisionFlags.NoContactResponse;
+			Body.CollisionFlags = CollisionFlags.NoContactResponse | CollisionFlags.CustomMaterialCallback;
 			Body.CollisionShape = shape;
 			Body.WorldTransform = transform;
-			Body.UserObject = new CollisionObjectDataHolder(PonykartCollisionGroups.Triggers, name, true);
+			Body.UserObject = new CollisionObjectDataHolder(Body, PonykartCollisionGroups.Triggers, name, true);
 			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
 
 			// then add this to the trigger reporter
@@ -100,12 +100,16 @@ namespace Ponykart.Physics {
 		public void InvokeTrigger(RigidBody otherBody, TriggerReportFlags flags) {
 			// at the moment this only triggers when the "main" shape of an actor enters. Do we want to change this?
 			if (OnTrigger != null) {
+#if DEBUG
 				try {
+#endif
 					OnTrigger(this, otherBody, flags);
+#if DEBUG
 				}
 				catch (Exception e) {
 					Launch.Log("Exception at TriggerRegion.InvokeTrigger: " + e.Message + "  " + e.Source);
 				}
+#endif
 			}
 		}
 

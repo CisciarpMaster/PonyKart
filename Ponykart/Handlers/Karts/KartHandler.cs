@@ -62,6 +62,20 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		public static event KartGroundEvent OnGroundChanged;
 
+#region Settings
+		private readonly float raycastTime = Settings.Default.SelfRighterRaycastTime,
+							   longRayLength = Settings.Default.SelfRighterLongRayLength,
+							   shortRayLength = Settings.Default.SelfRighterShortRayLength,
+							   kartGravityMultiplier = Settings.Default.AdjustKartGravityMultiplier,
+							   skidderDuration = Settings.Default.SkidderDuration;
+		private readonly bool kartGravityEnabled = Settings.Default.AdjustKartGravityEnabled,
+							  useNlerpers = Settings.Default.KartHandler_UseNlerpers,
+							  useSkidders = Settings.Default.KartHandler_UseSkidders,
+							  useSelfRighters = Settings.Default.KartHandler_UseSelfRighters;
+		private readonly Vector3 gravity = new Vector3(0, Settings.Default.Gravity, 0);
+#endregion
+
+
 		public KartHandler() {
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
@@ -81,13 +95,14 @@ namespace Ponykart.Handlers {
 			}
 		}
 
-		private Vector3 gravity = new Vector3(0, Settings.Default.Gravity, 0);
+		
 		private float elapsed;
+
 		private void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsValidLevel)
 				return;
 
-			if (elapsed > Settings.Default.SelfRighterRaycastTime) {
+			if (elapsed > raycastTime) {
 				elapsed = 0;
 
 				// loop through each player's kart
@@ -102,15 +117,15 @@ namespace Ponykart.Handlers {
 						continue;
 
 					// then cast our ray!
-					var callback = CastRay(kart, (kart.IsInAir && SelfRighters.ContainsKey(kart) ? Settings.Default.SelfRighterLongRayLength : Settings.Default.SelfRighterShortRayLength), world);
+					var callback = CastRay(kart, (kart.IsInAir && SelfRighters.ContainsKey(kart) ? longRayLength : shortRayLength), world);
 
 
 					// this helps it stick to the road more
-					if (Settings.Default.AdjustKartGravityEnabled) {
+					if (kartGravityEnabled) {
 						if (kart.IsInAir)
 							kart.Body.Gravity = gravity;
 						else if (callback.HasHit && callback.CollisionObject.GetCollisionGroup() == PonykartCollisionGroups.Road)
-							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * Settings.Default.AdjustKartGravityMultiplier);
+							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * kartGravityMultiplier);
 					}
 
 					// if the ray did not hit
@@ -135,6 +150,8 @@ namespace Ponykart.Handlers {
 						else
 							Ground(kart, callback);
 					}
+
+					callback.Dispose();
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;
@@ -167,7 +184,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void Liftoff(Kart kart, DynamicsWorld.ClosestRayResultCallback callback) {
 			// make a new SRH
-			if (Settings.Default.KartHandler_UseSelfRighters)
+			if (useSelfRighters)
 				SelfRighters.GetOrAdd(kart, new SelfRighter(kart));
 			// we are in the air
 			kart.IsInAir = true;
@@ -191,12 +208,12 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		private void GettingCloseToTouchingDown(Kart kart, DynamicsWorld.ClosestRayResultCallback callback, SelfRighter srh) {
 			// getting rid of our SRH means that we're close to landing but we haven't landed yet
-			if (Settings.Default.KartHandler_UseSelfRighters) {
+			if (useSelfRighters) {
 				srh.Detach();
 				SelfRighters.TryRemove(kart, out srh);
 			}
 
-			if (Settings.Default.KartHandler_UseNlerpers)
+			if (useNlerpers)
 				AlignKartWithNormal(kart, callback, true, 0.2f);
 
 			if (OnCloseToTouchdown != null)
@@ -211,7 +228,7 @@ namespace Ponykart.Handlers {
 			kart.IsInAir = false;
 
 			// if we have a nlerper, get rid of it
-			if (Settings.Default.KartHandler_UseNlerpers) {
+			if (useNlerpers) {
 				Nlerper<Kart> n;
 				if (Nlerpers.TryGetValue(kart, out n)) {
 					n.Detach();
@@ -220,17 +237,17 @@ namespace Ponykart.Handlers {
 			}
 
 			// add a skidder!
-			if (Settings.Default.KartHandler_UseSkidders) {
+			if (useSkidders) {
 				Skidder s;
 				if (Skidders.TryGetValue(kart, out s)) {
 					s.Detach();
 					Skidders.TryRemove(kart, out s);
 				}
-				Skidders[kart] = new Skidder(kart, Settings.Default.SkidderDuration);
+				Skidders[kart] = new Skidder(kart, skidderDuration);
 			}
 
 			// align the kart just to make sure
-			if (Settings.Default.KartHandler_UseNlerpers)
+			if (useNlerpers)
 				AlignKartWithNormal(kart, callback, true, 0.1f);
 
 			CurrentlyDrivingOn[kart] = callback.CollisionObject;
@@ -280,7 +297,7 @@ namespace Ponykart.Handlers {
 			// rotTo * old orientation is the same as rotate(rotTo) on SceneNodes, but since this isn't a scene node we have to do it this way
 			Quaternion newOrientation = rotTo * kart.Body.Orientation;
 
-			if (useNlerp && Settings.Default.KartHandler_UseNlerpers) {
+			if (useNlerp && useNlerpers) {
 				// if we already have a nlerper, get rid of it
 				Nlerper<Kart> n;
 				if (Nlerpers.TryGetValue(kart, out n)) {

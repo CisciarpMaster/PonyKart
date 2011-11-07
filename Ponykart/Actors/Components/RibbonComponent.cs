@@ -8,7 +8,7 @@ namespace Ponykart.Actors {
 	/// Represents an ogre ribbon
 	/// </summary>
 	public class RibbonComponent : LDisposable {
-		public long ID { get; protected set; }
+		public uint ID { get; protected set; }
 		public string Name { get; protected set; }
 		/// <summary>
 		/// The ribbon emitter

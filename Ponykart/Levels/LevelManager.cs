@@ -277,13 +277,15 @@ namespace Ponykart.Levels {
 		/// </summary>
 		public bool IsValidLevel { get; private set; }
 
+
+		private readonly string _mainMenuName = Settings.Default.MainMenuName;
 		/// <summary>
 		/// Returns true if the current level is valid and not a main menu.
 		/// Note that it doesn't say anything about whether the level's actually finished loading yet! Use IsValidLevel for that!
 		/// </summary>
 		public bool IsPlayableLevel {
 			get {
-				return CurrentLevel != null && CurrentLevel.Type == LevelType.Race && CurrentLevel.Name != Settings.Default.MainMenuName;
+				return CurrentLevel != null && CurrentLevel.Type == LevelType.Race && CurrentLevel.Name != _mainMenuName;
 			}
 		}
 	}

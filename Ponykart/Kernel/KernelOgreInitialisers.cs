@@ -98,6 +98,9 @@ namespace Ponykart {
 					ResourceGroupManager.Singleton.AddResourceLocation(name, key, currentKey);
 				}
 			}
+
+			file.Dispose();
+			sectionIterator.Dispose();
 		}
 
 		/// <summary>

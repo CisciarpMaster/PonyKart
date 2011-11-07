@@ -35,6 +35,7 @@ namespace Ponykart {
 
 		protected override void Dispose(bool disposing) {
 			if (disposing && (this.components != null)) {
+				Picture.Dispose();
 				this.components.Dispose();
 			}
 			base.Dispose(disposing);
