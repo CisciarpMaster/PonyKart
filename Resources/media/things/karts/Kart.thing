@@ -22,6 +22,7 @@ Model {
 	Mesh = "kart/KartChassis.mesh"
 	Material = "redbrick"
 	Position = 0, 0.192696, -0.148015
+	CastsShadows = true
 }
 
 Shape {

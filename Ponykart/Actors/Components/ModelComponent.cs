@@ -82,6 +82,16 @@ namespace Ponykart.Actors {
 
 				// then attach it to the node!
 				Node.AttachObject(Entity);
+
+				/*if (block.GetBoolProperty("CastsShadows", false)) {
+					Entity ent2 = sceneMgr.CreateEntity(Name + "Cone" + ID, "ShadowCone.mesh");
+					ent2.CastShadows = false;
+					SceneNode node2 = lthing.RootNode.CreateChildSceneNode(Name + "Cone" + ID, new Vector3(0, 2, 0));
+					node2.AttachObject(ent2);
+					node2.InheritOrientation = false;
+					node2.SetScale(new Vector3(3, 3, 3));
+					node2.LookAt(new Vector3(0.1f, -1, 0.1f), Mogre.Node.TransformSpace.TS_LOCAL, Vector3.UNIT_Y);
+				}*/
 			}
 		}
 

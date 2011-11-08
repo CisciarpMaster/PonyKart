@@ -70,7 +70,6 @@ namespace Ponykart.Physics {
 						break;
 				}
 				GlowColor = BalloonGlowColour.red;
-				Entity.RenderQueueGroup = GlowHandler.RENDER_QUEUE_BUBBLE_GLOW;
 				Entity.CastShadows = false;
 
 				Node.AttachObject(Entity);

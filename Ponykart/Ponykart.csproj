@@ -214,7 +214,7 @@
     <Compile Include="Lua\PauserWrapper.cs" />
     <Compile Include="UI\UIUserData.cs" />
     <Compile Include="UI\UIResources.cs" />
-    <Compile Include="Handlers\GlowHandler.cs" />
+    <Compile Include="Stuff\GlowColours.cs" />
     <Compile Include="UI\UIMain.cs" />
     <Compile Include="Core\Spawner.cs" />
     <Compile Include="Core\InputMain.cs" />
