@@ -14,7 +14,6 @@ Shape {
 }
 Model {
 	Mesh = "FencePost.mesh"
-	Material = "Fences"
 	Position = 0, 0, 0
 	CastsShadows = false
 	StaticGroup = "Fences"

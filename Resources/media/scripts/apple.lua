@@ -34,6 +34,8 @@ function spawnApple(position)
 	spawn(name, position)
 end
 
+-- lthing - the thing you want to spawn relative to
+-- offset - the offset
 function spawnApple(lthing, offset)
 	local num = math.random(4)
 	local name

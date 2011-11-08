@@ -1,135 +1,108 @@
 Fence {
-	Name = "Fence#269"
 	Position = 74.6469, -0.465778, 218.942
 	Orientation = 0.0507294, 0.994949, 0.00441089, 0.086511
 }
 Fence {
-	Name = "Fence#270"
 	Position = 65.7015, -0.152653, 219.161
 	Orientation = 0, 0.99408, -4.34526E-08, -0.108653
 }
 Fence {
-	Name = "Fence#271"
 	Position = 56.6074, -0.152653, 221.097
 	Orientation = 0, 0.99408, -4.34526E-08, -0.108653
 }
 Fence {
-	Name = "Fence#272"
 	Position = 33.5317, -0.0371035, 221.025
 	Orientation = 0, 0.990384, -4.32911E-08, 0.138346
 }
 Fence {
-	Name = "Fence#273"
 	Position = 24.7302, -0.146883, 217.66
 	Orientation = 0, 0.973771, -4.25649E-08, 0.227531
 }
 Fence {
-	Name = "Fence#274"
 	Position = 16.8688, -0.206803, 212.601
 	Orientation = 0, 0.94119, -4.11407E-08, 0.337878
 }
 Fence {
-	Name = "Fence#275"
 	Position = 10.2355, -0.206803, 206.117
 	Orientation = 0, 0.907891, -3.96852E-08, 0.419206
 }
 Fence {
-	Name = "Fence#276"
 	Position = 3.33423, -0.206803, 199.967
 	Orientation = 0, 0.957804, -4.18669E-08, 0.287422
 }
 Fence {
-	Name = "Fence#277"
 	Position = -4.98288, -0.305774, 195.826
 	Orientation = 0, 0.986412, -4.31174E-08, 0.164292
 }
 Fence {
-	Name = "Fence#278"
 	Position = -13.5702, -0.305774, 193.519
 	Orientation = 0.00179351, 0.995569, -0.0194091, 0.0919961
 }
 Fence {
-	Name = "Fence#279"
 	Position = -22.5304, -0.305774, 192.409
 	Orientation = 0.00169556, 0.999313, -0.0309814, 0.0202532
 }
 Fence {
-	Name = "Fence#280"
 	Position = 111.483, -0.58556, 224.277
 	Orientation = 0.0475789, 0.0534465, 0.0214458, 0.997206
 }
 Fence {
-	Name = "Fence#281"
 	Position = 120.533, -0.47174, 225.667
 	Orientation = 0.035547, -0.199991, 0.0282032, 0.978746
 }
 Fence {
-	Name = "Fence#282"
 	Position = 126.915, -0.131345, 231.522
 	Orientation = 0.0159977, -0.515893, 0.00661159, 0.856478
 }
 Fence {
-	Name = "Fence#283"
 	Position = 126.215, -0.648568, 250.378
 	Orientation = 0.0172126, -0.862384, -0.00183436, 0.505958
 }
 Fence {
-	Name = "Fence#284"
 	Position = 119.5, -1.06114, 254.53
 	Orientation = 0.00325418, 0.999872, -0.0141987, 0.00667219
 }
 Fence {
-	Name = "Fence#285"
 	Position = 110.607, -0.920584, 252.515
 	Orientation = 0.00021608, 0.976414, -0.0145652, 0.215415
 }
 Fence {
-	Name = "Fence#286"
 	Position = 37.9611, 0.262206, 227.178
 	Orientation = -0.0087468, 0.718056, -0.00847668, 0.695878
 }
 Fence {
-	Name = "Fence#287"
 	Position = 38.6866, 0.547943, 236.295
 	Orientation = -0.00720868, 0.752542, -0.00630763, 0.658475
 }
 Fence {
-	Name = "Fence#288"
 	Position = 40.7335, 0.6356, 245.179
 	Orientation = 0, 0.811389, -3.54669E-08, 0.584507
 }
 Fence {
-	Name = "Fence#289"
 	Position = 43.2273, 0.573379, 253.934
 	Orientation = 0, 0.783015, -3.42267E-08, 0.622003
 }
 Fence {
-	Name = "Fence#290"
 	Position = 44.5064, 0.395379, 262.963
 	Orientation = 0.00999362, 0.724417, 0.00950808, 0.689224
 }
 Fence {
-	Name = "Fence#291"
 	Position = 44.4294, -0.146881, 272.145
 	Orientation = 0.0294559, 0.685203, 0.0312563, 0.727085
 }
 Fence {
-	Name = "Fence#292"
 	Position = 43.4899, -1.35606, 280.897
 	Orientation = 0.0542329, 0.647995, 0.0633611, 0.757064
 }
 FencePost {
-	Name = "FencePost#"
 	Position = 52.1313, -0.0823191, 222.042
 	Orientation = 0.0381095, 0.134962, -0.013254, 0.990029
 }
 FencePost {
-	Name = "FencePost#001"
 	Position = 129.329, -0.129607, 235.837
 	Orientation = 0.0200264, -0.548608, -0.0350277, 0.835105
 }
 FencePost {
-	Name = "FencePost#002"
 	Position = 106.053, -1.05235, 250.434
 	Orientation = 0.0324199, -0.166542, -0.0240197, 0.985209
 }

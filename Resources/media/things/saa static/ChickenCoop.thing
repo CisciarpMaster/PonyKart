@@ -5,24 +5,17 @@ CollidesWith = Environment
 
 Model {
 	Mesh = "Chicken_Coop.mesh"
+	Material = "SAA_Things_2_Twosided"
 	Position = 0, 5.084, 0
-	Static = true
-}
-Model {
-	Mesh = "Chicken_Coop_Ramp.mesh"
-	Position = 0.038, 1.014, 6.837
-}
-Model {
-	Mesh = "Chicken_Coop_Signpost.mesh"
-	Position = -2.61342, 8.09612, 7.30329
-	Static = true
-	StaticGroup = "Fences"
+	CastsShadows = true
 }
 Model {
 	Mesh = "Chicken_Coop_Sign.mesh"
 	Position = -2.6118, 6.28688, 7.92089
 	CastsShadows = false
 }
+
+
 // main part
 Shape {
 	Type = Box

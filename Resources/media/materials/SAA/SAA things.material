@@ -57,20 +57,78 @@ material AppleBillboard {
 	}
 }
 
-material Farmhouse {
+//////////////////////////
+
+material SAA_Transparent_Things {
+	receive_shadows off
+	
+	technique {
+		pass {
+			scene_blend alpha_blend
+			depth_write off
+			alpha_rejection greater_equal 128
+			transparent_sorting on
+			lighting off
+
+			texture_unit {
+				texture "SAA transparent things.dds"
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material SAA_Things_1 {
 	technique {
 		pass {
 			vertex_program_ref fresnelTex_vp {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
 			}
-			
+
 			texture_unit {
-				texture farmhouse.dds
+				texture "SAA things 1.dds"
+				tex_address_mode clamp
 			}
 		}
 	}
 }
+
+material SAA_Things_2 {
+	technique {
+		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+
+			texture_unit {
+				texture "SAA things 2.dds"
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material SAA_Things_2_Twosided {
+	technique {
+		pass {
+			cull_hardware none
+		
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+
+			texture_unit {
+				texture "SAA things 2.dds"
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+////////////////////////////
 
 material Fences {
 	technique {
@@ -84,23 +142,6 @@ material Fences {
 			
 			texture_unit {
 				texture fencetex.dds
-			}
-		}
-	}
-}
-
-material Well {
-	technique {
-		pass {
-			vertex_program_ref fresnelTex_vp {
-			}
-			fragment_program_ref fresnelTex_Self_fp {
-				param_named GlowExpon float 2
-				param_named Alpha float 0.5
-			}
-			
-			texture_unit {
-				texture well.dds
 			}
 		}
 	}
@@ -174,10 +215,15 @@ material Bucket {
 
 
 material SAA_BannerSign {
+	receive_shadows off
+	
 	technique {
 		pass {
+			scene_blend alpha_blend
+			depth_write off
+		
 			texture_unit {
-				texture banner.png
+				texture banner.dds
 			}
 		}
 	}
@@ -199,20 +245,39 @@ material Rope {
 	}
 }
 
-
-material PicnicTablecloth {
+material Barn {
+	receive_shadows off
+	
 	technique {
 		pass {
 			cull_hardware none
 			
 			texture_unit {
-				texture picnictable.dds
+				texture saa_barn.dds
+			}
+		}
+	}
+}
+
+material FlowerBarrel {
+	technique {
+		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+			texture_unit {
+				texture "SAA transparent things.dds"
+				tex_address_mode clamp
 			}
 		}
 	}
 }
 
 material Billboards {
+	receive_shadows off
+	
 	technique {
 		pass {
 			transparent_sorting on

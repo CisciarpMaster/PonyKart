@@ -3,13 +3,14 @@ Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
 ForceCompound = true
+Static = true
 
 // Entity#0
 Model {
-	Mesh = "FlowerBarrel.mesh"
-	Material = "FlowerBarrelYellow"
+	Mesh = "FlowerBarrelYellow.mesh"
 	Position = 0, 2.10882, 0
 	Scale = 2, 2, 2
+	StaticGroup = "TransparentThings"
 }
 // cylinder#0
 Shape {
@@ -19,11 +20,12 @@ Shape {
 }
 
 BillboardSet {
-	Material = "FlowerBarrelTransparent"
+	Material = "SAA_Transparent_Things"
 	Type = OrientedCommon
 	Width = 1
 	Height = 1.562
-	TextureCoords = 0.58, 0.062, 0.984, 0.844
+	// left border, top border, right border, bottom border. Origin is top left
+	TextureCoords = 0.91, 0.391, 1, 0.584
 	
 	Billboard {
 		Position = -0.738, 3.73, 0.234

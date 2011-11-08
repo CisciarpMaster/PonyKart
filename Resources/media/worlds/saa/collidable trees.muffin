@@ -1,336 +1,336 @@
-AppleTree {
+CollidableAppleTree {
 	Position = -286.356, 2.8451, -220.839
 	Orientation = 0, 0.224951, 0, 0.9743701
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -256.171, 0.681048, -258.656
 	Orientation = 0, 0.7431449, 0, 0.6691306
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -304.755, -1.48792, -279.62
 	Orientation = 0, 0.9996573, 0, 0.02617699
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -278.466, 0.244225, -291.747
 	Orientation = 0, 0.0348995, 0, 0.9993908
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -279.117, 0.650302, -248.447
 	Orientation = 0, 0.9999619, 0, -0.00872653
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -254.644, 5.47714, -206.549
 	Orientation = 0, 0.3255681, 0, 0.9455186
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -255.197, 18.6302, -160.105
 	Orientation = 0, 0.8241261, 0, -0.5664063
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -240.927, 8.14721, -183.95
 	Orientation = 0, 0.9396926, 0, 0.3420202
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -240.143, 0.391408, -235.56
 	Orientation = 0, 0.2588191, 0, -0.9659258
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -274.659, 0.133706, -274.936
 	Orientation = 0, 0.3255681, 0, 0.9455186
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -243.282, 0.254685, -290.751
 	Orientation = 0, 0.8241261, 0, -0.5664063
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -293.724, -0.748254, -322.866
 	Orientation = 0, 0.9396926, 0, 0.3420202
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -262.232, 0.645842, -335.947
 	Orientation = 0, 0.2588191, 0, -0.9659258
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -257.328, 0.507827, -315.645
 	Orientation = 0, 0.7716246, 0, -0.6360783
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -284.705, -0.598024, -341.363
 	Orientation = 0, 0.9099613, 0, 0.4146933
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -256.502, 1.05597, -362.424
 	Orientation = 0, 0.3007058, 0, 0.9537169
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -295.877, -0.0166123, -376.727
 	Orientation = 0, 0.1736483, 0, -0.9848077
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -275.666, 0.432499, -386.384
 	Orientation = 0, 0.2334454, 0, 0.9723699
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -252.309, 0.100561, -391.4
 	Orientation = 0, 0.8870108, 0, -0.4617487
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -295.054, 4.79966, -409.881
 	Orientation = 0, 0.9925461, 0, -0.1218693
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -316.324, 8.65728, -435.551
 	Orientation = 0, 0.7431449, 0, 0.6691306
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -272.756, 4.20771, -426.677
 	Orientation = 0, 0.9832549, 0, 0.1822355
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -291.724, 16.9361, -460.117
 	Orientation = 0, 0.2079117, 0, 0.9781476
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -310.26, 21.48, -477.946
 	Orientation = 0, 0.9743701, 0, 0.224951
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -321.208, 32.317, -503.201
 	Orientation = 0, 0.3987491, 0, 0.9170601
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -298.48, 12.2777, -441.887
 	Orientation = 0, 0.3255681, 0, -0.9455186
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -398.003, 29.7519, -496.376
 	Orientation = 0, 0.1564345, 0, 0.9876884
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -420.072, 20.021, -474.42
 	Orientation = 0, 0.08715588, 0, -0.9961947
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -395.613, 16.5275, -464.905
 	Orientation = 0, 0.6225147, 0, 0.7826082
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -430.101, 15.3438, -455.19
 	Orientation = 0, 0.6225145, 0, -0.7826082
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -399.322, 8.89331, -428.859
 	Orientation = 0, 0.4146932, 0, 0.9099613
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -420.548, 7.74924, -425.286
 	Orientation = 0, 0.7431449, 0, 0.6691306
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -384.715, 2.93302, -401.224
 	Orientation = 0, 0.6883545, 0, -0.7253745
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -412.044, 3.26967, -387.922
 	Orientation = 0, 0.9723699, 0, -0.2334454
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -393.264, 1.54838, -379.475
 	Orientation = 0, 0.6293205, 0, -0.7771459
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -419.115, 1.81536, -366.828
 	Orientation = 0, 0.8571673, 0, 0.5150381
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -390.86, -0.74402, -349.354
 	Orientation = 0, 0.05233605, 0, -0.9986295
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -412.503, -0.563836, -335.476
 	Orientation = 0, 0.3665012, 0, 0.9304176
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -382.149, -1.81219, -322.597
 	Orientation = 0, 0.0348995, 0, 0.9993908
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -377.491, -1.27155, -364.245
 	Orientation = 0, 0.3826835, 0, 0.9238795
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -298.958, -0.711334, -303.346
 	Orientation = 0, 0.6360782, 0, 0.7716246
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -391.375, -1.52382, -300.392
 	Orientation = 0, 0.5372996, 0, 0.8433914
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -407.917, -0.997894, -308.583
 	Orientation = 0, 0.258819, 0, 0.9659258
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -395.876, -0.991217, -277.421
 	Orientation = 0, 0.09584575, 0, 0.9953962
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -397.944, -1.07595, -236.609
 	Orientation = 0, 0.9681476, 0, 0.2503799
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -414.954, 0.300654, -260.246
 	Orientation = 0, 0.8616291, 0, 0.5075384
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -421.431, 0.789895, -283.437
 	Orientation = 0, 0.6087614, 0, 0.7933533
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -434.218, 1.53548, -320.704
 	Orientation = 0, 0.7547096, 0, -0.656059
 	MapRegion = "Buckets"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = -261.361, 1.55993, -222.387
 	Orientation = 0, 0.9996573, 0, -0.02617696
 	MapRegion = "Buckets"
 }
 
 
-AppleTree {
+CollidableAppleTree {
 	Position = 57.615, -1.12565, -20.5439
 	Orientation = 0, 0.357932, -1.56457E-08, 0.933748
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 174.13, 1.04679, 6.64804
 	Orientation = 0, 0.726548, -3.17584E-08, 0.687116
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 158.442, 2.24921, 48.4256
 	Orientation = 0, 0.781589, -3.41644E-08, 0.623793
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 151.209, -0.57122, 5.49927
 	Orientation = 0, 0.972045, -4.24894E-08, 0.234795
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 143.621, -1.05886, -10.4259
 	Orientation = 0, 0.338982, -1.48174E-08, 0.940793
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 133.883, 0.23944, 52.7416
 	Orientation = 0, 0.705277, -3.08286E-08, 0.708932
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 132.599, 0.79526, 8.72736
 	Orientation = 0, 0.397526, -1.73764E-08, 0.917591
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 128.159, 0.69473, 35.591
 	Orientation = 0, 0.875437, -3.82666E-08, 0.483333
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 120.727, 1.16487, -7.44352
 	Orientation = 0, 0.369899, -1.61688E-08, 0.929072
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 117.135, -0.97492, 81.2422
 	Orientation = 0, 0.99397, -4.34478E-08, -0.109651
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 109.611, 0.61424, 24.8767
 	Orientation = 0, 0.917349, -4.00986E-08, 0.398083
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 116.679, 0.10811, -27.6416
 	Orientation = 0, -0.407744, 1.7823E-08, 0.913096
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 106.431, -1.40884, 45.9015
 	Orientation = 0, 0.969026, -4.23575E-08, 0.24696
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 104.274, 1.32796, 1.9553
 	Orientation = 0, 0.996187, -4.35447E-08, 0.0872475
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 91.8838, -1.3665, 44.5249
 	Orientation = 0, 0.986701, -4.31301E-08, 0.162548
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 84.8398, 1.18266, -13.2077
 	Orientation = 0, 0.975538, -4.26421E-08, 0.219832
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 71.4572, 0.69696, -28.9715
 	Orientation = 0, -0.803535, 3.51236E-08, 0.595258
 	MapRegion = "Bridge"
 }
-AppleTree {
+CollidableAppleTree {
 	Position = 70.1101, -0.94362, -52.4134
 	Orientation = 0, -0.451225, 1.97237E-08, 0.89241
 	MapRegion = "Bridge"

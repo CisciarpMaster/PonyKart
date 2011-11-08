@@ -99,7 +99,7 @@ material CMC_Treehouse_Tree
 			
 			texture_unit
 			{
-				texture CMC_Treehouse_Tree.jpg
+				texture CMC_Treehouse_Tree_Baked.png
 			}
 		}
 	}

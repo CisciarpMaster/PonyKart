@@ -8,11 +8,11 @@ Static = true
 // SAA_Ramp
 Model {
 	Mesh = "SAA_Ramp.mesh"
-	Material = "SAA_Bridge"
 	Position = 0, 0, 0
 	CastsShadows = true
 	StaticGroup = "Wood"
 }
+
 // SAA_Ramp_phys
 Shape {
 	Type = Mesh

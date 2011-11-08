@@ -2,19 +2,19 @@
 -- so all this does is take the flower barrel we already created and change its
 -- material to one of the random colors.
 
-local num
-local mat
 
 function flowerbarrel(lthing)
-	num = math.random(3)
+	local num = math.random(3)
+	local name
 
 	if num == 1 then
-		mat = "FlowerBarrelGreen"
+		name = "FlowerBarrelGreen"
 	elseif num == 2 then
-		mat = "FlowerBarrelRed"
+		name = "FlowerBarrelRed"
 	else
-		mat = "FlowerBarrelYellow"
+		name = "FlowerBarrelYellow"
 	end
 	
-	setMaterial(lthing, mat)
+	spawn(name, lthing.SpawnPosition)
+	lthing:Dispose()
 end

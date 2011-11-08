@@ -208,18 +208,18 @@ Bucket {
 	Position = 172.885, 8.29738, 226.458
 	Orientation = 0, 0.683684, -2.98848E-08, 0.729778
 }
-FlowerBarrel {
+FlowerBarrelRed {
 	Position = 183.886, 0.32491, 233.664
 }
-FlowerBarrel {
-	Position = 190.223, 0.32491, 229.591
+FlowerBarrelYellow {
+	Position = 190.223, 0.32491, 231.591
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 }
 // the one by the barn
-FlowerBarrel {
+FlowerBarrelGreen {
 	Position = 83.7244, -0.642549, 212.17
 }
-FlowerBarrel {
+FlowerBarrelGreen {
 	Position = 192.055, 0.37155, 197.47
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 }

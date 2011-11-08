@@ -1,449 +1,449 @@
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -117.942, 36.3856, -593.941
 	Orientation = 0, 0.834005, -3.64555E-08, 0.551757
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -255.438, 50.9585, -647.87
 	Orientation = 0, 0.991089, -4.33219E-08, 0.133201
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -417.683, 51.8104, -544.503
 	Orientation = 0, -0.818121, 3.57612E-08, 0.575046
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -191.252, 50.9037, -596.285
 	Orientation = 0, 0.999619, -4.36947E-08, 0.0276125
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -166.839, 48.069, -563.505
 	Orientation = 0, 0.537754, -2.3506E-08, 0.843102
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -453.904, 57.0211, -614.991
 	Orientation = 0, -0.25946, 1.13414E-08, 0.965754
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -166.357, 50.8562, -610.164
 	Orientation = 0, 0.959274, -4.19312E-08, 0.282478
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -326.193, 51.4329, -630.751
 	Orientation = 0, -0.822373, 3.59471E-08, 0.568949
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -456.654, 51.1288, -552.073
 	Orientation = 0, -0.504145, 2.20369E-08, 0.863619
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -470.349, 57.1407, -606.767
 	Orientation = 0, 0.320305, -1.4001E-08, 0.947314
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -203.089, 60.0973, -794.409
 	Orientation = 0, 0.981271, -4.28927E-08, -0.192634
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -181.723, 50.2771, -566.691
 	Orientation = 0, 0.970568, -4.24249E-08, -0.240828
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -470.524, 59.9322, -635.157
 	Orientation = 0, 0.166121, -7.26138E-09, 0.986105
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -176.515, 64.7169, -821.607
 	Orientation = 0, 0.494952, -2.1635E-08, 0.868921
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -255.806, 50.7849, -548.592
 	Orientation = 0, -0.37581, 1.64272E-08, 0.926697
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -213.001, 57.5426, -765.833
 	Orientation = 0, -0.582864, 2.54778E-08, 0.81257
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -355.966, 55.8899, -774.009
 	Orientation = 0, 0.92815, -4.05707E-08, -0.372206
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -400.684, 54.3272, -718.599
 	Orientation = 0, 0.00685439, -2.99615E-10, 0.999977
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -182.665, 50.9628, -611.49
 	Orientation = 0, 0.610176, -2.66716E-08, 0.792266
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -292.782, 52.8171, -741.829
 	Orientation = 0, 0.944289, -4.12762E-08, 0.329119
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -351.581, 57.2581, -784.931
 	Orientation = 0, -0.7587, 3.31638E-08, 0.65144
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -217.562, 66.3563, -813.84
 	Orientation = 0, 0.704432, -3.07917E-08, 0.709771
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -308.773, 51.0303, -653.664
 	Orientation = 0, 0.978646, -4.2778E-08, -0.205553
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -420.363, 57.4437, -740.563
 	Orientation = 0, 0.917799, -4.01183E-08, -0.397045
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -290.239, 63.9704, -806.049
 	Orientation = 0, -0.789131, 3.4494E-08, 0.614224
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -280.449, 58.206, -773.286
 	Orientation = 0, 0.387254, -1.69274E-08, 0.921973
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -238.52, 50.9585, -611.423
 	Orientation = 0, -0.0911271, 3.98329E-09, 0.995839
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -219.105, 50.9585, -600.158
 	Orientation = 0, 0.718983, -3.14277E-08, 0.695028
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -236.549, 50.9585, -574.267
 	Orientation = 0, -0.820029, 3.58446E-08, 0.572322
 	MapRegion = "Ramp"
 }
-BillboardAppleTree1 {
+AppleTree1 {
 	Position = -218.081, 50.9585, -584.709
 	Orientation = 0, 0.99993, -4.37083E-08, -0.0118339
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -290.164, 50.9585, -575.32
 	Orientation = 0, 0.77648, -3.3941E-08, 0.630141
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -283.79, 50.9585, -641.671
 	Orientation = 0, 0.542812, -2.37271E-08, 0.839854
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -448.544, 58.5763, -678.778
 	Orientation = 0, 0.491079, -2.14657E-08, 0.871115
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -420.761, 55.3484, -692.397
 	Orientation = 0, -0.207633, 9.07591E-09, 0.978207
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -391.125, 52.8439, -700.278
 	Orientation = 0, 0.433932, -1.89678E-08, 0.900945
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -401.167, 52.6921, -670.098
 	Orientation = 0, -0.111286, 4.86446E-09, 0.993788
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -423.154, 53.3888, -565.192
 	Orientation = 0, 0.988505, -4.32089E-08, 0.151187
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -246.265, 56.0078, -755.583
 	Orientation = 0, 0.788539, -3.44681E-08, 0.614984
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -440.216, 58.5199, -716.697
 	Orientation = 0, 0.610907, -2.67036E-08, 0.791702
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -148.865, 57.6522, -794.931
 	Orientation = 0, 0.709099, -3.09957E-08, 0.705109
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -166.386, 50.286, -591.449
 	Orientation = 0, 0.243915, -1.06618E-08, 0.969797
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -144.857, 39.8763, -554.243
 	Orientation = 0, 0.985151, -4.30623E-08, 0.17169
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -400.653, 52.1293, -555.144
 	Orientation = 0, 0.989629, -4.32581E-08, -0.143645
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -307.035, 53.8386, -752.843
 	Orientation = 0, 0.895063, -3.91244E-08, 0.44594
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -237.594, 63.0745, -791.682
 	Orientation = 0, -0.665682, 2.90979E-08, 0.746235
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -476.366, 62.7971, -678.685
 	Orientation = 0, -0.613708, 2.6826E-08, 0.789533
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -473.249, 63.3181, -708.445
 	Orientation = 0, 0.883554, -3.86214E-08, 0.468329
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -148.691, 63.6751, -845.309
 	Orientation = 0, 0.40317, -1.76231E-08, 0.915125
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -433.825, 55.6636, -648.446
 	Orientation = 0, 0.476213, -2.08159E-08, 0.87933
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -265.448, 52.7354, -737.059
 	Orientation = 0, 0.996108, -4.35413E-08, -0.0881357
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -367.37, 55.0183, -757.187
 	Orientation = 0, 0.984276, -4.30241E-08, 0.176638
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -421.924, 54.6701, -666.573
 	Orientation = 0, 0.969032, -4.23578E-08, 0.246934
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -375.756, 53.2889, -724.62
 	Orientation = 0, -0.509319, 2.22631E-08, 0.860578
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -243.326, 54.5167, -733.189
 	Orientation = 0, 0.564968, -2.46955E-08, 0.825113
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -339.048, 55.77, -771.529
 	Orientation = 0, 0.98899, -4.32301E-08, 0.14798
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -303.562, 62.0371, -800.251
 	Orientation = 0, 0.987281, -4.31554E-08, -0.158983
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -320.799, 51.5237, -579.042
 	Orientation = 0, 0.994442, -4.34684E-08, 0.105289
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -218.81, 54.2466, -744.491
 	Orientation = 0, 0.913853, -3.99458E-08, 0.406045
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -297.391, 50.9585, -614.427
 	Orientation = 0, -0.310461, 1.35707E-08, 0.950586
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -221.919, 50.9585, -627.105
 	Orientation = 0, 0.990049, -4.32764E-08, -0.140724
 	MapRegion = "Ramp"
 }
-BillboardAppleTree2 {
+AppleTree2 {
 	Position = -273.208, 50.9585, -596.274
 	Orientation = 0, 0.881179, -3.85176E-08, -0.472783
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -158.733, 60.4822, -807.252
 	Orientation = 0, 0.323886, -1.41575E-08, 0.946096
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -148.693, 46.0077, -579.57
 	Orientation = 0, -0.0240205, 1.04997E-09, 0.999711
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -482.032, 52.3513, -567.247
 	Orientation = 0, -0.226502, 9.90071E-09, 0.974011
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -148.624, 61.7867, -827.292
 	Orientation = 0, 0.979928, -4.2834E-08, 0.19935
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -159.673, 47.7808, -572.537
 	Orientation = 0, -0.321061, 1.4034E-08, 0.947058
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -240.122, 55.5113, -752.207
 	Orientation = 0, 0.851443, -3.72178E-08, 0.524447
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -484.229, 47.7947, -550.551
 	Orientation = 0, 0.960233, -4.19731E-08, 0.279201
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -349.381, 52.9093, -735.746
 	Orientation = 0, 0.354674, -1.55033E-08, 0.93499
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -372.32, 56.9131, -778.789
 	Orientation = 0, 0.994516, -4.34717E-08, -0.104587
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -134.975, 60.2626, -835.991
 	Orientation = 0, 0.971324, -4.24579E-08, 0.23776
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -475.078, 62.9961, -689.094
 	Orientation = 0, 0.972266, -4.24991E-08, -0.233877
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -316.803, 50.9277, -644.066
 	Orientation = 0, 0.907056, -3.96487E-08, 0.421011
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -335.923, 52.5055, -729.736
 	Orientation = 0, -0.00702518, 3.07081E-10, 0.999975
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -201.52, 67.3169, -826.547
 	Orientation = 0, -0.466393, 2.03867E-08, 0.884578
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -144.858, 55.5788, -779.414
 	Orientation = 0, 0.948937, -4.14794E-08, 0.315464
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -118.633, 50.1995, -775.404
 	Orientation = 0, 0.943478, -4.12407E-08, -0.331435
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -414.639, 54.2517, -678.779
 	Orientation = 0, -0.774, 3.38326E-08, 0.633185
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -366.679, 52.7108, -715.326
 	Orientation = 0, 0.266974, -1.16698E-08, 0.963704
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -402.388, 55.7275, -735.795
 	Orientation = 0, 0.667933, -2.91963E-08, 0.744222
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -272.19, 52.1634, -726.455
 	Orientation = 0, -0.459452, 2.00833E-08, 0.888202
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -213.257, 55.4632, -753.316
 	Orientation = 0, 0.272343, -1.19045E-08, 0.9622
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -317.662, 50.9626, -558.96
 	Orientation = 0, -0.743563, 3.25022E-08, 0.668666
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -273.747, 60.4345, -787.803
 	Orientation = 0, 0.909124, -3.97391E-08, 0.416524
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -449.762, 58.2683, -665.015
 	Orientation = 0, 0.0568588, -2.48538E-09, 0.998382
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -188.645, 50.7073, -638.371
 	Orientation = 0, -0.341438, 1.49247E-08, 0.939904
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -276.363, 51.1703, -654.753
 	Orientation = 0, -0.167984, 7.34281E-09, 0.98579
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -461.297, 60.9007, -690.862
 	Orientation = 0, 0.0130374, -5.69883E-10, 0.999915
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -207.039, 50.9585, -600.751
 	Orientation = 0, 0.991301, -4.33312E-08, 0.131611
 	MapRegion = "Ramp"
 }
-BillboardAppleTree3 {
+AppleTree3 {
 	Position = -235.146, 50.9585, -595.329
 	Orientation = 0, -0.772808, 3.37805E-08, 0.63464
 	MapRegion = "Ramp"

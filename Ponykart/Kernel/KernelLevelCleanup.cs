@@ -30,6 +30,9 @@ namespace Ponykart {
 			// then dispose of the old one
 			oldMgr.Dispose();
 
+			newMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
+			newMgr.ShadowFarDistance = 150f;
+			newMgr.ShadowColour = new ColourValue(0.8f, 0.8f, 0.8f);
 			//SetupShadows(newMgr);
 		}
 

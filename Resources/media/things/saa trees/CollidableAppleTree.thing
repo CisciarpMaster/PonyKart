@@ -1,0 +1,42 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Environment
+CollidesWith = Environment
+Static = true
+
+Imposters = true
+ImposterMaterial = "AppleTree"
+ImposterWidth = 10
+ImposterHeight = 10
+ImposterOffset = 0.0175422, -0.235272, -0.1130097
+
+// main tree model
+Model {
+	Mesh = "RedAppleTree2.mesh"
+	Material = "AppleTree"
+	Position = 0.0175422, -0.235272, -0.1130097
+	CastsShadows = false
+	Scale = 1, 1, 1
+}
+
+// and then our shapes
+
+// capsule#0
+Shape {
+	Type = Capsule
+	Position = 0, 7.13439, 0
+	Height = 14.9148
+	Radius = 1.3379225
+}
+// sphere#0
+Shape {
+	Type = Sphere
+	Position = 2.215005, 13.18011, -2.03904
+	Radius = 7.366208
+}
+// sphere#1
+Shape {
+	Type = Sphere
+	Position = -1.53654, 13.4562, -2.823645
+	Radius = 6.430402
+}

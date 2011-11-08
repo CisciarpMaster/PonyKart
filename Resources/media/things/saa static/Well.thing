@@ -5,7 +5,6 @@ CollidesWith = Environment
 
 Model {
 	Mesh = "Well.mesh"
-	Material = "Well"
 	Position = 0, 6.88901, 0
 	CastsShadows = true
 }
