@@ -1,38 +1,20 @@
 local player = playerKart()
 local currentRegion
 
--- shows the instanced and static geometry and region node in a region
-local function showGeom(regionName)
+local function show(regionName)
 	setInstancedGeometryVisibility(regionName, true)
 	setStaticGeometryVisibility(regionName, true)
 	setRegionNodeVisibility(regionName, true)
-end
-
--- hides the instanced and static geometry and region node in a region
-local function hideGeom(regionName)
-	setInstancedGeometryVisibility(regionName, false)
-	setStaticGeometryVisibility(regionName, false)
-	setRegionNodeVisibility(regionName, false)
-end
-
--- shows an imposter billboard in a region
-local function showImposter(regionName)
-	setImposterVisibility(regionName, true)
-end
-
--- hides an imposter billboard in a region
-local function hideImposter(regionName)
+	
 	setImposterVisibility(regionName, false)
 end
 
-local function show(regionName)
-	showGeom(regionName)
-	hideImposter(regionName)
-end
-
 local function hide(regionName)
-	hideGeom(regionName)
-	showImposter(regionName)
+	setInstancedGeometryVisibility(regionName, false)
+	setStaticGeometryVisibility(regionName, false)
+	setRegionNodeVisibility(regionName, false)
+	
+	setImposterVisibility(regionName, true)
 end
 
 -- returns whether the given shape is the player's kart, since we only want the player to be affecting geometry
@@ -44,160 +26,144 @@ end
 
 -- show buckets when entering, show bridge when leaving
 local function startTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-		
-			if isEnterFlag(flags) then
-				show("Start")
-				show("Cliff")
-				show("Buckets")
-				hide("Ramp")
-				hide("River")
-				hide("Treehouse")
-				hide("Bridge")
-				show("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "Start" then
+		currentRegion = "Start"
+	
+		if isEnterFlag(flags) then
+			show("Start")
+			show("Cliff")
+			show("Buckets")
+			hide("Ramp")
+			hide("River")
+			hide("Treehouse")
+			hide("Bridge")
+			show("Barn")
 		end
 	end
 end
 
 -- show ramp when entering, hide barn and bridge when leaving
 local function cliffTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-		
-			if isEnterFlag(flags) then
-				show("Start")
-				show("Cliff")
-				show("Buckets")
-				show("Ramp")
-				hide("River")
-				hide("Treehouse")
-				show("Bridge")
-				show("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "Cliff" then
+		currentRegion = "Cliff"
+	
+		if isEnterFlag(flags) then
+			show("Start")
+			show("Cliff")
+			show("Buckets")
+			show("Ramp")
+			hide("River")
+			hide("Treehouse")
+			show("Bridge")
+			show("Barn")
 		end
 	end
 end
 
 -- show river when entering, hide start when leaving
 local function bucketsTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-		
-			if isEnterFlag(flags) then
-				show("Start")
-				show("Cliff")
-				show("Buckets")
-				show("Ramp")
-				show("River")
-				hide("Treehouse")
-				hide("Bridge")
-				hide("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "Buckets" then
+		currentRegion = "Buckets"
+	
+		if isEnterFlag(flags) then
+			show("Start")
+			show("Cliff")
+			show("Buckets")
+			show("Ramp")
+			show("River")
+			hide("Treehouse")
+			hide("Bridge")
+			hide("Barn")
 		end
 	end
 end
 
 -- show treehouse when entering, hide cliff when leaving
 local function rampTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-		
-			if isEnterFlag(flags) then
-				hide("Start")
-				hide("Cliff")
-				show("Buckets")
-				show("Ramp")
-				show("River")
-				show("Treehouse")
-				hide("Bridge")
-				hide("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "Ramp" then
+		currentRegion = "Ramp"
+	
+		if isEnterFlag(flags) then
+			hide("Start")
+			hide("Cliff")
+			show("Buckets")
+			show("Ramp")
+			show("River")
+			show("Treehouse")
+			hide("Bridge")
+			hide("Barn")
 		end
 	end
 end
 
 -- hide buckets when entering, hide ramp when leaving
 local function riverTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-			
-			if isEnterFlag(flags) then
-				hide("Start")
-				hide("Cliff")
-				hide("Buckets")
-				show("Ramp")
-				show("River")
-				show("Treehouse")
-				hide("Bridge")
-				hide("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "River" then
+		currentRegion = "River"
+		
+		if isEnterFlag(flags) then
+			hide("Start")
+			hide("Cliff")
+			hide("Buckets")
+			show("Ramp")
+			show("River")
+			show("Treehouse")
+			hide("Bridge")
+			hide("Barn")
 		end
 	end
 end
 
 -- show bridge when entering, hide river when leaving
 local function treehouseTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-			
-			if isEnterFlag(flags) then
-				hide("Start")
-				hide("Cliff")
-				hide("Buckets")
-				hide("Ramp")
-				show("River")
-				show("Treehouse")
-				show("Bridge")
-				hide("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "Treehouse" then
+		currentRegion = "Treehouse"
+		
+		if isEnterFlag(flags) then
+			hide("Start")
+			hide("Cliff")
+			hide("Buckets")
+			hide("Ramp")
+			show("River")
+			show("Treehouse")
+			show("Bridge")
+			hide("Barn")
 		end
 	end
 end
 
 -- show barn when entering, hide treehouse when leaving
 local function bridgeTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-		
-			if isEnterFlag(flags) then
-				hide("Start")
-				hide("Cliff")
-				hide("Buckets")
-				hide("Ramp")
-				hide("River")
-				show("Treehouse")
-				show("Bridge")
-				show("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "Bridge" then
+		currentRegion = "Bridge"
+	
+		if isEnterFlag(flags) then
+			hide("Start")
+			hide("Cliff")
+			hide("Buckets")
+			hide("Ramp")
+			hide("River")
+			show("Treehouse")
+			show("Bridge")
+			show("Barn")
 		end
 	end
 end
 
 -- show start and cliff when entering, hide bridge when leaving
 local function barnTriggerRegion(region, shape, flags)
-	if checkPlayer(shape) then
-		if region ~= currentRegion then
-			currentRegion = region
-			
-			if isEnterFlag(flags) then
-				show("Start")
-				show("Cliff")
-				hide("Buckets")
-				hide("Ramp")
-				hide("River")
-				hide("Treehouse")
-				show("Bridge")
-				show("Barn")
-			end
+	if checkPlayer(shape) and currentRegion ~= "Barn" then
+		currentRegion = "Barn"
+		
+		if isEnterFlag(flags) then
+			show("Start")
+			show("Cliff")
+			hide("Buckets")
+			hide("Ramp")
+			hide("River")
+			hide("Treehouse")
+			show("Bridge")
+			show("Barn")
 		end
 	end
 end

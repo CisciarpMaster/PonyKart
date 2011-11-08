@@ -109,6 +109,11 @@ namespace Ponykart {
 		private static void LoadResourceGroups() {
 			TextureManager.Singleton.DefaultNumMipmaps = 1;
 
+#if !DEBUG
+			TextureManager.Singleton.Verbose = false;
+			MeshManager.Singleton.Verbose = false;
+#endif
+
 #if DEBUG
 			ResourceGroupManager.Singleton.InitialiseAllResourceGroups();
 #else

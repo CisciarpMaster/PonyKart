@@ -68,7 +68,13 @@ namespace Ponykart.Actors {
 				Node.SetInitialState();
 
 				// make our entity
-				Entity = sceneMgr.CreateEntity(Name + "Entity" + ID, block.GetStringProperty("mesh", null));
+				string meshName = block.GetStringProperty("mesh", null);
+				if (sceneMgr.HasEntity(meshName)) {
+					Entity = sceneMgr.GetEntity(meshName).Clone(meshName + ID);
+				}
+				else {
+					Entity = sceneMgr.CreateEntity(meshName, meshName);
+				}
 
 				// material name
 				string materialName = block.GetStringProperty("material", string.Empty);

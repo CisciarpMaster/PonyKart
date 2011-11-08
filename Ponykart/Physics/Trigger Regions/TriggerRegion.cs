@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BulletSharp;
 using Mogre;
-using Ponykart.Handlers;
 using Ponykart.Properties;
 
 namespace Ponykart.Physics {
@@ -24,7 +23,8 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.
 		/// </summary>
-		public TriggerRegion(string name, Vector3 position, CollisionShape shape) : this(name, position, Quaternion.IDENTITY, shape) { }
+		public TriggerRegion(string name, Vector3 position, CollisionShape shape)
+			: this(name, position, Quaternion.IDENTITY, shape) { }
 
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.

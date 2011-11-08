@@ -97,6 +97,23 @@ namespace Ponykart.Physics {
 		}
 
 		/// <summary>
+		/// If you've already created a shape, this registers it
+		/// </summary>
+		public void RegisterShape(string name, CollisionShape shape) {
+			Shapes.Add(name, shape);
+		}
+
+		/// <summary>
+		/// Tries to get a shape from the shape dictionary. Just a wrapper around the dictionary's own TryGetValue function, so it works in the same way.
+		/// </summary>
+		/// <param name="name">The name of the shape you're trying to get</param>
+		/// <param name="shape">Returns the shape, if successful</param>
+		/// <returns>Returns true if successful, false if not.</returns>
+		public bool TryGetShape(string name, out CollisionShape shape) {
+			return Shapes.TryGetValue(name, out shape);
+		}
+
+		/// <summary>
 		/// Creates a collision shape for a shape component
 		/// </summary>
 		private CollisionShape CreateShapeForComponent(ShapeComponent component) {

@@ -117,7 +117,7 @@
       <Value Profile="(Default)">.mgx</Value>
     </Setting>
     <Setting Name="StaticRegionSize" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">300</Value>
+      <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="InstancedRegionSize" Type="System.Single" Scope="User">
       <Value Profile="(Default)">300</Value>
