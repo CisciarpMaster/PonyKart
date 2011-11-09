@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define VERBOSE
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -153,8 +155,9 @@ namespace SceneToThing {
 			}
 			node.Entity = ent;
 			ent.Owner = node;
-
+#if VERBOSE
 			Console.WriteLine("Successfully processed entity \"" + ent.Name + "\"");
+#endif
 		}
 
 		protected void processNode(XmlElement XMLNode) {
@@ -205,7 +208,9 @@ namespace SceneToThing {
 
 			Nodes.Add(node);
 
+#if VERBOSE
 			Console.WriteLine("Successfully processed node \"" + node.Name + "\"");
+#endif
 		}
 
 		protected void processNodes(XmlElement XMLNode) {

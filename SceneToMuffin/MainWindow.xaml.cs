@@ -76,10 +76,10 @@ namespace SceneToMuffin {
 					PosX = node.Position.x,
 					PosY = node.Position.y,
 					PosZ = node.Position.z,
-					OrientX = node.Orientation.x,
-					OrientY = node.Orientation.y,
-					OrientZ = node.Orientation.z,
-					OrientW = node.Orientation.w,
+					OrientX = node.Orientation.x > 0.0001f ? node.Orientation.x : 0,
+					OrientY = node.Orientation.y > 0.0001f ? node.Orientation.y : 0,
+					OrientZ = node.Orientation.z > 0.0001f ? node.Orientation.z : 0,
+					OrientW = node.Orientation.w > 0.0001f ? node.Orientation.w : 0,
 					ScaleX = node.Dimensions.x,
 					ScaleY = node.Dimensions.y,
 					ScaleZ = node.Dimensions.z,
@@ -94,6 +94,8 @@ namespace SceneToMuffin {
 				Data.Add(data);
 			}
 			dataGrid.ItemsSource = Data;
+
+			mapRegionTextBox.Text = "";
 		}
 
 		/// <summary>
@@ -115,15 +117,16 @@ namespace SceneToMuffin {
 
 				using (var stream = File.Create(filename)) {
 					using (var writer = new StreamWriter(stream)) {
-						// write out these two first
-						writer.WriteLine("Type = " + levelTypeBox.Text);
+						// write out this first
+						if (levelTypeBox.Text != "None")
+							writer.WriteLine("Type = " + levelTypeBox.Text);
 
 						// only use the ones that use the .thing, of course
 						foreach (NodeData data in orderedData.Where(d => d.UsesThing)) {
 							// .thing file
 							writer.WriteLine(data.ThingFile + " {");
-							// name and position are required
-							writer.WriteLine(string.Format(culture, @"	Name = ""{0}""", data.Name));
+							// position is required
+							//writer.WriteLine(string.Format(culture, @"	Name = ""{0}""", data.Name));
 							writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", data.PosX, data.PosY, data.PosZ));
 							// orientation isn't required
 							if (data.OrientX != 0 || data.OrientY != 0 || data.OrientZ != 0 || data.OrientW != 1)
@@ -131,6 +134,8 @@ namespace SceneToMuffin {
 							// neither is scale
 							if (data.ScaleX != 1 || data.ScaleY != 1 || data.ScaleZ != 1)
 								writer.WriteLine(string.Format(culture, @"	Scale = {0}, {1}, {2}", data.ScaleX, data.ScaleY, data.ScaleZ));
+							if (!string.IsNullOrEmpty(mapRegionTextBox.Text))
+								writer.WriteLine(string.Format(culture, @"	MapRegion = ""{0}""", mapRegionTextBox.Text));
 							// don't forget this bit!
 							writer.WriteLine("}");
 						}

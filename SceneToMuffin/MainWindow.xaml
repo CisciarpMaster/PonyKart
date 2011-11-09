@@ -50,10 +50,11 @@
 			and then some other stuff
 		-->
 		<ComboBox Height="24" HorizontalAlignment="Left" Margin="374,12,0,0" Name="levelTypeBox" VerticalAlignment="Top" Width="145" ToolTip="Is this a level you can race on, a menu level, or what?">
+			<ComboBoxItem Content="None" IsSelected="True" />
 			<!--
 				remember to add more to this if we have more level types in the future
 			-->
-			<ComboBoxItem Content="Race" IsSelected="True" />
+			<ComboBoxItem Content="Race" />
 			<ComboBoxItem Content="Menu" />
 		</ComboBox>
 		<Label Content="Level Type:" Height="33" HorizontalAlignment="Left" Margin="262,12,0,0" Name="label1" VerticalAlignment="Top" Width="106" IsEnabled="True" HorizontalContentAlignment="Right" />
@@ -61,6 +62,8 @@
 			if this button is checked then we export another .scene file
 			with all of the stuff removed that we put in the .muffin.
 		-->
-		<CheckBox Content="Re-export .scene" Height="16" Margin="551,16,0,0" Name="reexportCheckBox" Width="127" IsChecked="True" ToolTip="Should we re-export a .scene file with the .thing parts removed?" HorizontalAlignment="Left" VerticalAlignment="Top" />
+		<CheckBox Content="Re-export .scene" Height="16" Margin="0,16,714,0" Name="reexportCheckBox" Width="127" IsChecked="False" ToolTip="Should we re-export a .scene file with the .thing parts removed?" HorizontalAlignment="Right" VerticalAlignment="Top" />
+		<Label Content="Map Region" Height="33" HorizontalAlignment="Left" HorizontalContentAlignment="Right" IsEnabled="True" Margin="668,12,0,0" Name="mapRegionLabel" VerticalAlignment="Top" Width="106" />
+		<TextBox Height="24" HorizontalAlignment="Right" Margin="0,12,467,0" Name="mapRegionTextBox" VerticalAlignment="Top" Width="145" ToolTip="Are the things in this .muffin file part of a map region? Leave blank if they are not." />
 	</Grid>
 </Window>
