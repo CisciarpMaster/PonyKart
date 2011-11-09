@@ -1,0 +1,17 @@
+Physics = None
+Static = true
+
+Imposters = true
+ImposterMaterial = "AppleTree"
+ImposterWidth = 10
+ImposterHeight = 10
+ImposterOffset = 0, -3, 0
+
+// main tree model
+Model {
+	Mesh = "GreenAppleTree1.mesh"
+	Material = "AppleTree"
+	Position = 0, -3, 0
+	CastsShadows = false
+	Scale = 1, 1, 1
+}

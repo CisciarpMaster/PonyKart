@@ -1,454 +1,454 @@
-AppleTree1 {
+RedAppleTree1 {
 	Position = 91.1187, 6.63448, -142.764
 	Orientation = 0, -0.490535, 2.1442E-08, 0.871421
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 71.5226, 8.5756, -160.42
 	Orientation = 0, -0.139319, 6.08981E-09, 0.990248
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 304.916, 21.5154, 21.9202
 	Orientation = 0, -0.640344, 2.79903E-08, 0.768089
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 248.839, 15.6962, -116.497
 	Orientation = 0, 0.220097, -9.62076E-09, 0.975478
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 1.92946, 10.447, -114.654
 	Orientation = 0, -0.0736539, 3.21952E-09, 0.997284
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 288.17, 21.4503, 53.14
 	Orientation = 0, 0.976127, -4.26679E-08, -0.2172
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -50.4994, 4.48703, -84.8339
 	Orientation = 0, -0.198119, 8.66004E-09, 0.980178
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 344.206, 18.8742, 8.75009
 	Orientation = 0, 0.70208, -3.06889E-08, 0.712098
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 101.425, 4.87815, -149.02
 	Orientation = 0, -0.588913, 2.57422E-08, 0.808196
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 209.555, 12.2701, 29.4612
 	Orientation = 0, 0.899757, -3.93296E-08, -0.436391
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 245.055, 20.8949, 62.1119
 	Orientation = 0, 0.951562, -4.15941E-08, 0.307457
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 295.159, 21.2346, 70.6216
 	Orientation = 0, 0.756271, -3.30577E-08, 0.654258
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 326.798, 17.3619, -70.2262
 	Orientation = 0, 0.574175, -2.5098E-08, 0.818733
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 168.175, 7.60369, 59.3825
 	Orientation = 0, -0.345885, 1.51191E-08, 0.938277
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 251.719, 18.0834, 87.3946
 	Orientation = 0, 0.985815, -4.30913E-08, -0.167837
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -6.94978, 21.3052, -148.792
 	Orientation = 0, -0.525325, 2.29627E-08, 0.850902
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 158.868, 6.12709, 80.6921
 	Orientation = 0, -0.421693, 1.84328E-08, 0.906739
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -39.0518, 5.93249, -96.2092
 	Orientation = 0, 0.241543, -1.05582E-08, 0.97039
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -51.936, 10.2611, -23.9619
 	Orientation = 0, -0.353433, 1.54491E-08, 0.93546
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -60.7666, 10.5456, -113.573
 	Orientation = 0, -0.584646, 2.55557E-08, 0.811288
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 224.453, 8.7586, -52.1872
 	Orientation = 0, 0.977909, -4.27458E-08, 0.209029
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 221.752, 8.41687, 96.7318
 	Orientation = 0, -0.523915, 2.2901E-08, 0.851771
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 223.095, 15.6833, 36.0353
 	Orientation = 0, 0.884663, -3.86699E-08, 0.466231
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -21.1908, 20.2301, -143.824
 	Orientation = 0, 0.962666, -4.20795E-08, 0.270693
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 318.681, 15.0341, -48.9202
 	Orientation = 0, 0.0367931, -1.60828E-09, 0.999323
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 79.7049, 10.4212, -187.078
 	Orientation = 0, -0.622324, 2.72026E-08, 0.78276
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -11.2638, 10.1148, -109.728
 	Orientation = 0, 0.906382, -3.96192E-08, -0.422458
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 326.228, 11.345, -132.657
 	Orientation = 0, 0.982355, -4.29401E-08, 0.187024
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 309.752, 19.0074, 71.4123
 	Orientation = 0, 0.601129, -2.62762E-08, 0.799152
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 186.495, 11.2167, 52.2359
 	Orientation = 0, 0.968198, -4.23213E-08, -0.250184
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 189.985, 23.0811, -112.518
 	Orientation = 0, 0.998401, -4.36415E-08, -0.0565252
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 276.049, 15.0992, 6.00261
 	Orientation = 0, 0.716049, -3.12995E-08, 0.69805
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 350.672, 13.0957, -103.589
 	Orientation = 0, -0.63916, 2.79386E-08, 0.769074
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -80.6113, 8.80855, -47.4048
 	Orientation = 0, 0.78835, -3.44599E-08, 0.615226
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -45.98, 5.4931, -52.4462
 	Orientation = 0, 0.99937, -4.36839E-08, 0.0354804
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = -9.44142, 4.45941, 46.4587
 	Orientation = 0, -0.772944, 3.37864E-08, 0.634474
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 16.2292, 4.70106, 91.1275
 	Orientation = 0, -0.618141, 2.70198E-08, 0.786067
 	MapRegion = "Bridge"
 }
-AppleTree1 {
+RedAppleTree1 {
 	Position = 122.909, 6.93875, -120.665
 	Orientation = 0, 0.941789, -4.11669E-08, -0.336206
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 313.083, 21.7869, 44.0583
 	Orientation = 0, 0.713393, -3.11834E-08, 0.700764
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 173.602, 8.24638, 45.04
 	Orientation = 0, 0.66761, -2.91822E-08, 0.744511
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 68.371, 9.11445, -145.014
 	Orientation = 0, 0.999958, -4.37095E-08, -0.00922352
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -20.4071, 10.1136, 99.0739
 	Orientation = 0, 0.981252, -4.28919E-08, 0.192728
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -76.0174, 18.1403, -132.192
 	Orientation = 0, -0.162899, 7.12055E-09, 0.986643
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 171.298, 6.53544, -86.5622
 	Orientation = 0, -0.557481, 2.43683E-08, 0.83019
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 132.585, 14.3216, -149.454
 	Orientation = 0, -0.52584, 2.29852E-08, 0.850583
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 15.5329, 12.6511, -137.524
 	Orientation = 0, -0.112242, 4.90626E-09, 0.993681
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 391.574, 8.09649, -59.5543
 	Orientation = 0, 0.999654, -4.36963E-08, 0.0263125
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 365.881, 7.22765, -124.429
 	Orientation = 0, 0.885228, -3.86945E-08, -0.465158
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 1.60422, 13.6781, -132.066
 	Orientation = 0, 0.871352, -3.8088E-08, 0.490659
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 197.645, 11.5819, 64.0824
 	Orientation = 0, 0.95108, -4.1573E-08, -0.308944
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 376.174, 9.90709, -3.41626
 	Orientation = 0, 0.889301, -3.88726E-08, 0.457322
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 256.628, 21.7937, 73.1711
 	Orientation = 0, -0.794211, 3.47161E-08, 0.607642
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -42.7288, 14.4518, 78.8934
 	Orientation = 0, 0.663311, -2.89942E-08, 0.748344
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 135.206, 3.17539, 95.5098
 	Orientation = 0, 0.69476, -3.03689E-08, 0.719241
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 193.507, 18.6537, -92.9123
 	Orientation = 0, 0.999522, -4.36905E-08, -0.0309248
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -26.5786, 8.3247, -59.3872
 	Orientation = 0, -0.268594, 1.17406E-08, 0.963253
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -50.0605, 15.6908, 31.7218
 	Orientation = 0, 0.788352, -3.446E-08, 0.615224
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 163.253, 14.708, -109.18
 	Orientation = 0, -0.487315, 2.13012E-08, 0.873226
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 271.615, 21.6072, 49.2662
 	Orientation = 0, 0.0326601, -1.42762E-09, 0.999466
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -39.8446, 5.57534, -71.7047
 	Orientation = 0, -0.841318, 3.67752E-08, 0.54054
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -49.5821, 15.9227, -131.407
 	Orientation = 0, -0.546569, 2.38913E-08, 0.837414
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 211.935, 9.29442, -163.226
 	Orientation = 0, 0.738241, -3.22695E-08, 0.674537
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = 212.895, 12.4812, -69.4426
 	Orientation = 0, -0.239026, 1.04481E-08, 0.971013
 	MapRegion = "Bridge"
 }
-AppleTree2 {
+RedAppleTree2 {
 	Position = -57.2486, 16.2392, 47.416
 	Orientation = 0, 0.995127, -4.34984E-08, 0.098601
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 369.107, 15.5238, 30.5712
 	Orientation = 0, 0.969555, -4.23806E-08, 0.244873
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = -68.0209, 3.84808, -66.5374
 	Orientation = 0, -0.252105, 1.10199E-08, 0.9677
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 395.739, 6.55832, -116.144
 	Orientation = 0, 0.999723, -4.36993E-08, -0.0235311
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 184.849, 4.27119, -204.821
 	Orientation = 0, 0.0516992, -2.25984E-09, 0.998663
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 158.891, 8.19548, 98.7765
 	Orientation = 0, 0.365893, -1.59937E-08, 0.930657
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 26.915, 11.6162, -138.735
 	Orientation = 0, 0.955762, -4.17777E-08, -0.29414
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 364.95, 10.869, -112.874
 	Orientation = 0, 0.905847, -3.95958E-08, -0.423605
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 370.522, 13.8111, 12.2295
 	Orientation = 0, -0.385204, 1.68378E-08, 0.922831
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 276.112, 15.994, 95.4869
 	Orientation = 0, -0.126194, 5.51614E-09, 0.992006
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = -79.5086, 6.35092, -90.9077
 	Orientation = 0, 0.944079, -4.1267E-08, -0.329718
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 52.6239, 12.2838, -168.634
 	Orientation = 0, 0.993454, -4.34252E-08, -0.114237
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = -21.3605, 7.60225, 53.967
 	Orientation = 0, 0.827025, -3.61504E-08, 0.562165
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 344.982, 14.2518, -24.0023
 	Orientation = 0, -0.43808, 1.91491E-08, 0.898936
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = -54.9439, 15.73, 3.98846
 	Orientation = 0, 0.527868, -2.30738E-08, 0.849327
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 176.645, 24.2739, -127.38
 	Orientation = 0, 0.853348, -3.7301E-08, 0.521342
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 214.27, 16.1514, 53.5236
 	Orientation = 0, -0.268074, 1.17179E-08, 0.963398
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 205.297, 19.7525, -86.4632
 	Orientation = 0, 0.59086, -2.58273E-08, 0.806774
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 200.647, 20.9171, -133.204
 	Orientation = 0, 0.967861, -4.23065E-08, -0.251487
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = -29.3368, 7.27313, 0.613281
 	Orientation = 0, 0.113947, -4.98078E-09, 0.993487
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 4.6885, 22.3986, -179.22
 	Orientation = 0, -0.709769, 3.1025E-08, 0.704434
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 216.253, 13.1969, -150.873
 	Orientation = 0, 0.999891, -4.37066E-08, 0.0147344
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = -35.0187, 11.3551, 33.411
 	Orientation = 0, 0.255522, -1.11692E-08, 0.966803
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 320.816, 17.6967, -87.072
 	Orientation = 0, 0.677598, -2.96187E-08, 0.735433
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 144.731, 5.73175, 97.9489
 	Orientation = 0, 0.936884, -4.09525E-08, -0.349641
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 238.794, 19.4835, 43.9477
 	Orientation = 0, 0.151011, -6.6009E-09, 0.988532
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 400.91, 7.0484, -41.9306
 	Orientation = 0, -0.102622, 4.48575E-09, 0.99472
 	MapRegion = "Bridge"
 }
-AppleTree3 {
+RedAppleTree3 {
 	Position = 11.7617, 4.34857, 75.115
 	Orientation = 0, -0.384903, 1.68247E-08, 0.922957
 	MapRegion = "Bridge"
