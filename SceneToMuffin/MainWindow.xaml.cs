@@ -76,10 +76,10 @@ namespace SceneToMuffin {
 					PosX = node.Position.x,
 					PosY = node.Position.y,
 					PosZ = node.Position.z,
-					OrientX = node.Orientation.x > 0.0001f ? node.Orientation.x : 0,
-					OrientY = node.Orientation.y > 0.0001f ? node.Orientation.y : 0,
-					OrientZ = node.Orientation.z > 0.0001f ? node.Orientation.z : 0,
-					OrientW = node.Orientation.w > 0.0001f ? node.Orientation.w : 0,
+					OrientX = node.Orientation.x,
+					OrientY = node.Orientation.y,
+					OrientZ = node.Orientation.z,
+					OrientW = node.Orientation.w,
 					ScaleX = node.Dimensions.x,
 					ScaleY = node.Dimensions.y,
 					ScaleZ = node.Dimensions.z,
@@ -96,6 +96,7 @@ namespace SceneToMuffin {
 			dataGrid.ItemsSource = Data;
 
 			mapRegionTextBox.Text = "";
+			Title = ".scene to .muffin converter - " + filename;
 		}
 
 		/// <summary>
