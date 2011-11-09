@@ -33,7 +33,7 @@ namespace Ponykart {
 			InitResources();
 			LoadResourceGroups();
 
-			// physx stuff
+			// physics stuff
 			splash.Increment("Initialising Bullet physics engine, collision reporter, trigger region reporter, and contact reporter...");
 			try {
 				AddGlobalObject(new PhysicsMain());

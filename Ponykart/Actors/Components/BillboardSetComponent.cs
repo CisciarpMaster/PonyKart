@@ -22,8 +22,10 @@ namespace Ponykart.Actors {
 			ID = IDs.Incremental;
 			Name = block.GetStringProperty("name", template.ThingName);
 
+			var sceneMgr = LKernel.GetG<SceneManager>();
+
 			// set it up
-			BillboardSet = LKernel.GetG<SceneManager>().CreateBillboardSet(Name + ID + "BillboardSet", (uint) block.BillboardBlocks.Count);
+			BillboardSet = sceneMgr.CreateBillboardSet(Name + ID + "BillboardSet", (uint) block.BillboardBlocks.Count);
 			BillboardSet.SetMaterialName(block.GetStringProperty("material", null));
 			BillboardSet.CastShadows = block.GetBoolProperty("CastsShadows", false);
 			BillboardSet.SetDefaultDimensions(block.GetFloatProperty("width", 1), block.GetFloatProperty("height", 1));
@@ -75,17 +77,29 @@ namespace Ponykart.Actors {
 				BillboardSet.SetTextureStacksAndSlices((byte) block.GetFloatProperty("TextureStacks", 1), (byte) block.GetFloatProperty("TextureSlices", 1));
 			}
 
-			lthing.RootNode.AttachObject(BillboardSet);
-
 			// and then go through each billboard block and create a billboard from it
 			foreach (BillboardBlock bbblock in block.BillboardBlocks)
 				CreateBillboard(bbblock);
+
+
+			// setup attachment, if it needs one
+			if (block.GetBoolProperty("Attached", false)) {
+				string boneName = block.GetStringProperty("AttachBone", null);
+				int modelComponentID = (int) block.GetFloatProperty("AttachComponentID", null);
+				Quaternion offsetQuat = block.GetQuatProperty("AttachOffsetOrientation", Quaternion.IDENTITY);
+				Vector3 offsetVec = block.GetVectorProperty("AttachOffsetPosition", Vector3.ZERO);
+
+				lthing.ModelComponents[modelComponentID].Entity.AttachObjectToBone(boneName, BillboardSet, offsetQuat, offsetVec);
+			}
+			// if not, just attach it to the root node
+			else {
+				lthing.RootNode.AttachObject(BillboardSet);
+			}
 		}
 
 		/// <summary>
 		/// Make one billboard from each billboard block.
 		/// </summary>
-		/// <param name="block"></param>
 		void CreateBillboard(BillboardBlock block) {
 			// make our billboard
 			Billboard bb = BillboardSet.CreateBillboard(block.GetVectorProperty("Position", null));
@@ -95,6 +109,11 @@ namespace Ponykart.Actors {
 				bb.Colour = quat.ToColourValue();
 			// and a rotation
 			bb.Rotation = new Degree(block.GetFloatProperty("Rotation", 0));
+
+			Quaternion rectQ;
+			if (block.QuatTokens.TryGetValue("texturecoords", out rectQ)) {
+				bb.SetTexcoordRect(rectQ.x, rectQ.y, rectQ.z, rectQ.w);
+			}
 
 			// it's best to not do this unless we really need to since it makes it less efficient
 			float height, width;

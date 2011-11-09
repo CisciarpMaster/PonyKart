@@ -6,7 +6,6 @@ Model {
 	Mesh = "LilyPad.mesh"
 	Material = "Lilypad1"
 	Position = 0, 0, 0
-	Scale = 1, 1, 1
 	CastsShadows = false
 	
 	Animated = true

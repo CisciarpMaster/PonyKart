@@ -55,6 +55,18 @@ namespace Ponykart.Actors {
 				LKernel.GetG<InstancedGeometryManager>().Add(this, template, block);
 				Entity = null;
 			}
+			// for attachments
+			else if (block.GetBoolProperty("Attached", false)) {
+				SetupEntity(sceneMgr, block);
+				SetupAnimation(block);
+
+				string boneName = block.GetStringProperty("AttachBone", null);
+				int modelComponentID = (int) block.GetFloatProperty("AttachComponentID", null);
+				Quaternion offsetQuat = block.GetQuatProperty("AttachOffsetOrientation", Quaternion.IDENTITY);
+				Vector3 offsetVec = block.GetVectorProperty("AttachOffsetPosition", Vector3.ZERO);
+
+				lthing.ModelComponents[modelComponentID].Entity.AttachObjectToBone(boneName, Entity, offsetQuat, offsetVec);
+			}
 			// otherwise continue as normal
 			else {
 				Node = lthing.RootNode.CreateChildSceneNode(Name + "Node" + ID);
@@ -68,26 +80,13 @@ namespace Ponykart.Actors {
 				Node.SetInitialState();
 
 				// make our entity
-				string meshName = block.GetStringProperty("mesh", null);
-				if (sceneMgr.HasEntity(meshName)) {
-					Entity = sceneMgr.GetEntity(meshName).Clone(meshName + ID);
-				}
-				else {
-					Entity = sceneMgr.CreateEntity(meshName, meshName);
-				}
+				SetupEntity(sceneMgr, block);
 
-				// material name
-				string materialName = block.GetStringProperty("material", string.Empty);
-				if (!string.IsNullOrWhiteSpace(materialName))
-					Entity.SetMaterialName(materialName);
-
-				// some other properties
-				Entity.CastShadows = block.GetBoolProperty("CastsShadows", false);
-
-				SetupAnimation(block, def);
+				SetupAnimation(block);
 
 				// then attach it to the node!
 				Node.AttachObject(Entity);
+
 
 				/*if (block.GetBoolProperty("CastsShadows", false)) {
 					Entity ent2 = sceneMgr.CreateEntity(Name + "Cone" + ID, "ShadowCone.mesh");
@@ -104,7 +103,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Only does simple animations for now
 		/// </summary>
-		protected void SetupAnimation(ModelBlock block, ThingDefinition def) {
+		protected void SetupAnimation(ModelBlock block) {
 			if (block.GetBoolProperty("animated", false)) {
 				Animation = Entity.GetAnimationState(block.GetStringProperty("AnimationName", null));
 				Animation.Loop = block.GetBoolProperty("AnimationLooping", true);
@@ -112,6 +111,25 @@ namespace Ponykart.Actors {
 
 				LKernel.GetG<AnimationManager>().Add(Animation);
 			}
+		}
+
+		protected void SetupEntity(SceneManager sceneMgr, ModelBlock block) {
+			// make a new one if it isn't created yet, clone an existing one 
+			string meshName = block.GetStringProperty("mesh", null);
+			if (sceneMgr.HasEntity(meshName)) {
+				Entity = sceneMgr.GetEntity(meshName).Clone(meshName + ID);
+			}
+			else {
+				Entity = sceneMgr.CreateEntity(meshName, meshName);
+			}
+
+			// material name
+			string materialName = block.GetStringProperty("material", string.Empty);
+			if (!string.IsNullOrWhiteSpace(materialName))
+				Entity.SetMaterialName(materialName);
+
+			// some other properties
+			Entity.CastShadows = block.GetBoolProperty("CastsShadows", false);
 		}
 
 		protected override void Dispose(bool disposing) {
