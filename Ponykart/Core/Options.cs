@@ -6,17 +6,31 @@ using Mogre;
 namespace Ponykart.Core {
 	public static class Options {
 		private static IDictionary<string, string> dict;
+		private static IDictionary<string, string> defaults;
 
 		/// <summary>
 		/// Creates the folder and file if they don't exist, and either prints some data to it (if it doesn't exist) or reads from it (if it does)
 		/// </summary>
 		public static void Initialise() {
-			dict = new Dictionary<string, string>();
+			// set up our dictionary with some default stuff in it
+			defaults = new Dictionary<string, string>();
+			#region defaults
+			defaults["FSAA"] = "0";
+			defaults["Floating-point mode"] = "Fastest";
+			defaults["Full Screen"] = "No";
+			defaults["VSync"] = "Yes";
+			defaults["VSync Interval"] = "1";
+			defaults["Video Mode"] = "1280 x 800 @ 32-bit colour";
+			defaults["sRGB Gamma Conversion"] = "No";
+			defaults["Music"] = "No";
+			defaults["Sounds"] = "Yes";
+			defaults["Ribbons"] = "No";
+			#endregion
+			// copy it into the regular dictionary
+			dict = new Dictionary<string, string>(defaults);
 
-			string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-			string pkPath = appdataPath + "\\Ponykart";
-
+			string pkPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Ponykart";
 			// if a folder doesn't exist there, create it
 			if (!Directory.Exists(pkPath))
 				Directory.CreateDirectory(pkPath);
@@ -27,30 +41,11 @@ namespace Ponykart.Core {
 			if (!File.Exists(optionsPath)) {
 				using (FileStream stream = File.Create(optionsPath)) {
 					using (StreamWriter writer = new StreamWriter(stream)) {
-						writer.Write(
-@"FSAA=0
-Floating-point mode=Fastest
-Full Screen=No
-VSync=Yes
-VSync Interval=1
-Video Mode=1280 x 800 @ 32-bit colour
-sRGB Gamma Conversion=No
-Music=No
-Sounds=Yes
-Ribbons=No");
+						foreach (KeyValuePair<string, string> pair in defaults) {
+							writer.WriteLine(pair.Key + "=" + pair.Value);
+						}
 					}
 				}
-
-				dict["FSAA"] = "0";
-				dict["Floating-point mode"] = "Fastest";
-				dict["Full Screen"] = "No";
-				dict["VSync"] = "Yes";
-				dict["VSync Interval"] = "1";
-				dict["Video Mode"] = "1280 x 800 @ 32-bit colour";
-				dict["sRGB Gamma Conversion"] = "No";
-				dict["Music"] = "No";
-				dict["Sounds"] = "Yes";
-				dict["Ribbons"] = "No";
 			}
 			// otherwise we just read from it
 			else {
@@ -60,7 +55,7 @@ Ribbons=No");
 				ConfigFile.SectionIterator sectionIterator = cfile.GetSectionIterator();
 				sectionIterator.MoveNext();
 				foreach (KeyValuePair<string, string> pair in sectionIterator.Current) {
-					dict.Add(pair.Key, pair.Value);
+					dict[pair.Key] = pair.Value;
 				}
 
 				cfile.Dispose();
