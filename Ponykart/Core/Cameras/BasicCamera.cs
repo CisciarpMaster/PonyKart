@@ -3,10 +3,10 @@
 namespace Ponykart.Core {
 	public class BasicCamera : LCamera {
 
-		public BasicCamera() : base() {
+		public BasicCamera(string name) : base(name) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
-			Camera = sceneMgr.CreateCamera("BasicCamera");
+			Camera = sceneMgr.CreateCamera(name);
 			Camera.NearClipDistance = 0.5f;
 			Camera.FarClipDistance = 3000f;
 			Camera.AutoAspectRatio = true;

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using BulletSharp;
+using System.Diagnostics;
 using System.IO;
 using Mogre;
 using MOIS;
@@ -57,23 +58,18 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity *= 2f;
 					break;
 				case KeyCode.KC_F1:
-					LKernel.GetG<StaticGeometryManager>().ToggleVisible();
+					LKernel.GetG<CameraManager>().SwitchCurrentCamera("PlayerCamera");
 					break;
 				case KeyCode.KC_F2:
-					LKernel.GetG<InstancedGeometryManager>().ToggleVisible();
-					break;
-				case KeyCode.KC_F3:
-					var level = LKernel.GetG<LevelManager>().CurrentLevel;
-					foreach (LThing t in level.Things.Values) {
-						foreach (BillboardSetComponent bsc in t.BillboardSetComponents) {
-							bsc.BillboardSet.Visible = !bsc.BillboardSet.Visible;
-						}
-					}
+					LKernel.GetG<CameraManager>().SwitchCurrentCamera("FreeCamera");
 					break;
 				case KeyCode.KC_F11:
 					uint width, height;
 					Options.GetWindowDimensions(out width, out height);
 					LKernel.GetG<RenderWindow>().SetFullscreen(!LKernel.GetG<RenderWindow>().IsFullScreen, width, height);
+					break;
+				case KeyCode.KC_Q:
+					LKernel.GetG<PlayerManager>().MainPlayer.Body.ForceActivationState(ActivationState.WantsDeactivation);
 					break;
 				case KeyCode.KC_G:
 					System.GC.Collect();

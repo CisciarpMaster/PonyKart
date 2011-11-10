@@ -11,7 +11,8 @@ namespace Ponykart.Actors {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 
-		protected Vector3 AxlePoint;
+		#region properties
+		#region readonly properties
 		/// <summary>
 		/// The radius of the wheel
 		/// </summary>
@@ -60,7 +61,6 @@ namespace Ponykart.Actors {
 		/// The maximum amount the wheel can turn by, if it's a front wheel.
 		/// </summary>
 		protected readonly Degree MaxTurnAngle; // 0.3 rads (demo)
-
 		/// <summary>
 		/// Which way is "up"?
 		/// </summary>
@@ -69,16 +69,6 @@ namespace Ponykart.Actors {
 		/// Which axis does the wheel rotate around?
 		/// </summary>
 		protected readonly Vector3 WheelAxle = Vector3.NEGATIVE_UNIT_X;
-
-		/// <summary>
-		/// Lets us keep track of which wheel this is on the kart
-		/// </summary>
-		public WheelID ID { get; private set; }
-		/// <summary>
-		/// Since we want the ID number of this wheel in int form so much, this is used to keep track of it without casting it every time.
-		/// </summary>
-		public readonly int IntWheelID;
-
 		/// <summary>
 		/// any slower than this and you will have the fully multiplied turn angle
 		/// </summary>
@@ -103,11 +93,24 @@ namespace Ponykart.Actors {
 		/// how much to decrement the wheel's angle by, each frame
 		/// </summary>
 		protected readonly Degree SteerDecrementTurn;
+		#endregion
 
+		/// <summary>
+		/// Lets us keep track of which wheel this is on the kart
+		/// </summary>
+		public WheelID ID { get; private set; }
+		/// <summary>
+		/// Since we want the ID number of this wheel in int form so much, this is used to keep track of it without casting it every time.
+		/// </summary>
+		public readonly int IntWheelID;
 		/// <summary>
 		/// Keeps track of whether we're drifting or not, and if we are, which direction we're moving in.
 		/// </summary>
 		public WheelDriftState DriftState { get; set; }
+		/// <summary>
+		/// The point on the kart where this wheel is connected.
+		/// </summary>
+		protected Vector3 AxlePoint;
 
 		// we use these three things to control the wheels
 		/// <summary>
@@ -133,6 +136,7 @@ namespace Ponykart.Actors {
 
 		readonly Kart kart;
 		RaycastVehicle vehicle { get { return kart.Vehicle; } }
+		#endregion
 
 		/// <summary>
 		/// This should only be used by the WheelFactory
@@ -145,12 +149,6 @@ namespace Ponykart.Actors {
 			// set up these
 			kart = owner;
 			ID = wheelID;
-
-			// create our node and entity
-			Node = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("wheelNode" + kart.ID + ID);
-			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + kart.ID + ID, "kart/KartWheel.mesh");
-			Node.AttachObject(Entity);
-			Node.InheritOrientation = false;
 
 			// set up our readonlies
 			Radius = dict["Radius"];
@@ -180,14 +178,6 @@ namespace Ponykart.Actors {
 			FrictionSlip = Friction;
 			IdealSteerAngle = new Degree(0);
 
-			// and then hook up to the event
-			PhysicsMain.PostSimulate += PostSimulate;
-		}
-
-		/// <summary>
-		/// Makes a wheel at the given position
-		/// </summary>
-		public void CreateWheel(Vector3 connectionPoint) {
 			// need to tell bullet whether it's a front wheel or not
 			bool isFrontWheel;
 			if (ID == WheelID.FrontLeft || ID == WheelID.FrontRight)
@@ -205,6 +195,15 @@ namespace Ponykart.Actors {
 			info.RollInfluence = RollInfluence;
 
 			AxlePoint = connectionPoint + new Vector3(0, -SuspensionRestLength, 0);
+
+			// create our node and entity
+			Node = owner.RootNode.CreateChildSceneNode("wheelNode" + kart.ID + ID, AxlePoint);
+			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + kart.ID + ID, "kart/KartWheel.mesh");
+			Node.AttachObject(Entity);
+			Node.InheritOrientation = false;
+
+			// and then hook up to the event
+			PhysicsMain.PostSimulate += PostSimulate;
 		}
 
 		/// <summary>
@@ -214,12 +213,16 @@ namespace Ponykart.Actors {
 			WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
 			// don't change the kart's orientation when we're drifting
 			if (kart.IsDriftingAtAll || Math.Abs(info.Steering) > Math.Abs(MaxTurnAngle.ValueRadians * speedTurnMultiplier)) {
-				Node.Position = kart.RootNode.ConvertLocalToWorldPosition(AxlePoint);
 				Node.Orientation = kart.RootNode.Orientation;
 			}
 			else {
-				Node.Position = info.WorldTransform.GetTrans();
 				Node.Orientation = info.WorldTransform.ExtractQuaternion();
+			}
+
+			// the wheel sorta "comes off" when it's moving quickly in the air, so we only need to update the translation then
+			if (!kart.IsInAir) {
+				Vector3 trans = info.WorldTransform.GetTrans();
+				Node.SetPosition(AxlePoint.x, kart.RootNode.ConvertWorldToLocalPosition(trans).y, AxlePoint.z);
 			}
 
 			if (!Pauser.IsPaused) {

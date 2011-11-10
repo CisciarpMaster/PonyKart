@@ -3,14 +3,12 @@ Mass = 0
 CollisionGroup = Road
 CollidesWith = Road
 DisableVisualization = true
-Static = true
 
 Model {
 	Mesh = "SAA_Ground.mesh"
 	Material = "SAA_Grass"
 	Position = 0, 0, 0
 	CastsShadows = false
-	StaticGroup = "Ground"
 }
 
 Model {
@@ -18,7 +16,6 @@ Model {
 	Material = "SAA_Grass"
 	Position = 0, 0, 0
 	CastsShadows = false
-	StaticGroup = "Ground"
 }
 
 

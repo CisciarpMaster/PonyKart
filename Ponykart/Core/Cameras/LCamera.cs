@@ -9,12 +9,20 @@ namespace Ponykart.Core {
 		/// The Mogre camera we're manipulating
 		/// </summary>
 		public Camera Camera { get; protected set; }
+		/// <summary>
+		/// The name of this camera
+		/// </summary>
+		public string Name { get; protected set; }
+		/// <summary>
+		/// Is this camera active or not?
+		/// </summary>
+		protected bool IsActive;
 
 		/// <summary>
 		/// Hook up to the frame started event
 		/// </summary>
-		public LCamera() {
-			LKernel.GetG<Root>().FrameStarted += UpdateCamera;
+		public LCamera(string name) {
+			Name = name;
 		}
 
 		/// <summary>
@@ -27,7 +35,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// Make sure you register the camera before calling this!
 		/// </summary>
-		public void MakeActive() {
+		public void MakeActiveCamera() {
 			LKernel.GetG<CameraManager>().SwitchCurrentCamera(this);
 		}
 
@@ -36,6 +44,22 @@ namespace Ponykart.Core {
 		/// </summary>
 		protected virtual bool UpdateCamera(FrameEvent evt) {
 			return true;
+		}
+
+		/// <summary>
+		/// Is ran when we switch cameras and this one becomes the active camera.
+		/// </summary>
+		public virtual void OnSwitchToActive() {
+			IsActive = true;
+			LKernel.GetG<Root>().FrameStarted += UpdateCamera;
+		}
+
+		/// <summary>
+		/// Is ran when we switch cameras and this one was previously the active camera but isn't any more.
+		/// </summary>
+		public virtual void OnSwitchToInactive() {
+			IsActive = false;
+			LKernel.GetG<Root>().FrameStarted -= UpdateCamera;
 		}
 
 		/// <summary>

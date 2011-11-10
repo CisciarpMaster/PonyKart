@@ -26,7 +26,8 @@
 						<Rectangle>10,60,400,700</Rectangle>
 						<Text>
 [W A S D] Move and turn
-[Space] Brake
+[Space] Drift
+[Q] Immediate stop
 [0 1 2 3...] Change level
 [Esc] Exit / Close lua console
 [-] Toggle OGRE debug info
@@ -38,12 +39,13 @@
 [B] Spawn a primitive
 [F] Multiply your speed by 2
 [I] Toggles debug lines
-[X] Clears debug lines
-[F1] Toggles visibility of static geometry
-[F2] Toggles visibility of instanced geometry
-[F3] Toggles visibility of billboards
+[F1 F2] Switches cameras
+[F11] Toggles full screen
+[G] Forces immediate garbage collection
 [backtick] Pause
 [enter] Open Lua console
+[Right click] When on free camera, instantly moves the kart to the center of your screen
+[Numpad] If on SAA, these let you jump around
 						</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>TopLeft</Alignment>

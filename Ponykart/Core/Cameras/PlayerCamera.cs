@@ -14,18 +14,17 @@ namespace Ponykart.Core {
 		SceneNode kartCamNode;
 		SceneNode kartTargetNode;
 
-		public PlayerCamera() : base () {
-			var manager = LKernel.GetG<SceneManager>();
+		public PlayerCamera(string name) : base(name) {
+			var sceneMgr = LKernel.GetG<SceneManager>();
 
-			Camera = manager.CreateCamera("PlayerCamera");
+			Camera = sceneMgr.CreateCamera(name);
 
 			Camera.NearClipDistance = 0.5f;
 			Camera.FarClipDistance = 3500f;
 			Camera.AutoAspectRatio = true;
-			//Camera.AspectRatio = ((float) Settings.Default.WindowWidth) / ((float) Settings.Default.WindowHeight);
 
-			CameraNode = manager.RootSceneNode.CreateChildSceneNode("PlayerCameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
-			TargetNode = manager.RootSceneNode.CreateChildSceneNode("PlayerCameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
+			CameraNode = sceneMgr.RootSceneNode.CreateChildSceneNode(name + "_PlayerCameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
+			TargetNode = sceneMgr.RootSceneNode.CreateChildSceneNode(name + "_PlayerCameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
 
 			CameraNode.SetAutoTracking(true, TargetNode);
 			CameraNode.SetFixedYawAxis(true);
@@ -33,8 +32,8 @@ namespace Ponykart.Core {
 			CameraNode.AttachObject(Camera);
 
 			followKart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
-			kartCamNode = followKart.RootNode.CreateChildSceneNode("KartCameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
-			kartTargetNode = followKart.RootNode.CreateChildSceneNode("KartCameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
+			kartCamNode = followKart.RootNode.CreateChildSceneNode(name + "_KartCameraNode", new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset));
+			kartTargetNode = followKart.RootNode.CreateChildSceneNode(name + "_KartCameraTargetNode", new Vector3(0, Settings.Default.CameraTargetYOffset, 0));
 
 			CameraNode.Position = kartCamNode._getDerivedPosition();
 			TargetNode.Position = kartTargetNode._getDerivedPosition();

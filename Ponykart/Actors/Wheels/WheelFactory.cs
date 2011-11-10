@@ -68,7 +68,6 @@ namespace Ponykart.Actors {
 			IDictionary<string, float> dict = wheels[wheelName];
 
 			Wheel wheel = new Wheel(owner, position, ID, dict);
-			wheel.CreateWheel(position);
 
 			return wheel;
 		}

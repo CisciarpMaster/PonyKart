@@ -132,6 +132,7 @@
     <Compile Include="Actors\Wheels\WheelID.cs" />
     <Compile Include="Core\Cameras\BasicCamera.cs" />
     <Compile Include="Core\Cameras\CameraManager.cs" />
+    <Compile Include="Core\Cameras\FreeCamera.cs" />
     <Compile Include="Core\Cameras\LCamera.cs" />
     <Compile Include="Core\LDisposable.cs" />
     <Compile Include="Actors\Wheels\Wheel.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="Core\AnimationManager.cs" />
     <Compile Include="Core\Options.cs" />
     <Compile Include="Handlers\For testing\DisableWheelFrictionHandler.cs" />
-    <Compile Include="Handlers\Karts\KartCameraCreator.cs" />
+    <Compile Include="Handlers\CameraCreator.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
     <Compile Include="Handlers\Helpers\Rotater.cs" />
     <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Core\IDs.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />
+    <Compile Include="Stuff\MogreRaycaster.cs" />
     <Compile Include="UI\LuaConsoleManager.cs" />
     <Compile Include="Lua\SpawnerWrapper.cs" />
     <Compile Include="Lua\SoundWrapper.cs" />

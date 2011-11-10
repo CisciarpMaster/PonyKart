@@ -244,7 +244,8 @@ namespace Ponykart.Actors {
 				return _accelerate;
 			}
 			set {
-				Body.Activate();
+				if (value != 0)
+					Body.Activate();
 				this._accelerate = value;
 
 				ForEachWheel(w => {

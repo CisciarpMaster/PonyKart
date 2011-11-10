@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Mogre;
 using Ponykart.Levels;
 
@@ -31,8 +32,6 @@ namespace Ponykart.Core {
 
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
-
-
 		}
 
 		/// <summary>
@@ -50,7 +49,7 @@ namespace Ponykart.Core {
 		/// Creates a new basic camera for the viewport to use temporarily while we set everything else up
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			BasicCamera basicCamera = new BasicCamera();
+			BasicCamera basicCamera = new BasicCamera("BasicCamera");
 			cameras.Add(basicCamera);
 
 			SwitchCurrentCamera(basicCamera);
@@ -61,8 +60,15 @@ namespace Ponykart.Core {
 		/// </summary>
 		public void SwitchCurrentCamera(LCamera newCamera) {
 			if (cameras.Contains(newCamera)) {
+				// notify the old camera that it is no longer active
+				if (CurrentCamera != null)
+					CurrentCamera.OnSwitchToInactive();
+
 				CurrentCamera = newCamera;
 				LKernel.GetG<Viewport>().Camera = newCamera.Camera;
+
+				// notify the new camera that it is active
+				newCamera.OnSwitchToActive();
 
 				if (OnCameraSwitch != null)
 					OnCameraSwitch(newCamera);
@@ -73,12 +79,25 @@ namespace Ponykart.Core {
 		}
 
 		/// <summary>
+		/// Switch rendering to another camera. This camera must've already been created and registered.
+		/// Throws an exception if that camera doesn't exist.
+		/// </summary>
+		/// <param name="cameraName">The name of the camera you want to switch to.</param>
+		public void SwitchCurrentCamera(string cameraName) {
+			LCamera cam = cameras.Single(c => c.Name == cameraName);
+			SwitchCurrentCamera(cam);
+		}
+
+		/// <summary>
 		/// Registers a new camera. This camera must not've already been registered.
 		/// If we aren't using a camera yet, this will switch our rendering to use it.
 		/// </summary>
 		public void RegisterCamera(LCamera newCamera) {
 			if (cameras.Contains(newCamera)) {
-				throw new ApplicationException("Tried to register a camera that was already registered!");
+				throw new ArgumentException("Tried to register a camera that was already registered!", "newCamera");
+			}
+			else if (cameras.Any(c => c.Name == newCamera.Name)) {
+				throw new ArgumentException("There is already a camera registered with that name!", "newCamera");
 			}
 			else {
 				cameras.Add(newCamera);
