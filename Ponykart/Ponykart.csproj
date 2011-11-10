@@ -202,7 +202,7 @@
     <Compile Include="Lua\SpawnerWrapper.cs" />
     <Compile Include="Lua\SoundWrapper.cs" />
     <Compile Include="Lua\TriggerWrapper.cs" />
-    <Compile Include="Lua\LevelManagerWrapper.cs" />
+    <Compile Include="Lua\MiscWrapper.cs" />
     <Compile Include="Lua\LuaMain.cs" />
     <Compile Include="Kernel\KernelRegistration.cs" />
     <Compile Include="Kernel\LKernel.cs" />

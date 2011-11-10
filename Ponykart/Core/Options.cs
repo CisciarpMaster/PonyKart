@@ -49,21 +49,37 @@ namespace Ponykart.Core {
 				cfile.Dispose();
 				sectionIterator.Dispose();
 			}
+
+#if DEBUG
+			// since we sometimes add new options, we want to make sure the .ini file has all of them
+			Save();
+#endif
 		}
 
 		private static void SetupDictionaries() {
 			// set up our dictionary with some default stuff in it
 			defaults = new Dictionary<string, string>();
+			// 0, 2, 4, or 8
 			defaults["FSAA"] = "0";
+			// Fastest or Accurate
 			defaults["Floating-point mode"] = "Fastest";
+			// Yes or No
 			defaults["Full Screen"] = "No";
+			// Yes or No
 			defaults["VSync"] = "Yes";
+			// 1, 2, 3, or 4
 			defaults["VSync Interval"] = "1";
 			defaults["Video Mode"] = "1280 x 800 @ 32-bit colour";
+			// Yes or No
 			defaults["sRGB Gamma Conversion"] = "No";
+			// Yes or No
 			defaults["Music"] = "No";
+			// Yes or No
 			defaults["Sounds"] = "Yes";
+			// Yes or No
 			defaults["Ribbons"] = "No";
+			// Low or High
+			defaults["ModelDetail"] = "Low";
 			// copy it into the regular dictionary
 			dict = new Dictionary<string, string>(defaults);
 		}

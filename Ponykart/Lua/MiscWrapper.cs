@@ -1,12 +1,12 @@
 ﻿using LuaNetInterface;
+using Ponykart.Core;
 using Ponykart.Levels;
 
 namespace Ponykart.Lua {
-	//[LuaPackage("LevelManager", "A wrapper for the level manager class.")]
 	[LuaPackage(null, null)]
-	public class LevelManagerWrapper {
+	public class MiscWrapper {
 
-		public LevelManagerWrapper() {
+		public MiscWrapper() {
 			LKernel.GetG<LuaMain>().RegisterLuaFunctions(this);
 		}
 
@@ -16,9 +16,6 @@ namespace Ponykart.Lua {
 			LKernel.GetG<LevelManager>().LoadLevel(newLevelName);
 		}
 
-		/// <summary>
-		/// Duplicate of LevelWrapper.GetName
-		/// </summary>
 		[LuaFunction("getLevelName", "Gets the name of the current level. Returns \"\" if the current level is not valid.")]
 		public static string GetCurrentLevelName() {
 			LevelManager lm = LKernel.GetG<LevelManager>();
@@ -35,6 +32,16 @@ namespace Ponykart.Lua {
 			"function(LevelChangedEventArgs)")]
 		public static void HookFunctionToLevelUnloadEvent(LevelEvent func) {
 			LevelManager.OnLevelPreUnload += func;
+		}
+
+		[LuaFunction("getOption", "Get an option", "string - the name of the option you want")]
+		public static string GetOption(string option) {
+			return Options.Get(option);
+		}
+
+		[LuaFunction("getBoolOption", "Get an option as a bool", "string - the name of the option you want")]
+		public static bool GetBoolOption(string option) {
+			return Options.GetBool(option);
 		}
 	}
 }

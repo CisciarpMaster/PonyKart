@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Mogre;
+using Ponykart.Core;
 using Ponykart.Levels;
 using PonykartParsers;
 
@@ -32,7 +33,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			// first we need to get all of things that have regions
-			if (eventArgs.NewLevel.Type != LevelType.Race)
+			if (eventArgs.NewLevel.Type != LevelType.Race || Options.Get("ModelDetail") == "High")
 				return;
 
 			SceneManager sceneMgr = LKernel.GetG<SceneManager>();
@@ -100,7 +101,9 @@ namespace Ponykart.Actors {
 		/// <param name="regionName">The name of the map region. Case sensitive.</param>
 		/// <param name="visible">Do you want to make them visible or not?</param>
 		public void SetVisibility(string regionName, bool visible) {
-			LKernel.GetG<SceneManager>().GetSceneNode(regionName + "BillboardNode").SetVisible(visible, true);
+			var sceneMgr = LKernel.GetG<SceneManager>();
+			if (sceneMgr.HasSceneNode(regionName + "BillboardNode"))
+				sceneMgr.GetSceneNode(regionName + "BillboardNode").SetVisible(visible, true);
 		}
 	}
 }
