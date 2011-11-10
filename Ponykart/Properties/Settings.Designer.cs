@@ -133,30 +133,6 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1280")]
-        public uint WindowWidth {
-            get {
-                return ((uint)(this["WindowWidth"]));
-            }
-            set {
-                this["WindowWidth"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("800")]
-        public uint WindowHeight {
-            get {
-                return ((uint)(this["WindowHeight"]));
-            }
-            set {
-                this["WindowHeight"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public float CameraNodeYOffset {
             get {
@@ -272,42 +248,6 @@ namespace Ponykart.Properties {
             }
             set {
                 this["EnableGlowyRegions"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnableRibbons {
-            get {
-                return ((bool)(this["EnableRibbons"]));
-            }
-            set {
-                this["EnableRibbons"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool EnableSounds {
-            get {
-                return ((bool)(this["EnableSounds"]));
-            }
-            set {
-                this["EnableSounds"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnableMusic {
-            get {
-                return ((bool)(this["EnableMusic"]));
-            }
-            set {
-                this["EnableMusic"] = value;
             }
         }
         
@@ -473,18 +413,6 @@ namespace Ponykart.Properties {
             }
             set {
                 this["InstancedEntitiesPerBatch"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool EnableFullscreen {
-            get {
-                return ((bool)(this["EnableFullscreen"]));
-            }
-            set {
-                this["EnableFullscreen"] = value;
             }
         }
     }

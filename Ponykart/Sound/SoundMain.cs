@@ -7,15 +7,19 @@ using Ponykart.Properties;
 
 namespace Ponykart.Sound {
 	public class SoundMain {
-		bool quit = false;
 		public ISoundEngine Engine { get; private set; }
-		ISoundSource bgMusic;
+		private ISoundSource bgMusic;
+
+		public static bool EnableMusic;
+		public static bool EnableSounds;
 
 		/// <summary>
 		/// The sound manager class.
 		/// </summary>
 		public SoundMain() {
 			Launch.Log("[Loading] Creating IrrKlang and SoundMain...");
+			EnableMusic = Options.GetBool("Music");
+			EnableSounds = Options.GetBool("Sounds");
 
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
@@ -90,7 +94,7 @@ namespace Ponykart.Sound {
 			}
 			timesince += evt.timeSinceLastFrame;
 
-			return !quit;
+			return true;
 		}
 
 		/// <summary>
@@ -116,7 +120,7 @@ namespace Ponykart.Sound {
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
 		/// <returns>The ISound you just created</returns>
 		public ISound Play2D(ISoundSource source, bool looping, bool startPaused = false, bool sfx = false) {
-			if (!Settings.Default.EnableMusic)
+			if (!EnableMusic)
 				return null;
 			Launch.Log("[Sounds] Creating 2D sound: " + source.Name + " Looping: " + looping);
 
@@ -149,7 +153,7 @@ namespace Ponykart.Sound {
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
 		/// <returns>The ISound you just created</returns>
 		public ISound Play3D(ISoundSource source, Vector3 pos, bool looping, bool startPaused = false, bool sfx = false) {
-			if (!Settings.Default.EnableSounds || pos == null)
+			if (!EnableSounds || pos == null)
 				return null;
 			Launch.Log("[Sounds] Creating 3D sound: " + source.Name + " Looping: " + looping);
 

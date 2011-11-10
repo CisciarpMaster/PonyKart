@@ -1,6 +1,5 @@
 ﻿using IrrKlang;
 using Mogre;
-using Ponykart.Properties;
 using Ponykart.Sound;
 using PonykartParsers;
 
@@ -21,7 +20,7 @@ namespace Ponykart.Actors {
 			Name = block.GetStringProperty("name", template.ThingName);
 			owner = lthing;
 
-			if (!Settings.Default.EnableSounds)
+			if (!SoundMain.EnableSounds)
 				return;
 
 			var soundMain = LKernel.GetG<SoundMain>();

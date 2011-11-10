@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Mogre;
+using Ponykart.Core;
 using Ponykart.Properties;
 
 namespace Ponykart {
@@ -20,11 +21,13 @@ namespace Ponykart {
 
 			if (root.RenderSystem == null) {
 				var renderSystem = root.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
-				renderSystem.SetConfigOption("Full Screen", "No");
-				renderSystem.SetConfigOption("Floating-point mode", "Fastest");
-				renderSystem.SetConfigOption("VSync", "Yes");
-				renderSystem.SetConfigOption("FSAA", "0");
-				renderSystem.SetConfigOption("Video Mode", Settings.Default.WindowWidth + " x " + Settings.Default.WindowHeight + " @ 32-bit colour");
+				renderSystem.SetConfigOption("Full Screen", Options.Get("Full Screen"));
+				renderSystem.SetConfigOption("Floating-point mode", Options.Get("Floating-point mode"));
+				renderSystem.SetConfigOption("VSync", Options.Get("VSync"));
+				renderSystem.SetConfigOption("VSync Interval", Options.Get("VSync Interval"));
+				renderSystem.SetConfigOption("FSAA", Options.Get("FSAA"));
+				renderSystem.SetConfigOption("Video Mode", Options.Get("Video Mode"));
+				renderSystem.SetConfigOption("sRGB Gamma Conversion", Options.Get("sRGB Gamma Conversion"));
 
 				root.RenderSystem = renderSystem;
 			}

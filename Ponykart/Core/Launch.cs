@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Mogre;
 using Ponykart.Physics;
 using Ponykart.UI;
+using Ponykart.Core;
 
 namespace Ponykart {
 	public static class Launch {
@@ -17,6 +18,7 @@ namespace Ponykart {
 			//#endif
 
 			LKernel.Initialise();
+			Options.Initialise();
 
 			InitializeOgre();
 			StartRendering();

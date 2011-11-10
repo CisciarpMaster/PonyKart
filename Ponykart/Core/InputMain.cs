@@ -31,11 +31,12 @@ namespace Ponykart {
 			IntPtr windowHnd;
 			LKernel.GetG<RenderWindow>().GetCustomAttribute("WINDOW", out windowHnd); // window is your RenderWindow!
 			pl.Insert("WINDOW", windowHnd.ToString());
-#if DEBUG
+
+//#if DEBUG
 			// this stops MOIS from swallowing the mouse
 			pl.Insert("w32_mouse", "DISCL_NONEXCLUSIVE");
 			pl.Insert("w32_mouse", "DISCL_FOREGROUND");
-#endif
+//#endif
 
 			InputManager = InputManager.CreateInputSystem(pl);
 

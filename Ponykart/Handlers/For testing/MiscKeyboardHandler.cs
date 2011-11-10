@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using Mogre;
 using MOIS;
 using Ponykart.Actors;
+using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Lua;
 using Ponykart.Physics;
@@ -40,10 +42,10 @@ namespace Ponykart.Handlers {
 					break;
 #endif
 				case KeyCode.KC_M:
-					Settings.Default.EnableMusic = !Settings.Default.EnableMusic;
+					SoundMain.EnableMusic = !SoundMain.EnableMusic;
 					break;
 				case KeyCode.KC_P:
-					Settings.Default.EnableSounds = !Settings.Default.EnableSounds;
+					SoundMain.EnableSounds = !SoundMain.EnableSounds;
 					break;
 				case KeyCode.KC_N:
 					LKernel.GetG<SoundMain>().Play2D("Sweet Apple Acres 128bpm.ogg", true);
@@ -69,13 +71,15 @@ namespace Ponykart.Handlers {
 					}
 					break;
 				case KeyCode.KC_F11:
-					LKernel.GetG<RenderWindow>().SetFullscreen(!LKernel.GetG<RenderWindow>().IsFullScreen, Settings.Default.WindowWidth, Settings.Default.WindowHeight);
+					uint width, height;
+					Options.GetWindowDimensions(out width, out height);
+					LKernel.GetG<RenderWindow>().SetFullscreen(!LKernel.GetG<RenderWindow>().IsFullScreen, width, height);
 					break;
 				case KeyCode.KC_G:
-					System.GC.Collect(System.GC.MaxGeneration, System.GCCollectionMode.Forced);
+					System.GC.Collect();
 					break;
 				case KeyCode.KC_C:
-					if (!System.IO.File.Exists("syncmedia.cmd"))
+					if (!File.Exists("syncmedia.cmd"))
 						break;
 					using (var proc = Process.Start("syncmedia.cmd")) {
 						proc.WaitForExit();
