@@ -12,30 +12,18 @@ namespace Ponykart.Core {
 		/// Creates the folder and file if they don't exist, and either prints some data to it (if it doesn't exist) or reads from it (if it does)
 		/// </summary>
 		public static void Initialise() {
-			// set up our dictionary with some default stuff in it
-			defaults = new Dictionary<string, string>();
-			#region defaults
-			defaults["FSAA"] = "0";
-			defaults["Floating-point mode"] = "Fastest";
-			defaults["Full Screen"] = "No";
-			defaults["VSync"] = "Yes";
-			defaults["VSync Interval"] = "1";
-			defaults["Video Mode"] = "1280 x 800 @ 32-bit colour";
-			defaults["sRGB Gamma Conversion"] = "No";
-			defaults["Music"] = "No";
-			defaults["Sounds"] = "Yes";
-			defaults["Ribbons"] = "No";
-			#endregion
-			// copy it into the regular dictionary
-			dict = new Dictionary<string, string>(defaults);
-
-
+			SetupDictionaries();
+#if DEBUG
 			string pkPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Ponykart";
+
 			// if a folder doesn't exist there, create it
 			if (!Directory.Exists(pkPath))
 				Directory.CreateDirectory(pkPath);
 
 			string optionsPath = pkPath + "\\options.ini";
+#else
+			string optionsPath = "options.ini";
+#endif
 
 			// create it if the file doesn't exist, and write out some defaults
 			if (!File.Exists(optionsPath)) {
@@ -63,11 +51,32 @@ namespace Ponykart.Core {
 			}
 		}
 
+		private static void SetupDictionaries() {
+			// set up our dictionary with some default stuff in it
+			defaults = new Dictionary<string, string>();
+			defaults["FSAA"] = "0";
+			defaults["Floating-point mode"] = "Fastest";
+			defaults["Full Screen"] = "No";
+			defaults["VSync"] = "Yes";
+			defaults["VSync Interval"] = "1";
+			defaults["Video Mode"] = "1280 x 800 @ 32-bit colour";
+			defaults["sRGB Gamma Conversion"] = "No";
+			defaults["Music"] = "No";
+			defaults["Sounds"] = "Yes";
+			defaults["Ribbons"] = "No";
+			// copy it into the regular dictionary
+			dict = new Dictionary<string, string>(defaults);
+		}
+
 		/// <summary>
 		/// Writes out the current settings to our options file
 		/// </summary>
 		public static void Save() {
+#if DEBUG
 			string optionsPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Ponykart\\options.ini";
+#else
+			string optionsPath = "options.ini";
+#endif
 
 			using (FileStream stream = File.Create(optionsPath)) {
 				using (StreamWriter writer = new StreamWriter(stream)) {

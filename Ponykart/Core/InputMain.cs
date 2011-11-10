@@ -145,9 +145,6 @@ namespace Ponykart {
 #if PRINTINPUT
 			Console.WriteLine("Released: " + ke.key);
 #endif
-			/*switch (ke.key) {
-			
-			}*/
 			FireEvent<KeyEvent>(OnKeyboardRelease_Anything, ke);
 			return true;
 		}
