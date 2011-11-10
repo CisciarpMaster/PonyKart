@@ -12,6 +12,7 @@ material AppleTree {
 			
 			texture_unit {
 				texture AppleTree.dds
+				tex_address_mode clamp
 			}
 		}
 	}
@@ -33,6 +34,7 @@ material AppleTreeInstanced {
 			
 			texture_unit {
 				texture AppleTree.dds
+				tex_address_mode clamp
 			}
 		}
 	}
@@ -283,10 +285,28 @@ material Billboards {
 			transparent_sorting on
 			scene_blend alpha_blend
 			depth_write off
-			alpha_rejection greater_equal 128
+			alpha_rejection greater_equal 64
 
 			texture_unit {
 				texture billboards.dds
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Reeds {
+	receive_shadows off
+	
+	technique {
+		pass {
+			transparent_sorting on
+			scene_blend alpha_blend
+			depth_write off
+			alpha_rejection greater_equal 64
+
+			texture_unit {
+				texture Reeds.dds
 				tex_address_mode clamp
 			}
 		}

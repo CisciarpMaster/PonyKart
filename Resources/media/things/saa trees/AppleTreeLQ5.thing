@@ -1,0 +1,15 @@
+Physics = None
+Static = true
+
+Imposters = true
+ImposterMaterial = "AppleTree"
+ImposterWidth = 6
+ImposterHeight = 6
+ImposterOffset = 0, 0, 0
+
+// is the small sapling
+Model {
+	Mesh = "AppleTreeLQ5.mesh"
+	Position = 0, 0, 0
+	CastsShadows = false
+}

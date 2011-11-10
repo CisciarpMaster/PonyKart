@@ -1,0 +1,15 @@
+Physics = None
+
+BillboardSet {
+	Material = "Reeds"
+	Width = 12
+	Height = 12
+	Type = OrientedCommon
+	Origin = BottomCenter
+	// left, top, right, bottom
+	TextureCoords = 0.353, 0.5, 0.602, 1
+	
+	Billboard {
+		Position = 0, 6, 0
+	}
+}

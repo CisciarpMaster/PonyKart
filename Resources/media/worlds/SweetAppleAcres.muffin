@@ -13,7 +13,15 @@ LoadFile = "saa/start trees"
 LoadFile = "saa/ramp trees"
 LoadFile = "saa/treehouse trees"
 LoadFile = "saa/cliff trees"
-LoadFile = "saa/bucket trees"
+LoadFile = "saa/buckets trees"
+
+LoadFile = "saa/LQ/bridge LQ trees"
+LoadFile = "saa/LQ/river LQ trees"
+LoadFile = "saa/LQ/start LQ trees"
+LoadFile = "saa/LQ/ramp LQ trees"
+LoadFile = "saa/LQ/treehouse LQ trees"
+LoadFile = "saa/LQ/cliff LQ trees"
+LoadFile = "saa/LQ/buckets LQ trees"
 
 LoadFile = "saa/collidable trees"
 

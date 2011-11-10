@@ -1,0 +1,357 @@
+AppleTreeLQ2 {
+	Position = -479.866, 43.0048, -144.278
+	Orientation = 0, 0.881525, -3.85327E-08, -0.472137
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -512.898, 41.7013, -156.121
+	Orientation = 0, -0.00888002, 3.88158E-10, 0.999961
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -524.336, 48.1655, -148.098
+	Orientation = 0, -0.125765, 5.49735E-09, 0.99206
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -448.603, 45.255, -126.469
+	Orientation = 0, -0.10178, 4.44896E-09, 0.994807
+	MapRegion = "Buckets"
+}
+AppleTreeLQ2 {
+	Position = -500.591, 48.0652, -143.656
+	Orientation = 0, -0.213328, 9.32487E-09, 0.976981
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -515.669, 27.5254, -181.623
+	Orientation = 0, 0.322558, -1.40995E-08, 0.94655
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -459.359, 59.5531, -111.582
+	Orientation = 0, 0.963865, -4.21319E-08, 0.266393
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -507.031, 15.8741, -201.15
+	Orientation = 0, -0.648561, 2.83495E-08, 0.761163
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -61.9789, 6.37399, -461.707
+	Orientation = 0, -0.727889, 3.1817E-08, 0.685695
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -71.5904, 16.8975, -307.393
+	Orientation = 0, -0.129088, 5.6426E-09, 0.991633
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -144.38, 31.8564, -531.584
+	Orientation = 0, 0.82336, -3.59902E-08, 0.56752
+	MapRegion = "Buckets"
+}
+AppleTreeLQ4 {
+	Position = -149.275, 23.4314, -482.379
+	Orientation = 0, 0.0631845, -2.76188E-09, 0.998002
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -56.5221, 29.4641, -235.555
+	Orientation = 0, 0.973517, -4.25538E-08, -0.228613
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -24.6605, 2.16861, -417.599
+	Orientation = 0, 0.961302, -4.20198E-08, -0.275498
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -34.8136, 23.0862, -215.098
+	Orientation = 0, -0.80618, 3.52392E-08, 0.59167
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -86.3498, 15.0942, -495.578
+	Orientation = 0, -0.827545, 3.61731E-08, 0.5614
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -79.5416, 6.33408, -368.531
+	Orientation = 0, 0.771616, -3.37284E-08, 0.636089
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -117.482, 23.736, -532.192
+	Orientation = 0, 0.323799, -1.41537E-08, 0.946126
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -94.6759, 4.28584, -430.307
+	Orientation = 0, -0.411539, 1.7989E-08, 0.911392
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -119.424, 9.81476, -273.605
+	Orientation = 0, 0.888697, -3.88462E-08, -0.458495
+	MapRegion = "Buckets"
+}
+AppleTreeLQ2 {
+	Position = -133.372, 11.402, -451.54
+	Orientation = 0, 0.997879, -4.36187E-08, -0.0651015
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -104.329, 19.5881, -241.517
+	Orientation = 0, 0.9824, -4.2942E-08, -0.186792
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -38.6771, 5.82691, -345.345
+	Orientation = 0, 0.921124, -4.02636E-08, 0.38927
+	MapRegion = "Buckets"
+}
+AppleTreeLQ2 {
+	Position = -148.802, 7.47196, -430.259
+	Orientation = 0, 0.61912, -2.70626E-08, 0.785297
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -127.976, 0.792311, -329.452
+	Orientation = 0, 0.473233, -2.06857E-08, 0.880937
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -108.153, 16.0088, -262.565
+	Orientation = 0, 0.993998, -4.3449E-08, -0.109399
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -73.6057, 15.4294, -278.01
+	Orientation = 0, 0.44921, -1.96356E-08, 0.893426
+	MapRegion = "Buckets"
+}
+AppleTreeLQ4 {
+	Position = -122.72, 17.6508, -222.871
+	Orientation = 0, -0.195601, 8.54999E-09, 0.980684
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -110.392, 21.831, -151.403
+	Orientation = 0, 0.0597146, -2.61021E-09, 0.998215
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -176.537, 46.9466, -550.7
+	Orientation = 0, 0.568707, -2.4859E-08, 0.82254
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -126.695, 19.0911, -465.027
+	Orientation = 0, 0.630422, -2.75566E-08, 0.776253
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -58.5817, 15.5746, -296.914
+	Orientation = 0, -0.542096, 2.36958E-08, 0.840316
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -39.2715, 9.50603, -315.468
+	Orientation = 0, 0.993623, -4.34327E-08, 0.112751
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -34.7438, 3.15477, -398.322
+	Orientation = 0, 0.973322, -4.25453E-08, -0.229443
+	MapRegion = "Buckets"
+}
+AppleTreeLQ4 {
+	Position = -95.7203, 3.93474, -415.924
+	Orientation = 0, -0.245116, 1.07144E-08, 0.969494
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -100.009, 1.29618, -365.014
+	Orientation = 0, 0.834615, -3.64822E-08, 0.550833
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -15.7252, 1.9166, -336.476
+	Orientation = 0, -0.0237674, 1.03891E-09, 0.999718
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -111.996, 4.87301, -295.789
+	Orientation = 0, 0.563017, -2.46102E-08, 0.826446
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -19.6609, 19.1712, -224.864
+	Orientation = 0, 0.810594, -3.54322E-08, 0.585608
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -29.6071, 7.83799, -308.36
+	Orientation = 0, -0.54811, 2.39586E-08, 0.836406
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -91.137, 12.3448, -282.406
+	Orientation = 0, 0.987875, -4.31814E-08, 0.155252
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -67.2444, 7.6546, -417.669
+	Orientation = 0, 0.921254, -4.02693E-08, -0.388963
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -125.785, 16.8818, -234.856
+	Orientation = 0, -0.480204, 2.09904E-08, 0.877157
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -148.735, 14.1418, -460.98
+	Orientation = 0, -0.364543, 1.59347E-08, 0.931187
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -100.4, 14.2621, -467.601
+	Orientation = 0, 0.999901, -4.37071E-08, 0.0140409
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -54.5543, 21.9955, -259.875
+	Orientation = 0, 0.389891, -1.70427E-08, 0.920861
+	MapRegion = "Buckets"
+}
+AppleTreeLQ4 {
+	Position = -47.9039, 4.71647, -360.92
+	Orientation = 0, -0.415452, 1.816E-08, 0.909615
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -115.325, 3.1031, -311.6
+	Orientation = 0, -0.504328, 2.20449E-08, 0.863512
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -92.9864, 26.4501, -201.316
+	Orientation = 0, -0.0163739, 7.15724E-10, 0.999866
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -108.49, 22.6037, -480.475
+	Orientation = 0, 0.96009, -4.19669E-08, 0.27969
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -124.104, 30.2741, -548.147
+	Orientation = 0, 0.719757, -3.14616E-08, 0.694226
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -80.3009, 23.4415, -214.799
+	Orientation = 0, 0.632824, -2.76616E-08, 0.774295
+	MapRegion = "Buckets"
+}
+AppleTreeLQ4 {
+	Position = -156.671, 30.1274, -515.397
+	Orientation = 0, 0.222593, -9.72986E-09, 0.974911
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -72.7301, 7.60561, -468.436
+	Orientation = 0, 0.0168614, -7.37037E-10, 0.999858
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -117.737, 7.11747, -436.46
+	Orientation = 0, 0.56504, -2.46987E-08, 0.825064
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -62.5469, 5.21007, -443.038
+	Orientation = 0, 0.93838, -4.10179E-08, 0.345606
+	MapRegion = "Buckets"
+}
+AppleTreeLQ8 {
+	Position = -78.6687, 8.62197, -410.253
+	Orientation = 0, 0.273767, -1.19667E-08, 0.961796
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -84.6194, 30.0498, -186.537
+	Orientation = 0, 0.980375, -4.28535E-08, 0.197143
+	MapRegion = "Buckets"
+}
+AppleTreeLQ2 {
+	Position = -33.4506, 12.7827, -291.903
+	Orientation = 0, 0.478568, -2.09189E-08, 0.878051
+	MapRegion = "Buckets"
+}
+AppleTreeLQ6 {
+	Position = -24.5976, 1.92998, -381.593
+	Orientation = 0, 0.750281, -3.27958E-08, 0.661119
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -100.719, 3.43824, -388.02
+	Orientation = 0, 0.996243, -4.35472E-08, 0.0865985
+	MapRegion = "Buckets"
+}
+AppleTreeLQ4 {
+	Position = -70.1762, 27.2503, -242.215
+	Orientation = 0, -0.341801, 1.49406E-08, 0.939772
+	MapRegion = "Buckets"
+}
+AppleTreeLQ1 {
+	Position = -128.584, 1.2664, -380.279
+	Orientation = 0, 0.990577, -4.32995E-08, 0.136956
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -210.246, 41.7798, -517.041
+	Orientation = 0, 0.976493, -4.26839E-08, 0.215548
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -227.769, 48.2531, -552.934
+	Orientation = 0, -0.157605, 6.88915E-09, 0.987502
+	MapRegion = "Buckets"
+}
+AppleTreeLQ5 {
+	Position = -149.144, 4.94503, -153.641
+	Orientation = 0, -0.583402, 2.55013E-08, 0.812183
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -122.049, 22.2728, -178.523
+	Orientation = 0, 0.878275, -3.83906E-08, 0.478156
+	MapRegion = "Buckets"
+}
+AppleTreeLQ7 {
+	Position = -24.7066, 18.9021, -257.215
+	Orientation = 0, -0.374017, 1.63488E-08, 0.927422
+	MapRegion = "Buckets"
+}
+AppleTreeLQ2 {
+	Position = -82.4749, 13.9678, -334.079
+	Orientation = 0, 0.927866, -4.05583E-08, 0.372913
+	MapRegion = "Buckets"
+}
+AppleTreeLQ4 {
+	Position = -121.099, 23.9589, -504.359
+	Orientation = 0, 0.986519, -4.31221E-08, 0.16365
+	MapRegion = "Buckets"
+}
+AppleTreeLQ3 {
+	Position = -200.444, 46.231, -540.613
+	Orientation = 0, 0.69683, -3.04594E-08, 0.717236
+	MapRegion = "Buckets"
+}
+
+

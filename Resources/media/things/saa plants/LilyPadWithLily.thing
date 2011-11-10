@@ -22,13 +22,13 @@ BillboardSet {
 	// left, top, right, bottom
 	TextureCoords = 0.375, 0.75, 0.5, 0.875
 	
-	Attached = true
-	AttachBone = "PadBone"
-	AttachComponentID = 0
+	//Attached = true
+	//AttachBone = "PadBone"
+	//AttachComponentID = 0
 	//AttachOffsetPosition = 0, 6, 0
 	//AttachOffsetOrientation = 0, 0.7071, 0, 0.0701
 	
 	Billboard {
-		Position = 0, 0, 0
+		Position = 0, 1.5, 0
 	}
 }

@@ -1,0 +1,356 @@
+GreenAppleTree1 {
+	Position = -192.823, 3.8885, -383.148
+	Orientation = 0, 0.283061, 0, 0.959102
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -186.206, 7.87103, -220.048
+	Orientation = 0, -0.459768, 0, 0.888039
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -401.457, 9.4766, -174.861
+	Orientation = 0, 0.906629, 0, 0.421929
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -154.606, 8.9803, -242.486
+	Orientation = 0, 0.999704, 0, 0.0243425
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -185.31, 7.29544, -424.471
+	Orientation = 0, 0.98283, 0, 0.184512
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -219.575, 9.78905, -148.506
+	Orientation = 0, 0.775826, 0, 0.630947
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -265.476, 49.3233, -528.341
+	Orientation = 0, 0.359929, 0, 0.93298
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -214.852, 5.3485, -167.226
+	Orientation = 0, 0.744233, 0, 0.66792
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -479.429, 26.0996, -175.578
+	Orientation = 0, 0.728556, 0, 0.684986
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -228.192, 7.93243, -176.479
+	Orientation = 0, -0.329269, 0, 0.944236
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -179.559, 3.44146, -279.108
+	Orientation = 0, 0.912859, 0, -0.408276
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -156.683, 4.60165, -409.736
+	Orientation = 0, -0.442252, 0, 0.896891
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -297.115, 48.08, -526.044
+	Orientation = 0, -0.639375, 0, 0.768895
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -457.691, 23.8012, -170.91
+	Orientation = 0, 0.323816, 0, 0.94612
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -175.418, 5.75771, -180.533
+	Orientation = 0, -0.824026, 0, 0.566552
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -155.594, 3.94819, -293.57
+	Orientation = 0, 0.43466, 0, 0.900594
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -260.718, 38.1707, -494.763
+	Orientation = 0, -0.313306, 0, 0.949652
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -427.39, 16.6538, -169.994
+	Orientation = 0, 0.995043, 0, -0.0994501
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -449.464, 31.608, -498.316
+	Orientation = 0, -0.645474, 0, 0.763782
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -228.407, 29.9122, -482.21
+	Orientation = 0, 0.317401, 0, 0.948291
+	MapRegion = "Buckets"
+}
+RedAppleTree1 {
+	Position = -200.763, 3.30797, -268.083
+	Orientation = 0, -0.424373, 0, 0.905487
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -177.81, 3.29221, -328.64
+	Orientation = 0, 0.996351, 0, -0.0853521
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -147.482, 3.63793, -381.771
+	Orientation = 0, -0.318195, 0, 0.948025
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -176.367, 3.29221, -342.655
+	Orientation = 0, 0.972126, 0, -0.234458
+	MapRegion = "Buckets"
+}
+GreenAppleTree1 {
+	Position = -147.65, 3.29221, -362.437
+	Orientation = 0, -0.783033, 0, 0.621981
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -391.952, 5.72681, -183.833
+	Orientation = 0, 0.954245, 0, 0.299024
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -183.873, 5.24652, -412.346
+	Orientation = 0, -0.349342, 0, 0.936995
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -411.277, 3.82513, -206.583
+	Orientation = 0, -0.0843295, 0, 0.996438
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -458.325, 18.3561, -181.953
+	Orientation = 0, 0.53438, 0, 0.845244
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -404.538, 50.9172, -538.583
+	Orientation = 0, 0.996667, 0, -0.0815778
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -162.547, 6.65689, -427.05
+	Orientation = 0, 0.92437, 0, 0.381497
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -160.624, 3.52993, -370.189
+	Orientation = 0, 0.495995, 0, 0.868326
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -224.701, 7.46818, -434.494
+	Orientation = 0, -0.273605, 0, 0.961842
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -248.71, 47.9417, -519.904
+	Orientation = 0, -0.782713, 0, 0.622382
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -203.879, 34.4042, -501.067
+	Orientation = 0, 0.901989, 0, -0.43176
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -439.683, 4.6719, -215.856
+	Orientation = 0, 0.949114, 0, 0.314932
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -191.007, 16.9761, -460.381
+	Orientation = 0, 0.828456, 0, 0.560054
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -465.702, 47.0987, -540.629
+	Orientation = 0, 0.971888, 0, -0.235445
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -199.281, 7.85712, -428.662
+	Orientation = 0, -0.385484, 0, 0.922714
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -184.216, 32.7483, -501.781
+	Orientation = 0, -0.171561, 0, 0.985174
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -211.147, 13.6227, -450.697
+	Orientation = 0, 0.981219, 0, -0.192897
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -497.85, 36.9526, -522.776
+	Orientation = 0, 0.968605, 0, -0.248605
+	MapRegion = "Buckets"
+}
+RedAppleTree2 {
+	Position = -186.396, 3.74558, -139.31
+	Orientation = 0, 0.950951, 0, -0.309343
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -165.808, 6.0909, -219.396
+	Orientation = 0, -0.731297, 0, 0.682059
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -294.519, 50.6438, -543.356
+	Orientation = 0, 0.391251, 0, 0.920284
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -204.737, 3.68437, -308.973
+	Orientation = 0, 0.464209, 0, 0.885726
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -201.723, 3.29221, -355.263
+	Orientation = 0, 0.108804, 0, 0.994063
+	MapRegion = "Buckets"
+}
+GreenAppleTree2 {
+	Position = -159.461, 3.29221, -328.869
+	Orientation = 0, 0.0348834, 0, 0.999391
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -453.963, 28.5756, -160.072
+	Orientation = 0, 0.999998, 0, -0.00176914
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -218.502, 4.22274, -187.929
+	Orientation = 0, 0.926168, 0, 0.37711
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -239.753, 11.0374, -446.567
+	Orientation = 0, -0.728659, 0, 0.684877
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -155.391, 9.28181, -202.596
+	Orientation = 0, 0.341277, 0, 0.939963
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -220.809, 3.66272, -352.445
+	Orientation = 0, -0.692451, 0, 0.721465
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -251.152, 24.3404, -142.239
+	Orientation = 0, -0.153574, 0, 0.988137
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -176.982, 3.58086, -300.856
+	Orientation = 0, 0.945469, 0, 0.325713
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -333.893, 23.335, -139.481
+	Orientation = 0, -0.0841686, 0, 0.996452
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -408.605, 4.79094, -197.083
+	Orientation = 0, 0.877089, 0, -0.480328
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -424.312, 4.6, -208.733
+	Orientation = 0, 0.942903, 0, -0.333068
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -151.037, 7.78661, -260.822
+	Orientation = 0, -0.225559, 0, 0.97423
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -203.063, 6.41259, -421.661
+	Orientation = 0, -0.629543, 0, 0.776966
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -212.966, 3.36574, -199.639
+	Orientation = 0, 0.880254, 0, 0.474503
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -196.596, 3.93998, -156.477
+	Orientation = 0, 0.919269, 0, -0.39363
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -379.517, 7.14774, -173.784
+	Orientation = 0, -0.183682, 0, 0.982986
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -212.399, 20.1494, -464.996
+	Orientation = 0, 0.724473, 0, 0.689303
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -452.494, 34.5974, -148.91
+	Orientation = 0, 0.719913, 0, 0.694065
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -172.53, 3.81273, -386.179
+	Orientation = 0, 0.634035, 0, 0.773304
+	MapRegion = "Buckets"
+}
+RedAppleTree3 {
+	Position = -384.984, 13.8931, -154.006
+	Orientation = 0, -0.648302, 0, 0.761384
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -510.675, 39.525, -531.715
+	Orientation = 0, -0.187043, 0, 0.982352
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -212.245, 3.29221, -288.785
+	Orientation = 0, 0.997917, 0, -0.0645049
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -190.73, 3.29221, -334.501
+	Orientation = 0, 0.181478, 0, 0.983395
+	MapRegion = "Buckets"
+}
+GreenAppleTree3 {
+	Position = -217.765, 3.29221, -307.622
+	Orientation = 0, 0.911506, 0, -0.411286
+	MapRegion = "Buckets"
+}
+

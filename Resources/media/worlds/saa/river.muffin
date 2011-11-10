@@ -1,225 +1,287 @@
 LilyPadWithLily {
-	Name = "LilyPad#002"
 	Position = -12.5106, 24.361, -1122.17
 	Orientation = 0, 0.5836, -2.551E-08, 0.812041
 }
 LilyPad {
-	Name = "LilyPad#004"
 	Position = -75.3046, 24.361, -1122.68
 	Orientation = 0, 0.801037, -3.50145E-08, 0.598614
 }
 LilyPadWithLily {
-	Name = "LilyPad#006"
 	Position = -82.3878, 24.3611, -1045.77
 	Orientation = 0, 0.979339, -4.28083E-08, 0.202227
 }
 LilyPadWithLily {
-	Name = "LilyPad#008"
 	Position = -44.314, 24.3611, -925.537
 	Orientation = 0, 0.471981, -2.06309E-08, 0.881609
 }
 LilyPad {
-	Name = "LilyPad#009"
 	Position = -90.0581, 24.3611, -789.739
 	Orientation = 0, 0.585116, -2.55762E-08, 0.81095
 }
 LilyPad {
-	Name = "LilyPad#010"
 	Position = -47.3406, 24.3611, -900.092
 	Orientation = 0, -0.124264, 5.43173E-09, 0.992249
 }
 LilyPad {
-	Name = "LilyPad#011"
 	Position = -47.9192, 24.3564, -741.769
 	Orientation = 0, 0.704251, -3.07838E-08, 0.709951
 }
 LilyPadWithLily {
-	Name = "LilyPad#012"
 	Position = -94.1546, 24.3605, -715.619
 	Orientation = 0, 0.123737, -5.4087E-09, 0.992315
 }
 LilyPadWithLily {
-	Name = "LilyPad#014"
 	Position = -82.9948, 24.361, -1151.54
 	Orientation = 0, 0.772494, -3.37668E-08, 0.635021
 }
 LilyPad {
-	Name = "LilyPad#015"
 	Position = -33.9617, 24.461, -1214.65
 	Orientation = 0, 0.807201, -3.52839E-08, 0.590277
 }
 LilyPad {
-	Name = "LilyPad#017"
 	Position = -29.6276, 22.3341, -621.478
 	Orientation = 0, 0.121338, -5.30383E-09, 0.992611
 }
 LilyPadWithLily {
-	Name = "LilyPad#019"
 	Position = -86.5148, 16.3899, -546.19
 	Orientation = 0, -0.113814, 4.97495E-09, 0.993502
 }
 LilyPad {
-	Name = "LilyPad#023"
 	Position = -0.448963, 5.03571, -488.583
 	Orientation = 0, -0.0341367, 1.49216E-09, 0.999417
 }
 LilyPadWithLily {
-	Name = "LilyPad#025"
 	Position = -8.03136, 9.01818, -509.406
 	Orientation = 0.0143443, 0.99316, 0.0859671, -0.0776933
 }
 LilyPadWithLily {
-	Name = "LilyPad#027"
 	Position = 92.3704, -9.53294, -373.517
 	Orientation = 0, -0.812866, 3.55315E-08, 0.582451
 }
 LilyPad {
-	Name = "LilyPad#030"
 	Position = 185.94, -8.01439, -238.17
 	Orientation = 0, -0.0935102, 4.08746E-09, 0.995618
 }
 LilyPad {
-	Name = "LilyPad#031"
 	Position = 221.768, -6.59776, -211.096
 	Orientation = 0, -0.518081, 2.2646E-08, 0.855331
 }
 LilyPadWithLily {
-	Name = "LilyPad#032"
 	Position = 197.924, -7.5567, -226.087
 	Orientation = 0, 0.155719, -6.80671E-09, 0.987801
 }
 LilyPadWithLily {
-	Name = "LilyPad#033"
 	Position = 242.169, -6.17379, -229.851
 	Orientation = 0, -0.632519, 2.76483E-08, 0.774545
 }
 LilyPad {
-	Name = "LilyPad#034"
 	Position = 258.867, -5.90608, -199.439
 	Orientation = 0, 0.68625, -2.99969E-08, 0.727366
 }
 LilyPad {
-	Name = "LilyPad#035"
 	Position = 244.026, -6.06345, -209.646
 	Orientation = 0, -0.788514, 3.44671E-08, 0.615017
 }
 LilyPad {
-	Name = "LilyPad#036"
 	Position = 311.824, -5.21144, -221.211
 	Orientation = 0, 0.0609385, -2.66371E-09, 0.998142
 }
 LilyPadWithLily {
-	Name = "LilyPad#037"
 	Position = 314.924, -5.29121, -188.972
 	Orientation = 0, 0.341268, -1.49173E-08, 0.939966
 }
 LilyPadWithLily {
-	Name = "LilyPad#038"
 	Position = 344.304, -5.23958, -169.331
 	Orientation = 0, 0.924682, -4.04191E-08, 0.38074
 }
 LilyPad {
-	Name = "LilyPad#039"
 	Position = 338.967, -5.18443, -201.474
 	Orientation = 0, -0.410673, 1.79511E-08, 0.911783
 }
 LilyPadWithLily {
-	Name = "LilyPad#041"
 	Position = 438.053, -5.92987, -131.107
 	Orientation = 0, 0.602105, -2.63189E-08, 0.798417
 }
 LilyPadWithLily {
-	Name = "LilyPad#042"
 	Position = 392.442, -5.33802, -181.636
 	Orientation = 0, -0.34408, 1.50402E-08, 0.93894
 }
 LilyPad {
-	Name = "LilyPad#043"
 	Position = 651.173, -8.74487, -107.392
 	Orientation = 0, 0.983239, -4.29788E-08, -0.182319
 }
 LilyPadWithLily {
-	Name = "LilyPad#044"
 	Position = 551.126, -6.85261, -124.946
 	Orientation = 0, 0.982639, -4.29525E-08, -0.185529
 }
 LilyPad {
-	Name = "LilyPad#046"
 	Position = 682.081, -9.03133, -113.95
 	Orientation = 0, 0.481993, -2.10686E-08, 0.876175
 }
 LilyPad {
-	Name = "LilyPad#047"
 	Position = 669.169, -8.95687, -121.212
 	Orientation = 0, 0.232041, -1.01428E-08, 0.972706
 }
 LilyPad {
-	Name = "LilyPad#049"
 	Position = 789.46, -9.06263, -167.608
 	Orientation = 0, -0.305731, 1.33639E-08, 0.952118
 }
 LilyPadWithLily {
-	Name = "LilyPad#050"
 	Position = 874.231, -8.01549, -101.054
 	Orientation = 0, 0.980417, -4.28554E-08, -0.196932
 }
 LilyPadWithLily {
-	Name = "LilyPad#052"
 	Position = 889.709, -7.83423, -123.6
 	Orientation = 0, 0.940001, -4.10887E-08, -0.341173
 }
 LilyPad {
-	Name = "LilyPad#055"
 	Position = 922.162, -8.84184, -103.631
 	Orientation = 0, 0.75283, -3.29073E-08, 0.658215
 }
 LilyPad {
-	Name = "LilyPad#061"
 	Position = -37.2007, 24.3611, -1001.48
 	Orientation = 0, 0.962447, -4.20699E-08, -0.271469
 }
 LilyPad {
-	Name = "LilyPad#062"
 	Position = -86.4536, 24.3611, -812.425
 	Orientation = 0, -0.627157, 2.74139E-08, 0.778893
 }
 LilyPadWithLily {
-	Name = "LilyPad#064"
 	Position = -58.9752, 24.4609, -764.451
 	Orientation = 0, 0.994514, -4.34716E-08, -0.104605
 }
 LilyPad {
-	Name = "LilyPad#065"
 	Position = -98.7209, 24.1729, -666.481
 	Orientation = 0, 0.9885, -4.32087E-08, -0.15122
 }
 LilyPad {
-	Name = "LilyPad#066"
 	Position = -71.4385, 23.0086, -619.64
 	Orientation = 0, 0.88569, -3.87148E-08, -0.464276
 }
 LilyPadWithLily {
-	Name = "LilyPad#067"
 	Position = -97.2102, 23.4919, -641.5
 	Orientation = 0, 0.413537, -1.80763E-08, 0.910487
 }
 LilyPadWithLily {
-	Name = "LilyPad#068"
 	Position = -28.9127, 24.089, -647.783
 	Orientation = 0, 0.669018, -2.92437E-08, 0.743246
 }
 LilyPadWithLily {
-	Name = "LilyPad#069"
 	Position = 144.703, -9.11637, -268.996
 	Orientation = 0, 0.0189354, -8.27694E-10, 0.999821
 }
 LilyPad {
-	Name = "LilyPad#070"
 	Position = 280.74, -5.47197, -209.128
 	Orientation = 0, 0.92596, -4.0475E-08, 0.377622
 }
 LilyPad {
-	Name = "LilyPad#071"
 	Position = 136.265, -9.36463, -311.825
 	Orientation = 0, -0.756011, 3.30463E-08, 0.654559
+}
+
+
+Reed1 {
+	Position = -108.618, 24.1114, -785.028
+}
+Reed2 {
+	Position = -108.457, 24.1857, -787.113
+}
+Reed3 {
+	Position = -33.2471, 23.9764, -915.228
+}
+Reed4 {
+	Position = -33.0552, 24.0308, -917.267
+}
+Reed5 {
+	Position = -32.753, 24.2333, -919.122
+}
+Reed6 {
+	Position = -12.2025, 17.9141, -582.373
+}
+Reed7 {
+	Position = -11.8928, 17.9618, -581.326
+}
+Reed8 {
+	Position = 20.1247, -0.130059, -461.747
+}
+Reed1 {
+	Position = 34.1028, -3.61411, -440.431
+}
+Reed2 {
+	Position = 108.084, -11.2836, -377.445
+}
+Reed3 {
+	Position = 123.593, -11.3943, -360.029
+}
+Reed4 {
+	Position = 153.66, -9.91915, -322.061
+}
+Reed5 {
+	Position = 146.176, -9.78432, -246.547
+}
+Reed6 {
+	Position = 135.218, -9.14782, -256.306
+}
+Reed7 {
+	Position = 229.628, -7.41342, -248.214
+}
+Reed8 {
+	Position = 239.347, -6.56174, -192.512
+}
+Reed1 {
+	Position = 242.394, -6.62045, -191.944
+}
+Reed2 {
+	Position = 227.763, -7.05792, -196.215
+}
+Reed3 {
+	Position = 313.731, -5.45937, -233.048
+}
+Reed4 {
+	Position = 330.482, -5.59168, -230.805
+}
+Reed5 {
+	Position = 323.164, -5.60243, -170.262
+}
+Reed6 {
+	Position = 332.61, -5.39351, -163.794
+}
+Reed7 {
+	Position = 371.049, -5.44158, -209.88
+}
+Reed8 {
+	Position = 385.79, -5.6374, -200.726
+}
+Reed1 {
+	Position = 506.304, -6.74421, -102.337
+}
+Reed2 {
+	Position = 634.611, -8.89728, -93.3647
+}
+Reed3 {
+	Position = -101.248, 23.7147, -946.097
+}
+Reed4 {
+	Position = -104.276, 24.0518, -964.935
+}
+Reed5 {
+	Position = -104.437, 24.2213, -970.832
+}
+Reed6 {
+	Position = -89.1348, 23.6314, -1122.26
+}
+Reed7 {
+	Position = 382.423, -5.7998, -139.584
+}
+Reed8 {
+	Position = 415.81, -6.25402, -184.917
+}
+Reed1 {
+	Position = 455.253, -6.57795, -114.795
+}
+Reed2 {
+	Position = 246.28, -8.49176, -240.091
+}
+Reed3 {
+	Position = 347.191, -5.38384, -224.416
 }

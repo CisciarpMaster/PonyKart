@@ -18,7 +18,7 @@ RedAppleTree1 {
 	Orientation = 0, 0.156919, -6.85914E-09, 0.987612
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -58.9058, 16.0175, 125.645
 	Orientation = 0, -0.435318, 1.90284E-08, 0.900277
 	MapRegion = "Start"
@@ -28,12 +28,12 @@ RedAppleTree1 {
 	Orientation = 0, 0.99842, -4.36423E-08, 0.0561834
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -127.76, 2.96357, 401.845
 	Orientation = 0, 0.989817, -4.32663E-08, 0.142345
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -87.8903, 8.13118, 177.825
 	Orientation = 0, -0.544592, 2.38049E-08, 0.838701
 	MapRegion = "Start"
@@ -68,12 +68,12 @@ RedAppleTree1 {
 	Orientation = 0, -0.779867, 3.40891E-08, 0.625945
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -272.357, 26.8192, 390.036
 	Orientation = 0, 0.582093, -2.54441E-08, 0.813122
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -233.489, 15.1022, 237.615
 	Orientation = 0, -0.201207, 8.79505E-09, 0.979549
 	MapRegion = "Start"
@@ -83,22 +83,22 @@ RedAppleTree1 {
 	Orientation = 0, -0.519227, 2.26961E-08, 0.854636
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -326.934, 29.3272, 395.773
 	Orientation = 0, 0.852027, -3.72433E-08, 0.523498
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -155.131, 2.07092, 269.235
 	Orientation = 0, -0.428987, 1.87516E-08, 0.90331
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -101.323, 2.07349, 405.949
 	Orientation = 0, -0.70042, 3.06163E-08, 0.713731
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -102.703, 0.155338, 260.675
 	Orientation = 0, 0.294124, -1.28566E-08, 0.955767
 	MapRegion = "Start"
@@ -108,12 +108,12 @@ RedAppleTree1 {
 	Orientation = 0, 0.312256, -1.36492E-08, 0.949998
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -168.143, 5.26782, 352.316
 	Orientation = 0, -0.143879, 6.28913E-09, 0.989595
 	MapRegion = "Start"
 }
-RedAppleTree1 {
+GreenAppleTree1 {
 	Position = -61.3662, 0.825609, 392.6
 	Orientation = 0, -0.825978, 3.61046E-08, 0.563703
 	MapRegion = "Start"
@@ -123,7 +123,7 @@ RedAppleTree2 {
 	Orientation = 0, -0.486658, 2.12725E-08, 0.873593
 	MapRegion = "Start"
 }
-RedAppleTree2 {
+GreenAppleTree2 {
 	Position = -316.02, 27.66, 361.732
 	Orientation = 0, 0.541402, -2.36654E-08, 0.840764
 	MapRegion = "Start"
@@ -133,7 +133,7 @@ RedAppleTree2 {
 	Orientation = 0, 0.71589, -3.12926E-08, 0.698213
 	MapRegion = "Start"
 }
-RedAppleTree2 {
+GreenAppleTree2 {
 	Position = -72.4947, 1.83865, 426.439
 	Orientation = 0, 0.906688, -3.96326E-08, -0.421801
 	MapRegion = "Start"
@@ -148,7 +148,7 @@ RedAppleTree2 {
 	Orientation = 0, 0.558249, -2.44018E-08, 0.829674
 	MapRegion = "Start"
 }
-RedAppleTree2 {
+GreenAppleTree2 {
 	Position = -264.371, 25.7597, 261.189
 	Orientation = 0, 0.980009, -4.28376E-08, 0.198953
 	MapRegion = "Start"
@@ -163,7 +163,7 @@ RedAppleTree2 {
 	Orientation = 0, -0.689329, 3.01315E-08, 0.724448
 	MapRegion = "Start"
 }
-RedAppleTree2 {
+GreenAppleTree2 {
 	Position = -204.999, 10.9043, 267.823
 	Orientation = 0, 0.967914, -4.23089E-08, -0.25128
 	MapRegion = "Start"
@@ -203,12 +203,12 @@ RedAppleTree3 {
 	Orientation = 0, -0.718939, 3.14258E-08, 0.695074
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -189.907, 7.74511, 271.217
 	Orientation = 0, 0.665639, -2.9096E-08, 0.746274
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -220.348, 15.5205, 382.471
 	Orientation = 0, -0.788426, 3.44632E-08, 0.61513
 	MapRegion = "Start"
@@ -218,7 +218,7 @@ RedAppleTree3 {
 	Orientation = 0, 0.780026, -3.4096E-08, 0.625747
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -233.687, 20.8944, 282.48
 	Orientation = 0, 0.950518, -4.15485E-08, 0.310669
 	MapRegion = "Start"
@@ -233,12 +233,12 @@ RedAppleTree3 {
 	Orientation = 0, 0.97515, -4.26252E-08, -0.221546
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -232.414, 20.9485, 420.738
 	Orientation = 0, 0.186987, -8.17347E-09, 0.982362
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -56.1728, 9.01723, 174.368
 	Orientation = 0, -0.815845, 3.56617E-08, 0.578271
 	MapRegion = "Start"
@@ -273,12 +273,12 @@ RedAppleTree3 {
 	Orientation = 0, 0.506562, -2.21425E-08, 0.862203
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -371.698, 28.3669, 367.935
 	Orientation = 0, -0.298528, 1.30491E-08, 0.954401
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -113.721, 1.53707, 239.073
 	Orientation = 0, -0.285327, 1.2472E-08, 0.95843
 	MapRegion = "Start"
@@ -288,7 +288,7 @@ RedAppleTree3 {
 	Orientation = 0, -0.0545091, 2.38267E-09, 0.998513
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -167.034, 3.66227, 232.232
 	Orientation = 0, 0.851953, -3.724E-08, 0.523618
 	MapRegion = "Start"
@@ -303,13 +303,14 @@ RedAppleTree3 {
 	Orientation = 0, -0.682363, 2.9827E-08, 0.731013
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -52.219, 1.50407, 431.7
 	Orientation = 0, 0.637763, -2.78775E-08, 0.770232
 	MapRegion = "Start"
 }
-RedAppleTree3 {
+GreenAppleTree3 {
 	Position = -152.511, 2.74424, 351.458
 	Orientation = 0, 0.0655189, -2.86392E-09, 0.997851
 	MapRegion = "Start"
 }
+
