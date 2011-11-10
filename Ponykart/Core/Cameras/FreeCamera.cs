@@ -51,8 +51,8 @@ namespace Ponykart.Core {
 			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed() || !IsActive)
 				return;
 
-			CameraNode.Yaw(new Degree(-eventArgs.state.X.rel / 4f), Node.TransformSpace.TS_WORLD);
-			CameraNode.Pitch(new Degree(-eventArgs.state.Y.rel / 4f), Node.TransformSpace.TS_LOCAL);
+			CameraNode.Yaw(new Degree(-eventArgs.state.X.rel / 8f), Node.TransformSpace.TS_WORLD);
+			CameraNode.Pitch(new Degree(-eventArgs.state.Y.rel / 8f), Node.TransformSpace.TS_LOCAL);
 		}
 
 		/// <summary>
