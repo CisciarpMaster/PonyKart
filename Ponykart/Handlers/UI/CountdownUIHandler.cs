@@ -29,7 +29,9 @@ namespace Ponykart.Handlers {
 		void OnCountdown(RaceCountdownState state) {
 			switch (state) {
 				case RaceCountdownState.Three:
+#if !DEBUG
 					countGui.Visible = true;
+#endif
 					countLabel.Text = "3";
 					break;
 				case RaceCountdownState.Two:

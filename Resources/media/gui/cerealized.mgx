@@ -96,21 +96,9 @@
 					</Control>
 					<!-- level selection buttons -->
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>False</Enabled>
-						<Name>shittyterrain</Name>
-						<Rectangle>512,250,300,40</Rectangle>
-						<SkinName>PKButtonSkin</SkinName>
-						<Text>shittyterrain</Text>
-						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
-							<Alignment>MiddleCenter</Alignment>
-							<FontName>Zil</FontName>
-							<ForegroundColour>-1</ForegroundColour>
-						</TextStyle>
-					</Control>
-					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
 						<Name>flat</Name>
-						<Rectangle>512,300,300,40</Rectangle>
+						<Rectangle>512,250,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>flat</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
@@ -122,7 +110,7 @@
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
 						<Name>testlevel</Name>
-						<Rectangle>512,350,300,40</Rectangle>
+						<Rectangle>512,300,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>testlevel</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
@@ -134,7 +122,7 @@
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
 						<Name>Sweet Apple Acres</Name>
-						<Rectangle>512,400,300,40</Rectangle>
+						<Rectangle>512,350,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>Sweet Apple Acres</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
@@ -146,7 +134,7 @@
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
 						<Name>Quit</Name>
-						<Rectangle>512,450,300,40</Rectangle>
+						<Rectangle>512,400,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>Quit</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
