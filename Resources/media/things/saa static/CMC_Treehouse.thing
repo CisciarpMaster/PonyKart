@@ -5,6 +5,7 @@ CollidesWith = Environment
 
 Model {
 	Mesh = "CMC_Treehouse.mesh"
+	Material = "SAA_Things_1_Twosided"
 	Position = 0, 0, 0
 	Scale = 0.3, 0.3, 0.3
 	CastsShadows = true

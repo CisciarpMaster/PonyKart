@@ -50,6 +50,7 @@ Model {
 }
 Model {
 	Mesh = "Barn_Plants.mesh"
+	Material = "SAA_Transparent_Things_Twosided"
 	Position = 5.48586, 32.0336, 1.00634
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = false

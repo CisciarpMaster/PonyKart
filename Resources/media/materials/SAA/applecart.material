@@ -1,18 +1,14 @@
-material AppleCartExtras
-{
+material AppleCartExtras {
 	receive_shadows off
 	
-	technique
-	{
-		pass
-		{
+	technique {
+		pass {
 			scene_blend alpha_blend
 			cull_hardware none
 			depth_write off
 			alpha_rejection greater_equal 64
 			
-			texture_unit
-			{
+			texture_unit {
 				tex_address_mode clamp
 				texture applecart_tex.dds
 			}
@@ -20,19 +16,15 @@ material AppleCartExtras
 	}
 }
 
-material AppleCart
-{
-	technique
-	{
-		pass
-		{
+material AppleCart {
+	technique {
+		pass {
 			vertex_program_ref fresnelTex_vp {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
 			}
 			
-			texture_unit
-			{
+			texture_unit {
 				texture applecart_tex.dds
 			}
 		}
