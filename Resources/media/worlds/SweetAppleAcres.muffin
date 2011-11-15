@@ -50,9 +50,10 @@ SAA_Invisible_Walls {
 
 
 CMC_Treehouse {
-	Position = 313.039, 32.0541, -547.766
+	//Position = 313.039, 32.0541, -547.766
+	Position = 348.039, 30.0541, -557.766
 	// this treehouse is just being really annoying so it gets to use the rotation
-	Rotation = 6.823, 10.8, -1.308
+	Rotation = 6.823, 10.8, -2.308
 }
 
 
