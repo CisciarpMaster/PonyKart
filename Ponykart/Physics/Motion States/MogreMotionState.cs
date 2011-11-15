@@ -6,8 +6,6 @@ namespace Ponykart.Physics {
 	/// <summary>
 	/// Handy thing that bullet has to keep graphics stuff synched up with physics stuff!
 	/// Best thing is, it only updates the node when it's actually changed instead of every frame!
-	/// 
-	/// TODO: update sound components
 	/// </summary>
 	public class MogreMotionState : MotionState {
 
