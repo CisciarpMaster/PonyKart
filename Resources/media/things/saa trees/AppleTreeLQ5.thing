@@ -2,12 +2,14 @@ Physics = None
 Static = true
 
 Imposters = true
-ImposterMaterial = "AppleTree"
-ImposterWidth = 6
-ImposterHeight = 6
+// left, top, right, bottom, origin is top left
+ImposterTextureCoords = 0.25, 0.75, 0.5, 1
+ImposterMaterial = "AppleTreeBillboards"
+ImposterWidth = 23
+ImposterHeight = 23
 ImposterOffset = 0, 0, 0
 
-// is the small sapling
+// this is the small sapling
 Model {
 	Mesh = "AppleTreeLQ5.mesh"
 	Position = 0, 0, 0

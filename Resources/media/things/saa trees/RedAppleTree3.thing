@@ -2,10 +2,13 @@ Physics = None
 Static = true
 
 Imposters = true
-ImposterMaterial = "AppleTree"
-ImposterWidth = 10
-ImposterHeight = 10
-ImposterOffset = 0.1111965, -3, 0.1604475
+// left, top, right, bottom, origin is top left
+ImposterTextureCoords = 0, 0, 0.25, 0.25
+ImposterMaterial = "AppleTreeBillboards"
+ImposterWidth = 23
+ImposterHeight = 23
+ImposterOffset = 0, -3, 0
+//ImposterOffset = 0.1111965, -3, 0.1604475
 
 // main tree model
 Model {

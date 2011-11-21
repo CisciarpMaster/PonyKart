@@ -78,6 +78,7 @@ namespace Ponykart.Actors {
 						billboardSet.BillboardOrigin = BillboardOrigin.BBO_BOTTOM_CENTER;
 						billboardSet.RenderingDistance = 2000;
 						billboardSet.Visible = false;
+						billboardSet.CastShadows = false;
 
 						// attach the new billboard set
 						node.AttachObject(billboardSet);
@@ -86,7 +87,11 @@ namespace Ponykart.Actors {
 						this.billboards.Add(billboardSet.Name, billboardSet);
 					}
 
-					billboardSet.CreateBillboard((block.Position - averagePosition) + def.GetVectorProperty("ImposterOffset", Vector3.ZERO));
+					Billboard bb = billboardSet.CreateBillboard((block.Position - averagePosition) + def.GetVectorProperty("ImposterOffset", Vector3.ZERO));
+					Quaternion rectQ;
+					if (def.QuatTokens.TryGetValue("impostertexturecoords", out rectQ)) {
+						bb.SetTexcoordRect(rectQ.x, rectQ.y, rectQ.z, rectQ.w);
+					}
 				}
 			}
 		}

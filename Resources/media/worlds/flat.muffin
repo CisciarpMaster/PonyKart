@@ -1,61 +1,58 @@
 Type = Race
 LoadFile = "default spawn positions"
 
-// two big squares
-/*Obstacle {
-	Name = "obs1"
-	Position = 20, -1, -20
-	Rotation = 45, 0, 0
+/* AppleTreeLQ1 {
+	Position = 5, 0, 0
 }
-Obstacle {
-	Name = "obs2"
-	Position = 20, -1, 16
-	Rotation = 45, 0, 0
+
+AppleTreeLQ2 {
+	Position = 0, 40, 0
 }
-Obstacle {
-	Name = "obs20"
-	Position = 20.3, 0, -26
-	Rotation = 0, 0, 0
+
+AppleTreeLQ3 {
+	Position = 0, 80, 0
 }
-// a more rounded ramp
-Obstacle {
-	Name = "obs3"
-	Position = 20, -5, -40
-	Rotation = -10, 0, 0
+
+AppleTreeLQ4 {
+	Position = 0, 120, 0
 }
-Obstacle {
-	Name = "obs4"
-	Position = 20.1, -3, -35
-	Rotation = -30, 0, 0
+
+AppleTreeLQ5 {
+	Position = 0, 160, 0
 }
-Obstacle {
-	Name = "obs5"
-	Position = 20.2, -1, -32
-	Rotation = -50, 0, 0
+
+AppleTreeLQ6 {
+	Position = 0, 200, 0
 }
-// a bunch of low ramps
-Obstacle {
-	Name = "obs6"
-	Position = -20, -5, 40
-	Rotation = -10, 0, 0
+
+AppleTreeLQ7 {
+	Position = 0, 240, 0
 }
-Obstacle {
-	Name = "obs7"
-	Position = -20, -5, 20
-	Rotation = -10, 0, 0
+
+AppleTreeLQ8 {
+	Position = 0, 280, 0
 }
-Obstacle {
-	Name = "obs8"
-	Position = -20, -5, 0
-	Rotation = -10, 0, 0
+
+GreenAppleTree1 {
+	Position = 0, 320, 0
 }
-Obstacle {
-	Name = "obs9"
-	Position = -20, -5, -20
-	Rotation = -10, 0, 0
+
+GreenAppleTree2 {
+	Position = 0, 360, 0
 }
-Obstacle {
-	Name = "obs10"
-	Position = -20, -5, -40
-	Rotation = -10, 0, 0
+
+GreenAppleTree3 {
+	Position = 0, 400, 0
+}
+
+RedAppleTree1 {
+	Position = 0, 440, 0
+}
+
+RedAppleTree2 {
+	Position = 0, 480, 0
+}
+
+RedAppleTree3 {
+	Position = 0, 520, 0
 }*/

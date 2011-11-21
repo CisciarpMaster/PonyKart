@@ -3,12 +3,10 @@ Mass = 0
 CollisionGroup = Road
 CollidesWith = Road
 ForceCompound = true
-Static = true
 
 Model {
 	Mesh = "SAA_Bridge.mesh"
 	CastsShadows = true
-	StaticGroup = "Wood"
 }
 
 // box#0
