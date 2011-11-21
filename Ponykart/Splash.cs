@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Ponykart.Properties;
@@ -27,10 +26,6 @@ namespace Ponykart {
 		/// </param>
 		public Splash() {
 			this.InitializeComponent();
-		}
-
-		protected override void OnLoad(EventArgs e) {
-			base.OnLoad(e);
 		}
 
 		protected override void Dispose(bool disposing) {

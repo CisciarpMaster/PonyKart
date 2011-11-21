@@ -85,6 +85,14 @@ namespace Ponykart.Core {
 					Offset *= 0.25f;
 					break;
 			}
+
+			var keyboard = LKernel.GetG<InputMain>().InputKeyboard;
+			if (!keyboard.IsKeyDown(KeyCode.KC_UP) && !keyboard.IsKeyDown(KeyCode.KC_DOWN)
+				&& !keyboard.IsKeyDown(KeyCode.KC_LEFT) && !keyboard.IsKeyDown(KeyCode.KC_RIGHT)
+				&& !keyboard.IsKeyDown(KeyCode.KC_RSHIFT) && !keyboard.IsKeyDown(KeyCode.KC_RCONTROL))
+			{
+				Offset = Vector3.ZERO;
+			}
 		}
 
 		void OnKeyboardPress_Anything(KeyEvent eventArgs) {
