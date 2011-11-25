@@ -133,7 +133,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
         public float CameraNodeYOffset {
             get {
                 return ((float)(this["CameraNodeYOffset"]));
@@ -145,7 +145,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-12")]
         public float CameraNodeZOffset {
             get {
                 return ((float)(this["CameraNodeZOffset"]));
@@ -157,7 +157,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
         public float CameraTargetYOffset {
             get {
                 return ((float)(this["CameraTargetYOffset"]));

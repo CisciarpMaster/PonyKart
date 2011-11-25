@@ -39,13 +39,13 @@
       <Value Profile="(Default)">.bullet</Value>
     </Setting>
     <Setting Name="CameraNodeYOffset" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">5</Value>
+      <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="CameraNodeZOffset" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">-20</Value>
+      <Value Profile="(Default)">-12</Value>
     </Setting>
     <Setting Name="CameraTargetYOffset" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">3</Value>
+      <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="CameraTightness" Type="System.Single" Scope="User">
       <Value Profile="(Default)">7</Value>
