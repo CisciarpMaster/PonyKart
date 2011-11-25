@@ -39,22 +39,3 @@ material AppleTreeInstanced {
 		}
 	}
 }
-
-material AppleBillboard {
-	receive_shadows off
-	
-	technique {
-		pass {
-			lighting off
-			scene_blend alpha_blend
-			depth_write off
-			transparent_sorting on
-			alpha_rejection greater_equal 128
-			
-			texture_unit {
-				texture apple_alpha.dds
-				tex_address_mode clamp
-			}
-		}
-	}
-}
