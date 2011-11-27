@@ -1,7 +1,6 @@
 ﻿using IrrKlang;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Properties;
 
 namespace Ponykart.Sound {
 	[Handler(HandlerScope.Global)]
@@ -24,7 +23,7 @@ namespace Ponykart.Sound {
 				string musicFile = eventArgs.NewLevel.Definition.GetStringProperty("Music", string.Empty);
 				if (musicFile != string.Empty) {
 					// if it's a race level, don't play the music until we need it
-					bgMusic = LKernel.GetG<SoundMain>().Play2D(musicFile, true, eventArgs.NewLevel.Type != LevelType.Race);
+					bgMusic = LKernel.GetG<SoundMain>().Play2D(musicFile, true, eventArgs.NewLevel.Type == LevelType.Race);
 				}
 			}
 		}
