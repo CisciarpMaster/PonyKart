@@ -1,6 +1,6 @@
-﻿using BulletSharp;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
+using BulletSharp;
 using Mogre;
 using MOIS;
 using Ponykart.Actors;
@@ -62,6 +62,9 @@ namespace Ponykart.Handlers {
 					break;
 				case KeyCode.KC_F2:
 					LKernel.GetG<CameraManager>().SwitchCurrentCamera("FreeCamera");
+					break;
+				case KeyCode.KC_F3:
+					LKernel.GetG<CameraManager>().SwitchCurrentCamera("KnightyCamera");
 					break;
 				case KeyCode.KC_F11:
 					uint width, height;

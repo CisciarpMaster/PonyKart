@@ -5,26 +5,18 @@ namespace Ponykart.Handlers {
 	/// Makes a player camera at the beginning of a race level.
 	/// </summary>
 	[Handler(HandlerScope.Level, LevelType.Race)]
-	public class PlayerCameraCreator : ILevelHandler {
+	public class CameraCreatorHandler : ILevelHandler {
 
-		public PlayerCameraCreator() {
-			var cam = new PlayerCamera("PlayerCamera");
-			cam.Register();
-			cam.MakeActiveCamera();
-		}
+		public CameraCreatorHandler() {
+			var pcam = new PlayerCamera("PlayerCamera");
+			pcam.Register();
+			pcam.MakeActiveCamera();
 
-		public void Detach() { }
-	}
+			var fcam = new FreeCamera("FreeCamera");
+			fcam.Register();
 
-	/// <summary>
-	/// Makes a free camera at the beginning of a race level.
-	/// </summary>
-	[Handler(HandlerScope.Level, LevelType.Race)]
-	public class FreeCameraCreator : ILevelHandler {
-
-		public FreeCameraCreator() {
-			var cam = new FreeCamera("FreeCamera");
-			cam.Register();
+			var kcam = new KnightyCamera("KnightyCamera");
+			kcam.Register();
 		}
 
 		public void Detach() { }
