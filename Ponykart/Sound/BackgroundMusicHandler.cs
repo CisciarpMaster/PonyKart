@@ -5,8 +5,8 @@ using Ponykart.Properties;
 
 namespace Ponykart.Sound {
 	[Handler(HandlerScope.Global)]
-	public class BackgroundMusicHandler : ILevelHandler {
-		private ISoundSource bgMusic;
+	public class BackgroundMusicHandler {
+		private ISound bgMusic;
 
 		public BackgroundMusicHandler() {
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
@@ -23,11 +23,8 @@ namespace Ponykart.Sound {
 				// get the property from the .muffin file, if it has one
 				string musicFile = eventArgs.NewLevel.Definition.GetStringProperty("Music", string.Empty);
 				if (musicFile != string.Empty) {
-					bgMusic = LKernel.GetG<SoundMain>().Engine.AddSoundSourceFromFile(Settings.Default.SoundFileLocation + musicFile, StreamMode.AutoDetect, true);
-
 					// if it's a race level, don't play the music until we need it
-					if (eventArgs.NewLevel.Type != LevelType.Race)
-						LKernel.GetG<SoundMain>().Play2D(bgMusic, true);
+					bgMusic = LKernel.GetG<SoundMain>().Play2D(musicFile, true, eventArgs.NewLevel.Type != LevelType.Race);
 				}
 			}
 		}
@@ -44,7 +41,7 @@ namespace Ponykart.Sound {
 		/// </summary>
 		void OnCountdown(RaceCountdownState state) {
 			if (state == RaceCountdownState.Go && bgMusic != null)
-				LKernel.GetG<SoundMain>().Play2D(bgMusic, true);
+				bgMusic.Paused = false;
 		}
 	}
 }

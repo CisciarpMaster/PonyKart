@@ -109,7 +109,7 @@ namespace Ponykart.Actors {
 			if (!(KartDriftState.StartLeft | KartDriftState.StartRight).HasFlag(state))
 				throw new ArgumentException("You must pass either StartDriftLeft or StartDriftRight!", "state");
 
-			if (WheelSpeed < 100 || IsDriftingAtAll)
+			if (VehicleSpeed < 100 || IsDriftingAtAll)
 				return;
 
 			// update our state
@@ -286,7 +286,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// shortcut
 		/// </summary>
-		public float WheelSpeed {
+		public float VehicleSpeed {
 			get {
 				return Vehicle.CurrentSpeedKmHour;
 			}

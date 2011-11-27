@@ -30,3 +30,9 @@ Shape {
 	Mesh = "kart/KartHull.mesh"
 	Position = 0, 0.948928, -0.296362
 }
+
+Sound {
+	File = "enginedrone.ogg"
+	Looping = true
+	MinDistance = 20
+}

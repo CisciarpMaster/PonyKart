@@ -25,8 +25,9 @@ namespace Ponykart.Sound {
 
 			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 
-			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused;
+			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
+			Engine.Default3DSoundMinDistance = 15;
 
 			Launch.Log("[Loading] IrrKlang and SoundMain initialised!");
 		}
@@ -36,6 +37,7 @@ namespace Ponykart.Sound {
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			Engine.RemoveAllSoundSources();
+			Engine.SetListenerPosition(0, 0, 0, 0, 0, -1);
 		}
 
 
@@ -50,7 +52,7 @@ namespace Ponykart.Sound {
 				if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
 					var cam = LKernel.GetG<CameraManager>().CurrentCamera.Camera;
 					var player = LKernel.GetG<PlayerManager>().MainPlayer;
-					Vector3 pos = cam.RealPosition;
+					Vector3 pos = cam.DerivedPosition;
 					Vector3 rot = cam.Orientation.ZAxis;
 					Vector3 vel = player.Body.LinearVelocity;
 					Vector3 up = cam.Orientation.YAxis;
@@ -70,7 +72,6 @@ namespace Ponykart.Sound {
 
 		/// <summary>
 		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level music and whatnot.
-		/// Also hooks in a stop event receiver so the sound disposes of itself when it's finished playing.
 		/// </summary>
 		/// <param name="filename">The file path of the sound you want to play.</param>
 		/// <param name="looping">Make this sound loop?</param>
@@ -83,7 +84,6 @@ namespace Ponykart.Sound {
 
 		/// <summary>
 		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level music and whatnot.
-		/// Also hooks in a stop event receiver so the sound disposes of itself when it's finished playing.
 		/// </summary>
 		/// <param name="source">The sound source of the sound you want to play.</param>
 		/// <param name="looping">Make this sound loop?</param>
@@ -101,7 +101,6 @@ namespace Ponykart.Sound {
 
 		/// <summary>
 		/// Creates an object sound. These sounds do have a 3D position and are attached to SceneNodes. Use these for sound effects and stuff.
-		/// Also hooks in a stop event receiver so the sound disposes of itself when it's finished playing.
 		/// </summary>
 		/// <param name="filename">The file path of the sound you want to play.</param>
 		/// <param name="pos">The Position you want this sound to play at.</param>
@@ -115,7 +114,6 @@ namespace Ponykart.Sound {
 
 		/// <summary>
 		/// Creates an object sound. These sounds do have a 3D position and are attached to SceneNodes. Use these for sound effects and stuff.
-		/// Also hooks in a stop event receiver so the sound disposes of itself when it's finished playing.
 		/// </summary>
 		/// <param name="source">The sound source of the sound you want to play.</param>
 		/// <param name="pos">The Position you want this sound to play at.</param>

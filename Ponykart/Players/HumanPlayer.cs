@@ -97,7 +97,7 @@ namespace Ponykart.Players {
 					Kart.StartDrifting(KartDriftState.StartLeft);
 				}
 				// otherwise it wants to drift but we don't have a direction yet
-				else if (Kart.WheelSpeed > 100) {
+				else if (Kart.VehicleSpeed > 100) {
 					Kart.DriftState = KartDriftState.WantsDriftingButNotTurning;
 				}
 			}

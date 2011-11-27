@@ -20,21 +20,17 @@ namespace Ponykart.Actors {
 			Name = block.GetStringProperty("name", template.ThingName);
 			owner = lthing;
 
-			if (!SoundMain.EnableSounds)
-				return;
-
 			var soundMain = LKernel.GetG<SoundMain>();
 			ISoundSource source = soundMain.GetSource(block.GetStringProperty("File", null));
 
 			bool looping = block.GetBoolProperty("looping", true);
 			bool sfx = block.GetBoolProperty("SpecialEffects", false);
-			relativePosition = template.GetVectorProperty("position", Vector3.ZERO);
+			relativePosition = block.GetVectorProperty("position", Vector3.ZERO);
 
 			Sound = soundMain.Play3D(source, relativePosition, looping, true, sfx);
 
 			Sound.PlaybackSpeed = block.GetFloatProperty("Speed", 1);
 			Sound.Volume = block.GetFloatProperty("volume", 1);
-			Sound.MaxDistance = block.GetFloatProperty("maxdistance", soundMain.Engine.Default3DSoundMaxDistance);
 			Sound.MinDistance = block.GetFloatProperty("mindistance", soundMain.Engine.Default3DSoundMinDistance);
 
 			// TODO: effects, if we end up using any of them

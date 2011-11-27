@@ -121,7 +121,7 @@ namespace Ponykart.Handlers {
 		/// turn on the appropriate particles
 		/// </summary>
 		void OnTouchdown(Kart kart, CollisionWorld.ClosestRayResultCallback callback) {
-			if (kart.WheelSpeed > 20f || kart.WheelSpeed < -20f) {
+			if (kart.VehicleSpeed > 20f || kart.VehicleSpeed < -20f) {
 				if (callback.CollisionObject == dirtBody)
 					DirtEmitting(kart.OwnerID, true);
 				else if (callback.CollisionObject == grassBody)
@@ -152,7 +152,7 @@ namespace Ponykart.Handlers {
 		/// update the particle emission rates depending on speed
 		/// </summary>
 		void OnGround(Kart kart, CollisionWorld.ClosestRayResultCallback callback) {
-			float speed = System.Math.Abs(kart.WheelSpeed);
+			float speed = System.Math.Abs(kart.VehicleSpeed);
 
 			// if the kart is moving slowly, then just turn the particles completely off
 			if (speed < 30) {
