@@ -8,7 +8,6 @@ using Ponykart.Properties;
 namespace Ponykart.Sound {
 	public class SoundMain {
 		public ISoundEngine Engine { get; private set; }
-		private ISoundSource bgMusic;
 
 		public static bool EnableMusic;
 		public static bool EnableSounds;
@@ -21,12 +20,10 @@ namespace Ponykart.Sound {
 			EnableMusic = Options.GetBool("Music");
 			EnableSounds = Options.GetBool("Sounds");
 
-			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
+			
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 
 			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
-
-			RaceCountdown.OnCountdown += new RaceCountdownEvent(OnCountdown);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
@@ -35,37 +32,10 @@ namespace Ponykart.Sound {
 		}
 
 		/// <summary>
-		/// Runs whenever a new level is loaded. We create the background music now so it loads, then pause it until we need to play it.
-		/// </summary>
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			// only want to load this on nonempty levels
-			if (eventArgs.NewLevel.Type != LevelType.EmptyLevel) {
-				// get the property from the .muffin file, if it has one
-				string musicFile = eventArgs.NewLevel.Definition.GetStringProperty("Music", string.Empty);
-				if (musicFile != string.Empty) {
-					bgMusic = Engine.AddSoundSourceFromFile(Settings.Default.SoundFileLocation + musicFile, StreamMode.AutoDetect, true);
-					
-					// if it's a race level, pause the music until we need it
-					if (eventArgs.NewLevel.Type != LevelType.Race)
-						Play2D(bgMusic, true);
-				}
-			}
-		}
-
-		/// <summary>
 		/// Dispose all of the sound sources
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			Engine.RemoveAllSoundSources();
-			bgMusic = null;
-		}
-
-		/// <summary>
-		/// Start the background music!
-		/// </summary>
-		void OnCountdown(RaceCountdownState state) {
-			if (state == RaceCountdownState.Go && bgMusic != null)
-				Play2D(bgMusic, true);
 		}
 
 
@@ -78,11 +48,12 @@ namespace Ponykart.Sound {
 				timesince = 0;
 				// only update this if the level's playable
 				if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
+					var cam = LKernel.GetG<CameraManager>().CurrentCamera.Camera;
 					var player = LKernel.GetG<PlayerManager>().MainPlayer;
-					Vector3 pos = player.NodePosition;
-					Vector3 rot = player.Orientation.ZAxis;
+					Vector3 pos = cam.RealPosition;
+					Vector3 rot = cam.Orientation.ZAxis;
 					Vector3 vel = player.Body.LinearVelocity;
-					Vector3 up = player.Orientation.YAxis;
+					Vector3 up = cam.Orientation.YAxis;
 
 					Engine.SetListenerPosition(
 						pos.x, pos.y, pos.z,

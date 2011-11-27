@@ -33,7 +33,6 @@ namespace Ponykart.Physics {
 		/// </summary>
 		/// <param name="collisionGroup">The collision group of the object</param>
 		/// <param name="name">The name of the object, excluding an ID</param>
-		/// <param name="careAboutCollisionEvents">Do we care about collision events?</param>
 		/// <param name="owner">The collision object this data holder is attached to</param>
 		public CollisionObjectDataHolder(CollisionObject owner, PonykartCollisionGroups collisionGroup, string name) {
 			this.Owner = owner;
@@ -46,9 +45,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Create a data holder using properties of an LThing object.
 		/// </summary>
-		public CollisionObjectDataHolder(LThing thing)
-			: this(thing.Body, thing.CollisionGroup, thing.Name)
-		{
+		public CollisionObjectDataHolder(LThing thing) : this(thing.Body, thing.CollisionGroup, thing.Name) {
 			this.Thing = thing;
 		}
 
