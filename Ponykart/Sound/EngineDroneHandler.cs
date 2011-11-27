@@ -2,8 +2,9 @@
 using IrrKlang;
 using Mogre;
 using Ponykart.Actors;
-using Ponykart.Players;
 using Ponykart.Core;
+using Ponykart.Players;
+using Math = System.Math;
 
 namespace Ponykart.Sound {
 	/// <summary>
@@ -28,7 +29,7 @@ namespace Ponykart.Sound {
 			if (!Pauser.IsPaused) {
 
 				foreach (var pair in list) {
-					pair.second.PlaybackSpeed = (pair.first.VehicleSpeed * 0.015f) + 1;
+					pair.second.PlaybackSpeed = (Math.Abs(pair.first.VehicleSpeed) * 0.015f) + 1;
 				}
 			}
 
