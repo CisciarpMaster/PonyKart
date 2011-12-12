@@ -5,7 +5,7 @@ material Fences {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
 				param_named GlowExpon float 5
-				param_named Alpha float 0.1
+				param_named Alpha float 0.3
 			}
 			
 			texture_unit {

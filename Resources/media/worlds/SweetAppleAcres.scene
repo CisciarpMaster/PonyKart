@@ -1,6 +1,6 @@
 <scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.7" author="Ponykart's scene to muffin converter">
 	<environment>
-		<colourAmbient r="0.8" g="0.8" b="0.8" />
+		<colourAmbient r="0.7" g="0.7" b="0.7" />
 	</environment>
 	<nodes>
 		<!--<node name="SAA_InvisibleWalls">

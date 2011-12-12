@@ -61,7 +61,7 @@ material SAA_BannerSign {
 			scene_blend alpha_blend
 			depth_write off
 			alpha_rejection greater_equal 64
-		
+			
 			texture_unit {
 				texture banner.dds
 			}
