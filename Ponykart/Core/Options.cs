@@ -7,6 +7,7 @@ namespace Ponykart.Core {
 	public static class Options {
 		private static IDictionary<string, string> dict;
 		private static IDictionary<string, string> defaults;
+		public static ModelDetailOption ModelDetail;
 
 		/// <summary>
 		/// Creates the folder and file if they don't exist, and either prints some data to it (if it doesn't exist) or reads from it (if it does)
@@ -34,6 +35,7 @@ namespace Ponykart.Core {
 						}
 					}
 				}
+				ModelDetail = ModelDetailOption.Medium;
 			}
 			// otherwise we just read from it
 			else {
@@ -45,6 +47,7 @@ namespace Ponykart.Core {
 				foreach (KeyValuePair<string, string> pair in sectionIterator.Current) {
 					dict[pair.Key] = pair.Value;
 				}
+				ModelDetail = (ModelDetailOption) Enum.Parse(typeof(ModelDetailOption), dict["ModelDetail"], true);
 
 				cfile.Dispose();
 				sectionIterator.Dispose();
@@ -79,7 +82,7 @@ namespace Ponykart.Core {
 			// Yes or No
 			defaults["Ribbons"] = "No";
 			// Low or High
-			defaults["ModelDetail"] = "Low";
+			defaults["ModelDetail"] = "Medium";
 			// copy it into the regular dictionary
 			dict = new Dictionary<string, string>(defaults);
 		}
@@ -93,6 +96,7 @@ namespace Ponykart.Core {
 #else
 			string optionsPath = "options.ini";
 #endif
+			dict["ModelDetail"] = ModelDetail.ToString();
 
 			using (FileStream stream = File.Create(optionsPath)) {
 				using (StreamWriter writer = new StreamWriter(stream)) {
@@ -107,6 +111,9 @@ namespace Ponykart.Core {
 		/// Gets an option.
 		/// </summary>
 		public static string Get(string keyName) {
+			if (string.Equals(keyName, "ModelDetail", StringComparison.InvariantCultureIgnoreCase))
+				throw new ArgumentException("Use the Options.ModelDetail enum instead of this method!", "keyName");
+
 			return dict[keyName];
 		}
 

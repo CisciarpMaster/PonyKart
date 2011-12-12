@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mogre;
+using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using PonykartParsers;
@@ -39,7 +40,13 @@ namespace Ponykart.Actors {
 			igeoms.Clear();
 		}
 
-		public void Add(ModelComponent mc, ThingBlock template, ModelBlock block) {
+		public void Add(ModelComponent mc, ThingBlock template, ModelBlock block, ThingDefinition def) {
+			// if the model detail option is low and this model wants imposters, don't even make any instanced geometry of it
+			if (Options.ModelDetail == ModelDetailOption.Low) {
+				if (def.GetBoolProperty("Imposters", false))
+					return;
+			}
+
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			string meshName = block.GetStringProperty("mesh", null);

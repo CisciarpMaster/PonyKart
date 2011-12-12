@@ -1,4 +1,5 @@
-﻿using LuaNetInterface;
+﻿using System;
+using LuaNetInterface;
 using Ponykart.Core;
 using Ponykart.Levels;
 
@@ -36,6 +37,9 @@ namespace Ponykart.Lua {
 
 		[LuaFunction("getOption", "Get an option", "string - the name of the option you want")]
 		public static string GetOption(string option) {
+			if (string.Equals(option, "ModelDetail", StringComparison.InvariantCultureIgnoreCase))
+				return Options.ModelDetail.ToString();
+
 			return Options.Get(option);
 		}
 

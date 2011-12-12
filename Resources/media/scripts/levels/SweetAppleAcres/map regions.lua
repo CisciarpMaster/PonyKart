@@ -1,6 +1,6 @@
--- only run this script if our model detail level is set to "Low"
--- a high model detail setting doesn't need to use imposters
-if getOption("ModelDetail") == "Low" then
+-- only run this part if our model detail level is set to "Medium"
+-- a high model detail setting doesn't want imposters
+if getOption("ModelDetail") == "Medium" then
 
 	local player = playerKart()
 	local currentRegion
@@ -191,4 +191,16 @@ if getOption("ModelDetail") == "Low" then
 	hide("River")
 	hide("Ramp")
 	hide("Buckets")
+
+-- a low model detail setting wants imposters and no static geometry
+elseif getOption("ModelDetail") == "Low" then
+
+	setImposterVisibility("Start", true)
+	setImposterVisibility("Cliff", true)
+	setImposterVisibility("Buckets", true)
+	setImposterVisibility("Ramp", true)
+	setImposterVisibility("River", true)
+	setImposterVisibility("Treehouse", true)
+	setImposterVisibility("Bridge", true)
+	setImposterVisibility("Barn", true)
 end

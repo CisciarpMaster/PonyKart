@@ -1,7 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Mogre;
+using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Properties;
 using PonykartParsers;
@@ -27,7 +29,7 @@ namespace Ponykart.Actors {
 				if (sg != null) {
 					sceneMgr.DestroyStaticGeometry(sg);
 					sg.Dispose();
-				}				
+				}
 			}
 			sgeoms.Clear();
 
@@ -38,7 +40,13 @@ namespace Ponykart.Actors {
 		/// This is used by the ModelComponent.
 		/// </summary>
 		/// <param name="name">The name this geometry is identified by</param>
-		public void Add(ModelComponent mc, ThingBlock template, ModelBlock block) {
+		public void Add(ModelComponent mc, ThingBlock template, ModelBlock block, ThingDefinition def) {
+			// if the model detail option is low and this model wants imposters, don't even make any static geometry of it
+			if (Options.ModelDetail == ModelDetailOption.Low) {
+				if (def.GetBoolProperty("Imposters", false))
+					return;
+			}
+
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			string meshName = block.GetStringProperty("mesh", null);
@@ -81,7 +89,7 @@ namespace Ponykart.Actors {
 
 				sgeoms.Add(sgeomName, sg);
 			}
-			
+
 			sg.AddEntity(ent, pos, orient, sca);
 		}
 

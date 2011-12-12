@@ -32,13 +32,14 @@ namespace Ponykart.Actors {
 		/// set up the billboards, but hide them all for now
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			// first we need to get all of things that have regions
-			if (eventArgs.NewLevel.Type != LevelType.Race || Options.Get("ModelDetail") == "High")
+			// if it's not a race or the model detail is set to high, we don't want any imposters
+			if (eventArgs.NewLevel.Type != LevelType.Race || Options.ModelDetail == ModelDetailOption.High)
 				return;
 
 			SceneManager sceneMgr = LKernel.GetG<SceneManager>();
 			ThingDatabase database = LKernel.GetG<ThingDatabase>();
 
+			// first we need to get all of things that have regions
 			// this sorts all of the blocks into groups divided by their map region, excluding ones with no region
 			// I fucking love linq
 			var blockGroups = eventArgs.NewLevel.Definition.ThingBlocks.GroupBy(b => b.GetStringProperty("MapRegion", string.Empty))

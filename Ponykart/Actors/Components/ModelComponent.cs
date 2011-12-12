@@ -48,11 +48,11 @@ namespace Ponykart.Actors {
 
 			// if we're static, set up the static geometry
 			if (block.GetBoolProperty("static", false) || def.GetBoolProperty("static", false)) {
-				LKernel.GetG<StaticGeometryManager>().Add(this, template, block);
+				LKernel.GetG<StaticGeometryManager>().Add(this, template, block, def);
 				Entity = null;
 			}
 			else if (block.GetBoolProperty("instanced", false) || def.GetBoolProperty("instanced", false)) {
-				LKernel.GetG<InstancedGeometryManager>().Add(this, template, block);
+				LKernel.GetG<InstancedGeometryManager>().Add(this, template, block, def);
 				Entity = null;
 			}
 			// for attachments
