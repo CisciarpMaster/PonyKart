@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using Mogre;
+using Ponykart.Core;
 using Ponykart.Physics;
 using Ponykart.UI;
-using Ponykart.Core;
 
 namespace Ponykart {
 	public static class Launch {
@@ -16,6 +16,8 @@ namespace Ponykart {
 			//#if !DEBUG
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
 			//#endif
+
+			System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB");
 
 			LKernel.Initialise();
 			Options.Initialise();
