@@ -1,0 +1,67 @@
+Physics = Dynamic
+Mass = 75
+CollisionGroup = Karts
+CollidesWith = Karts
+MaxSpeed = 70
+MaxReverseSpeed = 20
+FrontWheel = "CutlassFrontWheel"
+FrontWheelMesh = "CutlassFrontWheel.mesh"
+BackWheel = "CutlassBackWheel"
+BackWheelMesh = "CutlassBackWheel.mesh"
+PhysicsMaterial = "Kart"
+
+CollisionEvents = true
+
+FrontLeftWheelPosition = 1.65103, 0.728, 2.15181
+FrontRightWheelPosition = -1.65103, 0.728, 2.15181
+BackLeftWheelPosition = 1.66768, 0.608, -1.8488
+BackRightWheelPosition = -1.66768, 0.608, -1.8488
+
+FrontDriftAngle = 35 //53
+BackDriftAngle = 45 //60
+
+Model {
+	Mesh = "CutlassSteeringWheel.mesh"
+	Material = "TwiCutlass"
+	Position = 0, 1.61797, 1.06208
+	Orientation = 0, 0, 0, 1
+	Scale = 1, 1, 1
+	CastsShadows = true
+}
+Model {
+	Mesh = "CutlassSeat.mesh"
+	Material = "TwiCutlass"
+	Position = 0, -0.433254, -0.0633266
+	Orientation = 0, 0, 0, 1
+	Scale = 1, 1, 1
+	CastsShadows = true
+}
+Model {
+	Mesh = "CutlassEngine.mesh"
+	Material = "TwiCutlass"
+	Position = 0, -0.433254, -0.0633266
+	Orientation = 0, 0, 0, 1
+	Scale = 1, 1, 1
+	CastsShadows = true
+}
+Model {
+	Mesh = "CutlassChassis.mesh"
+	Material = "TwiCutlass"
+	Position = 0, -0.433254, -0.0633266
+	Orientation = 0, 0, 0, 1
+	Scale = 1, 1, 1
+	CastsShadows = true
+}
+
+
+Shape {
+	Type = Hull
+	Mesh = "CutlassHull.mesh"
+	Position = 0, 0, 0
+}
+
+Sound {
+	File = "enginedrone.ogg"
+	Looping = true
+	MinDistance = 20
+}

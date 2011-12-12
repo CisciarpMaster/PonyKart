@@ -1,0 +1,9 @@
+material TwiCutlass {
+	technique {
+		pass {
+			texture_unit {
+				texture TS_Texture_mockup.png
+			}
+		}
+	}
+}

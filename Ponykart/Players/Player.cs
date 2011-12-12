@@ -35,11 +35,11 @@ namespace Ponykart.Players {
 			Vector3 spawnPos = def.GetVectorProperty("KartSpawnPosition" + id, null);
 			Quaternion spawnOrient = def.GetQuatProperty("KartSpawnOrientation" + id, Quaternion.IDENTITY);
 
-			ThingBlock block = new ThingBlock("Kart", def);
+			ThingBlock block = new ThingBlock("TwiCutlass", def);
 			block.VectorTokens["position"] = spawnPos;
 			block.QuatTokens["orientation"] = spawnOrient;
 
-			Kart = LKernel.GetG<Spawner>().Spawn("Kart", block) as Kart;
+			Kart = LKernel.GetG<Spawner>().Spawn("TwiCutlass", block) as Kart;
 			Kart.OwnerID = id;
 			ID = id;
 		}

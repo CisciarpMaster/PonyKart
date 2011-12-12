@@ -33,7 +33,7 @@ namespace Ponykart.Core {
 
 				var definition = LKernel.GetG<ThingDatabase>().GetThingDefinition(thingName);
 
-				if (thingName == "Kart") {
+				if (thingName == "Kart" || thingName == "TwiCutlass") {
 					thing = new Kart(template, definition);
 					Invoke(OnKartCreation, thing as Kart);
 				}

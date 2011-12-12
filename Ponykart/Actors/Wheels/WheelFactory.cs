@@ -64,10 +64,10 @@ namespace Ponykart.Actors {
 		/// <param name="wheelName">
 		/// The name of the wheel type you want to create. Should be the same as the filename, minus the extension. Case sensitive!
 		/// </param>
-		public Wheel CreateWheel(string wheelName, WheelID ID, Kart owner, Vector3 position) {
+		public Wheel CreateWheel(string wheelName, WheelID ID, Kart owner, Vector3 position, string meshName) {
 			IDictionary<string, float> dict = wheels[wheelName];
 
-			Wheel wheel = new Wheel(owner, position, ID, dict);
+			Wheel wheel = new Wheel(owner, position, ID, dict, meshName);
 
 			return wheel;
 		}

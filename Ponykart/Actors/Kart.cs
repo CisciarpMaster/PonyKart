@@ -92,11 +92,14 @@ namespace Ponykart.Actors {
 			var wheelFac = LKernel.GetG<WheelFactory>();
 			string frontWheelName = def.GetStringProperty("frontwheel", null);
 			string backWheelName = def.GetStringProperty("backwheel", null);
-			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("frontleftwheelposition", null));
-			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("frontrightwheelposition", null));
-			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("backleftwheelposition", null));
-			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null));
+			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("frontleftwheelposition", null), def.GetStringProperty("FrontWheelMesh", null));
+			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("frontrightwheelposition", null), def.GetStringProperty("FrontWheelMesh", null));
+			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("backleftwheelposition", null), def.GetStringProperty("BackWheelMesh", null));
+			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null), def.GetStringProperty("BackWheelMesh", null));
 
+			LeftParticleNode.Position -= new Vector3(0, WheelBL.Radius * 0.7f, 0);
+			RightParticleNode.Position -= new Vector3(0, WheelBR.Radius * 0.7f, 0);
+			
 			Body.LinearVelocity = new Vector3(0, 1, 0);
 		}
 

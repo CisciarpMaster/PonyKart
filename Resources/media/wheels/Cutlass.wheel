@@ -1,0 +1,47 @@
+
+[CutlassFrontWheel]
+
+Radius = 0.762
+Width = 0.748
+SuspensionRestLength = 0.4
+
+SpringStiffness = 200
+SpringCompression = 4.2
+SpringDamping = 40
+FrictionSlip = 4
+RollInfluence = 0.05
+
+BrakeForce = 40
+MotorForce = 1300
+TurnAngle = 4.5
+
+SlowSpeed = 60
+HighSpeed = 160
+SlowTurnMultiplier = 3
+DriftingTurnMultiplier = 0.8
+SteerIncrementTurn = 0.4
+SteerDecrementTurn = 1
+
+
+[CutlassBackWheel]
+
+Radius = 0.848
+Width = 1.16
+SuspensionRestLength = 0.2
+
+SpringStiffness = 200
+SpringCompression = 4.2
+SpringDamping = 40
+FrictionSlip = 5
+RollInfluence = 0.05
+
+BrakeForce = 45
+MotorForce = 1300
+TurnAngle = 4.5
+
+SlowSpeed = 60
+HighSpeed = 160
+SlowTurnMultiplier = 3
+DriftingTurnMultiplier = 0.8
+SteerIncrementTurn = 0.4
+SteerDecrementTurn = 1

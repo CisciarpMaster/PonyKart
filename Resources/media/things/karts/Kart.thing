@@ -5,7 +5,9 @@ CollidesWith = Karts
 MaxSpeed = 70
 MaxReverseSpeed = 20
 FrontWheel = "FrontWheel"
+FrontWheelMesh = "kart/KartWheel.mesh"
 BackWheel = "BackWheel"
+BackWheelMesh = "kart/KartWheel.mesh"
 PhysicsMaterial = "Kart"
 
 CollisionEvents = true

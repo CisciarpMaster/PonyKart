@@ -16,11 +16,11 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// The radius of the wheel
 		/// </summary>
-		protected readonly float Radius; // 0.5 (lymph)
+		public readonly float Radius; // 0.5 (lymph)
 		/// <summary>
 		/// The width of the wheel
 		/// </summary>
-		protected readonly float Width; // 0.4 (demo)
+		public readonly float Width; // 0.4 (demo)
 		/// <summary>
 		/// The length of the suspension when it's fully extended
 		/// </summary>
@@ -145,7 +145,8 @@ namespace Ponykart.Actors {
 		/// <param name="connectionPoint">Where is the wheel attached?</param>
 		/// <param name="wheelID">ID number of the wheel</param>
 		/// <param name="dict">The properties and values from the .wheel file this wheel was built from</param>
-		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID, IDictionary<string, float> dict) {
+		/// <param name="meshName">The filename of the mesh we should use for this wheel</param>
+		public Wheel(Kart owner, Vector3 connectionPoint, WheelID wheelID, IDictionary<string, float> dict, string meshName) {
 			// set up these
 			kart = owner;
 			ID = wheelID;
@@ -198,7 +199,7 @@ namespace Ponykart.Actors {
 
 			// create our node and entity
 			Node = owner.RootNode.CreateChildSceneNode("wheelNode" + kart.ID + ID, AxlePoint);
-			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + kart.ID + ID, "kart/KartWheel.mesh");
+			Entity = LKernel.GetG<SceneManager>().CreateEntity("wheelNode" + kart.ID + ID, meshName);
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
@@ -223,9 +224,11 @@ namespace Ponykart.Actors {
 				// the wheel sorta "comes off" when it's moving quickly in the air, so we only need to update the translation then
 				if (!kart.IsInAir) {
 					Vector3 trans = info.WorldTransform.GetTrans();
-					//Node.SetPosition(AxlePoint.x, kart.RootNode.ConvertWorldToLocalPosition(trans).y, AxlePoint.z);
-					Node.Position = AxlePoint;
+					Node.SetPosition(AxlePoint.x, kart.RootNode.ConvertWorldToLocalPosition(trans).y, AxlePoint.z);
 				}
+				//else {
+				//	Node.Position = AxlePoint;
+				//}
 			
 				Accelerate();
 				Brake();
