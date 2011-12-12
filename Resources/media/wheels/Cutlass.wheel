@@ -8,11 +8,11 @@ SuspensionRestLength = 0.4
 SpringStiffness = 200
 SpringCompression = 4.2
 SpringDamping = 40
-FrictionSlip = 4
+FrictionSlip = 6
 RollInfluence = 0.05
 
-BrakeForce = 40
-MotorForce = 1300
+BrakeForce = 60
+MotorForce = 1500
 TurnAngle = 4.5
 
 SlowSpeed = 60
@@ -32,11 +32,11 @@ SuspensionRestLength = 0.2
 SpringStiffness = 200
 SpringCompression = 4.2
 SpringDamping = 40
-FrictionSlip = 5
+FrictionSlip = 7.5
 RollInfluence = 0.05
 
-BrakeForce = 45
-MotorForce = 1300
+BrakeForce = 60
+MotorForce = 1500
 TurnAngle = 4.5
 
 SlowSpeed = 60

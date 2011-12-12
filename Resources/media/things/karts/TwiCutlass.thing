@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 75
+Mass = 100
 CollisionGroup = Karts
 CollidesWith = Karts
 MaxSpeed = 70
@@ -12,13 +12,13 @@ PhysicsMaterial = "Kart"
 
 CollisionEvents = true
 
-FrontLeftWheelPosition = 1.65103, 0.728, 2.15181
-FrontRightWheelPosition = -1.65103, 0.728, 2.15181
-BackLeftWheelPosition = 1.66768, 0.608, -1.8488
-BackRightWheelPosition = -1.66768, 0.608, -1.8488
+FrontLeftWheelPosition = 1.65103, 0.628, 2.15181
+FrontRightWheelPosition = -1.65103, 0.628, 2.15181
+BackLeftWheelPosition = 1.66768, 0.508, -1.8488
+BackRightWheelPosition = -1.66768, 0.508, -1.8488
 
-FrontDriftAngle = 35 //53
-BackDriftAngle = 45 //60
+FrontDriftAngle = 40 //35 //53
+BackDriftAngle = 48 //45 //60
 
 Model {
 	Mesh = "CutlassSteeringWheel.mesh"

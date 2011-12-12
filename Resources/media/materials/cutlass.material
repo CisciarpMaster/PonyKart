@@ -1,6 +1,14 @@
 material TwiCutlass {
 	technique {
 		pass {
+		
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 5
+				param_named Alpha float 0.4
+			}
+			
 			texture_unit {
 				texture TS_Texture_mockup.png
 			}
