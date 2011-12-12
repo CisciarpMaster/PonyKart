@@ -51,86 +51,37 @@ namespace Ponykart.Core {
 			world = LKernel.GetG<PhysicsMain>().World;
 		}
 
-		private Vector3 mLastPosition = Vector3.ZERO;
-		private Vector3 mLastTargetPosition = Vector3.ZERO;
-		private float mRoll = 0.0f;
-
 		private readonly float _cameraTightness = Settings.Default.CameraTightness;
 		/// <summary>
 		/// Updates the camera
 		/// TODO: stop it from going through the terrain
 		/// </summary>
-		protected override bool UpdateCamera( FrameEvent evt )
-		{
+		protected override bool UpdateCamera(FrameEvent evt) {
 			Vector3 camDisplacement, targetDisplacement,
-				derivedCam = kartCamNode._getDerivedPosition( ),
-				derivedTarget = kartTargetNode._getDerivedPosition( );
+				derivedCam = kartCamNode._getDerivedPosition(),
+				derivedTarget = kartTargetNode._getDerivedPosition();
 
-			if ( Math.Abs( derivedCam.y - ( derivedTarget.y + ( kartCamNode.Position.y - kartTargetNode.Position.y ) ) ) < 4 )
-			{
-				//derivedCam.y = derivedTarget.y + ( kartCamNode.Position.y - kartTargetNode.Position.y );
-			}
 
-			var callback = CastRay( derivedCam, derivedTarget );
+			var callback = CastRay(derivedCam, derivedTarget);
 
-			if ( callback.HasHit )
-			{
+			if (callback.HasHit) {
 				camDisplacement = callback.HitPointWorld - CameraNode.Position;
 
 
 				Vector3 newTarget = derivedTarget;
-				newTarget.y -= ( Settings.Default.CameraTargetYOffset * ( 1 - ( ( derivedTarget - callback.HitPointWorld ).Length / rayLength ) ) );
+				newTarget.y -= (Settings.Default.CameraTargetYOffset * (1 - ((derivedTarget - callback.HitPointWorld).Length / rayLength)));
 
-				targetDisplacement = ( newTarget - TargetNode.Position );
+				targetDisplacement = (newTarget - TargetNode.Position);
 			}
-			else
-			{
+			else {
 				camDisplacement = derivedCam - CameraNode.Position;
 				targetDisplacement = derivedTarget - TargetNode.Position;
 			}
+			CameraNode.Translate(camDisplacement * _cameraTightness * evt.timeSinceLastFrame);
+			TargetNode.Translate(targetDisplacement * _cameraTightness * evt.timeSinceLastFrame);
 
-			// xi+1 = xi + (xi - xi-1) + a * dt * dt
 
-			if ( mLastPosition == Vector3.ZERO )
-			{
-				mLastPosition = CameraNode._getDerivedPosition( );
-				mLastTargetPosition = TargetNode._getDerivedPosition( );
-			}
-
-			{
-				Vector3 last_pos = CameraNode.Position;
-				CameraNode.Position = CameraNode.Position + ( CameraNode.Position - mLastPosition ) * (float)System.Math.Pow( 0.93f, evt.timeSinceLastFrame * 60.0f ) +camDisplacement * ( evt.timeSinceLastFrame * evt.timeSinceLastFrame ) * 30.0f;
-				mLastPosition = last_pos;
-			}
-
-			{
-				Vector3 last_pos = TargetNode.Position;
-				TargetNode.Position = TargetNode.Position + ( TargetNode.Position - mLastTargetPosition ) * (float)System.Math.Pow( 0.8f, evt.timeSinceLastFrame * 60.0f ) + targetDisplacement * ( evt.timeSinceLastFrame * evt.timeSinceLastFrame ) * 100.0f;
-				mLastTargetPosition = last_pos;
-			}
-
-			//Vector3 direction = camDisplacement * evt.timeSinceLastFrame * 0.75f;
-			/*if ( direction.Length > 0.05f )
-			{
-				direction.Normalise( );
-				direction *= 0.05f;
-			}*/
-
-			//mVelocity += direction;
-
-			//CameraNode.Translate( mVelocity );
-			//TargetNode.Translate( targetDisplacement * _cameraTightness * evt.timeSinceLastFrame );
-
-			//mVelocity *= (float)System.Math.Pow( 0.97f, evt.timeSinceLastFrame * 200.0f );
-
-			//this.Camera.FOVy += ( ( 45 + followKart.Body.LinearVelocity.Length * 0.25f ) * 3.14159f / 180.0f - this.Camera.FOVy ) * 0.1f;
-
-			float desiredRoll = ( ( -followKart.Body.AngularVelocity.y ) * 0.1f + mRoll * 20.0f ) / 21.0f;
-			float deltaRoll = desiredRoll - mRoll;
-			Camera.Roll( deltaRoll );
-			mRoll += deltaRoll;
-
-			callback.Dispose( );
+			callback.Dispose();
 			return true;
 		}
 
