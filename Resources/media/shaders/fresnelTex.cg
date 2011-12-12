@@ -27,6 +27,16 @@ void main_vp(float2 uv 				: TEXCOORD0,
 	oUv.y = uv.y * vScale;
 }
 
+
+// since the three pixel shaders all use this, might as well split it off into a separate method
+float makeEdge(float3 WorldNormal, float3 WorldView, float GlowExpon, float Alpha) {
+	float3 Nn = normalize(WorldNormal);
+    float3 Vn = normalize(WorldView);
+
+    return pow(1.0 - dot(Nn, Vn), GlowExpon) * Alpha;
+}
+
+
 // like "scene_blend colour_blend"
 float4 blend_fp(float2 uv 			: TEXCOORD0,
 			    float3 WorldNormal 	: TEXCOORD1,
@@ -39,11 +49,7 @@ float4 blend_fp(float2 uv 			: TEXCOORD0,
 			    uniform float Alpha)
 : COLOR
 {
-    float3 Nn = normalize(WorldNormal);
-    float3 Vn = normalize(WorldView);
-    float edge = 1.0 - dot(Nn, Vn);
-	
-    edge = pow(edge, GlowExpon) * Alpha;
+    float edge = makeEdge(WorldNormal, WorldView, GlowExpon, Alpha);
 	
 	float4 texture = tex2D(tex, uv.xy);
 	
@@ -54,6 +60,7 @@ float4 blend_fp(float2 uv 			: TEXCOORD0,
 	
 	return float4(result, texture.a);
 }
+
 
 // like "scene_blend add"
 float4 additive_fp( float2 uv 			: TEXCOORD0,
@@ -67,11 +74,7 @@ float4 additive_fp( float2 uv 			: TEXCOORD0,
 					uniform float Alpha)
 : COLOR
 {
-    float3 Nn = normalize(WorldNormal);
-    float3 Vn = normalize(WorldView);
-    float edge = 1.0 - dot(Nn, Vn);
-	
-    edge = pow(edge, GlowExpon) * Alpha;
+    float edge = makeEdge(WorldNormal, WorldView, GlowExpon, Alpha);
 	
 	float4 texture = tex2D(tex, uv.xy);
 	
@@ -82,6 +85,7 @@ float4 additive_fp( float2 uv 			: TEXCOORD0,
 	
 	return float4(result, texture.a);
 }
+
 
 // like "scene_blend add", but we use the color of the pixel of the texture as our glow texture
 float4 self_fp(float2 uv 			: TEXCOORD0,
@@ -94,11 +98,7 @@ float4 self_fp(float2 uv 			: TEXCOORD0,
 			   uniform float Alpha)
 : COLOR
 {
-    float3 Nn = normalize(WorldNormal);
-    float3 Vn = normalize(WorldView);
-    float edge = 1.0 - dot(Nn, Vn);
-	
-    edge = pow(edge, GlowExpon) * Alpha;
+    float edge = makeEdge(WorldNormal, WorldView, GlowExpon, Alpha);
 	
 	float4 texture = tex2D(tex, uv.xy);
 	
