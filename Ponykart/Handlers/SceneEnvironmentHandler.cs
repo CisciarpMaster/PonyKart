@@ -30,6 +30,7 @@ namespace Ponykart.Handlers {
 			light.CastShadows = true;
 
 			sceneMgr.SetSkyBox(true, "saa_sky", 1995f);
+			sceneMgr.SetFog(FogMode.FOG_LINEAR, new ColourValue(0.7373f, 0.8902f, 0.9490f, 0.5f), 0.001f, 500, 4000);
 
 #if DEBUG
 			// make some axes
