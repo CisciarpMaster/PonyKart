@@ -213,12 +213,14 @@ namespace Ponykart.Actors {
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
-				// don't change the kart's orientation when we're drifting
-				if (kart.IsDriftingAtAll || Math.Abs(info.Steering) > Math.Abs(MaxTurnAngle.ValueRadians * speedTurnMultiplier)) {
-					Node.Orientation = kart.RootNode.Orientation;
-				}
-				else {
-					Node.Orientation = info.WorldTransform.ExtractQuaternion();
+				if (kart.Body.IsActive && (kart.Vehicle.CurrentSpeedKmHour > 5 || kart.Vehicle.CurrentSpeedKmHour < -5) && !kart.IsInAir) {
+					// don't change the kart's orientation when we're drifting
+					if (kart.IsDriftingAtAll || Math.Abs(info.Steering) > Math.Abs(MaxTurnAngle.ValueRadians * speedTurnMultiplier)) {
+						Node.Orientation = kart.RootNode.Orientation;
+					}
+					else {
+						Node.Orientation = info.WorldTransform.ExtractQuaternion();
+					}
 				}
 
 				// the wheel sorta "comes off" when it's moving quickly in the air, so we only need to update the translation then

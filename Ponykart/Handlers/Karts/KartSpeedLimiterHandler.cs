@@ -1,6 +1,7 @@
 ﻿using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
+using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Physics;
 using Ponykart.Players;
@@ -13,9 +14,23 @@ namespace Ponykart.Handlers {
 	public class KartSpeedLimiterHandler : ILevelHandler {
 		PlayerManager playerManager;
 
+		bool canDisableKarts = false;
+
 		public KartSpeedLimiterHandler() {
 			playerManager = LKernel.GetG<PlayerManager>();
 			PhysicsMain.PreSimulate += PreSimulate;
+			RaceCountdown.OnCountdown += OnCountdown;
+		}
+
+		/// <summary>
+		/// Give it a second or two to get the wheels in the right positions before we can deactivate the karts when they're stopped
+		/// </summary>
+		void OnCountdown(RaceCountdownState state) {
+			if (state == RaceCountdownState.Two) {
+				canDisableKarts = true;
+
+				RaceCountdown.OnCountdown -= OnCountdown;
+			}
 		}
 
 		/// <summary>
@@ -58,11 +73,17 @@ namespace Ponykart.Handlers {
 						kart.Body.LinearVelocity = vec;
 					}
 				}
+				else if (kart.Vehicle.CurrentSpeedKmHour < 5 && kart.Vehicle.CurrentSpeedKmHour > -5 && !kart.IsInAir) {
+					if (canDisableKarts && kart.Acceleration == 0 && kart.TurnMultiplier == 0) {
+						kart.Body.ForceActivationState(ActivationState.WantsDeactivation);
+					}
+				} 
 			}
 		}
 
 		public void Detach() {
 			PhysicsMain.PreSimulate -= PreSimulate;
+			RaceCountdown.OnCountdown -= OnCountdown;
 		}
 	}
 }
