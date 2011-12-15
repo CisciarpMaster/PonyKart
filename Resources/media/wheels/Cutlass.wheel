@@ -5,15 +5,15 @@ Radius = 0.762
 Width = 0.748
 SuspensionRestLength = 0.4
 
-SpringStiffness = 200
+SpringStiffness = 175
 SpringCompression = 4.2
-SpringDamping = 40
-FrictionSlip = 6
+SpringDamping = 60
+FrictionSlip = 60
 RollInfluence = 0.05
 
 BrakeForce = 60
-MotorForce = 1500
-TurnAngle = 4.5
+MotorForce = 1600
+TurnAngle = 5.5
 
 SlowSpeed = 60
 HighSpeed = 160
@@ -26,18 +26,18 @@ SteerDecrementTurn = 1
 [CutlassBackWheel]
 
 Radius = 0.848
-Width = 1.16
+Width = 1.74
 SuspensionRestLength = 0.2
 
-SpringStiffness = 200
+SpringStiffness = 175
 SpringCompression = 4.2
-SpringDamping = 40
-FrictionSlip = 7.5
+SpringDamping = 60
+FrictionSlip = 75
 RollInfluence = 0.05
 
 BrakeForce = 60
-MotorForce = 1500
-TurnAngle = 4.5
+MotorForce = 1600
+TurnAngle = 5.5
 
 SlowSpeed = 60
 HighSpeed = 160
