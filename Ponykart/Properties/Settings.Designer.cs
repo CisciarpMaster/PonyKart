@@ -134,42 +134,6 @@ namespace Ponykart.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("7")]
-        public float CameraNodeYOffset {
-            get {
-                return ((float)(this["CameraNodeYOffset"]));
-            }
-            set {
-                this["CameraNodeYOffset"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-12")]
-        public float CameraNodeZOffset {
-            get {
-                return ((float)(this["CameraNodeZOffset"]));
-            }
-            set {
-                this["CameraNodeZOffset"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
-        public float CameraTargetYOffset {
-            get {
-                return ((float)(this["CameraTargetYOffset"]));
-            }
-            set {
-                this["CameraTargetYOffset"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("7")]
         public float CameraTightness {
             get {
                 return ((float)(this["CameraTightness"]));
@@ -382,18 +346,6 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
-        public float StaticRegionSize {
-            get {
-                return ((float)(this["StaticRegionSize"]));
-            }
-            set {
-                this["StaticRegionSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("300")]
         public float InstancedRegionSize {
             get {
@@ -413,6 +365,54 @@ namespace Ponykart.Properties {
             }
             set {
                 this["InstancedEntitiesPerBatch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public float CameraNodeYOffset {
+            get {
+                return ((float)(this["CameraNodeYOffset"]));
+            }
+            set {
+                this["CameraNodeYOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-20")]
+        public float CameraNodeZOffset {
+            get {
+                return ((float)(this["CameraNodeZOffset"]));
+            }
+            set {
+                this["CameraNodeZOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public float CameraTargetYOffset {
+            get {
+                return ((float)(this["CameraTargetYOffset"]));
+            }
+            set {
+                this["CameraTargetYOffset"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public float StaticRegionSize {
+            get {
+                return ((float)(this["StaticRegionSize"]));
+            }
+            set {
+                this["StaticRegionSize"] = value;
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Ponykart.Sound {
 		/// Start the background music, if it's a race level
 		/// </summary>
 		void OnCountdown(RaceCountdownState state) {
-			if (state == RaceCountdownState.Go && bgMusic != null)
+			if (state == RaceCountdownState.Go && bgMusic != null && LKernel.GetG<SoundMain>().Is2DSoundEnabled)
 				bgMusic.Paused = false;
 		}
 	}

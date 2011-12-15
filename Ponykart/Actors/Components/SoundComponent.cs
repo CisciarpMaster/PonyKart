@@ -7,8 +7,8 @@ namespace Ponykart.Actors {
 	public class SoundComponent {
 		public ISound Sound { get; protected set; }
 		public string Name { get; protected set; }
-		Vector3 relativePosition;
-		LThing owner;
+		private Vector3 relativePosition;
+		private LThing owner;
 
 		/// <summary>
 		/// For sounds!
@@ -30,7 +30,10 @@ namespace Ponykart.Actors {
 			Sound = soundMain.Play3D(source, relativePosition, looping, true, sfx);
 
 			Sound.PlaybackSpeed = block.GetFloatProperty("Speed", 1);
-			Sound.Volume = block.GetFloatProperty("volume", 1);
+			float volume;
+			if (block.FloatTokens.TryGetValue("volume", out volume))
+				Sound.Volume += volume;
+
 			Sound.MinDistance = block.GetFloatProperty("mindistance", soundMain.Engine.Default3DSoundMinDistance);
 
 			// TODO: effects, if we end up using any of them

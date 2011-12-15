@@ -38,15 +38,6 @@
     <Setting Name="BulletFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.bullet</Value>
     </Setting>
-    <Setting Name="CameraNodeYOffset" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">7</Value>
-    </Setting>
-    <Setting Name="CameraNodeZOffset" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">-12</Value>
-    </Setting>
-    <Setting Name="CameraTargetYOffset" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">4</Value>
-    </Setting>
     <Setting Name="CameraTightness" Type="System.Single" Scope="User">
       <Value Profile="(Default)">7</Value>
     </Setting>
@@ -101,14 +92,23 @@
     <Setting Name="MiyagiXMLExtension" Type="System.String" Scope="User">
       <Value Profile="(Default)">.mgx</Value>
     </Setting>
-    <Setting Name="StaticRegionSize" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">20</Value>
-    </Setting>
     <Setting Name="InstancedRegionSize" Type="System.Single" Scope="User">
       <Value Profile="(Default)">300</Value>
     </Setting>
     <Setting Name="InstancedEntitiesPerBatch" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="CameraNodeYOffset" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="CameraNodeZOffset" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">-20</Value>
+    </Setting>
+    <Setting Name="CameraTargetYOffset" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="StaticRegionSize" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">20</Value>
     </Setting>
   </Settings>
 </SettingsFile>

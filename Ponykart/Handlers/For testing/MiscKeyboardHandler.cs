@@ -43,10 +43,16 @@ namespace Ponykart.Handlers {
 					break;
 #endif
 				case KeyCode.KC_M:
-					SoundMain.EnableMusic = !SoundMain.EnableMusic;
+					if (LKernel.GetG<SoundMain>().Is2DSoundEnabled)
+						LKernel.GetG<SoundMain>().Disable2DSounds();
+					else
+						LKernel.GetG<SoundMain>().Enable2DSounds();
 					break;
 				case KeyCode.KC_P:
-					SoundMain.EnableSounds = !SoundMain.EnableSounds;
+					if (LKernel.GetG<SoundMain>().Is3DSoundEnabled)
+						LKernel.GetG<SoundMain>().Disable3DSounds();
+					else
+						LKernel.GetG<SoundMain>().Enable3DSounds();
 					break;
 				case KeyCode.KC_N:
 					LKernel.GetG<SoundMain>().Play2D("Sweet Apple Acres 128bpm.ogg", true);

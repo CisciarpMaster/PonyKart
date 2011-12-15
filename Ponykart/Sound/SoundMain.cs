@@ -1,4 +1,6 @@
-﻿using IrrKlang;
+﻿using System;
+using System.Collections.Generic;
+using IrrKlang;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
@@ -8,21 +10,26 @@ using Ponykart.Properties;
 namespace Ponykart.Sound {
 	public class SoundMain {
 		public ISoundEngine Engine { get; private set; }
+		private IList<ISound> sounds2D;
+		private IList<ISound> sounds3D;
 
-		public static bool EnableMusic;
-		public static bool EnableSounds;
+		private bool enable2D;
+		private bool enable3D;
 
 		/// <summary>
 		/// The sound manager class.
 		/// </summary>
 		public SoundMain() {
 			Launch.Log("[Loading] Creating IrrKlang and SoundMain...");
-			EnableMusic = Options.GetBool("Music");
-			EnableSounds = Options.GetBool("Sounds");
+			sounds2D = new List<ISound>();
+			sounds3D = new List<ISound>();
+
+			enable2D = Options.GetBool("Music");
+			enable3D = Options.GetBool("Sounds");
 
 			
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
-
+			LKernel.GetG<Pauser>().PauseEvent += new PauseEvent(PauseEvent);
 			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
@@ -32,12 +39,18 @@ namespace Ponykart.Sound {
 			Launch.Log("[Loading] IrrKlang and SoundMain initialised!");
 		}
 
+		void PauseEvent(PausingState state) {
+			Engine.SetAllSoundsPaused(state == PausingState.Pausing);
+		}
+
 		/// <summary>
 		/// Dispose all of the sound sources
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			Engine.RemoveAllSoundSources();
 			Engine.SetListenerPosition(0, 0, 0, 0, 0, -1);
+			sounds2D.Clear();
+			sounds3D.Clear();
 		}
 
 
@@ -70,6 +83,39 @@ namespace Ponykart.Sound {
 			return true;
 		}
 
+
+		public void Enable2DSounds() {
+			foreach (ISound sound in sounds2D) {
+				sound.Volume += 1;
+				sound.Paused = false;
+			}
+			enable2D = true;
+		}
+
+		public void Disable2DSounds() {
+			foreach (ISound sound in sounds2D) {
+				sound.Volume -= 1;
+				sound.Paused = true;
+			}
+			enable2D = false;
+		}
+
+		public void Enable3DSounds() {
+			foreach (ISound sound in sounds3D) {
+				sound.Volume += 1;
+				sound.Paused = false;
+			}
+			enable3D = true;
+		}
+
+		public void Disable3DSounds() {
+			foreach (ISound sound in sounds3D) {
+				sound.Volume -= 1;
+				sound.Paused = true;
+			}
+			enable3D = false;
+		}
+
 		/// <summary>
 		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level music and whatnot.
 		/// </summary>
@@ -91,11 +137,18 @@ namespace Ponykart.Sound {
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
 		/// <returns>The ISound you just created</returns>
 		public ISound Play2D(ISoundSource source, bool looping, bool startPaused = false, bool sfx = false) {
-			if (!EnableMusic)
-				return null;
 			Launch.Log("[Sounds] Creating 2D sound: " + source.Name + " Looping: " + looping);
 
 			ISound sound = Engine.Play2D(source, looping, startPaused, sfx);
+			sounds2D.Add(sound);
+
+			if (!enable2D) {
+				sound.Paused = true;
+				sound.Volume = 0;
+			}
+			else if (startPaused)
+				sound.Paused = true;
+
 			return sound;
 		}
 
@@ -122,11 +175,21 @@ namespace Ponykart.Sound {
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
 		/// <returns>The ISound you just created</returns>
 		public ISound Play3D(ISoundSource source, Vector3 pos, bool looping, bool startPaused = false, bool sfx = false) {
-			if (!EnableSounds || pos == null)
-				return null;
+			if (pos == null)
+				throw new ArgumentException("Position cannot be null!", "pos");
+
 			Launch.Log("[Sounds] Creating 3D sound: " + source.Name + " Looping: " + looping);
 
 			ISound sound = Engine.Play3D(source, pos.x, pos.y, pos.z, looping, startPaused, sfx);
+			sounds3D.Add(sound);
+
+			if (!enable3D) {
+				sound.Paused = true;
+				sound.Volume = 0;
+			}
+			else if (startPaused)
+				sound.Paused = true;
+
 			return sound;
 		}
 
@@ -151,6 +214,18 @@ namespace Ponykart.Sound {
 			set {
 				rolloff = value;
 				Engine.SetRolloffFactor(value);
+			}
+		}
+
+		public bool Is2DSoundEnabled {
+			get {
+				return enable2D;
+			}
+		}
+
+		public bool Is3DSoundEnabled {
+			get {
+				return enable3D;
 			}
 		}
 	}

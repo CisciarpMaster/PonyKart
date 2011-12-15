@@ -77,7 +77,7 @@ namespace Ponykart.Handlers {
 					if (canDisableKarts && kart.Acceleration == 0 && kart.TurnMultiplier == 0) {
 						kart.Body.ForceActivationState(ActivationState.WantsDeactivation);
 					}
-				} 
+				}
 			}
 		}
 
