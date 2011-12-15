@@ -203,6 +203,8 @@ namespace Ponykart.Actors {
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
+			Node.Orientation = kart.Vehicle.GetWheelInfo(IntWheelID).WorldTransform.ExtractQuaternion();
+
 			// and then hook up to the event
 			PhysicsMain.PostSimulate += PostSimulate;
 		}
@@ -213,7 +215,7 @@ namespace Ponykart.Actors {
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
-				if (kart.Body.IsActive && (kart.Vehicle.CurrentSpeedKmHour > 5 || kart.Vehicle.CurrentSpeedKmHour < -5) && !kart.IsInAir) {
+				if (kart.Body.IsActive && (kart.Vehicle.CurrentSpeedKmHour > 5 || kart.Vehicle.CurrentSpeedKmHour < -5)) {
 					// don't change the kart's orientation when we're drifting
 					if (kart.IsDriftingAtAll || Math.Abs(info.Steering) > Math.Abs(MaxTurnAngle.ValueRadians * speedTurnMultiplier)) {
 						Node.Orientation = kart.RootNode.Orientation;
@@ -228,9 +230,9 @@ namespace Ponykart.Actors {
 					Vector3 trans = info.WorldTransform.GetTrans();
 					Node.SetPosition(AxlePoint.x, kart.RootNode.ConvertWorldToLocalPosition(trans).y, AxlePoint.z);
 				}
-				//else {
-				//	Node.Position = AxlePoint;
-				//}
+				else {
+					Node.Position = AxlePoint;
+				}
 			
 				Accelerate();
 				Brake();
