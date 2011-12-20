@@ -1,3 +1,7 @@
+function tr(region, shape, flags)
+
+end
+
 
 function flat(level)
 --[[
@@ -17,4 +21,6 @@ function flat(level)
 		end
 	end
 	]]
+	
+	createBoxTriggerRegion("aTriggerRegion", tr, vec(1000, 1000, 0.5), vec(0, 0, 0), quat(0, 0, 0, 1))
 end

@@ -203,7 +203,7 @@ namespace Ponykart.Actors {
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
-			Node.Orientation = kart.Vehicle.GetWheelInfo(IntWheelID).WorldTransform.ExtractQuaternion();
+			Node.Orientation = kart.RootNode.Orientation;//kart.Vehicle.GetWheelInfo(IntWheelID).WorldTransform.ExtractQuaternion();
 
 			// and then hook up to the event
 			PhysicsMain.PostSimulate += PostSimulate;
