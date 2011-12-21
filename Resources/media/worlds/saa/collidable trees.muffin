@@ -244,6 +244,7 @@ CollidableAppleTree1 {
 	MapRegion = "Buckets"
 }
 
+//////////////////////////////////////////////////
 
 CollidableAppleTree2 {
 	Position = 57.615, -1.12565, -20.5439
@@ -336,3 +337,70 @@ CollidableAppleTree1 {
 	MapRegion = "Bridge"
 }
 
+////////////////////////////////////////////////
+
+CollidableAppleTree2 {
+	Position = 274.052, 40.5382, -585.891
+	Orientation = 0, 0.610256, -2.66751E-08, 0.792204
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree3 {
+	Position = 299.651, 38.5996, -576.718
+	Orientation = 0, 0.579698, -2.53394E-08, 0.814831
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree1 {
+	Position = 276.972, 31.9426, -554.008
+	Orientation = 0, -0.70947, 3.10119E-08, 0.704736
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree2 {
+	Position = 290.65, 30.4478, -531.381
+	Orientation = 0, 0.962659, -4.20792E-08, -0.270717
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree3 {
+	Position = 317.553, 38.7502, -587.962
+	Orientation = 0, -0.308658, 1.34919E-08, 0.951173
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree1 {
+	Position = 307.739, 32.3204, -551.448
+	Orientation = 0, 0.857433, -3.74796E-08, 0.514595
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree2 {
+	Position = 271.472, 26.7153, -513.479
+	Orientation = 0, -0.244993, 1.0709E-08, 0.969525
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree3 {
+	Position = 303.721, 30.2256, -512.253
+	Orientation = 0, 0.653692, -2.85738E-08, 0.756761
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree1 {
+	Position = 324.855, 32.0245, -541.968
+	Orientation = 0, 0.992431, -4.33805E-08, -0.122807
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree2 {
+	Position = 280.896, 26.8289, -496.968
+	Orientation = 0, -0.265675, 1.1613E-08, 0.964063
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree3 {
+	Position = 290.947, 45.602, -596.689
+	Orientation = 0, 0.993666, -4.34345E-08, -0.112376
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree1 {
+	Position = 327.211, 29.0434, -520.359
+	Orientation = 0, 0.160116, -6.9989E-09, 0.987098
+	MapRegion = "Treehouse"
+}
+CollidableAppleTree2 {
+	Position = 269.591, 25.6132, -474.062
+	Orientation = 0, 0.968176, -4.23203E-08, -0.250272
+	MapRegion = "Treehouse"
+}
