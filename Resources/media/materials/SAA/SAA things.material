@@ -102,6 +102,7 @@ material Barn {
 	technique {
 		pass {
 			cull_hardware none
+			cull_software none
 			
 			texture_unit {
 				texture saa_barn.dds

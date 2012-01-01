@@ -5,6 +5,7 @@ material AppleCartExtras {
 		pass {
 			scene_blend alpha_blend
 			cull_hardware none
+			cull_software none
 			depth_write off
 			alpha_rejection greater_equal 64
 			

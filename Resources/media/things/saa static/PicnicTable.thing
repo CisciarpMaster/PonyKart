@@ -15,7 +15,6 @@ Model {
 // Entity#1
 Model {
 	Mesh = "PicnicTableCloth.mesh"
-	Material = "SAA_Things_2_Twosided"
 	Position = 0, 1.49494, 0
 	Orientation = 0, 0, 0, 1
 	Scale = 0.1, 0.1, 0.1

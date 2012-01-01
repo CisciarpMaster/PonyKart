@@ -6,6 +6,7 @@ material brick
 		pass
 		{
 			cull_hardware none
+			cull_software none
 
 			texture_unit
 			{
@@ -24,6 +25,7 @@ material bluebrick
 		pass
 		{
 			cull_hardware none
+			cull_software none
 
 			texture_unit
 			{
@@ -41,6 +43,7 @@ material redbrick
 		pass
 		{
 			cull_hardware none
+			cull_software none
 			
 			texture_unit
 			{
@@ -58,6 +61,7 @@ material yellowbrick
 		pass
 		{
 			cull_hardware none
+			cull_software none
 
 			texture_unit
 			{

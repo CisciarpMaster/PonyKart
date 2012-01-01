@@ -8,8 +8,10 @@ material BalloonGlow {
 	technique {
 		pass {
 			scene_blend add
-			depth_check on
-			lighting on
+			//depth_check on
+			//lighting on
+			depth_write off
+			lighting off
 			
 			vertex_program_ref glowBalloon_vp {
 			}

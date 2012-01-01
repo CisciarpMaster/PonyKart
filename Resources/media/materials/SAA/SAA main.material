@@ -21,6 +21,7 @@ material SAA_Transparent_Things_Twosided : SAA_Transparent_Things {
 	technique {
 		pass {
 			cull_hardware none
+			cull_software none
 		}
 	}
 }
@@ -47,6 +48,7 @@ material SAA_Things_1_Twosided : SAA_Things_1 {
 	technique {
 		pass {
 			cull_hardware none
+			cull_software none
 		}
 	}
 }
@@ -69,10 +71,11 @@ material SAA_Things_2 {
 	}
 }
 
-material SAA_Things_2_Twosided : SAA_Things_2 {
+/* material SAA_Things_2_Twosided : SAA_Things_2 {
 	technique {
 		pass {
 			cull_hardware none
+			cull_software none
 		}
 	}
-}
+}*/
