@@ -10,7 +10,7 @@ material TwiCutlass {
 			}
 			
 			texture_unit {
-				texture TS_Texture_mockup.png
+				texture Twilight_Cutlass.dds
 			}
 		}
 	}

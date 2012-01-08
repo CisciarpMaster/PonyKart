@@ -7,7 +7,7 @@ SuspensionRestLength = 0.4
 
 SpringStiffness = 175
 SpringCompression = 4.2
-SpringDamping = 60
+SpringDamping = 40
 FrictionSlip = 60
 RollInfluence = 0.05
 
@@ -31,7 +31,7 @@ SuspensionRestLength = 0.2
 
 SpringStiffness = 175
 SpringCompression = 4.2
-SpringDamping = 60
+SpringDamping = 40
 FrictionSlip = 75
 RollInfluence = 0.05
 
