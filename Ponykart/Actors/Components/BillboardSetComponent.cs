@@ -11,6 +11,7 @@ namespace Ponykart.Actors {
 		public uint ID { get; protected set; }
 		public string Name { get; protected set; }
 		public BillboardSet BillboardSet { get; protected set; }
+		private SceneNode LocalNode { get; set; }
 
 		/// <summary>
 		/// Woo billboards! These are pretty dissimilar from ogre entities - they only have a size and material, and no mesh or anything
@@ -93,7 +94,17 @@ namespace Ponykart.Actors {
 			}
 			// if not, just attach it to the root node
 			else {
-				lthing.RootNode.AttachObject(BillboardSet);
+				Vector3 pos = block.GetVectorProperty("Position", Vector3.ZERO);
+				SceneNode attachNode;
+				if (pos != Vector3.ZERO) {
+					LocalNode = lthing.RootNode.CreateChildSceneNode(pos);
+					attachNode = LocalNode;
+				}
+				else {
+					attachNode = lthing.RootNode;
+				}
+
+				attachNode.AttachObject(BillboardSet);
 			}
 		}
 
@@ -140,6 +151,13 @@ namespace Ponykart.Actors {
 					sceneMgr.DestroyBillboardSet(BillboardSet);
 				BillboardSet.Dispose();
 				BillboardSet = null;
+			}
+
+			if (LocalNode != null) {
+				if (valid && disposing)
+					sceneMgr.DestroySceneNode(LocalNode);
+				LocalNode.Dispose();
+				LocalNode = null;
 			}
 
 			base.Dispose(disposing);

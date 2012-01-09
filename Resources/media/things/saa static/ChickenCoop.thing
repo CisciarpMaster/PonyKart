@@ -5,7 +5,6 @@ CollidesWith = Environment
 
 Model {
 	Mesh = "Chicken_Coop.mesh"
-	Material = "SAA_Things_2_Twosided"
 	Position = 0, 5.084, 0
 	CastsShadows = true
 }

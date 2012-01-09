@@ -2,6 +2,7 @@
 material LilyPads {
 	technique {
 		pass {
+			transparent_sorting on
 			scene_blend alpha_blend
 			depth_write off
 			alpha_rejection greater_equal 64
