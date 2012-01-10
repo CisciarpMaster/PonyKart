@@ -2,7 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
-Static = true
+Static = false
 
 Imposters = true
 // left, top, right, bottom, origin is top left

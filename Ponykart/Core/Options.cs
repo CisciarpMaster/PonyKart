@@ -77,12 +77,12 @@ namespace Ponykart.Core {
 			defaults["sRGB Gamma Conversion"] = "No";
 			// Yes or No
 			defaults["Music"] = "No";
-			// Yes or No
 			defaults["Sounds"] = "Yes";
-			// Yes or No
 			defaults["Ribbons"] = "No";
 			// Low or High
 			defaults["ModelDetail"] = "Medium";
+			defaults["Shadows"] = "Yes";
+			defaults["ShadowDistance"] = "150";
 			// copy it into the regular dictionary
 			dict = new Dictionary<string, string>(defaults);
 		}
