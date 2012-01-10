@@ -25,9 +25,9 @@ BillboardSet {
 	Attached = true
 	AttachBone = "PadEnd"
 	AttachComponentID = 0
-	AttachOffsetPosition = 0, 2, 0
+	AttachOffsetPosition = 0, 0, 0
 	
 	Billboard {
-		Position = 0, 0, 0
+		Position = 0, -4, 0
 	}
 }

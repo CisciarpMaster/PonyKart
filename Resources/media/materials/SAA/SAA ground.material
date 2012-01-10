@@ -63,7 +63,6 @@ material SAA_Grass {
 				param_named vScale float 100
 			}
 			fragment_program_ref fresnelTex_Additive_fp {
-				//param_named GlowColour float3 0.651 0.78 0.224
 				param_named GlowColour float3 0.217 0.26 0.0746
 				param_named GlowExpon float 3
 			}

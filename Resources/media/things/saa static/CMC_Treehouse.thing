@@ -25,6 +25,105 @@ Model {
 
 
 
+Model {
+	Mesh = "CMC_Treehouse_Leaves000.mesh"
+	Position = -6.10019, 42.6062, -5.48058
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves001.mesh"
+	Position = -20.8125, 28.1678, -0.735521
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves002.mesh"
+	Position = -15.918, 23.5004, -4.64562
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves003.mesh"
+	Position = -11.0579, 22.8068, -8.6601
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves004.mesh"
+	Position = -0.0699835, 22.0335, -11.1329
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves005.mesh"
+	Position = 9.99535, 24.263, -11.0153
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves006.mesh"
+	Position = -15.918, 23.5004, 5.40883
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves007.mesh"
+	Position = -0.0699844, 23.927, 12.9249
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves008.mesh"
+	Position = -11.0579, 22.8068, 9.02926
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves009.mesh"
+	Position = 9.99535, 24.263, 10.2317
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves010.mesh"
+	Position = 15.8513, 25.4884, 3.80531
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves011.mesh"
+	Position = 21.2978, 30.3853, -0.735521
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves012.mesh"
+	Position = 13.2211, 21.5369, -6.67789
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves013.mesh"
+	Position = 14.9846, 39.4954, -0.0675057
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves014.mesh"
+	Position = -15.871, 39.8869, -0.0675185
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves015.mesh"
+	Position = -0.287962, 39.8869, -10.2447
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves016.mesh"
+	Position = 0.0615077, 39.0502, 8.56605
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves017.mesh"
+	Position = 5.39641, 42.6062, 2.38952
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves018.mesh"
+	Position = -6.10018, 42.6062, 2.11397
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves019.mesh"
+	Position = 5.3964, 42.6062, -5.20504
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves020.mesh"
+	Position = -8.9335, 31.1989, -7.46369
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves021.mesh"
+	Position = 8.95268, 31.1989, -8.91288
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves022.mesh"
+	Position = 8.95268, 31.1989, 5.73716
+}
+Model {
+	Mesh = "CMC_Treehouse_Leaves023.mesh"
+	Position = -8.9335, 31.1989, 7.18635
+}
+
+
+
 // box#8
 Shape {
 	Type = Box
