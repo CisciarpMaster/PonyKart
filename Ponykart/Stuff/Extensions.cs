@@ -285,7 +285,7 @@ namespace Ponykart {
 		private static extern int DrawMenuBar(int currentWindow);
 
 		private const int WM_SETICON = 0x80;
-		private const int ICON_SMALL = 0;
+		private const int ICON_SMALL = 0, ICON_BIG = 1;
 
 		/// <summary>
 		/// Sets the icon of a render window.
@@ -300,6 +300,7 @@ namespace Ponykart {
 
 			// Set the icon with SendMessage
 			SendMessage(hwnd, WM_SETICON, (IntPtr) ICON_SMALL, (IntPtr) icon.Handle);
+			SendMessage(hwnd, WM_SETICON, (IntPtr) ICON_BIG, (IntPtr) icon.Handle);
 			// Force windows to update the icon
 			DrawMenuBar((int) hwnd);
 		}
