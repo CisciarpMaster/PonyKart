@@ -33,6 +33,9 @@ namespace Ponykart.Handlers {
 			commandsButton.UserData = new UIUserData {
 				ObstructsViewport = true,
 			};
+#if !DEBUG
+			commandsButton.Visible = false;
+#endif
 			// subscribe to the events that change the current texture
 			commandsButton.MouseDown += CommandsButton_MouseDown;
 

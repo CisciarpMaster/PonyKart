@@ -110,7 +110,7 @@ namespace Ponykart {
 		/// This is where resources are actually loaded into memory.
 		/// </summary>
 		private static void LoadResourceGroups() {
-			TextureManager.Singleton.DefaultNumMipmaps = 5;
+			TextureManager.Singleton.DefaultNumMipmaps = 1;
 
 #if !DEBUG
 			TextureManager.Singleton.Verbose = false;
