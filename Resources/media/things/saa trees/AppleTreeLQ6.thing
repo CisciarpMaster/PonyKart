@@ -1,5 +1,5 @@
 Physics = None
-Static = false
+Static = true
 
 Imposters = true
 // left, top, right, bottom, origin is top left
