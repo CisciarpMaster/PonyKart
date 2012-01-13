@@ -15,6 +15,10 @@ namespace Ponykart.Core {
 		/// Fires whenever a Kart is spawned.
 		/// </summary>
 		public static event SpawnEvent<Kart> OnKartCreation;
+		/// <summary>
+		/// Fires whenever a Driver is spawned.
+		/// </summary>
+		public static event SpawnEvent<Driver> OnDriverCreation;
 
 		/// <summary>
 		/// Spawns something!
@@ -36,6 +40,10 @@ namespace Ponykart.Core {
 				if (thingName == "Kart" || thingName == "TwiCutlass") {
 					thing = new Kart(template, definition);
 					Invoke(OnKartCreation, thing as Kart);
+				}
+				else if (thingName == "Twilight") {
+					thing = new Driver(template, definition);
+					Invoke(OnDriverCreation, thing as Driver);
 				}
 				else
 					thing = new LThing(template, definition);

@@ -1,0 +1,48 @@
+
+// blender material: Twilight
+material Twilight {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture TwilightBody7.png
+            }
+        }
+    }
+}
+
+
+material TwilightEyes {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture TwilightEyes2.png
+            }
+        }
+    }
+}
+
+
+material TwilightHair {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture TwilightHair2.png
+            }
+        }
+    }
+}

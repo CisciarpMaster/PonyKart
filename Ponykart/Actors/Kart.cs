@@ -29,6 +29,8 @@ namespace Ponykart.Actors {
 		
 		public KartDriftState DriftState { get; set; }
 
+		public Driver Driver { get; set; }
+
 		// our wheelshapes
 		public Wheel WheelFL { get; protected set; }
 		public Wheel WheelFR { get; protected set; }

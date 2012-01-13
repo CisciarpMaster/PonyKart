@@ -16,6 +16,10 @@ namespace Ponykart.Players {
 		/// </summary>
 		public Kart Kart { get; protected set; }
 		/// <summary>
+		/// The driver in the kart
+		/// </summary>
+		public Driver Driver { get; protected set; }
+		/// <summary>
 		/// ID number. Same thing that's used as the array index in PlayerManager.
 		/// </summary>
 		public int ID { get; protected set; }
@@ -40,6 +44,9 @@ namespace Ponykart.Players {
 			block.QuatTokens["orientation"] = spawnOrient;
 
 			Kart = LKernel.GetG<Spawner>().Spawn("TwiCutlass", block) as Kart;
+			Driver = LKernel.GetG<Spawner>().Spawn("Twilight", block) as Driver;
+			Driver.AttachToKart(Kart, Vector3.ZERO);
+
 			Kart.OwnerID = id;
 			ID = id;
 		}
