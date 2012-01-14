@@ -18,6 +18,19 @@ Model {
 	CastsShadows = false
 }
 
+Model {
+	Mesh = "SAA_Field1.mesh"
+	Material = "SAA_Road"
+	Position = 284.874, 13.2072, 296.972
+	CastsShadows = false
+}
+Model {
+	Mesh = "SAA_Field2.mesh"
+	Material = "SAA_Road"
+	Position = -642.704, 32, -356.73
+	CastsShadows = false
+}
+
 
 Shape {
 	Type = Mesh
