@@ -103,6 +103,11 @@ material Barn {
 		pass {
 			cull_hardware none
 			cull_software none
+
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
 			
 			texture_unit {
 				texture saa_barn.dds

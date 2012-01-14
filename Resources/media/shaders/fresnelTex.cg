@@ -33,7 +33,7 @@ float makeEdge(float3 WorldNormal, float3 WorldView, float GlowExpon, float Alph
 	float3 Nn = normalize(WorldNormal);
     float3 Vn = normalize(WorldView);
 
-    return pow(1.0 - dot(Nn, Vn), GlowExpon) * Alpha;
+    return pow(1.0 - abs( dot(Nn, Vn) ), GlowExpon) * Alpha;
 }
 
 
