@@ -17,7 +17,7 @@ namespace Ponykart.Actors {
 			kart.RootNode.AddChild(this.RootNode);
 
 			this.RootNode.Position = offset;
-			this.RootNode.Orientation = kart.RootNode.Orientation;
+			this.RootNode.Orientation = Quaternion.IDENTITY;
 		}
 	}
 }
