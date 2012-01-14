@@ -5,7 +5,7 @@ material Fences {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
 				param_named GlowExpon float 5
-				param_named Alpha float 0.3
+				param_named Alpha float 0.2
 			}
 			
 			texture_unit {
@@ -141,6 +141,31 @@ material CarrotTopHouse {
 		}
 	}
 }
+
+
+material HayPile {
+	receive_shadows off
+	
+	technique {
+		pass {
+			scene_blend alpha_blend
+			depth_write off
+			
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 6
+			}
+
+			texture_unit {
+				texture Haypile.dds
+			}
+		}
+	}
+}
+
+
+
 
 material CMC_Treehouse_Leaves2 {
 	technique {
