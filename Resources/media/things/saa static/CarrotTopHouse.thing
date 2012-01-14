@@ -1,0 +1,50 @@
+Physics = None
+
+// House
+Model {
+	Mesh = "CarrotTopHouse.mesh"
+	Material = "CarrotTopHouse"
+	Position = 6.250668, 4.872362, 1.26282069
+	Orientation = 0.707107, 0, 0, 0.707107
+	Scale = 0.1905, 0.1905, 0.1905
+	CastsShadows = false
+}
+
+BillboardSet {
+	Material = "CarrotTopPlants"
+	Type = OrientedCommon
+	Width = 2.8575
+	Height = 2.8575
+	
+	Billboard {
+		Position = 15.14475, 15.82611, 4.66725
+		TextureCoords = 0, 0, 0.5, 1	
+	}
+	
+	Billboard {
+		Width = 5.715
+		Height = 5.715
+		TextureCoords = 0.5, 0, 1, 1
+		Position = 3.387604, 38.99707, -6.041574
+	}
+}
+
+BillboardSet {
+	Material = "Billboards"
+	Width = 1.905
+	Height = 1.905
+	Type = OrientedCommon
+	
+	Billboard {
+		TextureCoords = 0.5, 0.75, 0.625, 0.875
+		Position = 1.830648, 16.11186, -0.8475326
+	}
+	Billboard {
+		TextureCoords = 0.625, 0.75, 0.75, 0.875
+		Position = 4.688148, 16.11186, -0.6154827
+	}
+	Billboard {
+		TextureCoords = 0.5, 0.875, 0.625, 1
+		Position = 3.259398, 16.11186, -0.2700928
+	}
+}

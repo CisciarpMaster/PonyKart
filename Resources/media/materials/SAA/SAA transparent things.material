@@ -69,3 +69,18 @@ material SAA_BannerSign {
 	}
 }
 
+material CarrotTopPlants {
+	receive_shadows off
+
+	technique {
+		pass {
+			scene_blend alpha_blend
+			depth_write off
+			alpha_rejection greater_equal 64
+
+			texture_unit {
+				texture carrottophouseplants.dds
+			}
+		}
+	}
+}
