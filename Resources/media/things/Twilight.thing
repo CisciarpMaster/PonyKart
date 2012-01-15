@@ -7,8 +7,6 @@ Model {
 	CastsShadows = true
 	
 	Animated = true
-	AnimationName = "TestAnimation2"
-	// TestAnimation1
-	// TestAnimation2
+	AnimationName = "Idle"
 	AnimationLooping = true
 }
