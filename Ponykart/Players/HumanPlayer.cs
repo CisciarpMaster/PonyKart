@@ -13,16 +13,16 @@ namespace Ponykart.Players {
 			// hook up to input events
 			bindings = LKernel.Get<KeyBindingManager>();
 
-			bindings.PressEventsDict[LKey.Accelerate] += OnPressAccelerate;
-			bindings.ReleaseEventsDict[LKey.Accelerate] += OnReleaseAccelerate;
-			bindings.PressEventsDict[LKey.Drift] += OnPressDrift;
-			bindings.ReleaseEventsDict[LKey.Drift] += OnReleaseDrift;
-			bindings.PressEventsDict[LKey.Reverse] += OnPressReverse;
-			bindings.ReleaseEventsDict[LKey.Reverse] += OnReleaseReverse;
-			bindings.PressEventsDict[LKey.TurnLeft] += OnPressTurnLeft;
-			bindings.ReleaseEventsDict[LKey.TurnLeft] += OnReleaseTurnLeft;
-			bindings.PressEventsDict[LKey.TurnRight] += OnPressTurnRight;
-			bindings.ReleaseEventsDict[LKey.TurnRight] += OnReleaseTurnRight;
+			bindings.PressEventsDict[LKey.Accelerate] += OnStartAccelerate;
+			bindings.ReleaseEventsDict[LKey.Accelerate] += OnStopAccelerate;
+			bindings.PressEventsDict[LKey.Drift] += OnStartDrift;
+			bindings.ReleaseEventsDict[LKey.Drift] += OnStopDrift;
+			bindings.PressEventsDict[LKey.Reverse] += OnStartReverse;
+			bindings.ReleaseEventsDict[LKey.Reverse] += OnStopReverse;
+			bindings.PressEventsDict[LKey.TurnLeft] += OnStartTurnLeft;
+			bindings.ReleaseEventsDict[LKey.TurnLeft] += OnStopTurnLeft;
+			bindings.PressEventsDict[LKey.TurnRight] += OnStartTurnRight;
+			bindings.ReleaseEventsDict[LKey.TurnRight] += OnStopTurnRight;
 		}
 
 		public override bool IsControlEnabled {
@@ -36,35 +36,37 @@ namespace Ponykart.Players {
 				if (value) {
 					// gain control
 					if (bindings.IsKeyPressed(LKey.Accelerate))
-						OnPressAccelerate(LKey.Accelerate);
+						OnStartAccelerate();
 					if (bindings.IsKeyPressed(LKey.Drift))
-						OnPressDrift(LKey.Drift);
+						OnStartDrift();
 					if (bindings.IsKeyPressed(LKey.Reverse))
-						OnPressReverse(LKey.Reverse);
+						OnStartReverse();
 					if (bindings.IsKeyPressed(LKey.TurnLeft))
-						OnPressTurnLeft(LKey.TurnLeft);
+						OnStartTurnLeft();
 					if (bindings.IsKeyPressed(LKey.TurnRight))
-						OnPressTurnRight(LKey.TurnRight);
+						OnStartTurnRight();
 				}
 				else {
 					// lose control
 					if (bindings.IsKeyPressed(LKey.Accelerate))
-						OnReleaseAccelerate(LKey.Accelerate);
+						OnStopAccelerate();
 					if (bindings.IsKeyPressed(LKey.Drift))
-						OnReleaseDrift(LKey.Drift);
+						OnStopDrift();
 					if (bindings.IsKeyPressed(LKey.Reverse))
-						OnReleaseReverse(LKey.Reverse);
+						OnStopReverse();
 					if (bindings.IsKeyPressed(LKey.TurnLeft))
-						OnReleaseTurnLeft(LKey.TurnLeft);
+						OnStopTurnLeft();
 					if (bindings.IsKeyPressed(LKey.TurnRight))
-						OnReleaseTurnRight(LKey.TurnRight);
+						OnStopTurnRight();
 				}
 			}
 		}
 
 
 		#region key events
-		protected void OnPressAccelerate(LKey k) {
+		protected override void OnStartAccelerate() {
+			base.OnStartAccelerate();
+
 			if (IsControlEnabled) {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Reverse))
@@ -74,7 +76,9 @@ namespace Ponykart.Players {
 					Kart.Acceleration = 1;
 			}
 		}
-		protected void OnReleaseAccelerate(LKey k) {
+		protected override void OnStopAccelerate() {
+			base.OnStopAccelerate();
+
 			if (IsControlEnabled) {
 				// if reverse is still held down, then we start reversing
 				if (bindings.IsKeyPressed(LKey.Reverse))
@@ -86,7 +90,9 @@ namespace Ponykart.Players {
 		}
 
 
-		protected void OnPressDrift(LKey k) {
+		protected override void OnStartDrift() {
+			base.OnStartDrift();
+
 			if (IsControlEnabled) {
 				// if left is pressed and right isn't, start drifting left
 				if (bindings.IsKeyPressed(LKey.TurnLeft) && !bindings.IsKeyPressed(LKey.TurnRight)) {
@@ -105,7 +111,9 @@ namespace Ponykart.Players {
 		/// <summary>
 		/// cancel the drift
 		/// </summary>
-		protected void OnReleaseDrift(LKey k) {
+		protected override void OnStopDrift() {
+			base.OnStopDrift();
+
 			if (IsControlEnabled) {
 				// if we were drifting left
 				if (Kart.DriftState == KartDriftState.FullLeft || Kart.DriftState == KartDriftState.StartLeft) {
@@ -123,7 +131,9 @@ namespace Ponykart.Players {
 		}
 
 
-		protected void OnPressReverse(LKey k) {
+		protected override void OnStartReverse() {
+			base.OnStartReverse();
+
 			if (IsControlEnabled) {
 				// if we have both forward and reverse pressed at the same time, do nothing
 				if (bindings.IsKeyPressed(LKey.Accelerate))
@@ -133,7 +143,9 @@ namespace Ponykart.Players {
 					Kart.Acceleration = -1;
 			}
 		}
-		protected void OnReleaseReverse(LKey k) {
+		protected override void OnStopReverse() {
+			base.OnStopReverse();
+
 			if (IsControlEnabled) {
 				// if forward is still held down, then we start going forwards
 				if (bindings.IsKeyPressed(LKey.Accelerate))
@@ -145,7 +157,9 @@ namespace Ponykart.Players {
 		}
 
 
-		protected void OnPressTurnLeft(LKey k) {
+		protected override void OnStartTurnLeft() {
+			base.OnStartTurnLeft();
+
 			if (IsControlEnabled) {
 				// if we're waiting to drift
 				if (Kart.DriftState == KartDriftState.WantsDriftingButNotTurning) {
@@ -162,7 +176,9 @@ namespace Ponykart.Players {
 				}
 			}
 		}
-		protected void OnReleaseTurnLeft(LKey k) {
+		protected override void OnStopTurnLeft() {
+			base.OnStopTurnLeft();
+
 			if (IsControlEnabled) {
 				// if right is still pressed, turn right
 				if (bindings.IsKeyPressed(LKey.TurnRight))
@@ -174,7 +190,9 @@ namespace Ponykart.Players {
 		}
 
 
-		protected void OnPressTurnRight(LKey k) {
+		protected override void OnStartTurnRight() {
+			base.OnStartTurnRight();
+
 			if (IsControlEnabled) {
 				if (Kart.DriftState == KartDriftState.WantsDriftingButNotTurning) {
 					Kart.StartDrifting(KartDriftState.StartLeft);
@@ -190,7 +208,9 @@ namespace Ponykart.Players {
 				}
 			}
 		}
-		protected void OnReleaseTurnRight(LKey k) {
+		protected override void OnStopTurnRight() {
+			base.OnStopTurnRight();
+
 			if (IsControlEnabled) {
 				// if left is still pressed, turn left
 				if (bindings.IsKeyPressed(LKey.TurnLeft))
@@ -209,16 +229,16 @@ namespace Ponykart.Players {
 
 
 		public override void Detach() {
-			bindings.PressEventsDict[LKey.Accelerate] -= OnPressAccelerate;
-			bindings.ReleaseEventsDict[LKey.Accelerate] -= OnReleaseAccelerate;
-			bindings.PressEventsDict[LKey.Drift] -= OnPressDrift;
-			bindings.ReleaseEventsDict[LKey.Drift] -= OnReleaseDrift;
-			bindings.PressEventsDict[LKey.Reverse] -= OnPressReverse;
-			bindings.ReleaseEventsDict[LKey.Reverse] -= OnReleaseReverse;
-			bindings.PressEventsDict[LKey.TurnLeft] -= OnPressTurnLeft;
-			bindings.ReleaseEventsDict[LKey.TurnLeft] -= OnReleaseTurnLeft;
-			bindings.PressEventsDict[LKey.TurnRight] -= OnPressTurnRight;
-			bindings.ReleaseEventsDict[LKey.TurnRight] -= OnReleaseTurnRight;
+			bindings.PressEventsDict[LKey.Accelerate] -= OnStartAccelerate;
+			bindings.ReleaseEventsDict[LKey.Accelerate] -= OnStopAccelerate;
+			bindings.PressEventsDict[LKey.Drift] -= OnStartDrift;
+			bindings.ReleaseEventsDict[LKey.Drift] -= OnStopDrift;
+			bindings.PressEventsDict[LKey.Reverse] -= OnStartReverse;
+			bindings.ReleaseEventsDict[LKey.Reverse] -= OnStopReverse;
+			bindings.PressEventsDict[LKey.TurnLeft] -= OnStartTurnLeft;
+			bindings.ReleaseEventsDict[LKey.TurnLeft] -= OnStopTurnLeft;
+			bindings.PressEventsDict[LKey.TurnRight] -= OnStartTurnRight;
+			bindings.ReleaseEventsDict[LKey.TurnRight] -= OnStopTurnRight;
 
 			base.Detach();
 		}

@@ -18,6 +18,11 @@ namespace Ponykart.Actors {
 
 			this.RootNode.Position = offset;
 			this.RootNode.Orientation = Quaternion.IDENTITY;
+			this.RootNode.SetInitialState();
+		}
+
+		public void ChangeAnimation(string animationName, AnimationBlender.BlendingTransition transition, float duration = 0.2f) {
+			ModelComponents[0].Animation.Blend(animationName, transition, duration, true);
 		}
 	}
 }

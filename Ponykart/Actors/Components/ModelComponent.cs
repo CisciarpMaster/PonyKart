@@ -12,7 +12,7 @@ namespace Ponykart.Actors {
 		public Entity Entity { get; protected set; }
 		public uint ID { get; protected set; }
 		public string Name { get; protected set; }
-		AnimationBlender Animation;
+		public AnimationBlender Animation { get; protected set; }
 		public LThing Owner { get; protected set; }
 		public readonly Vector3 SpawnPosition;
 		public readonly Quaternion SpawnOrientation;

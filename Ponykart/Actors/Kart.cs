@@ -48,10 +48,7 @@ namespace Ponykart.Actors {
 		protected VehicleRaycaster Raycaster;
 
 
-		public static event KartEvent OnStartDrifting;
-		public static event KartEvent OnDrifting;
-		public static event KartEvent OnStopDrifting;
-		public static event KartEvent OnFinishDrifting;
+		public static event KartEvent OnStartDrifting, OnDrifting, OnStopDrifting, OnFinishDrifting;
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {

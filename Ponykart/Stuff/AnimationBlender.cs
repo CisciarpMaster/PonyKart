@@ -14,7 +14,7 @@ namespace Mogre {
 	public class AnimationBlender {
 		public enum BlendingTransition {
 			/// <summary>
-			/// stop source and start dest
+			/// immediately switch - stop source and start dest
 			/// </summary>
 			BlendSwitch,
 			/// <summary>
@@ -106,6 +106,10 @@ namespace Mogre {
 			}
 		}
 
+		/// <summary>
+		/// Adds time to the animation, similar to AnimationState.AddTime()
+		/// </summary>
+		/// <param name="time"></param>
 		public void AddTime(float time) {
 			if (mSource != null) {
 				if (mTimeleft > 0) {
@@ -142,10 +146,18 @@ namespace Mogre {
 			}
 		}
 
+		/// <summary>
+		/// constructor
+		/// </summary>
 		public AnimationBlender(Entity entity) {
 			mEntity = entity;
 		}
 
+		/// <summary>
+		/// Initialise the animation blender with an initial animation
+		/// </summary>
+		/// <param name="animation">The name of the animation it should start with</param>
+		/// <param name="looping">Whether the animation should loop or not</param>
 		public void Init(string animation, bool looping) {
 			AnimationStateSet set = mEntity.AllAnimationStates;
 

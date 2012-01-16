@@ -57,6 +57,70 @@ namespace Ponykart.Players {
 		protected abstract void UseItem();
 
 
+		#region key events
+		// it's very important that these are run before any of the "override" methods do anything else
+
+		protected virtual void OnStartAccelerate() {
+
+		}
+		protected virtual void OnStopAccelerate() {
+			
+		}
+
+
+		protected virtual void OnStartDrift() {
+			
+		}
+		protected virtual void OnStopDrift() {
+			
+		}
+
+
+		protected virtual void OnStartReverse() {
+			
+		}
+		protected virtual void OnStopReverse() {
+			
+		}
+
+
+		protected virtual void OnStartTurnLeft() {
+			if (Kart.TurnMultiplier < 0) {
+				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+			else {
+				Driver.ChangeAnimation("TurnLeft", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+		}
+		protected virtual void OnStopTurnLeft() {
+			if (Kart.TurnMultiplier > 0) {
+				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+			else {
+				Driver.ChangeAnimation("TurnRight", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+		}
+
+
+		protected virtual void OnStartTurnRight() {
+			if (Kart.TurnMultiplier > 0) {
+				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+			else {
+				Driver.ChangeAnimation("TurnRight", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+		}
+		protected virtual void OnStopTurnRight() {
+			if (Kart.TurnMultiplier < 0) {
+				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+			else {
+				Driver.ChangeAnimation("TurnLeft", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+			}
+		}
+		#endregion
+
+
 		#region shortcuts
 		/// <summary>
 		/// Gets the kart's SceneNode

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MOIS;
 
 namespace Ponykart.Core {
@@ -23,16 +24,16 @@ namespace Ponykart.Core {
 		/// </summary>
 		private IDictionary<LKey, KeyCode> LKeysDict;
 		private IDictionary<KeyCode, LKey> MOISKeysDict;
-		public IDictionary<LKey, LymphInputEvent<LKey>> PressEventsDict { get; private set; }
-		public IDictionary<LKey, LymphInputEvent<LKey>> ReleaseEventsDict { get; private set; }
+		public IDictionary<LKey, Action> PressEventsDict { get; private set; }
+		public IDictionary<LKey, Action> ReleaseEventsDict { get; private set; }
 
 
 		public KeyBindingManager() {
 			Launch.Log("[Loading] Creating KeyBindingManager...");
 			LKeysDict = new Dictionary<LKey, KeyCode>();
 			MOISKeysDict = new Dictionary<KeyCode, LKey>();
-			PressEventsDict = new Dictionary<LKey, LymphInputEvent<LKey>>();
-			ReleaseEventsDict = new Dictionary<LKey, LymphInputEvent<LKey>>();
+			PressEventsDict = new Dictionary<LKey, Action>();
+			ReleaseEventsDict = new Dictionary<LKey, Action>();
 
 			SetupInitialBindings();
 
@@ -79,7 +80,7 @@ namespace Ponykart.Core {
 
 			LKey key;
 			if (MOISKeysDict.TryGetValue(ke.key, out key))
-				Invoke(PressEventsDict[key], key);
+				Invoke(PressEventsDict[key]);
 		}
 
 		/// <summary>
@@ -92,7 +93,7 @@ namespace Ponykart.Core {
 
 			LKey key;
 			if (MOISKeysDict.TryGetValue(ke.key, out key))
-				Invoke(ReleaseEventsDict[key], key);
+				Invoke(ReleaseEventsDict[key]);
 		}
 
 		/// <summary>
@@ -120,9 +121,9 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// helper
 		/// </summary>
-		public void Invoke(LymphInputEvent<LKey> e, LKey eventArgs) {
+		public void Invoke(Action e) {
 			if (e != null)
-				e.Invoke(eventArgs);
+				e.Invoke();
 		}
 	}
 }
