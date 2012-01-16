@@ -1,6 +1,6 @@
 
 // blender material: Twilight
-material Twilight {
+material TwilightBody {
     technique {
         pass {
 			vertex_program_ref fresnelTex_vp {
