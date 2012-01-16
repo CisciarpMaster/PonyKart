@@ -2,7 +2,7 @@ Physics = None
 
 Model {
 	Mesh = "Twilight.mesh"
-	Position = 0, 0, 0
+	Position = 0, -0.5, 0
 	Scale = 1, 1, 1
 	CastsShadows = true
 	
