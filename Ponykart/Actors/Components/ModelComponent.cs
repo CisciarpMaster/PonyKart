@@ -12,7 +12,7 @@ namespace Ponykart.Actors {
 		public Entity Entity { get; protected set; }
 		public uint ID { get; protected set; }
 		public string Name { get; protected set; }
-		AnimationState Animation;
+		AnimationBlender Animation;
 		public LThing Owner { get; protected set; }
 		public readonly Vector3 SpawnPosition;
 		public readonly Quaternion SpawnOrientation;
@@ -105,9 +105,8 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void SetupAnimation(ModelBlock block) {
 			if (block.GetBoolProperty("animated", false)) {
-				Animation = Entity.GetAnimationState(block.GetStringProperty("AnimationName", null));
-				Animation.Loop = block.GetBoolProperty("AnimationLooping", true);
-				Animation.Enabled = block.GetBoolProperty("AnimationEnabled", true);
+				Animation = new AnimationBlender(Entity);
+				Animation.Init(block.GetStringProperty("AnimationName", null), block.GetBoolProperty("AnimationLooping", true));
 
 				LKernel.GetG<AnimationManager>().Add(Animation);
 			}
