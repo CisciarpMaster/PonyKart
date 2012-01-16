@@ -9,7 +9,7 @@ material TwilightBody {
 			}
 			
             texture_unit {
-                texture TwilightBody7.png
+                texture TwilightBody7.dds
             }
         }
     }
@@ -41,7 +41,7 @@ material TwilightHair {
 			}
 			
             texture_unit {
-                texture TwilightHair2.png
+                texture TwilightHair2.dds
             }
         }
     }

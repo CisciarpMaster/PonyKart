@@ -9,6 +9,11 @@ material AppleCartExtras {
 			depth_write off
 			alpha_rejection greater_equal 64
 			
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
 			texture_unit {
 				tex_address_mode clamp
 				texture applecart_tex.dds
