@@ -9,6 +9,7 @@ namespace Ponykart.Core {
 	public class FreeCamera : LCamera {
 		private SceneNode CameraNode;
 		private Vector3 Offset;
+		private float Speed = 1;
 
 		public FreeCamera(string name) : base(name) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
@@ -81,8 +82,11 @@ namespace Ponykart.Core {
 				case KeyCode.KC_RCONTROL:
 					Offset.y += 1;
 					break;
-				case KeyCode.KC_SLASH:
-					Offset *= 0.25f;
+				case KeyCode.KC_PGUP:
+					Speed /= 4;
+					break;
+				case KeyCode.KC_PGDOWN:
+					Speed *= 5;
 					break;
 			}
 
@@ -118,8 +122,11 @@ namespace Ponykart.Core {
 				case KeyCode.KC_RCONTROL:
 					Offset.y -= 1;
 					break;
-				case KeyCode.KC_SLASH:
-					Offset *= 4f;
+				case KeyCode.KC_PGUP:
+					Speed *= 4;
+					break;
+				case KeyCode.KC_PGDOWN:
+					Speed /= 5;
 					break;
 			}
 		}
@@ -145,10 +152,11 @@ namespace Ponykart.Core {
 			base.OnSwitchToInactive();
 
 			Offset = Vector3.ZERO;
+			Speed = 1;
 		}
 
 		protected override bool UpdateCamera(FrameEvent evt) {
-			CameraNode.Translate(Offset, Node.TransformSpace.TS_LOCAL);
+			CameraNode.Translate(Offset * Speed, Node.TransformSpace.TS_LOCAL);
 			return true;
 		}
 
