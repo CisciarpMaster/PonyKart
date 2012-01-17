@@ -8,8 +8,8 @@ material TwilightBody {
 			vertex_program_ref outlined_vs {
 			}
 			fragment_program_ref outlined_ps {
-				param_named GlowExpon float 2
-				param_named Alpha float 0.5
+				//param_named GlowExpon float 2
+				//param_named Alpha float 0.5
 				param_named OutlineColour float3 162.0 108.0 186.0
 			}
 			
@@ -57,8 +57,8 @@ material TwilightHair {
 			vertex_program_ref outlined_vs {
 			}
 			fragment_program_ref outlined_ps {
-				param_named GlowExpon float 2
-				param_named Alpha float 0.5
+				//param_named GlowExpon float 2
+				//param_named Alpha float 0.5
 				param_named OutlineColour float3 20.0 30.0 67.0
 			}
 			

@@ -14,7 +14,7 @@ void main_vp(float2 uv 				: TEXCOORD0,
 			uniform float4x4 WorldITXf, // our four standard "untweakable" xforms
 			uniform float4x4 WorldXf,
 			uniform float4x4 ViewIXf,
-			uniform float4x4 WvpXf,
+			//uniform float4x4 WvpXf,
 			uniform float4x4 ViewProjection
 ) {
     WorldNormal = mul(WorldITXf, Normal).xyz;
@@ -35,15 +35,6 @@ void main_vp(float2 uv 				: TEXCOORD0,
 }
 
 
-// since the three pixel shaders all use this, might as well split it off into a separate method
-float makeEdge(float3 WorldNormal, float3 WorldView, float GlowExpon, float Alpha) {
-	float3 Nn = normalize(WorldNormal);
-    float3 Vn = normalize(WorldView);
-
-    return pow(1.0 - abs( dot(Nn, Vn) ), GlowExpon) * Alpha;
-}
-
-
 // Main ps
 float4 main_ps(float2 uv 			: TEXCOORD0,
 			    float3 WorldNormal 	: TEXCOORD1,
@@ -51,30 +42,38 @@ float4 main_ps(float2 uv 			: TEXCOORD0,
 			   
 			    uniform sampler2D tex : register(s0),
 			
-			    uniform float3 GlowColour,
-			    uniform float GlowExpon,
-			    uniform float Alpha,
-				uniform float4 LightDirection,
+			    //uniform float3 GlowColour,
+			    //uniform float GlowExpon,
+			    //uniform float Alpha,
+				//uniform float4 LightDirection,
 				uniform float3 OutlineColour)
 : COLOR
 {
-    float edge = makeEdge(WorldNormal, WorldView, GlowExpon, Alpha);
+	//float3 Nn = normalize(WorldNormal);
+    //float3 Vn = normalize(WorldView);
+	
+    //float edge = pow(1.0 - abs( dot(Nn, Vn) ), GlowExpon) * Alpha;
 	
 	float4 texture = tex2D(tex, uv.xy);
+	
+	// just to make it compile correctly
+	//float g = GlowExpon;
+	//float a = Alpha;
 	
 	// The second part of this blends the colors together.
 	// This means areas most affected by the fresnel lose texture detail and are eventually
 	// completely replaced by the fresnel colour
-	float light = 1;//saturate( dot( WorldNormal, LightDirection ) );
+	//float light = 1;//saturate( dot( WorldNormal, LightDirection ) );
+	
 
-	if ( edge < 0.5f )
-	{
-		edge = 0;
-	}
-	if ( edge > 0.5f )
-	{
-		edge = 0.8f;
-	}
+	//if ( edge < 0.5f )
+	//{
+	//	edge = 0;
+	//}
+	//if ( edge > 0.5f )
+	//{
+	//	edge = 0.8f;
+	//}
 
     float3 result = OutlineColour / 255.0f;
 

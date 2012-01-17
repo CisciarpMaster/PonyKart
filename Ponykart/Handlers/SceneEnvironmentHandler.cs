@@ -16,9 +16,10 @@ namespace Ponykart.Handlers {
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			// for shadows, see KernelLevelCleanup -> SetupShadows
-			
+
 			// TODO read this from a file
 			LKernel.GetG<Viewport>().BackgroundColour = new ColourValue(0.7373f, 0.8902f, 0.9490f);
+
 
 			// sunlight
 			Light light = sceneMgr.CreateLight("sun");
