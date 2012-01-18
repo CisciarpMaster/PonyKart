@@ -23,7 +23,7 @@ Model {
 	Mesh = "SAA_Cliff.mesh"
 	Material = "SAA_Cliff"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = true
 }
 Model {
 	Mesh = "SAA_Riverbed.mesh"
