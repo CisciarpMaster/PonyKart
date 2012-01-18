@@ -37,8 +37,43 @@ namespace Ponykart.Core {
 
 			SetupInitialBindings();
 
-			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardPressAnything);
-			LKernel.GetG<InputMain>().OnKeyboardRelease_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardReleaseAnything);
+			var input = LKernel.GetG<InputMain>();
+			input.OnKeyboardPress_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardPressAnything);
+			input.OnKeyboardRelease_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardReleaseAnything);
+
+			if (Options.GetBool("Twh")) {
+				input.OnMousePress_Anything += new LymphInputEvent<MouseEvent, MouseButtonID>(OnMousePress_Anything);
+				input.OnMouseRelease_Anything += new LymphInputEvent<MouseEvent, MouseButtonID>(OnMouseRelease_Anything);
+			}
+		}
+
+		// temporary, so twh can control the camera better when filming
+		void OnMousePress_Anything(MouseEvent e, MouseButtonID id) {
+			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
+				return;
+
+			switch (id) {
+				case MouseButtonID.MB_Left:
+					Invoke(PressEventsDict[LKey.Accelerate]); break;
+				case MouseButtonID.MB_Button3:
+					Invoke(PressEventsDict[LKey.TurnLeft]); break;
+				case MouseButtonID.MB_Button4:
+					Invoke(PressEventsDict[LKey.TurnRight]); break;
+				case MouseButtonID.MB_Middle:
+					Invoke(PressEventsDict[LKey.Drift]); break;
+			}
+		}
+		void OnMouseRelease_Anything(MouseEvent e, MouseButtonID id) {
+			switch (id) {
+				case MouseButtonID.MB_Left:
+					Invoke(ReleaseEventsDict[LKey.Accelerate]); break;
+				case MouseButtonID.MB_Button3:
+					Invoke(ReleaseEventsDict[LKey.TurnLeft]); break;
+				case MouseButtonID.MB_Button4:
+					Invoke(ReleaseEventsDict[LKey.TurnRight]); break;
+				case MouseButtonID.MB_Middle:
+					Invoke(ReleaseEventsDict[LKey.Drift]); break;
+			}
 		}
 
 		/// <summary>

@@ -76,7 +76,7 @@ material Ogre/Compositor/BloomBlend {
     technique {
         pass {
             lighting on
-            diffuse 0.0 0.0 0.0 0.6
+            diffuse 0.0 0.0 0.0 0.8
             specular 0.0 0.0 0.0 0.0
             ambient 0.0 0.0 0.0
             emissive 1.0 1.0 1.0

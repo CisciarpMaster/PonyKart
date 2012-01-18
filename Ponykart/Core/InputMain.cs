@@ -156,6 +156,8 @@ namespace Ponykart {
 #if PRINTINPUT
 			Console.WriteLine("Mouse " + id + " pressed");
 #endif
+			FireEvent<MouseEvent, MouseButtonID>(OnMousePress_Anything, me, id);
+
 			switch (id) {
 				case MouseButtonID.MB_Left:
 					FireEvent<MouseEvent, MouseButtonID>(OnMousePress_Left, me, id); break;
@@ -175,6 +177,8 @@ namespace Ponykart {
 #if PRINTINPUT
 			Console.WriteLine("Mouse " + id + " released");
 #endif
+			FireEvent<MouseEvent, MouseButtonID>(OnMouseRelease_Anything, me, id);
+			
 			switch (id) {
 				case MouseButtonID.MB_Left:
 					FireEvent<MouseEvent, MouseButtonID>(OnMouseRelease_Left, me, id); break;
@@ -207,6 +211,9 @@ namespace Ponykart {
 		public event LymphInputEvent<KeyEvent> OnKeyboardRelease_Anything;
 
 		public event LymphInputEvent<KeyEvent> OnKeyboardPress_Escape;
+
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMousePress_Anything;
+		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMouseRelease_Anything;
 
 		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMousePress_Left;
 		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMouseRelease_Left;
