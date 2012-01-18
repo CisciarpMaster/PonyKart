@@ -49,7 +49,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// Is ran when we switch cameras and this one becomes the active camera.
 		/// </summary>
-		public virtual void OnSwitchToActive() {
+		public virtual void OnSwitchToActive(LCamera oldCamera) {
 			IsActive = true;
 			LKernel.GetG<Root>().FrameStarted += UpdateCamera;
 		}
@@ -57,7 +57,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// Is ran when we switch cameras and this one was previously the active camera but isn't any more.
 		/// </summary>
-		public virtual void OnSwitchToInactive() {
+		public virtual void OnSwitchToInactive(LCamera newCamera) {
 			IsActive = false;
 			LKernel.GetG<Root>().FrameStarted -= UpdateCamera;
 		}

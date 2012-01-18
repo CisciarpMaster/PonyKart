@@ -62,13 +62,14 @@ namespace Ponykart.Core {
 			if (cameras.Contains(newCamera)) {
 				// notify the old camera that it is no longer active
 				if (CurrentCamera != null)
-					CurrentCamera.OnSwitchToInactive();
+					CurrentCamera.OnSwitchToInactive(newCamera);
 
+				var oldCamera = CurrentCamera;
 				CurrentCamera = newCamera;
 				LKernel.GetG<Viewport>().Camera = newCamera.Camera;
 
 				// notify the new camera that it is active
-				newCamera.OnSwitchToActive();
+				newCamera.OnSwitchToActive(oldCamera);
 
 				if (OnCameraSwitch != null)
 					OnCameraSwitch(newCamera);

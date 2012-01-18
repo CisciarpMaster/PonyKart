@@ -21,8 +21,18 @@ namespace Ponykart.Actors {
 			this.RootNode.SetInitialState();
 		}
 
-		public void ChangeAnimation(string animationName, AnimationBlender.BlendingTransition transition, float duration = 0.2f) {
+		public void ChangeAnimation(string animationName, AnimationBlendingTransition transition, float duration = 0.2f) {
 			ModelComponents[0].Animation.Blend(animationName, transition, duration, true);
 		}
+
+		public void ChangeAnimation(DriverAnimation anim, AnimationBlendingTransition transition = AnimationBlendingTransition.BlendWhileAnimating, float duration = 0.2f) {
+			ChangeAnimation(anim.ToString(), transition, duration);
+		}
+	}
+
+	public enum DriverAnimation {
+		Drive,
+		TurnLeft,
+		TurnRight,
 	}
 }

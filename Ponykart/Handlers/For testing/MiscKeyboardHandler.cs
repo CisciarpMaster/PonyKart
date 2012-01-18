@@ -72,6 +72,12 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_F3:
 					LKernel.GetG<CameraManager>().SwitchCurrentCamera("KnightyCamera");
 					break;
+				case KeyCode.KC_F4:
+					LKernel.GetG<CameraManager>().SwitchCurrentCamera("ChaseCamera");
+					break;
+				case KeyCode.KC_F5:
+					LKernel.GetG<CameraManager>().SwitchCurrentCamera("AttachCamera");
+					break;
 				case KeyCode.KC_F11:
 					uint width, height;
 					Options.GetWindowDimensions(out width, out height);

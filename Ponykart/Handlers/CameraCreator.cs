@@ -17,6 +17,12 @@ namespace Ponykart.Handlers {
 
 			var kcam = new KnightyCamera("KnightyCamera");
 			kcam.Register();
+
+			var ccam = new ChaseCamera("ChaseCamera");
+			ccam.Register();
+
+			var acam = new AttachCamera("AttachCamera");
+			acam.Register();
 		}
 
 		public void Detach() { }

@@ -82,12 +82,6 @@ namespace Ponykart.Core {
 				case KeyCode.KC_RCONTROL:
 					Offset.y += 1;
 					break;
-				case KeyCode.KC_PGUP:
-					Speed /= 4;
-					break;
-				case KeyCode.KC_PGDOWN:
-					Speed *= 5;
-					break;
 			}
 
 			var keyboard = LKernel.GetG<InputMain>().InputKeyboard;
@@ -123,10 +117,10 @@ namespace Ponykart.Core {
 					Offset.y -= 1;
 					break;
 				case KeyCode.KC_PGUP:
-					Speed *= 4;
+					Speed *= 2;
 					break;
 				case KeyCode.KC_PGDOWN:
-					Speed /= 5;
+					Speed /= 2;
 					break;
 			}
 		}
@@ -134,8 +128,8 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// make the camera jump to wherever the kart is
 		/// </summary>
-		public override void OnSwitchToActive() {
-			base.OnSwitchToActive();
+		public override void OnSwitchToActive(LCamera oldCamera) {
+			base.OnSwitchToActive(oldCamera);
 
 			var kart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
 			CameraNode.Position = kart.RootNode.Position;
@@ -148,8 +142,8 @@ namespace Ponykart.Core {
 		/// <summary>
 		///  set the offset to zero so when we switch back to being active, we don't start zooming off
 		/// </summary>
-		public override void OnSwitchToInactive() {
-			base.OnSwitchToInactive();
+		public override void OnSwitchToInactive(LCamera newCamera) {
+			base.OnSwitchToInactive(newCamera);
 
 			Offset = Vector3.ZERO;
 			Speed = 1;

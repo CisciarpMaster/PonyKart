@@ -11,26 +11,27 @@
 
 
 namespace Mogre {
+	public enum AnimationBlendingTransition {
+		/// <summary>
+		/// immediately switch - stop source and start dest
+		/// </summary>
+		BlendSwitch,
+		/// <summary>
+		/// cross fade, blend source animation out while blending destination animation in
+		/// </summary>
+		BlendWhileAnimating,
+		/// <summary>
+		/// blend source to first frame of dest, when done, start dest anim
+		/// </summary>
+		BlendThenAnimate
+	}
+
 	public class AnimationBlender {
-		public enum BlendingTransition {
-			/// <summary>
-			/// immediately switch - stop source and start dest
-			/// </summary>
-			BlendSwitch,
-			/// <summary>
-			/// cross fade, blend source animation out while blending destination animation in
-			/// </summary>
-			BlendWhileAnimating,
-			/// <summary>
-			/// blend source to first frame of dest, when done, start dest anim
-			/// </summary>
-			BlendThenAnimate
-		}
 
 		private Entity mEntity;
 		private AnimationState mSource;
 		private AnimationState mTarget;
-		private BlendingTransition mTransition;
+		private AnimationBlendingTransition mTransition;
 		private bool mLoop;
 		private float mTimeleft, mDuration;
 		private bool mComplete;
@@ -42,10 +43,10 @@ namespace Mogre {
 		/// <param name="transition">The transition type to use</param>
 		/// <param name="duration">How long the blending should last</param>
 		/// <param name="looping">Do the animations loop?</param>
-		public void Blend(string animation, BlendingTransition transition, float duration, bool looping) {
+		public void Blend(string animation, AnimationBlendingTransition transition, float duration, bool looping) {
 			mLoop = looping;
 
-			if (transition == BlendingTransition.BlendSwitch) {
+			if (transition == AnimationBlendingTransition.BlendSwitch) {
 				if (mSource != null)
 					mSource.Enabled = false;
 
@@ -129,7 +130,7 @@ namespace Mogre {
 						mSource.Weight = mTimeleft / mDuration;
 						mTarget.Weight = 1.0f - mTimeleft / mDuration;
 
-						if (mTransition == BlendingTransition.BlendWhileAnimating)
+						if (mTransition == AnimationBlendingTransition.BlendWhileAnimating)
 							mTarget.AddTime(time);
 					}
 				}

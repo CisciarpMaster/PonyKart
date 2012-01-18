@@ -131,11 +131,13 @@
     <Compile Include="Actors\StaticGeometryManager.cs" />
     <Compile Include="Actors\Wheels\DriftState.cs" />
     <Compile Include="Actors\Wheels\WheelID.cs" />
+    <Compile Include="Core\Cameras\AttachCamera.cs" />
     <Compile Include="Core\Cameras\BasicCamera.cs" />
     <Compile Include="Core\Cameras\CameraManager.cs" />
     <Compile Include="Core\Cameras\FreeCamera.cs" />
     <Compile Include="Core\Cameras\KnightyCamera.cs" />
     <Compile Include="Core\Cameras\LCamera.cs" />
+    <Compile Include="Core\ChaseCamera.cs" />
     <Compile Include="Core\LDisposable.cs" />
     <Compile Include="Actors\Wheels\Wheel.cs" />
     <Compile Include="Actors\Wheels\WheelFactory.cs" />

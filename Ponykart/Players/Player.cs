@@ -86,36 +86,36 @@ namespace Ponykart.Players {
 
 		protected virtual void OnStartTurnLeft() {
 			if (Kart.TurnMultiplier < 0) {
-				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.Drive);
 			}
 			else {
-				Driver.ChangeAnimation("TurnLeft", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.TurnLeft);
 			}
 		}
 		protected virtual void OnStopTurnLeft() {
 			if (Kart.TurnMultiplier > 0) {
-				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.Drive);
 			}
 			else {
-				Driver.ChangeAnimation("TurnRight", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.TurnRight);
 			}
 		}
 
 
 		protected virtual void OnStartTurnRight() {
 			if (Kart.TurnMultiplier > 0) {
-				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.Drive);
 			}
 			else {
-				Driver.ChangeAnimation("TurnRight", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.TurnRight);
 			}
 		}
 		protected virtual void OnStopTurnRight() {
 			if (Kart.TurnMultiplier < 0) {
-				Driver.ChangeAnimation("Drive", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.Drive);
 			}
 			else {
-				Driver.ChangeAnimation("TurnLeft", AnimationBlender.BlendingTransition.BlendWhileAnimating);
+				Driver.ChangeAnimation(DriverAnimation.TurnLeft);
 			}
 		}
 		#endregion
