@@ -1,5 +1,5 @@
 particle_system dust {
-	quota 300
+	quota 500
 	material Particles/Dust
 	particle_width 0.7
 	particle_height	0.7

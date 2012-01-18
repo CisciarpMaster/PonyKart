@@ -25,6 +25,8 @@ namespace Ponykart.Handlers {
 			acam.Register();
 		}
 
-		public void Detach() { }
+		public void Detach() {
+
+		}
 	}
 }

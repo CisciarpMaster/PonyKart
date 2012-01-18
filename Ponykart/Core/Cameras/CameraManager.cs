@@ -18,9 +18,9 @@ namespace Ponykart.Core {
 		public LCamera CurrentCamera { get; private set; }
 
 		/// <summary>
-		/// Is fired when we switch between cameras.
+		/// Is fired when we switch between cameras. The argument passed is the new camera.
 		/// </summary>
-		public static event CameraEvent OnCameraSwitch;
+		public static event CameraEvent OnPreCameraSwitch, OnPostCameraSwitch;
 		/// <summary>
 		/// Is fired when we register a new camera.
 		/// </summary>
@@ -60,6 +60,10 @@ namespace Ponykart.Core {
 		/// </summary>
 		public void SwitchCurrentCamera(LCamera newCamera) {
 			if (cameras.Contains(newCamera)) {
+				// run this before we switch cameras
+				if (OnPreCameraSwitch != null)
+					OnPreCameraSwitch(newCamera);
+
 				// notify the old camera that it is no longer active
 				if (CurrentCamera != null)
 					CurrentCamera.OnSwitchToInactive(newCamera);
@@ -71,8 +75,9 @@ namespace Ponykart.Core {
 				// notify the new camera that it is active
 				newCamera.OnSwitchToActive(oldCamera);
 
-				if (OnCameraSwitch != null)
-					OnCameraSwitch(newCamera);
+				// run this after we switch cameras
+				if (OnPostCameraSwitch != null)
+					OnPostCameraSwitch(newCamera);
 			}
 			else {
 				throw new ApplicationException("Tried to switch to a camera that wasn't registered to the CameraManager!");
