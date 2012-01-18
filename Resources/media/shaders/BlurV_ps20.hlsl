@@ -9,7 +9,7 @@ sampler Blur0: register(s0);
 //We use the Normal-gauss distribution formula
 //f(x) being the formula, we used f(0.5)-f(-0.5); f(1.5)-f(0.5)...
 static const float samples[11] =
-{//stddev=2.0
+{ //stddev=2.0
 0.01222447,
 0.02783468,
 0.06559061,
