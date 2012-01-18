@@ -1,7 +1,7 @@
-Physics = Dynamic
-Mass = 300
-CollisionGroup = Default
-CollidesWith = Default
+Physics = Static
+Mass = 0
+CollisionGroup = Environment
+CollidesWith = Environment
 
 // Crate
 Model {
