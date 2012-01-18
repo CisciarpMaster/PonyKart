@@ -57,6 +57,10 @@ namespace Ponykart {
 		public static Vector3D ToSoundVector(this Vector3 vec) {
 			return new Vector3D(vec.x, vec.y, vec.z);
 		}
+
+		public static ColourValue ToColourValue(this Vector3 vec) {
+			return new ColourValue(vec.x, vec.y, vec.z);
+		}
 		#endregion Vector3
 
 		#region Quaternion

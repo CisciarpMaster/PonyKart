@@ -578,7 +578,7 @@ namespace Ponykart.Stuff {
 		}
 
 		protected void processUserDataReference(XmlElement XMLNode, SceneNode pNode) {
-			// TODO if you have any other attributes in your .scene files, you can put code to interpret them here!
+			// if you have any other attributes in your .scene files, you can put code to interpret them here!
 		}
 	}
 }

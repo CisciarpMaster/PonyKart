@@ -32,6 +32,46 @@ Model {
 }
 
 
+Model {
+	Mesh = "SAA_River.mesh"
+	Material = "Water"
+	Position = 368.972, 6.93615, -677.336
+	CastsShadows = false
+}
+
+
+Model {
+	Mesh = "SAA_Fence1.mesh"
+	Material = "Fences"
+	Position = 79.8523, -19.6812, -274.898
+	CastsShadows = true
+}
+Model {
+	Mesh = "SAA_Fence2.mesh"
+	Material = "Fences"
+	Position = 79.8523, -19.6816, -274.898
+	CastsShadows = true
+}
+Model {
+	Mesh = "SAA_Fence3.mesh"
+	Material = "Fences"
+	Position = 79.8523, -20.6998, -274.898
+	CastsShadows = true
+}
+Model {
+	Mesh = "SAA_Fence4.mesh"
+	Material = "Fences"
+	Position = 53.2025, -6.82825, -491.058
+	CastsShadows = true
+}
+Model {
+	Mesh = "SAA_Fence5.mesh"
+	Material = "Fences"
+	Position = 53.2025, -6.25403, -491.058
+	CastsShadows = true
+}
+
+
 Shape {
 	Type = Mesh
 	Mesh = "SAA_Ground_Collidable.bullet"

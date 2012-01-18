@@ -63,6 +63,7 @@ namespace Ponykart.Actors {
 				string material;
 				if (block.StringTokens.TryGetValue("material", out material))
 					ent.SetMaterialName(material);
+
 				ents.Add(meshName, ent);
 			}
 

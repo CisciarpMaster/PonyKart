@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Lymph Framework")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Ponykart")]
+[assembly: AssemblyDescription("Lymph Framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ponykart Team")]
-[assembly: AssemblyProduct("Ponykart")]
-[assembly: AssemblyCopyright("Copyright © Pyritie 2010")]
+[assembly: AssemblyProduct("Lymph Framework")]
+[assembly: AssemblyCopyright("Copyright © Ponykart Team 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -336,7 +336,7 @@ namespace Ponykart.Actors {
 		/// to make it faster for ogre.
 		/// </summary>
 		protected void DisposeIfStaticOrInstanced(ThingDefinition def) {
-			if (def.GetBoolProperty("Static", false) || def.GetBoolProperty("Instanced", false)) {
+			if ((def.GetBoolProperty("Static", false) || def.GetBoolProperty("Instanced", false)) && !Core.Options.GetBool("Twh")) {
 				if (IsDisposed)
 					return;
 

@@ -47,7 +47,7 @@ namespace Ponykart.Actors {
 			SpawnScale = block.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
 			// if we're static, set up the static geometry
-			if (block.GetBoolProperty("static", false) || def.GetBoolProperty("static", false)) {
+			if ((block.GetBoolProperty("static", false) || def.GetBoolProperty("static", false)) && !Options.GetBool("Twh")) {
 				LKernel.GetG<StaticGeometryManager>().Add(this, template, block, def);
 				Entity = null;
 			}
@@ -129,6 +129,11 @@ namespace Ponykart.Actors {
 
 			// some other properties
 			Entity.CastShadows = block.GetBoolProperty("CastsShadows", false);
+
+			// temp for now
+			if (Options.GetBool("Twh") && (meshName.Contains("AppleTree") || meshName.Contains("Fence"))) {
+				Entity.CastShadows = true;
+			}
 		}
 
 		protected override void Dispose(bool disposing) {
