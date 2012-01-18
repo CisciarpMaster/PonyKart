@@ -27,7 +27,7 @@ namespace Ponykart.Handlers {
 			// sunlight
 			Light light = sceneMgr.CreateLight("sun");
 			light.Type = Light.LightTypes.LT_DIRECTIONAL;
-			light.Direction = new Vector3(0.1f, -1, 0.1f);
+			light.Direction = def.GetVectorProperty("SunlightDirection", new Vector3(0.1f, -1f, 0.1f));
 			light.Direction.Normalise();
 			light.DiffuseColour = new ColourValue(1f, 1f, 1f);
 			light.SpecularColour = new ColourValue(1f, 1f, 1f);

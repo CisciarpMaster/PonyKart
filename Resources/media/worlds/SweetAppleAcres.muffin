@@ -33,6 +33,7 @@ FogType = "Linear"
 FogColour = 0.7373, 0.8902, 0.9490, 0.5
 FogStart = 500
 FogEnd = 4000
+SunlightDirection = 0.1, -1, 0.1
 
 SAA_Banner {
 	Position = -7.06332, -5.37894, 325.076
