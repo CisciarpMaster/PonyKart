@@ -11,7 +11,6 @@ namespace Ponykart.Core {
 	/// </summary>
 	public class KnightyCamera : LCamera {
 		SceneNode TargetNode;
-		SceneNode CameraNode;
 		Kart followKart;
 		SceneNode kartCamNode;
 		SceneNode kartTargetNode;
