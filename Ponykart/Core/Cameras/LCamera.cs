@@ -10,6 +10,10 @@ namespace Ponykart.Core {
 		/// </summary>
 		public Camera Camera { get; protected set; }
 		/// <summary>
+		/// The scene node the camera is attached to
+		/// </summary>
+		public SceneNode CameraNode { get; protected set; }
+		/// <summary>
 		/// The name of this camera
 		/// </summary>
 		public string Name { get; protected set; }

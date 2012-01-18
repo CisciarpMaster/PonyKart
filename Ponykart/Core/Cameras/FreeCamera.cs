@@ -7,7 +7,6 @@ using Vector3 = Mogre.Vector3;
 
 namespace Ponykart.Core {
 	public class FreeCamera : LCamera {
-		private SceneNode CameraNode;
 		private Vector3 Offset;
 		private float Speed = 1;
 

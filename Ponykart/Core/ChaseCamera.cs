@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Mogre;
-using Ponykart.Core;
-using Ponykart.Players;
+﻿using Mogre;
 using Ponykart.Actors;
+using Ponykart.Players;
 
 namespace Ponykart.Core {
 	public class ChaseCamera : LCamera {
-		private SceneNode CameraNode;
 		private Kart FollowKart;
 
 		public ChaseCamera(string name) : base(name) {
@@ -25,13 +19,14 @@ namespace Ponykart.Core {
 			CameraNode.SetFixedYawAxis(true);
 
 			FollowKart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
-			Camera.SetAutoTracking(true, FollowKart.RootNode, new Vector3(0, 5, 0));
+			Camera.SetAutoTracking(true, FollowKart.RootNode, new Vector3(0, 2, 0));
 		}
 
 		public override void OnSwitchToActive(LCamera oldCamera) {
 			base.OnSwitchToActive(oldCamera);
 
-			Camera.Position = oldCamera.Camera.Position;
+			Camera.Position = oldCamera.CameraNode._getDerivedPosition();
+			Camera.Orientation = oldCamera.CameraNode._getDerivedOrientation();
 		}
 	}
 }

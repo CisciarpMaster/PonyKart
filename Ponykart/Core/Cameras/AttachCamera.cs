@@ -4,7 +4,6 @@ using Ponykart.Players;
 
 namespace Ponykart.Core {
 	public class AttachCamera : LCamera {
-		private SceneNode CameraNode;
 		private Kart FollowKart;
 
 		public AttachCamera(string name) : base(name) {
@@ -25,8 +24,8 @@ namespace Ponykart.Core {
 		public override void OnSwitchToActive(LCamera oldCamera) {
 			base.OnSwitchToActive(oldCamera);
 
-			Camera.Position = FollowKart.RootNode.ConvertWorldToLocalPosition(oldCamera.Camera.Position);
-			Camera.Orientation = FollowKart.RootNode.ConvertWorldToLocalOrientation(oldCamera.Camera.Orientation);
+			Camera.Position = FollowKart.RootNode.ConvertWorldToLocalPosition(oldCamera.CameraNode._getDerivedPosition());
+			Camera.Orientation = FollowKart.RootNode.ConvertWorldToLocalOrientation(oldCamera.CameraNode._getDerivedOrientation());
 		}
 	}
 }
