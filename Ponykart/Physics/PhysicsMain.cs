@@ -35,12 +35,7 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Should we draw debug lines or not?
 		/// </summary>
-		public static bool DrawLines = 
-#if DEBUG
-			false;
-#else
-			false;
-#endif
+		public static bool DrawLines = false;
 
 		/// <summary>
 		/// Constructor
@@ -149,30 +144,31 @@ namespace Ponykart.Physics {
 			// creates collision meshes out of static objects
 			// get the scene manager
 			SceneManager sceneMgr = LKernel.GetG<SceneManager>();
-			// create a node that will be the root of all of these static level meshes
-			SceneNode levelNode = sceneMgr.RootSceneNode.CreateChildSceneNode("RootLevelNode", Vector3.ZERO);
 			// parse our .scene file
-			DotSceneLoader dsl = new DotSceneLoader();
-			dsl.ParseDotScene(levelName + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, levelNode);
+			
+			if (System.IO.File.Exists(Settings.Default.WorldFileLocation + levelName + ".scene")) {
+				DotSceneLoader dsl = new DotSceneLoader();
+				dsl.ParseDotScene(levelName + ".scene", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, sceneMgr.RootSceneNode);
 
-			// then go through each of the static objects and turn them into trimeshes.
-			foreach (string s in dsl.StaticObjects) {
-				// apparently triangle meshes only screw up if you turn on debug drawing for them. No I don't know why the fuck that should matter.
-				Entity dslEnt = sceneMgr.GetEntity(s);
-				SceneNode dslNode = sceneMgr.GetSceneNode(s);
+				// then go through each of the static objects and turn them into trimeshes.
+				foreach (string s in dsl.StaticObjects) {
+					// apparently triangle meshes only screw up if you turn on debug drawing for them. No I don't know why the fuck that should matter.
+					Entity dslEnt = sceneMgr.GetEntity(s);
+					SceneNode dslNode = sceneMgr.GetSceneNode(s);
 
-				CollisionShape shape;
+					CollisionShape shape;
 
-				string bulletFilePath = Settings.Default.BulletFileLocation + dslNode.Name + Settings.Default.BulletFileExtension;
+					string bulletFilePath = Settings.Default.BulletFileLocation + dslNode.Name + Settings.Default.BulletFileExtension;
 
-				shape = LKernel.GetG<CollisionShapeManager>().GetShapeFromFile(bulletFilePath, dslEnt, dslNode);
+					shape = LKernel.GetG<CollisionShapeManager>().GetShapeFromFile(bulletFilePath, dslEnt, dslNode);
 
-				// then do the rest as usual
-				var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
-				var body = new RigidBody(info);
-				body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
-				body.UserObject = new CollisionObjectDataHolder(body, PonykartCollisionGroups.Road, dslNode.Name);
-				world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
+					// then do the rest as usual
+					var info = new RigidBodyConstructionInfo(0, new DefaultMotionState(), shape, Vector3.ZERO);
+					var body = new RigidBody(info);
+					body.CollisionFlags = CollisionFlags.StaticObject | CollisionFlags.DisableVisualizeObject;
+					body.UserObject = new CollisionObjectDataHolder(body, PonykartCollisionGroups.Road, dslNode.Name);
+					world.AddRigidBody(body, PonykartCollisionGroups.Road, PonykartCollidesWithGroups.Road);
+				}
 			}
 
 			// make a ground plane for us

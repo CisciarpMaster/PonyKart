@@ -27,6 +27,13 @@ LoadFile = "saa/collidable trees"
 
 Music = "Sweet Apple Acres 128bpm.ogg"
 
+Background = 0.7373, 0.8902, 0.9490
+Ambient = 1, 1, 1
+FogType = "Linear"
+FogColour = 0.7373, 0.8902, 0.9490, 0.5
+FogStart = 500
+FogEnd = 4000
+
 SAA_Banner {
 	Position = -7.06332, -5.37894, 325.076
 	Orientation = 0, 0.707107, -3.09086E-08, 0.707107
@@ -56,8 +63,8 @@ CMC_Treehouse {
 }
 
 CarrotTopHouse {
-	Position = 29.9956, 23.5218, 494.783
-	Orientation = 0.0616283, -0.704416, 0.704416, 0.0616283
+	Position = 29.9956, 13.5218, 494.783
+	Orientation = 0, 0.996195, -4.35451E-08, -0.0871557
 }
 
 

@@ -10,16 +10,19 @@ namespace Ponykart.Handlers {
 	public class SceneEnvironmentHandler {
 
 		public SceneEnvironmentHandler() {
-			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
+			LevelManager.OnLevelPostLoad += new LevelEvent(OnLevelPostLoad);
 		}
 
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
+		void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
+			var def = eventArgs.NewLevel.Definition;
 			// for shadows, see KernelLevelCleanup -> SetupShadows
 
-			// TODO read this from a file
-			LKernel.GetG<Viewport>().BackgroundColour = new ColourValue(0.7373f, 0.8902f, 0.9490f);
+			// background color
+			LKernel.GetG<Viewport>().BackgroundColour = def.GetVectorProperty("Background", Vector3.UNIT_SCALE).ToColourValue();
 
+			// ambient
+			sceneMgr.AmbientLight = def.GetVectorProperty("Ambient", Vector3.UNIT_SCALE).ToColourValue();
 
 			// sunlight
 			Light light = sceneMgr.CreateLight("sun");
@@ -30,15 +33,31 @@ namespace Ponykart.Handlers {
 			light.SpecularColour = new ColourValue(1f, 1f, 1f);
 			light.CastShadows = true;
 
+			// skybox
 			sceneMgr.SetSkyBox(true, "saa_sky", 1995f);
-			sceneMgr.SetFog(FogMode.FOG_LINEAR, new ColourValue(0.7373f, 0.8902f, 0.9490f, 0.5f), 0.001f, 500, 4000);
+
+			// fog
+			FogMode mode = FogMode.FOG_NONE;
+			string sMode = def.GetStringProperty("FogType", "Linear");
+			// only linear atm
+			if (sMode == "None")
+				mode = FogMode.FOG_NONE;
+			else if (sMode == "Exp")
+				mode = FogMode.FOG_EXP;
+			else if (sMode == "Exp2")
+				mode = FogMode.FOG_EXP2;
+			else if (sMode == "Linear")
+				mode = FogMode.FOG_LINEAR;
+			sceneMgr.SetFog(
+				mode,
+				def.GetQuatProperty("FogColour", Quaternion.IDENTITY).ToColourValue(),
+				0.001f,
+				def.GetFloatProperty("FogStart", 100),
+				def.GetFloatProperty("FogEnd", 500));
 
 #if DEBUG
 			// make some axes
 			LKernel.GetG<Spawner>().Spawn("Axis", Vector3.ZERO);
-
-			// for testing animation
-			//LKernel.Get<Spawner>().Spawn("ZergShip", "zerg", new Vector3(10, 5, 0));
 #endif
 		}
 	}
