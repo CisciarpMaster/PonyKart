@@ -3,11 +3,6 @@ Mass = 0
 CollisionGroup = Environment
 CollidesWith = Environment
 
-Shape {
-	Type = Mesh
-	Mesh = "HayPileConvex.mesh"
-	Position = 0, 0, 0
-}
 // HayPile
 Model {
 	Mesh = "HayPile.mesh"
@@ -15,3 +10,10 @@ Model {
 	Position = 0, 0, 0
 	CastsShadows = false
 }
+
+Shape {
+	Type = Mesh
+	Mesh = "HayPileConvex.bullet"
+	Position = 0, 0, 0
+}
+
