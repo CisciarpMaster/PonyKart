@@ -64,9 +64,11 @@ namespace Ponykart.Physics {
 
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!begin) {
-				lines.BeginUpdate(0);
-				triangles.BeginUpdate(0);
-				begin = true;
+				if (PhysicsMain.DrawLines) {
+					lines.BeginUpdate(0);
+					triangles.BeginUpdate(0);
+					begin = true;
+				}
 			}
 		}
 
