@@ -11,7 +11,7 @@ float4 main(float2 texCoord: TEXCOORD0,
 		) : COLOR {
 	float4 tex = tex2D(RT,   texCoord);
 
-	tex = saturate( tex - 0.3f ) * 0.75f;
+	tex = saturate( tex - 0.5f ) * 0.75f;
 
 	/*tex -= 1;
 	float4 bright4= -6 * tex * tex + 2; //float4 bright4= ( -3 * tex * tex + 1 ) * 2;

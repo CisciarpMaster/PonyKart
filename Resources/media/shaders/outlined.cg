@@ -1,3 +1,9 @@
+//----------------------------------------------------------------------
+
+//
+// Vertex shader
+//
+
 void main_vp(float2 uv 				: TEXCOORD0,
 			float4 Position	 	: POSITION,
 			float4 Normal  		: NORMAL,
@@ -11,10 +17,9 @@ void main_vp(float2 uv 				: TEXCOORD0,
 			out float3 WorldNormal : TEXCOORD1,
 			out float3 WorldView   : TEXCOORD2,
 
-			uniform float4x4 WorldITXf, // our four standard "untweakable" xforms
+			uniform float4x4 WorldITXf,
 			uniform float4x4 WorldXf,
 			uniform float4x4 ViewIXf,
-			//uniform float4x4 WvpXf,
 			uniform float4x4 ViewProjection
 ) {
     WorldNormal = mul(WorldITXf, Normal).xyz;
@@ -34,8 +39,12 @@ void main_vp(float2 uv 				: TEXCOORD0,
 	oUv.y = uv.y * vScale;
 }
 
+//----------------------------------------------------------------------
 
-// Main ps
+//
+// Pixel shader
+//
+
 float4 main_ps(float2 uv 			: TEXCOORD0,
 			    float3 WorldNormal 	: TEXCOORD1,
 			    float3 WorldView   	: TEXCOORD2,
@@ -50,33 +59,9 @@ float4 main_ps(float2 uv 			: TEXCOORD0,
 				uniform float3 OutlineColour)
 : COLOR
 {
-	//float3 Nn = normalize(WorldNormal);
-    //float3 Vn = normalize(WorldView);
-	
-    //float edge = pow(1.0 - abs( dot(Nn, Vn) ), GlowExpon) * Alpha;
-	
 	float4 texture = tex2D(tex, uv.xy);
-	
-	// just to make it compile correctly
-	//float g = GlowExpon;
-	//float a = Alpha;
-	
-	// The second part of this blends the colors together.
-	// This means areas most affected by the fresnel lose texture detail and are eventually
-	// completely replaced by the fresnel colour
-	//float light = 1;//saturate( dot( WorldNormal, LightDirection ) );
-	
 
-	//if ( edge < 0.5f )
-	//{
-	//	edge = 0;
-	//}
-	//if ( edge > 0.5f )
-	//{
-	//	edge = 0.8f;
-	//}
-
-	float light = saturate( saturate( dot( WorldNormal, lightPosition ) * 0.3f + 0.6f ) + Ambient * 0.0f );
+	float3 light = saturate( saturate( dot( WorldNormal, lightPosition ) * 0.5f + 0.5f ) * ( 1 - Ambient ) + Ambient );
 
     float3 result = OutlineColour / 255.0f * light;
 
