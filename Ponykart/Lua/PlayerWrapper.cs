@@ -42,6 +42,15 @@ namespace Ponykart.Lua {
 				return null;
 		}
 
+		[LuaFunction("playerDriver", "Returns the player's driver")]
+		public static Driver GetPlayerDriver() {
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
+				return LKernel.GetG<PlayerManager>().MainPlayer.Driver;
+			}
+			else
+				return null;
+		}
+
 		[LuaFunction("getKartHandler", "Gets the KartHandler")]
 		public static KartHandler GetKartHandler() {
 			return LKernel.GetG<KartHandler>();

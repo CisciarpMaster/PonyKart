@@ -1,58 +1,7 @@
 Type = Race
 LoadFile = "default spawn positions"
 
-/* AppleTreeLQ1 {
-	Position = 5, 0, 0
-}
-
-AppleTreeLQ2 {
-	Position = 0, 40, 0
-}
-
-AppleTreeLQ3 {
-	Position = 0, 80, 0
-}
-
-AppleTreeLQ4 {
-	Position = 0, 120, 0
-}
-
-AppleTreeLQ5 {
-	Position = 0, 160, 0
-}
-
-AppleTreeLQ6 {
-	Position = 0, 200, 0
-}
-
-AppleTreeLQ7 {
-	Position = 0, 240, 0
-}
-
-AppleTreeLQ8 {
-	Position = 0, 280, 0
-}
-
-GreenAppleTree1 {
-	Position = 0, 320, 0
-}
-
-GreenAppleTree2 {
-	Position = 0, 360, 0
-}
-
-GreenAppleTree3 {
-	Position = 0, 400, 0
-}
-
-RedAppleTree1 {
-	Position = 0, 440, 0
-}
-
-RedAppleTree2 {
-	Position = 0, 480, 0
-}
-
-RedAppleTree3 {
-	Position = 0, 520, 0
-}*/
+Background = 0.7373, 0.8902, 0.9490
+Ambient = 1, 1, 1
+FogType = "None"
+SunlightDirection = 0.1, -1, 0.1
