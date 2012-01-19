@@ -45,7 +45,7 @@ float4 main(float2 texCoord: TEXCOORD0) : COLOR
    float4 sum = 0;
    for (int i = 0; i < 11; i++)
    {
-      sum += tex2D(Blur0, texCoord + pos[i]*0.01) * samples[i];
+      sum += tex2D(Blur0, texCoord + pos[i]*0.005) * samples[i];
    }
    return sum;
 }

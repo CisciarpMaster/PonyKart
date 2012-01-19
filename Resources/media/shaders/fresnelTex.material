@@ -7,8 +7,9 @@ vertex_program fresnelTex_vp cg {
 		param_named_auto WorldITXf    inverse_transpose_world_matrix
 		param_named_auto WorldXf      world_matrix
 		param_named_auto ViewIXf      inverse_view_matrix
-		param_named_auto WvpXf        worldviewproj_matrix
-		
+		param_named_auto WvpXf        worldviewproj_matrix				
+		param_named_auto lightPosition light_position 0
+				
 		param_named uScale float 1.0
 		param_named vScale float 1.0
 	}
@@ -20,6 +21,7 @@ fragment_program fresnelTex_Blend_fp cg {
 	profiles ps_2_0
 	
 	default_params {
+		param_named_auto Ambient ambient_light_colour
 		// Default is white
 		param_named GlowColour float3 1.0 1.0 1.0
 		// Bigger exponent, thinner edges
@@ -35,6 +37,7 @@ fragment_program fresnelTex_Additive_fp cg {
 	profiles ps_2_0
 	
 	default_params {
+		param_named_auto Ambient ambient_light_colour
 		// Default is white
 		param_named GlowColour float3 1.0 1.0 1.0
 		// Bigger exponent, thinner edges
@@ -50,6 +53,7 @@ fragment_program fresnelTex_Self_fp cg {
 	profiles ps_2_0
 	
 	default_params {
+		param_named_auto Ambient ambient_light_colour
 		// Bigger exponent, thinner edges
 		param_named GlowExpon float 3
 		// alpha

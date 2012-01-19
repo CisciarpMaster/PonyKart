@@ -97,7 +97,7 @@ namespace Ponykart.Core {
 
 			{
 				Vector3 last_pos = CameraNode.Position;
-				CameraNode.Position = CameraNode.Position + ( CameraNode.Position - mLastPosition ) * (float)System.Math.Pow( 0.93f, evt.timeSinceLastFrame * 60.0f ) +camDisplacement * ( evt.timeSinceLastFrame * evt.timeSinceLastFrame ) * 30.0f;
+				CameraNode.Position = CameraNode.Position + ( CameraNode.Position - mLastPosition ) * (float)System.Math.Pow( 0.89f, evt.timeSinceLastFrame * 60.0f ) +camDisplacement * ( evt.timeSinceLastFrame * evt.timeSinceLastFrame ) * 60.0f;
 				mLastPosition = last_pos;
 			}
 
@@ -123,10 +123,10 @@ namespace Ponykart.Core {
 
 			//this.Camera.FOVy += ( ( 45 + followKart.Body.LinearVelocity.Length * 0.25f ) * 3.14159f / 180.0f - this.Camera.FOVy ) * 0.1f;
 
-			float desiredRoll = ( ( -followKart.Body.AngularVelocity.y ) * 0.1f + mRoll * 20.0f ) / 21.0f;
+			/*float desiredRoll = ( ( -followKart.Body.AngularVelocity.y ) * 0.1f + mRoll * 20.0f ) / 21.0f;
 			float deltaRoll = desiredRoll - mRoll;
 			Camera.Roll( deltaRoll );
-			mRoll += deltaRoll;
+			mRoll += deltaRoll;*/
 
 			callback.Dispose( );
 			return true;

@@ -29,6 +29,8 @@ fragment_program outlined_ps cg {
 		//param_named Alpha float 1.0
 
 		//param_named_auto LightDirection      light_position 1
+		param_named_auto lightPosition light_position 0
+		param_named_auto Ambient ambient_light_colour
 
 		param_named OutlineColour float3 1.0 1.0 1.0
 	}

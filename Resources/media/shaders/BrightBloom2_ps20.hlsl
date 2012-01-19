@@ -11,10 +11,12 @@ float4 main(float2 texCoord: TEXCOORD0,
 		) : COLOR {
 	float4 tex = tex2D(RT,   texCoord);
 
-	tex -= 1;
+	tex = saturate( tex - 0.3f ) * 0.75f;
+
+	/*tex -= 1;
 	float4 bright4= -6 * tex * tex + 2; //float4 bright4= ( -3 * tex * tex + 1 ) * 2;
 	float bright = dot( bright4, float4( 0.333333, 0.333333, 0.333333, 0) );
-	tex += bright + 0.6;
+	tex += bright + 0.6;*/
 
 	return tex;
 }

@@ -1,6 +1,19 @@
 material TwiCutlass {
 	technique {
 		pass {
+			cull_hardware anticlockwise
+			vertex_program_ref outlined_vp {
+			}
+			fragment_program_ref outlined_fp {
+				param_named GlowExpon float 2
+				param_named Alpha float 0.5
+			}
+			
+			texture_unit {
+				texture TS_Texture_mockup.png
+			}
+		}
+		pass {
 		
 			vertex_program_ref fresnelTex_vp {
 			}

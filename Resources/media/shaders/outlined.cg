@@ -45,7 +45,8 @@ float4 main_ps(float2 uv 			: TEXCOORD0,
 			    //uniform float3 GlowColour,
 			    //uniform float GlowExpon,
 			    //uniform float Alpha,
-				//uniform float4 LightDirection,
+				uniform float4 lightPosition,
+				uniform float3 Ambient,
 				uniform float3 OutlineColour)
 : COLOR
 {
@@ -75,7 +76,9 @@ float4 main_ps(float2 uv 			: TEXCOORD0,
 	//	edge = 0.8f;
 	//}
 
-    float3 result = OutlineColour / 255.0f;
+	float light = saturate( saturate( dot( WorldNormal, lightPosition ) * 0.3f + 0.6f ) + Ambient * 0.0f );
+
+    float3 result = OutlineColour / 255.0f * light;
 
 	return float4(result, texture.a);
 }
