@@ -28,7 +28,7 @@ LoadFile = "saa/collidable trees"
 Music = "Sweet Apple Acres 128bpm.ogg"
 
 Background = 0.7373, 0.8902, 0.9490
-Ambient = 1, 1, 1
+Ambient = 0.8, 0.8, 0.8
 FogType = "Linear"
 FogColour = 0.7373, 0.8902, 0.9490, 0.5
 FogStart = 500
