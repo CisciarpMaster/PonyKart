@@ -37,6 +37,8 @@ namespace Ponykart.Physics {
 		/// </summary>
 		public static bool DrawLines = false;
 
+		public static bool SlowMo = false;
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -85,7 +87,7 @@ namespace Ponykart.Physics {
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
 
-			world.StepSimulation(evt.timeSinceLastFrame, Settings.Default.PhysicsMaxSubsteps, Settings.Default.PhysicsFixedTimestep);
+			world.StepSimulation(SlowMo ? evt.timeSinceLastFrame / 3f : evt.timeSinceLastFrame, Settings.Default.PhysicsMaxSubsteps, Settings.Default.PhysicsFixedTimestep);
 
 			// run the events that go just after we simulate
 			if (PostSimulate != null)

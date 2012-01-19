@@ -87,7 +87,7 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.ForceActivationState(ActivationState.WantsDeactivation);
 					break;
 				case KeyCode.KC_G:
-					
+					PhysicsMain.SlowMo = !PhysicsMain.SlowMo;
 					break;
 				case KeyCode.KC_C:
 					if (!File.Exists("syncmedia.cmd"))
