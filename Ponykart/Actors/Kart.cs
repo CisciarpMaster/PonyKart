@@ -43,7 +43,8 @@ namespace Ponykart.Actors {
 		public readonly Degree FrontDriftAngle;
 		public readonly Degree BackDriftAngle;
 
-		public RaycastVehicle Vehicle { get; protected set; }
+		protected RaycastVehicle _vehicle;
+		public RaycastVehicle Vehicle { get { return _vehicle; } }
 		public RaycastVehicle.VehicleTuning Tuning { get; protected set; }
 		protected VehicleRaycaster Raycaster;
 
@@ -83,10 +84,10 @@ namespace Ponykart.Actors {
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.GetG<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();
-			Vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
-			Vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a rotation matrix?
+			_vehicle = new RaycastVehicle(Tuning, Body, Raycaster);
+			_vehicle.SetCoordinateSystem(0, 1, 2); // I have no idea what this does... I'm assuming something to do with a rotation matrix?
 
-			LKernel.GetG<PhysicsMain>().World.AddAction(Vehicle);
+			LKernel.GetG<PhysicsMain>().World.AddAction(_vehicle);
 
 			var wheelFac = LKernel.GetG<WheelFactory>();
 			string frontWheelName = def.GetStringProperty("frontwheel", null);
@@ -111,7 +112,7 @@ namespace Ponykart.Actors {
 			if (!(KartDriftState.StartLeft | KartDriftState.StartRight).HasFlag(state))
 				throw new ArgumentException("You must pass either StartDriftLeft or StartDriftRight!", "state");
 
-			if (VehicleSpeed < 100 || IsDriftingAtAll)
+			if (_vehicle.CurrentSpeedKmHour < 100 || IsDriftingAtAll)
 				return;
 
 			// update our state
@@ -146,14 +147,14 @@ namespace Ponykart.Actors {
 					// change the back wheels' angles
 					if (w.ID == WheelID.FrontRight || w.ID == WheelID.BackRight) {
 						w.IdealSteerAngle = BackDriftAngle;
-						Vehicle.SetSteeringValue(BackDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
+						_vehicle.SetSteeringValue(BackDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
 					}
 					// change the front wheels' angles
 					else {
 						w.IdealSteerAngle = FrontDriftAngle;
-						Vehicle.SetSteeringValue(FrontDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
+						_vehicle.SetSteeringValue(FrontDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 					}
 				}
 				// right
@@ -163,14 +164,14 @@ namespace Ponykart.Actors {
 					// change the back wheels' angles
 					if (w.ID == WheelID.FrontLeft || w.ID == WheelID.BackLeft) {
 						w.IdealSteerAngle = -BackDriftAngle;
-						Vehicle.SetSteeringValue(-BackDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
+						_vehicle.SetSteeringValue(-BackDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
 					}
 					// change the front wheels' angles
 					else {
 						w.IdealSteerAngle = -FrontDriftAngle;
-						Vehicle.SetSteeringValue(-FrontDriftAngle.ValueRadians, w.IntWheelID);
-						Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
+						_vehicle.SetSteeringValue(-FrontDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 					}
 				}
 			});
@@ -196,18 +197,18 @@ namespace Ponykart.Actors {
 				w.IdealSteerAngle = 0;
 
 				if (w.ID == WheelID.FrontRight || w.ID == WheelID.FrontLeft) {
-					Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
+					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 				}
 				else {
-					Vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
-					Vehicle.ApplyEngineForce(0, w.IntWheelID);
+					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
+					_vehicle.ApplyEngineForce(0, w.IntWheelID);
 				}
 			});
 
-			Vehicle.GetWheelInfo((int) WheelID.FrontLeft).IsFrontWheel = true;
-			Vehicle.GetWheelInfo((int) WheelID.FrontRight).IsFrontWheel = true;
-			Vehicle.GetWheelInfo((int) WheelID.BackLeft).IsFrontWheel = false;
-			Vehicle.GetWheelInfo((int) WheelID.BackRight).IsFrontWheel = false;
+			_vehicle.GetWheelInfo((int) WheelID.FrontLeft).IsFrontWheel = true;
+			_vehicle.GetWheelInfo((int) WheelID.FrontRight).IsFrontWheel = true;
+			_vehicle.GetWheelInfo((int) WheelID.BackLeft).IsFrontWheel = false;
+			_vehicle.GetWheelInfo((int) WheelID.BackRight).IsFrontWheel = false;
 		}
 
 		public void FinishDrifting() {
@@ -290,7 +291,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public float VehicleSpeed {
 			get {
-				return Vehicle.CurrentSpeedKmHour;
+				return _vehicle.CurrentSpeedKmHour;
 			}
 		}
 
@@ -384,7 +385,7 @@ namespace Ponykart.Actors {
 				WheelBR.Dispose();
 			}
 
-			Vehicle.Dispose();
+			_vehicle.Dispose();
 
 			base.Dispose(disposing);
 		}

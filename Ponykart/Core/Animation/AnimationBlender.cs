@@ -54,7 +54,9 @@ namespace Mogre {
 				mSource.Enabled = true;
 				mSource.Weight = 1;
 				mSource.TimePosition = 0;
+				mSource.Loop = looping;
 
+				mComplete = true;
 
 				mTimeleft = 0;
 			}
@@ -63,16 +65,15 @@ namespace Mogre {
 
 				if (mTimeleft > 0) {
 					// oops, weren't finished yet
-					if (newTarget == mTarget) {
-						// nothing to do! (ignoring duration here)
-					}
-					else if (newTarget == mSource) {
+					if (newTarget == mSource) {
 						// going back to the source state, so let's switch
 						mSource = mTarget;
 						mTarget = newTarget;
 						mTimeleft = mDuration - mTimeleft; // i'm ignoring the new duration here
+
+						mComplete = false;
 					}
-					else {
+					else if (newTarget != mTarget) {
 						// ok, newTarget is really new, so either we simply replace the target with this one, or
 						// we make the target the new source
 						if (mTimeleft < mDuration * 0.5) {
@@ -91,7 +92,10 @@ namespace Mogre {
 						mTarget.Enabled = true;
 						mTarget.Weight = 1.0f - mTimeleft / mDuration;
 						mTarget.TimePosition = 0;
+						mTarget.Loop = looping;
+						mComplete = false;
 					}
+					// else -> nothing to do! (ignoring duration here)
 				}
 				else {
 					// assert( target == 0, "target should be 0 when not blending" )
@@ -103,6 +107,7 @@ namespace Mogre {
 					mTarget.Enabled = true;
 					mTarget.Weight = 0;
 					mTarget.TimePosition = 0;
+					mComplete = false;
 				}
 			}
 		}
@@ -113,33 +118,35 @@ namespace Mogre {
 		/// <param name="time"></param>
 		public void AddTime(float time) {
 			if (mSource != null) {
-				if (mTimeleft > 0) {
-					mTimeleft -= time;
+				if (!mComplete) {
+					if (mTimeleft > 0) {
+						mTimeleft -= time;
 
-					if (mTimeleft < 0) {
-						// finish blending
-						mSource.Enabled = false;
-						mSource.Weight = 0;
-						mSource = mTarget;
-						mSource.Enabled = true;
-						mSource.Weight = 1;
-						mTarget = null;
+						if (mTimeleft < 0) {
+							// finish blending
+							mSource.Enabled = false;
+							mSource.Weight = 0;
+							mSource = mTarget;
+							mSource.Enabled = true;
+							mSource.Weight = 1;
+							mTarget = null;
+						}
+						else {
+							// still blending, advance weights
+							mSource.Weight = mTimeleft / mDuration;
+							mTarget.Weight = 1.0f - mTimeleft / mDuration;
+
+							if (mTransition == AnimationBlendingTransition.BlendWhileAnimating)
+								mTarget.AddTime(time);
+						}
+					}
+
+					if (mSource.TimePosition >= mSource.Length) {
+						mComplete = true;
 					}
 					else {
-						// still blending, advance weights
-						mSource.Weight = mTimeleft / mDuration;
-						mTarget.Weight = 1.0f - mTimeleft / mDuration;
-
-						if (mTransition == AnimationBlendingTransition.BlendWhileAnimating)
-							mTarget.AddTime(time);
+						mComplete = false;
 					}
-				}
-
-				if (mSource.TimePosition >= mSource.Length) {
-					mComplete = true;
-				}
-				else {
-					mComplete = false;
 				}
 
 				mSource.AddTime(time);

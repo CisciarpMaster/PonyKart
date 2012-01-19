@@ -137,7 +137,7 @@
     <Compile Include="Core\Cameras\FreeCamera.cs" />
     <Compile Include="Core\Cameras\KnightyCamera.cs" />
     <Compile Include="Core\Cameras\LCamera.cs" />
-    <Compile Include="Core\ChaseCamera.cs" />
+    <Compile Include="Core\Cameras\ChaseCamera.cs" />
     <Compile Include="Core\LDisposable.cs" />
     <Compile Include="Actors\Wheels\Wheel.cs" />
     <Compile Include="Actors\Wheels\WheelFactory.cs" />
@@ -146,7 +146,7 @@
     <Compile Include="Actors\Components\RibbonComponent.cs" />
     <Compile Include="Actors\Components\ShapeComponent.cs" />
     <Compile Include="Actors\Kart.cs" />
-    <Compile Include="Core\AnimationManager.cs" />
+    <Compile Include="Core\Animation\AnimationManager.cs" />
     <Compile Include="Core\Options.cs" />
     <Compile Include="Core\OptionsEnums.cs" />
     <Compile Include="Handlers\CompositorHandler.cs" />
@@ -204,7 +204,7 @@
     <Compile Include="Core\KeyBindingManager.cs" />
     <Compile Include="Sound\BackgroundMusicHandler.cs" />
     <Compile Include="Sound\EngineDroneHandler.cs" />
-    <Compile Include="Stuff\AnimationBlender.cs" />
+    <Compile Include="Core\Animation\AnimationBlender.cs" />
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Core\IDs.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />

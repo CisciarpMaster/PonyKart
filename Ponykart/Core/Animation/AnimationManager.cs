@@ -8,13 +8,13 @@ namespace Ponykart.Core {
 	/// to this class to update it for us. This means we only have to hook one FrameStarted method up instead of loads of them.
 	/// </summary>
 	public class AnimationManager {
-		private IList<AnimationBlender> states;
+		private IList<AnimationBlender> blenders;
 
 		public AnimationManager() {
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 
-			states = new List<AnimationBlender>();
+			blenders = new List<AnimationBlender>();
 		}
 
 		/// <summary>
@@ -28,7 +28,7 @@ namespace Ponykart.Core {
 		/// clear our states list and disconnect from the frame started event
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			states.Clear();
+			blenders.Clear();
 			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 		}
 
@@ -36,9 +36,10 @@ namespace Ponykart.Core {
 		/// update all of our animations, but only if we aren't paused
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
-			foreach (AnimationBlender state in states) {
-				if (!Pauser.IsPaused)
-					state.AddTime(evt.timeSinceLastFrame);
+			if (!Pauser.IsPaused) {
+				foreach (AnimationBlender b in blenders) {
+					b.AddTime(evt.timeSinceLastFrame);
+				}
 			}
 			return true;
 		}
@@ -47,14 +48,14 @@ namespace Ponykart.Core {
 		/// Add an animation to be automatically updated
 		/// </summary>
 		public void Add(AnimationBlender ab) {
-			states.Add(ab);
+			blenders.Add(ab);
 		}
 
 		/// <summary>
 		/// Remove an animation from being automatically updated
 		/// </summary>
 		public void Remove(AnimationBlender ab) {
-			states.Remove(ab);
+			blenders.Remove(ab);
 		}
 	}
 }

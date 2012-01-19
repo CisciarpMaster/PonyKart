@@ -135,7 +135,7 @@ namespace Ponykart.Actors {
 		public float Friction { get; set; } 
 
 		readonly Kart kart;
-		RaycastVehicle vehicle { get { return kart.Vehicle; } }
+		readonly RaycastVehicle vehicle;
 		#endregion
 
 		/// <summary>
@@ -150,6 +150,7 @@ namespace Ponykart.Actors {
 			// set up these
 			kart = owner;
 			ID = wheelID;
+			vehicle = kart.Vehicle;
 
 			// set up our readonlies
 			Radius = dict["Radius"];
