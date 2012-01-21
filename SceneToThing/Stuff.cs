@@ -40,7 +40,7 @@ namespace SceneToThing {
 	/// <summary>
 	/// Representation of Mogre.Vector3
 	/// </summary>
-	public class Vector3 {
+	public struct Vector3 {
 		public float x;
 		public float y;
 		public float z;
@@ -53,6 +53,18 @@ namespace SceneToThing {
 
 		public override string ToString() {
 			return "{" + x + ", " + y + ", " + z + "}";
+		}
+
+		public static Vector3 operator +(Vector3 one, Vector3 two) {
+			return new Vector3(one.x + two.x, one.y + two.y, one.z + two.z);
+		}
+
+		public static Vector3 operator /(Vector3 one, float scalar) {
+			return new Vector3(one.x / scalar, one.y / scalar, one.z / scalar);
+		}
+
+		public static Vector3 operator -(Vector3 one, Vector3 two) {
+			return new Vector3(one.x - two.x, one.y - two.y, one.z - two.z);
 		}
 	}
 

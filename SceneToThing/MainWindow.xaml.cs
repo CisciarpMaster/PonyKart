@@ -178,6 +178,19 @@ namespace SceneToThing {
 						if (BillboardCheckBox.IsChecked == true) {
 							string[] texCoordSets = BillboardTexCoordsBox.Text.Split(new string[] {"|"}, StringSplitOptions.RemoveEmptyEntries);
 							string[] randTexCoordSets;
+							Vector3 newCenter = new Vector3(0, 0, 0);
+
+							if (BillboardRecenterCheckBox.IsChecked == true) {
+								var nodes = Blocks.Where(b => (b as Node) != null);
+								foreach (var n in nodes) {
+									newCenter += n.Position;
+								}
+								newCenter /= nodes.Count();
+
+								foreach (var n in nodes) {
+									n.Position -= newCenter;
+								}
+							}
 
 							writer.WriteLine("BillboardSet {");
 							writer.WriteLine(string.Format(culture, @"	Material = ""{0}""", BillboardMaterialBox.Text));
@@ -219,6 +232,9 @@ namespace SceneToThing {
 									}
 								}
 							}
+
+							if (BillboardRecenterCheckBox.IsChecked == true)
+								writer.WriteLine(newCenter);
 
 							writer.WriteLine("}");
 						}
@@ -562,6 +578,7 @@ namespace SceneToThing {
 			BillboardSizeBox.IsEnabled = true;
 			BillboardTexCoordsBox.IsEnabled = true;
 			BillboardHelpButton.IsEnabled = true;
+			BillboardRecenterCheckBox.IsEnabled = true;
 		}
 
 		private void BillboardCheckBox_Unchecked(object sender, RoutedEventArgs e) {
@@ -569,6 +586,7 @@ namespace SceneToThing {
 			BillboardSizeBox.IsEnabled = false;
 			BillboardTexCoordsBox.IsEnabled = false;
 			BillboardHelpButton.IsEnabled = false;
+			BillboardRecenterCheckBox.IsEnabled = false;
 		}
 
 		private void BillboardHelpButton_Click(object sender, RoutedEventArgs e) {

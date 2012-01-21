@@ -69,5 +69,6 @@
 		<Label Content="TexCoords:" Height="29" HorizontalAlignment="Left" Margin="450,116,0,0" Name="label12" VerticalAlignment="Top" Width="76" />
 		<TextBox Height="64" HorizontalAlignment="Left" Margin="514,116,0,0" Name="BillboardTexCoordsBox" VerticalAlignment="Top" Width="133" IsEnabled="False" TextWrapping="Wrap" />
 		<Button Content="Help" Height="29" HorizontalAlignment="Left" Margin="450,151,0,0" Name="BillboardHelpButton" VerticalAlignment="Top" Width="58" IsEnabled="False" Click="BillboardHelpButton_Click" />
+		<CheckBox Content="Recenter" Height="17" HorizontalAlignment="Left" Margin="536,29,0,0" Name="BillboardRecenterCheckBox" VerticalAlignment="Top" Width="110" IsEnabled="False" />
 	</Grid>
 </Window>
