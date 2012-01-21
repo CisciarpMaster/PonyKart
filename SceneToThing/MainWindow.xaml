@@ -3,13 +3,16 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		Title=".scene to .thing converter" Height="483" Width="687" Name="window" ResizeMode="CanMinimize" Background="WhiteSmoke">
 	<Grid>
+		<GroupBox Header="Billboards" Height="176" HorizontalAlignment="Left" Margin="441,12,0,0" Name="groupBox2" VerticalAlignment="Top" Width="212">
+			<CheckBox Content="Billboards" Height="19" Name="BillboardCheckBox" Width="195" VerticalAlignment="Top" Checked="BillboardCheckBox_Checked" Unchecked="BillboardCheckBox_Unchecked"/>
+		</GroupBox>
 		<Button Content="Import .scene" Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="openButton" VerticalAlignment="Top" Width="162" Click="openButton_Click" />
 		<ListBox Height="391" HorizontalAlignment="Left" Margin="12,41,0,0" Name="sceneListBox" VerticalAlignment="Top" Width="221" SelectionChanged="sceneListBox_SelectionChanged" />
 		<Button Content="Export .thing" Height="23" HorizontalAlignment="Left" Margin="180,12,0,0" Name="saveButton" VerticalAlignment="Top" Width="162" Click="saveButton_Click" IsEnabled="False" />
-		<TextBox Height="27" HorizontalAlignment="Left" Margin="308,41,0,0" Name="nameBox" VerticalAlignment="Top" Width="169" Text="" IsEnabled="False" />
+		<TextBox Height="27" HorizontalAlignment="Left" Margin="308,41,0,0" Name="nameBox" VerticalAlignment="Top" Width="127" Text="" IsEnabled="False" />
 		<Label Content="Name:" Height="27" HorizontalAlignment="Left" Margin="239,41,0,0" Name="label1" VerticalAlignment="Top" Width="63" />
 		<Label Content="Physics:" Height="27" HorizontalAlignment="Left" Margin="239,74,0,0" Name="label2" VerticalAlignment="Top" Width="63" />
-		<ComboBox Height="27" HorizontalAlignment="Left" Margin="308,74,0,0" Name="physicsBox" VerticalAlignment="Top" Width="169" SelectionChanged="physicsBox_SelectionChanged" IsEnabled="False">
+		<ComboBox Height="27" HorizontalAlignment="Left" Margin="308,74,0,0" Name="physicsBox" VerticalAlignment="Top" Width="127" SelectionChanged="physicsBox_SelectionChanged" IsEnabled="False">
 			<ComboBoxItem Content="Dynamic" />
 			<ComboBoxItem Content="Static" />
 			<ComboBoxItem Content="Kinematic" />
@@ -46,10 +49,10 @@
 				<Button Content="Discard changes" Height="25" HorizontalAlignment="Left" Margin="153,191,0,0" Name="discardChangesButton" VerticalAlignment="Top" Width="141" IsEnabled="False" Click="discardChangesButton_Click" />
 			</Grid>
 		</GroupBox>
-		<TextBox Height="27" HorizontalAlignment="Left" Margin="308,107,0,0" Name="massBox" Text="0" VerticalAlignment="Top" Width="169" IsEnabled="False" />
+		<TextBox Height="27" HorizontalAlignment="Left" Margin="308,107,0,0" Name="massBox" Text="0" VerticalAlignment="Top" Width="127" IsEnabled="False" />
 		<Label Content="Mass:" Height="27" HorizontalAlignment="Left" Margin="239,107,0,0" Name="label9" VerticalAlignment="Top" Width="63" />
 		<Label Content="Collision:" Height="27" HorizontalAlignment="Left" Margin="239,140,0,0" Name="label6" VerticalAlignment="Top" Width="63" />
-		<ComboBox Height="27" HorizontalAlignment="Left" IsEnabled="False" Margin="308,140,0,0" Name="collisionBox" VerticalAlignment="Top" Width="169">
+		<ComboBox Height="27" HorizontalAlignment="Left" IsEnabled="False" Margin="308,140,0,0" Name="collisionBox" VerticalAlignment="Top" Width="127">
 			<ComboBoxItem Content="None" IsSelected="True" />
 			<ComboBoxItem Content="Default" />
 			<ComboBoxItem Content="Environment" />
@@ -59,5 +62,12 @@
 			<ComboBoxItem Content="Karts" />
 			<ComboBoxItem Content="InvisibleWalls" />
 		</ComboBox>
+		<TextBox HorizontalAlignment="Left" Margin="514,54,0,363" Name="BillboardSizeBox" Width="133" IsEnabled="False" />
+		<Label Content="Size:" Height="25" HorizontalAlignment="Left" Margin="450,54,0,0" Name="label10" VerticalAlignment="Top" Width="58" />
+		<Label Content="Material:" Height="25" HorizontalAlignment="Left" Margin="450,87,0,0" Name="label11" VerticalAlignment="Top" Width="58" />
+		<TextBox Height="27" HorizontalAlignment="Left" Margin="514,85,0,0" Name="BillboardMaterialBox" VerticalAlignment="Top" Width="133" IsEnabled="False" />
+		<Label Content="TexCoords:" Height="29" HorizontalAlignment="Left" Margin="450,116,0,0" Name="label12" VerticalAlignment="Top" Width="76" />
+		<TextBox Height="64" HorizontalAlignment="Left" Margin="514,116,0,0" Name="BillboardTexCoordsBox" VerticalAlignment="Top" Width="133" IsEnabled="False" TextWrapping="Wrap" />
+		<Button Content="Help" Height="29" HorizontalAlignment="Left" Margin="450,151,0,0" Name="BillboardHelpButton" VerticalAlignment="Top" Width="58" IsEnabled="False" Click="BillboardHelpButton_Click" />
 	</Grid>
 </Window>

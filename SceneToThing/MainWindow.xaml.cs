@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -173,45 +174,95 @@ namespace SceneToThing {
 						}
 
 						writer.WriteLine();
-						foreach (Block block in Blocks) {
-							// write out our model blocks
-							Node node = block as Node;
-							if (node != null) {
-								writer.WriteLine("// " + node.Name);
-								writer.WriteLine("Model {");
-								writer.WriteLine(string.Format(culture, @"	Mesh = ""{0}""", node.Entity.Mesh));
-								writer.WriteLine(string.Format(culture, @"	Material = ""{0}""", node.Entity.Material));
-								writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", node.Position.x, node.Position.y, node.Position.z));
-								writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
-									node.Orientation.x, node.Orientation.y, node.Orientation.z, node.Orientation.w));
-								writer.WriteLine(string.Format(culture, @"	Scale = {0}, {1}, {2}", node.Dimensions.x, node.Dimensions.y, node.Dimensions.z));
-								writer.WriteLine(string.Format(culture, @"	CastsShadows = {0}", b(node.Entity.CastShadows)));
-								writer.WriteLine("}");
-								continue;
+
+						if (BillboardCheckBox.IsChecked == true) {
+							string[] texCoordSets = BillboardTexCoordsBox.Text.Split(new string[] {"|"}, StringSplitOptions.RemoveEmptyEntries);
+							string[] randTexCoordSets;
+
+							writer.WriteLine("BillboardSet {");
+							writer.WriteLine(string.Format(culture, @"	Material = ""{0}""", BillboardMaterialBox.Text));
+							writer.WriteLine(string.Format(culture, @"	Type = OrientedCommon"));
+							writer.WriteLine(string.Format(culture, @"	Width = {0}", BillboardSizeBox.Text));
+							writer.WriteLine(string.Format(culture, @"	Height = {0}", BillboardSizeBox.Text));
+							
+							if (texCoordSets.Length <= 1) {
+								if (texCoordSets.Length == 1)
+									writer.WriteLine(string.Format(culture, @"	TextureCoords = {0}", BillboardTexCoordsBox.Text));
+
+								foreach (Block block in Blocks) {
+									Node node = block as Node;
+									if (node != null) {
+										writer.WriteLine("\tBillboard {");
+										writer.WriteLine(string.Format(culture, @"		Position = {0}, {1}, {2}", node.Position.x, node.Position.y, node.Position.z));
+										writer.WriteLine("\t}");
+									}
+								}
+							}
+							else if (texCoordSets.Length > 1) {
+								int numBillboards = Blocks.Where(b => (b as Node) != null).Count();
+								randTexCoordSets = new string[numBillboards];
+
+								for (int a = 0; a < numBillboards; a++) {
+									randTexCoordSets[a] = texCoordSets[a % texCoordSets.Length];
+								}
+								randTexCoordSets = RandomizeStrings(randTexCoordSets);
+
+								int currentIndex = 0;
+								foreach (Block block in Blocks) {
+									Node node = block as Node;
+									if (node != null) {
+										writer.WriteLine("\tBillboard {");
+										writer.WriteLine(string.Format(culture, @"		Position = {0}, {1}, {2}", node.Position.x, node.Position.y, node.Position.z));
+										writer.WriteLine(string.Format(culture, @"		TextureCoords = {0}", randTexCoordSets[currentIndex]));
+										writer.WriteLine("\t}");
+										currentIndex++;
+									}
+								}
 							}
 
-							// write out our shape blocks
-							Shape shape = block as Shape;
-							if (shape != null) {
-								writer.WriteLine("// " + shape.Name);
-								writer.WriteLine("Shape {");
-								writer.WriteLine(string.Format(culture, @"	Type = {0}", shape.Type));
-								writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", shape.Position.x, shape.Position.y, shape.Position.z));
-								writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
-									shape.Orientation.x, shape.Orientation.y, shape.Orientation.z, shape.Orientation.w));
+							writer.WriteLine("}");
+						}
+						else {
+							foreach (Block block in Blocks) {
+								// write out our model blocks
+								Node node = block as Node;
+								if (node != null) {
+									writer.WriteLine("// " + node.Name);
+									writer.WriteLine("Model {");
+									writer.WriteLine(string.Format(culture, @"	Mesh = ""{0}""", node.Entity.Mesh));
+									writer.WriteLine(string.Format(culture, @"	Material = ""{0}""", node.Entity.Material));
+									writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", node.Position.x, node.Position.y, node.Position.z));
+									writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
+										node.Orientation.x, node.Orientation.y, node.Orientation.z, node.Orientation.w));
+									writer.WriteLine(string.Format(culture, @"	Scale = {0}, {1}, {2}", node.Dimensions.x, node.Dimensions.y, node.Dimensions.z));
+									writer.WriteLine(string.Format(culture, @"	CastsShadows = {0}", b(node.Entity.CastShadows)));
+									writer.WriteLine("}");
+									continue;
+								}
 
-								if (shape.Type == ShapeTypes.Box || shape.Type == ShapeTypes.Cylinder) {
-									writer.WriteLine(string.Format(culture, @"	Dimensions = {0}, {1}, {2}", shape.Dimensions.x, shape.Dimensions.y, shape.Dimensions.z));
+								// write out our shape blocks
+								Shape shape = block as Shape;
+								if (shape != null) {
+									writer.WriteLine("// " + shape.Name);
+									writer.WriteLine("Shape {");
+									writer.WriteLine(string.Format(culture, @"	Type = {0}", shape.Type));
+									writer.WriteLine(string.Format(culture, @"	Position = {0}, {1}, {2}", shape.Position.x, shape.Position.y, shape.Position.z));
+									writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
+										shape.Orientation.x, shape.Orientation.y, shape.Orientation.z, shape.Orientation.w));
+
+									if (shape.Type == ShapeTypes.Box || shape.Type == ShapeTypes.Cylinder) {
+										writer.WriteLine(string.Format(culture, @"	Dimensions = {0}, {1}, {2}", shape.Dimensions.x, shape.Dimensions.y, shape.Dimensions.z));
+									}
+									else if (shape.Type == ShapeTypes.Capsule || shape.Type == ShapeTypes.Cone) {
+										writer.WriteLine(string.Format(culture, @"	Height = {0}", shape.Height));
+										writer.WriteLine(string.Format(culture, @"	Radius = {0}", shape.Radius));
+									}
+									else if (shape.Type == ShapeTypes.Sphere) {
+										writer.WriteLine(string.Format(culture, @"	Radius = {0}", shape.Radius));
+									}
+									writer.WriteLine("}");
+									continue;
 								}
-								else if (shape.Type == ShapeTypes.Capsule || shape.Type == ShapeTypes.Cone) {
-									writer.WriteLine(string.Format(culture, @"	Height = {0}", shape.Height));
-									writer.WriteLine(string.Format(culture, @"	Radius = {0}", shape.Radius));
-								}
-								else if (shape.Type == ShapeTypes.Sphere) {
-									writer.WriteLine(string.Format(culture, @"	Radius = {0}", shape.Radius));
-								}
-								writer.WriteLine("}");
-								continue;
 							}
 						}
 						writer.Close();
@@ -504,6 +555,57 @@ namespace SceneToThing {
 				collisionBox.IsEnabled = true;
 				collisionBox.SelectedIndex = 1; // default
 			}
+		}
+
+		private void BillboardCheckBox_Checked(object sender, RoutedEventArgs e) {
+			BillboardMaterialBox.IsEnabled = true;
+			BillboardSizeBox.IsEnabled = true;
+			BillboardTexCoordsBox.IsEnabled = true;
+			BillboardHelpButton.IsEnabled = true;
+		}
+
+		private void BillboardCheckBox_Unchecked(object sender, RoutedEventArgs e) {
+			BillboardMaterialBox.IsEnabled = false;
+			BillboardSizeBox.IsEnabled = false;
+			BillboardTexCoordsBox.IsEnabled = false;
+			BillboardHelpButton.IsEnabled = false;
+		}
+
+		private void BillboardHelpButton_Click(object sender, RoutedEventArgs e) {
+			MessageBox.Show(
+@"This box can do a couple of things:
+ 1) Leave blank for all billboards to use the entire texture
+ 2) Just enter one set of texture coordinates if all billboards in the set use the same ones
+ 3) Enter several texture coordinate sets separated by vertical bars | to use several different billboards. The billboards will be assigned one set at random
+
+Texture coordinate sets should be entered like this:
+	 x, x, x, x|y, y, y, y|z, z, z, z", "Texture coordinate box help", MessageBoxButton.OK);
+		}
+
+		// from http://www.dotnetperls.com/shuffle
+		public static string[] RandomizeStrings(string[] arr) {
+			var _random = new Random();
+
+			List<KeyValuePair<int, string>> list = new List<KeyValuePair<int, string>>();
+			// Add all strings from array
+			// Add new random int each time
+			foreach (string s in arr) {
+				list.Add(new KeyValuePair<int, string>(_random.Next(), s));
+			}
+			// Sort the list by the random number
+			var sorted = from item in list
+						 orderby item.Key
+						 select item;
+			// Allocate new string array
+			string[] result = new string[arr.Length];
+			// Copy values to array
+			int index = 0;
+			foreach (KeyValuePair<int, string> pair in sorted) {
+				result[index] = pair.Value;
+				index++;
+			}
+			// Return copied array
+			return result;
 		}
 	}
 }
