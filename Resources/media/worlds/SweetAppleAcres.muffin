@@ -68,6 +68,10 @@ CarrotTopHouse {
 	Orientation = 0, 0.996195, -4.35451E-08, -0.0871557
 }
 
+SAACornRows {
+	Position = -400, 0, -300
+}
+
 
 // stuff in the barn area
 ChickenCoop {

@@ -3,7 +3,7 @@ material AppleTree {
 	
 	technique {
 
-		pass {
+		/* pass {
 			cull_hardware anticlockwise
 			vertex_program_ref outlined_vp {
 			}
@@ -16,7 +16,7 @@ material AppleTree {
 				texture AppleTree.dds
 				tex_address_mode clamp
 			}
-		}
+		}*/
 
 		pass {
 			vertex_program_ref fresnelTex_vp {

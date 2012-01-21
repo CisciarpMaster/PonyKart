@@ -74,18 +74,40 @@ material SAA_Grass {
 	}
 }
 
-/* material SAA_Hills {
+
+material SAA_Field {
 	technique {
 		pass {
-			scene_blend alpha_blend
-			depth_write off
-			
-			alpha_rejection greater_equal 64
+			vertex_program_ref fresnelTex_vp {
+				param_named uScale float 20
+				param_named vScale float 20
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 3
+				//param_named Alpha float 0.5
+			}
 			
 			texture_unit {
-				texture hills.png
+				texture saa_dirt_02.dds
 			}
 		}
 	}
 }
-*/
+
+material SAA_FieldTransition {
+	technique {
+		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 3
+				//param_named Alpha float 0.5
+			}
+			
+			texture_unit {
+				texture saa_crop2.dds
+				tex_address_mode wrap clamp
+			}
+		}
+	}
+}

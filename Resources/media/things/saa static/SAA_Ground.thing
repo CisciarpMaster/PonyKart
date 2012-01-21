@@ -20,14 +20,33 @@ Model {
 
 Model {
 	Mesh = "SAA_Field1.mesh"
-	Material = "SAA_Road"
+	Material = "SAA_Field"
+	Position = 284.874, 13.2072, 296.972
+	CastsShadows = false
+}
+Model {
+	Mesh = "SAA_FieldTransition1.mesh"
+	Material = "SAA_FieldTransition"
 	Position = 284.874, 13.2072, 296.972
 	CastsShadows = false
 }
 Model {
 	Mesh = "SAA_Field2.mesh"
-	Material = "SAA_Road"
-	Position = -642.704, 32, -356.73
+	Material = "SAA_Field"
+	Position = -642.704, 31.6884, -356.73
+	CastsShadows = false
+}
+Model {
+	Mesh = "SAA_FieldTransition2.mesh"
+	Material = "SAA_FieldTransition"
+	Position = -642.704, 100.545, -356.73
+	CastsShadows = false
+}
+Model {
+	Mesh = "SAA_CornRows.mesh"
+	Material = "SAA_CornRows"
+	Position = -638.601, 32.584, -360.331
+	Orientation = 0.5, 0.5, -0.5, 0.5
 	CastsShadows = false
 }
 

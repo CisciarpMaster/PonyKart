@@ -84,3 +84,24 @@ material CarrotTopPlants {
 		}
 	}
 }
+
+
+material SAA_CornRows {
+	receive_shadows off
+	
+	technique {
+		pass {
+			scene_blend alpha_blend
+			depth_write off
+			alpha_rejection greater_equal 64
+			
+			texture_unit {
+				texture cornrows.dds
+				tex_address_mode mirror
+				scale 0.033333 1
+			}
+		}
+	}
+}
+
+
