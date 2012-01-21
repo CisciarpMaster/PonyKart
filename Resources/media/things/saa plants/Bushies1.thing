@@ -7,323 +7,447 @@ BillboardSet {
 	Width = 5
 	Height = 5
 	Billboard {
-		Position = 239.89, 0.682927, 233.002
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 262.524, 1.02406, 221.256
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 258.192, 0.857614, 221.39
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 253.809, 0.831723, 221.495
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 249.386, 0.819108, 221.562
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 244.934, 0.806688, 221.6
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 240.451, 0.797588, 221.607
+		Position = 10.93301, -0.04438019, 1.281906
 		TextureCoords = 0.5, 0.625, 0.625, 0.75
 	}
 	Billboard {
-		Position = 266.646, 1.61078, 224.998
+		Position = 6.559021, -0.8780702, -26.5351
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 239.161, 0.559598, 248.966
+		Position = 2.236023, -0.8951002, -26.17209
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -1.992981, -0.9112502, -25.7341
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 243.559, 0.712401, 248.962
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 247.941, 0.86464, 248.962
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 252.282, 1.01498, 248.954
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 256.571, 1.43308, 248.928
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 260.894, 2.20799, 248.912
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 265.257, 2.99032, 248.912
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 262.283, 1.18597, 225.06
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 239.485, 0.5666, 244.974
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 243.897, 0.651981, 244.962
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 248.283, 0.804283, 244.954
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 252.635, 0.955275, 244.953
+		Position = -6.148987, -0.9269903, -25.25009
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 256.935, 1.26942, 244.935
+		Position = -10.25299, -0.9420202, -24.7471
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 10.99802, -0.8946602, -22.7851
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 6.555023, -0.9117203, -22.5311
 		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 261.23, 1.94088, 244.903
+		Position = 2.228027, -0.9294002, -22.17409
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -2.005981, -0.9458402, -21.7421
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -12.02698, 0.5364299, 21.3909
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 265.561, 2.71656, 244.892
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 257.934, 0.936211, 225.14
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 239.723, 0.605536, 240.979
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 244.162, 0.643951, 240.973
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 248.559, 0.741842, 240.961
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 252.91, 0.892677, 240.953
+		Position = -7.547974, 1.61958, 21.35091
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 257.226, 1.22555, 240.949
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
+		Position = -3.024994, 2.21119, 21.3419
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 261.514, 1.7528, 240.924
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 265.811, 2.43541, 240.902
+		Position = 1.473022, 2.75971, 21.32991
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 253.571, 0.794264, 225.231
+		Position = 6.003021, 3.21502, 21.32491
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 239.851, 0.64416, 236.982
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 244.324, 0.653988, 236.978
+		Position = 10.54001, 3.65539, 21.3159
 		TextureCoords = 0.5, 0.625, 0.625, 0.75
 	}
 	Billboard {
-		Position = 248.742, 0.726464, 236.969
+		Position = -6.165985, -0.9615703, -21.26509
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -10.27298, -0.9769303, -20.76909
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -11.78598, -0.1852903, 17.4749
 		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 253.097, 0.827232, 236.96
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 257.419, 1.17185, 236.954
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 261.724, 1.59741, 236.934
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 266.03, 2.22916, 236.91
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 249.144, 0.781288, 225.286
+		Position = -7.352997, 0.6202297, 17.3799
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 244.678, 0.769036, 225.315
+		Position = -2.838989, 1.17357, 17.3549
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 1.657013, 1.70176, 17.34091
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 6.180023, 2.21994, 17.3289
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 10.71402, 2.66344, 17.29791
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 244.384, 0.6927, 232.998
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 248.83, 0.72551, 232.984
+		Position = 10.99701, -0.9298903, -18.7681
 		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 253.206, 0.796611, 232.968
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 257.561, 1.13376, 232.957
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 261.911, 1.51007, 232.939
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 266.246, 2.0029, 232.915
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 240.191, 0.759694, 225.323
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 239.999, 0.721793, 229.118
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 244.491, 0.731142, 229.11
+		Position = 6.544006, -0.9469802, -18.5291
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 248.961, 0.743179, 229.087
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 253.358, 0.78066, 229.045
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 257.719, 1.09522, 228.996
+		Position = -11.56598, -0.4267203, 13.62891
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 262.083, 1.34803, 228.961
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 266.447, 1.76477, 228.935
+		Position = -7.168976, -0.1317701, 13.50391
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 266.867, 1.38809, 221.135
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 270.548, 2.6301, 232.893
+		Position = -2.700989, 0.3542397, 13.44791
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 238.787, 0.553617, 252.973
+		Position = 1.796021, 0.8849199, 13.4239
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 270.321, 2.91604, 236.894
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 270.088, 3.20071, 240.891
+		Position = 6.313019, 1.39991, 13.37891
 		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 269.863, 3.48748, 244.893
+		Position = 10.841, 1.80291, 13.31891
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 2.20401, -0.9650502, -18.19009
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 269.603, 3.76955, 248.916
-		TextureCoords = 0.5, 0.625, 0.625, 0.75
-	}
-	Billboard {
-		Position = 269.294, 3.89031, 252.934
+		Position = -2.040985, -0.9819002, -17.7771
 		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 271.001, 1.97492, 224.926
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 264.914, 3.08832, 252.942
+		Position = -11.39398, -0.7256902, 9.784912
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 260.529, 2.30134, 252.944
+		Position = -7.020996, -0.5381502, 9.646912
 		TextureCoords = 0.5, 0.625, 0.625, 0.75
 	}
 	Billboard {
-		Position = 256.182, 1.52071, 252.946
+		Position = -2.599976, -0.1802201, 9.55191
 		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 251.88, 1.01938, 252.96
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 247.549, 0.858479, 252.973
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 243.175, 0.706298, 252.974
+		Position = 1.884003, 0.3126898, 9.478912
 		TextureCoords = 0.5, 0.625, 0.625, 0.75
 	}
 	Billboard {
-		Position = 270.771, 2.29641, 228.895
-		TextureCoords = 0.5, 0.5, 0.625, 0.625
-	}
-	Billboard {
-		Position = 271.232, 1.65563, 221.041
+		Position = 6.394012, 0.7346797, 9.405899
 		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 	Billboard {
-		Position = 240.766, 0.835203, 217.956
+		Position = 10.91, 1.1191, 9.323898
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
 	}
 	Billboard {
-		Position = 245.245, 0.843984, 217.949
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 249.683, 0.85595, 217.901
+		Position = -6.213989, -0.9970002, -17.3181
 		TextureCoords = 0.5, 0.625, 0.625, 0.75
 	}
 	Billboard {
-		Position = 254.084, 0.868705, 217.814
-		TextureCoords = 0.625, 0.5, 0.75, 0.625
-	}
-	Billboard {
-		Position = 258.458, 0.895916, 217.698
-		TextureCoords = 0.625, 0.625, 0.75, 0.75
-	}
-	Billboard {
-		Position = 262.796, 0.919354, 217.538
+		Position = -10.33398, -1.01275, -16.84109
 		TextureCoords = 0.5, 0.5, 0.625, 0.625
 	}
 	Billboard {
-		Position = 267.101, 1.126, 217.356
+		Position = -11.24298, -1.04838, 6.003906
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -6.92099, -0.8159702, 5.812912
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -2.528992, -0.4305502, 5.657898
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 1.933014, -0.2465403, 5.526901
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 6.414001, 0.1222997, 5.408905
 		TextureCoords = 0.5, 0.625, 0.625, 0.75
 	}
 	Billboard {
-		Position = 271.437, 1.40536, 217.209
+		Position = 10.92203, 0.5066497, 5.300903
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 10.99402, -0.9424202, -14.7531
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 6.525024, -0.9788202, -14.53409
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -11.07098, -1.09515, 2.244904
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -6.796997, -0.8349702, 1.9879
 		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -2.451996, -0.6529602, 1.754898
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 1.973022, -0.5450202, 1.577911
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 6.445007, -0.3924903, 1.436905
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 10.99802, -0.8609602, -26.7941
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 2.167999, -0.9940603, -14.22009
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -2.097992, -1.00829, -13.83409
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -10.88098, -1.11286, -1.523102
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -6.656982, -1.01658, -1.8461
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -2.365997, -0.9094902, -2.141098
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 2.006012, -0.7666003, -2.380096
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 6.473022, -0.5873402, -2.548096
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 10.96201, -0.5313603, -2.715088
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -6.290985, -1.02441, -13.40509
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -10.431, -1.04871, -12.9601
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -10.70898, -1.08736, -5.306091
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -6.514984, -1.06789, -5.671097
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -2.271973, -0.9907602, -6.025101
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 2.057007, -0.8450102, -6.327087
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 6.485016, -0.8116503, -6.555099
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 10.98401, -0.7589502, -6.717102
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 10.987, -0.8680502, -10.7401
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 6.501007, -0.9456202, -10.5531
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -10.55798, -1.07515, -9.117096
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -6.390991, -1.05493, -9.523102
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -2.174988, -1.03192, -9.917099
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 2.113007, -0.9983802, -10.27609
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -14.69299, -1.08926, -8.719101
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 15.47202, -0.6725602, -6.896088
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 15.49002, -0.8015403, -10.9211
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -14.53897, -1.06631, -12.52409
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -14.87698, -1.11793, -4.94809
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 15.45203, -0.3195002, -2.884094
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -15.07898, -1.15583, -1.200089
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 15.44601, 0.1720698, 1.144913
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -15.293, -1.19128, 2.531906
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 15.43701, 0.8491898, 5.182907
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 15.496, -0.9410802, -14.9451
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = -14.422, -1.02956, -16.3761
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -15.51599, -1.20321, 6.24791
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 15.427, 1.47876, 9.229904
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -15.73398, -0.9943402, 9.96991
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 15.37402, 2.20223, 13.2509
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -15.93597, -0.8472602, 13.75591
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 15.26602, 3.06849, 17.2549
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = 15.49802, -0.9129202, -18.96309
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -14.34998, -0.9924402, -20.28409
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -16.14099, -0.5969902, 17.58791
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 15.108, 4.09652, 21.29491
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -16.37198, -0.2777002, 21.4729
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 14.92001, 4.83014, 25.3699
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 10.328, 4.38132, 25.3629
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 5.785004, 3.93826, 25.36591
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = 15.49802, -0.8780202, -22.98509
+		TextureCoords = 0.5, 0.625, 0.625, 0.75
+	}
+	Billboard {
+		Position = 1.247009, 3.50483, 25.36891
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
+	}
+	Billboard {
+		Position = -3.253998, 2.89015, 25.3849
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = -7.765991, 2.29789, 25.39891
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -12.25598, 1.18437, 25.40891
+		TextureCoords = 0.5, 0.5, 0.625, 0.625
+	}
+	Billboard {
+		Position = -16.60199, 0.04378986, 25.44191
+		TextureCoords = 0.625, 0.5, 0.75, 0.625
+	}
+	Billboard {
+		Position = 15.49802, -0.8449302, -26.99609
+		TextureCoords = 0.625, 0.625, 0.75, 0.75
 	}
 }

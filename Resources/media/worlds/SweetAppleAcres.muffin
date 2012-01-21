@@ -328,58 +328,62 @@ Bucket {
 // crop field
 // I should probably center these at some point to help with culling
 Bushies1 {
-	Position = 0, 0, 0
+	Position = 287.373, 2.25262, 203.4531
 	MapRegion = "Barn"
 }
 Bushies2 {
-	Position = 0, 0, 0
+	Position = 317.476, 7.531483, 289.0026
 	MapRegion = "Barn"
 }
 Bushies3 {
-	Position = 0, 0, 0
+	Position = 256.0417, 1.797922, 362.9539
 	MapRegion = "Barn"
 }
-Bushies4 {
-	Position = 0, 0, 0
+Cabbage1 {
+	Position = 255.9682, 1.949684, 254.9564
 	MapRegion = "Barn"
 }
-Cabbages1 {
-	Position = 0, 0, 0
+Cabbage2 {
+	Position = 318.5871, 3.365897, 202.2679
 	MapRegion = "Barn"
 }
-Cabbages2 {
-	Position = 0, 0, 0
+Cabbage3 {
+	Position = 267.2852, 1.813528, 330.2899
 	MapRegion = "Barn"
 }
-Cabbages3 {
-	Position = 0, 0, 0
-	MapRegion = "Barn"
-}
-Cabbages4 {
-	Position = 0, 0, 0
+Cabbage4 {
+	Position = 312.7644, 4.991522, 396.9387
 	MapRegion = "Barn"
 }
 Carrots1 {
-	Position = 0, 0, 0
+	Position = 303.6596, 7.682776, 246.937
 	MapRegion = "Barn"
 }
 Carrots2 {
-	Position = 0, 0, 0
+	Position = 254.6678, 1.24684, 299.0047
 	MapRegion = "Barn"
 }
 Carrots3 {
-	Position = 0, 0, 0
+	Position = 313.6582, 5.201958, 335.0176
+	MapRegion = "Barn"
+}
+Carrots4 {
+	Position = 277.526, 4.34375, 398.4717
 	MapRegion = "Barn"
 }
 Leafies1 {
-	Position = 0, 0, 0
+	Position = 255.4023, 1.009405, 209.3232
 	MapRegion = "Barn"
 }
 Leafies2 {
-	Position = 0, 0, 0
+	Position = 289.5165, 6.722434, 289.0285
 	MapRegion = "Barn"
 }
 Leafies3 {
-	Position = 0, 0, 0
+	Position = 298.5891, 3.73319, 361.9637
+	MapRegion = "Barn"
+}
+Leafies4 {
+	Position = 248.6513, 3.548966, 400.8447
 	MapRegion = "Barn"
 }
