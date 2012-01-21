@@ -18,7 +18,7 @@ BillboardSet {
 	Width = 3
 	Height = 3
 	Type = Point
-	Origin = TopCenter
+	Origin = BottomCenter
 	// left, top, right, bottom
 	TextureCoords = 0.375, 0.75, 0.5, 0.875
 	
@@ -28,6 +28,6 @@ BillboardSet {
 	AttachOffsetPosition = 0, 0, 0
 	
 	Billboard {
-		Position = 0, -4, 0
+		Position = 0, -6, 0
 	}
 }

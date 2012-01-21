@@ -1,5 +1,4 @@
-﻿using System;
-using Mogre;
+﻿using Mogre;
 using Ponykart.Levels;
 using PonykartParsers;
 
@@ -56,12 +55,28 @@ namespace Ponykart.Actors {
 			// rotation type
 			BillboardSet.BillboardRotationType = block.GetBoolProperty("UseVertexRotation", false) ? BillboardRotationType.BBR_VERTEX : BillboardRotationType.BBR_TEXCOORD;
 			// origin
-			ThingEnum originToken;
-			if (block.EnumTokens.TryGetValue("origin", out originToken)) {
-				BillboardOrigin origin;
-				if (Enum.TryParse<BillboardOrigin>(originToken + string.Empty, true, out origin))
-					BillboardSet.BillboardOrigin = origin;
+			ThingEnum originToken = block.GetEnumProperty("Origin", ThingEnum.Center);
+			switch (originToken) {
+				case ThingEnum.TopLeft:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_TOP_LEFT; break;
+				case ThingEnum.TopCenter:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_TOP_CENTER; break;
+				case ThingEnum.TopRight:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_TOP_RIGHT; break;
+				case ThingEnum.CenterLeft:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_CENTER_LEFT; break;
+				case ThingEnum.Center:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_CENTER; break;
+				case ThingEnum.CenterRight:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_CENTER_RIGHT; break;
+				case ThingEnum.BottomLeft:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_BOTTOM_LEFT; break;
+				case ThingEnum.BottomCenter:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_BOTTOM_CENTER; break;
+				case ThingEnum.BottomRight:
+					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_BOTTOM_RIGHT; break;
 			}
+
 			BillboardSet.RenderingDistance = block.GetFloatProperty("RenderingDistance", 600);
 
 			// texture coordinates
@@ -95,6 +110,7 @@ namespace Ponykart.Actors {
 			// if not, just attach it to the root node
 			else {
 				Vector3 pos = block.GetVectorProperty("Position", Vector3.ZERO);
+
 				SceneNode attachNode;
 				if (pos != Vector3.ZERO) {
 					LocalNode = lthing.RootNode.CreateChildSceneNode(pos);

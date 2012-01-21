@@ -10,6 +10,6 @@ BillboardSet {
 	TextureCoords = 0.353, 0.5, 0.602, 1
 	
 	Billboard {
-		Position = 0, 6, 0
+		Position = 0, 0, 0
 	}
 }

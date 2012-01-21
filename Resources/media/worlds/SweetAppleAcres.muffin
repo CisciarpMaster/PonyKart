@@ -323,3 +323,63 @@ Bucket {
 	Position = 106.251, 0.54157, -39.2153
 	Orientation = -0.0918146, -0.0828616, -0.0508696, 0.991018
 }
+
+
+// crop field
+// I should probably center these at some point to help with culling
+Bushies1 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Bushies2 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Bushies3 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Bushies4 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Cabbages1 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Cabbages2 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Cabbages3 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Cabbages4 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Carrots1 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Carrots2 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Carrots3 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Leafies1 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Leafies2 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
+Leafies3 {
+	Position = 0, 0, 0
+	MapRegion = "Barn"
+}
