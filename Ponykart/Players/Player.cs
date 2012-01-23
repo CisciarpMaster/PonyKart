@@ -45,6 +45,8 @@ namespace Ponykart.Players {
 
 			Kart = LKernel.GetG<Spawner>().Spawn("TwiCutlass", block) as Kart;
 			Driver = LKernel.GetG<Spawner>().Spawn("Twilight", block) as Driver;
+			Driver.Kart = Kart;
+			Kart.Driver = Driver;
 			Driver.AttachToKart(Kart, Vector3.ZERO);
 
 			Kart.OwnerID = id;
@@ -61,64 +63,35 @@ namespace Ponykart.Players {
 		// it's very important that these are run before any of the "override" methods do anything else
 
 		protected virtual void OnStartAccelerate() {
-
 		}
 		protected virtual void OnStopAccelerate() {
-			
 		}
 
 
 		protected virtual void OnStartDrift() {
-			
 		}
 		protected virtual void OnStopDrift() {
-			
 		}
 
 
 		protected virtual void OnStartReverse() {
-			
 		}
 		protected virtual void OnStopReverse() {
-			
 		}
 
 
 		protected virtual void OnStartTurnLeft() {
-			if (Kart.TurnMultiplier < 0) {
-				Driver.ChangeAnimation(DriverAnimation.Drive);
-			}
-			else {
-				Driver.ChangeAnimation(DriverAnimation.TurnLeft);
-			}
 		}
 		protected virtual void OnStopTurnLeft() {
-			if (Kart.TurnMultiplier > 0) {
-				Driver.ChangeAnimation(DriverAnimation.Drive);
-			}
-			else {
-				Driver.ChangeAnimation(DriverAnimation.TurnRight);
-			}
 		}
 
 
 		protected virtual void OnStartTurnRight() {
-			if (Kart.TurnMultiplier > 0) {
-				Driver.ChangeAnimation(DriverAnimation.Drive);
-			}
-			else {
-				Driver.ChangeAnimation(DriverAnimation.TurnRight);
-			}
 		}
 		protected virtual void OnStopTurnRight() {
-			if (Kart.TurnMultiplier < 0) {
-				Driver.ChangeAnimation(DriverAnimation.Drive);
-			}
-			else {
-				Driver.ChangeAnimation(DriverAnimation.TurnLeft);
-			}
 		}
 		#endregion
+
 
 
 		#region shortcuts

@@ -35,6 +35,7 @@ namespace Mogre {
 		private bool mLoop;
 		private float mTimeleft, mDuration;
 		private bool mComplete;
+		private string mCurrentAnim;
 
 		/// <summary>
 		/// Fade between two states
@@ -44,6 +45,10 @@ namespace Mogre {
 		/// <param name="duration">How long the blending should last</param>
 		/// <param name="looping">Do the animations loop?</param>
 		public void Blend(string animation, AnimationBlendingTransition transition, float duration, bool looping) {
+			if (mCurrentAnim == animation)
+				return;
+			mCurrentAnim = animation;
+
 			mLoop = looping;
 
 			if (transition == AnimationBlendingTransition.BlendSwitch) {
@@ -76,7 +81,7 @@ namespace Mogre {
 					else if (newTarget != mTarget) {
 						// ok, newTarget is really new, so either we simply replace the target with this one, or
 						// we make the target the new source
-						if (mTimeleft < mDuration * 0.5) {
+						if (mTimeleft < mDuration * 0.5f) {
 							// simply replace the target with this one
 							mTarget.Enabled = false;
 							mTarget.Weight = 0;
@@ -175,13 +180,14 @@ namespace Mogre {
 				anim.TimePosition = 0;
 			}
 
+			mCurrentAnim = animation;
 			mSource = mEntity.GetAnimationState(animation);
 			mSource.Enabled = true;
 			mSource.Weight = 1;
 			mTimeleft = 0;
 			mDuration = 1;
 			mTarget = null;
-			mComplete = false;
+			mComplete = true;
 			mLoop = looping;
 		}
 
@@ -198,7 +204,7 @@ namespace Mogre {
 		}
 
 		public bool Complete {
-			get { return mComplete; }
+			get { return mTimeleft < mDuration; }
 		}
 
 		public float TimeLeft {
@@ -208,6 +214,8 @@ namespace Mogre {
 		public float Duration {
 			get { return mDuration; }
 		}
-
+		public string CurrentAnimation {
+			get { return mCurrentAnim; }
+		}
 	}
 }

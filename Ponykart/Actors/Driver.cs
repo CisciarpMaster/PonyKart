@@ -7,9 +7,7 @@ namespace Ponykart.Actors {
 		public Kart Kart { get; set; }
 
 
-		public Driver(ThingBlock block, ThingDefinition def)
-			: base(block, def) {
-
+		public Driver(ThingBlock block, ThingDefinition def) : base(block, def) {
 		}
 
 		public void AttachToKart(Kart kart, Vector3 offset) {
@@ -32,11 +30,28 @@ namespace Ponykart.Actors {
 		public void ChangeAnimation(DriverAnimation anim, AnimationBlendingTransition transition = AnimationBlendingTransition.BlendWhileAnimating, float duration = 0.2f) {
 			ChangeAnimation(anim.ToString(), transition, duration);
 		}
+
+		/// <summary>
+		/// The same as the other change animation methods, but this one only runs successfully if it is currently not blending an animation.
+		/// If it is, nothing happens.
+		/// </summary>
+		public void ChangeAnimationIfNotBlending(DriverAnimation anim, AnimationBlendingTransition transition = AnimationBlendingTransition.BlendWhileAnimating, float duration = 0.2f) {
+			if (ModelComponents[0].Animation.Complete)
+				ChangeAnimation(anim, transition, duration);
+		}
 	}
 
 	public enum DriverAnimation {
 		Drive,
 		TurnLeft,
 		TurnRight,
+		Idle,
+		Stand,
+		Reverse,
+		DriftLeft,
+		DriftRight,
+		Basis,
+
+		_Unknown_,
 	}
 }

@@ -7,8 +7,8 @@ using Vector3 = Mogre.Vector3;
 
 namespace Ponykart.Core {
 	public class FreeCamera : LCamera {
-		private Vector3 Offset;
-		private float Speed = 1;
+		protected Vector3 Offset;
+		protected float Speed = 1;
 
 		public FreeCamera(string name) : base(name) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
@@ -47,7 +47,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// yaw/pitch the camera around
 		/// </summary>
-		void OnMouseMove(MouseEvent eventArgs) {
+		protected virtual void OnMouseMove(MouseEvent eventArgs) {
 			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed() || !IsActive)
 				return;
 

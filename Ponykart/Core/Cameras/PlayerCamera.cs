@@ -50,7 +50,7 @@ namespace Ponykart.Core {
 			world = LKernel.GetG<PhysicsMain>().World;
 		}
 
-		private readonly float _cameraTightness = Settings.Default.CameraTightness;
+		protected readonly float _cameraTightness = Settings.Default.CameraTightness;
 		/// <summary>
 		/// Updates the camera
 		/// TODO: stop it from going through the terrain
@@ -88,7 +88,7 @@ namespace Ponykart.Core {
 		/// <summary>
 		/// cast a ray from the target position to the camera position
 		/// </summary>
-		private DynamicsWorld.ClosestRayResultCallback CastRay(Vector3 derivedCam, Vector3 derivedTarget) {
+		protected DynamicsWorld.ClosestRayResultCallback CastRay(Vector3 derivedCam, Vector3 derivedTarget) {
 			Vector3 from = derivedTarget;
 			Vector3 axis = (from - derivedCam);
 			axis.Normalise();

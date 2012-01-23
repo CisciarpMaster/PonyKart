@@ -23,6 +23,9 @@ namespace Ponykart.Handlers {
 
 			var acam = new AttachCamera("AttachCamera");
 			acam.Register();
+
+			var sfcam = new SmoothFreeCamera("SmoothFreeCamera");
+			sfcam.Register();
 		}
 
 		public void Detach() {

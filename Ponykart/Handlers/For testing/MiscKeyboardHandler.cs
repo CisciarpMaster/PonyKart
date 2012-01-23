@@ -78,6 +78,9 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_F5:
 					LKernel.GetG<CameraManager>().SwitchCurrentCamera("AttachCamera");
 					break;
+				case KeyCode.KC_F6:
+					LKernel.GetG<CameraManager>().SwitchCurrentCamera("SmoothFreeCamera");
+					break;
 				case KeyCode.KC_F11:
 					uint width, height;
 					Options.GetWindowDimensions(out width, out height);
