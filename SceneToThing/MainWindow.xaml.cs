@@ -251,7 +251,7 @@ namespace SceneToThing {
 									writer.WriteLine(string.Format(culture, @"	Orientation = {0}, {1}, {2}, {3}",
 										node.Orientation.x, node.Orientation.y, node.Orientation.z, node.Orientation.w));
 									writer.WriteLine(string.Format(culture, @"	Scale = {0}, {1}, {2}", node.Dimensions.x, node.Dimensions.y, node.Dimensions.z));
-									writer.WriteLine(string.Format(culture, @"	CastsShadows = {0}", b(node.Entity.CastShadows)));
+									writer.WriteLine(string.Format(culture, @"	CastsShadows = {0}", shad(node.Entity.CastShadows)));
 									writer.WriteLine("}");
 									continue;
 								}
@@ -291,6 +291,10 @@ namespace SceneToThing {
 
 		string b(bool squishyMarshmallowButthole) {
 			return squishyMarshmallowButthole.ToString().ToLower(culture);
+		}
+
+		string shad(bool raaaaape) {
+			return raaaaape ? "Some" : "None";
 		}
 
 		/// <summary>
