@@ -39,7 +39,7 @@ material Reeds {
 	receive_shadows off
 	
 	technique {
-		pass {
+		pass {			
 			transparent_sorting on
 			scene_blend alpha_blend
 			depth_write off
@@ -91,14 +91,20 @@ material SAA_CornRows {
 	
 	technique {
 		pass {
+
+			vertex_program_ref corn_vp {
+				param_named scale 0.033333 1
+			}
+
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+
 			scene_blend alpha_blend
 			depth_write off
-			alpha_rejection greater_equal 64
 			
 			texture_unit {
 				texture cornrows.dds
 				tex_address_mode mirror
-				scale 0.033333 1
 			}
 		}
 	}

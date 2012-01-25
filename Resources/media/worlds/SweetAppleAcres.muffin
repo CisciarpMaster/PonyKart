@@ -28,12 +28,12 @@ LoadFile = "saa/collidable trees"
 Music = "Sweet Apple Acres 128bpm.ogg"
 
 Background = 0.7373, 0.8902, 0.9490
-Ambient = 0.8, 0.8, 0.8
+Ambient = 0.7, 0.75, 0.8
 FogType = "Linear"
-FogColour = 0.7373, 0.8902, 0.9490, 0.5
-FogStart = 500
-FogEnd = 4000
-SunlightDirection = 0.1, -1, 0.1
+FogColour = 0.7373, 0.8902, 0.9490, 0.25
+FogStart = 200
+FogEnd = 2000
+SunlightDirection = 1, -1, 1
 
 SAA_Banner {
 	Position = -7.06332, -5.37894, 325.076

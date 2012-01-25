@@ -28,6 +28,10 @@ fragment_program fresnelTex_Additive_fp cg {
 		param_named TextureGlowStrength float 0
 		param_named GlowExpon float 3	
 		param_named Alpha float 1.0
+		param_named fog_colour float4 1.0 1.0 1.0 1.0
+		param_named fog_params float4 1.0 1.0 1.0 1.0
+		param_named_auto FogColour fog_colour
+		param_named_auto FogParams fog_params
 	}
 }
 
@@ -42,5 +46,7 @@ fragment_program fresnelTex_Self_fp cg {
 		param_named TextureGlowStrength float 1
 		param_named GlowExpon float 3
 		param_named Alpha float 0.4
+		param_named_auto FogColour fog_colour
+		param_named_auto FogParams fog_params
 	}
 }

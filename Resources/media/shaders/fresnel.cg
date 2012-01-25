@@ -30,6 +30,7 @@ void main_vp(float4 Position	 : POSITION,
 		  uniform float4x4 WorldXf,
 		  uniform float4x4 ViewIXf,
 		  uniform float4x4 WvpXf // uniform float3 CameraPos
+		   
 ) {
     WorldNormal = mul(WorldITXf, Normal).xyz;
     float4 Po = Position;

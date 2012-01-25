@@ -56,11 +56,14 @@ float4 main_ps(	float2 uv 			: TEXCOORD0,
 				uniform float TextureGlowStrength,
 				uniform float GlowExpon,
 				uniform float Alpha,
-				uniform float3 Ambient)
+				uniform float3 Ambient,
+				uniform float4 FogColour,
+				uniform float4 FogParams )
 : COLOR
 {
 	// Calculate edge lighting
     float3 Nn = normalize(WorldNormal);
+	float dist = length( WorldView );
     float3 Vn = normalize(WorldView);
     float edge = pow(1.0 - abs( dot(Nn, Vn) ), GlowExpon) * Alpha;
 
@@ -68,10 +71,16 @@ float4 main_ps(	float2 uv 			: TEXCOORD0,
 	float light = saturate( saturate( dot( WorldNormal, LightDirection ) * 0.5f + 0.5f ) * ( 1 - Ambient ) + Ambient );
 	
 	// Sample diffuse texture
-	float4 texture = tex2D(tex, uv.xy);
+	float4 texture = tex2Dbias(tex, float4( uv.xy, 0, -0.5f ) );
 	
 	// Calculate result
     float3 result = ( edge * texture.rgb * TextureGlowStrength ) + ( edge * GlowColour )  + texture.rgb * light;
+
+	float cutoff = 0.075f;
+	clip( texture.a - cutoff );
+	texture.a = ( texture.a - cutoff ) * ( 1.0f / ( 1.0f - cutoff ) );
+
+	result = lerp( result, FogColour.xyz, saturate( ( dist - FogParams.y ) * FogParams.w ) * FogColour.a );
 	
 	return float4(result, texture.a);
 }
