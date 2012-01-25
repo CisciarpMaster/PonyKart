@@ -34,7 +34,7 @@ FogColour = 0.7373, 0.8902, 0.9490, 0.25
 FogStart = 200
 FogEnd = 4000
 SunlightColour = 1.5, 0.9, 0.4
-SunlightDirection = 1, -1, 1
+SunlightDirection = -1, -1, 1
 Skybox = "saa_sky"
 
 SAA_Banner {
