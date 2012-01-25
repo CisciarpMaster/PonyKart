@@ -34,12 +34,15 @@ namespace Rescaler {
 			float rescaleAmount = float.Parse(rescaleBox.Text);
 
 			string[] lines = text.Split('\n');
+			List<string> changed = new List<string>();
 
 			// first go find all of the numbers in the text
 			foreach (string line in lines) {
 				// ignore orientation/rotation properties
-				if (line.Contains("Orientation") || line.Contains("Rotation"))
+				if (line.Contains("Orientation") || line.Contains("Rotation") || line.Contains("TextureCoords")) {
+					changed.Add(line);
 					continue;
+				}
 
 				string[] nums = line.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
@@ -62,19 +65,29 @@ namespace Rescaler {
 						}
 					}
 				}
+
+				string line2 = line + "";
+
+				// then replace all of those numbers in our text
+				foreach (var item in Floats) {
+					line2 = line2.Replace(" " + item.Key + ",", " " + item.Value + ",");
+					line2 = line2.Replace(" " + item.Key + "\r", " " + item.Value + "\r");
+				}
+				foreach (var item in Ints) {
+					line2 = line2.Replace(" " + item.Key + ",", " " + item.Value + ",");
+					line2 = line2.Replace(" " + item.Key + "\r", " " + item.Value + "\r");
+				}
+
+				changed.Add(line2);
 			}
 
-			// then replace all of those numbers in our text
-			foreach (var item in Floats) {
-				text = text.Replace(" " + item.Key + ",", " " + item.Value + ",");
-				text = text.Replace(" " + item.Key + "\r", " " + item.Value + "\r");
+			string newText = "";
+			foreach (var i in changed) {
+				newText += i + "\n";
 			}
-			foreach (var item in Ints) {
-				text = text.Replace(" " + item.Key + ",", " " + item.Value + ",");
-				text = text.Replace(" " + item.Key + "\r", " " + item.Value + "\r");
-			}
+			
 
-			textBox.Text = text;
+			textBox.Text = newText;
 		}
 	}
 }
