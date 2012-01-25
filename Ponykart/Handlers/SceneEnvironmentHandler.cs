@@ -29,8 +29,8 @@ namespace Ponykart.Handlers {
 			light.Type = Light.LightTypes.LT_DIRECTIONAL;
 			light.Direction = def.GetVectorProperty("SunlightDirection", new Vector3(0.1f, -1f, 0.1f));
 			light.Direction.Normalise();
-			light.DiffuseColour = new ColourValue(1.5f, 0.9f, 0.4f);
-			light.SpecularColour = new ColourValue(1f, 1f, 1f);
+			light.DiffuseColour = def.GetVectorProperty("SunlightColour", Vector3.UNIT_SCALE).ToColourValue();
+			light.SpecularColour = def.GetVectorProperty("SunlightColour", Vector3.UNIT_SCALE).ToColourValue();
 			light.CastShadows = true;
 
 			// skybox
