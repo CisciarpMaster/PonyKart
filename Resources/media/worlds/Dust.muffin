@@ -1,0 +1,15 @@
+Type = Race
+
+KartSpawnPosition0 = 0, 0.5, 104
+KartSpawnPosition1 = 0, 0.5, 100
+KartSpawnPosition2 = 0, 0.5, 96
+KartSpawnPosition3 = -4, 0.5, 104
+KartSpawnPosition4 = -4, 0.5, 100
+KartSpawnPosition5 = -4, 0.5, 96
+KartSpawnPosition6 = -8, 0.5, 104
+KartSpawnPosition7 = -8, 0.5, 100
+KartSpawnPosition8 = -8, 0.5, 96
+
+Background = 0, 0, 0
+Ambient = 1, 1, 1
+FogType = "None"

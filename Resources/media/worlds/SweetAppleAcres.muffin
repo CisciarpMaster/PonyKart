@@ -35,6 +35,7 @@ FogStart = 200
 FogEnd = 4000
 SunlightColour = 1.5, 0.9, 0.4
 SunlightDirection = 1, -1, 1
+Skybox = "saa_sky"
 
 SAA_Banner {
 	Position = -7.06332, -5.37894, 325.076

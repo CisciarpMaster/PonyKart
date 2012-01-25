@@ -76,6 +76,18 @@ namespace Ponykart.Lua {
 			return LKernel.GetG<SceneManager>().CreateParticleSystem(name, template);
 		}
 
+		[LuaFunction("getRootSceneNode", "Gets the root scene node")]
+		public static SceneNode getRootSceneNode() {
+			return LKernel.GetG<SceneManager>().RootSceneNode;
+		}
+
+		[LuaFunction("getRoot", "Gets the Ogre Root singleton")]
+		public static Root getRoot() {
+			return LKernel.GetG<Root>();
+		}
+
+		// ------------------------------------
+
 		[LuaFunction("initResourceGroup", "Initialises a mogre resource group", "string resGroup")]
 		public static void InitialiseResourceGroup(string resGroup) {
 			ResourceGroupManager.Singleton.InitialiseResourceGroup(resGroup);

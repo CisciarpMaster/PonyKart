@@ -1,4 +1,5 @@
-﻿using Mogre;
+﻿using System;
+using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
 
@@ -34,26 +35,30 @@ namespace Ponykart.Handlers {
 			light.CastShadows = true;
 
 			// skybox
-			sceneMgr.SetSkyBox(true, "saa_sky", 1995f);
+			if (def.StringTokens.ContainsKey("skybox"))
+				sceneMgr.SetSkyBox(true, def.GetStringProperty("Skybox", null), 1995f);
 
 			// fog
 			FogMode mode = FogMode.FOG_NONE;
-			string sMode = def.GetStringProperty("FogType", "Linear");
-			// only linear atm
-			if (sMode == "None")
+			string sMode = def.GetStringProperty("FogType", "None");
+
+			if (sMode.Equals("None", StringComparison.InvariantCultureIgnoreCase))
 				mode = FogMode.FOG_NONE;
-			else if (sMode == "Exp")
+			else if (sMode.Equals("Exp", StringComparison.InvariantCultureIgnoreCase))
 				mode = FogMode.FOG_EXP;
-			else if (sMode == "Exp2")
+			else if (sMode.Equals("Exp2", StringComparison.InvariantCultureIgnoreCase))
 				mode = FogMode.FOG_EXP2;
-			else if (sMode == "Linear")
+			else if (sMode.Equals("Linear", StringComparison.InvariantCultureIgnoreCase))
 				mode = FogMode.FOG_LINEAR;
-			sceneMgr.SetFog(
-				mode,
-				def.GetQuatProperty("FogColour", Quaternion.IDENTITY).ToColourValue(),
-				0.001f,
-				def.GetFloatProperty("FogStart", 100),
-				def.GetFloatProperty("FogEnd", 500));
+
+			if (mode != FogMode.FOG_NONE) {
+				sceneMgr.SetFog(
+					mode,
+					def.GetQuatProperty("FogColour", Quaternion.IDENTITY).ToColourValue(),
+					0.001f,
+					def.GetFloatProperty("FogStart", 100),
+					def.GetFloatProperty("FogEnd", 500));
+			}
 
 #if DEBUG
 			// make some axes

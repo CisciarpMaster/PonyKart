@@ -6,7 +6,6 @@ using MOIS;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Lua;
 using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Properties;
@@ -99,7 +98,7 @@ namespace Ponykart.Handlers {
 						proc.WaitForExit();
 					}
 
-					LKernel.GetG<LuaMain>().Restart();
+					//LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();
 					LKernel.GetG<CollisionShapeManager>().Clear();

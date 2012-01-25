@@ -57,17 +57,16 @@ namespace Ponykart.Handlers {
 			//Panel playMenuPanel = mainMenuGui.GetControl<Panel>("play menu panel");
 
 			// some buttons
-			Button level2Button = mainMenuGui.GetControl<Button>("flat");
-			level2Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("flat");
+			mainMenuGui.GetControl<Button>("flat").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("flat");
 
-			Button level3Button = mainMenuGui.GetControl<Button>("testlevel");
-			level3Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("testlevel");
+			mainMenuGui.GetControl<Button>("testlevel").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("testlevel");
 
-			Button level4Button = mainMenuGui.GetControl<Button>("Sweet Apple Acres");
-			level4Button.MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("SweetAppleAcres");
+			mainMenuGui.GetControl<Button>("Sweet Apple Acres").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("SweetAppleAcres");
 
-			Button quitButton = mainMenuGui.GetControl<Button>("Quit");
-			quitButton.MouseClick += (o, e) => Launch.Quit = true;
+			mainMenuGui.GetControl<Button>("Dust").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("Dust");
+
+			mainMenuGui.GetControl<Button>("Quit").MouseClick += (o, e) => Launch.Quit = true;
+			
 		}
 
 		/// <summary>

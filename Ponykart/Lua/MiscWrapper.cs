@@ -26,15 +26,6 @@ namespace Ponykart.Lua {
 				return string.Empty;
 		}
 
-		/// <summary>
-		/// yeah okay this uses OnLevelPreUnload instead of OnLevelUnload, but the latter wouldn't even work since lua scripts aren't ran when IsValidLevel == false
-		/// </summary>
-		[LuaFunction("hookFunctionToLevelUnloadEvent", "Hook up a lua function so it will run whenever a level is about to unload.",
-			"function(LevelChangedEventArgs)")]
-		public static void HookFunctionToLevelUnloadEvent(LevelEvent func) {
-			LevelManager.OnLevelPreUnload += func;
-		}
-
 		[LuaFunction("getOption", "Get an option", "string - the name of the option you want")]
 		public static string GetOption(string option) {
 			if (string.Equals(option, "ModelDetail", StringComparison.InvariantCultureIgnoreCase))
@@ -46,6 +37,16 @@ namespace Ponykart.Lua {
 		[LuaFunction("getBoolOption", "Get an option as a bool", "string - the name of the option you want")]
 		public static bool GetBoolOption(string option) {
 			return Options.GetBool(option);
+		}
+
+		[LuaFunction("getInputMain", "Get the InputMain singleton")]
+		public static InputMain GetInputMain() {
+			return LKernel.GetG<InputMain>();
+		}
+
+		[LuaFunction("keyCode", "Turns a KeyCode enum into a string", "KeyCode")]
+		public static string KeyCode(MOIS.KeyCode kc) {
+			return kc + "";
 		}
 	}
 }

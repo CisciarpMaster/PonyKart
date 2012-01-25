@@ -39,9 +39,9 @@
 [B] Spawn a primitive
 [F] Multiply your speed by 2
 [I] Toggles debug lines
-[F1 F2] Switches cameras
+[F1 F2...] Switches cameras
 [F11] Toggles full screen
-[G] Forces immediate garbage collection
+[G] Toggles slow-mo
 [backtick] Pause
 [enter] Open Lua console
 [Right click] When on free camera, instantly moves the kart to the center of your screen
@@ -133,8 +133,20 @@
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
-						<Name>Quit</Name>
+						<Name>Dust</Name>
 						<Rectangle>512,400,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Dust</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>Quit</Name>
+						<Rectangle>512,450,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>Quit</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
