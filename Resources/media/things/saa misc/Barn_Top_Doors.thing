@@ -9,7 +9,7 @@ Model {
 	Material = "Barn"
 	Position = 0, 0, 0
 	Scale = 1.5, 1.5, 1.5
-	CastsShadows = true
+	CastsShadows = Some
 }
 // box for top
 Shape {

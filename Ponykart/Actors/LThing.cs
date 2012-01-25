@@ -336,18 +336,25 @@ namespace Ponykart.Actors {
 		/// to make it faster for ogre.
 		/// </summary>
 		protected void DisposeIfStaticOrInstanced(ThingDefinition def) {
-			if ((def.GetBoolProperty("Static", false) || def.GetBoolProperty("Instanced", false)) && !Core.Options.GetBool("Twh")) {
+			if (def.GetBoolProperty("Static", false) || def.GetBoolProperty("Instanced", false)) {
 				if (IsDisposed)
 					return;
 
 				var sceneMgr = LKernel.GetG<SceneManager>();
 
+				bool removedAllModelComponents = true;
 				// dispose of all of the model components
-				foreach (ModelComponent mc in ModelComponents)
-					mc.Dispose();
+				foreach (ModelComponent mc in ModelComponents) {
+					if (mc.Entity == null) {
+						mc.Dispose();
+					}
+					else {
+						removedAllModelComponents = false;
+					}
+				}
 
 				// if we have no ribbons, billboards, or sounds, we can get rid of the root node
-				if (RibbonComponents.Count == 0 && BillboardSetComponents.Count == 0 && SoundComponents.Count == 0) {
+				if (removedAllModelComponents && RibbonComponents.Count == 0 && BillboardSetComponents.Count == 0 && SoundComponents.Count == 0) {
 					// if we have no shapes, we can get rid of everything
 					if (ShapeComponents.Count == 0) {
 						Dispose(true);

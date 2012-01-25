@@ -15,6 +15,6 @@ Shape {
 Model {
 	Mesh = "FencePost.mesh"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = Many
 	StaticGroup = "Fences"
 }

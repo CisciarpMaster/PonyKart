@@ -46,8 +46,18 @@ namespace Ponykart.Actors {
 			// scale
 			SpawnScale = block.GetVectorProperty("scale", Vector3.UNIT_SCALE);
 
+
+			ThingEnum shad = block.GetEnumProperty("CastsShadows", ThingEnum.Some);
 			// if we're static, set up the static geometry
-			if ((block.GetBoolProperty("static", false) || def.GetBoolProperty("static", false)) && !Options.GetBool("Twh")) {
+			// don't set up static geometry if we want to cast shadows though, since static geometry doesn't work with shadows
+			if ((block.GetBoolProperty("static", false) || def.GetBoolProperty("static", false))
+				// make static if we never want shadows
+				&& (shad == ThingEnum.None
+				// or if the mesh has "some" shadows but we don't want any
+					|| (shad == ThingEnum.Some && Options.ShadowDetail == ShadowDetailOption.None)
+				// or if the mesh has "many" shadows but we only want those with "some"
+					|| (shad == ThingEnum.Many && Options.ShadowDetail != ShadowDetailOption.Many)))
+			{
 				LKernel.GetG<StaticGeometryManager>().Add(this, template, block, def);
 				Entity = null;
 			}
@@ -86,17 +96,6 @@ namespace Ponykart.Actors {
 
 				// then attach it to the node!
 				Node.AttachObject(Entity);
-
-
-				/*if (block.GetBoolProperty("CastsShadows", false)) {
-					Entity ent2 = sceneMgr.CreateEntity(Name + "Cone" + ID, "ShadowCone.mesh");
-					ent2.CastShadows = false;
-					SceneNode node2 = lthing.RootNode.CreateChildSceneNode(Name + "Cone" + ID, new Vector3(0, 2, 0));
-					node2.AttachObject(ent2);
-					node2.InheritOrientation = false;
-					node2.SetScale(new Vector3(3, 3, 3));
-					node2.LookAt(new Vector3(0.1f, -1, 0.1f), Mogre.Node.TransformSpace.TS_LOCAL, Vector3.UNIT_Y);
-				}*/
 			}
 		}
 
@@ -122,18 +121,22 @@ namespace Ponykart.Actors {
 				Entity = sceneMgr.CreateEntity(meshName, meshName);
 			}
 
+			if (block.FloatTokens.ContainsKey("renderingdistance"))
+				Entity.RenderingDistance = block.GetFloatProperty("RenderingDistance", null);
+
 			// material name
 			string materialName = block.GetStringProperty("material", string.Empty);
 			if (!string.IsNullOrWhiteSpace(materialName))
 				Entity.SetMaterialName(materialName);
 
 			// some other properties
-			Entity.CastShadows = block.GetBoolProperty("CastsShadows", false);
-
-			// temp for now
-			if (Options.GetBool("Twh") && (meshName.Contains("AppleTree") || meshName.Contains("Fence"))) {
-				Entity.CastShadows = true;
-			}
+			ThingEnum shad = block.GetEnumProperty("CastsShadows", ThingEnum.Some);
+			if (Options.ShadowDetail == ShadowDetailOption.Many)
+				Entity.CastShadows = (shad == ThingEnum.Many || shad == ThingEnum.Some);
+			else if (Options.ShadowDetail == ShadowDetailOption.Some)
+				Entity.CastShadows = (shad == ThingEnum.Some);
+			else
+				Entity.CastShadows = false;
 		}
 
 		protected override void Dispose(bool disposing) {

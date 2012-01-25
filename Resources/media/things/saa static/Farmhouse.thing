@@ -6,7 +6,7 @@ CollidesWith = Environment
 Model {
 	Mesh = "Farmhouse.mesh"
 	Position = 0, 4.91424, 0
-	CastsShadows = true
+	CastsShadows = Some
 }
 
 // box#0

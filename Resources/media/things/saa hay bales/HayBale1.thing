@@ -9,6 +9,7 @@ Deactivated = true
 Model {
 	Mesh = "HayBale1.mesh"
 	Position = 0, 0, 0
+	CastsShadows = None
 }
 // box#0
 Shape {

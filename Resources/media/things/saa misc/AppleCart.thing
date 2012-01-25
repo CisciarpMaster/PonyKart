@@ -15,7 +15,7 @@ Shape {
 Model {
 	Mesh = "AppleCart.mesh"
 	Position = 1.521, 0.139, 0
-	CastsShadows = true
+	CastsShadows = Some
 }
 // box#1
 Shape {
@@ -26,7 +26,7 @@ Shape {
 Model {
 	Mesh = "AppleCartExtras.mesh"
 	Position = 0.455, 0.269, 0
-	CastsShadows = false
+	CastsShadows = None
 }
 // cylinder#2
 Shape {

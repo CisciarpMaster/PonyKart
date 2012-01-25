@@ -9,6 +9,7 @@ Model {
 	Mesh = "FlowerBarrelRed.mesh"
 	Position = 0, 2.10882, 0
 	Scale = 2, 2, 2
+	CastsShadows = Many
 }
 // cylinder#0
 Shape {

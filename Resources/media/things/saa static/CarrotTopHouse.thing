@@ -7,7 +7,7 @@ Model {
 	Position = 11.56357, 9.013741, 2.336185
 	Orientation = 0.707107, 0, 0, 0.707107
 	Scale = 0.35242, 0.35242, 0.35242
-	CastsShadows = false
+	CastsShadows = None
 }
 
 BillboardSet {

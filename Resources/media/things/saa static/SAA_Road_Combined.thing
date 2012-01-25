@@ -8,14 +8,14 @@ Model {
 	Mesh = "SAA_Road.mesh"
 	Material = "SAA_Road"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = None
 }
 
 Model {
 	Mesh = "SAA_Barn_Area.mesh"
 	Material = "SAA_Barn_Area"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = None
 }
 
 
@@ -23,13 +23,13 @@ Model {
 	Mesh = "SAA_Cliff.mesh"
 	Material = "SAA_Cliff"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = None
 }
 Model {
 	Mesh = "SAA_Riverbed.mesh"
 	Material = "SAA_Cliff"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = None
 }
 
 

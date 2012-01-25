@@ -4,8 +4,6 @@ namespace PonykartParsers {
 	/// All of the different enums we can get from the .thing and .muffin files. Used by the two parsers.
 	/// </summary>
 	public enum ThingEnum {
-
-
 		// physics type
 
 		/// <summary>
@@ -53,7 +51,7 @@ namespace PonykartParsers {
 		// collision groups
 		// see CollisionGroups.cs
 
-		//None,
+	  //None,
 		All,
 		Default,
 		Environment,
@@ -96,5 +94,12 @@ namespace PonykartParsers {
 		Menu,
 		Race,
 		EmptyLevel,
+
+
+		// for shadows
+
+	  //None,
+		Some,
+		Many,
 	}
 }

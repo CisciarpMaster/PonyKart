@@ -8,6 +8,7 @@ namespace Ponykart.Core {
 		private static IDictionary<string, string> dict;
 		private static IDictionary<string, string> defaults;
 		public static ModelDetailOption ModelDetail;
+		public static ShadowDetailOption ShadowDetail;
 
 		/// <summary>
 		/// Creates the folder and file if they don't exist, and either prints some data to it (if it doesn't exist) or reads from it (if it does)
@@ -48,6 +49,7 @@ namespace Ponykart.Core {
 					dict[pair.Key] = pair.Value;
 				}
 				ModelDetail = (ModelDetailOption) Enum.Parse(typeof(ModelDetailOption), dict["ModelDetail"], true);
+				ShadowDetail = (ShadowDetailOption) Enum.Parse(typeof(ShadowDetailOption), dict["ShadowDetail"], true);
 
 				cfile.Dispose();
 				sectionIterator.Dispose();
@@ -77,12 +79,12 @@ namespace Ponykart.Core {
 			defaults["sRGB Gamma Conversion"] = "No";
 			// Yes or No
 			defaults["Music"] = "No";
-			defaults["Sounds"] = "Yes";
+			defaults["Sounds"] = "No";
 			defaults["Ribbons"] = "No";
 			// Low or High
 			defaults["ModelDetail"] = "Medium";
-			defaults["Shadows"] = "Yes";
-			defaults["ShadowDistance"] = "150";
+			defaults["ShadowDetail"] = "Some";
+			defaults["ShadowDistance"] = "200";
 			defaults["Twh"] = "No";
 			// copy it into the regular dictionary
 			dict = new Dictionary<string, string>(defaults);
@@ -98,6 +100,7 @@ namespace Ponykart.Core {
 			string optionsPath = "options.ini";
 #endif
 			dict["ModelDetail"] = ModelDetail.ToString();
+			dict["ShadowDetail"] = ShadowDetail.ToString();
 
 			using (FileStream stream = File.Create(optionsPath)) {
 				using (StreamWriter writer = new StreamWriter(stream)) {
@@ -114,6 +117,8 @@ namespace Ponykart.Core {
 		public static string Get(string keyName) {
 			if (string.Equals(keyName, "ModelDetail", StringComparison.InvariantCultureIgnoreCase))
 				throw new ArgumentException("Use the Options.ModelDetail enum instead of this method!", "keyName");
+			else if (string.Equals(keyName, "ShadowDetail", StringComparison.InvariantCultureIgnoreCase))
+				throw new ArgumentException("Use the Options.ShadowDetail enum instead of this method!", "keyName");
 
 			return dict[keyName];
 		}

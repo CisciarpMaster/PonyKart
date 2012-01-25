@@ -7,7 +7,7 @@ Model {
 	Position = -56.87, 16.488, -55.921
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows002#
 Model {
@@ -16,7 +16,7 @@ Model {
 	Position = -64.258, 17.9632, -55.581
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows003#
 Model {
@@ -25,7 +25,7 @@ Model {
 	Position = -72.235, 19.3656, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows004#
 Model {
@@ -34,7 +34,7 @@ Model {
 	Position = -79.773, 20.2474, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows005#
 Model {
@@ -43,7 +43,7 @@ Model {
 	Position = -88.805, 20.9573, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows006#
 Model {
@@ -52,7 +52,7 @@ Model {
 	Position = -96.343, 21.9465, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows007#
 Model {
@@ -61,7 +61,7 @@ Model {
 	Position = -106.385, 23.5125, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows008#
 Model {
@@ -70,7 +70,7 @@ Model {
 	Position = -115.618, 24.704, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows009#
 Model {
@@ -79,7 +79,7 @@ Model {
 	Position = -126.151, 26.5699, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows010#
 Model {
@@ -88,7 +88,7 @@ Model {
 	Position = -138.86, 28.3697, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows011#
 Model {
@@ -97,7 +97,7 @@ Model {
 	Position = -151.849, 29.6255, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows012#
 Model {
@@ -106,7 +106,7 @@ Model {
 	Position = -164.558, 30.8879, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows013#
 Model {
@@ -115,7 +115,7 @@ Model {
 	Position = -177.567, 31.8827, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows014#
 Model {
@@ -124,7 +124,7 @@ Model {
 	Position = -190.276, 32.1764, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows015#
 Model {
@@ -133,7 +133,7 @@ Model {
 	Position = -203.658, 32.7789, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows016#
 Model {
@@ -142,7 +142,7 @@ Model {
 	Position = -216.368, 32.4911, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows017#
 Model {
@@ -151,7 +151,7 @@ Model {
 	Position = -229.024, 32.0091, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows018#
 Model {
@@ -160,7 +160,7 @@ Model {
 	Position = -241.734, 32.552, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows019#
 Model {
@@ -169,7 +169,7 @@ Model {
 	Position = -254.653, 33.2916, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows020#
 Model {
@@ -178,7 +178,7 @@ Model {
 	Position = -267.363, 33.6909, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows021#
 Model {
@@ -187,7 +187,7 @@ Model {
 	Position = -282.352, 34.3709, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows022#
 Model {
@@ -196,7 +196,7 @@ Model {
 	Position = -295.062, 35.1507, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows023#
 Model {
@@ -205,7 +205,7 @@ Model {
 	Position = -309.366, 36.1966, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows024#
 Model {
@@ -214,7 +214,7 @@ Model {
 	Position = -323.913, 36.8791, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows025#
 Model {
@@ -223,7 +223,7 @@ Model {
 	Position = -338.625, 38.2561, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows026#
 Model {
@@ -232,7 +232,7 @@ Model {
 	Position = -353.096, 40.5969, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows027#
 Model {
@@ -241,7 +241,7 @@ Model {
 	Position = -368.21, 42.822, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows028#
 Model {
@@ -250,7 +250,7 @@ Model {
 	Position = -383.875, 44.7833, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows029#
 Model {
@@ -259,7 +259,7 @@ Model {
 	Position = -401.073, 47.4609, -60.331
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }
 // SAA_CornRows000#
 Model {
@@ -268,5 +268,5 @@ Model {
 	Position = -420.182, 50.8962, -50.831
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	Scale = 1, 1, 1
-	CastsShadows = false
+	CastsShadows = None
 }

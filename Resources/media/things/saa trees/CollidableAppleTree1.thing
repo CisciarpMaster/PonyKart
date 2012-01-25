@@ -17,7 +17,7 @@ Model {
 	Mesh = "RedAppleTree2.mesh"
 	Material = "AppleTree"
 	Position = 0.0175422, -0.235272, -0.1130097
-	CastsShadows = false
+	CastsShadows = Many
 	Scale = 1, 1, 1
 }
 

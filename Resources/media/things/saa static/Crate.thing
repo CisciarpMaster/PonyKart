@@ -8,7 +8,7 @@ Model {
 	Mesh = "Crate.mesh"
 	Material = "Crate"
 	Position = 0, 0, 0
-	CastsShadows = true
+	CastsShadows = Many
 }
 // CrateConvex
 Shape {

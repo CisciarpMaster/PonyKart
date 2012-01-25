@@ -27,7 +27,7 @@ namespace Ponykart.Actors {
 			// set it up
 			BillboardSet = sceneMgr.CreateBillboardSet(Name + ID + "BillboardSet", (uint) block.BillboardBlocks.Count);
 			BillboardSet.SetMaterialName(block.GetStringProperty("material", null));
-			BillboardSet.CastShadows = block.GetBoolProperty("CastsShadows", false);
+			BillboardSet.CastShadows = false; //block.GetBoolProperty("CastsShadows", false);
 			BillboardSet.SetDefaultDimensions(block.GetFloatProperty("width", 1), block.GetFloatProperty("height", 1));
 
 			// billboard type

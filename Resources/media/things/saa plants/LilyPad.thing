@@ -6,7 +6,8 @@ Model {
 	Mesh = "LilyPad.mesh"
 	Material = "Lilypad1"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = None
+	RenderingDistance = 500
 	
 	Animated = true
 	AnimationName = "float"

@@ -7,5 +7,5 @@ Shape {
 Model {
 	Mesh = "primitives/box.mesh"
 	Material = "brick"
-	CastsShadows = true
+	CastsShadows = Some
 }

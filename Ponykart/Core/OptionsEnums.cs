@@ -15,4 +15,19 @@ namespace Ponykart.Core {
 		/// </summary>
 		Low
 	}
+
+	public enum ShadowDetailOption {
+		/// <summary>
+		/// No shadows at all
+		/// </summary>
+		None,
+		/// <summary>
+		/// Some shadows on important things
+		/// </summary>
+		Some,
+		/// <summary>
+		/// Shadows on everything!
+		/// </summary>
+		Many
+	}
 }

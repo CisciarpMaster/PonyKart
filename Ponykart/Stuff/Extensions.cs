@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using IrrKlang;
 using Mogre;
+using Ponykart.Core;
+using Ponykart.Levels;
 using Math = Mogre.Math;
 
 namespace Ponykart {
@@ -309,6 +311,45 @@ namespace Ponykart {
 			DrawMenuBar((int) hwnd);
 		}
 
+		#endregion
+
+		#region SceneManager
+
+		public static void SetupShadows(this SceneManager sceneMgr, Level level) {
+			if (Options.ShadowDetail != ShadowDetailOption.None) {
+				sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
+				sceneMgr.ShadowFarDistance = float.Parse(Options.Get("ShadowDistance"));
+				sceneMgr.ShadowColour = level.Definition.GetVectorProperty("ShadowColour", new Vector3(0.8f, 0.8f, 0.8f)).ToColourValue();
+			}
+			else {
+				sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_NONE;
+			}
+
+			/*
+			sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_TEXTURE_MODULATIVE_INTEGRATED;
+
+			sceneMgr.SetShadowTextureCountPerLightType(Light.LightTypes.LT_DIRECTIONAL, 3);
+			sceneMgr.ShadowTextureCount = 3;
+			sceneMgr.SetShadowTextureConfig(0, 1024, 1024, PixelFormat.PF_FLOAT32_R);
+			sceneMgr.SetShadowTextureConfig(1, 512, 512, PixelFormat.PF_FLOAT32_R);
+			sceneMgr.SetShadowTextureConfig(2, 512, 512, PixelFormat.PF_FLOAT32_R);
+			sceneMgr.ShadowTextureSelfShadow = true;
+			sceneMgr.ShadowCasterRenderBackFaces = false;
+			sceneMgr.ShadowFarDistance = 150;
+			sceneMgr.SetShadowTextureCasterMaterial("PSSM/shadow_caster");
+			sceneMgr.SetShadowTextureFadeStart(0.7f);
+
+			PSSMShadowCameraSetup pssm = new PSSMShadowCameraSetup();
+			pssm.SplitPadding = 1f;
+			pssm.CalculateSplitPoints(3, 0.01f, sceneMgr.ShadowFarDistance - 10);
+			pssm.SetOptimalAdjustFactor(0, 2);
+			pssm.SetOptimalAdjustFactor(1, 1f);
+			pssm.SetOptimalAdjustFactor(2, 0.5f);
+			pssm.UseSimpleOptimalAdjust = false;
+
+			sceneMgr.SetShadowCameraSetup(new ShadowCameraSetupPtr(pssm));*/
+
+		}
 		#endregion
 	}
 }

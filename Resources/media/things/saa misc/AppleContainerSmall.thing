@@ -11,7 +11,7 @@ Deactivated = true
 Model {
 	Mesh = "AppleContainerSmall.mesh"
 	Position = 0, 0.546193, 0
-	CastsShadows = true
+	CastsShadows = Some
 }
 
 // box#1#0

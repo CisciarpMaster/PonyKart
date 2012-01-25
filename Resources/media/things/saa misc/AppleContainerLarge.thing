@@ -10,7 +10,7 @@ Deactivated = true
 Model {
 	Mesh = "AppleContainerLarge.mesh"
 	Position = 0, 0.6615, 0
-	CastsShadows = true
+	CastsShadows = Some
 }
 
 

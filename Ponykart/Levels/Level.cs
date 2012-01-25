@@ -60,9 +60,9 @@ namespace Ponykart.Levels {
 		}
 
 		/// <summary>
-		/// Parses a .scene file and tells PhysX about it
+		/// Parses a .scene file and sets up physics stuff
 		/// </summary>
-		public void CreateEnvironment() {
+		public void ReadDotSceneAndSetupPhysics() {
 			LKernel.GetG<PhysicsMain>().LoadPhysicsLevel(Name);
 		}
 

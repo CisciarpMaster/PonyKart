@@ -6,7 +6,7 @@ ForceCompound = true
 
 Model {
 	Mesh = "SAA_Bridge.mesh"
-	CastsShadows = true
+	CastsShadows = Many
 }
 
 // box#0

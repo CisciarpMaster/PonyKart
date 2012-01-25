@@ -7,7 +7,8 @@ Model {
 	Mesh = "DarkGreenApple.mesh"
 	Material = "AppleTree"
 	Position = 0, 0.05, 0
-	CastsShadows = false
+	CastsShadows = None
+	RenderingDistance = 500
 }
 Shape {
 	Type = Sphere

@@ -86,7 +86,6 @@ namespace Ponykart.Actors {
 
 				sg.RegionDimensions = regionDimensions;
 				sg.RenderingDistance = 300;
-				sg.CastShadows = false;
 
 				sgeoms.Add(sgeomName, sg);
 			}

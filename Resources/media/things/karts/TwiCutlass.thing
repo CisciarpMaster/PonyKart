@@ -26,7 +26,7 @@ Model {
 	Position = 0, 1.61797, 1.06208
 	Orientation = 0, 0, 0, 1
 	Scale = 1, 1, 1
-	CastsShadows = true
+	CastsShadows = Some
 }
 Model {
 	Mesh = "CutlassSeat.mesh"
@@ -34,7 +34,7 @@ Model {
 	Position = 0, -0.433254, -0.0633266
 	Orientation = 0, 0, 0, 1
 	Scale = 1, 1, 1
-	CastsShadows = true
+	CastsShadows = Some
 }
 Model {
 	Mesh = "CutlassEngine.mesh"
@@ -42,7 +42,7 @@ Model {
 	Position = 0, -0.433254, -0.0633266
 	Orientation = 0, 0, 0, 1
 	Scale = 1, 1, 1
-	CastsShadows = true
+	CastsShadows = Some
 }
 Model {
 	Mesh = "CutlassChassis.mesh"
@@ -50,7 +50,7 @@ Model {
 	Position = 0, -0.433254, -0.0633266
 	Orientation = 0, 0, 0, 1
 	Scale = 1, 1, 1
-	CastsShadows = true
+	CastsShadows = Some
 }
 
 

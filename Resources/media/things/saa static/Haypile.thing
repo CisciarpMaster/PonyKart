@@ -8,7 +8,7 @@ Model {
 	Mesh = "HayPile.mesh"
 	Material = "HayPile"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = None
 }
 
 Shape {

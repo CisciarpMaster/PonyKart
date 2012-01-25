@@ -10,7 +10,7 @@ Model {
 	Position = -0.000190735, 1.08395, 0
 	Orientation = 0, 0, 0, 1
 	Scale = 0.1, 0.1, 0.1
-	CastsShadows = true
+	CastsShadows = Many
 }
 // Entity#1
 Model {

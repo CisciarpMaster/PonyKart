@@ -17,7 +17,6 @@ namespace Ponykart.Handlers {
 		void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			var def = eventArgs.NewLevel.Definition;
-			// for shadows, see KernelLevelCleanup -> SetupShadows
 
 			// background color
 			LKernel.GetG<Viewport>().BackgroundColour = def.GetVectorProperty("Background", Vector3.UNIT_SCALE).ToColourValue();
@@ -32,7 +31,9 @@ namespace Ponykart.Handlers {
 			light.Direction.Normalise();
 			light.DiffuseColour = def.GetVectorProperty("SunlightColour", Vector3.UNIT_SCALE).ToColourValue();
 			light.SpecularColour = def.GetVectorProperty("SunlightColour", Vector3.UNIT_SCALE).ToColourValue();
-			light.CastShadows = true;
+			// cast shadows if we want some
+			if (Options.ShadowDetail != ShadowDetailOption.None)
+				light.CastShadows = true;
 
 			// skybox
 			if (def.StringTokens.ContainsKey("skybox"))

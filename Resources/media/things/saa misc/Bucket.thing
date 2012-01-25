@@ -11,7 +11,7 @@ Model {
 	Mesh = "Bucket.mesh"
 	Position = 0, 0.5685465, 0
 	Scale = 1.5, 1.5, 1.5
-	CastsShadows = true
+	CastsShadows = Some
 }
 // cylinder#0
 Shape {

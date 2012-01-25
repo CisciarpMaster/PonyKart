@@ -124,9 +124,10 @@ namespace Ponykart.Levels {
 				InvokeLevelProgress(args, "Reading .muffin files...");
 				newLevel.ReadMuffin();
 
-				// create the enviroment
-				InvokeLevelProgress(args, "Creating environment...");
-				newLevel.CreateEnvironment();
+				// set up shadows, create stuff in the .scene file, and set up physics
+				InvokeLevelProgress(args, "Reading .scene file and setting up shadows and physics...");
+				LKernel.GetG<SceneManager>().SetupShadows(newLevel);
+				newLevel.ReadDotSceneAndSetupPhysics();
 
 				// run our level loading events
 				Launch.Log("[Loading] Loading everything else...");

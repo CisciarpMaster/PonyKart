@@ -13,5 +13,5 @@ ImposterOffset = 0, 0, 0
 Model {
 	Mesh = "AppleTreeLQ6.mesh"
 	Position = 0, 0, 0
-	CastsShadows = false
+	CastsShadows = Many
 }
