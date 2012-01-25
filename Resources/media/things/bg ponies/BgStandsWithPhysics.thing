@@ -1,0 +1,64 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Environment
+CollidesWith = Environment
+
+// Entity#0
+Model {
+	Mesh = "BgStands.mesh"
+	Material = "BgStands"
+	Position = 0, 0, 0
+	Orientation = 0, 0, 0, 1
+	Scale = 3, 3, 3
+	CastsShadows = Some
+}
+
+// box#0
+Shape {
+	Type = Box
+	Position = 0, -4.68403, 8.02691
+	Orientation = 0, 0, 0, 1
+	Dimensions = 24.0472, 3.13536, 1.98894
+}
+// box#1
+Shape {
+	Type = Box
+	Position = 0, 0.840345, -0.416034
+	Orientation = 0.288196, 0, 0, 0.957572
+	Dimensions = 24.0472, 3.73471, 19.9708
+}
+// box#2
+Shape {
+	Type = Box
+	Position = 0, -0.816429, -8.62689
+	Orientation = 0, 0, 0, 1
+	Dimensions = 24.0472, 11.0609, 0.685777
+}
+// box#3
+Shape {
+	Type = Box
+	Position = 11.3735, -0.750836, -4.70591
+	Orientation = 0, 0, 0, 1
+	Dimensions = 0.552876, 0.813882, 8.07742
+}
+// box#4
+Shape {
+	Type = Box
+	Position = -11.3919, -0.750836, -4.70591
+	Orientation = 0, 0, 0, 1
+	Dimensions = 0.552876, 0.813882, 8.07742
+}
+// cylinder#1
+Shape {
+	Type = Cylinder
+	Position = 12.897, 4.87882, -9.90556
+	Orientation = 0, 0, 0, 1
+	Dimensions = 0.594317, 22.0162, 0.594317
+}
+// cylinder#0
+Shape {
+	Type = Cylinder
+	Position = -12.8986, 4.87882, -9.90556
+	Orientation = 0, 0, 0, 1
+	Dimensions = 0.594317, 22.0162, 0.594317
+}
