@@ -76,9 +76,9 @@ float4 main_ps(	float2 uv 			: TEXCOORD0,
 	// Calculate result
     float3 result = ( edge * texture.rgb * TextureGlowStrength ) + ( edge * GlowColour )  + texture.rgb * light;
 
-	float cutoff = 0.075f;
+	/*float cutoff = 0.075f;
 	clip( texture.a - cutoff );
-	texture.a = ( texture.a - cutoff ) * ( 1.0f / ( 1.0f - cutoff ) );
+	texture.a = ( texture.a - cutoff ) * ( 1.0f / ( 1.0f - cutoff ) );*/
 
 	result = lerp( result, FogColour.xyz, saturate( ( dist - FogParams.y ) * FogParams.w ) * FogColour.a );
 	
