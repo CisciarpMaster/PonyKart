@@ -51,7 +51,7 @@ namespace Ponykart.Core {
 
 		private Vector3 mLastPosition = Vector3.ZERO;
 		private Vector3 mLastTargetPosition = Vector3.ZERO;
-		private float mRoll = 0.0f;
+		//private float mRoll = 0.0f;
 
 		private readonly float _cameraTightness = Settings.Default.CameraTightness;
 		/// <summary>

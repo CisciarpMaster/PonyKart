@@ -114,7 +114,7 @@ namespace Ponykart {
 			// try it - comment it out, then look at the detail on the roads and far-off tree billboards (yes you'll need to change your ModelDetail to see them)
 			// then uncomment this and look at them again - notice how much sharper they are? That's because they're now using the DDS files' mipmaps,
 			// which were created in photoshop to look a lot nicer than the blurry mess ogre creates on the fly.
-			TextureManager.Singleton.DefaultNumMipmaps = 1;
+			TextureManager.Singleton.DefaultNumMipmaps = 8;
 
 #if !DEBUG
 			TextureManager.Singleton.Verbose = false;
