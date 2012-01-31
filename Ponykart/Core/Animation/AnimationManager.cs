@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Mogre;
 using Ponykart.Levels;
 
@@ -37,9 +38,10 @@ namespace Ponykart.Core {
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
-				foreach (AnimationBlender b in blenders) {
+				blenders.AsParallel().ForAll(b => b.AddTime(evt.timeSinceLastFrame));
+				/*foreach (AnimationBlender b in blenders) {
 					b.AddTime(evt.timeSinceLastFrame);
-				}
+				}*/
 			}
 			return true;
 		}
