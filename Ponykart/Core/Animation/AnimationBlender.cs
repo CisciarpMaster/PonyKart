@@ -202,6 +202,9 @@ namespace Mogre {
 		public AnimationState Target {
 			get { return mTarget; }
 		}
+		public Entity Entity {
+			get { return mEntity; }
+		}
 
 		public bool Complete {
 			get { return mTimeleft < mDuration; }

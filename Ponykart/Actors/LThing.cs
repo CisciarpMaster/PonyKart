@@ -332,6 +332,17 @@ namespace Ponykart.Actors {
 		}
 
 		/// <summary>
+		/// Makes all model components play the specified animation immediately, if they have it.
+		/// </summary>
+		public virtual void ChangeAnimation(string animationName) {
+			foreach (var mcomp in ModelComponents) {
+				if (mcomp.Animation != null && mcomp.Entity.AllAnimationStates.HasAnimationState(animationName)) {
+					mcomp.Animation.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+				}
+			}
+		}
+
+		/// <summary>
 		/// If this is a static/instanced thing with no ribbons, billboards, or sounds, we can clean up a whole bunch of stuff
 		/// to make it faster for ogre.
 		/// </summary>
