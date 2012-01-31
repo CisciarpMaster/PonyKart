@@ -1,4 +1,4 @@
-abstract material BgPonyHair {
+material BgPonyHair {
     technique {
         pass {
             texture_unit {
@@ -14,7 +14,7 @@ abstract material BgPonyHair {
     }
 }
 
-abstract material BgPony {
+material BgPony {
     technique {
         pass {
             texture_unit {
@@ -29,7 +29,7 @@ abstract material BgPony {
     }
 }
 
-abstract material BgPonyEyes {
+material BgPonyEyes {
     technique {
         pass {
             texture_unit {
