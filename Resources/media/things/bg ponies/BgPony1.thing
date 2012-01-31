@@ -1,0 +1,41 @@
+Physics = None
+
+Model {
+	Mesh = "BgPonyBody.mesh"
+	Material = "Lyra_BgPony"
+	Position = 0, 0, 0
+	Scale = 1, 1, 1
+	CastsShadows = true
+
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+}
+
+Model {
+	Mesh = "BgPonyEyes.mesh"
+	Material = "Lyra_BgPonyEyes"
+	Position = 0, 2.964, 1.497
+	Scale = 1, 1, 1
+	CastsShadows = true
+}
+
+Model {
+	Mesh = "BgPonyHair1.mesh"
+	Material = "Lyra_BgPonyHair"
+	Position = 0, 0, 0
+	Scale = 1, 1, 1
+	CastsShadows = true
+	
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+}
+
+Model {
+	Mesh = "BgPonyHorn.mesh"
+	Material = "Lyra_BgPony"
+	Position = 0, 3.557, 1.607
+	Scale = 1, 1, 1
+	CastsShadows = true
+}

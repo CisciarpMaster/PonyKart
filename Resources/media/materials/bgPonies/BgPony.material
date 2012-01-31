@@ -1,0 +1,50 @@
+abstract material BgPonyHair {
+    technique {
+        pass {
+            texture_unit {
+				texture_alias HairColour
+                colour_op replace
+            }
+			// need this too since the hair models have different AOs
+            texture_unit {
+                texture_alias HairAO
+                colour_op modulate
+            }
+        }
+    }
+}
+
+abstract material BgPony {
+    technique {
+        pass {
+            texture_unit {
+				texture_alias BodyColour
+				colour_op replace
+            }
+            texture_unit {
+                texture BgPonyAo.png
+                colour_op modulate
+            }
+        }
+    }
+}
+
+abstract material BgPonyEyes {
+    technique {
+        pass {
+            texture_unit {
+				texture_alias EyeColour
+                colour_op replace
+            }
+			// if there was a way to just alpha blend one texture onto it, that would be better
+            texture_unit {
+                texture LowPolyEyes.png
+                colour_op modulate
+            }
+            texture_unit {
+                texture LowPolyEyesWhite.png
+                colour_op alpha_blend
+            }
+        }
+    }
+}

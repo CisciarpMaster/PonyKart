@@ -1,0 +1,14 @@
+import * from "BgPony.material"
+
+material BonBon_BgPonyHair : BgPonyHair {
+    set_texture_alias HairColour BgPonyHair2.png
+	set_texture_alias HairAO BgPonyHairAo2.png
+}
+
+material BonBon_BgPony : BgPony {
+    set_texture_alias BodyColour BgPony2.png
+}
+
+material BonBon_BgPonyEyes : BgPonyEyes {
+    set_texture_alias EyeColour BgPonyEyes2.png
+}
