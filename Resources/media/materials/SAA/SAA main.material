@@ -70,12 +70,3 @@ material SAA_Things_2 {
 		}
 	}
 }
-
-/* material SAA_Things_2_Twosided : SAA_Things_2 {
-	technique {
-		pass {
-			cull_hardware none
-			cull_software none
-		}
-	}
-}*/

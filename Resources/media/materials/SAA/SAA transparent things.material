@@ -103,8 +103,8 @@ material SAA_CornRows {
 				param_named scale float2 0.033333 1
 			}
 
-			fragment_program_ref fresnelTex_Self_fp {
-			}
+			//fragment_program_ref fresnelTex_Self_fp {
+			//}
 
 			scene_blend alpha_blend
 			depth_write off

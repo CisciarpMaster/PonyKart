@@ -59,7 +59,7 @@ material HayBale {
 			}
 			
 			texture_unit {
-				texture HAYBALE.png
+				texture haybale.dds
 			}
 		}
 	}
@@ -206,7 +206,7 @@ material CMC_Treehouse_Leaves2 {
 			depth_write off
 
 			texture_unit {
-				texture "treehouse_leaves2.png"
+				texture "treehouse_leaves2.dds"
 			}
 		}
 	}
@@ -227,7 +227,7 @@ material CMC_Treehouse_Leaves {
 			depth_write off
 			
 			texture_unit {
-				texture "treehouse_leaves.png"
+				texture "treehouse_leaves.dds"
 			}
 		}
 	}
