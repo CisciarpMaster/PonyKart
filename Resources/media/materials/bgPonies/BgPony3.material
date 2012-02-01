@@ -1,14 +1,18 @@
+// Daisy
+
 import * from "BgPony.material"
 
-material Daisy_BgPonyHair : BgPonyHair {
-    set_texture_alias HairColour BgPonyHair3.png
-	set_texture_alias HairAO BgPonyHairAo3.png
+material BgPonyHair3 : BgPonyHair {
+    set_texture_alias HairColour "BgPonyHair3.png"
+	set_texture_alias HairAO "BgPonyHairAo3.png"
+	set $outline "147 215 69"
 }
 
-material Daisy_BgPony : BgPony {
-    set_texture_alias BodyColour BgPony3.png
+material BgPony3 : BgPony {
+    set_texture_alias BodyColour "BgPony3.png"
+	set $outline "207 81 189"
 }
 
-material Daisy_BgPonyEyes : BgPonyEyes {
-    set_texture_alias EyeColour BgPonyEyes3.png
+material BgPonyEyes3 : BgPonyEyes {
+    set_texture_alias EyeColour "BgPonyEyes3.png"
 }

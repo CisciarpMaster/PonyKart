@@ -2,10 +2,7 @@ Physics = None
 
 Model {
 	Mesh = "BgPonyBody.mesh"
-	Material = "Lyra_BgPony"
-	Position = 0, 0, 0
-	Scale = 1, 1, 1
-	CastsShadows = true
+	Material = "BgPony1"
 
 	Animated = true
 	AnimationName = "Stand1"
@@ -14,28 +11,38 @@ Model {
 
 Model {
 	Mesh = "BgPonyEyes.mesh"
-	Material = "Lyra_BgPonyEyes"
-	Position = 0, 2.964, 1.497
-	Scale = 1, 1, 1
-	CastsShadows = true
+	Material = "BgPonyEyes1"
+	
+	Attached = true
+	AttachBone = "Eyes"
+	AttachComponentID = 0
+	//AttachOffsetPosition = 0, 1.33, 0.405
+	//AttachOffsetOrientation = 0.1475435, -1.962457E-07, -3.653281E-07, 0.9890556
 }
 
 Model {
 	Mesh = "BgPonyHair1.mesh"
-	Material = "Lyra_BgPonyHair"
-	Position = 0, 0, 0
-	Scale = 1, 1, 1
-	CastsShadows = true
+	Material = "BgPonyHair1"
 	
 	Animated = true
 	AnimationName = "Stand1"
 	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Head"
+	AttachComponentID = 0
+	//AttachOffsetPosition = 0, 1.33, 0.405
+	//AttachOffsetOrientation = 0.1475435, -1.962457E-07, -3.653281E-07, 0.9890556
+	//Skeleton = "BgPonyHair.skeleton"
 }
 
 Model {
 	Mesh = "BgPonyHorn.mesh"
-	Material = "Lyra_BgPony"
-	Position = 0, 3.557, 1.607
-	Scale = 1, 1, 1
-	CastsShadows = true
+	Material = "BgPony1"
+	
+	Attached = true
+	AttachBone = "Horn"
+	AttachComponentID = 0
+	//AttachOffsetPosition = 0, 1.33, 0.405 //0, 1.33, 0.405 
+	//AttachOffsetOrientation = 0.1475435, -1.962457E-07, -3.653281E-07, 0.9890556
 }

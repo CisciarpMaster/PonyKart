@@ -5,7 +5,7 @@ material BgStands {
     technique {
         pass {
             texture_unit {
-                texture BgStands.dds
+                texture "BgStands.dds"
             }
         }
     }

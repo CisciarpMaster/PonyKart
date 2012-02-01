@@ -8,14 +8,7 @@ material TwilightBody {
 			vertex_program_ref outlined_vs {
 			}
 			fragment_program_ref outlined_ps {
-				//param_named GlowExpon float 2
-				//param_named Alpha float 0.5
 				param_named OutlineColour float3 162.0 108.0 186.0
-			}
-			
-			texture_unit {
-				texture TwilightBody7.dds
-				tex_address_mode clamp
 			}
 		}
 
@@ -26,7 +19,7 @@ material TwilightBody {
 			}
 			
             texture_unit {
-                texture TwilightBody7.dds
+                texture "TwilightBody7.dds"
             }
         }
     }
@@ -42,7 +35,7 @@ material TwilightEyes {
 			}
 			
             texture_unit {
-                texture TwilightEyes2.png
+                texture "TwilightEyes2.png"
             }
         }
     }
@@ -57,14 +50,7 @@ material TwilightHair {
 			vertex_program_ref outlined_vs {
 			}
 			fragment_program_ref outlined_ps {
-				//param_named GlowExpon float 2
-				//param_named Alpha float 0.5
 				param_named OutlineColour float3 20.0 30.0 67.0
-			}
-			
-			texture_unit {
-				texture TwilightHair2.dds
-				tex_address_mode clamp
 			}
 		}
 
@@ -75,7 +61,7 @@ material TwilightHair {
 			}
 			
             texture_unit {
-                texture TwilightHair2.dds
+                texture "TwilightHair2.dds"
             }
         }
     }

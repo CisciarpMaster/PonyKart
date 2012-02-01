@@ -76,6 +76,9 @@ namespace Ponykart.Actors {
 				Vector3 offsetVec = block.GetVectorProperty("AttachOffsetPosition", Vector3.ZERO);
 
 				lthing.ModelComponents[modelComponentID].Entity.AttachObjectToBone(boneName, Entity, offsetQuat, offsetVec);
+
+				Quaternion q = lthing.ModelComponents[modelComponentID].Entity.Skeleton.GetBone(boneName)._getDerivedOrientation();
+				System.Console.WriteLine(q.x + ", " + q.y + ", " + q.z + ", " + q.w);
 			}
 			// otherwise continue as normal
 			else {
@@ -123,6 +126,11 @@ namespace Ponykart.Actors {
 
 			if (block.FloatTokens.ContainsKey("renderingdistance"))
 				Entity.RenderingDistance = block.GetFloatProperty("RenderingDistance", null);
+
+			if (block.StringTokens.ContainsKey("skeleton")) {
+				Entity.GetMesh().SkeletonName = block.GetStringProperty("Skeleton", null);
+				Entity._initialise(true);
+			}
 
 			// material name
 			string materialName = block.GetStringProperty("material", string.Empty);

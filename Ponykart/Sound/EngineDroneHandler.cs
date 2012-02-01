@@ -29,7 +29,7 @@ namespace Ponykart.Sound {
 			if (!Pauser.IsPaused) {
 
 				foreach (var pair in list) {
-					pair.second.PlaybackSpeed = Math.Min((Math.Abs(pair.first.VehicleSpeed) * 0.005f) + 1, 2.25f);
+					pair.second.PlaybackSpeed = Math.Min((Math.Abs(pair.first.VehicleSpeed) * 0.0075f/*0.005f*/) + 0.7f, 3f/*2.25f*/);
 				}
 			}
 

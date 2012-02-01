@@ -9,7 +9,7 @@ material Fences {
 			}
 			
 			texture_unit {
-				texture fencetex.dds
+				texture "fencetex.dds"
 			}
 		}
 	}
@@ -25,7 +25,7 @@ material SAA_Bridge {
 			}
 			
 			texture_unit {
-				texture bridge_wood.dds
+				texture "bridge_wood.dds"
 				// used by the wood posts on the banner
 				tex_address_mode mirror
 			}
@@ -43,7 +43,7 @@ material AppleContainer {
 			}
 			
 			texture_unit {
-				texture apple_container.dds
+				texture "apple_container.dds"
 			}
 		}
 	}
@@ -59,7 +59,7 @@ material HayBale {
 			}
 			
 			texture_unit {
-				texture haybale.dds
+				texture "haybale.dds"
 			}
 		}
 	}
@@ -75,7 +75,7 @@ material Bucket {
 			}
 			
 			texture_unit {
-				texture Bucket.dds
+				texture "Bucket.dds"
 			}
 		}
 	}
@@ -90,7 +90,7 @@ material Rope {
 			}
 			
 			texture_unit {
-				texture rope.dds
+				texture "rope.dds"
 			}
 		}
 	}
@@ -110,7 +110,7 @@ material Barn {
 			}
 			
 			texture_unit {
-				texture saa_barn.dds
+				texture "saa_barn.dds"
 			}
 		}
 	}
@@ -141,7 +141,7 @@ material CarrotTopHouse {
 			}
 			
 			texture_unit {
-				texture carrottophouse.dds
+				texture "carrottophouse.dds"
 			}
 		}
 	}
@@ -163,7 +163,7 @@ material HayPile {
 			}
 
 			texture_unit {
-				texture Haypile.dds
+				texture "Haypile.dds"
 			}
 		}
 	}
@@ -179,7 +179,7 @@ material Crate {
 			}
 
 			texture_unit {
-				texture Crate.dds
+				texture "Crate.dds"
 			}
 		}
 	}

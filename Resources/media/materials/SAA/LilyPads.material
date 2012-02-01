@@ -9,7 +9,7 @@ material LilyPads {
 			
 			texture_unit {
 				texture_alias Diffuse
-				texture lilypad_001.dds
+				texture "lilypad_001.dds"
 				tex_address_mode clamp
 			}
 		}
@@ -17,22 +17,22 @@ material LilyPads {
 }
 
 material Lilypad1 : LilyPads {
-	set_texture_alias Diffuse lilypad_001.dds
+	set_texture_alias Diffuse "lilypad_001.dds"
 }
 
 
 material Lilypad2 : LilyPads {
-	set_texture_alias Diffuse lilypad_002.dds
+	set_texture_alias Diffuse "lilypad_002.dds"
 }
 
 
 material Lilypad3 : LilyPads {
-	set_texture_alias Diffuse lilypad_003.dds
+	set_texture_alias Diffuse "lilypad_003.dds"
 }
 
 
 material Lilypad4 : LilyPads {
-	set_texture_alias Diffuse lilypad_004.dds
+	set_texture_alias Diffuse "lilypad_004.dds"
 }
 
 

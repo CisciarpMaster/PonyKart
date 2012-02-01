@@ -1,5 +1,13 @@
 material BgPonyHair {
     technique {
+		pass {
+			cull_hardware anticlockwise
+			vertex_program_ref outlined_vs {
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 $outline
+			}
+		}
         pass {
             texture_unit {
 				texture_alias HairColour
@@ -16,13 +24,21 @@ material BgPonyHair {
 
 material BgPony {
     technique {
+		pass {
+			cull_hardware anticlockwise
+			vertex_program_ref outlined_vs {
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 $outline
+			}
+		}
         pass {
             texture_unit {
 				texture_alias BodyColour
 				colour_op replace
             }
             texture_unit {
-                texture BgPonyAo.png
+                texture "BgPonyAo.png"
                 colour_op modulate
             }
         }
@@ -38,11 +54,11 @@ material BgPonyEyes {
             }
 			// if there was a way to just alpha blend one texture onto it, that would be better
             texture_unit {
-                texture LowPolyEyes.png
+                texture "LowPolyEyes.png"
                 colour_op modulate
             }
             texture_unit {
-                texture LowPolyEyesWhite.png
+                texture "LowPolyEyesWhite.png"
                 colour_op alpha_blend
             }
         }

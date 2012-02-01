@@ -2,7 +2,7 @@ Physics = None
 
 Model {
 	Mesh = "BgPonyBody.mesh"
-	Material = "Daisy_BgPony"
+	Material = "BgPony3"
 	Position = 0, 0, 0
 	Scale = 1, 1, 1
 	CastsShadows = true
@@ -14,15 +14,19 @@ Model {
 
 Model {
 	Mesh = "BgPonyEyes.mesh"
-	Material = "Daisy_BgPonyEyes"
-	Position = 0, 2.964, 1.497
+	Material = "BgPonyEyes3"
+	AttachOffsetPosition = 0, 2.964, 1.497
 	Scale = 1, 1, 1
 	CastsShadows = true
+	
+	Attached = true
+	AttachBone = "Head"
+	AttachComponentID = 0
 }
 
 Model {
 	Mesh = "BgPonyHair3.mesh"
-	Material = "Daisy_BgPonyHair"
+	Material = "BgPonyHair3"
 	Position = 0, 0, 0
 	Scale = 1, 1, 1
 	CastsShadows = true
@@ -30,4 +34,9 @@ Model {
 	Animated = true
 	AnimationName = "Stand1"
 	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Head"
+	AttachComponentID = 0
+	//Skeleton = "BgPonyHair.skeleton"
 }

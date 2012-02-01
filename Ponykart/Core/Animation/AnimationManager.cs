@@ -10,12 +10,14 @@ namespace Ponykart.Core {
 	/// </summary>
 	public class AnimationManager {
 		private IList<AnimationBlender> blenders;
+		private IDictionary<string, Entity> skeletonEntities;
 
 		public AnimationManager() {
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 
 			blenders = new List<AnimationBlender>();
+			skeletonEntities = new Dictionary<string, Entity>();
 		}
 
 		/// <summary>
@@ -30,6 +32,7 @@ namespace Ponykart.Core {
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			blenders.Clear();
+			skeletonEntities.Clear();
 			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 		}
 
@@ -38,10 +41,9 @@ namespace Ponykart.Core {
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
-				blenders.AsParallel().ForAll(b => b.AddTime(evt.timeSinceLastFrame));
-				/*foreach (AnimationBlender b in blenders) {
+				foreach (AnimationBlender b in blenders) {
 					b.AddTime(evt.timeSinceLastFrame);
-				}*/
+				}
 			}
 			return true;
 		}

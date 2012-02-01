@@ -10,7 +10,7 @@ material SAA_Barn_Area {
 			}
 			
 			texture_unit {
-				texture saa_dirt.dds
+				texture "saa_dirt.dds"
 			}
 		}
 	}
@@ -30,7 +30,7 @@ material SAA_Road {
 			}
 			
 			texture_unit {
-				texture saa_road.dds
+				texture "saa_road.dds"
 				// scale 0.5 0.5
 			}
 		}
@@ -49,7 +49,7 @@ material SAA_Cliff {
 			}
 			
 			texture_unit {
-				texture saa_cliff.dds
+				texture "saa_cliff.dds"
 			}
 		}
 	}
@@ -68,7 +68,7 @@ material SAA_Grass {
 			}
 			
 			texture_unit {
-				texture saa_grass.dds
+				texture "saa_grass.dds"
 			}
 		}
 	}
@@ -88,7 +88,7 @@ material SAA_Field {
 			}
 			
 			texture_unit {
-				texture saa_dirt_02.dds
+				texture "saa_dirt_02.dds"
 			}
 		}
 	}
@@ -105,7 +105,7 @@ material SAA_FieldTransition {
 			}
 			
 			texture_unit {
-				texture saa_crop2.dds
+				texture "saa_crop2.dds"
 				tex_address_mode wrap clamp
 			}
 		}

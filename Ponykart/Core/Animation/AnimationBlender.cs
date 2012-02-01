@@ -9,7 +9,6 @@
  * http://www.ogre3d.org/tikiwiki/AnimationBlender#Utilisation
  */
 
-
 namespace Mogre {
 	public enum AnimationBlendingTransition {
 		/// <summary>
@@ -27,7 +26,6 @@ namespace Mogre {
 	}
 
 	public class AnimationBlender {
-
 		private Entity mEntity;
 		private AnimationState mSource;
 		private AnimationState mTarget;

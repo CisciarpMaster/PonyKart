@@ -1,14 +1,18 @@
+// Lyra
+
 import * from "BgPony.material"
 
-material Lyra_BgPonyHair : BgPonyHair {
-    set_texture_alias HairColour BgPonyHair1.png
-	set_texture_alias HairAO BgPonyHairAo1.png
+material BgPonyHair1 : BgPonyHair {
+    set_texture_alias HairColour "BgPonyHair1.png"
+	set_texture_alias HairAO "BgPonyHairAo1.png"
+	set $outline "73 213 216"
 }
 
-material Lyra_BgPony : BgPony {
-    set_texture_alias BodyColour BgPony1.png
+material BgPony1 : BgPony {
+    set_texture_alias BodyColour "BgPony1.png"
+	set $outline "51 172 123"
 }
 
-material Lyra_BgPonyEyes : BgPonyEyes {
-    set_texture_alias EyeColour BgPonyEyes1.png
+material BgPonyEyes1 : BgPonyEyes {
+    set_texture_alias EyeColour "BgPonyEyes1.png"
 }

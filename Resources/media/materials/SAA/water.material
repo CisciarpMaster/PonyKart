@@ -12,7 +12,7 @@ material Water {
 				// the third argument is how long it takes to go through every frame.
 				// In this case, it's one second
 				
-				anim_texture water.dds 20 1
+				anim_texture "water.dds" 20 1
 				
 				// make the water "flow" slowly in the V direction
 				scroll_anim 0 0.07

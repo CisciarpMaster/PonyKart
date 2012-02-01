@@ -2,8 +2,14 @@
 
 --end
 
+local numBgPones = 3
 
 function flat(level)
+	local x, n
+	for x = 1, numBgPones do
+		spawn("BgPony" .. x, vector(x * 5, 0, 0))
+	end
+
 --[[
 	local x, z, n
 	

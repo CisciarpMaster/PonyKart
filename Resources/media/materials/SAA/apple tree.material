@@ -27,7 +27,7 @@ material AppleTree {
 			}
 			
 			texture_unit {
-				texture AppleTree.dds
+				texture "AppleTree.dds"
 				tex_address_mode clamp
 			}
 		}
@@ -50,7 +50,7 @@ material AppleTreeInstanced {
 			vertex_program_ref Instancing { }
 			
 			texture_unit {
-				texture AppleTree.dds
+				texture "AppleTree.dds"
 				tex_address_mode clamp
 			}
 		}

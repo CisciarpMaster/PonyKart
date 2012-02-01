@@ -10,7 +10,7 @@ material TwiCutlass {
 			}
 			
 			texture_unit {
-				texture Twilight_Cutlass.dds
+				texture "Twilight_Cutlass.dds"
 			}
 		}
 	}

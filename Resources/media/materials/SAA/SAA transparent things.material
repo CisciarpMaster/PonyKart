@@ -9,7 +9,7 @@ material Billboards {
 			alpha_rejection greater_equal 64
 
 			texture_unit {
-				texture billboards.dds
+				texture "billboards.dds"
 				tex_address_mode clamp
 			}
 		}
@@ -46,7 +46,7 @@ material Reeds {
 			alpha_rejection greater_equal 64
 
 			texture_unit {
-				texture Reeds.dds
+				texture "Reeds.dds"
 				tex_address_mode clamp
 			}
 		}
@@ -70,7 +70,7 @@ material SAA_BannerSign {
 			alpha_rejection greater_equal 64
 			
 			texture_unit {
-				texture banner.dds
+				texture "banner.dds"
 			}
 		}
 	}
@@ -86,7 +86,7 @@ material CarrotTopPlants {
 			alpha_rejection greater_equal 64
 
 			texture_unit {
-				texture carrottophouseplants.dds
+				texture "carrottophouseplants.dds"
 			}
 		}
 	}
@@ -110,7 +110,7 @@ material SAA_CornRows {
 			depth_write off
 			
 			texture_unit {
-				texture cornrows.dds
+				texture "cornrows.dds"
 				tex_address_mode mirror
 			}
 		}
