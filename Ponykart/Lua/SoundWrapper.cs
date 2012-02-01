@@ -12,7 +12,7 @@ namespace Ponykart.Lua {
 		}
 
 		[LuaFunction("create2DSound",
-			"Creates a 2D sound i.e. one that has the same volume no matter where the player is. For things like music and stuff.",
+			"Creates a 2D sound i.e. one that has the same volume no matter where the player is. For things like ambient sounds and stuff.",
 			"string filePath - The path to the sound file to play.", 
 			"bool looping - Whether the sound should loop or not.")]
 		public static ISound Create2DSound(string filePath, bool looping) {
@@ -25,6 +25,13 @@ namespace Ponykart.Lua {
 			"Vector3 pos", "bool looping - Whether the sound should loop or not.")]
 		public static ISound Create3DSound(string filePath, Vector3 pos, bool looping) {
 			return LKernel.GetG<SoundMain>().Play3D(filePath, pos, looping);
+		}
+
+		[LuaFunction("createMusic",
+			"Creates a 2D music sound - this differs from create2DSound() by using a different option to toggle whether it's enabled or not.",
+			"string filePath - The path to the sound file to play.")]
+		public static ISound CreateMusic(string filePath) {
+			return LKernel.GetG<SoundMain>().PlayMusic(filePath);
 		}
 
 		[LuaFunction("isCurrentlyPlaying", "Tells whether a given sound is playing or not.", "string soundName - The name of the sound. Not a file path.")]

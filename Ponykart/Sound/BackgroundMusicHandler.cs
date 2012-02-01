@@ -23,7 +23,7 @@ namespace Ponykart.Sound {
 				string musicFile = eventArgs.NewLevel.Definition.GetStringProperty("Music", string.Empty);
 				if (musicFile != string.Empty) {
 					// if it's a race level, don't play the music until we need it
-					bgMusic = LKernel.GetG<SoundMain>().Play2D(musicFile, true, eventArgs.NewLevel.Type == LevelType.Race);
+					bgMusic = LKernel.GetG<SoundMain>().PlayMusic(musicFile, eventArgs.NewLevel.Type == LevelType.Race);
 				}
 			}
 		}
@@ -39,7 +39,7 @@ namespace Ponykart.Sound {
 		/// Start the background music, if it's a race level
 		/// </summary>
 		void OnCountdown(RaceCountdownState state) {
-			if (state == RaceCountdownState.Go && bgMusic != null && LKernel.GetG<SoundMain>().Is2DSoundEnabled)
+			if (state == RaceCountdownState.Go && bgMusic != null && LKernel.GetG<SoundMain>().IsMusicEnabled)
 				bgMusic.Paused = false;
 		}
 	}

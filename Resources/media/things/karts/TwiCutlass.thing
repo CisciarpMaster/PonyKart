@@ -60,9 +60,9 @@ Shape {
 	Position = 0, 0, 0
 }
 
-Sound {
-	//File = "Generic Kart idle Loop.ogg"
-	File = "RD_Kart_Idle Loop.ogg"
+/*Sound {
+	File = "Generic Kart idle Loop.ogg"
+	//File = "RD_Kart_Idle Loop.ogg"
 	Looping = true
 	MinDistance = 20
-}
+}*/

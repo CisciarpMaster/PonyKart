@@ -10,22 +10,22 @@ using Ponykart.Properties;
 namespace Ponykart.Sound {
 	public class SoundMain {
 		public ISoundEngine Engine { get; private set; }
-		private IList<ISound> sounds2D;
-		private IList<ISound> sounds3D;
+		private IList<ISound> musics;
+		private IList<ISound> sounds;
 
-		private bool enable2D;
-		private bool enable3D;
+		private bool enableMusic;
+		private bool enableSounds;
 
 		/// <summary>
 		/// The sound manager class.
 		/// </summary>
 		public SoundMain() {
 			Launch.Log("[Loading] Creating IrrKlang and SoundMain...");
-			sounds2D = new List<ISound>();
-			sounds3D = new List<ISound>();
+			musics = new List<ISound>();
+			sounds = new List<ISound>();
 
-			enable2D = Options.GetBool("Music");
-			enable3D = Options.GetBool("Sounds");
+			enableMusic = Options.GetBool("Music");
+			enableSounds = Options.GetBool("Sounds");
 
 			
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
@@ -34,7 +34,7 @@ namespace Ponykart.Sound {
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
-			Engine.Default3DSoundMinDistance = 15;
+			Engine.Default3DSoundMinDistance = 50;
 
 			Launch.Log("[Loading] IrrKlang and SoundMain initialised!");
 		}
@@ -49,8 +49,8 @@ namespace Ponykart.Sound {
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			Engine.RemoveAllSoundSources();
 			Engine.SetListenerPosition(0, 0, 0, 0, 0, -1);
-			sounds2D.Clear();
-			sounds3D.Clear();
+			musics.Clear();
+			sounds.Clear();
 		}
 
 
@@ -84,40 +84,72 @@ namespace Ponykart.Sound {
 		}
 
 
-		public void Enable2DSounds() {
-			foreach (ISound sound in sounds2D) {
+		public void EnableMusic() {
+			foreach (ISound sound in musics) {
 				sound.Volume += 1;
 				sound.Paused = false;
 			}
-			enable2D = true;
+			enableMusic = true;
 		}
 
-		public void Disable2DSounds() {
-			foreach (ISound sound in sounds2D) {
+		public void DisableMusic() {
+			foreach (ISound sound in musics) {
 				sound.Volume -= 1;
 				sound.Paused = true;
 			}
-			enable2D = false;
+			enableMusic = false;
 		}
 
-		public void Enable3DSounds() {
-			foreach (ISound sound in sounds3D) {
+		public void EnableSounds() {
+			foreach (ISound sound in sounds) {
 				sound.Volume += 1;
 				sound.Paused = false;
 			}
-			enable3D = true;
+			enableSounds = true;
 		}
 
-		public void Disable3DSounds() {
-			foreach (ISound sound in sounds3D) {
+		public void DisableSounds() {
+			foreach (ISound sound in sounds) {
 				sound.Volume -= 1;
 				sound.Paused = true;
 			}
-			enable3D = false;
+			enableSounds = false;
 		}
 
 		/// <summary>
-		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level music and whatnot.
+		/// Creates a 2D music sound. This has no position and is controlled by a different option than the Play2D and Play3D methods.
+		/// </summary>
+		/// <param name="filename">The file path of the sound you want to play</param>
+		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
+		/// <returns>The ISound you just created</returns>
+		public ISound PlayMusic(string filename, bool startPaused = false) {
+			return PlayMusic(GetSource(filename), startPaused);
+		}
+
+		/// <summary>
+		/// Creates a 2D music sound. This has no position and is controlled by a different option than the Play2D and Play3D methods.
+		/// </summary>
+		/// <param name="source">The sound source of the sound you want to play</param>
+		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
+		/// <returns>The ISound you just created</returns>
+		public ISound PlayMusic(ISoundSource source, bool startPaused = false) {
+			Launch.Log("[Sounds] Creating music: " + source.Name);
+
+			ISound music = Engine.Play2D(source, true, startPaused, false);
+			musics.Add(music);
+
+			if (!enableMusic) {
+				music.Paused = true;
+				music.Volume = 0;
+			}
+			else if (startPaused)
+				music.Paused = true;
+
+			return music;
+		}
+
+		/// <summary>
+		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level ambients and whatnot.
 		/// </summary>
 		/// <param name="filename">The file path of the sound you want to play.</param>
 		/// <param name="looping">Make this sound loop?</param>
@@ -129,7 +161,7 @@ namespace Ponykart.Sound {
 		}
 
 		/// <summary>
-		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level music and whatnot.
+		/// Creates an ambient sound. These have no 3D position or effects or anything, so this is ideal for level ambients and whatnot.
 		/// </summary>
 		/// <param name="source">The sound source of the sound you want to play.</param>
 		/// <param name="looping">Make this sound loop?</param>
@@ -140,9 +172,9 @@ namespace Ponykart.Sound {
 			Launch.Log("[Sounds] Creating 2D sound: " + source.Name + " Looping: " + looping);
 
 			ISound sound = Engine.Play2D(source, looping, startPaused, sfx);
-			sounds2D.Add(sound);
+			sounds.Add(sound);
 
-			if (!enable2D) {
+			if (!enableSounds) {
 				sound.Paused = true;
 				sound.Volume = 0;
 			}
@@ -181,9 +213,9 @@ namespace Ponykart.Sound {
 			Launch.Log("[Sounds] Creating 3D sound: " + source.Name + " Looping: " + looping);
 
 			ISound sound = Engine.Play3D(source, pos.x, pos.y, pos.z, looping, startPaused, sfx);
-			sounds3D.Add(sound);
+			sounds.Add(sound);
 
-			if (!enable3D) {
+			if (!enableSounds) {
 				sound.Paused = true;
 				sound.Volume = 0;
 			}
@@ -217,15 +249,15 @@ namespace Ponykart.Sound {
 			}
 		}
 
-		public bool Is2DSoundEnabled {
+		public bool IsMusicEnabled {
 			get {
-				return enable2D;
+				return enableMusic;
 			}
 		}
 
-		public bool Is3DSoundEnabled {
+		public bool IsSoundEnabled {
 			get {
-				return enable3D;
+				return enableSounds;
 			}
 		}
 	}

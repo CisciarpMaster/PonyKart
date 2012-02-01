@@ -18,7 +18,8 @@ namespace Ponykart.Sound {
 			list = new List<Pair<Kart, ISound>>();
 
 			foreach (Player player in LKernel.GetG<PlayerManager>().Players) {
-				list.Add(new Pair<Kart, ISound>(player.Kart, player.Kart.SoundComponents[0].Sound));
+				if (player.Kart.SoundComponents.Count > 0)
+					list.Add(new Pair<Kart, ISound>(player.Kart, player.Kart.SoundComponents[0].Sound));
 			}
 
 			LKernel.GetG<Root>().FrameEnded += FrameEnded;
