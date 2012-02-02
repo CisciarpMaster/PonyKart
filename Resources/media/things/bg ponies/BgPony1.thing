@@ -16,8 +16,6 @@ Model {
 	Attached = true
 	AttachBone = "Eyes"
 	AttachComponentID = 0
-	//AttachOffsetPosition = 0, 1.33, 0.405
-	//AttachOffsetOrientation = 0.1475435, -1.962457E-07, -3.653281E-07, 0.9890556
 }
 
 Model {
@@ -31,9 +29,6 @@ Model {
 	Attached = true
 	AttachBone = "Head"
 	AttachComponentID = 0
-	//AttachOffsetPosition = 0, 1.33, 0.405
-	//AttachOffsetOrientation = 0.1475435, -1.962457E-07, -3.653281E-07, 0.9890556
-	//Skeleton = "BgPonyHair.skeleton"
 }
 
 Model {
@@ -43,6 +38,4 @@ Model {
 	Attached = true
 	AttachBone = "Horn"
 	AttachComponentID = 0
-	//AttachOffsetPosition = 0, 1.33, 0.405 //0, 1.33, 0.405 
-	//AttachOffsetOrientation = 0.1475435, -1.962457E-07, -3.653281E-07, 0.9890556
 }
