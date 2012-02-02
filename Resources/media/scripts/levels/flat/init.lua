@@ -2,13 +2,15 @@
 
 --end
 
-local numBgPones = 3
-
 function flat(level)
-	local x, n
+	--[[local x, n
 	for x = 1, numBgPones do
 		spawn("BgPony" .. x, vector(x * 5, 0, 0))
-	end
+	end ]]
+	
+	lyra = spawn("BgPony1", vector(5, 3, 0))
+	bonbon = spawn("BgPony2", vector(10, 3, 0))
+	daisy = spawn("BgPony3", vector(15, 3, 0))
 
 --[[
 	local x, z, n

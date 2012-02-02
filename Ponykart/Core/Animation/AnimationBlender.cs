@@ -171,6 +171,8 @@ namespace Mogre {
 		/// <param name="looping">Whether the animation should loop or not</param>
 		public void Init(string animation, bool looping) {
 			AnimationStateSet set = mEntity.AllAnimationStates;
+			if (set == null)
+				throw new System.InvalidOperationException("That mesh does not have any animations!");
 
 			foreach (AnimationState anim in set.GetAnimationStateIterator()) {
 				anim.Enabled = false;

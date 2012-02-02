@@ -22,12 +22,34 @@ Model {
 	Mesh = "BgPonyHair1.mesh"
 	Material = "BgPonyHair1"
 	
+	Attached = true
+	AttachBone = "Hair"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyMane1.mesh"
+	Material = "BgPonyHair1"
+	
 	Animated = true
 	AnimationName = "Stand1"
 	AnimationLooping = true
 	
 	Attached = true
-	AttachBone = "Head"
+	AttachBone = "Mane"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyTail1.mesh"
+	Material = "BgPonyHair1"
+	
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Tail"
 	AttachComponentID = 0
 }
 
