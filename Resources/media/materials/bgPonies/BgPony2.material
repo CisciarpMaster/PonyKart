@@ -1,20 +1,39 @@
-// bonbon
-
 import * from "BgPony.material"
 
 material BgPonyHair2 : BgPonyHair {
-    set_texture_alias HairColour "BgPonyHair2.png"
+    set_texture_alias HairColour "BonBonHair.png"
 	set_texture_alias HairAO "BgPonyHairAo2.png"
 	set $outline "222 85 117"
 	// 222 85 117 for pink
 	// 51 58 90 for blue
 }
 
-material BgPony2 : BgPony {
-    set_texture_alias BodyColour "BgPony2.png"
+// ===============================
+
+material BonBonHair : BgPonyHair2 { }
+
+material BonBonBody : BgPony {
+    set_texture_alias BodyColour "BonBonBody.png"
 	set $outline "172 163 83"
 }
 
-material BgPonyEyes2 : BgPonyEyes {
-    set_texture_alias EyeColour "BgPonyEyes2.png"
+material BonBonEyes : BgPonyEyes {
+    set_texture_alias EyeColour "BonBonEyes.png"
+}
+
+// ===============================
+
+material LinkyHair : BgPonyHair {
+    set_texture_alias HairColour "LinkyHair.png"
+	set_texture_alias HairAO "BgPonyHairAo2.png"
+	set $outline "150 171 212"
+}
+
+material LinkyBody : BgPony {
+    set_texture_alias BodyColour "LinkyBody.png"
+	set $outline "80 166 224"
+}
+
+material LinkyEyes : BgPonyEyes {
+    set_texture_alias EyeColour "LinkyEyes.png"
 }

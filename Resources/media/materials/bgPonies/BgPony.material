@@ -9,15 +9,22 @@ material BgPonyHair {
 			}
 		}
         pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 3
+				param_named Alpha float 0.3
+			}
+			
             texture_unit {
 				texture_alias HairColour
                 colour_op replace
             }
 			// need this too since the hair models have different AOs
-            texture_unit {
+            /*texture_unit {
                 texture_alias HairAO
                 colour_op modulate
-            }
+            }*/
         }
     }
 }
@@ -33,14 +40,21 @@ material BgPony {
 			}
 		}
         pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named GlowExpon float 3
+				param_named Alpha float 0.3
+			}
+			
             texture_unit {
 				texture_alias BodyColour
 				colour_op replace
             }
-            texture_unit {
+            /*texture_unit {
                 texture "BgPonyAo.png"
                 colour_op modulate
-            }
+            }*/
         }
     }
 }

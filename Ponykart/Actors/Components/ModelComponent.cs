@@ -77,8 +77,10 @@ namespace Ponykart.Actors {
 
 				lthing.ModelComponents[modelComponentID].Entity.AttachObjectToBone(boneName, Entity, offsetQuat, offsetVec);
 
-				Quaternion q = lthing.ModelComponents[modelComponentID].Entity.Skeleton.GetBone(boneName)._getDerivedOrientation();
-				System.Console.WriteLine(q.x + ", " + q.y + ", " + q.z + ", " + q.w);
+				//if (boneName == "Head") {
+					//Vector3 v = lthing.ModelComponents[modelComponentID].Entity.Skeleton.GetBone(boneName)._getDerivedPosition();
+					//System.Console.WriteLine(v);
+				//}
 			}
 			// otherwise continue as normal
 			else {

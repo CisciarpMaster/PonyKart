@@ -2,7 +2,7 @@ Physics = None
 
 Model {
 	Mesh = "BgPonyBody.mesh"
-	Material = "LyraBody"
+	Material = "SparklerBody"
 
 	Animated = true
 	AnimationName = "Stand1"
@@ -11,7 +11,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyEyes.mesh"
-	Material = "LyraEyes"
+	Material = "SparklerEyes"
 	
 	Attached = true
 	AttachBone = "Eyes"
@@ -20,7 +20,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyHair1.mesh"
-	Material = "LyraHair"
+	Material = "SparklerHair"
 	
 	Attached = true
 	AttachBone = "Hair"
@@ -29,7 +29,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyMane1.mesh"
-	Material = "LyraHair"
+	Material = "SparklerHair"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -42,7 +42,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyTail1.mesh"
-	Material = "LyraHair"
+	Material = "SparklerHair"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -55,7 +55,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyHorn.mesh"
-	Material = "LyraBody"
+	Material = "SparklerBody"
 	
 	Attached = true
 	AttachBone = "Horn"
