@@ -59,11 +59,11 @@ material BgPonyEyes {
             }
 			// if there was a way to just alpha blend one texture onto it, that would be better
             texture_unit {
-                texture "LowPolyEyes.png"
+                texture "LowPolyEyes.dds"
                 colour_op modulate
             }
             texture_unit {
-                texture "LowPolyEyesWhite.png"
+                texture "LowPolyEyesWhite.dds"
                 colour_op alpha_blend
             }
         }

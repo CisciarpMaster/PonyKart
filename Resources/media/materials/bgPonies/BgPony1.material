@@ -3,47 +3,47 @@ import * from "BgPony.material"
 // ======================
 
 material LyraHair : BgPonyHair {
-	set_texture_alias HairColour "LyraHair.png"
+	set_texture_alias HairColour "LyraHair.dds"
 	set $outline "73 213 216"
 }
 
 material LyraBody : BgPony {
-    set_texture_alias BodyColour "LyraBody.png"
+    set_texture_alias BodyColour "LyraBody.dds"
 	set $outline "51 172 123"
 }
 
 material LyraEyes : BgPonyEyes {
-    set_texture_alias EyeColour "LyraEyes.png"
+    set_texture_alias EyeColour "LyraEyes.dds"
 }
 
 // ======================
 
 material SparklerHair : BgPonyHair {
-    set_texture_alias HairColour "SparklerHair.png"
+    set_texture_alias HairColour "SparklerHair.dds"
 	set $outline "116 61 167"
 }
 
 material SparklerBody : BgPony {
-    set_texture_alias BodyColour "SparklerBody.png"
+    set_texture_alias BodyColour "SparklerBody.dds"
 	set $outline "171 97 178"
 }
 
 material SparklerEyes : BgPonyEyes {
-    set_texture_alias EyeColour "SparklerEyes.png"
+    set_texture_alias EyeColour "SparklerEyes.dds"
 }
 
 // ======================
 
 material RoseHair : BgPonyHair {
-    set_texture_alias HairColour "RoseHair.png"
+    set_texture_alias HairColour "RoseHair.dds"
 	set $outline "134 22 68"
 }
 
 material RoseBody : BgPony {
-    set_texture_alias BodyColour "RoseBody.png"
+    set_texture_alias BodyColour "RoseBody.dds"
 	set $outline "185 172 144"
 }
 
 material RoseEyes : BgPonyEyes {
-    set_texture_alias EyeColour "RoseEyes.png"
+    set_texture_alias EyeColour "RoseEyes.dds"
 }
