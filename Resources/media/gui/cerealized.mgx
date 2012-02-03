@@ -23,7 +23,7 @@
 					<!-- commands label -->
 					<Control Type="Miyagi.UI.Controls.Label">
 						<Name>commands label</Name>
-						<Rectangle>10,60,400,700</Rectangle>
+						<Rectangle>10,40,400,700</Rectangle>
 						<Text>
 [W A S D] Move and turn
 [Space] Drift

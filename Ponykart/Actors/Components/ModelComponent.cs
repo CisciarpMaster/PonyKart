@@ -1,4 +1,5 @@
-﻿using Mogre;
+﻿using System.Collections.Generic;
+using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
 using PonykartParsers;
@@ -129,11 +130,6 @@ namespace Ponykart.Actors {
 			if (block.FloatTokens.ContainsKey("renderingdistance"))
 				Entity.RenderingDistance = block.GetFloatProperty("RenderingDistance", null);
 
-			if (block.StringTokens.ContainsKey("skeleton")) {
-				Entity.GetMesh().SkeletonName = block.GetStringProperty("Skeleton", null);
-				Entity._initialise(true);
-			}
-
 			// material name
 			string materialName = block.GetStringProperty("material", string.Empty);
 			if (!string.IsNullOrWhiteSpace(materialName))
@@ -147,6 +143,15 @@ namespace Ponykart.Actors {
 				Entity.CastShadows = (shad == ThingEnum.Some);
 			else
 				Entity.CastShadows = false;
+		}
+
+		public IEnumerable<string> GetAnimationNames() {
+			if (!Entity.HasSkeleton)
+				yield break;
+
+			foreach (AnimationState anim in Entity.AllAnimationStates.GetAnimationStateIterator()) {
+				yield return anim.AnimationName;
+			}
 		}
 
 		protected override void Dispose(bool disposing) {

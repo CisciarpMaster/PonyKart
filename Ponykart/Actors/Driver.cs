@@ -19,7 +19,7 @@ namespace Ponykart.Actors {
 			this.RootNode.SetInitialState();
 		}
 
-		public void ChangeAnimation(string animationName) {
+		public override void ChangeAnimation(string animationName) {
 			ChangeAnimation(animationName, AnimationBlendingTransition.BlendSwitch);
 		}
 

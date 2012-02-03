@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BulletSharp;
 using Mogre;
 using Ponykart.Levels;
@@ -338,7 +339,28 @@ namespace Ponykart.Actors {
 			foreach (var mcomp in ModelComponents) {
 				if (mcomp.Animation != null && mcomp.Entity.AllAnimationStates.HasAnimationState(animationName)) {
 					mcomp.Animation.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+					mcomp.Animation.AddTime((int) ID);
 				}
+			}
+		}
+
+		/// <summary>
+		/// Plays a random animation, if it has one.
+		/// </summary>
+		public virtual void RandomAnimation() {
+			var anims = ModelComponents[0].GetAnimationNames();
+			if (anims.Count() > 0) {
+				Random rand = new Random(IDs.Random);
+tryagain:
+				int index = rand.Next(anims.Count());
+
+				string animName = anims.ElementAt(index);
+				// don't want to play any "Basis" animations
+				if (animName.Contains("Basis"))
+					// if we picked one, try again
+					goto tryagain;
+
+				ChangeAnimation(animName);
 			}
 		}
 

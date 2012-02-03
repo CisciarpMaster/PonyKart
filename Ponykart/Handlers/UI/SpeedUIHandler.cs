@@ -1,6 +1,7 @@
 ﻿#if DEBUG
 using Miyagi.UI.Controls;
 using Mogre;
+using MOIS;
 using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Players;
@@ -17,30 +18,46 @@ namespace Ponykart.Handlers {
 			label = gui.GetControl<Label>("speed label");
 
 			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
+			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardPress_Anything);
+		}
+
+		void OnKeyboardPress_Anything(KeyEvent eventArgs) {
+			if (!LKernel.GetG<InputSwallowerManager>().IsSwallowed()) {
+				if (eventArgs.key == KeyCode.KC_MINUS)
+					label.Visible = !label.Visible;
+			}
 		}
 
 		float elapsed;
-		private static readonly string _ret = "\r\n", _comma = " , ";
 		bool FrameStarted(FrameEvent evt) {
 			if (elapsed >= 0.1f) {
 				elapsed = 0;
 
 				var mainPlayer = LKernel.GetG<PlayerManager>().MainPlayer;
 
-				if (LKernel.GetG<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Body.IsDisposed) {
+				if (label.Visible && LKernel.GetG<LevelManager>().IsValidLevel && mainPlayer != null && mainPlayer.Kart != null && !mainPlayer.Kart.Body.IsDisposed) {
 					Kart kart = mainPlayer.Kart;
-					
-					label.Text =
-						string.Concat("Speed: ", kart.Vehicle.CurrentSpeedKmHour, _ret,
-						"Turn angle: ", Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(0)), _comma, Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(1)), _comma,
-						Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(2)), _comma, Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(3)), _ret, 
-						"Linear Velocity: ", kart.Body.LinearVelocity.Length, _comma, kart.Body.LinearVelocity, _ret,
-						"WheelFriction: ", kart.Vehicle.GetWheelInfo(0).FrictionSlip, _comma, kart.Vehicle.GetWheelInfo(2).FrictionSlip, _ret,
-						"SkidInfo: ", kart.Vehicle.GetWheelInfo(0).SkidInfo, _comma, kart.Vehicle.GetWheelInfo(2).SkidInfo, _ret,
-						"Brake? ", kart.WheelFL.IsBrakeOn, _ret, 
-						"AccelMultiplier: ", kart.Acceleration, _ret, 
-						"Gravity: ", kart.Body.Gravity, _ret,
-						"KartDriftState: ", kart.DriftState, " , WheelDriftState: ", kart.WheelFL.DriftState);
+
+					label.Text = string.Format(
+@"Speed: {0}
+Turn angle: {1}, {2}, {3}, {4}
+Linear velocity: {5}, {6}
+Wheel friction: {7}, {8}
+Skid info: {9}, {10}
+Brake? {11}
+AccelMultiplier: {12}
+Gravity: {13}
+KartDriftState: {14} , WheelDriftState: {15}",
+						kart.Vehicle.CurrentSpeedKmHour,
+						Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(0)), Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(1)),
+						Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(2)), Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(3)),
+						kart.Body.LinearVelocity.Length, kart.Body.LinearVelocity,
+						kart.Vehicle.GetWheelInfo(0).FrictionSlip, kart.Vehicle.GetWheelInfo(2).FrictionSlip,
+						kart.Vehicle.GetWheelInfo(0).SkidInfo, kart.Vehicle.GetWheelInfo(2).SkidInfo,
+						kart.WheelFL.IsBrakeOn,
+						kart.Acceleration,
+						kart.Body.Gravity,
+						kart.DriftState, kart.WheelFL.DriftState);
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

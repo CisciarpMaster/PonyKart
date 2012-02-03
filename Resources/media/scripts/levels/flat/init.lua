@@ -4,32 +4,21 @@ function flat(level)
 		spawn("BgPony" .. x, vector(x * 5, 0, 0))
 	end ]]
 	
-	lyra = spawn("BgPony1", vector(5, 3, 0))
-	bonbon = spawn("BgPony2", vector(10, 3, 0))
-	--daisy = spawn("BgPony3", vector(15, 3, 0))
+	stands = spawn("BgStandsWithPhysics", vector(30, 0, 3.3))
 	
-	sparkler = spawn("BgPony4", vector(20, 3, 0))
-	linky = spawn("BgPony5", vector(25, 3, 0))
-	--carrot = spawn("BgPony6", vector(30, 3, 0))
-	rose = spawn("BgPony7", vector(35, 3, 0))
-
---[[
-	local x, z, n
+	lyra = spawn("BgPony1", vector(35.5, 1.5, 2))
+	bonbon = spawn("BgPony2", vector(33, 1.5, 2.6))
+	daisy = spawn("BgPony3", vector(16.5, -0.9, 3))
+	sparkler = spawn("BgPony4", vector(43, -0.9, 3.5))
+	linky = spawn("BgPony5", vector(28, 6, -4))
+	carrot = spawn("BgPony6", vector(25, 3, 0))
+	rose = spawn("BgPony7", vector(20, 0, 4.5))
 	
-	for x = -20, 20 do
-		for z = 30, 70 do
-			n = math.random(3)
-			spawn("StaticAppleTree" .. n, vector(x * 10, 0, z * 10))
-		end
-	end
-	
-	for x = -20, 20 do
-		for z = -70, -30 do
-			n = math.random(3)
-			spawn("BillboardAppleTree" .. n, vector(x * 10, 0, z * 10))
-		end
-	end
-	]]
-	
-	--createBoxTriggerRegion("aTriggerRegion", tr, vec(1000, 1000, 0.5), vec(0, 0, 0), quat(0, 0, 0, 1))
+	lyra:ChangeAnimation("Sit3")
+	bonbon:ChangeAnimation("Sit1")
+	daisy:ChangeAnimation("Clap")
+	sparkler:ChangeAnimation("Cheer1")
+	linky:ChangeAnimation("Cheer2")
+	carrot:ChangeAnimation("SitCheer1")
+	rose:ChangeAnimation("Sit2")
 end
