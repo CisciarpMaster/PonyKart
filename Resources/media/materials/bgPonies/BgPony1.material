@@ -2,7 +2,6 @@ import * from "BgPony.material"
 
 material BgPonyHair1 : BgPonyHair {
     set_texture_alias HairColour "LyraHair.png"
-	set_texture_alias HairAO "BgPonyHairAo1.png"
 	set $outline "73 213 216"
 }
 
@@ -23,7 +22,6 @@ material LyraEyes : BgPonyEyes {
 
 material SparklerHair : BgPonyHair {
     set_texture_alias HairColour "SparklerHair.png"
-	set_texture_alias HairAO "BgPonyHairAo1.png"
 	set $outline "116 61 167"
 }
 
@@ -34,4 +32,20 @@ material SparklerBody : BgPony {
 
 material SparklerEyes : BgPonyEyes {
     set_texture_alias EyeColour "SparklerEyes.png"
+}
+
+// ======================
+
+material RoseHair : BgPonyHair {
+    set_texture_alias HairColour "RoseHair.png"
+	set $outline "134 22 68"
+}
+
+material RoseBody : BgPony {
+    set_texture_alias BodyColour "RoseBody.png"
+	set $outline "185 172 144"
+}
+
+material RoseEyes : BgPonyEyes {
+    set_texture_alias EyeColour "RoseEyes.png"
 }

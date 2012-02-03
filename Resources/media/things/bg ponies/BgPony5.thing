@@ -21,13 +21,34 @@ Model {
 Model {
 	Mesh = "BgPonyHair2.mesh"
 	Material = "LinkyHair"
-	Position = 9.350927E-07, 3.825, 1.145001
 	
-	//Animated = true
-	//AnimationName = "Stand1"
-	//AnimationLooping = true
+	Attached = true
+	AttachBone = "Hair"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyMane2.mesh"
+	Material = "LinkyHair"
 	
-	//Attached = true
-	//AttachBone = "Head"
-	//AttachComponentID = 0
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Mane"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyTail2.mesh"
+	Material = "LinkyHair"
+	
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Tail"
+	AttachComponentID = 0
 }

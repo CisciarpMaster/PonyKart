@@ -2,7 +2,6 @@ import * from "BgPony.material"
 
 material BgPonyHair2 : BgPonyHair {
     set_texture_alias HairColour "BonBonHair.png"
-	set_texture_alias HairAO "BgPonyHairAo2.png"
 	set $outline "222 85 117"
 	// 222 85 117 for pink
 	// 51 58 90 for blue
@@ -25,7 +24,6 @@ material BonBonEyes : BgPonyEyes {
 
 material LinkyHair : BgPonyHair {
     set_texture_alias HairColour "LinkyHair.png"
-	set_texture_alias HairAO "BgPonyHairAo2.png"
 	set $outline "150 171 212"
 }
 

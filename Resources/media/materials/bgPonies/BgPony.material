@@ -20,11 +20,6 @@ material BgPonyHair {
 				texture_alias HairColour
                 colour_op replace
             }
-			// need this too since the hair models have different AOs
-            /*texture_unit {
-                texture_alias HairAO
-                colour_op modulate
-            }*/
         }
     }
 }
@@ -51,10 +46,6 @@ material BgPony {
 				texture_alias BodyColour
 				colour_op replace
             }
-            /*texture_unit {
-                texture "BgPonyAo.png"
-                colour_op modulate
-            }*/
         }
     }
 }
