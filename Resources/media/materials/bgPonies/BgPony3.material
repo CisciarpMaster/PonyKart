@@ -1,13 +1,11 @@
 import * from "BgPony.material"
 
-material BgPonyHair3 : BgPonyHair {
-    set_texture_alias HairColour "DaisyHair.png"
-	set $outline "147 215 69"
-}
-
 // ==============================
 
-material DaisyHair : BgPonyHair3 { }
+material DaisyHair : BgPonyHair {
+	set_texture_alias HairColour "DaisyHair.png"
+	set $outline "147 215 69"
+}
 
 material DaisyBody : BgPony {
     set_texture_alias BodyColour "DaisyBody.png"
