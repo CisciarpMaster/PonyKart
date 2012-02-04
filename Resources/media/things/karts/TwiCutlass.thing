@@ -9,6 +9,7 @@ FrontWheelMesh = "CutlassFrontWheel.mesh"
 BackWheel = "CutlassBackWheel"
 BackWheelMesh = "CutlassBackWheel.mesh"
 PhysicsMaterial = "Kart"
+Script = "TwiCutlass"
 
 CollisionEvents = true
 
@@ -60,9 +61,9 @@ Shape {
 	Position = 0, 0, 0
 }
 
-/*Sound {
+Sound {
 	File = "Generic Kart idle Loop.ogg"
 	//File = "RD_Kart_Idle Loop.ogg"
 	Looping = true
 	MinDistance = 20
-}*/
+}

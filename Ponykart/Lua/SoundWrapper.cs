@@ -1,6 +1,7 @@
 ﻿using IrrKlang;
 using LuaNetInterface;
 using Mogre;
+using Ponykart.Actors;
 using Ponykart.Sound;
 
 namespace Ponykart.Lua {
@@ -37,6 +38,12 @@ namespace Ponykart.Lua {
 		[LuaFunction("isCurrentlyPlaying", "Tells whether a given sound is playing or not.", "string soundName - The name of the sound. Not a file path.")]
 		public static bool IsCurrentlyPlaying(string soundName) {
 			return LKernel.GetG<SoundMain>().Engine.IsCurrentlyPlaying(soundName);
+		}
+
+		[LuaFunction("addSoundFrameFunction", "Adds a function that you want to be ran every frame, using an lthing's sound components.",
+			"LThing - the lthing that owns the sound components", "function(LThing, ISound[]) - the function you want to run every frame")]
+		public static void AddSoundFrameEvent(LThing lthing, SoundFrameEvent action) {
+			LKernel.Get<SoundFrameEventHandler>().AddAction(lthing, action);
 		}
 	}
 }

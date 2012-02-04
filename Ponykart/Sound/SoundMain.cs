@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using BulletSharp;
 using IrrKlang;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
+using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Properties;
 
@@ -30,7 +32,7 @@ namespace Ponykart.Sound {
 			
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 			LKernel.GetG<Pauser>().PauseEvent += new PauseEvent(PauseEvent);
-			LKernel.GetG<Root>().FrameStarted += new FrameListener.FrameStartedHandler(FrameStarted);
+			PhysicsMain.PostSimulate += new PhysicsSimulateEvent(PostSimulate);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
@@ -54,33 +56,38 @@ namespace Ponykart.Sound {
 		}
 
 
-		private float timesince = 0;
-		bool FrameStarted(FrameEvent evt) {
+		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!LKernel.GetG<LevelManager>().IsValidLevel)
-				return true;
+				return;
 
-			if (timesince > 0.1f) {
-				timesince = 0;
-				// only update this if the level's playable
-				if (LKernel.GetG<LevelManager>().IsPlayableLevel) {
-					var cam = LKernel.GetG<CameraManager>().CurrentCamera.Camera;
-					var player = LKernel.GetG<PlayerManager>().MainPlayer;
-					Vector3 pos = cam.DerivedPosition;
-					Vector3 rot = cam.Orientation.ZAxis;
-					Vector3 vel = player.Body.LinearVelocity;
-					Vector3 up = cam.Orientation.YAxis;
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel && !Pauser.IsPaused) {
+				var cam = LKernel.GetG<CameraManager>().CurrentCamera;
 
-					Engine.SetListenerPosition(
-						pos.x, pos.y, pos.z,
-						rot.x, rot.y, rot.z,
-						vel.x, vel.y, vel.z,
-						up.x, up.y, up.z);
+				Vector3 pos, rot, vel, up;
+				if (cam is PlayerCamera || cam is KnightyCamera) {
+					var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
+
+					pos = body.CenterOfMassPosition;
+					rot = body.Orientation.ZAxis;
+					vel = body.LinearVelocity;
+					up = body.Orientation.YAxis;
 				}
-				Engine.Update();
-			}
-			timesince += evt.timeSinceLastFrame;
+				else {
+					var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
 
-			return true;
+					pos = cam.Camera.DerivedPosition;
+					rot = cam.Camera.DerivedOrientation.ZAxis;
+					vel = body.LinearVelocity;
+					up = cam.Camera.DerivedOrientation.YAxis;
+				}
+
+				Engine.SetListenerPosition(
+					pos.x, pos.y, pos.z,
+					rot.x, rot.y, rot.z,
+					vel.x, vel.y, vel.z,
+					up.x, up.y, up.z);
+			}
+			Engine.Update();
 		}
 
 
