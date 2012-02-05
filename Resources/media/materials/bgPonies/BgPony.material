@@ -1,11 +1,18 @@
 material BgPonyHair {
     technique {
+		set $modscale ".23"
+		set $edgescale ".08"
 		pass {
-			cull_hardware anticlockwise
-			vertex_program_ref outlined_vs {
-			}
-			fragment_program_ref outlined_ps {
-				param_named OutlineColour float3 $outline
+			//cull_hardware anticlockwise
+			//vertex_program_ref outlined_vs {
+			//}
+			//fragment_program_ref outlined_ps {
+			//	param_named OutlineColour float3 $outline
+			//}
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 $outline
+				param_named scale float $modscale
+				param_named edgeScale float $edgescale
 			}
 		}
         pass {
@@ -26,12 +33,19 @@ material BgPonyHair {
 
 material BgPony {
     technique {
+		set $modscale ".23"
+		set $edgescale ".08"
 		pass {
-			cull_hardware anticlockwise
-			vertex_program_ref outlined_vs {
-			}
-			fragment_program_ref outlined_ps {
-				param_named OutlineColour float3 $outline
+			//cull_hardware anticlockwise
+			//vertex_program_ref outlined_vs {
+			//}
+			//fragment_program_ref outlined_ps {
+			//	param_named OutlineColour float3 $outline
+			//}
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 $outline
+				param_named scale float $modscale
+				param_named edgeScale float $edgescale
 			}
 		}
         pass {

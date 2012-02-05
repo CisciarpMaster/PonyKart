@@ -47,3 +47,19 @@ material RoseBody : BgPony {
 material RoseEyes : BgPonyEyes {
     set_texture_alias EyeColour "RoseEyes.dds"
 }
+
+// ===========================
+
+material DiamondHair : BgPonyHair {
+    set_texture_alias HairColour "DiamondHair.dds"
+	set $outline "112 98 236"
+}
+
+material DiamondBody : BgPony {
+    set_texture_alias BodyColour "DiamondBody.dds"
+	set $outline "65 172 254"
+}
+
+material DiamondEyes : BgPonyEyes {
+    set_texture_alias EyeColour "DiamondEyes.dds"
+}

@@ -13,6 +13,7 @@ function flat(level)
 	linky = spawn("BgPony5", vector(28, 6, -4))
 	carrot = spawn("BgPony6", vector(25, 3, 0))
 	rose = spawn("BgPony7", vector(20, 0, 4.5))
+	diamond = spawn("BgPony8", vector(45.5, -0.9, 4.5))
 	
 	lyra:ChangeAnimation("Sit3")
 	bonbon:ChangeAnimation("Sit1")
@@ -21,4 +22,5 @@ function flat(level)
 	linky:ChangeAnimation("Cheer2")
 	carrot:ChangeAnimation("SitCheer1")
 	rose:ChangeAnimation("Sit2")
+	diamond:ChangeAnimation("Stand1")
 end

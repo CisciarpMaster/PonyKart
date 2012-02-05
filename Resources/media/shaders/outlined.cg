@@ -39,6 +39,28 @@ void main_vp(float2 uv 				: TEXCOORD0,
 	oUv.y = uv.y * vScale;
 }
 
+void EdgeVP(float4 position : POSITION,
+			float4 normal : NORMAL0,
+			out float4 oPos : POSITION,
+			out float4 oColor : COLOR,
+			uniform float4 edgeColor,
+			uniform float4 eyePosition,
+			uniform float scale,
+			uniform float edgeScale,
+			uniform float4x4 worldViewProj)
+{
+	float4 E = normalize(eyePosition);
+	position = mul(worldViewProj, position - scale*E);
+ 
+	normal.w = 0;
+	normal = normalize(mul(worldViewProj, normal));
+ 
+	position += ((scale / 8.0f)+1.0) * edgeScale * float4(normal.xy, 0, 0);
+ 
+	oPos=position;
+	oColor=edgeColor / 255.0f;
+}
+
 //----------------------------------------------------------------------
 
 //

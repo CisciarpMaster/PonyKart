@@ -35,7 +35,14 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Initial motion state setter. Override this if you want something different. This is only used for initialisation!
 		/// </summary>
-		protected virtual MotionState InitializationMotionState { get { return new MogreMotionState(this, SpawnPosition, SpawnOrientation, RootNode); } }
+		protected virtual MotionState InitializationMotionState {
+			get {
+				if (SoundComponents.Count > 0)
+					return new MogreMotionState(this, SpawnPosition, SpawnOrientation, RootNode);
+				else
+					return new MogreMotionState(null, SpawnPosition, SpawnOrientation, RootNode);
+			}
+		}
 		/// <summary>
 		/// The actual motion state.
 		/// </summary>

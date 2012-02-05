@@ -1,0 +1,63 @@
+Physics = None
+
+Model {
+	Mesh = "BgPonyBody.mesh"
+	Material = "DiamondBody"
+
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+}
+
+Model {
+	Mesh = "BgPonyEyes.mesh"
+	Material = "DiamondEyes"
+	
+	Attached = true
+	AttachBone = "Eyes"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyHair1.mesh"
+	Material = "DiamondHair"
+	
+	Attached = true
+	AttachBone = "Hair"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyMane1.mesh"
+	Material = "DiamondHair"
+	
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Mane"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyTail1.mesh"
+	Material = "DiamondHair"
+	
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Tail"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyHorn.mesh"
+	Material = "DiamondBody"
+	
+	Attached = true
+	AttachBone = "Horn"
+	AttachComponentID = 0
+}

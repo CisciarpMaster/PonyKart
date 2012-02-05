@@ -15,6 +15,23 @@ vertex_program outlined_vs cg {
 	}
 }
 
+vertex_program VertEdge cg
+{
+   source outlined.cg
+   entry_point EdgeVP
+   profiles vs_2_0
+ 
+   default_params
+   {
+      param_named_auto worldViewProj worldviewproj_matrix
+      param_named_auto eyePosition camera_position_object_space
+	  param_named edgeColor float4 255 255 255 255
+      param_named scale float 0.2
+      param_named edgeScale float 0.08
+   }
+ 
+}
+
 fragment_program outlined_ps cg {
 	source outlined.cg
 	entry_point main_ps

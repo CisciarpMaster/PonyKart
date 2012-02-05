@@ -3,13 +3,23 @@
 material TwilightBody {
     technique {
 
+		set $edge "162.0 108.0 186.0 255"
+		set $modscale ".23"
+		set $edgescale ".08"
+	
 		pass {
-			cull_hardware anticlockwise
-			vertex_program_ref outlined_vs {
+			//cull_hardware anticlockwise
+			//vertex_program_ref outlined_vs {
+			//}
+			//fragment_program_ref outlined_ps {
+			//	param_named OutlineColour float3 162.0 108.0 186.0
+			//}
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 $edge
+				param_named scale float $modscale
+				param_named edgeScale float $edgescale
 			}
-			fragment_program_ref outlined_ps {
-				param_named OutlineColour float3 162.0 108.0 186.0
-			}
+			
 		}
 
         pass {
@@ -44,13 +54,23 @@ material TwilightEyes {
 
 material TwilightHair {
     technique {
+	
+		set $edge "20.0 30.0 67.0 255"
+		set $modscale ".2"
+		set $edgescale ".08"
 
 		pass {
-			cull_hardware anticlockwise
-			vertex_program_ref outlined_vs {
-			}
-			fragment_program_ref outlined_ps {
-				param_named OutlineColour float3 20.0 30.0 67.0
+			//cull_hardware anticlockwise
+			//vertex_program_ref outlined_vs {
+			//}
+			//fragment_program_ref outlined_ps {
+			//	param_named OutlineColour float3 20.0 30.0 67.0
+			//}
+			
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 $edge
+				param_named scale float $modscale
+				param_named edgeScale float $edgescale
 			}
 		}
 
