@@ -45,6 +45,9 @@ namespace Ponykart.Core {
 					thing = new Driver(template, definition);
 					Invoke(OnDriverCreation, thing as Driver);
 				}
+				else if (thingName.StartsWith("BgPony")) {
+					thing = new BackgroundPony(template, definition);
+				}
 				else
 					thing = new LThing(template, definition);
 

@@ -3,6 +3,7 @@ Physics = None
 Model {
 	Mesh = "BgPonyBody.mesh"
 	Material = "LyraBody"
+	Name = "LyraBody"
 
 	Animated = true
 	AnimationName = "Stand1"
@@ -12,6 +13,7 @@ Model {
 Model {
 	Mesh = "BgPonyEyes.mesh"
 	Material = "LyraEyes"
+	Name = "LyraEyes"
 	
 	Attached = true
 	AttachBone = "Eyes"
@@ -21,6 +23,7 @@ Model {
 Model {
 	Mesh = "BgPonyHair1.mesh"
 	Material = "LyraHair"
+	Name = "LyraHair"
 	
 	Attached = true
 	AttachBone = "Hair"
@@ -28,17 +31,9 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyWingsFolded.mesh"
-	Material = "LyraWingsFolded"
-	
-	Attached = true
-	AttachBone = "Wings"
-	AttachComponentID = 0
-}
-
-Model {
 	Mesh = "BgPonyMane1.mesh"
 	Material = "LyraHair"
+	Name = "LyraMane"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -52,6 +47,7 @@ Model {
 Model {
 	Mesh = "BgPonyTail1.mesh"
 	Material = "LyraHair"
+	Name = "LyraTail"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -65,6 +61,7 @@ Model {
 Model {
 	Mesh = "BgPonyHorn.mesh"
 	Material = "LyraBody"
+	Name = "LyraHorn"
 	
 	Attached = true
 	AttachBone = "Horn"

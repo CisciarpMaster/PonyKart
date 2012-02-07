@@ -43,7 +43,8 @@ namespace Mogre {
 		/// <param name="duration">How long the blending should last</param>
 		/// <param name="looping">Do the animations loop?</param>
 		public void Blend(string animation, AnimationBlendingTransition transition, float duration, bool looping) {
-			if (mCurrentAnim == animation)
+			// return if we're already playing this animation or if that animation doesn't exist
+			if (mCurrentAnim == animation || !mEntity.AllAnimationStates.HasAnimationState(animation))
 				return;
 			mCurrentAnim = animation;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
@@ -13,7 +14,8 @@ namespace Ponykart.Actors {
 		public Entity Entity { get; protected set; }
 		public uint ID { get; protected set; }
 		public string Name { get; protected set; }
-		public AnimationBlender Animation { get; protected set; }
+		public AnimationBlender AnimationBlender { get; protected set; }
+		public AnimationState AnimationState { get; protected set; }
 		public LThing Owner { get; protected set; }
 		public readonly Vector3 SpawnPosition;
 		public readonly Quaternion SpawnOrientation;
@@ -110,10 +112,19 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void SetupAnimation(ModelBlock block) {
 			if (block.GetBoolProperty("animated", false)) {
-				Animation = new AnimationBlender(Entity);
-				Animation.Init(block.GetStringProperty("AnimationName", null), block.GetBoolProperty("AnimationLooping", true));
+				int numAnims = Entity.AllAnimationStates.GetAnimationStateIterator().Count();
+				if (numAnims == 1) {
+					AnimationState = Entity.GetAnimationState(block.GetStringProperty("AnimationName", null));
+					AnimationState.Loop = block.GetBoolProperty("AnimationLooping", true);
 
-				LKernel.GetG<AnimationManager>().Add(Animation);
+					LKernel.GetG<AnimationManager>().Add(AnimationState);
+				}
+				else if (numAnims > 1) {
+					AnimationBlender = new AnimationBlender(Entity);
+					AnimationBlender.Init(block.GetStringProperty("AnimationName", null), block.GetBoolProperty("AnimationLooping", true));
+
+					LKernel.GetG<AnimationManager>().Add(AnimationBlender);
+				}
 			}
 		}
 
@@ -154,14 +165,28 @@ namespace Ponykart.Actors {
 			}
 		}
 
+		public void AddAnimationTime(float time) {
+			if (AnimationState != null)
+				AnimationState.AddTime(time);
+			else if (AnimationBlender != null)
+				AnimationBlender.AddTime(time);
+		}
+
+		public bool HasAnimation {
+			get {
+				return AnimationBlender != null || AnimationState != null;
+			}
+		}
+
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)
 				return;
 
 			// stop updating the animation if we have one
-			if (disposing && Animation != null) {
-				LKernel.GetG<AnimationManager>().Remove(Animation);
-			}
+			if (disposing && AnimationBlender != null)
+				LKernel.GetG<AnimationManager>().Remove(AnimationBlender);
+			if (disposing && AnimationState != null)
+				LKernel.GetG<AnimationManager>().Remove(AnimationState);
 
 			var sceneMgr = LKernel.GetG<SceneManager>();
 			bool valid = LKernel.GetG<LevelManager>().IsValidLevel;

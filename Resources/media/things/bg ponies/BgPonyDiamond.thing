@@ -3,6 +3,7 @@ Physics = None
 Model {
 	Mesh = "BgPonyBody.mesh"
 	Material = "DiamondBody"
+	Name = "DiamondBody"
 
 	Animated = true
 	AnimationName = "Stand1"
@@ -12,6 +13,7 @@ Model {
 Model {
 	Mesh = "BgPonyEyes.mesh"
 	Material = "DiamondEyes"
+	Name = "DiamondEyes"
 	
 	Attached = true
 	AttachBone = "Eyes"
@@ -21,6 +23,7 @@ Model {
 Model {
 	Mesh = "BgPonyHair1.mesh"
 	Material = "DiamondHair"
+	Name = "DiamondHair"
 	
 	Attached = true
 	AttachBone = "Hair"
@@ -30,6 +33,7 @@ Model {
 Model {
 	Mesh = "BgPonyMane1.mesh"
 	Material = "DiamondHair"
+	Name = "DiamondMane"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -43,6 +47,7 @@ Model {
 Model {
 	Mesh = "BgPonyTail1.mesh"
 	Material = "DiamondHair"
+	Name = "DiamondTail"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -56,6 +61,7 @@ Model {
 Model {
 	Mesh = "BgPonyHorn.mesh"
 	Material = "DiamondBody"
+	Name = "DimondHorn"
 	
 	Attached = true
 	AttachBone = "Horn"

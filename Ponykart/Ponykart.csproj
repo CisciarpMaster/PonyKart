@@ -124,6 +124,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\BackgroundPony.cs" />
     <Compile Include="Actors\Components\BillboardSetComponent.cs" />
     <Compile Include="Actors\Components\SoundComponent.cs" />
     <Compile Include="Actors\Driver.cs" />

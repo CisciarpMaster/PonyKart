@@ -24,7 +24,7 @@ namespace Ponykart.Actors {
 		}
 
 		public void ChangeAnimation(string animationName, AnimationBlendingTransition transition, float duration = 0.2f) {
-			ModelComponents[0].Animation.Blend(animationName, transition, duration, true);
+			ModelComponents[0].AnimationBlender.Blend(animationName, transition, duration, true);
 		}
 
 		public void ChangeAnimation(DriverAnimation anim, AnimationBlendingTransition transition = AnimationBlendingTransition.BlendWhileAnimating, float duration = 0.2f) {
@@ -36,7 +36,7 @@ namespace Ponykart.Actors {
 		/// If it is, nothing happens.
 		/// </summary>
 		public void ChangeAnimationIfNotBlending(DriverAnimation anim, AnimationBlendingTransition transition = AnimationBlendingTransition.BlendWhileAnimating, float duration = 0.2f) {
-			if (ModelComponents[0].Animation.Complete)
+			if (ModelComponents[0].AnimationBlender.Complete)
 				ChangeAnimation(anim, transition, duration);
 		}
 	}

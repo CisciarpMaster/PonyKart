@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Mogre;
 using Ponykart.Levels;
 
@@ -10,6 +9,7 @@ namespace Ponykart.Core {
 	/// </summary>
 	public class AnimationManager {
 		private IList<AnimationBlender> blenders;
+		private IList<AnimationState> states;
 		private IDictionary<string, Entity> skeletonEntities;
 
 		public AnimationManager() {
@@ -17,6 +17,7 @@ namespace Ponykart.Core {
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 
 			blenders = new List<AnimationBlender>();
+			states = new List<AnimationState>();
 			skeletonEntities = new Dictionary<string, Entity>();
 		}
 
@@ -32,6 +33,7 @@ namespace Ponykart.Core {
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			blenders.Clear();
+			states.Clear();
 			skeletonEntities.Clear();
 			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 		}
@@ -42,7 +44,12 @@ namespace Ponykart.Core {
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				foreach (AnimationBlender b in blenders) {
-					b.AddTime(evt.timeSinceLastFrame);
+					if (!b.Source.HasEnded)
+						b.AddTime(evt.timeSinceLastFrame);
+				}
+				foreach (AnimationState state in states) {
+					if (!state.HasEnded)
+						state.AddTime(evt.timeSinceLastFrame);
 				}
 			}
 			return true;
@@ -56,10 +63,24 @@ namespace Ponykart.Core {
 		}
 
 		/// <summary>
+		/// Add an animation to be automatically updated
+		/// </summary>
+		public void Add(AnimationState state) {
+			states.Add(state);
+		}
+
+		/// <summary>
 		/// Remove an animation from being automatically updated
 		/// </summary>
 		public void Remove(AnimationBlender ab) {
 			blenders.Remove(ab);
+		}
+
+		/// <summary>
+		/// Remove an animation from being automatically updated
+		/// </summary>
+		public void Remove(AnimationState state) {
+			states.Add(state);
 		}
 	}
 }

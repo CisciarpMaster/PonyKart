@@ -344,9 +344,9 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public virtual void ChangeAnimation(string animationName) {
 			foreach (var mcomp in ModelComponents) {
-				if (mcomp.Animation != null && mcomp.Entity.AllAnimationStates.HasAnimationState(animationName)) {
-					mcomp.Animation.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-					mcomp.Animation.AddTime((int) ID);
+				if (mcomp.AnimationBlender != null && mcomp.Entity.AllAnimationStates.HasAnimationState(animationName)) {
+					mcomp.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+					mcomp.AnimationBlender.AddTime((int) ID);
 				}
 			}
 		}

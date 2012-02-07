@@ -3,6 +3,7 @@ Physics = None
 Model {
 	Mesh = "BgPonyBody.mesh"
 	Material = "CarrotBody"
+	Name = "CarrotBody"
 
 	Animated = true
 	AnimationName = "Stand1"
@@ -12,6 +13,7 @@ Model {
 Model {
 	Mesh = "BgPonyEyes.mesh"
 	Material = "CarrotEyes"
+	Name = "CarrotEyes"
 	
 	Attached = true
 	AttachBone = "Eyes"
@@ -21,6 +23,7 @@ Model {
 Model {
 	Mesh = "BgPonyHair3.mesh"
 	Material = "CarrotHair"
+	Name = "CarrotHair"
 	
 	Attached = true
 	AttachBone = "Hair"
@@ -30,6 +33,7 @@ Model {
 Model {
 	Mesh = "BgPonyMane3.mesh"
 	Material = "CarrotHair"
+	Name = "CarrotMane"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -43,6 +47,7 @@ Model {
 Model {
 	Mesh = "BgPonyTail3.mesh"
 	Material = "CarrotHair"
+	Name = "CarrotTail"
 	
 	Animated = true
 	AnimationName = "Stand1"

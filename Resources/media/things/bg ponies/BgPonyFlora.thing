@@ -2,8 +2,8 @@ Physics = None
 
 Model {
 	Mesh = "BgPonyBody.mesh"
-	Material = "SparklerBody"
-	Name = "SparklerBody"
+	Material = "FloraBody"
+	Name = "FloraBody"
 
 	Animated = true
 	AnimationName = "Stand1"
@@ -12,8 +12,8 @@ Model {
 
 Model {
 	Mesh = "BgPonyEyes.mesh"
-	Material = "SparklerEyes"
-	Name = "SparklerEyes"
+	Material = "FloraEyes"
+	Name = "FloraEyes"
 	
 	Attached = true
 	AttachBone = "Eyes"
@@ -21,9 +21,9 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyHair1.mesh"
-	Material = "SparklerHair"
-	Name = "SparklerHair"
+	Mesh = "BgPonyHair5.mesh"
+	Material = "FloraHair"
+	Name = "FloraHair"
 	
 	Attached = true
 	AttachBone = "Hair"
@@ -31,9 +31,9 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyMane1.mesh"
-	Material = "SparklerHair"
-	Name = "SparklerMane"
+	Mesh = "BgPonyMane5.mesh"
+	Material = "FloraHair"
+	Name = "FloraMane"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -45,9 +45,9 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyTail1.mesh"
-	Material = "SparklerHair"
-	Name = "SparklerTail"
+	Mesh = "BgPonyTail5.mesh"
+	Material = "FloraHair"
+	Name = "FloraTail"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -59,11 +59,15 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyHorn.mesh"
-	Material = "SparklerBody"
-	Name = "SparklerHorn"
+	Mesh = "BgPonyWings.mesh"
+	Material = "FloraWings"
+	Name = "FloraWings"
+	
+	Animated = true
+	AnimationName = "Flap1"
+	AnimationLooping = true
 	
 	Attached = true
-	AttachBone = "Horn"
+	AttachBone = "Wings"
 	AttachComponentID = 0
 }

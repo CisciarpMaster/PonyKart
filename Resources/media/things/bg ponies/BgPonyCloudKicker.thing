@@ -3,6 +3,7 @@ Physics = None
 Model {
 	Mesh = "BgPonyBody.mesh"
 	Material = "CloudKickerBody"
+	Name = "CloudKickerBody"
 
 	Animated = true
 	AnimationName = "Stand1"
@@ -12,6 +13,7 @@ Model {
 Model {
 	Mesh = "BgPonyEyes.mesh"
 	Material = "CloudKickerEyes"
+	Name = "CloudKickerEyes"
 	
 	Attached = true
 	AttachBone = "Eyes"
@@ -21,6 +23,7 @@ Model {
 Model {
 	Mesh = "BgPonyHair5.mesh"
 	Material = "CloudKickerHair"
+	Name = "CloudKickerHair"
 	
 	Attached = true
 	AttachBone = "Hair"
@@ -30,6 +33,7 @@ Model {
 Model {
 	Mesh = "BgPonyMane5.mesh"
 	Material = "CloudKickerHair"
+	Name = "CloudKickerMane"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -43,6 +47,7 @@ Model {
 Model {
 	Mesh = "BgPonyTail5.mesh"
 	Material = "CloudKickerHair"
+	Name = "CloudKickerTail"
 	
 	Animated = true
 	AnimationName = "Stand1"
@@ -56,6 +61,7 @@ Model {
 Model {
 	Mesh = "BgPonyWings.mesh"
 	Material = "CloudKickerWings"
+	Name = "CloudKickerWings"
 	
 	Animated = true
 	AnimationName = "Flap1"
