@@ -19,7 +19,7 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyHair1.mesh"
+	Mesh = "BgPonyHair5.mesh"
 	Material = "LilyHair"
 	
 	Attached = true
@@ -28,7 +28,7 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyMane1.mesh"
+	Mesh = "BgPonyMane5.mesh"
 	Material = "LilyHair"
 	
 	Animated = true
@@ -41,7 +41,7 @@ Model {
 }
 
 Model {
-	Mesh = "BgPonyTail1.mesh"
+	Mesh = "BgPonyTail5.mesh"
 	Material = "LilyHair"
 	
 	Animated = true
