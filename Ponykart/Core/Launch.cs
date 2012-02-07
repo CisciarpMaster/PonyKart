@@ -68,13 +68,17 @@ namespace Ponykart {
 		/// </summary>
 		static void UnhandledException(object sender, UnhandledExceptionEventArgs e) {
 			// message box
-			if (OgreException.IsThrown)
-				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred!");
-			else {
-				var ex = e.ExceptionObject as Exception;
-				if (ex != null)
-					MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, ex.GetType().ToString());
+			var ex = e.ExceptionObject as Exception;
+			if (ex != null) {
+				MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, ex.GetType().ToString());
 			}
+			else if (OgreException.IsThrown) {
+				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred!");
+			}
+
+			// sometimes ogre exceptions happen early on but they don't crash everything, like shader/material errors.
+			// But when an actual error happens, the "ogre exception is thrown" flag is still set, so it displays
+			// the wrong error message.
 		}
 
 		/// <summary>

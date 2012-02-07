@@ -80,7 +80,7 @@ namespace Ponykart.Core {
 		/// Remove an animation from being automatically updated
 		/// </summary>
 		public void Remove(AnimationState state) {
-			states.Add(state);
+			states.Remove(state);
 		}
 	}
 }

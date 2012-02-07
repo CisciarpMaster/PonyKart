@@ -116,6 +116,7 @@ namespace Ponykart.Actors {
 				if (numAnims == 1) {
 					AnimationState = Entity.GetAnimationState(block.GetStringProperty("AnimationName", null));
 					AnimationState.Loop = block.GetBoolProperty("AnimationLooping", true);
+					AnimationState.Enabled = true;
 
 					LKernel.GetG<AnimationManager>().Add(AnimationState);
 				}
