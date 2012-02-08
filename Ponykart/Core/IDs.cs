@@ -25,5 +25,11 @@ namespace Ponykart {
 				return rand.Next();
 			}
 		}
+
+		public static float RandomFloat {
+			get {
+				return (float) rand.NextDouble();
+			}
+		}
 	}
 }

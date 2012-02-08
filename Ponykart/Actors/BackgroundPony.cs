@@ -1,6 +1,9 @@
-﻿using Mogre;
+﻿using System;
+using System.Threading;
+using Mogre;
 using Ponykart.Core;
 using PonykartParsers;
+using Timer = System.Threading.Timer;
 
 namespace Ponykart.Actors {
 	public class BackgroundPony : LThing {
@@ -10,7 +13,12 @@ namespace Ponykart.Actors {
 		public Type PonyType { get; private set; }
 		private bool cheering = false;
 		private AnimationState blinkState;
+		private Timer blinkTimer, animTimer;
 		private const float _blendTime = 1f;
+		// milliseconds
+		private const int _blinkTimeSpanMin = 1500, _blinkTimeSpanMax = 5000,
+						  _animTimeSpanMin = 5000, _animTimeSpanMax = 8000;
+		private Random random;
 
 		public BackgroundPony(ThingBlock block, ThingDefinition def) : base(block, def) {
 			AnimPose = Pose.Standing;
@@ -25,6 +33,9 @@ namespace Ponykart.Actors {
 					tailComponent = mc;
 				else if (mc.Name.EndsWith("Wings")) {
 					wingsComponent = mc;
+					PonyType = Type.Pegasus;
+				}
+				else if (mc.Name.EndsWith("WingsFolded")) {
 					PonyType = Type.Pegasus;
 				}
 				else if (mc.Name.EndsWith("Horn")) {
@@ -57,18 +68,39 @@ namespace Ponykart.Actors {
 			//blinkState.SetBlendMaskEntry(handle, 1);
 
 			LKernel.GetG<AnimationManager>().Add(blinkState);
+
+			// set up some timers to handle animation changing
+			random = new Random(IDs.Random);
+			blinkTimer = new Timer(new TimerCallback(BlinkTimer), null, random.Next(_blinkTimeSpanMin, _blinkTimeSpanMax), Timeout.Infinite);
+			animTimer = new Timer(new TimerCallback(AnimTimer), null, random.Next(_animTimeSpanMin, _animTimeSpanMax), Timeout.Infinite);
+
+			AddTimeToBodyManeAndTail();
+		}
+
+		/// <summary>
+		/// helper method to add animation blending to the three main animated parts of the bg ponies
+		/// </summary>
+		private void AnimateBodyManeAndTail(string animationName, AnimationBlendingTransition transition, float duration, bool looping) {
+			bodyComponent.AnimationBlender.Blend(animationName, transition, duration, looping);
+			maneComponent.AnimationBlender.Blend(animationName, transition, duration, looping);
+			tailComponent.AnimationBlender.Blend(animationName, transition, duration, looping);
+		}
+
+		/// <summary>
+		/// helper method to add some initial time to all of the three main bg ponies so they aren't all in sync
+		/// </summary>
+		public void AddTimeToBodyManeAndTail() {
+			float rand = (float) random.NextDouble();
+			bodyComponent.AnimationBlender.AddTime(rand);
+			maneComponent.AnimationBlender.AddTime(rand);
+			tailComponent.AnimationBlender.AddTime(rand);
 		}
 
 		/// <summary>
 		/// Play an animation instantly
 		/// </summary>
 		public override void ChangeAnimation(string animationName) {
-			bodyComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-			bodyComponent.AnimationBlender.AddTime((int) ID);
-			maneComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-			maneComponent.AnimationBlender.AddTime((int) ID);
-			tailComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-			tailComponent.AnimationBlender.AddTime((int) ID);
+			AnimateBodyManeAndTail(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
 		}
 
 		/// <summary>
@@ -85,12 +117,8 @@ namespace Ponykart.Actors {
 		/// Play a random standing animation and change our pose to Standing
 		/// </summary>
 		public void Stand() {
-			int rand = (IDs.Random % 3) + 1;
-			string anim = "Stand" + rand;
-
-			bodyComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
-			maneComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
-			tailComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
+			string anim = "Stand" + random.Next(1, 4);
+			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
 			if (wingsComponent != null)
 				wingsComponent.AnimationBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
@@ -101,12 +129,8 @@ namespace Ponykart.Actors {
 		/// Play a random sitting animation and change our pose to Sitting
 		/// </summary>
 		public void Sit() {
-			int rand = (IDs.Random % 3) + 1;
-			string anim = "Sit" + rand;
-
-			bodyComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
-			maneComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
-			tailComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
+			string anim = "Sit" + random.Next(1, 4);
+			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
 			if (wingsComponent != null)
 				wingsComponent.AnimationBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
@@ -118,15 +142,11 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Fly() {
 			if (wingsComponent != null) {
-				int rand = (IDs.Random % 4) + 1;
-				string anim = "Fly" + rand;
+				string anim = "Fly" + random.Next(1, 5);
 
-				bodyComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
-				maneComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
-				tailComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, _blendTime, true);
+				AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
 
-				rand = (IDs.Random % 3) + 1;
-				anim = "Flap" + rand;
+				anim = "Flap" + random.Next(1, 4);
 				wingsComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
 				AnimPose = Pose.Flying;
@@ -149,26 +169,28 @@ namespace Ponykart.Actors {
 
 			switch (AnimPose) {
 				case Pose.Standing:
-					int rand = IDs.Random % 3;
+					int rand = random.Next(0, 2);
 					anim = "Cheer" + rand;
 					if (rand == 0)
 						anim = "Clap";
 					break;
 				case Pose.Sitting:
-					anim = "SitCheer1";
+					rand = random.Next(1, 1);
+					anim = "SitCheer" + rand;
 					break;
 				case Pose.Flying:
 					// TODO
 					break;
 			}
 
-			bodyComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
-			maneComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
-			tailComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
+			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
 
 			cheering = true;
 		}
 
+		/// <summary>
+		/// Stops playing a cheering animation and plays a different appropriate one instead
+		/// </summary>
 		public void StopCheering() {
 			switch (AnimPose) {
 				case Pose.Standing:
@@ -185,6 +207,51 @@ namespace Ponykart.Actors {
 			cheering = false;
 		}
 
+		/// <summary>
+		/// Plays a different, similar animation.
+		/// </summary>
+		public void PlayNext() {
+			if (cheering)
+				Cheer();
+			else if (AnimPose == Pose.Standing)
+				Stand();
+			else if (AnimPose == Pose.Sitting)
+				Sit();
+			else if (AnimPose == Pose.Flying)
+				Fly();
+		}
+
+		/// <summary>
+		/// method for the blink timer to run
+		/// </summary>
+		void BlinkTimer(object o) {
+			if (Pauser.IsPaused) {
+				// keep trying again until we're unpaused
+				blinkTimer.Change(500, 500);
+			}
+			else {
+				Blink();
+				blinkTimer.Change(random.Next(_blinkTimeSpanMin, _blinkTimeSpanMax), Timeout.Infinite);
+			}
+		}
+
+		/// <summary>
+		/// method for the animation timer to run
+		/// </summary>
+		void AnimTimer(object o) {
+			if (Pauser.IsPaused) {
+				// keep trying again until we're unpaused
+				blinkTimer.Change(500, 500);
+			}
+			else {
+				PlayNext();
+				animTimer.Change(random.Next(_animTimeSpanMin, _animTimeSpanMax), Timeout.Infinite);
+			}
+		}
+
+		/// <summary>
+		/// Clean up
+		/// </summary>
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)
 				return;
@@ -193,8 +260,13 @@ namespace Ponykart.Actors {
 				LKernel.GetG<AnimationManager>().Remove(blinkState);
 			}
 
+			blinkTimer.Dispose();
+			animTimer.Dispose();
+
 			base.Dispose(disposing);
 		}
+
+		//////////////////////////////////////////////
 
 		public enum Pose {
 			Sitting,

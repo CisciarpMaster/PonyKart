@@ -71,3 +71,13 @@ Model {
 	AttachBone = "Wings"
 	AttachComponentID = 0
 }
+
+/*Model {
+	Mesh = "BgPonyWingsFolded.mesh"
+	Material = "CloudKickerWingsFolded"
+	Name = "CloudKickerWingsFolded"
+	
+	Attached = true
+	AttachBone = "Wings"
+	AttachComponentID = 0
+}*/
