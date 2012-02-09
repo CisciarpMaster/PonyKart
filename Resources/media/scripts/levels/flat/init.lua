@@ -17,6 +17,7 @@ function flat(level)
 	lily = spawn("BgPonyLily", vector(13, -0.9, 3.5))
 	cloudkicker = spawn("BgPonyCloudKicker", vector(10, 2, 0))
 	flora = spawn("BgPonyFlora", vector(7, -0.9, -3.5))
+	berry = spawn("BgPonyBerry", vector(33, 3, 0))
 	
 	lyra:Sit()
 	bonbon:Sit()
@@ -32,4 +33,5 @@ function flat(level)
 	lily:Stand()
 	cloudkicker:Fly()
 	flora:Stand()
+	berry:Sit()
 end

@@ -1,0 +1,15 @@
+import * from "BgPony.material"
+
+// ======================
+
+material BerryHair : BgPonyHair {
+	set_texture_alias HairColour "BerryHair.dds"
+	set $outline "131 36 94"
+}
+material BerryBody : BgPony {
+    set_texture_alias BodyColour "BerryBody.dds"
+	set $outline "194 52 222"
+}
+material BerryEyes : BgPonyEyes {
+    set_texture_alias EyeColour "BerryEyes.dds"
+}
