@@ -75,6 +75,55 @@ namespace Ponykart.Actors {
 			animTimer = new Timer(new TimerCallback(AnimTimer), null, random.Next(_animTimeSpanMin, _animTimeSpanMax), Timeout.Infinite);
 
 			AddTimeToBodyManeAndTail();
+
+			headbone = skeleton.GetBone("Head");
+			headbone.SetManuallyControlled(true);
+			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
+				state.CreateBlendMask(skeleton.NumBones);
+				state.SetBlendMaskEntry(headbone.Handle, 0);
+			}
+			headbone.InheritOrientation = false;
+
+			followKart = LKernel.GetG<Players.PlayerManager>().MainPlayer.Kart;
+			LKernel.GetG<Root>().FrameStarted += FrameStarted;
+
+			Entity axes = LKernel.GetG<SceneManager>().CreateEntity("axes.mesh");
+			bodyComponent.Entity.AttachObjectToBone("Head", axes);
+		}
+
+		Bone headbone;
+		Kart followKart;
+		bool FrameStarted(FrameEvent evt) {
+			if (!Pauser.IsPaused) {
+				//var angleToObject = System.Math.Atan((RootNode.Position.x - followKart.RootNode.Position.x) / (RootNode.Position.z - followKart.RootNode.Position.z));
+				//var angleToObject2 = System.Math.Atan((RootNode.Position.x - followKart.RootNode.Position.x) / (RootNode.Position.y - followKart.RootNode.Position.y));
+
+				/*Vector3 d = followKart.RootNode.Position - RootNode.Position;
+				Vector3 right = Vector3.NEGATIVE_UNIT_Z.CrossProduct(d);
+				right.Normalise();
+				Vector3 backwards = right.CrossProduct(Vector3.NEGATIVE_UNIT_Z);
+				backwards.Normalise();
+				Vector3 up = backwards.CrossProduct(right);
+
+				Matrix4 rot = new Matrix4(right.x, right.y, right.z, 0, up.x, up.y, up.z,
+					0, backwards.x, backwards.y, backwards.z, 0, 0, 0, 0, 1);*/
+
+				//Quaternion q = new Quaternion((float) angleToObject, Vector3.UNIT_Z);
+				//Quaternion q2 = new Quaternion((float) angleToObject2, Vector3.UNIT_Y);
+				//headbone.Orientation = new Quaternion(rot.Extract3x3Matrix());
+
+				/*Vector3 pos = bodyComponent.Entity._getParentNodeFullTransform() * headbone._getDerivedPosition();
+				var vectorDirectionSource = (headbone._getDerivedPosition() - headbone.Parent._getDerivedPosition());
+				var vectorDirectionTarget = followKart.RootNode.ConvertWorldToLocalPosition(headbone.Parent._getDerivedPosition());
+
+				var q = vectorDirectionSource.GetRotationTo(vectorDirectionTarget);
+				headbone.Orientation = q;*/
+
+				var rot = RootNode.Position.GetRotationTo(followKart.RootNode.Position);
+				headbone.Orientation = new Quaternion(-rot.Roll, Vector3.NEGATIVE_UNIT_Y);
+			}
+
+			return true;
 		}
 
 		/// <summary>
@@ -221,6 +270,7 @@ namespace Ponykart.Actors {
 				Fly();
 		}
 
+		#region for timer events
 		/// <summary>
 		/// method for the blink timer to run
 		/// </summary>
@@ -248,6 +298,7 @@ namespace Ponykart.Actors {
 				animTimer.Change(random.Next(_animTimeSpanMin, _animTimeSpanMax), Timeout.Infinite);
 			}
 		}
+		#endregion
 
 		/// <summary>
 		/// Clean up
@@ -262,6 +313,8 @@ namespace Ponykart.Actors {
 
 			blinkTimer.Dispose();
 			animTimer.Dispose();
+
+			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 
 			base.Dispose(disposing);
 		}
