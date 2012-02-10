@@ -1,0 +1,83 @@
+Physics = None
+
+Model {
+	Mesh = "BgPonyBody.mesh"
+	Material = "SunBody"
+	Name = "SunBody"
+
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+}
+
+Model {
+	Mesh = "BgPonyEyes.mesh"
+	Material = "SunEyes"
+	Name = "SunEyes"
+	
+	Attached = true
+	AttachBone = "Eyes"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyHair5.mesh"
+	Material = "SunHair"
+	Name = "SunHair"
+	
+	Attached = true
+	AttachBone = "Hair"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyMane5.mesh"
+	Material = "SunHair"
+	Name = "SunMane"
+	
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Mane"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyTail5.mesh"
+	Material = "SunHair"
+	Name = "SunTail"
+	
+	Animated = true
+	AnimationName = "Stand1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Tail"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyWings.mesh"
+	Material = "SunWings"
+	Name = "SunWings"
+	
+	Animated = true
+	AnimationName = "Flap1"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Wings"
+	AttachComponentID = 0
+}
+
+/*Model {
+	Mesh = "BgPonyWingsFolded.mesh"
+	Material = "SunWingsFolded"
+	Name = "SunWingsFolded"
+	
+	Attached = true
+	AttachBone = "Wings"
+	AttachComponentID = 0
+}*/

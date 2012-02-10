@@ -57,3 +57,25 @@ material FloraWingsFolded : BgPonyWingsFolded {
     set_texture_alias BodyColour "FloraWingsFolded.dds"
 	set $outline "117 187 91"
 }
+
+// =========================
+
+material SunHair : BgPonyHair {
+	set_texture_alias HairColour "SunHair.dds"
+	set $outline "209 105 223"
+}
+material SunBody : BgPony {
+    set_texture_alias BodyColour "SunBody.dds"
+	set $outline "234 165 19"
+}
+material SunEyes : BgPonyEyes {
+    set_texture_alias EyeColour "FloraEyes.dds"
+}
+material SunWings : BgPonyWings {
+    set_texture_alias BodyColour "SunWings.dds"
+	set $outline "234 165 19"
+}
+/*material SunWingsFolded : BgPonyWingsFolded {
+    set_texture_alias BodyColour "SunWingsFolded.dds"
+	set $outline "234 165 19"
+}*/
