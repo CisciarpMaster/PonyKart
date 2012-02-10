@@ -14,10 +14,10 @@ namespace Ponykart.Actors {
 		private bool cheering = false;
 		private AnimationState blinkState;
 		private Timer blinkTimer, animTimer;
-		private const float _blendTime = 1f;
+		private const float BLEND_TIME = 1f;
 		// milliseconds
-		private const int _blinkTimeSpanMin = 1500, _blinkTimeSpanMax = 5000,
-						  _animTimeSpanMin = 5000, _animTimeSpanMax = 8000;
+		private const int BLINK_TIMESPAN_MINIMUM = 1500, BLINK_TIMESPAN_MAXIMUM = 5000,
+						  ANIMATION_TIMESPAN_MINIMUM = 5000, ANIMATION_TIMESPAN_MAXIMUM = 8000;
 		private Random random;
 
 		public BackgroundPony(ThingBlock block, ThingDefinition def) : base(block, def) {
@@ -46,15 +46,28 @@ namespace Ponykart.Actors {
 			// make sure our animations add their weights and don't just average out. The AnimationBlender already handles averaging between two anims.
 			bodyComponent.Entity.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
 
-			// set up the animation state with some stuff
+			Skeleton skeleton = bodyComponent.Entity.Skeleton;
+			// set up all of the animation states to not use the head bone
+			headbone = skeleton.GetBone("Head");
+			headbone.SetManuallyControlled(true);
+			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
+				// don't add a blend mask to the blink state because we'll make a different one for it
+				if (state.AnimationName == "Blink")
+					continue;
+
+				state.CreateBlendMask(skeleton.NumBones);
+				state.SetBlendMaskEntry(headbone.Handle, 0);
+			}
+			headbone.InheritOrientation = false;
+
+			// set up the blink animation state with some stuff
 			blinkState = bodyComponent.Entity.GetAnimationState("Blink");
 			blinkState.Enabled = false;
 			blinkState.Loop = false;
 			blinkState.Weight = 1;
 			blinkState.TimePosition = blinkState.Length;
 
-			// set up a blend mask so only the head and eyebrow bones have any effect
-			Skeleton skeleton = bodyComponent.Entity.Skeleton;
+			// set up a blend mask so only the eyebrow bones have any effect on the blink animation
 			blinkState.CreateBlendMask(skeleton.NumBones, 0);
 			ushort handle = skeleton.GetBone("EyeBrowTop.R").Handle;
 			blinkState.SetBlendMaskEntry(handle, 1);
@@ -64,63 +77,33 @@ namespace Ponykart.Actors {
 			blinkState.SetBlendMaskEntry(handle, 1);
 			handle = skeleton.GetBone("EyeBrowBottom.L").Handle;
 			blinkState.SetBlendMaskEntry(handle, 1);
-			//handle = skeleton.GetBone("Head").Handle;
-			//blinkState.SetBlendMaskEntry(handle, 1);
 
+			// add the blink state to the animation manager so it has time added to it
 			LKernel.GetG<AnimationManager>().Add(blinkState);
 
 			// set up some timers to handle animation changing
 			random = new Random(IDs.Random);
-			blinkTimer = new Timer(new TimerCallback(BlinkTimer), null, random.Next(_blinkTimeSpanMin, _blinkTimeSpanMax), Timeout.Infinite);
-			animTimer = new Timer(new TimerCallback(AnimTimer), null, random.Next(_animTimeSpanMin, _animTimeSpanMax), Timeout.Infinite);
+			blinkTimer = new Timer(new TimerCallback(BlinkTimer), null, random.Next(BLINK_TIMESPAN_MINIMUM, BLINK_TIMESPAN_MAXIMUM), Timeout.Infinite);
+			animTimer = new Timer(new TimerCallback(AnimTimer), null, random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
 
+			// add a bit of time to things so the animations aren't all synced at the beginning
 			AddTimeToBodyManeAndTail();
-
-			headbone = skeleton.GetBone("Head");
-			headbone.SetManuallyControlled(true);
-			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
-				state.CreateBlendMask(skeleton.NumBones);
-				state.SetBlendMaskEntry(headbone.Handle, 0);
-			}
-			headbone.InheritOrientation = false;
 
 			followKart = LKernel.GetG<Players.PlayerManager>().MainPlayer.Kart;
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 
-			Entity axes = LKernel.GetG<SceneManager>().CreateEntity("axes.mesh");
-			bodyComponent.Entity.AttachObjectToBone("Head", axes);
+			//Entity axes = LKernel.GetG<SceneManager>().CreateEntity("axes.mesh");
+			//bodyComponent.Entity.AttachObjectToBone("Head", axes);
 		}
 
 		Bone headbone;
 		Kart followKart;
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
-				//var angleToObject = System.Math.Atan((RootNode.Position.x - followKart.RootNode.Position.x) / (RootNode.Position.z - followKart.RootNode.Position.z));
-				//var angleToObject2 = System.Math.Atan((RootNode.Position.x - followKart.RootNode.Position.x) / (RootNode.Position.y - followKart.RootNode.Position.y));
-
-				/*Vector3 d = followKart.RootNode.Position - RootNode.Position;
-				Vector3 right = Vector3.NEGATIVE_UNIT_Z.CrossProduct(d);
-				right.Normalise();
-				Vector3 backwards = right.CrossProduct(Vector3.NEGATIVE_UNIT_Z);
-				backwards.Normalise();
-				Vector3 up = backwards.CrossProduct(right);
-
-				Matrix4 rot = new Matrix4(right.x, right.y, right.z, 0, up.x, up.y, up.z,
-					0, backwards.x, backwards.y, backwards.z, 0, 0, 0, 0, 1);*/
-
-				//Quaternion q = new Quaternion((float) angleToObject, Vector3.UNIT_Z);
-				//Quaternion q2 = new Quaternion((float) angleToObject2, Vector3.UNIT_Y);
-				//headbone.Orientation = new Quaternion(rot.Extract3x3Matrix());
-
-				/*Vector3 pos = bodyComponent.Entity._getParentNodeFullTransform() * headbone._getDerivedPosition();
-				var vectorDirectionSource = (headbone._getDerivedPosition() - headbone.Parent._getDerivedPosition());
-				var vectorDirectionTarget = followKart.RootNode.ConvertWorldToLocalPosition(headbone.Parent._getDerivedPosition());
-
-				var q = vectorDirectionSource.GetRotationTo(vectorDirectionTarget);
-				headbone.Orientation = q;*/
-
-				var rot = RootNode.Position.GetRotationTo(followKart.RootNode.Position);
-				headbone.Orientation = new Quaternion(-rot.Roll, Vector3.NEGATIVE_UNIT_Y);
+				Vector3 cam_pos = LKernel.Get<CameraManager>().CurrentCamera.Camera.DerivedPosition;
+				Vector3 node_pos = RootNode._getDerivedPosition();
+				var rot = (new Vector3(0, 0, 1)).GetRotationTo(cam_pos - node_pos);
+				headbone.Orientation = new Quaternion(-rot.Yaw, Vector3.NEGATIVE_UNIT_Y) * headbone.InitialOrientation;
 			}
 
 			return true;
@@ -167,7 +150,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Stand() {
 			string anim = "Stand" + random.Next(1, 4);
-			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
+			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, BLEND_TIME, true);
 			if (wingsComponent != null)
 				wingsComponent.AnimationBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
@@ -179,7 +162,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Sit() {
 			string anim = "Sit" + random.Next(1, 4);
-			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
+			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, BLEND_TIME, true);
 			if (wingsComponent != null)
 				wingsComponent.AnimationBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
@@ -193,7 +176,7 @@ namespace Ponykart.Actors {
 			if (wingsComponent != null) {
 				string anim = "Fly" + random.Next(1, 5);
 
-				AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
+				AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, BLEND_TIME, true);
 
 				anim = "Flap" + random.Next(1, 4);
 				wingsComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
@@ -232,7 +215,7 @@ namespace Ponykart.Actors {
 					break;
 			}
 
-			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, _blendTime, true);
+			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, BLEND_TIME, true);
 
 			cheering = true;
 		}
@@ -281,7 +264,7 @@ namespace Ponykart.Actors {
 			}
 			else {
 				Blink();
-				blinkTimer.Change(random.Next(_blinkTimeSpanMin, _blinkTimeSpanMax), Timeout.Infinite);
+				blinkTimer.Change(random.Next(BLINK_TIMESPAN_MINIMUM, BLINK_TIMESPAN_MAXIMUM), Timeout.Infinite);
 			}
 		}
 
@@ -291,11 +274,11 @@ namespace Ponykart.Actors {
 		void AnimTimer(object o) {
 			if (Pauser.IsPaused) {
 				// keep trying again until we're unpaused
-				blinkTimer.Change(500, 500);
+				animTimer.Change(500, 500);
 			}
 			else {
 				PlayNext();
-				animTimer.Change(random.Next(_animTimeSpanMin, _animTimeSpanMax), Timeout.Infinite);
+				animTimer.Change(random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
 			}
 		}
 		#endregion
@@ -310,9 +293,10 @@ namespace Ponykart.Actors {
 			if (disposing) {
 				LKernel.GetG<AnimationManager>().Remove(blinkState);
 			}
-
-			blinkTimer.Dispose();
-			animTimer.Dispose();
+			if (blinkTimer != null)
+				blinkTimer.Dispose();
+			if (animTimer != null)
+				animTimer.Dispose();
 
 			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 

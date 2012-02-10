@@ -42,7 +42,6 @@ namespace Ponykart {
 		/// <summary>
 		/// Starts the render loop!
 		/// </summary>
-		[DebuggerStepThrough]
 		private static void StartRendering() {
 			Root root = LKernel.GetG<Root>();
 			RenderWindow window = LKernel.GetG<RenderWindow>();
@@ -67,7 +66,6 @@ namespace Ponykart {
 		/// Fired whan an unhandled exception bubbles up to the AppDomain
 		/// </summary>
 		static void UnhandledException(object sender, UnhandledExceptionEventArgs e) {
-			// message box
 			var ex = e.ExceptionObject as Exception;
 			if (ex != null) {
 				MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, ex.GetType().ToString());
@@ -79,6 +77,15 @@ namespace Ponykart {
 			// sometimes ogre exceptions happen early on but they don't crash everything, like shader/material errors.
 			// But when an actual error happens, the "ogre exception is thrown" flag is still set, so it displays
 			// the wrong error message.
+
+			// old version
+			/*if (OgreException.IsThrown)
+				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred!");
+			else {
+				var ex = e.ExceptionObject as Exception;
+				if (ex != null)
+					MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, ex.GetType().ToString());
+			}*/
 		}
 
 		/// <summary>
