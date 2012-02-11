@@ -19,6 +19,8 @@ namespace Ponykart.Actors {
 		private const int ANIMATION_TIMESPAN_MINIMUM = 5000, ANIMATION_TIMESPAN_MAXIMUM = 8000;
 		private Random random;
 		private Quaternion look_at = Quaternion.IDENTITY;
+		private Bone headbone;
+		private Kart followKart;
 
 		public BackgroundPony(ThingBlock block, ThingDefinition def) : base(block, def) {
 			AnimPose = Pose.Standing;
@@ -90,30 +92,27 @@ namespace Ponykart.Actors {
 
 			followKart = LKernel.GetG<Players.PlayerManager>().MainPlayer.Kart;
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
-
-			//Entity axes = LKernel.GetG<SceneManager>().CreateEntity("axes.mesh");
-			//bodyComponent.Entity.AttachObjectToBone("Head", axes);
 		}
 
-		Bone headbone;
-		Kart followKart;
+		
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
-				Vector3 cam_pos = followKart.RootNode._getDerivedPosition( );// LKernel.Get<CameraManager>( ).CurrentCamera.Camera.DerivedPosition;
-				Vector3 node_pos = RootNode._getDerivedPosition( ) + headbone._getDerivedPosition( );
+				Vector3 thisDerivedPos = RootNode._getDerivedPosition();
+
+				Vector3 cam_pos = followKart.RootNode._getDerivedPosition( );
+				Vector3 node_pos = thisDerivedPos + headbone._getDerivedPosition( );
 				Vector3 diff = cam_pos - node_pos;
 				diff.Normalise( );
 
 				// Check we can turn here		
-				Vector3 forward = ( RootNode._getDerivedOrientation( ) ) * new Vector3( 0, 0, 1 );
+				Vector3 forward = thisDerivedPos * new Vector3( 0, 0, 1 );
 				Quaternion desired = Quaternion.IDENTITY;
 				if ( forward.DotProduct( diff ) > 0.1f )
 				{
-					desired = ( forward ).GetRotationTo( diff );
+					desired = forward.GetRotationTo( diff );
 				}
 				look_at = Quaternion.Slerp( 0.95f, desired, look_at );
 				headbone.Orientation = ( look_at * headbone.InitialOrientation );
-				//headbone.GetChild( 0 )._setDerivedOrientation( Quaternion.IDENTITY );
 			}
 
 			return true;
