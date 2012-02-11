@@ -52,7 +52,7 @@ namespace Ponykart.Actors {
 			headbone.SetManuallyControlled(true);
 			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
 				// don't add a blend mask to the blink state because we'll make a different one for it
-				if (state.AnimationName == "Blink")
+				if (state.AnimationName == "Blink2")
 					continue;
 
 				state.CreateBlendMask(skeleton.NumBones);
@@ -61,11 +61,11 @@ namespace Ponykart.Actors {
 			headbone.InheritOrientation = false;
 
 			// set up the blink animation state with some stuff
-			blinkState = bodyComponent.Entity.GetAnimationState("Blink");
-			blinkState.Enabled = false;
-			blinkState.Loop = false;
+			blinkState = bodyComponent.Entity.GetAnimationState("Blink2");
+			blinkState.Enabled = true;
+			blinkState.Loop = true;
 			blinkState.Weight = 1;
-			blinkState.TimePosition = blinkState.Length;
+			blinkState.AddTime(ID);
 
 			// set up a blend mask so only the eyebrow bones have any effect on the blink animation
 			blinkState.CreateBlendMask(skeleton.NumBones, 0);
@@ -83,7 +83,7 @@ namespace Ponykart.Actors {
 
 			// set up some timers to handle animation changing
 			random = new Random(IDs.Random);
-			blinkTimer = new Timer(new TimerCallback(BlinkTimer), null, random.Next(BLINK_TIMESPAN_MINIMUM, BLINK_TIMESPAN_MAXIMUM), Timeout.Infinite);
+			//blinkTimer = new Timer(new TimerCallback(BlinkTimer), null, random.Next(BLINK_TIMESPAN_MINIMUM, BLINK_TIMESPAN_MAXIMUM), Timeout.Infinite);
 			animTimer = new Timer(new TimerCallback(AnimTimer), null, random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
 
 			// add a bit of time to things so the animations aren't all synced at the beginning
@@ -141,7 +141,7 @@ namespace Ponykart.Actors {
 		public void ChangeWingAnimation(string animationName) {
 			if (wingsComponent != null) {
 				wingsComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-				wingsComponent.AnimationBlender.AddTime((int) ID);
+				wingsComponent.AnimationBlender.AddTime(ID);
 			}
 		}
 

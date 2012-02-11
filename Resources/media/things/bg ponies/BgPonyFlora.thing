@@ -58,7 +58,7 @@ Model {
 	AttachComponentID = 0
 }
 
-Model {
+/*Model {
 	Mesh = "BgPonyWings.mesh"
 	Material = "FloraWings"
 	Name = "FloraWings"
@@ -70,9 +70,9 @@ Model {
 	Attached = true
 	AttachBone = "Wings"
 	AttachComponentID = 0
-}
+}*/
 
-/*Model {
+Model {
 	Mesh = "BgPonyWingsFolded.mesh"
 	Material = "FloraWingsFolded"
 	Name = "FloraWingsFolded"
@@ -80,4 +80,4 @@ Model {
 	Attached = true
 	AttachBone = "Wings"
 	AttachComponentID = 0
-}*/
+}

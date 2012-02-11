@@ -2,7 +2,7 @@
 using Ponykart.Physics;
 
 namespace Ponykart.Stuff {
-	public class MogreRaycaster {
+	public class MogreRaycaster : LDisposable {
 		RaySceneQuery raySceneQuery;
 
 		public MogreRaycaster() {
@@ -30,9 +30,12 @@ namespace Ponykart.Stuff {
 				// execute the query, returns a vector of hits
 				RaySceneQueryResult rayresult = raySceneQuery.Execute();
 				if (rayresult.Count <= 0) {
+					rayresult.Dispose();
 					// raycast did not hit an objects bounding box
 					return false;
 				}
+
+				rayresult.Dispose();
 			}
 			else {
 				return false;
@@ -107,6 +110,8 @@ namespace Ponykart.Stuff {
 				}
 			}
 
+			query_result.Dispose();
+
 			// if we found a new closest raycast for this object, update the
 			// closest_result before moving on to the next object.
 			if (closest_distance >= 0.0f) {
@@ -138,5 +143,14 @@ namespace Ponykart.Stuff {
 				return false;
 			}
 		} // RayCastFromPoint
+
+		protected override void Dispose(bool disposing) {
+			if (IsDisposed)
+				return;
+
+			raySceneQuery.Dispose();
+
+			base.Dispose(disposing);
+		}
 	}
 }
