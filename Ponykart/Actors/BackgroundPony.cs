@@ -13,11 +13,10 @@ namespace Ponykart.Actors {
 		public Type PonyType { get; private set; }
 		private bool cheering = false;
 		private AnimationState blinkState;
-		private Timer blinkTimer, animTimer;
+		private Timer animTimer;
 		private const float BLEND_TIME = 1f;
 		// milliseconds
-		private const int BLINK_TIMESPAN_MINIMUM = 1500, BLINK_TIMESPAN_MAXIMUM = 5000,
-						  ANIMATION_TIMESPAN_MINIMUM = 5000, ANIMATION_TIMESPAN_MAXIMUM = 8000;
+		private const int ANIMATION_TIMESPAN_MINIMUM = 5000, ANIMATION_TIMESPAN_MAXIMUM = 8000;
 		private Random random;
 		private Quaternion look_at = Quaternion.IDENTITY;
 
@@ -84,7 +83,6 @@ namespace Ponykart.Actors {
 
 			// set up some timers to handle animation changing
 			random = new Random(IDs.Random);
-			//blinkTimer = new Timer(new TimerCallback(BlinkTimer), null, random.Next(BLINK_TIMESPAN_MINIMUM, BLINK_TIMESPAN_MAXIMUM), Timeout.Infinite);
 			animTimer = new Timer(new TimerCallback(AnimTimer), null, random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
 
 			// add a bit of time to things so the animations aren't all synced at the beginning
@@ -265,21 +263,6 @@ namespace Ponykart.Actors {
 				Fly();
 		}
 
-		#region for timer events
-		/// <summary>
-		/// method for the blink timer to run
-		/// </summary>
-		void BlinkTimer(object o) {
-			if (Pauser.IsPaused) {
-				// keep trying again until we're unpaused
-				blinkTimer.Change(500, 500);
-			}
-			else {
-				Blink();
-				blinkTimer.Change(random.Next(BLINK_TIMESPAN_MINIMUM, BLINK_TIMESPAN_MAXIMUM), Timeout.Infinite);
-			}
-		}
-
 		/// <summary>
 		/// method for the animation timer to run
 		/// </summary>
@@ -293,7 +276,6 @@ namespace Ponykart.Actors {
 				animTimer.Change(random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
 			}
 		}
-		#endregion
 
 		/// <summary>
 		/// Clean up
@@ -305,8 +287,6 @@ namespace Ponykart.Actors {
 			if (disposing) {
 				LKernel.GetG<AnimationManager>().Remove(blinkState);
 			}
-			if (blinkTimer != null)
-				blinkTimer.Dispose();
 			if (animTimer != null)
 				animTimer.Dispose();
 
