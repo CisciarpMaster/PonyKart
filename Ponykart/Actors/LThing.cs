@@ -358,14 +358,12 @@ namespace Ponykart.Actors {
 			var anims = ModelComponents[0].GetAnimationNames();
 			if (anims.Count() > 0) {
 				Random rand = new Random(IDs.Random);
-tryagain:
-				int index = rand.Next(anims.Count());
-
-				string animName = anims.ElementAt(index);
-				// don't want to play any "Basis" animations
-				if (animName.Contains("Basis"))
-					// if we picked one, try again
-					goto tryagain;
+				string animName = "";
+				do {
+					int index = rand.Next(anims.Count());
+					animName = anims.ElementAt(index);
+					// don't want to play any "Basis" animations
+				} while (!animName.Contains("Basis"));
 
 				ChangeAnimation(animName);
 			}
