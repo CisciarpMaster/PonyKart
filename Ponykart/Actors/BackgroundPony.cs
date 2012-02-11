@@ -52,7 +52,7 @@ namespace Ponykart.Actors {
 			// set up all of the animation states to not use the head bone
 			headbone = skeleton.GetBone("Head");
 			headbone.SetManuallyControlled(true);
-			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
+			/*foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
 				// don't add a blend mask to the blink state because we'll make a different one for it
 				if (state.AnimationName == "Blink2")
 					continue;
@@ -60,7 +60,7 @@ namespace Ponykart.Actors {
 				state.CreateBlendMask(skeleton.NumBones);
 				state.SetBlendMaskEntry(headbone.Handle, 0);
 			}
-			headbone.InheritOrientation = false;
+			headbone.InheritOrientation = false;*/
 
 			// set up the blink animation state with some stuff
 			blinkState = bodyComponent.Entity.GetAnimationState("Blink2");

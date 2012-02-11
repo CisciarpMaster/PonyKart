@@ -6,3 +6,7 @@ Ambient = 0.8, 0.8, 0.8
 FogType = "None"
 SunlightDirection = 0.1, -1, 0.1
 Skybox = "saa_sky"
+
+Philomeena {
+    Position = 0, 3.75, 0
+}
