@@ -2,6 +2,7 @@
 using System.Threading;
 using Mogre;
 using Ponykart.Core;
+using Ponykart.Players;
 using PonykartParsers;
 using Timer = System.Threading.Timer;
 
@@ -87,16 +88,18 @@ namespace Ponykart.Actors {
 
 			// set up some timers to handle animation changing
 			random = new Random(IDs.Random);
-			animTimer = new Timer(new TimerCallback(AnimTimer), null, random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
+			animTimer = new Timer(new TimerCallback(AnimTimerTick), null, random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
 
 			// add a bit of time to things so the animations aren't all synced at the beginning
 			AddTimeToBodyManeAndTail();
 
-			followKart = LKernel.GetG<Players.PlayerManager>().MainPlayer.Kart;
+			followKart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 		}
 
-		
+		/// <summary>
+		/// Rotate the neck bone to face the kart. Will eventually need to redo this when we have multiple karts, to face whichever's nearest, etc.
+		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				Vector3 lookat = RootNode.ConvertWorldToLocalPosition(followKart.RootNode.Position);
@@ -263,7 +266,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// method for the animation timer to run
 		/// </summary>
-		void AnimTimer(object o) {
+		void AnimTimerTick(object o) {
 			if (Pauser.IsPaused) {
 				// keep trying again until we're unpaused
 				animTimer.Change(500, 500);
