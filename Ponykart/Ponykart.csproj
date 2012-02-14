@@ -208,6 +208,7 @@
     <Compile Include="Sound\BackgroundMusicHandler.cs" />
     <Compile Include="Sound\SoundFrameEventHandler.cs" />
     <Compile Include="Core\Animation\AnimationBlender.cs" />
+    <Compile Include="Stuff\Euler.cs" />
     <Compile Include="Stuff\Extensions.cs" />
     <Compile Include="Core\IDs.cs" />
     <Compile Include="Stuff\MogreDebugDrawer.cs" />

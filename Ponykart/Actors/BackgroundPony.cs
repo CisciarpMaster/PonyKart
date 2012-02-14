@@ -18,8 +18,8 @@ namespace Ponykart.Actors {
 		// milliseconds
 		private const int ANIMATION_TIMESPAN_MINIMUM = 5000, ANIMATION_TIMESPAN_MAXIMUM = 8000;
 		private Random random;
-		private Quaternion look_at = Quaternion.IDENTITY;
-		private Bone headbone;
+		private Euler neckFacing;
+		private Bone neckbone;
 		private Kart followKart;
 
 		public BackgroundPony(ThingBlock block, ThingDefinition def) : base(block, def) {
@@ -50,17 +50,17 @@ namespace Ponykart.Actors {
 
 			Skeleton skeleton = bodyComponent.Entity.Skeleton;
 			// set up all of the animation states to not use the head bone
-			headbone = skeleton.GetBone("Head");
-			headbone.SetManuallyControlled(true);
-			/*foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
+			neckbone = skeleton.GetBone("Neck");
+			neckbone.SetManuallyControlled(true);
+			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
 				// don't add a blend mask to the blink state because we'll make a different one for it
 				if (state.AnimationName == "Blink2")
 					continue;
 
 				state.CreateBlendMask(skeleton.NumBones);
-				state.SetBlendMaskEntry(headbone.Handle, 0);
+				state.SetBlendMaskEntry(neckbone.Handle, 0);
 			}
-			headbone.InheritOrientation = false;*/
+			neckbone.InheritOrientation = false;
 
 			// set up the blink animation state with some stuff
 			blinkState = bodyComponent.Entity.GetAnimationState("Blink2");
@@ -68,6 +68,8 @@ namespace Ponykart.Actors {
 			blinkState.Loop = true;
 			blinkState.Weight = 1;
 			blinkState.AddTime(ID);
+
+			neckFacing = new Euler(0, 0, 0);
 
 			// set up a blend mask so only the eyebrow bones have any effect on the blink animation
 			blinkState.CreateBlendMask(skeleton.NumBones, 0);
@@ -97,22 +99,18 @@ namespace Ponykart.Actors {
 		
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
-				Vector3 thisDerivedPos = RootNode._getDerivedPosition();
+				Vector3 lookat = RootNode.ConvertWorldToLocalPosition(followKart.RootNode.Position);
+				// temp is how much you need to rotate to get from the current orientation to the new orientation
+				// we use -lookat because our bone points towards +Z, whereas this code was originally made for things facing towards -Z
+				Euler temp = neckFacing.GetRotationTo(-lookat, true, true, true);
+				// limit the offset so the head turns at a maximum of 3 radians per second
+				temp.LimitYaw(new Radian(evt.timeSinceLastFrame * 3f));
+				temp.LimitPitch(new Radian(evt.timeSinceLastFrame * 3f));
 
-				Vector3 cam_pos = followKart.RootNode._getDerivedPosition( );
-				Vector3 node_pos = thisDerivedPos + headbone._getDerivedPosition( );
-				Vector3 diff = cam_pos - node_pos;
-				diff.Normalise( );
-
-				// Check we can turn here		
-				Vector3 forward = thisDerivedPos * new Vector3( 0, 0, 1 );
-				Quaternion desired = Quaternion.IDENTITY;
-				if ( forward.DotProduct( diff ) > 0.1f )
-				{
-					desired = forward.GetRotationTo( diff );
-				}
-				look_at = Quaternion.Slerp( 0.95f, desired, look_at );
-				headbone.Orientation = ( look_at * headbone.InitialOrientation );
+				neckFacing = neckFacing + temp;
+				neckFacing.LimitYaw(new Degree(70f));
+				neckFacing.LimitPitch(new Degree(60f));
+				neckbone.Orientation = neckFacing;
 			}
 
 			return true;
