@@ -85,7 +85,7 @@ namespace Mogre {
 			// rotMat.ToEulerAnglesYXZ(out mYaw, out mPitch, out mRoll);
 
 			// WORKAROUND
-			Boolean success;
+			bool success;
 			Matrix3ToEulerAnglesYXZ(rotMat, out mYaw, out mPitch, out mRoll, out success);
 
 			mChanged = true;
@@ -190,8 +190,7 @@ namespace Mogre {
 		/// For example "X-axis: 0°   Y-axis: 36°   Z-axis: 90°"
 		/// </summary>
 		public String ToAxisString() {
-			return String.Format("X: {0:00}°   Y: {1:00}°   Z: {2:00}°",
-				Pitch.ValueDegrees, Yaw.ValueDegrees, Roll.ValueDegrees);
+			return String.Format("X: {0:00}°   Y: {1:00}°   Z: {2:00}°", Pitch.ValueDegrees, Yaw.ValueDegrees, Roll.ValueDegrees);
 		}
 
 
@@ -202,8 +201,7 @@ namespace Mogre {
 		/// For example "Yaw: 0°   Pitch: 36°   Roll: 90°"
 		/// </summary>
 		public String ToYawPitchRollString() {
-			return String.Format("Yaw: {0:00}°   Pitch: {1:00}°   Roll: {2:00}°",
-				Yaw.ValueDegrees, Pitch.ValueDegrees, Roll.ValueDegrees);
+			return String.Format("Yaw: {0:00}°   Pitch: {1:00}°   Roll: {2:00}°", Yaw.ValueDegrees, Pitch.ValueDegrees, Roll.ValueDegrees);
 		}
 
 
@@ -297,7 +295,7 @@ namespace Mogre {
 			try {
 				if (match.Success) {
 					// Force to parse "." as decimal char.  (Can be different with other culture settings. E.g. German culture expect "," instad of ".")
-					System.Globalization.CultureInfo englishCulture = new System.Globalization.CultureInfo("en-US");
+					System.Globalization.CultureInfo englishCulture = new System.Globalization.CultureInfo("en-GB");
 
 					Single[] result = new Single[3];
 					result[0] = Convert.ToSingle(match.Groups[1].Value, englishCulture);
@@ -335,7 +333,7 @@ namespace Mogre {
 		/// <param name="directionVector">Vector which points to the wanted direction</param>
 		/// <param name="setYaw">if false, the yaw isn't changed.</param>
 		/// <param name="setPitch">if false, the pitch isn't changed.</param>
-		public void SetDirection(Vector3 directionVector, Boolean setYaw, Boolean setPitch) {
+		public void SetDirection(Vector3 directionVector, bool setYaw, bool setPitch) {
 			Vector3 d = directionVector.NormalisedCopy;
 			if (setPitch)
 				mPitch = Math.ASin(d.y);
@@ -356,7 +354,7 @@ namespace Mogre {
 		/// <param name="normPitch">If true, the angle will be normalised.</param>
 		/// <param name="normRoll">If true, the angle will be normalised.</param>
 		/// <remarks></remarks>
-		public void Normalise(Boolean normYaw, Boolean normPitch, Boolean normRoll) {
+		public void Normalise(bool normYaw, bool normPitch, bool normRoll) {
 			if (normYaw) {
 				Single yaw = mYaw.ValueRadians;
 				if (yaw < -Math.PI) {
@@ -387,9 +385,11 @@ namespace Mogre {
 					mPitch = pitch;
 					mChanged = true;
 
+#if DEBUG
 					if (Single.IsNaN(mPitch.ValueDegrees)) // DEBUGGING
 			 {
 					}  // add breakpoint here
+#endif
 				}
 				else if (pitch > Math.PI) {
 					pitch = (Single) System.Math.IEEERemainder(pitch, Math.PI * 2.0f);
@@ -399,9 +399,11 @@ namespace Mogre {
 					mPitch = pitch;
 					mChanged = true;
 
+#if DEBUG
 					if (Single.IsNaN(mPitch.ValueDegrees)) // DEBUGGING
 			 {
 					}  // add breakpoint here
+#endif
 				}
 			}
 
@@ -441,7 +443,7 @@ namespace Mogre {
 		/// <param name="shortest">If false, the full value of each angle is used. If true, the angles are normalised and the shortest rotation is found to face the correct direction.</param>
 		/// <param name="setYaw">If true the angles are calculated. If false, the angle is set to 0. </param>
 		/// <param name="setPitch">If true the angles are calculated. If false, the angle is set to 0. </param>
-		public Euler GetRotationTo(Vector3 direction, Boolean setYaw, Boolean setPitch, Boolean shortest) {
+		public Euler GetRotationTo(Vector3 direction, bool setYaw, bool setPitch, bool shortest) {
 			Euler t1 = Euler.IDENTITY;
 			Euler t2;
 			t1.SetDirection(direction, setYaw, setPitch);
@@ -513,7 +515,7 @@ namespace Mogre {
 		/// <param name="matrix">Rotation matrix</param>
 		/// <param name="success">This COULD BE a flag for "success", but it's not documented in the original code.</param>
 		public static void Matrix3ToEulerAnglesYXZ(Matrix3 matrix,
-			out Radian rfYAngle, out Radian rfPAngle, out Radian rfRAngle, out Boolean success) {
+			out Radian rfYAngle, out Radian rfPAngle, out Radian rfRAngle, out bool success) {
 			rfPAngle = Mogre.Math.ASin(-matrix.m12);
 
 			if (rfPAngle < new Radian(Math.HALF_PI)) {
@@ -521,7 +523,6 @@ namespace Mogre {
 					rfYAngle = Math.ATan2(matrix.m02, matrix.m22);
 					rfRAngle = Math.ATan2(matrix.m10, matrix.m11);
 					success = true;
-					return;
 				}
 				else {
 					// WARNING.  Not a unique solution.
@@ -529,7 +530,6 @@ namespace Mogre {
 					rfRAngle = new Radian(0f);  // any angle works
 					rfYAngle = rfRAngle - fRmY;
 					success = false;
-					return;
 				}
 			}
 			else {
@@ -538,46 +538,8 @@ namespace Mogre {
 				rfRAngle = new Radian(0f);  // any angle works
 				rfYAngle = fRpY - rfRAngle;
 				success = false;
-				return;
 			}
-
-
-
-			// "Original" CODE FROM CLASS Matrix3.ToEulerAnglesYXZ()
-
-			//rfPAngle = Mogre::Math::ASin(-m12);
-			//if ( rfPAngle < Radian(Math::HALF_PI) )
-			//{
-			//    if ( rfPAngle > Radian(-Math::HALF_PI) )
-			//    {
-			//        rfYAngle = System::Math::Atan2(m02,m22);
-			//        rfRAngle = System::Math::Atan2(m10,m11);
-			//        return true;
-			//    }
-			//    else
-			//    {
-			//        // WARNING.  Not a unique solution.
-			//        Radian fRmY = System::Math::Atan2(-m01,m00);
-			//        rfRAngle = Radian(0.0);  // any angle works
-			//        rfYAngle = rfRAngle - fRmY;
-			//        return false;
-			//    }
-			//}
-			//else
-			//{
-			//    // WARNING.  Not a unique solution.
-			//    Radian fRpY = System::Math::Atan2(-m01,m00);
-			//    rfRAngle = Radian(0.0);  // any angle works
-			//    rfYAngle = fRpY - rfRAngle;
-			//    return false;
-			//}
-
-
 		} // Matrix3ToEulerAnglesYXZ()
-
-
-
-
 
 
 
