@@ -17,11 +17,11 @@ void main_vp(float2 uv 				: TEXCOORD0,
 			 uniform float4x4 WorldITXf, // our four standard "untweakable" xforms
 			 uniform float4x4 WorldXf,
 			 uniform float4x4 ViewIXf,
-			 uniform float4x4 WvpXf,
+			 //uniform float4x4 WvpXf,
 			uniform float4x4 ViewProjection,
 			 uniform float4 lightPosition,
-			uniform float Time,
-			uniform float2 scale
+			uniform float Time //,
+			//uniform float2 scale
 ) {
 
 	// Pass though world space normal

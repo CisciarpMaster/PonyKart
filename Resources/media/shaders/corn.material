@@ -7,7 +7,7 @@ vertex_program corn_vp cg {
 		param_named_auto WorldITXf    inverse_transpose_world_matrix
 		param_named_auto WorldXf      world_matrix
 		param_named_auto ViewIXf      inverse_view_matrix
-		param_named_auto WvpXf        worldviewproj_matrix				
+		//param_named_auto WvpXf        worldviewproj_matrix				
 		param_named_auto ViewProjection        viewproj_matrix		
 		param_named_auto lightPosition light_position 0
 		param_named_auto Time		time

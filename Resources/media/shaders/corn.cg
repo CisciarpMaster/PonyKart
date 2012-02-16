@@ -17,7 +17,7 @@ void main_vp(float2 uv 				: TEXCOORD0,
 			 uniform float4x4 WorldITXf, // our four standard "untweakable" xforms
 			 uniform float4x4 WorldXf,
 			 uniform float4x4 ViewIXf,
-			 uniform float4x4 WvpXf,
+			 //uniform float4x4 WvpXf,
 			uniform float4x4 ViewProjection,
 			 uniform float4 lightPosition,
 			uniform float Time,
@@ -35,6 +35,6 @@ void main_vp(float2 uv 				: TEXCOORD0,
 	oLightPosition = lightPosition.xyz;
 	
 	// get our new UV coordinates
-	oUv.x = uv.x * 1.0f / 0.03f;
-	oUv.y = uv.y * 1;
+	oUv.x = uv.x * 1.0f / scale.x;
+	oUv.y = uv.y * 1.0f / scale.y;
 }
