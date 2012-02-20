@@ -63,7 +63,7 @@ namespace Ponykart.Handlers {
 
 			mainMenuGui.GetControl<Button>("Sweet Apple Acres").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("SweetAppleAcres");
 
-			mainMenuGui.GetControl<Button>("Dust").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("Dust");
+			mainMenuGui.GetControl<Button>("Whitetail Woods").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("WhitetailWoods");
 
 			mainMenuGui.GetControl<Button>("Quit").MouseClick += (o, e) => Launch.Quit = true;
 			
