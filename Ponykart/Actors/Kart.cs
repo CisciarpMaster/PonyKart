@@ -18,8 +18,10 @@ namespace Ponykart.Actors {
 		protected override MotionState InitializationMotionState {
 			get { return new MogreMotionState(this, SpawnPosition, SpawnOrientation, RootNode); }
 		}
-		public float MaxSpeed { get; set; }
-		public float MaxReverseSpeed { get; set; }
+		private float _maxSpeed;
+		public float MaxSpeed { get { return _maxSpeed; } set { _maxSpeed = value; MaxSpeedSquared = value * value; } }
+		private float _maxReverseSpeed;
+		public float MaxReverseSpeed { get { return _maxReverseSpeed; } set { _maxReverseSpeed = value; MaxReverseSpeedSquared = value * value; } }
 		public float MaxSpeedSquared { get; private set; }
 		public float MaxReverseSpeedSquared { get; private set; }
 		/// <summary>
