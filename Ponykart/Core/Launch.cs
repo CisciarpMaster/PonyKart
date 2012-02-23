@@ -49,7 +49,7 @@ namespace Ponykart {
 			root.RenderOneFrame();
 			window.SetVisible(true);
 
-			while (!Quit && !window.IsClosed && root != null) {
+			while (!Quit && !window.IsClosed/* && root != null*/) {
 				if (!root.RenderOneFrame())
 					break;
 				// this is for stuff like window selection, moving, etc
@@ -71,7 +71,7 @@ namespace Ponykart {
 				MessageBox.Show(ex.Message + "\n\n" + ex.StackTrace, ex.GetType().ToString());
 			}
 			else if (OgreException.IsThrown) {
-				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred!");
+				MessageBox.Show(OgreException.LastException.FullDescription, "An Ogre exception has occurred! Check Ponykart.log for details.");
 			}
 
 			// sometimes ogre exceptions happen early on but they don't crash everything, like shader/material errors.

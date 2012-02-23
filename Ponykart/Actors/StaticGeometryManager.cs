@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
@@ -98,7 +95,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public void Build() {
 			foreach (StaticGeometry sg in sgeoms.Values) {
-				System.Console.WriteLine("Static Geometry: " + sg.Name);
+				System.Console.WriteLine("Building static geometry: " + sg.Name);
 				sg.Build();
 			}
 
@@ -118,13 +115,16 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Sets the visibility of all static geometry objects in the specified map region.
 		/// </summary>
-		/// <param name="regionName">The name of the map region. Case insensitive</param>
+		/// <param name="regionName">The name of the map region. Case sensitive</param>
 		/// <param name="visible">Do you want to make them visible or not?</param>
 		public void SetVisibility(string regionName, bool visible) {
-			var matchingGeoms = sgeoms.Where(k => k.Key.StartsWith(regionName, StringComparison.CurrentCultureIgnoreCase));
-			foreach (var pair in matchingGeoms) {
-				pair.Value.SetVisible(visible);
+			StaticGeometry sg;
+			if (sgeoms.TryGetValue(regionName, out sg)) {
+				if (sg.IsVisible == visible)
+					sg.SetVisible(visible);
 			}
+			else
+				Launch.Log("[ERROR] Tried to change the visibility of the static geometry with name \"" + regionName + "\", but it doesn't exist!");
 		}
 	}
 }

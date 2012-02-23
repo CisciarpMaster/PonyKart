@@ -111,6 +111,10 @@ namespace Ponykart.Handlers {
 
 					Settings.Default.Reload();
 					break;
+				// prnt scrn
+				case KeyCode.KC_SYSRQ:
+					LKernel.GetG<RenderWindow>().WriteContentsToTimestampedFile("Ponykart_", ".png");
+					break;
 			}
 		}
 	}
