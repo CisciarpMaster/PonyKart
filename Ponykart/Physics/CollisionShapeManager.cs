@@ -38,7 +38,7 @@ namespace Ponykart.Physics {
 				// check to see if the .bullet file exists
 				if (File.Exists(Settings.Default.BulletFileLocation + filename)) {
 					// if it does not, import it (make sure we get rid of the extension first)
-					shape = ImportCollisionShape(filename.Replace(".bullet", string.Empty));
+					shape = ImportCollisionShape(Path.GetFileNameWithoutExtension(filename));
 				}
 				else {
 					Launch.Log("[PhysicsMain] " + filename + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
@@ -153,14 +153,13 @@ namespace Ponykart.Physics {
 				case ThingEnum.Mesh:
 					// example
 					// physics/example.bullet
-					string name, bulletFilePath;
+					string name = Path.GetFileNameWithoutExtension(component.Mesh);
+					string bulletFilePath;
 
 					if (component.Mesh.EndsWith(".mesh")) {
-						name = component.Mesh.Remove(component.Mesh.IndexOf(".mesh"));
 						bulletFilePath = Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension;
 					}
 					else if (component.Mesh.EndsWith(Settings.Default.BulletFileExtension)) {
-						name = component.Mesh.Remove(component.Mesh.IndexOf(Settings.Default.BulletFileExtension));
 						bulletFilePath = Settings.Default.BulletFileLocation + component.Mesh;
 					}
 					else {
