@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowsTest", "ShadowsTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rescaler", "Rescaler\Rescaler.csproj", "{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OgreToBulletMesh", "OgreToBulletMesh\OgreToBulletMesh.csproj", "{950DD472-0EF6-4321-BACC-FCD3E3FA2576}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Cupcake|Any CPU = Cupcake|Any CPU
@@ -27,7 +29,7 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|Any CPU.ActiveCfg = Release|x86
+		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|Any CPU.ActiveCfg = Debug|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|x86.ActiveCfg = Debug|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Cupcake|x86.Build.0 = Debug|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -38,7 +40,7 @@ Global
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Release|Any CPU.Build.0 = Release|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Release|x86.ActiveCfg = Release|x86
 		{E42E240A-99DB-4375-BCA3-187AA990C15C}.Release|x86.Build.0 = Release|x86
-		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Cupcake|Any CPU.ActiveCfg = Cupcake|x86
+		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Cupcake|Any CPU.ActiveCfg = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Cupcake|x86.ActiveCfg = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Cupcake|x86.Build.0 = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -48,7 +50,7 @@ Global
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Release|Any CPU.Build.0 = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Release|x86.ActiveCfg = Release|x86
 		{F0DC2342-17AA-48AB-8D0F-4334D1574686}.Release|x86.Build.0 = Release|x86
-		{B7598F5C-A971-42F4-B324-2268085C4113}.Cupcake|Any CPU.ActiveCfg = Cupcake|x86
+		{B7598F5C-A971-42F4-B324-2268085C4113}.Cupcake|Any CPU.ActiveCfg = Release|x86
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Cupcake|x86.ActiveCfg = Release|x86
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Cupcake|x86.Build.0 = Release|x86
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -58,8 +60,7 @@ Global
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|Any CPU.Build.0 = Release|x86
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|x86.ActiveCfg = Release|x86
 		{B7598F5C-A971-42F4-B324-2268085C4113}.Release|x86.Build.0 = Release|x86
-		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|Any CPU.ActiveCfg = Cupcake|Any CPU
-		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|Any CPU.Build.0 = Cupcake|Any CPU
+		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|Any CPU.ActiveCfg = Debug|x86
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|x86.ActiveCfg = Debug|x86
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Cupcake|x86.Build.0 = Debug|x86
 		{BE300323-9D6D-4CA5-BA9C-41736DFF973D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -80,7 +81,7 @@ Global
 		{6189BBCA-E653-44A1-85DA-9D0C9C8602DE}.Release|Any CPU.Build.0 = Release|x86
 		{6189BBCA-E653-44A1-85DA-9D0C9C8602DE}.Release|x86.ActiveCfg = Release|x86
 		{6189BBCA-E653-44A1-85DA-9D0C9C8602DE}.Release|x86.Build.0 = Release|x86
-		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|Any CPU.ActiveCfg = Release|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|Any CPU.ActiveCfg = Debug|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.ActiveCfg = Debug|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.Build.0 = Debug|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -99,6 +100,15 @@ Global
 		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Release|Any CPU.ActiveCfg = Release|x86
 		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Release|x86.ActiveCfg = Release|x86
 		{9EE8E6CE-3EC5-4909-9FEE-378A5BE0072B}.Release|x86.Build.0 = Release|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Cupcake|Any CPU.ActiveCfg = Release|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Cupcake|x86.ActiveCfg = Release|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Cupcake|x86.Build.0 = Release|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Debug|x86.ActiveCfg = Debug|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Debug|x86.Build.0 = Debug|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|Any CPU.ActiveCfg = Release|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|x86.ActiveCfg = Release|x86
+		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
