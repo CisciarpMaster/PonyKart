@@ -94,7 +94,6 @@ public class IcoSphere {
 	}
 
 	public void Dispose() {
-		// TODO: Verify & complete if necessary
 		vertices.Clear();
 		vertices = null;
 		_lineIndices.Clear();
@@ -797,26 +796,14 @@ public class MogreDebugDrawer : System.IDisposable {
 	// IDisposable
 	protected virtual void Dispose(bool disposing) {
 		if (!this.disposedValue) {
-			// TODO: Verwalteten Zustand löschen (verwaltete Objekte).
-
-			// TODO: Test these two!
 			//icoSphere.Dispose();
 			//Clear();
 			if (disposing) {
 			}
-			// TODO: Nicht verwaltete Ressourcen (nicht verwaltete Objekte) freigeben und Finalize() unten überschreiben.
-			// TODO: Große Felder auf NULL festlegen.
 			Shutdown();
 		}
 		this.disposedValue = true;
 	}
-
-	// TODO: Finalize() nur überschreiben, wenn Dispose(ByVal disposing As Boolean) oben über Code zum Freigeben von nicht verwalteten Ressourcen verfügt.
-	//Protected Overrides Sub Finalize()
-	//    ' Ändern Sie diesen Code nicht. Fügen Sie oben in Dispose(ByVal disposing As Boolean) Bereinigungscode ein.
-	//    Dispose(False)
-	//    MyBase.Finalize()
-	//End Sub
 
 	// This code is for C# to implement the Dispose pattern correctly.
 	public void Dispose() {

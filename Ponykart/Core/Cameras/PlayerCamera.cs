@@ -53,7 +53,6 @@ namespace Ponykart.Core {
 		protected readonly float _cameraTightness = Settings.Default.CameraTightness;
 		/// <summary>
 		/// Updates the camera
-		/// TODO: stop it from going through the terrain
 		/// </summary>
 		protected override bool UpdateCamera(FrameEvent evt) {
 			Vector3 camDisplacement, targetDisplacement,
