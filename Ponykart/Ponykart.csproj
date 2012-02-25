@@ -159,6 +159,7 @@
     <Compile Include="Handlers\Helpers\Rotater.cs" />
     <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />
     <Compile Include="Handlers\Helpers\Nlerper.cs" />
+    <Compile Include="Handlers\MainMenuSinglePlayerHandler.cs" />
     <Compile Include="Handlers\Per-level\SAA_JumpAround.cs" />
     <Compile Include="Handlers\Per-level\SAA_WheelParticleHandler.cs" />
     <Compile Include="Handlers\Helpers\Skidder.cs" />
@@ -168,6 +169,9 @@
     <Compile Include="Handlers\SceneEnvironmentHandler.cs" />
     <Compile Include="Handlers\Helpers\SelfRighter.cs" />
     <Compile Include="Handlers\UI\CountdownUIHandler.cs" />
+    <Compile Include="Handlers\UI\MainMenuUIHandler.cs" />
+    <Compile Include="Levels\LevelChangeRequest.cs" />
+    <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\KartHandler.cs" />
     <Compile Include="Kernel\KernelHandlers.cs" />

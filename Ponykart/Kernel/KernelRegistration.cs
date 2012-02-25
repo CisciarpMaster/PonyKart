@@ -77,6 +77,7 @@ namespace Ponykart {
 			AddGlobalObject(new DebugOverlayManager());
 			AddGlobalObject(new UIMain());
 			AddGlobalObject(new LuaConsoleManager());
+			AddGlobalObject(new MainMenuManager());
 
 			// lua needs these
 			splash.Increment("Registering handlers and wrappers...");

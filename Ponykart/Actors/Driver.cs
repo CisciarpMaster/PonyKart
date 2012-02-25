@@ -11,6 +11,9 @@ namespace Ponykart.Actors {
 		}
 
 		public void AttachToKart(Kart kart, Vector3 offset) {
+			kart.Driver = this;
+			this.Kart = kart;
+
 			this.RootNode.Parent.RemoveChild(this.RootNode);
 			kart.RootNode.AddChild(this.RootNode);
 

@@ -1,9 +1,9 @@
-﻿using PonykartParsers;
+﻿using Ponykart.Levels;
 
 namespace Ponykart.Players {
     public class ComputerPlayer : Player {
 
-        public ComputerPlayer(MuffinDefinition def, int id) : base(def, id) {
+        public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id) {
 
         }
 

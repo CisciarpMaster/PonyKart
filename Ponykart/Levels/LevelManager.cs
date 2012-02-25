@@ -51,7 +51,7 @@ namespace Ponykart.Levels {
 			CurrentLevel.ReadMuffin();
 
 			// run level loading events
-			var args = new LevelChangedEventArgs(new Level(null), CurrentLevel);
+			var args = new LevelChangedEventArgs(CurrentLevel, new Level(null), new LevelChangeRequest() { NewLevelName = Settings.Default.MainMenuName });
 			Invoke(OnLevelLoad, args);
 			LKernel.LoadLevelHandlers(args.NewLevel);
 
@@ -180,14 +180,13 @@ namespace Ponykart.Levels {
 		/// <summary>
 		/// Loads a level!
 		/// </summary>
-		/// <param name="newLevelName">The name of the level to load</param>
 		/// <param name="delay">
 		/// Minimum time to wait (in seconds) before we load the level, to let stuff like loading screens have a chance to render.
 		/// Pass 0 to load the new level instantly.
 		/// </param>
-		public void LoadLevel(string newLevelName, float delay = INITIAL_DELAY) {
+		public void LoadLevel(LevelChangeRequest request, float delay = INITIAL_DELAY) {
 			Pauser.IsPaused = false;
-			var eventArgs = new LevelChangedEventArgs(new Level(newLevelName), CurrentLevel);
+			var eventArgs = new LevelChangedEventArgs(new Level(request.NewLevelName), CurrentLevel, request);
 
 			// fire our preUnload events
 			Invoke(OnLevelPreUnload, eventArgs);

@@ -13,7 +13,7 @@ namespace Ponykart.Handlers {
 		Label label;
 
 		public SpeedUIHandler() {
-			var gui = LKernel.GetG<UIMain>().GetGUI("level gui");
+			var gui = LKernel.GetG<UIMain>().GetGUI("level debug gui");
 
 			label = gui.GetControl<Label>("speed label");
 

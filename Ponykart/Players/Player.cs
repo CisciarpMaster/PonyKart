@@ -3,6 +3,7 @@ using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
+using Ponykart.Levels;
 using Ponykart.Properties;
 using PonykartParsers;
 
@@ -29,24 +30,28 @@ namespace Ponykart.Players {
 		public virtual bool IsControlEnabled { get; set; }
 
 
-		public Player(MuffinDefinition def, int id) {
+		public Player(LevelChangedEventArgs eventArgs, int id) {
 			// don't want to create a player if it's ID isn't valid
 			if (id < 0 || id >= Settings.Default.NumberOfPlayers)
 				throw new ArgumentOutOfRangeException("id", "ID number specified for kart spawn position is not valid!");
 			Launch.Log("[Loading] Player with ID " + id + " created");
 
 			// set up the spawn position/orientation
-			Vector3 spawnPos = def.GetVectorProperty("KartSpawnPosition" + id, null);
-			Quaternion spawnOrient = def.GetQuatProperty("KartSpawnOrientation" + id, Quaternion.IDENTITY);
+			Vector3 spawnPos = eventArgs.NewLevel.Definition.GetVectorProperty("KartSpawnPosition" + id, null);
+			Quaternion spawnOrient = eventArgs.NewLevel.Definition.GetQuatProperty("KartSpawnOrientation" + id, Quaternion.IDENTITY);
 
-			ThingBlock block = new ThingBlock("TwiCutlass", def);
-			block.VectorTokens["position"] = spawnPos;
-			block.QuatTokens["orientation"] = spawnOrient;
+			ThingBlock block = new ThingBlock("TwiCutlass", spawnPos, spawnOrient);
 
-			Kart = LKernel.GetG<Spawner>().Spawn("TwiCutlass", block) as Kart;
-			Driver = LKernel.GetG<Spawner>().Spawn("Twilight", block) as Driver;
-			Driver.Kart = Kart;
-			Kart.Driver = Driver;
+			string driverName, kartName;
+			if (eventArgs.Request.CharacterName == "Twilight Sparkle") {
+				driverName = "Twilight";
+				kartName = "TwiCutlass";
+			}
+			else
+				throw new ArgumentException("Invalid character name!", "eventArgs");
+
+			Kart = LKernel.GetG<Spawner>().Spawn(kartName, block) as Kart;
+			Driver = LKernel.GetG<Spawner>().Spawn(driverName, block) as Driver;
 			Driver.AttachToKart(Kart, Vector3.ZERO);
 
 			Kart.OwnerID = id;

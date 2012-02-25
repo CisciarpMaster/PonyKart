@@ -4,7 +4,6 @@
 <Miyagi Version="1.3.0.4827">
 	<Manager Type="GUI">
 		<GUIs>
-		
 			<!-- various level stuff - speed information, commands label & button, etc -->
 			<GUI Type="Miyagi.UI.GUI">
 				<Controls>
@@ -68,97 +67,9 @@
 						</TextStyle>
 					</Control>
 				</Controls>
-				<Name>level gui</Name>
+				<Name>level debug gui</Name>
 				<Visible>False</Visible>
 				<ZOrder>0</ZOrder>
-			</GUI>
-			
-			<!-- the gui for the main menu -->
-			<GUI Type="Miyagi.UI.GUI">
-				<Controls>
-					<!-- that checkered flag texture on the main menu -->
-					<Control Type="Miyagi.UI.Controls.PictureBox">
-						<Enabled>False</Enabled>
-						<Movable>False</Movable>
-						<Name>checkers picture</Name>
-						<Rectangle>0,0,690,611</Rectangle>
-						<TextureFiltering>Anisotropic</TextureFiltering>
-					</Control>
-					<!-- the menu panel with the level buttons -->
-					<Control Type="Miyagi.UI.Controls.Panel">
-						<Anchor>HorizontalCenter</Anchor>
-						<Enabled>False</Enabled>
-						<Name>play menu panel</Name>
-						<Rectangle>320,84,725,600</Rectangle>
-						<ResizeMode>None</ResizeMode>
-						<SkinName>PKPlayMenu</SkinName>
-						<TextureFiltering>Anisotropic</TextureFiltering>
-					</Control>
-					<!-- level selection buttons -->
-					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
-						<Name>flat</Name>
-						<Rectangle>512,250,300,40</Rectangle>
-						<SkinName>PKButtonSkin</SkinName>
-						<Text>flat</Text>
-						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
-							<Alignment>MiddleCenter</Alignment>
-							<FontName>Zil</FontName>
-							<ForegroundColour>-1</ForegroundColour>
-						</TextStyle>
-					</Control>
-					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
-						<Name>testlevel</Name>
-						<Rectangle>512,300,300,40</Rectangle>
-						<SkinName>PKButtonSkin</SkinName>
-						<Text>testlevel</Text>
-						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
-							<Alignment>MiddleCenter</Alignment>
-							<FontName>Zil</FontName>
-							<ForegroundColour>-1</ForegroundColour>
-						</TextStyle>
-					</Control>
-					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
-						<Name>Sweet Apple Acres</Name>
-						<Rectangle>512,350,300,40</Rectangle>
-						<SkinName>PKButtonSkin</SkinName>
-						<Text>Sweet Apple Acres</Text>
-						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
-							<Alignment>MiddleCenter</Alignment>
-							<FontName>Zil</FontName>
-							<ForegroundColour>-1</ForegroundColour>
-						</TextStyle>
-					</Control>
-					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
-						<Name>Whitetail Woods</Name>
-						<Rectangle>512,400,300,40</Rectangle>
-						<SkinName>PKButtonSkin</SkinName>
-						<Text>Whitetail Woods</Text>
-						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
-							<Alignment>MiddleCenter</Alignment>
-							<FontName>Zil</FontName>
-							<ForegroundColour>-1</ForegroundColour>
-						</TextStyle>
-					</Control>
-					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
-						<Name>Quit</Name>
-						<Rectangle>512,450,300,40</Rectangle>
-						<SkinName>PKButtonSkin</SkinName>
-						<Text>Quit</Text>
-						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
-							<Alignment>MiddleCenter</Alignment>
-							<FontName>Zil</FontName>
-							<ForegroundColour>-1</ForegroundColour>
-						</TextStyle>
-					</Control>
-				</Controls>
-				<Name>main menu gui</Name>
-				<Visible>True</Visible>
-				<ZOrder>60</ZOrder>
 			</GUI>
 			
 			<!-- for the lua console! -->
@@ -168,7 +79,8 @@
 					<Control Type="Miyagi.UI.Controls.Panel">
 						<AlwaysOnTop>True</AlwaysOnTop>
 						<BorderStyle Type="Miyagi.UI.Controls.Styles.BorderStyle">
-							<Thickness>2</Thickness>
+							<!-- changed this to 0 to see if it prevents resizing -->
+							<Thickness>0</Thickness>
 						</BorderStyle>
 						<HScrollBarStyle Type="Miyagi.UI.Controls.Styles.ScrollBarStyle">
 							<Extent>16</Extent>
@@ -271,6 +183,532 @@
 				<Name>loading screen gui</Name>
 				<Visible>False</Visible>
 				<ZOrder>100</ZOrder>
+			</GUI>
+			
+			
+			
+			<!-- background gui for the main menu -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<!-- that checkered flag texture on the main menu -->
+					<Control Type="Miyagi.UI.Controls.PictureBox">
+						<Enabled>False</Enabled>
+						<Movable>False</Movable>
+						<Name>checkers picture</Name>
+						<Rectangle>0,0,690,611</Rectangle>
+						<TextureFiltering>Anisotropic</TextureFiltering>
+					</Control>
+					<!-- the menu panel with the level buttons -->
+					<Control Type="Miyagi.UI.Controls.Panel">
+						<Anchor>HorizontalCenter</Anchor>
+						<Enabled>False</Enabled>
+						<Name>play menu panel</Name>
+						<Rectangle>320,84,725,600</Rectangle>
+						<ResizeMode>None</ResizeMode>
+						<SkinName>PKPlayMenu</SkinName>
+						<TextureFiltering>Anisotropic</TextureFiltering>
+					</Control>
+				</Controls>
+				<Name>menu background gui</Name>
+				<Visible>True</Visible>
+				<ZOrder>0</ZOrder>
+			</GUI>
+			
+			<!-- game type gui -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>game type single player button</Name>
+						<Rectangle>512,250,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Single Player</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>game type networked host button</Name>
+						<Rectangle>512,300,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Host Networked Game</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>game type networked client button</Name>
+						<Rectangle>512,350,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Join Networked Game</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>gam type options button</Name>
+						<Rectangle>512,400,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Options</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>quit button</Name>
+						<Rectangle>512,450,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Quit</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+				</Controls>
+				<Name>menu game type gui</Name>
+				<Visible>True</Visible>
+				<ZOrder>60</ZOrder>
+			</GUI>
+			
+			<!-- host information gui -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<!-- port -->
+					<Control Type="Miyagi.UI.Controls.Label">
+						<Name>host info port label</Name>
+						<Rectangle>400,300,200,40</Rectangle>
+						<Text>Port:</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.TextBox">
+						<Name>host info port text box</Name>
+						<Padding>9,0,8,0</Padding>
+						<Rectangle>600,300,200,40</Rectangle>
+						<SkinName>PKTextBoxSkin</SkinName>
+						<TextBoxStyle Type="Miyagi.UI.Controls.Styles.TextBoxStyle">
+							<CaretStyle Type="Miyagi.UI.Controls.Styles.CaretStyle">
+								<Colour>-16777216</Colour>
+								<Size>2,16</Size>
+							</CaretStyle>
+						</TextBoxStyle>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+						</TextStyle>
+					</Control>
+					<!-- password -->
+					<Control Type="Miyagi.UI.Controls.Label">
+						<Name>host info password label</Name>
+						<Rectangle>400,350,200,40</Rectangle>
+						<Text>Password:</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.TextBox">
+						<Name>host info password text box</Name>
+						<Padding>9,0,8,0</Padding>
+						<Rectangle>600,350,200,40</Rectangle>
+						<SkinName>PKTextBoxSkin</SkinName>
+						<TextBoxStyle Type="Miyagi.UI.Controls.Styles.TextBoxStyle">
+							<CaretStyle Type="Miyagi.UI.Controls.Styles.CaretStyle">
+								<Colour>-16777216</Colour>
+								<Size>2,16</Size>
+							</CaretStyle>
+						</TextBoxStyle>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+						</TextStyle>
+					</Control>
+					<!-- buttons -->
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>host info next button</Name>
+						<Rectangle>512,400,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Next</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>host info back button</Name>
+						<Rectangle>512,450,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Back</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+				</Controls>
+				<Name>menu host info gui</Name>
+				<Visible>False</Visible>
+				<ZOrder>60</ZOrder>
+			</GUI>
+			
+			<!-- client information gui -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<!-- IP -->
+					<Control Type="Miyagi.UI.Controls.Label">
+						<Name>client info IP label</Name>
+						<Rectangle>400,300,200,40</Rectangle>
+						<Text>IP:</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.TextBox">
+						<Name>client info IP text box</Name>
+						<Padding>9,0,8,0</Padding>
+						<Rectangle>600,300,200,40</Rectangle>
+						<SkinName>PKTextBoxSkin</SkinName>
+						<TextBoxStyle Type="Miyagi.UI.Controls.Styles.TextBoxStyle">
+							<CaretStyle Type="Miyagi.UI.Controls.Styles.CaretStyle">
+								<Colour>-16777216</Colour>
+								<Size>2,16</Size>
+							</CaretStyle>
+						</TextBoxStyle>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+						</TextStyle>
+					</Control>
+					<!-- port -->
+					<Control Type="Miyagi.UI.Controls.Label">
+						<Name>client info port label</Name>
+						<Rectangle>400,350,200,40</Rectangle>
+						<Text>Port:</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.TextBox">
+						<Name>client info port text box</Name>
+						<Padding>9,0,8,0</Padding>
+						<Rectangle>600,350,200,40</Rectangle>
+						<SkinName>PKTextBoxSkin</SkinName>
+						<TextBoxStyle Type="Miyagi.UI.Controls.Styles.TextBoxStyle">
+							<CaretStyle Type="Miyagi.UI.Controls.Styles.CaretStyle">
+								<Colour>-16777216</Colour>
+								<Size>2,16</Size>
+							</CaretStyle>
+						</TextBoxStyle>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+						</TextStyle>
+					</Control>
+					<!-- password -->
+					<Control Type="Miyagi.UI.Controls.Label">
+						<Name>client info password label</Name>
+						<Rectangle>400,400,200,40</Rectangle>
+						<Text>Password:</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.TextBox">
+						<Name>client info password text box</Name>
+						<Padding>9,0,8,0</Padding>
+						<Rectangle>600,400,200,40</Rectangle>
+						<SkinName>PKTextBoxSkin</SkinName>
+						<TextBoxStyle Type="Miyagi.UI.Controls.Styles.TextBoxStyle">
+							<CaretStyle Type="Miyagi.UI.Controls.Styles.CaretStyle">
+								<Colour>-16777216</Colour>
+								<Size>2,16</Size>
+							</CaretStyle>
+						</TextBoxStyle>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleLeft</Alignment>
+						</TextStyle>
+					</Control>
+					<!-- buttons -->
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>client info next button</Name>
+						<Rectangle>512,450,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Next</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>client info back button</Name>
+						<Rectangle>512,500,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Back</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+				</Controls>
+				<Name>menu client info gui</Name>
+				<Visible>False</Visible>
+				<ZOrder>60</ZOrder>
+			</GUI>
+			
+			<!-- lobby gui -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<!-- label -->
+					<Control Type="Miyagi.UI.Controls.Label">
+						<Name>lobby label</Name>
+						<Rectangle>400,250,600,250</Rectangle>
+						<Text>Here you can put information to show people</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>TopLeft</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					
+					<!-- buttons -->
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>lobby next button</Name>
+						<Rectangle>512,500,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Next</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>lobby back button</Name>
+						<Rectangle>512,550,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Cancel</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+				</Controls>
+				<Name>menu lobby gui</Name>
+				<Visible>False</Visible>
+				<ZOrder>60</ZOrder>
+			</GUI>
+			
+			<!-- level selection gui -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<!-- level selection buttons -->
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>level select flat button</Name>
+						<Rectangle>512,250,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>flat</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>level select testlevel button</Name>
+						<Rectangle>512,300,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>testlevel</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>level select SAA button</Name>
+						<Rectangle>512,350,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Sweet Apple Acres</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>level select WTW button</Name>
+						<Rectangle>512,400,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Whitetail Woods</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>level select back button</Name>
+						<Rectangle>512,500,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Back</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+				</Controls>
+				<Name>menu level select gui</Name>
+				<Visible>False</Visible>
+				<ZOrder>60</ZOrder>
+			</GUI>
+			
+			<!-- character selection gui -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>character select TS button</Name>
+						<Rectangle>512,250,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Magichorn</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>False</Enabled>
+						<Name>character select RD button</Name>
+						<Rectangle>512,300,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Lightning Lesbian</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>False</Enabled>
+						<Name>character select AJ button</Name>
+						<Rectangle>512,350,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Treekicker</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>False</Enabled>
+						<Name>character select PP button</Name>
+						<Rectangle>512,400,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Song Smile</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>False</Enabled>
+						<Name>character select FS button</Name>
+						<Rectangle>512,450,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Yellowquiet</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>False</Enabled>
+						<Name>character select rarity button</Name>
+						<Rectangle>512,500,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Squiggletail</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>character select back button</Name>
+						<Rectangle>512,550,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Back</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+				</Controls>
+				<Name>menu character select gui</Name>
+				<Visible>False</Visible>
+				<ZOrder>60</ZOrder>
+			</GUI>
+			
+			<!-- options gui -->
+			<GUI Type="Miyagi.UI.GUI">
+				<Controls>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>options ok button</Name>
+						<Rectangle>512,550,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>OK</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+				</Controls>
+				<Name>menu options gui</Name>
+				<Visible>False</Visible>
+				<ZOrder>60</ZOrder>
 			</GUI>
 		</GUIs>
 	</Manager>

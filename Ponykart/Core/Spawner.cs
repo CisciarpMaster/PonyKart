@@ -1,4 +1,5 @@
-﻿using Mogre;
+﻿using System;
+using Mogre;
 using Ponykart.Actors;
 using Ponykart.Levels;
 using PonykartParsers;
@@ -28,8 +29,7 @@ namespace Ponykart.Core {
 		/// <returns>The thing you just spawned. Returns null if you are paused.</returns>
 		public LThing Spawn(string thingName, ThingBlock template) {
 			if (Pauser.IsPaused) {
-				Launch.Log("[Spawner] WARNING: Attempted to spawn something while paused!");
-				return null;
+				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
 			}
 
 			lock (this) {

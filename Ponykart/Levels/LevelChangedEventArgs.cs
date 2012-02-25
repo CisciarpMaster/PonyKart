@@ -10,9 +10,12 @@ namespace Ponykart.Levels {
 
 		public readonly Level OldLevel;
 
-		public LevelChangedEventArgs(Level newLevel, Level oldLevel) {
+		public readonly LevelChangeRequest Request;
+
+		public LevelChangedEventArgs(Level newLevel, Level oldLevel, LevelChangeRequest request) {
 			NewLevel = newLevel;
 			OldLevel = oldLevel;
+			Request = request;
 		}
 	}
 }

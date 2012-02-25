@@ -1,14 +1,14 @@
 ﻿using Ponykart.Actors;
 using Ponykart.Core;
-using PonykartParsers;
+using Ponykart.Levels;
 
 namespace Ponykart.Players {
 	public class HumanPlayer : Player {
 		KeyBindingManager bindings;
 
 
-		public HumanPlayer(MuffinDefinition def, int id)
-			: base(def, id) {
+		public HumanPlayer(LevelChangedEventArgs eventArgs, int id)
+			: base(eventArgs, id) {
 
 			// hook up to input events
 			bindings = LKernel.Get<KeyBindingManager>();

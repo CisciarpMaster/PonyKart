@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Miyagi.Common.Events;
+﻿using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Ponykart.Levels;
@@ -12,21 +11,20 @@ namespace Ponykart.Handlers {
 	[Handler(HandlerScope.Global)]
 	public class LevelUIHandler {
 		private Label commandsLabel;
-		private GUI levelGui, mainMenuGui;
+		private GUI levelGui;
 
 		public LevelUIHandler() {
 			LevelManager.OnLevelLoad += OnLevelLoad;
 			LevelManager.OnLevelPreUnload += OnLevelPreUnload;
 
 			SetupLevelUI();
-			SetupMainMenuUI();
 		}
 
 		/// <summary>
 		/// Make the level UI
 		/// </summary>
 		void SetupLevelUI() {
-			this.levelGui = LKernel.GetG<UIMain>().GetGUI("level gui");
+			this.levelGui = LKernel.GetG<UIMain>().GetGUI("level debug gui");
 
 			// the button
 			Button commandsButton = levelGui.GetControl<Button>("show/hide commands button");
@@ -44,40 +42,10 @@ namespace Ponykart.Handlers {
 		}
 
 		/// <summary>
-		/// Make the UI for the main menu
-		/// </summary>
-		void SetupMainMenuUI() {
-			this.mainMenuGui = LKernel.GetG<UIMain>().GetGUI("main menu gui");
-
-			// the checkers bit in the corner
-			PictureBox checkersPicture = mainMenuGui.GetControl<PictureBox>("checkers picture");
-			checkersPicture.Bitmap = new Bitmap("media/gui/checkers.png");
-
-			// the menu panel bit
-			//Panel playMenuPanel = mainMenuGui.GetControl<Panel>("play menu panel");
-
-			// some buttons
-			mainMenuGui.GetControl<Button>("flat").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("flat");
-
-			mainMenuGui.GetControl<Button>("testlevel").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("testlevel");
-
-			mainMenuGui.GetControl<Button>("Sweet Apple Acres").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("SweetAppleAcres");
-
-			mainMenuGui.GetControl<Button>("Whitetail Woods").MouseClick += (o, e) => LKernel.GetG<LevelManager>().LoadLevel("WhitetailWoods");
-
-			mainMenuGui.GetControl<Button>("Quit").MouseClick += (o, e) => Launch.Quit = true;
-			
-		}
-
-		/// <summary>
 		/// Decides which UI to show when a level is loaded
 		/// </summary>
 		private void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (eventArgs.NewLevel.Type.HasFlag(LevelType.Menu)) {
-				// when going to the menu
-				mainMenuGui.Visible = true;
-			}
-			else if (eventArgs.NewLevel.Type.HasFlag(LevelType.Race)) {
+			if (eventArgs.NewLevel.Type.HasFlag(LevelType.Race)) {
 				// when going from the menu to something else
 				levelGui.Visible = true;
 			}
@@ -87,7 +55,6 @@ namespace Ponykart.Handlers {
 		/// Hide the UI when unloading a level
 		/// </summary>
 		private void OnLevelPreUnload(LevelChangedEventArgs eventArgs) {
-			mainMenuGui.Visible = false;
 			levelGui.Visible = false;
 		}
 

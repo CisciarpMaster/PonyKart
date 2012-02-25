@@ -25,11 +25,11 @@ namespace Ponykart.Players {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
 				Players = new Player[Settings.Default.NumberOfPlayers];
 
-				MainPlayer = new HumanPlayer(eventArgs.NewLevel.Definition, 0);
+				MainPlayer = new HumanPlayer(eventArgs, 0);
 				Players[0] = MainPlayer;
 
 				for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
-					Players[a] = new ComputerPlayer(eventArgs.NewLevel.Definition, a);
+					Players[a] = new ComputerPlayer(eventArgs, a);
 				}
 			}
 		}

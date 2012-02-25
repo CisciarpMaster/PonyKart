@@ -14,7 +14,10 @@ namespace Ponykart.Lua {
 		[LuaFunction("loadLevel", "Unloads the current level and loads a new one. If you know the level's ID, use loadLevel instead. The name is case insensitive.",
 			"string newLevelName - The name of the new level. Case insensitive.")]
 		public static void LoadLevel(string newLevelName) {
-			LKernel.GetG<LevelManager>().LoadLevel(newLevelName);
+			LKernel.GetG<LevelManager>().LoadLevel(new LevelChangeRequest() {
+				NewLevelName = newLevelName,
+				CharacterName = "Twilight Sparkle"
+			});
 		}
 
 		[LuaFunction("getLevelName", "Gets the name of the current level. Returns \"\" if the current level is not valid.")]

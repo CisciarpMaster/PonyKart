@@ -29,8 +29,12 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_3:
 					s = "SweetAppleAcres"; break;
 			}
-			if (!string.IsNullOrEmpty(s))
-				LKernel.GetG<LevelManager>().LoadLevel(s);
+			if (!string.IsNullOrEmpty(s)) {
+				LKernel.GetG<LevelManager>().LoadLevel(new LevelChangeRequest() {
+					NewLevelName = s,
+					CharacterName = "Twilight Sparkle"
+				});
+			}
 		}
 	}
 }
