@@ -255,7 +255,7 @@
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
-						<Name>gam type options button</Name>
+						<Name>game type options button</Name>
 						<Rectangle>512,400,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>Options</Text>
