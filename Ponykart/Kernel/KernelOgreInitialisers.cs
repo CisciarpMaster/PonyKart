@@ -10,7 +10,7 @@ namespace Ponykart {
 		/// Initialises the root
 		/// </summary>
 		private static Root InitRoot() {
-			return new Root("plugins.cfg", "", "Ponykart.log");
+			return new Root("media/plugins/plugins.cfg", "", "Ponykart.log");
 		}
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace Ponykart {
 		/// </summary>
 		private static void InitResources() {
 			ConfigFile file = new ConfigFile();
-			file.Load("resources.cfg", "\t:=", true);
+			file.Load("media/plugins/resources.cfg", "\t:=", true);
 			ConfigFile.SectionIterator sectionIterator = file.GetSectionIterator();
 
 			while (sectionIterator.MoveNext()) {
