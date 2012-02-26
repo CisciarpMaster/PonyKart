@@ -123,5 +123,35 @@ namespace Ponykart.Lua {
 		public static void SetRegionNodeVisibility(string regionName, bool visible) {
 			LKernel.GetG<SceneManager>().GetSceneNode(regionName + "Node").SetVisible(visible);
 		}
+
+		// ------------------------------------
+
+		[LuaFunction("setMaterial", "Sets all of the model components of the given LThing to use the new material.", "LThing thing", "string newMaterial")]
+		public static void SetMaterial(LThing thing, string newMaterial) {
+			foreach (ModelComponent mc in thing.ModelComponents) {
+				mc.Entity.SetMaterialName(newMaterial);
+			}
+		}
+
+		[LuaFunction("setOneMaterial", "Sets the model component with the given ID of the given LThing to use the new material.",
+			"LThing thing", "int componentID", "string newMaterial")]
+		public static void SetOneMaterial(LThing thing, int componentID, string newMaterial) {
+			thing.ModelComponents[componentID].Entity.SetMaterialName(newMaterial);
+		}
+
+		[LuaFunction("setSubMaterial", "Sets the subentities with the given ID of the model components of the given LThing to use the new material.",
+			"LThing thing", "int subEntityID", "string newMaterial")]
+		public static void SetSubMaterial(LThing thing, int subEntityID, string newMaterial) {
+			foreach (ModelComponent mc in thing.ModelComponents) {
+				if (mc.Entity.NumSubEntities > subEntityID)
+					mc.Entity.GetSubEntity((uint) subEntityID).SetMaterialName(newMaterial);
+			}
+		}
+
+		[LuaFunction("setOneSubMaterial", "Sets the subentity of the model component with the given ID of the given LThing to use the new material.",
+			"LThing thing", "int componentID", "int subEntityID", "string newMaterial")]
+		public static void SetOneSubMaterial(LThing thing, int componentID, int subEntityID, string newMaterial) {
+			thing.ModelComponents[componentID].Entity.GetSubEntity((uint) subEntityID).SetMaterialName(newMaterial);
+		}
 	}
 }
