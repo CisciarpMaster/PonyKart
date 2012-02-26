@@ -6,14 +6,14 @@ using Ponykart.Levels;
 
 namespace Ponykart.Players {
 	public class ComputerPlayer : Player {
-		const float DecelThreshold = 12100f; // 110 ^ 2
-		const float WaypointThreshold = 10000f; // 100 ^ 2
+		static float DecelThreshold = 50 * 50; // 110 ^ 2
+		static float WaypointThreshold = 45 * 45; // 100 ^ 2
 		private int loop = 0;
 		private Player Human;
 		private int currWaypoint = 0;
 		private List<Vector3> Waypoints = new List<Vector3>();
 
-		private StreamWriter outfile = new StreamWriter("waypoints.txt");
+		//private StreamWriter outfile = new StreamWriter("waypoints.txt");
 
 		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id) {
 			Human = LKernel.GetG<PlayerManager>().MainPlayer;
@@ -93,8 +93,8 @@ namespace Ponykart.Players {
 
 		public override void Detach() {
 			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
-			outfile.Flush();
-			outfile.Close();
+			//outfile.Flush();
+			//outfile.Close();
 			base.Detach();
 		}
 

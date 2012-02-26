@@ -120,7 +120,7 @@ namespace Ponykart.Actors {
 		public void SetVisibility(string regionName, bool visible) {
 			StaticGeometry sg;
 			if (sgeoms.TryGetValue(regionName, out sg)) {
-				if (sg.IsVisible == visible)
+				if (sg.IsVisible != visible)
 					sg.SetVisible(visible);
 			}
 			else
