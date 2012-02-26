@@ -22,7 +22,6 @@ namespace Ponykart.Players {
         {
             Human = LKernel.GetG<PlayerManager>().Players[0];
             LKernel.GetG<Root>().FrameEnded += FrameEnded;
-            LKernel.Get<Spawner>().Spawn("Axis", new Vector3(0, 0, 100));
             //Waypoints.Add(new Vector3(200, 0, 200));
             //Waypoints.Add(new Vector3(200, 0, -200));
             //Waypoints.Add(new Vector3(-200, 0, -200));
@@ -37,32 +36,41 @@ namespace Ponykart.Players {
             {
                 tempStr = line.Split(' ');
                 Waypoints.Add(new Vector3(float.Parse(tempStr[0]), float.Parse(tempStr[1]), float.Parse(tempStr[2])));
-            }     
+            }
+			infile.Close();
         }
 
+		float elapsed;
         bool FrameEnded(FrameEvent evt)
         {
-            // use LKernel.GetG<LevelManager>().CurrentLevel.Definition.Get__Property() to retrieve your waypoints
-            loop++;
-            if (loop % 10 == 0)
-            {
-                string tmp;
-                tmp = Human.NodePosition.x + " " + Human.NodePosition.y + " " + Human.NodePosition.z;
-                //outfile.WriteLine(tmp);
-            }
-            Vector3 target = Waypoints[currWaypoint];
-            Vector3 vecToTar = target - NodePosition;
-            double distToTar = vecToTar.Length;
-            Kart.TurnMultiplier = SteerTowards(target);
-            if (distToTar > DecelThreshold)
-                Kart.Acceleration = 0.5f;
-            else
-                Kart.Acceleration = 0.1f;
-            if (distToTar < WaypointThreshold)
-            {
-                currWaypoint++;
-                currWaypoint = currWaypoint % Waypoints.Count;
-            }
+			if (!Pauser.IsPaused) {
+
+				if (elapsed > 0.1f) {
+					// use LKernel.GetG<LevelManager>().CurrentLevel.Definition.Get__Property() to retrieve your waypoints
+					loop++;
+					if (loop % 10 == 0) {
+						string tmp;
+						tmp = Human.NodePosition.x + " " + Human.NodePosition.y + " " + Human.NodePosition.z;
+						//outfile.WriteLine(tmp);
+					}
+					Vector3 target = Waypoints[currWaypoint];
+					Vector3 vecToTar = target - NodePosition;
+					double distToTar = vecToTar.Length;
+					Kart.TurnMultiplier = SteerTowards(target);
+					if (distToTar > DecelThreshold)
+						Kart.Acceleration = 0.5f;
+					else
+						Kart.Acceleration = 0.1f;
+					if (distToTar < WaypointThreshold) {
+						currWaypoint++;
+						currWaypoint = currWaypoint % Waypoints.Count;
+					}
+
+					elapsed -= 0.1f;
+				}
+
+				elapsed += evt.timeSinceLastFrame;
+			}
 
             return true;
         }
