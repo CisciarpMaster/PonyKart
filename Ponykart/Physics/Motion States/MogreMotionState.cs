@@ -46,10 +46,8 @@ namespace Ponykart.Physics {
 				node.Position = value.GetTrans();
 
 				// update the sounds
-				if (owner != null && owner.SoundComponents.Count > 0) {
-					foreach (var component in owner.SoundComponents) {
-						component.Update();
-					}
+				if (owner != null) {
+					owner.SoundsNeedUpdate = true;
 				}
 
 				transform = value;

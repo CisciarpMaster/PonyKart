@@ -3,6 +3,7 @@ using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Lua;
+using Ponykart.Physics;
 using Ponykart.Properties;
 
 namespace Ponykart.Levels {
@@ -142,6 +143,9 @@ namespace Ponykart.Levels {
 				LKernel.LoadLevelHandlers(newLevel);
 
 				IsValidLevel = true;
+
+				if (IsPlayableLevel)
+					LKernel.GetG<PhysicsMain>().StartSimulation();
 
 				// run our scripts
 				InvokeLevelProgress(args, "Running scripts...");

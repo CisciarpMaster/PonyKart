@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Physics;
 using Ponykart.UI;
+using Timer = System.Threading.Timer;
 
 namespace Ponykart {
 	public static class Launch {
-
+		/// <summary>
+		/// Is fired every 1/10th of a second when we aren't paused, since there's lots of things that want to run frequently but not every frame.
+		/// The object is something that can be passed around from the timer, but it's just null for now.
+		/// </summary>
+		public static event TimerCallback OnEveryUnpausedTenthOfASecondEvent;
+		private static Timer tenthTimer;
 		public static bool Quit = false;
 
 		[STAThread]
@@ -39,6 +46,7 @@ namespace Ponykart {
 			}
 		}
 
+
 		/// <summary>
 		/// Starts the render loop!
 		/// </summary>
@@ -49,7 +57,9 @@ namespace Ponykart {
 			root.RenderOneFrame();
 			window.SetVisible(true);
 
-			while (!Quit && !window.IsClosed/* && root != null*/) {
+			tenthTimer = new Timer(OnTenthTimerTick, null, 1000, 100);
+
+			while (!Quit && !window.IsClosed) {
 				if (!root.RenderOneFrame())
 					break;
 				// this is for stuff like window selection, moving, etc
@@ -58,8 +68,14 @@ namespace Ponykart {
 
 			LKernel.GetG<UIMain>().Dispose();
 			LKernel.GetG<PhysicsMain>().Dispose();
+			tenthTimer.Dispose();
 			if (root != null)
 				root.Shutdown();
+		}
+
+		private static void OnTenthTimerTick(object o) {
+			if (!Pauser.IsPaused)
+				OnEveryUnpausedTenthOfASecondEvent.Invoke(o);
 		}
 
 		/// <summary>

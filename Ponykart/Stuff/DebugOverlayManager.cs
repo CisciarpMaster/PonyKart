@@ -10,7 +10,7 @@ namespace Ponykart.Stuff {
 
 		public DebugOverlayManager() {
 			this.overlay = OverlayManager.Singleton.GetByName("Core/DebugOverlay");
-			LKernel.GetG<Root>().FrameStarted += FrameStarted;
+			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 
 #if DEBUG
 			ShowDebugOverlay(true);
@@ -37,22 +37,14 @@ namespace Ponykart.Stuff {
 			ShowDebugOverlay(!overlay.IsVisible);
 		}
 
-		float elapsed = 0;
-		public bool FrameStarted(FrameEvent e) {
-			if (elapsed > 0.1f) {
-				// update stats when necessary
-				RenderTarget.FrameStats stats = LKernel.GetG<RenderWindow>().GetStatistics();
+		void EveryTenth(object o) {
+			// update stats when necessary
+			RenderTarget.FrameStats stats = LKernel.GetG<RenderWindow>().GetStatistics();
 
-				guiAvg.Caption = "Average FPS: " + stats.AvgFPS;
-				guiCurr.Caption = "Current FPS: " + stats.LastFPS;
-				guiTris.Caption = "Triangle Count: " + stats.TriangleCount;
-				guiBatches.Caption = "Batch Count: " + stats.BatchCount;
-
-				elapsed = 0;
-			}
-			elapsed += e.timeSinceLastFrame;
-
-			return true;
+			guiAvg.Caption = "Average FPS: " + stats.AvgFPS;
+			guiCurr.Caption = "Current FPS: " + stats.LastFPS;
+			guiTris.Caption = "Triangle Count: " + stats.TriangleCount;
+			guiBatches.Caption = "Batch Count: " + stats.BatchCount;
 		}
 	}
 }

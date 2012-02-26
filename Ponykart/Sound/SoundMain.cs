@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using BulletSharp;
 using IrrKlang;
 using Mogre;
+using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Properties;
 
@@ -14,6 +13,7 @@ namespace Ponykart.Sound {
 		public ISoundEngine Engine { get; private set; }
 		private IList<ISound> musics;
 		private IList<ISound> sounds;
+		private HashSet<SoundComponent> components;
 
 		private bool enableMusic;
 		private bool enableSounds;
@@ -25,14 +25,15 @@ namespace Ponykart.Sound {
 			Launch.Log("[Loading] Creating IrrKlang and SoundMain...");
 			musics = new List<ISound>();
 			sounds = new List<ISound>();
+			components = new HashSet<SoundComponent>();
 
 			enableMusic = Options.GetBool("Music");
 			enableSounds = Options.GetBool("Sounds");
 
 			
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
+			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LKernel.GetG<Pauser>().PauseEvent += new PauseEvent(PauseEvent);
-			PhysicsMain.PostSimulate += new PhysicsSimulateEvent(PostSimulate);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
@@ -45,48 +46,60 @@ namespace Ponykart.Sound {
 			Engine.SetAllSoundsPaused(state == PausingState.Pausing);
 		}
 
+		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
+			LevelManager lm = LKernel.GetG<LevelManager>();
+			if (lm.IsValidLevel && lm.IsPlayableLevel)
+				Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
+		}
+
 		/// <summary>
 		/// Dispose all of the sound sources
 		/// </summary>
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
+			Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
+
 			Engine.RemoveAllSoundSources();
 			Engine.SetListenerPosition(0, 0, 0, 0, 0, -1);
 			musics.Clear();
 			sounds.Clear();
+			components.Clear();
 		}
 
 
-		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (!LKernel.GetG<LevelManager>().IsValidLevel)
-				return;
+		void EveryTenth(object o) {
+			var cam = LKernel.GetG<CameraManager>().CurrentCamera;
 
-			if (LKernel.GetG<LevelManager>().IsPlayableLevel && !Pauser.IsPaused) {
-				var cam = LKernel.GetG<CameraManager>().CurrentCamera;
+			Vector3 pos, rot, vel, up;
+			if (cam is PlayerCamera || cam is KnightyCamera) {
+				var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
 
-				Vector3 pos, rot, vel, up;
-				if (cam is PlayerCamera || cam is KnightyCamera) {
-					var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
-
-					pos = body.CenterOfMassPosition;
-					rot = body.Orientation.ZAxis;
-					vel = body.LinearVelocity;
-					up = body.Orientation.YAxis;
-				}
-				else {
-					var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
-
-					pos = cam.Camera.DerivedPosition;
-					rot = cam.Camera.DerivedOrientation.ZAxis;
-					vel = body.LinearVelocity;
-					up = cam.Camera.DerivedOrientation.YAxis;
-				}
-
-				Engine.SetListenerPosition(
-					pos.x, pos.y, pos.z,
-					rot.x, rot.y, rot.z,
-					vel.x, vel.y, vel.z,
-					up.x, up.y, up.z);
+				pos = body.CenterOfMassPosition;
+				rot = body.Orientation.ZAxis;
+				vel = body.LinearVelocity;
+				up = body.Orientation.YAxis;
 			}
+			else {
+				var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
+
+				Quaternion derivedOrientation = cam.Camera.DerivedOrientation;
+				pos = cam.Camera.DerivedPosition;
+				rot = derivedOrientation.ZAxis;
+				vel = body.LinearVelocity;
+				up = derivedOrientation.YAxis;
+			}
+
+			Engine.SetListenerPosition(
+				pos.x, pos.y, pos.z,
+				rot.x, rot.y, rot.z,
+				vel.x, vel.y, vel.z,
+				up.x, up.y, up.z);
+
+			foreach (var component in components) {
+				if (component.NeedUpdate) {
+					component.Update();
+				}
+			}
+
 			Engine.Update();
 		}
 
@@ -238,6 +251,10 @@ namespace Ponykart.Sound {
 		/// <param name="filename">Don't include the "media/sound/" bit.</param>
 		public ISoundSource GetSource(string filename) {
 			return Engine.GetSoundSource(Settings.Default.SoundFileLocation + filename, true);
+		}
+
+		public void AddSoundComponent(SoundComponent sc) {
+			components.Add(sc);
 		}
 
 

@@ -2,13 +2,22 @@
 using Mogre;
 using Ponykart.Sound;
 using PonykartParsers;
+// to stop VS from getting rid of these in release mode
+#if DEBUG
+using LuaInterface;
+using Ponykart.UI;
+#endif
 
 namespace Ponykart.Actors {
+	public delegate void SoundFrameEvent(LThing thing, ISound sound);
+
 	public class SoundComponent {
 		public ISound Sound { get; protected set; }
 		public string Name { get; protected set; }
 		private Vector3 relativePosition;
 		private LThing owner;
+		public bool NeedUpdate = false;
+		public event SoundFrameEvent OnUpdate;
 
 		/// <summary>
 		/// For sounds!
@@ -47,9 +56,32 @@ namespace Ponykart.Actors {
 		/// This is called from <see cref="Ponykart.Physics.MogreMotionState"/>.
 		/// </summary>
 		public void Update() {
-			Sound.Position = (owner.RootNode._getDerivedPosition() + relativePosition).ToSoundVector();
+			NeedUpdate = false;
+			owner.SoundsNeedUpdate = false;
+
+			Vector3 parent = owner.RootNode._getDerivedPosition();
+			// update the position
+			Sound.Position = new Vector3D(parent.x + relativePosition.x, parent.y + relativePosition.y, parent.z + relativePosition.z);
 			if (owner.Body != null) {
 				Sound.Velocity = owner.Body.LinearVelocity.ToSoundVector();
+			}
+
+			// run the OnUpdate method if it has one
+			if (OnUpdate != null) {
+#if DEBUG
+				try {
+#endif
+					OnUpdate.Invoke(owner, Sound);
+#if DEBUG
+				}
+				catch (LuaException ex) {
+					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
+					foreach (var v in ex.Data)
+						Launch.Log("[Lua] " + v);
+					LKernel.GetG<LuaConsoleManager>().AddLabel("ERROR: " + ex.Message);
+					Launch.Log(ex.StackTrace);
+				}
+#endif
 			}
 		}
 
@@ -60,6 +92,7 @@ namespace Ponykart.Actors {
 		public void Dispose() {
 			Sound.Stop();
 			Sound.Dispose();
+			OnUpdate = null;
 		}
 	}
 }

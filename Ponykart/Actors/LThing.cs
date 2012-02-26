@@ -369,6 +369,24 @@ namespace Ponykart.Actors {
 			}
 		}
 
+		private bool _soundsNeedUpdate = false;
+		public bool SoundsNeedUpdate {
+			get {
+				return _soundsNeedUpdate;
+			}
+			set {
+				// only change the sound components if this property is changing from false to true
+				// they will change back to false by themselves
+				// and we don't need to do the foreach loop if they're already true
+				if (value && _soundsNeedUpdate != value) {
+					foreach (var soundComponent in SoundComponents) {
+						soundComponent.NeedUpdate = value;
+					}
+				}
+				_soundsNeedUpdate = value;
+			}
+		}
+
 		/// <summary>
 		/// If this is a static/instanced thing with no ribbons, billboards, or sounds, we can clean up a whole bunch of stuff
 		/// to make it faster for ogre.

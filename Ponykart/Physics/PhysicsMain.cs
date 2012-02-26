@@ -75,19 +75,22 @@ namespace Ponykart.Physics {
 			}
 		}
 
+
+		readonly int _maxSubsteps = Settings.Default.PhysicsMaxSubsteps;
+		readonly float _fixedTimestep = Settings.Default.PhysicsFixedTimestep;
 		/// <summary>
 		/// Runs just before every frame. Simulates one frame of physics.
 		/// Physics simulation should be the only thing that's using FrameEnded!
 		/// </summary>
 		bool FrameEnded(FrameEvent evt) {
-			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsPlayableLevel || !LKernel.GetG<LevelManager>().IsValidLevel || world.IsDisposed)
+			if (Pauser.IsPaused || world.IsDisposed)
 				return true;
 
 			// run the events that go just before we simulate
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
 
-			world.StepSimulation(SlowMo ? evt.timeSinceLastFrame / 3f : evt.timeSinceLastFrame, Settings.Default.PhysicsMaxSubsteps, Settings.Default.PhysicsFixedTimestep);
+			world.StepSimulation(SlowMo ? evt.timeSinceLastFrame / 3f : evt.timeSinceLastFrame, _maxSubsteps, _fixedTimestep);
 
 			// run the events that go just after we simulate
 			if (PostSimulate != null)
@@ -123,15 +126,15 @@ namespace Ponykart.Physics {
 
 			world.Gravity = new Vector3(0, Settings.Default.Gravity, 0);
 
-			ManifoldPoint.ContactAddedCallback = OnContactAdded;
+			ManifoldPoint.ContactAddedCallback = ContactAdded;
 		}
 
-		bool OnContactAdded(ManifoldPoint cp, CollisionObject colObj0, int partId0, int index0, CollisionObject colObj1, int partId1, int index1) {
+		/*bool OnContactAdded(ManifoldPoint cp, CollisionObject colObj0, int partId0, int index0, CollisionObject colObj1, int partId1, int index1) {
 			if (ContactAdded != null)
 				ContactAdded(cp, colObj0, partId0, index0, colObj1, partId1, index1);
 
 			return false;
-		}
+		}*/
 
 		/// <summary>
 		/// Sets up a new physics scene.
@@ -179,7 +182,12 @@ namespace Ponykart.Physics {
 			// run some events
 			if (PostCreateWorld != null)
 				PostCreateWorld(world);
+		}
 
+		/// <summary>
+		/// To be called from the LevelManager
+		/// </summary>
+		public void StartSimulation() {
 			LKernel.GetG<Root>().FrameEnded += FrameEnded;
 		}
 

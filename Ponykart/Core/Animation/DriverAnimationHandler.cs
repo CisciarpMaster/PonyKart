@@ -1,66 +1,61 @@
-﻿using System.Collections.Generic;
-using Mogre;
+﻿using Mogre;
 using Ponykart.Actors;
 using Ponykart.Players;
 
 namespace Ponykart.Core {
 	[Handler(HandlerScope.Level, LevelType.Race)]
 	public class DriverAnimationHandler : ILevelHandler {
-		List<Kart> karts;
+		Kart[] karts;
 
 		public DriverAnimationHandler() {
-			karts = new List<Kart>();
+			Player[] players = LKernel.GetG<PlayerManager>().Players;
+			karts = new Kart[players.Length];
 
-			foreach (var p in LKernel.GetG<PlayerManager>().Players) {
-				karts.Add(p.Kart);
+			for (int a = 0; a < players.Length; a++) {
+				karts[a] = players[a].Kart;
 			}
 
-			LKernel.GetG<Root>().FrameStarted += FrameStarted;
+			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}
 
-		float elapsed = 0;
-		bool FrameStarted(FrameEvent evt) {
-			if (elapsed > 0.1f) {
-				foreach (var kart in karts) {
-					if (kart.VehicleSpeed >= -30 || kart.IsInAir) {
-						// forwards
-						if (kart.DriftState == KartDriftState.StartLeft || kart.DriftState == KartDriftState.FullLeft) {
-							kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.DriftLeft);
-						}
-						else if (kart.DriftState == KartDriftState.StartRight || kart.DriftState == KartDriftState.FullRight) {
-							kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.DriftRight);
-						}
-						else {
-							if (kart.TurnMultiplier < 0.2f && kart.TurnMultiplier > -0.2f) {
-								// straight
-								kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.Drive);
-							}
-							else if (kart.TurnMultiplier < -0.2f) {
-								// right
-								kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.TurnRight);
-							}
-							else {
-								// left
-								kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.TurnLeft);
-							}
-						}
+		void EveryTenth(object o) {
+			for (int a = 0; a < karts.Length; a++) {
+				Kart kart = karts[0];
+				Driver driver = kart.Driver;
+
+				if (kart.VehicleSpeed >= -30 || kart.IsInAir) {
+					// forwards
+					if (kart.DriftState == KartDriftState.StartLeft || kart.DriftState == KartDriftState.FullLeft) {
+						driver.ChangeAnimationIfNotBlending(DriverAnimation.DriftLeft);
+					}
+					else if (kart.DriftState == KartDriftState.StartRight || kart.DriftState == KartDriftState.FullRight) {
+						driver.ChangeAnimationIfNotBlending(DriverAnimation.DriftRight);
 					}
 					else {
-						// reverse
-						// don't have multiple reverse anims at the moment
-						kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.Reverse, AnimationBlendingTransition.BlendWhileAnimating, 0.3f);
+						if (kart.TurnMultiplier < 0.2f && kart.TurnMultiplier > -0.2f) {
+							// straight
+							driver.ChangeAnimationIfNotBlending(DriverAnimation.Drive);
+						}
+						else if (kart.TurnMultiplier < -0.2f) {
+							// right
+							driver.ChangeAnimationIfNotBlending(DriverAnimation.TurnRight);
+						}
+						else {
+							// left
+							driver.ChangeAnimationIfNotBlending(DriverAnimation.TurnLeft);
+						}
 					}
 				}
-
-				elapsed = 0;
+				else {
+					// reverse
+					// don't have multiple reverse anims at the moment
+					driver.ChangeAnimationIfNotBlending(DriverAnimation.Reverse, AnimationBlendingTransition.BlendWhileAnimating, 0.3f);
+				}
 			}
-
-			elapsed += evt.timeSinceLastFrame;
-			return true;
 		}
 
 		public void Detach() {
-			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
+			Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
 		}
 	}
 }

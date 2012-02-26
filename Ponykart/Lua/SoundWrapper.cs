@@ -41,9 +41,9 @@ namespace Ponykart.Lua {
 		}
 
 		[LuaFunction("addSoundFrameFunction", "Adds a function that you want to be ran every frame, using an lthing's sound components.",
-			"LThing - the lthing that owns the sound components", "function(LThing, ISound[]) - the function you want to run every frame")]
-		public static void AddSoundFrameEvent(LThing lthing, SoundFrameEvent action) {
-			LKernel.Get<SoundFrameEventHandler>().AddAction(lthing, action);
+			"LThing - the lthing that owns the sound components", "int componentID", "function(LThing) - the function you want to run every frame")]
+		public static void AddSoundFrameEvent(LThing lthing, int componentID, SoundFrameEvent action) {
+			lthing.SoundComponents[componentID].OnUpdate += action;
 		}
 	}
 }
