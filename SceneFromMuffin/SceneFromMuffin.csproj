@@ -43,7 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mogre">
-      <HintPath>..\References\Mogre.dll</HintPath>
+      <HintPath>..\References\Release\Mogre.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

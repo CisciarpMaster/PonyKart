@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -50,7 +51,7 @@
       <HintPath>..\References\BulletSharp.dll</HintPath>
     </Reference>
     <Reference Include="Mogre">
-      <HintPath>..\References\Mogre.dll</HintPath>
+      <HintPath>..\References\Release\Mogre.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
