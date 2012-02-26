@@ -106,8 +106,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Miyagi.Backend.Mogre.dll</HintPath>
     </Reference>
-    <Reference Include="Mogre, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\References\Mogre.dll</HintPath>
+    <Reference Include="Mogre">
+      <HintPath>..\References\Debug\Mogre.dll</HintPath>
     </Reference>
     <Reference Include="MOIS, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -327,6 +327,7 @@
   <PropertyGroup>
     <PostBuildEvent>REM rmdir /S /Q "$(TargetDir)media"
 robocopy "$(SolutionDir)Resources" "$(TargetDir)\" /E /NFL /NJS /NJH /NDL /NP
+robocopy "$(SolutionDir)References\$(ConfigurationName)" "$(TargetDir)\" /E /NFL /NJS /NJH /NDL /NP
 
 REM Following is a hack to remove the error code becuase robocopy returns 1 for success
 dir %25TEMP%25 &gt;nul</PostBuildEvent>
