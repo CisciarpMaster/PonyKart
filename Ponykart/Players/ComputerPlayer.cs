@@ -1,48 +1,43 @@
-﻿using PonykartParsers;
-using Ponykart.Levels;
-using Mogre;
-using System;
-using System.Collections.Generic;
-using Ponykart.Core;
+﻿using System.Collections.Generic;
 using System.IO;
+using Mogre;
+using Ponykart.Core;
+using Ponykart.Levels;
 
 namespace Ponykart.Players {
-    public class ComputerPlayer : Player
-    {
-        const float DecelThreshold = 110.0f;
-        const float WaypointThreshold = 100.0f;
-        private int loop = 0;
-        private Player Human;
-        private int currWaypoint = 0;
-        private List<Vector3> Waypoints = new List<Vector3>();
+	public class ComputerPlayer : Player {
+		const float DecelThreshold = 110.0f;
+		const float WaypointThreshold = 100.0f;
+		private int loop = 0;
+		private Player Human;
+		private int currWaypoint = 0;
+		private List<Vector3> Waypoints = new List<Vector3>();
 
-        private StreamWriter outfile = new StreamWriter("./waypoints.txt");
+		private StreamWriter outfile = new StreamWriter("./waypoints.txt");
 
-        public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id)
-        {
-            Human = LKernel.GetG<PlayerManager>().Players[0];
-            LKernel.GetG<Root>().FrameEnded += FrameEnded;
-            //Waypoints.Add(new Vector3(200, 0, 200));
-            //Waypoints.Add(new Vector3(200, 0, -200));
-            //Waypoints.Add(new Vector3(-200, 0, -200));
-            //Waypoints.Add(new Vector3(-200, 0, 200));
+		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id)
+			: base(eventArgs, id) {
+			Human = LKernel.GetG<PlayerManager>().Players[0];
+			LKernel.GetG<Root>().FrameEnded += FrameEnded;
+			//Waypoints.Add(new Vector3(200, 0, 200));
+			//Waypoints.Add(new Vector3(200, 0, -200));
+			//Waypoints.Add(new Vector3(-200, 0, -200));
+			//Waypoints.Add(new Vector3(-200, 0, 200));
 
-            //Dear David. THIS NEXT LINE IS BAD AND YOU SHOULD FEEL BAD. Sincerely, David.
-            StreamReader infile = new StreamReader("../../../saa_r1 (2).waypoint");
+			//Dear David. THIS NEXT LINE IS BAD AND YOU SHOULD FEEL BAD. Sincerely, David.
+			StreamReader infile = new StreamReader("../../../saa_r1 (2).waypoint");
 
-            string line;
-            string[] tempStr;
-            while ((line = infile.ReadLine()) != null)
-            {
-                tempStr = line.Split(' ');
-                Waypoints.Add(new Vector3(float.Parse(tempStr[0]), float.Parse(tempStr[1]), float.Parse(tempStr[2])));
-            }
+			string line;
+			string[] tempStr;
+			while ((line = infile.ReadLine()) != null) {
+				tempStr = line.Split(' ');
+				Waypoints.Add(new Vector3(float.Parse(tempStr[0]), float.Parse(tempStr[1]), float.Parse(tempStr[2])));
+			}
 			infile.Close();
-        }
+		}
 
 		float elapsed;
-        bool FrameEnded(FrameEvent evt)
-        {
+		bool FrameEnded(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 
 				if (elapsed > 0.1f) {
@@ -72,30 +67,28 @@ namespace Ponykart.Players {
 				elapsed += evt.timeSinceLastFrame;
 			}
 
-            return true;
-        }
+			return true;
+		}
 
-        private float SteerTowards(Vector3 target)
-        {
-           Vector3 xaxis = Kart.Body.Orientation.XAxis;
-           Vector3 vecToTar = target - NodePosition;
+		private float SteerTowards(Vector3 target) {
+			Vector3 xaxis = Kart.Body.Orientation.XAxis;
+			Vector3 vecToTar = target - NodePosition;
 
-            xaxis.Normalise();
-          vecToTar.Normalise();
+			xaxis.Normalise();
+			vecToTar.Normalise();
 
-            float result = xaxis.DotProduct(vecToTar);
-            return result;
-        }
+			float result = xaxis.DotProduct(vecToTar);
+			return result;
+		}
 
-        public override void Detach()
-        {
-            LKernel.GetG<Root>().FrameEnded -= FrameEnded;
-            outfile.Close();
-            base.Detach();
-        }
+		public override void Detach() {
+			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
+			outfile.Close();
+			base.Detach();
+		}
 
-        protected override void UseItem() {
-            throw new System.NotImplementedException();
-        }
-    }
+		protected override void UseItem() {
+			throw new System.NotImplementedException();
+		}
+	}
 }
