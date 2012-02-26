@@ -3,39 +3,50 @@ using Ponykart.Levels;
 using Mogre;
 using System;
 using System.Collections.Generic;
-
+using Ponykart.Core;
 namespace Ponykart.Players {
     public class ComputerPlayer : Player
     {
+        const float DecelThreshold = 10.0f;
         private Player Human;
         private LinkedList<Vector3> Waypoints;
         public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id)
         {
             Human = LKernel.GetG<PlayerManager>().Players[0];
             LKernel.GetG<Root>().FrameEnded += FrameEnded;
+            LKernel.Get<Spawner>().Spawn("Axis", new Vector3(100, 0, 0));
             //Waypoints.AddLast(new Vector3(100, 0, 100));
         }
 
         bool FrameEnded(FrameEvent evt)
         {
             // use LKernel.GetG<LevelManager>().CurrentLevel.Definition.Get__Property() to retrieve your waypoints
-            Kart.TurnMultiplier = SteerTowards(new Vector3(10, 0, 10));
-            Kart.Acceleration = 0.05f;
+            Vector3 target = new Vector3(0, 0, 50);
+            Vector3 vecToTar = NodePosition - target;
+            float distToTar = vecToTar.Length;
+            Kart.TurnMultiplier = SteerTowards(target);
+            if (distToTar > DecelThreshold)
+                Kart.Acceleration = 1.0f;
+            else
+                Kart.Acceleration *= (1-(distToTar-DecelThreshold)); //slow down on approach  
             return true;
         }
 
         private float SteerTowards(Vector3 target)
         {
-            float steer = 0.0f;
-            Vector3 pos = NodePosition;
-            Vector3 facing = Kart.Body.Orientation.ZAxis;
-            Vector3 vecToTar = target - NodePosition;
-            // Math.ATan2 probably plays into the solution to this problem
-            if (vecToTar.x < 0.0)
-                steer = 0.5f;
-            if (vecToTar.x > 0.0)
-                steer = -0.5f;
-            return steer;
+           Vector3 xaxis = Kart.Body.Orientation.XAxis;
+           Vector3 vecToTar = target - NodePosition;
+
+            xaxis.Normalise();
+          vecToTar.Normalise();
+
+            float result = xaxis.DotProduct(vecToTar);
+
+   if (result > 0f)
+    return 1.0f;
+   else if (result < 0f)
+    return -1.0f;
+            return 0;
         }
 
         public override void Detach()
