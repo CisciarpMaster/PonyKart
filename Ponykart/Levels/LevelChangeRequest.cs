@@ -1,9 +1,9 @@
 ﻿
 namespace Ponykart.Levels {
 	/// <summary>
-	/// A little struct to hold data that needs to be passed from one level to another to create specific stuff
+	/// A little class to hold data that needs to be passed from one level to another to create specific stuff
 	/// </summary>
-	public struct LevelChangeRequest {
+	public class LevelChangeRequest {
 		public string NewLevelName { get; set; }
 		public string CharacterName { get; set; }
 
