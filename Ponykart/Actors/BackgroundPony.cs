@@ -97,6 +97,9 @@ namespace Ponykart.Actors {
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 		}
 
+		private readonly Radian neckYawLimit = new Degree(70f);
+		private readonly Radian neckPitchLimit = new Degree(60f);
+
 		/// <summary>
 		/// Rotate the neck bone to face the kart. Will eventually need to redo this when we have multiple karts, to face whichever's nearest, etc.
 		/// </summary>
@@ -111,8 +114,8 @@ namespace Ponykart.Actors {
 				temp.LimitPitch(new Radian(evt.timeSinceLastFrame * 3f));
 
 				neckFacing = neckFacing + temp;
-				neckFacing.LimitYaw(new Degree(70f));
-				neckFacing.LimitPitch(new Degree(60f));
+				neckFacing.LimitYaw(neckYawLimit);
+				neckFacing.LimitPitch(neckPitchLimit);
 				neckbone.Orientation = neckFacing;
 			}
 
