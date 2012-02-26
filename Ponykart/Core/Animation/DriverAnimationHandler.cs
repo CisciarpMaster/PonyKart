@@ -31,11 +31,11 @@ namespace Ponykart.Core {
 							kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.DriftRight);
 						}
 						else {
-							if (kart.TurnMultiplier == 0) {
+							if (kart.TurnMultiplier < 0.2f && kart.TurnMultiplier > -0.2f) {
 								// straight
 								kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.Drive);
 							}
-							else if (kart.TurnMultiplier < 0) {
+							else if (kart.TurnMultiplier < -0.2f) {
 								// right
 								kart.Driver.ChangeAnimationIfNotBlending(DriverAnimation.TurnRight);
 							}

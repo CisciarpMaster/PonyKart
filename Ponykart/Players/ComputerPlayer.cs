@@ -55,7 +55,7 @@ namespace Ponykart.Players {
 					float distToTar = vecToTar.SquaredLength;
 					// I changed this so we only have to do the subtraction once
 					Kart.TurnMultiplier = SteerTowards(target, vecToTar);
-
+					
 					if (distToTar > DecelThreshold)
 						Kart.Acceleration = 0.5f;
 					else
