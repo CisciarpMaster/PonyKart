@@ -97,21 +97,21 @@ namespace Ponykart.Handlers {
 				kartHandler.Nlerpers.TryRemove(kart, out n);
 			}
 			// then make the angle we need to rotate the kart by
-			Degree angle;
+			float angle;
 			if ((state == StartOrStopState.StartDrifting && kart.DriftState == KartDriftState.StartLeft)
 				|| (state == StartOrStopState.StopDrifting && kart.DriftState == KartDriftState.StopRight))
 			{
-				angle = new Degree(-kart.FrontDriftAngle / 2f);
+				angle = -kart._halfFrontDriftAngle;
 			}
 			else if ((state == StartOrStopState.StartDrifting && kart.DriftState == KartDriftState.StartRight)
 				|| (state == StartOrStopState.StopDrifting && kart.DriftState == KartDriftState.StopLeft))
 			{
-				angle = new Degree(kart.FrontDriftAngle / 2f);
+				angle = kart._halfFrontDriftAngle;
 			}
 			else
 				throw new ApplicationException("How did we get here?");
 
-			Quaternion rot = new Quaternion(angle, kart.Body.Orientation.YAxis);
+			Quaternion rot = new Quaternion(new Radian(angle), kart.Body.Orientation.YAxis);
 			Quaternion newOrientation = kart.Body.Orientation * rot;
 
 			return newOrientation;

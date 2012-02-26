@@ -42,8 +42,12 @@ namespace Ponykart.Actors {
 		public SceneNode LeftParticleNode { get; private set; }
 		public SceneNode RightParticleNode { get; private set; }
 
-		public readonly Degree FrontDriftAngle;
-		public readonly Degree BackDriftAngle;
+		/// <summary> RADIANS </summary>
+		public readonly float FrontDriftAngle;
+		/// <summary> RADIANS </summary>
+		public readonly float BackDriftAngle;
+		/// <summary> RADIANS </summary>
+		public readonly float _halfFrontDriftAngle;
 
 		protected RaycastVehicle _vehicle;
 		public RaycastVehicle Vehicle { get { return _vehicle; } }
@@ -61,8 +65,9 @@ namespace Ponykart.Actors {
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
 			IsInAir = false;
 
-			FrontDriftAngle = new Degree(def.GetFloatProperty("FrontDriftAngle", 86));
-			BackDriftAngle = new Degree(def.GetFloatProperty("BackDriftAngle", 89));
+			FrontDriftAngle = new Degree(def.GetFloatProperty("FrontDriftAngle", 86)).ValueRadians;
+			BackDriftAngle = new Degree(def.GetFloatProperty("BackDriftAngle", 89)).ValueRadians;
+			_halfFrontDriftAngle = FrontDriftAngle / 2f;
 		}
 
 		/// <summary>
@@ -135,10 +140,10 @@ namespace Ponykart.Actors {
 				OnDrifting(this);
 
 			if (DriftState == KartDriftState.FullLeft) {
-				new Rotater<Kart>(this, 0.3f, new Degree(-FrontDriftAngle / 2f), RotaterAxisMode.RelativeY);
+				new Rotater<Kart>(this, 0.3f, -_halfFrontDriftAngle, RotaterAxisMode.RelativeY);
 			}
 			else if (DriftState == KartDriftState.FullRight) {
-				new Rotater<Kart>(this, 0.3f, new Degree(FrontDriftAngle / 2f), RotaterAxisMode.RelativeY);
+				new Rotater<Kart>(this, 0.3f, _halfFrontDriftAngle, RotaterAxisMode.RelativeY);
 			}
 
 			ForEachWheel(w => {
@@ -149,13 +154,13 @@ namespace Ponykart.Actors {
 					// change the back wheels' angles
 					if (w.ID == WheelID.FrontRight || w.ID == WheelID.BackRight) {
 						w.IdealSteerAngle = BackDriftAngle;
-						_vehicle.SetSteeringValue(BackDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.SetSteeringValue(BackDriftAngle, w.IntWheelID);
 						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
 					}
 					// change the front wheels' angles
 					else {
 						w.IdealSteerAngle = FrontDriftAngle;
-						_vehicle.SetSteeringValue(FrontDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.SetSteeringValue(FrontDriftAngle, w.IntWheelID);
 						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 					}
 				}
@@ -166,13 +171,13 @@ namespace Ponykart.Actors {
 					// change the back wheels' angles
 					if (w.ID == WheelID.FrontLeft || w.ID == WheelID.BackLeft) {
 						w.IdealSteerAngle = -BackDriftAngle;
-						_vehicle.SetSteeringValue(-BackDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.SetSteeringValue(-BackDriftAngle, w.IntWheelID);
 						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
 					}
 					// change the front wheels' angles
 					else {
 						w.IdealSteerAngle = -FrontDriftAngle;
-						_vehicle.SetSteeringValue(-FrontDriftAngle.ValueRadians, w.IntWheelID);
+						_vehicle.SetSteeringValue(-FrontDriftAngle, w.IntWheelID);
 						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 					}
 				}
@@ -260,6 +265,8 @@ namespace Ponykart.Actors {
 			}
 		}
 
+		private readonly Radian _turnMultiplierPositiveDriftDegree = new Degree(10);
+		private readonly Radian _turnMultiplierNegativeDriftDegree = new Degree(-10);
 		private float _turnMultiplier;
 		/// <summary>
 		/// Turns the wheels
@@ -273,10 +280,10 @@ namespace Ponykart.Actors {
 			set {
 				if (IsCompletelyDrifting) {
 					if (this._turnMultiplier - value < 0) {
-						new Rotater<Kart>(this, 0.3f, new Degree(10), RotaterAxisMode.RelativeY);
+						new Rotater<Kart>(this, 0.3f, _turnMultiplierPositiveDriftDegree, RotaterAxisMode.RelativeY);
 					}
 					else if (this._turnMultiplier - value > 0) {
-						new Rotater<Kart>(this, 0.3f, new Degree(-10), RotaterAxisMode.RelativeY);
+						new Rotater<Kart>(this, 0.3f, _turnMultiplierNegativeDriftDegree, RotaterAxisMode.RelativeY);
 					}
 				}
 
