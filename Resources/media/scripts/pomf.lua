@@ -1,6 +1,7 @@
 -- set up our dictionaries of particles
 -- our particle names will be "KartID", ex: "0" for the kart with ID 0
 local particles = {}
+local handlers = {}
 
 local kartHandler = getKartHandler()
 
@@ -26,13 +27,12 @@ end
 -- run this on every kart
 forEachKart(pomfParticles_init)
 
-local onGroundHandler
 local function onGround(kart, callback)
 	emitting(kart.OwnerID, false)
 	
-	if onGroundHandler ~= nil then
-		kartHandler.OnGround:Remove(onGroundHandler)
-		onGroundHandler = nil
+	if handlers[kart.OwnerID] ~= nil then
+		kartHandler.OnGround:Remove(handlers[kart.OwnerID])
+		handlers[kart.OwnerID] = nil
 	end
 end
 
@@ -40,7 +40,7 @@ end
 local function onTouchdown(kart, callback)
 	emitting(kart.OwnerID, true)
 	
-	onGroundHandler = kartHandler.OnGround:Add(onGround)
+	handlers[kart.OwnerID] = kartHandler.OnGround:Add(onGround)
 end
 
 -- then hook up to the events
