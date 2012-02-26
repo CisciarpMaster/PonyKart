@@ -327,7 +327,13 @@
   <PropertyGroup>
     <PostBuildEvent>REM rmdir /S /Q "$(TargetDir)media"
 robocopy "$(SolutionDir)Resources" "$(TargetDir)\" /E /NFL /NJS /NJH /NDL /NP
-robocopy "$(SolutionDir)References\$(ConfigurationName)" "$(TargetDir)\" /E /NFL /NJS /NJH /NDL /NP
+
+REM uncomment the below if you want to copy over the "correct" bins for the build
+REM robocopy "$(SolutionDir)References\$(ConfigurationName)" "$(TargetDir)\" /E /NFL /NJS /NJH /NDL /NP
+
+REM this just copies over the release ones since they're a lot faster
+REM if you need to switch between the different bins, use the two batch files in the root folder
+robocopy "$(SolutionDir)References\Release" "$(TargetDir)\" /E /NFL /NJS /NJH /NDL /NP
 
 REM Following is a hack to remove the error code becuase robocopy returns 1 for success
 dir %25TEMP%25 &gt;nul</PostBuildEvent>
