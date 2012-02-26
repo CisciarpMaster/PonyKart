@@ -4,31 +4,66 @@ using Mogre;
 using System;
 using System.Collections.Generic;
 using Ponykart.Core;
+using System.IO;
+
 namespace Ponykart.Players {
     public class ComputerPlayer : Player
     {
-        const float DecelThreshold = 10.0f;
+        const float DecelThreshold = 110.0f;
+        const float WaypointThreshold = 100.0f;
+        private int loop = 0;
         private Player Human;
-        private LinkedList<Vector3> Waypoints;
+        private int currWaypoint = 0;
+        private List<Vector3> Waypoints = new List<Vector3>();
+
+        private StreamWriter outfile = new StreamWriter("./waypoints.txt");
+
         public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id)
         {
             Human = LKernel.GetG<PlayerManager>().Players[0];
             LKernel.GetG<Root>().FrameEnded += FrameEnded;
-            LKernel.Get<Spawner>().Spawn("Axis", new Vector3(100, 0, 0));
-            //Waypoints.AddLast(new Vector3(100, 0, 100));
+            LKernel.Get<Spawner>().Spawn("Axis", new Vector3(0, 0, 100));
+            //Waypoints.Add(new Vector3(200, 0, 200));
+            //Waypoints.Add(new Vector3(200, 0, -200));
+            //Waypoints.Add(new Vector3(-200, 0, -200));
+            //Waypoints.Add(new Vector3(-200, 0, 200));
+
+            //Dear David. THIS NEXT LINE IS BAD AND YOU SHOULD FEEL BAD. Sincerely, David.
+            StreamReader infile = new StreamReader("../../../saa_r1 (2).waypoint");
+
+            string line;
+            string[] tempStr;
+            while ((line = infile.ReadLine()) != null)
+            {
+                tempStr = line.Split(' ');
+                Waypoints.Add(new Vector3(float.Parse(tempStr[0]), float.Parse(tempStr[1]), float.Parse(tempStr[2])));
+            }     
         }
 
         bool FrameEnded(FrameEvent evt)
         {
             // use LKernel.GetG<LevelManager>().CurrentLevel.Definition.Get__Property() to retrieve your waypoints
-            Vector3 target = new Vector3(0, 0, 50);
-            Vector3 vecToTar = NodePosition - target;
-            float distToTar = vecToTar.Length;
+            loop++;
+            if (loop % 10 == 0)
+            {
+                string tmp;
+                tmp = Human.NodePosition.x + " " + Human.NodePosition.y + " " + Human.NodePosition.z;
+                //outfile.WriteLine(tmp);
+            }
+            Vector3 target = Waypoints[currWaypoint];
+            Vector3 vecToTar = target - NodePosition;
+            double distToTar = vecToTar.Length;
             Kart.TurnMultiplier = SteerTowards(target);
             if (distToTar > DecelThreshold)
-                Kart.Acceleration = 1.0f;
+                Kart.Acceleration = 0.5f;
             else
-                Kart.Acceleration *= (1-(distToTar-DecelThreshold)); //slow down on approach  
+                Kart.Acceleration = 0.1f;
+            if (distToTar < WaypointThreshold)
+            {
+                currWaypoint++;
+                currWaypoint = currWaypoint % Waypoints.Count;
+            }
+
             return true;
         }
 
@@ -41,18 +76,13 @@ namespace Ponykart.Players {
           vecToTar.Normalise();
 
             float result = xaxis.DotProduct(vecToTar);
-
-   if (result > 0f)
-    return 1.0f;
-   else if (result < 0f)
-    return -1.0f;
-            return 0;
+            return result;
         }
 
         public override void Detach()
         {
             LKernel.GetG<Root>().FrameEnded -= FrameEnded;
-
+            outfile.Close();
             base.Detach();
         }
 

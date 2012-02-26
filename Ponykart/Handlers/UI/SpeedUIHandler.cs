@@ -47,7 +47,8 @@ Skid info: {9}, {10}
 Brake? {11}
 AccelMultiplier: {12}
 Gravity: {13}
-KartDriftState: {14} , WheelDriftState: {15}",
+KartDriftState: {14} , WheelDriftState: {15}
+Player Pos: {16} X, {17} Y, {18} Z",
 						kart.Vehicle.CurrentSpeedKmHour,
 						Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(0)), Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(1)),
 						Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(2)), Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(3)),
@@ -57,7 +58,8 @@ KartDriftState: {14} , WheelDriftState: {15}",
 						kart.WheelFL.IsBrakeOn,
 						kart.Acceleration,
 						kart.Body.Gravity,
-						kart.DriftState, kart.WheelFL.DriftState);
+						kart.DriftState, kart.WheelFL.DriftState,
+                        mainPlayer.NodePosition.x, mainPlayer.NodePosition.y, mainPlayer.NodePosition.z);
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;
