@@ -5,7 +5,6 @@ using System;
 using Mogre;
 using MOIS;
 using Ponykart.Levels;
-using Ponykart.Properties;
 using Type = MOIS.Type;
 
 namespace Ponykart {
@@ -76,21 +75,21 @@ namespace Ponykart {
 		// ============================================================
 
 
-		float timeSinceLastFrame = 0;
-		private readonly float _inputCaptureRate = Settings.Default.InputCaptureRate;
+		//float timeSinceLastFrame = 0;
+		//private readonly float _inputCaptureRate = Settings.Default.InputCaptureRate;
 
 		bool FrameStarted(FrameEvent e) {
 			if (!LKernel.GetG<LevelManager>().IsValidLevel)
 				return true;
 
-			timeSinceLastFrame += e.timeSinceLastFrame;
-			if (timeSinceLastFrame >= _inputCaptureRate) {
+			//timeSinceLastFrame += e.timeSinceLastFrame;
+			//if (timeSinceLastFrame >= _inputCaptureRate) {
 				// Capture all key presses since last check.
 				InputKeyboard.Capture();
 				// Capture all mouse movements and button presses since last check.
 				InputMouse.Capture();
-				timeSinceLastFrame -= _inputCaptureRate;
-			}
+			//	timeSinceLastFrame -= _inputCaptureRate;
+			//}
 
 			return true;
 		}
