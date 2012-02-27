@@ -7,15 +7,15 @@ namespace Ponykart {
 	/// If you're using these, remember to put the entity into the RENDER_QUEUE_BUBBLE_GLOW render queue!
 	/// </summary>
 	public enum BalloonGlowColour {
-		red,
-		blue,
-		yellow,
-		green,
-		orange,
-		magenta,
-		purple,
-		cyan,
-		white
+		red = 0,
+		blue = 1,
+		yellow = 2,
+		green = 3,
+		orange = 4,
+		magenta = 5,
+		purple = 6,
+		cyan = 7,
+		white = 8
 	}
 
 	/// <summary>

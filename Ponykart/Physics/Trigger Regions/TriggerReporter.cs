@@ -46,12 +46,12 @@ namespace Ponykart.Physics {
 				// started touching = enter
 				if (info.Flags == ObjectTouchingFlags.StartedTouching) {
 					region.CurrentlyCollidingWith.Add(kartBody);
-					region.InvokeTrigger(kartBody, TriggerReportFlags.Enter);
+					region.InvokeTrigger(kartBody, TriggerReportFlags.Enter, info);
 				}
 				// stopped touching = leave
 				else if (info.Flags == ObjectTouchingFlags.StoppedTouching) {
 					region.CurrentlyCollidingWith.Remove(kartBody);
-					region.InvokeTrigger(kartBody, TriggerReportFlags.Leave);
+					region.InvokeTrigger(kartBody, TriggerReportFlags.Leave, info);
 				}
 			}
 		}

@@ -172,8 +172,8 @@ namespace Ponykart.Physics {
 		private void SetupAndFireEvent(CollisionObject objectA, CollisionObject objectB, Vector3? position, Vector3? normal, ObjectTouchingFlags flags) {
 			PonykartCollisionGroups groupA = objectA.GetCollisionGroup();
 			PonykartCollisionGroups groupB = objectB.GetCollisionGroup();
-			int groupIDA = (int) groupA;
-			int groupIDB = (int) groupB;
+			//int groupIDA = (int) groupA;
+			//int groupIDB = (int) groupB;
 
 			CollisionReportInfo info = new CollisionReportInfo {
 				FirstGroup = groupA,
@@ -184,8 +184,6 @@ namespace Ponykart.Physics {
 				Normal = normal,
 				Flags = flags
 			};
-
-			System.Console.WriteLine(flags + " " + objectA.GetName() + " " + objectB.GetName());
 
 			FireEvent(info);
 		}

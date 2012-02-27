@@ -48,7 +48,7 @@ namespace Ponykart.Sound {
 
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			LevelManager lm = LKernel.GetG<LevelManager>();
-			if (lm.IsValidLevel && lm.IsPlayableLevel)
+			if (lm.IsPlayableLevel)
 				Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}
 
@@ -74,7 +74,7 @@ namespace Ponykart.Sound {
 				var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
 
 				pos = body.CenterOfMassPosition;
-				rot = body.Orientation.ZAxis;
+				rot = body.Orientation.YAxis;
 				vel = body.LinearVelocity;
 				up = body.Orientation.YAxis;
 			}
@@ -83,7 +83,7 @@ namespace Ponykart.Sound {
 
 				Quaternion derivedOrientation = cam.Camera.DerivedOrientation;
 				pos = cam.Camera.DerivedPosition;
-				rot = derivedOrientation.ZAxis;
+				rot = derivedOrientation.YAxis;
 				vel = body.LinearVelocity;
 				up = derivedOrientation.YAxis;
 			}

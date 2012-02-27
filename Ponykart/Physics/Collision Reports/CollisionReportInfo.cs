@@ -3,9 +3,9 @@ using Mogre;
 
 namespace Ponykart.Physics {
 	/// <summary>
-	/// Struct to pass around for CollisionReport events. The order of the two objects doesn't matter.
+	/// class to pass around for CollisionReport events. The order of the two objects doesn't matter.
 	/// </summary>
-	public struct CollisionReportInfo {
+	public class CollisionReportInfo {
 		/// <summary>
 		/// Collision group of our first object
 		/// </summary>

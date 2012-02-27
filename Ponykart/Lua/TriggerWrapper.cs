@@ -2,6 +2,7 @@
 using BulletSharp;
 using LuaNetInterface;
 using Mogre;
+using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Physics;
 
@@ -56,7 +57,7 @@ namespace Ponykart.Lua {
 		[LuaFunction("createBoxTriggerRegion", "Creates a box trigger region given a name and some info and a function to call.",
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
 			"vector3 dimensions", "vector3 position", "quaternion orientation")]
-		public static void CreateBoxTriggerRegion(string name, TriggerReportEvent trh, Vector3 dimensions, Vector3 position, Quaternion orientation) {
+		public static TriggerRegion CreateBoxTriggerRegion(string name, TriggerReportEvent trh, Vector3 dimensions, Vector3 position, Quaternion orientation) {
 			var csm = LKernel.GetG<CollisionShapeManager>();
 			CollisionShape shape;
 
@@ -68,6 +69,7 @@ namespace Ponykart.Lua {
 			var tr = new TriggerRegion(name, position, orientation, shape);
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
+			return tr;
 		}
 
 		/// <summary>
@@ -76,7 +78,7 @@ namespace Ponykart.Lua {
 		[LuaFunction("createCapsuleTriggerRegion", "Creates a capsule trigger region given a name and some info and a function to call.",
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
 			"number radius", "number height", "vector3 position", "quaternion orientation")]
-		public static void CreateCapsuleTriggerRegion(
+		public static TriggerRegion CreateCapsuleTriggerRegion(
 			string name, TriggerReportEvent trh, float radius, float height, Vector3 position, Quaternion orientation)
 		{
 			var csm = LKernel.GetG<CollisionShapeManager>();
@@ -90,6 +92,7 @@ namespace Ponykart.Lua {
 			var tr = new TriggerRegion(name, position, orientation, shape);
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
+			return tr;
 		}
 
 		/// <summary>
@@ -98,7 +101,7 @@ namespace Ponykart.Lua {
 		[LuaFunction("createSphereTriggerRegion", "Creates a sphere trigger region given a name and some info and a function to call.",
 			"string name - The name of the shape", "function() trigger report handler - (triggerRegion, otherShape, triggerFlags)",
 			"number radius", "vector3 position")]
-		public static void CreateSphereTriggerRegion(string name, TriggerReportEvent trh, float radius, Vector3 position) {
+		public static TriggerRegion CreateSphereTriggerRegion(string name, TriggerReportEvent trh, float radius, Vector3 position) {
 			var csm = LKernel.GetG<CollisionShapeManager>();
 			CollisionShape shape;
 
@@ -110,6 +113,7 @@ namespace Ponykart.Lua {
 			var tr = new TriggerRegion(name, position, shape);
 			tr.OnTrigger += trh;
 			AddToDispose(tr, trh);
+			return tr;
 		}
 
 		/// <summary>
@@ -126,6 +130,23 @@ namespace Ponykart.Lua {
 
 			if (tr != null)
 				AddToDispose(tr, trh);
+		}
+
+		/////////////////////////////////////
+
+		[LuaFunction("getKartFromBody", "gets the Kart out of a RigidBody", "RigidBody")]
+		public static Kart GetKartFromBody(RigidBody enteredBody) {
+			object o = enteredBody.UserObject;
+			CollisionObjectDataHolder codh = o as CollisionObjectDataHolder;
+			if (codh != null) {
+				LThing thing = codh.Thing;
+				if (thing != null) {
+					Kart kart = thing as Kart;
+					if (kart != null)
+						return kart;
+				}
+			}
+			return null;
 		}
 	}
 }

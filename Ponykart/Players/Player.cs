@@ -29,12 +29,16 @@ namespace Ponykart.Players {
 		/// </summary>
 		public virtual bool IsControlEnabled { get; set; }
 
+		public bool IsComputerControlled { get; private set; }
 
-		public Player(LevelChangedEventArgs eventArgs, int id) {
+
+		public Player(LevelChangedEventArgs eventArgs, int id, bool isComputerControlled) {
 			// don't want to create a player if it's ID isn't valid
 			if (id < 0 || id >= Settings.Default.NumberOfPlayers)
 				throw new ArgumentOutOfRangeException("id", "ID number specified for kart spawn position is not valid!");
 			Launch.Log("[Loading] Player with ID " + id + " created");
+
+			this.IsComputerControlled = isComputerControlled;
 
 			// set up the spawn position/orientation
 			Vector3 spawnPos = eventArgs.NewLevel.Definition.GetVectorProperty("KartSpawnPosition" + id, null);
@@ -53,6 +57,8 @@ namespace Ponykart.Players {
 			Kart = LKernel.GetG<Spawner>().Spawn(kartName, block) as Kart;
 			Driver = LKernel.GetG<Spawner>().Spawn(driverName, block) as Driver;
 			Driver.AttachToKart(Kart, Vector3.ZERO);
+			Kart.Player = this;
+			Driver.Player = this;
 
 			Kart.OwnerID = id;
 			ID = id;

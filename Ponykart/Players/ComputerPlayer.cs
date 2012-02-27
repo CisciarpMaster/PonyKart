@@ -1,94 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Mogre;
-using Ponykart.Core;
+﻿using Mogre;
+using Ponykart.Actors;
 using Ponykart.Levels;
+using Ponykart.Physics;
 
 namespace Ponykart.Players {
 	public class ComputerPlayer : Player {
-		const float DecelThreshold = 50 * 50; // 110 ^ 2
-		const float WaypointThreshold = 45 * 45; // 100 ^ 2
-        const float wanderlust = 0;
-		private int loop = 0;
-        private Vector3 deviation;
-		private Player Human;
-		private int currWaypoint = 0;
-        private Random random;
-		private List<Vector3> Waypoints = new List<Vector3>();
+		private Vector3 nextWaypoint;
+		/// <summary> The trigger region we are driving towards </summary>
+		public TriggerRegion CurrentRegion { get; private set; }
+		/// <summary> The trigger region we came from </summary>
+		public TriggerRegion PreviousRegion { get; private set; }
+		private LThing axis;
 
-		//private StreamWriter outfile = new StreamWriter("waypoints.txt");
+		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id, true) {
+			axis = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
+			axis.ModelComponents[0].Node.SetScale(1, 1, 1);//0.5f, 0.5f, 0.5f);
 
-		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id) {
-			Human = LKernel.GetG<PlayerManager>().MainPlayer;
-			random = new Random(ID);
-			//Waypoints.Add(new Vector3(200, 0, 200));
-			//Waypoints.Add(new Vector3(200, 0, -200));
-			//Waypoints.Add(new Vector3(-200, 0, -200));
-			//Waypoints.Add(new Vector3(-200, 0, 200));
-
-			//Dear David. THIS NEXT LINE IS BAD AND YOU SHOULD FEEL BAD. Sincerely, David.
-			StreamReader infile = new StreamReader("media/saa_r1 (2).waypoint");
-
-			string line;
-			string[] tempStr;
-            Vector3 tempVec;
-			while ((line = infile.ReadLine()) != null) {
-				tempStr = line.Split(' ');
-                tempVec = new Vector3(float.Parse(tempStr[0]), float.Parse(tempStr[1]), float.Parse(tempStr[2]));
-                deviation.x = (float)(random.NextDouble() * wanderlust*2) - wanderlust;
-                deviation.y = 0;
-                deviation.z = (float)(random.NextDouble() * wanderlust*2) - wanderlust;
-                tempVec += deviation;
-				Waypoints.Add(tempVec);
-                LKernel.GetG<Spawner>().Spawn("Waypoint", tempVec);
-			}
-
-			infile.Close();
-
-			LKernel.GetG<Root>().FrameEnded += FrameEnded;
+			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}
 
-		float elapsed;
-		bool FrameEnded(FrameEvent evt) {
-			if (!Pauser.IsPaused) {
+		void EveryTenth(object o) {
+			Vector3 vecToTar = nextWaypoint - Kart.RootNode.Position;
+			// not using Y so set it to 0
+			vecToTar.y = 0;
+					
+			float steerFactor = SteerTowards(vecToTar);
 
-				if (elapsed > 0.1f) {
-					// use LKernel.GetG<LevelManager>().CurrentLevel.Definition.Get__Property() to retrieve your waypoints
-					/*loop++;
-					if (loop % 10 == 0) {
-						string tmp;
-						tmp = Human.NodePosition.x + " " + Human.NodePosition.y + " " + Human.NodePosition.z;
-						outfile.WriteLine(tmp);
-					}*/
-					Vector3 target = Waypoints[currWaypoint];
-					Vector3 vecToTar = target - Kart.RootNode.Position;
-					// it's better to use the squared length because this way we avoid having to so a square root operation, which are pretty expensive
-					float distToTar = vecToTar.SquaredLength;
-					// I changed this so we only have to do the subtraction once
-                    
-                    float steerFactor = SteerTowards(target, vecToTar);
-
-					Kart.TurnMultiplier = steerFactor;
-                    Kart.Acceleration = 1.0f - (System.Math.Abs(steerFactor) / 3f);
-
-					if (distToTar < WaypointThreshold)
-                    {
-                        
-						currWaypoint++;
-						currWaypoint = currWaypoint % Waypoints.Count;
-					}
-
-					elapsed -= 0.1f;
-				}
-
-				elapsed += evt.timeSinceLastFrame;
-			}
-
-			return true;
+			Kart.TurnMultiplier = steerFactor;
+			Kart.Acceleration = 1.0f - (System.Math.Abs(steerFactor) / 3f);
 		}
 
-		private float SteerTowards(Vector3 target, Vector3 vecToTar) {
+		/// <summary>
+		/// Calculates the multiplier for the kart to steer towards the next waypoint
+		/// </summary>
+		/// <param name="vecToTar">the next waypoint position - the current kart position</param>
+		/// <returns>A float between -1 and 1, inclusive</returns>
+		private float SteerTowards(Vector3 vecToTar) {
 			Vector3 xaxis = Kart.Body.Orientation.XAxis;
 
 			xaxis.Normalise();
@@ -104,10 +51,48 @@ namespace Ponykart.Players {
 				return result;
 		}
 
+		/// <summary>
+		/// Calculates the next waypoint we should drive to
+		/// </summary>
+		/// <param name="enteredRegion">The trigger region that fired the collision event</param>
+		/// <param name="nextRegion">The next trigger region we should drive to</param>
+		/// <param name="info">
+		/// Contains some information about when we drove into the previous trigger region. 
+		/// If this is null, then it's the initial waypoint we got when we loaded the level.
+		/// </param>
+		public void CalculateNewWaypoint(TriggerRegion enteredRegion, TriggerRegion nextRegion, CollisionReportInfo info) {
+			// have to check for this because trigger regions like sending duplicate events
+			// also we check against the previous region in situations where the kart is in two regions at once
+			if (nextRegion != CurrentRegion && nextRegion != PreviousRegion && enteredRegion != PreviousRegion) {
+
+				// do we need to do all of the transform stuff? it's accurate, but do we need to be particularly accurate?
+				float offset;
+				if (info == null || info.Position == null) {
+					// when we're starting, we'll just use our kart's position for things
+					Vector3 relativePos = nextRegion.Body.WorldTransform.InverseAffine() * Kart.RootNode.Position;
+					offset = relativePos.x / nextRegion.Width;
+				}
+				else {
+					// otherwise calculate using the region we just entered
+					Vector3 relativePos = enteredRegion.Body.WorldTransform.InverseAffine() * info.Position.Value;
+					offset = relativePos.x / enteredRegion.Width;
+				}
+				nextWaypoint = nextRegion.Body.WorldTransform * new Vector3(offset * nextRegion.Width, 0, 0);
+				nextWaypoint.y = 0;
+
+				// update the region pointers
+				PreviousRegion = enteredRegion;
+				CurrentRegion = nextRegion;
+
+				// update this axis' position
+				axis.RootNode.Position = nextWaypoint;
+				axis.RootNode.Orientation = nextRegion.Body.Orientation;
+				nextRegion.CycleToNextColor();
+			}
+		}
+
 		public override void Detach() {
-			LKernel.GetG<Root>().FrameEnded -= FrameEnded;
-			//outfile.Flush();
-			//outfile.Close();
+			Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
 			base.Detach();
 		}
 

@@ -1,0 +1,16 @@
+<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.7" author="Ponykart's scene to muffin converter">
+	<environment>
+	</environment>
+	<nodes>
+		<node name="AITest_Plane">
+			<position x="-107.092" y="3.13976" z="108.001" />
+			<scale x="2.4319" y="2.4319" z="2.4319" />
+			<rotation qx="0" qy="0" qz="0" qw="1" />
+			<entity name="AITest_Plane" castShadows="true" receiveShadows="true" meshFile="AITest_Plane.mesh" static="true">
+				<subentities>
+					<subentity index="0" materialName="brick" />
+				</subentities>
+			</entity>
+		</node>
+	</nodes>
+</scene>

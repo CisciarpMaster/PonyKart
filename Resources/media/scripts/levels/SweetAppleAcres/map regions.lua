@@ -29,7 +29,7 @@ if getOption("ModelDetail") == "Medium" then
 	-------------------------------------------
 
 	-- show buckets when entering, show bridge when leaving
-	local function startTriggerRegion(region, shape, flags)
+	local function startTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Start" then
 			currentRegion = "Start"
 		
@@ -47,7 +47,7 @@ if getOption("ModelDetail") == "Medium" then
 	end
 
 	-- show ramp when entering, hide barn and bridge when leaving
-	local function cliffTriggerRegion(region, shape, flags)
+	local function cliffTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Cliff" then
 			currentRegion = "Cliff"
 		
@@ -65,7 +65,7 @@ if getOption("ModelDetail") == "Medium" then
 	end
 
 	-- show river when entering, hide start when leaving
-	local function bucketsTriggerRegion(region, shape, flags)
+	local function bucketsTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Buckets" then
 			currentRegion = "Buckets"
 		
@@ -83,7 +83,7 @@ if getOption("ModelDetail") == "Medium" then
 	end
 
 	-- show treehouse when entering, hide cliff when leaving
-	local function rampTriggerRegion(region, shape, flags)
+	local function rampTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Ramp" then
 			currentRegion = "Ramp"
 		
@@ -101,7 +101,7 @@ if getOption("ModelDetail") == "Medium" then
 	end
 
 	-- hide buckets when entering, hide ramp when leaving
-	local function riverTriggerRegion(region, shape, flags)
+	local function riverTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "River" then
 			currentRegion = "River"
 			
@@ -119,7 +119,7 @@ if getOption("ModelDetail") == "Medium" then
 	end
 
 	-- show bridge when entering, hide river when leaving
-	local function treehouseTriggerRegion(region, shape, flags)
+	local function treehouseTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Treehouse" then
 			currentRegion = "Treehouse"
 			
@@ -137,7 +137,7 @@ if getOption("ModelDetail") == "Medium" then
 	end
 
 	-- show barn when entering, hide treehouse when leaving
-	local function bridgeTriggerRegion(region, shape, flags)
+	local function bridgeTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Bridge" then
 			currentRegion = "Bridge"
 		
@@ -155,7 +155,7 @@ if getOption("ModelDetail") == "Medium" then
 	end
 
 	-- show start and cliff when entering, hide bridge when leaving
-	local function barnTriggerRegion(region, shape, flags)
+	local function barnTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Barn" then
 			currentRegion = "Barn"
 			

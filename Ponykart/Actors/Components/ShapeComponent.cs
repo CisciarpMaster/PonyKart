@@ -43,14 +43,6 @@ namespace Ponykart.Actors {
 					Mesh = block.GetStringProperty("mesh", null);
 					break;
 			}
-
-			// don't forget about ForceCompound
-
-
-
-
-
-			
 		}
 
 		protected override void Dispose(bool disposing) {

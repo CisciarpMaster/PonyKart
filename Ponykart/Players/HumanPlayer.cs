@@ -8,7 +8,7 @@ namespace Ponykart.Players {
 
 
 		public HumanPlayer(LevelChangedEventArgs eventArgs, int id)
-			: base(eventArgs, id) {
+			: base(eventArgs, id, false) {
 
 			// hook up to input events
 			bindings = LKernel.Get<KeyBindingManager>();

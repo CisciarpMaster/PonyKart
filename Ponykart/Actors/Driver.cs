@@ -1,11 +1,12 @@
 ﻿using Mogre;
+using Ponykart.Players;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class Driver : LThing {
 
 		public Kart Kart { get; set; }
-
+		public Player Player { get; set; }
 
 		public Driver(ThingBlock block, ThingDefinition def) : base(block, def) {
 		}

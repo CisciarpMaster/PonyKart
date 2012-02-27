@@ -2,7 +2,6 @@
 using BulletSharp;
 using Mogre;
 using Ponykart.Physics;
-using Ponykart.Properties;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -33,17 +32,15 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// output some text, show/hide a dialogue, and change the color of the region
 		/// </summary>
-		void doSomething(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags) {
+		void doSomething(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info) {
 			if (flags.HasFlag(TriggerReportFlags.Enter)) {
 				Console.WriteLine(otherBody.GetName() + " has entered trigger area \"" + region.Name + "\"");
 				// cycle through the balloon colors
-				if (Settings.Default.EnableGlowyRegions) 
-					region.GlowColor = (BalloonGlowColour) (((int) region.GlowColor + 1) % 8);
+				region.CycleToNextColor();
 			}
 			else {
 				Console.WriteLine(otherBody.GetName() + " has left trigger area \"" + region.Name + "\"");
-				if (Settings.Default.EnableGlowyRegions)
-					region.GlowColor = (BalloonGlowColour) (((int) region.GlowColor + 1) % 8);
+				region.CycleToNextColor();
 			}
 		}
 

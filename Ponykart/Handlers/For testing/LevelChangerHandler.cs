@@ -28,6 +28,8 @@ namespace Ponykart.Handlers {
 					s = "testlevel"; break;
 				case KeyCode.KC_3:
 					s = "SweetAppleAcres"; break;
+				case KeyCode.KC_4:
+					s = "TestAI"; break;
 			}
 			if (!string.IsNullOrEmpty(s)) {
 				LKernel.GetG<LevelManager>().LoadLevel(new LevelChangeRequest() {

@@ -3,6 +3,7 @@ using BulletSharp;
 using Mogre;
 using Ponykart.Handlers;
 using Ponykart.Physics;
+using Ponykart.Players;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
@@ -32,6 +33,7 @@ namespace Ponykart.Actors {
 		public KartDriftState DriftState { get; set; }
 
 		public Driver Driver { get; set; }
+		public Player Player { get; set; }
 
 		// our wheelshapes
 		public Wheel WheelFL { get; protected set; }

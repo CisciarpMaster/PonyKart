@@ -6,7 +6,7 @@ using Ponykart.Properties;
 
 namespace Ponykart.Physics {
 
-	public delegate void TriggerReportEvent(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags);
+	public delegate void TriggerReportEvent(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info);
 
 	public class TriggerRegion : LDisposable {
 		public RigidBody Body { get; protected set; }
@@ -29,8 +29,8 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Creates a new trigger region. It automatically adds itself to the TriggerReporter's dictionary, so you don't have to do that.
 		/// </summary>
-		/// <param name="rotation">a degree vector</param>
-		public TriggerRegion(string name, Vector3 position, Quaternion rotation, CollisionShape shape) {
+		/// <param name="orientation">a degree vector</param>
+		public TriggerRegion(string name, Vector3 position, Quaternion orientation, CollisionShape shape) {
 			Name = name;
 			CurrentlyCollidingWith = new HashSet<RigidBody>();
 
@@ -75,17 +75,21 @@ namespace Ponykart.Physics {
 				Node.AttachObject(Entity);
 			}
 			Node.Position = position;
-			Node.Orientation = rotation;
+			Node.Orientation = orientation;
 
 			// physics
-			Matrix4 transform = new Matrix4(rotation);
-			transform.SetTrans(position);
+			Matrix4 transform = new Matrix4();
+			transform.MakeTransform(position, Vector3.UNIT_SCALE, orientation);
 
+			var motionState = new DefaultMotionState();//new MogreMotionState(null, Node);
+			motionState.WorldTransform = transform;
+			var info = new RigidBodyConstructionInfo(0, motionState, shape);
+			info.StartWorldTransform = transform;
 			// make our ghost object
-			Body = new RigidBody(new RigidBodyConstructionInfo(0, new MogreMotionState(null, Node), shape));
+			Body = new RigidBody(info);
 			Body.CollisionFlags = CollisionFlags.NoContactResponse | CollisionFlags.CustomMaterialCallback;
 			Body.CollisionShape = shape;
-			Body.WorldTransform = transform;
+			Body.WorldTransform = info.StartWorldTransform;
 			Body.UserObject = new CollisionObjectDataHolder(Body, PonykartCollisionGroups.Triggers, name);
 			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
 
@@ -96,13 +100,13 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Run the enter event
 		/// </summary>
-		public void InvokeTrigger(RigidBody otherBody, TriggerReportFlags flags) {
+		public void InvokeTrigger(RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info) {
 			// at the moment this only triggers when the "main" shape of an actor enters. Do we want to change this?
 			if (OnTrigger != null) {
 #if DEBUG
 				try {
 #endif
-					OnTrigger(this, otherBody, flags);
+					OnTrigger(this, otherBody, flags, info);
 #if DEBUG
 				}
 				catch (Exception e) {
@@ -112,20 +116,51 @@ namespace Ponykart.Physics {
 			}
 		}
 
+
+		BalloonGlowColour _balloonColor = BalloonGlowColour.red;
 		/// <summary>
 		/// Must be one of: red, blue, yellow, green, orange, magenta, purple, cyan, white
 		/// </summary>
 		public BalloonGlowColour GlowColor {
 			get {
-				return balloonColor;
+				return _balloonColor;
 			}
 			set {
-				balloonColor = value;
+				_balloonColor = value;
 				if (Settings.Default.EnableGlowyRegions)
 					Entity.SetMaterialName("BalloonGlow_" + value);
 			}
 		}
-		BalloonGlowColour balloonColor = BalloonGlowColour.red;
+
+		/// <summary>
+		/// Changes the region's color to the next one in the cycle
+		/// </summary>
+		public void CycleToNextColor() {
+			if (Settings.Default.EnableGlowyRegions) {
+				GlowColor = (BalloonGlowColour) (((int) _balloonColor + 1) % 9);
+			}
+		}
+
+		/// <summary>
+		/// The width of this region, either its X width or radius.
+		/// Returns 0 if the shape is not a box, capsule, cylinder, or sphere.
+		/// </summary>
+		public float Width {
+			get {
+				switch (Body.CollisionShape.ShapeType) {
+					case BroadphaseNativeType.BoxShape:
+						return (Body.CollisionShape as BoxShape).HalfExtentsWithoutMargin.x;
+					case BroadphaseNativeType.CapsuleShape:
+						return (Body.CollisionShape as CapsuleShape).Radius;
+					case BroadphaseNativeType.CylinderShape:
+						return (Body.CollisionShape as CylinderShape).Radius;
+					case BroadphaseNativeType.SphereShape:
+						return (Body.CollisionShape as SphereShape).Radius;
+					default:
+						return 0;
+				}
+			}
+		}
 
 		/// <summary>
 		/// we can assume our trigger regions are permanent
