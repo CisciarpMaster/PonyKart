@@ -185,6 +185,8 @@
     <Compile Include="Lua\PhysicsWrapper.cs" />
     <Compile Include="Lua\PlayerWrapper.cs" />
     <Compile Include="Lua\RaceCountdownWrapper.cs" />
+    <Compile Include="Networking\Connection.cs" />
+    <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="Physics\CollisionObjectDataHolder.cs" />
     <Compile Include="Physics\CollisionShapeManager.cs" />
     <Compile Include="Physics\OgreToBulletMesh.cs" />

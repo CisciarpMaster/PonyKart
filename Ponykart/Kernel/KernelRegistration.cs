@@ -3,6 +3,7 @@ using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Lua;
+using Ponykart.Networking;
 using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Properties;
@@ -71,6 +72,10 @@ namespace Ponykart {
 			AddGlobalObject(new ThingDatabase());
 			AddGlobalObject(new Spawner());
 			AddGlobalObject(new AnimationManager());
+
+            // networking
+            splash.Increment("Creating Network manager...");
+            AddGlobalObject(new NetworkManager());
 
 			// Miyagi and stuff
 			splash.Increment("Initialising Miyagi...");
