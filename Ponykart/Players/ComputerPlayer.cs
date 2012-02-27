@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
@@ -9,7 +9,7 @@ namespace Ponykart.Players {
 	public class ComputerPlayer : Player {
 		const float DecelThreshold = 50 * 50; // 110 ^ 2
 		const float WaypointThreshold = 45 * 45; // 100 ^ 2
-        const float wanderlust = 30;
+        const float wanderlust = 0;
 		private int loop = 0;
         private Vector3 deviation;
 		private Player Human;
@@ -70,7 +70,7 @@ namespace Ponykart.Players {
                     float steerFactor = SteerTowards(target, vecToTar);
 
 					Kart.TurnMultiplier = steerFactor;
-                    Kart.Acceleration = 1.0f - System.Math.Abs(steerFactor);
+                    Kart.Acceleration = 1.0f - (System.Math.Abs(steerFactor) / 3f);
 
 					if (distToTar < WaypointThreshold)
                     {
