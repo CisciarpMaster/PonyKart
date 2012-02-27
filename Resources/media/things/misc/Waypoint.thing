@@ -1,9 +1,5 @@
 Physics = None
 
-Shape {
-	Type = Sphere
-	Radius = 0.0
-}
 Model {
 	Mesh = "primitives/sphere.mesh"
 	Material = "brick"
