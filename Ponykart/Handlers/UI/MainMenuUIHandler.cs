@@ -117,6 +117,10 @@ namespace Ponykart.Handlers {
         void OnHostInfo_SelectNext(Button button, MouseButtonEventArgs eventArgs)
         {
             // TODO: Fix 
+			
+			// I'd probably move this out into something from the network manager itself, hooking up to the event with its own method.
+			// This handler should really only be doing stuff related to the UI. That's what events are for!
+			// - hoppip
             LKernel.Get<NetworkManager>().InitManager(int.Parse(mmm.NetworkHostPortTextBox.Text),
                                                       mmm.NetworkHostPasswordTextBox.Text);
             NetworkManager.StartThread(1);
