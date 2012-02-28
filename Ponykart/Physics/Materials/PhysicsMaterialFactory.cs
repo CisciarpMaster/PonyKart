@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using BulletSharp;
 using Mogre;
-using Ponykart.Properties;
 
 namespace Ponykart.Physics {
 	public class PhysicsMaterialFactory {
@@ -28,7 +27,7 @@ namespace Ponykart.Physics {
 			materials.Clear();
 
 			// get all of the filenames of the files in media/physicsmaterials
-			IEnumerable<string> files = Directory.EnumerateFiles(Settings.Default.PhysicsMaterialFileLocation, "*" + Settings.Default.PhysicsMaterialFileExtension);
+			IEnumerable<string> files = Directory.EnumerateFiles("media/physicsmaterials/", "*.physmat");
 
 			foreach (string filename in files) {
 				// rev up those files

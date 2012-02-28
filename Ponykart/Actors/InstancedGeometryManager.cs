@@ -4,7 +4,6 @@ using System.Linq;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
@@ -16,7 +15,9 @@ namespace Ponykart.Actors {
 		// uses map group + mesh name as a key
 		IDictionary<string, Entity> ents;
 
-		readonly Vector3 regionDimensions = new Vector3(Settings.Default.InstancedRegionSize, 1000, Settings.Default.InstancedRegionSize);
+		private readonly float _instancedRegionSize = 300f;
+		private readonly int _numInstancesPerBatch = 1; // maximum 80
+		readonly Vector3 regionDimensions;
 
 		// even though 80 means fewer batches, that also means less culling. So for whatever reason, one mesh per batch seems to be the fastest.
 
@@ -24,6 +25,7 @@ namespace Ponykart.Actors {
 			igeoms = new Dictionary<string, InstancedGeometry>();
 			transforms = new Dictionary<string, IList<Transform>>();
 			ents = new Dictionary<string, Entity>();
+			regionDimensions = new Vector3(_instancedRegionSize, 1000, _instancedRegionSize);
 
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
@@ -113,7 +115,7 @@ namespace Ponykart.Actors {
 
 				// add the entities to our batch
 				int numEnts = transforms[ent.Key].Count;
-				int numEntsToAdd = numEnts > Settings.Default.InstancedEntitiesPerBatch ? Settings.Default.InstancedEntitiesPerBatch : numEnts;
+				int numEntsToAdd = numEnts > _numInstancesPerBatch ? _numInstancesPerBatch : numEnts;
 
 				// add the entity ~80 times or less to the geometry
 				for (int a = 0; a < numEntsToAdd; a++) {
@@ -124,7 +126,7 @@ namespace Ponykart.Actors {
 				igeom.Build();
 
 				// number of batch instances we need is number of entities / ~80, since that's the maximum number of instances a batch can do
-				for (int a = 0; a < (int) ((float) numEnts / (float) Settings.Default.InstancedEntitiesPerBatch); a++) {
+				for (int a = 0; a < (int) ((float) numEnts / (float) _numInstancesPerBatch); a++) {
 					igeom.AddBatchInstance();
 				}
 

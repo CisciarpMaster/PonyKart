@@ -6,7 +6,6 @@ using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Players;
-using Ponykart.Properties;
 
 namespace Ponykart.Sound {
 	public class SoundMain {
@@ -250,7 +249,7 @@ namespace Ponykart.Sound {
 		/// </summary>
 		/// <param name="filename">Don't include the "media/sound/" bit.</param>
 		public ISoundSource GetSource(string filename) {
-			return Engine.GetSoundSource(Settings.Default.SoundFileLocation + filename, true);
+			return Engine.GetSoundSource("media/sound/" + filename, true);
 		}
 
 		public void AddSoundComponent(SoundComponent sc) {

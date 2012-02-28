@@ -85,7 +85,7 @@ namespace Ponykart.Levels {
 		/// "media/scripts/levelNameGoesHere"
 		/// </summary>
 		public void RunLevelScript() {
-			if (Directory.Exists(Settings.Default.LevelScriptLocation + Name + "/"))
+			if (Directory.Exists(LuaMain.luaLevelFileLocation + Name + "/"))
 				LKernel.GetG<LuaMain>().LuaVM.Lua.GetFunction(Name).Call(this);
 		}
 

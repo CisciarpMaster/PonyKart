@@ -18,8 +18,7 @@ namespace Ponykart.Core {
 		float rayLength;
 		DiscreteDynamicsWorld world;
 
-		public PlayerCamera(string name)
-			: base(name) {
+		public PlayerCamera(string name) : base(name) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			// make our camera and set some properties
@@ -51,6 +50,7 @@ namespace Ponykart.Core {
 		}
 
 		protected readonly float _cameraTightness = Settings.Default.CameraTightness;
+		protected readonly float _cameraTargetYOffset = Settings.Default.CameraTargetYOffset;
 		/// <summary>
 		/// Updates the camera
 		/// </summary>
@@ -67,7 +67,7 @@ namespace Ponykart.Core {
 
 
 				Vector3 newTarget = derivedTarget;
-				newTarget.y -= (Settings.Default.CameraTargetYOffset * (1 - ((derivedTarget - callback.HitPointWorld).Length / rayLength)));
+				newTarget.y -= (_cameraTargetYOffset * (1 - ((derivedTarget - callback.HitPointWorld).Length / rayLength)));
 
 				targetDisplacement = (newTarget - TargetNode.Position);
 			}

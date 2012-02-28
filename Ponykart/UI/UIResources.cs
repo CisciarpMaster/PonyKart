@@ -6,7 +6,6 @@ using Miyagi.Common.Data;
 using Miyagi.Common.Resources;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
-using Ponykart.Properties;
 
 namespace Ponykart.UI {
 	/// <summary>
@@ -21,6 +20,9 @@ namespace Ponykart.UI {
 		/// Our dictionary of skins
 		/// </summary>
 		public static Dictionary<string, Skin> Skins { get; private set; }
+
+		private static readonly string _resourcesFileLocation = "media/gui/";
+		private static readonly string _miyagiXMLExtension = ".mgx";
 
 		/// <summary>
 		/// Creates the fonts and the skins we will use
@@ -38,7 +40,7 @@ namespace Ponykart.UI {
 		/// Creates all the fonts
 		/// </summary>
 		private static void CreateFonts(MiyagiSystem system) {
-			var files = Directory.EnumerateFiles(Settings.Default.MiyagiResourcesFileLocation + "Fonts", "*" + Settings.Default.MiyagiXMLExtension, SearchOption.AllDirectories);
+			var files = Directory.EnumerateFiles(_resourcesFileLocation + "Fonts", "*" + _miyagiXMLExtension, SearchOption.AllDirectories);
 
 			var fonts = new List<Font>();
 
@@ -57,7 +59,7 @@ namespace Ponykart.UI {
 		/// </summary>
 		private static void CreateSkins() {
 			// get all of our .mgx files
-			var files = Directory.EnumerateFiles(Settings.Default.MiyagiResourcesFileLocation + "Skins", "*" + Settings.Default.MiyagiXMLExtension, SearchOption.AllDirectories);
+			var files = Directory.EnumerateFiles(_resourcesFileLocation + "Skins", "*" + _miyagiXMLExtension, SearchOption.AllDirectories);
 
 			var skins = new List<Skin>();
 
@@ -73,7 +75,7 @@ namespace Ponykart.UI {
 		/// Loads up our GUI from an xml file
 		/// </summary>
 		private static void CreateFromSerialized(MiyagiSystem system) {
-			system.SerializationManager.ImportFromFile(Settings.Default.MiyagiResourcesFileLocation + "cerealized" + Settings.Default.MiyagiXMLExtension);
+			system.SerializationManager.ImportFromFile(_resourcesFileLocation + "cerealized" + _miyagiXMLExtension);
 
 			// the XML only gives us SkinNames and FontNames, so now we have to get them to all use the correct skins/fonts
 			foreach (var control in system.GUIManager.AllControls) {

@@ -157,9 +157,9 @@ namespace Ponykart.Physics {
 					string bulletFilePath;
 
 					if (component.Mesh.EndsWith(".mesh")) {
-						bulletFilePath = Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension;
+						bulletFilePath = Settings.Default.BulletFileLocation + name + ".bullet";
 					}
-					else if (component.Mesh.EndsWith(Settings.Default.BulletFileExtension)) {
+					else if (component.Mesh.EndsWith(".bullet")) {
 						bulletFilePath = Settings.Default.BulletFileLocation + component.Mesh;
 					}
 					else {
@@ -209,14 +209,14 @@ namespace Ponykart.Physics {
 			BulletWorldImporter importer = new BulletWorldImporter(LKernel.GetG<PhysicsMain>().World);
 
 			// load that file
-			if (importer.LoadFile(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension)) {
-				Launch.Log(string.Concat("[PhysicsMain] Importing ", Settings.Default.BulletFileLocation, name, Settings.Default.BulletFileExtension, "..."));
+			if (importer.LoadFile(Settings.Default.BulletFileLocation + name + ".bullet")) {
+				Launch.Log(string.Concat("[PhysicsMain] Importing ", Settings.Default.BulletFileLocation, name, ".bullet..."));
 				// these should only have one collision shape in them, so we'll just use that
 				return importer.GetCollisionShapeByIndex(0);
 			}
 			else {
 				// if the file wasn't able to be loaded, throw an exception
-				throw new IOException(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension + " was unable to be imported!");
+				throw new IOException(Settings.Default.BulletFileLocation + name + ".bullet was unable to be imported!");
 			}
 		}
 
@@ -226,7 +226,7 @@ namespace Ponykart.Physics {
 		/// <param name="shape">The shape you want to serialize.</param>
 		/// <param name="name">The name of the shape - this will be used as part of its filename. "media/physics/" + name + ".bullet"</param>
 		public void SerializeShape(CollisionShape shape, string name) {
-			Launch.Log(string.Concat("[PhysicsMain] Serializing new bullet mesh: ", Settings.Default.BulletFileLocation, name, Settings.Default.BulletFileExtension, "..."));
+			Launch.Log(string.Concat("[PhysicsMain] Serializing new bullet mesh: ", Settings.Default.BulletFileLocation, name, ".bullet..."));
 			// so we don't have to do this in the future, we make a .bullet file out of it
 			DefaultSerializer serializer = new DefaultSerializer();
 			serializer.StartSerialization();
@@ -235,7 +235,7 @@ namespace Ponykart.Physics {
 			var stream = serializer.LockBuffer();
 
 			// export it
-			using (var filestream = File.Create(Settings.Default.BulletFileLocation + name + Settings.Default.BulletFileExtension, serializer.CurrentBufferSize)) {
+			using (var filestream = File.Create(Settings.Default.BulletFileLocation + name + ".bullet", serializer.CurrentBufferSize)) {
 				stream.CopyTo(filestream);
 				filestream.Close();
 			}

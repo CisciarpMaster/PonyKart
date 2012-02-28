@@ -2,18 +2,19 @@
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Levels;
-using Ponykart.Properties;
 using PonykartParsers;
 
 namespace Ponykart.Actors {
 	public class StaticGeometryManager {
 		IDictionary<string, StaticGeometry> sgeoms;
 		IDictionary<string, Entity> ents;
-		readonly Vector3 regionDimensions = new Vector3(Settings.Default.StaticRegionSize, 1000, Settings.Default.StaticRegionSize);
+		private readonly float _staticRegionSize = 20f;
+		private readonly Vector3 regionDimensions;
 
 		public StaticGeometryManager() {
 			ents = new Dictionary<string, Entity>();
 			sgeoms = new Dictionary<string, StaticGeometry>();
+			regionDimensions = new Vector3(_staticRegionSize, 1000, _staticRegionSize);
 
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}

@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.IO;
 using Mogre;
-using Ponykart.Properties;
 
 namespace Ponykart.Actors {
 	/// <summary>
@@ -32,7 +31,7 @@ namespace Ponykart.Actors {
 			wheels.Clear();
 
 			// get all of the filenames of the files in media/wheels/
-			IEnumerable<string> files = Directory.EnumerateFiles(Settings.Default.WheelFileLocation, "*" + Settings.Default.WheelFileExtension);
+			IEnumerable<string> files = Directory.EnumerateFiles("media/wheels/", "*.wheel");
 
 			foreach (string filename in files) {
 				// I forgot ogre had this functionality already built in

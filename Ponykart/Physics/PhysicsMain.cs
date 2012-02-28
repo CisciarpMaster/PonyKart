@@ -76,8 +76,8 @@ namespace Ponykart.Physics {
 		}
 
 
-		readonly int _maxSubsteps = Settings.Default.PhysicsMaxSubsteps;
-		readonly float _fixedTimestep = Settings.Default.PhysicsFixedTimestep;
+		readonly int _maxSubsteps = 15;
+		readonly float _fixedTimestep = 1f / 90f;
 		/// <summary>
 		/// Runs just before every frame. Simulates one frame of physics.
 		/// Physics simulation should be the only thing that's using FrameEnded!
@@ -163,7 +163,7 @@ namespace Ponykart.Physics {
 
 					CollisionShape shape;
 
-					string bulletFilePath = Settings.Default.BulletFileLocation + dslNode.Name + Settings.Default.BulletFileExtension;
+					string bulletFilePath = Settings.Default.BulletFileLocation + dslNode.Name + ".bullet";
 
 					shape = LKernel.GetG<CollisionShapeManager>().GetShapeFromFile(bulletFilePath, dslEnt, dslNode);
 

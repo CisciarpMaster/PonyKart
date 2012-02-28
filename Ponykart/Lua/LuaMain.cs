@@ -6,7 +6,6 @@ using LuaInterface;
 using LuaNetInterface;
 using Ponykart.Actors;
 using Ponykart.Levels;
-using Ponykart.Properties;
 using Ponykart.UI;
 
 namespace Ponykart.Lua {
@@ -16,6 +15,8 @@ namespace Ponykart.Lua {
 	// obviously if you want it to be in the global namespace, adding documentation for that namespace is pointless
 	public class LuaMain {
 		public LuaVirtualMachine LuaVM { get; private set; }
+		public static readonly string luaFileLocation = "media/scripts/";
+		public static readonly string luaLevelFileLocation = "media/scripts/levels/";
 
 		public event LuaEvent OnRegister;
 
@@ -54,16 +55,15 @@ namespace Ponykart.Lua {
 		/// <param name="levelName">We will also load files from /levels/levelName/ if it exists</param>
 		public void LoadScriptFiles(string levelName) {
 			// "media/scripts/"
-			string scriptLocation = Settings.Default.LuaFileLocation;
-			Launch.Log("[LuaMain] Loading all scripts from " + scriptLocation);
+			Launch.Log("[LuaMain] Loading all scripts from " + luaFileLocation);
 
 			// first get all of the scripts that aren't in the /levels/ directory
-			var scripts = Directory.EnumerateFiles(scriptLocation, "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories).Where(s => !s.Contains("/levels"));
+			var scripts = Directory.EnumerateFiles(luaFileLocation, "*.lua", SearchOption.AllDirectories).Where(s => !s.Contains("/levels"));
 
 			// then get all of the scripts that are in the /levels/ directory (but only the level we're interested in)
-			if (Directory.Exists(Settings.Default.LevelScriptLocation  + levelName + "/")) {
-				Launch.Log("[LuaMain] Loading all scripts from " + Settings.Default.LevelScriptLocation + levelName + "/");
-				scripts = scripts.Concat(Directory.EnumerateFiles(Settings.Default.LevelScriptLocation + levelName + "/", "*" + Settings.Default.LuaFileExtension, SearchOption.AllDirectories));
+			if (Directory.Exists(luaLevelFileLocation + levelName + "/")) {
+				Launch.Log("[LuaMain] Loading all scripts from " + luaLevelFileLocation + levelName + "/");
+				scripts = scripts.Concat(Directory.EnumerateFiles(luaLevelFileLocation + levelName + "/", "*.lua", SearchOption.AllDirectories));
 			}
 
 			foreach (string file in scripts) {
@@ -129,8 +129,8 @@ namespace Ponykart.Lua {
 			if (LKernel.GetG<LevelManager>().IsValidLevel) {
 				Launch.Log("[LuaMain] Running file: " + filename);
 				// adding this in case you try to run a script but forget the file path
-				if (!filename.StartsWith(Settings.Default.LuaFileLocation))
-					filename = Settings.Default.LuaFileLocation + filename;
+				if (!filename.StartsWith(luaFileLocation))
+					filename = luaFileLocation + filename;
 
 				try {
 					LuaVM.Lua.DoFile(filename);

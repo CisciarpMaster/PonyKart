@@ -63,15 +63,15 @@ namespace Ponykart.Handlers {
 		public static event KartGroundEvent OnGroundChanged;
 
 #region Settings
-		private readonly float raycastTime = Settings.Default.SelfRighterRaycastTime,
-							   longRayLength = Settings.Default.SelfRighterLongRayLength,
-							   shortRayLength = Settings.Default.SelfRighterShortRayLength,
-							   kartGravityMultiplier = Settings.Default.AdjustKartGravityMultiplier,
-							   skidderDuration = Settings.Default.SkidderDuration;
-		private readonly bool kartGravityEnabled = Settings.Default.AdjustKartGravityEnabled,
-							  useNlerpers = Settings.Default.KartHandler_UseNlerpers,
-							  useSkidders = Settings.Default.KartHandler_UseSkidders,
-							  useSelfRighters = Settings.Default.KartHandler_UseSelfRighters;
+		private readonly float raycastTime = 0.05f,
+							   longRayLength = 4f,
+							   shortRayLength = 1.2f,
+							   kartGravityMultiplier = -20,
+							   skidderDuration = 0.7f;
+		private readonly bool kartGravityEnabled = true,
+							  useNlerpers = true,
+							  useSkidders = true,
+							  useSelfRighters = true;
 		private readonly Vector3 gravity = new Vector3(0, Settings.Default.Gravity, 0);
 #endregion
 
