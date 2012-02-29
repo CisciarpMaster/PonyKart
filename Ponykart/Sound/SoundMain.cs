@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BulletSharp;
 using IrrKlang;
 using Mogre;
 using Ponykart.Actors;
@@ -17,6 +18,9 @@ namespace Ponykart.Sound {
 		private bool enableMusic;
 		private bool enableSounds;
 
+		private CameraManager cameraManager;
+		private PlayerManager playerManager;
+
 		/// <summary>
 		/// The sound manager class.
 		/// </summary>
@@ -29,9 +33,11 @@ namespace Ponykart.Sound {
 			enableMusic = Options.GetBool("Music");
 			enableSounds = Options.GetBool("Sounds");
 
-			
+			playerManager = LKernel.GetG<PlayerManager>();
+			cameraManager = LKernel.GetG<CameraManager>();
+
+			playerManager.OnPostPlayerCreation += new PlayerEvent(OnPostPlayerCreation);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
-			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LKernel.GetG<Pauser>().PauseEvent += new PauseEvent(PauseEvent);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
@@ -45,9 +51,11 @@ namespace Ponykart.Sound {
 			Engine.SetAllSoundsPaused(state == PausingState.Pausing);
 		}
 
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			LevelManager lm = LKernel.GetG<LevelManager>();
-			if (lm.IsPlayableLevel)
+		/// <summary>
+		/// Manually called from the LevelManager
+		/// </summary>
+		void OnPostPlayerCreation() {
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel)
 				Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}
 
@@ -62,36 +70,37 @@ namespace Ponykart.Sound {
 			musics.Clear();
 			sounds.Clear();
 			components.Clear();
+			components = new HashSet<SoundComponent>();
 		}
 
 
 		void EveryTenth(object o) {
-			var cam = LKernel.GetG<CameraManager>().CurrentCamera;
+			var cam = cameraManager.CurrentCamera;
 
-			Vector3 pos, rot, vel, up;
+			if (playerManager.MainPlayer == null) {
+				Engine.Update();
+				return;
+			}
+			RigidBody body = playerManager.MainPlayer.Body;
+
+			Vector3 pos, rot, vel;
 			if (cam is PlayerCamera || cam is KnightyCamera) {
-				var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
-
 				pos = body.CenterOfMassPosition;
 				rot = body.Orientation.YAxis;
 				vel = body.LinearVelocity;
-				up = body.Orientation.YAxis;
 			}
 			else {
-				var body = LKernel.GetG<PlayerManager>().MainPlayer.Body;
-
 				Quaternion derivedOrientation = cam.Camera.DerivedOrientation;
 				pos = cam.Camera.DerivedPosition;
 				rot = derivedOrientation.YAxis;
 				vel = body.LinearVelocity;
-				up = derivedOrientation.YAxis;
 			}
 
 			Engine.SetListenerPosition(
 				pos.x, pos.y, pos.z,
 				rot.x, rot.y, rot.z,
 				vel.x, vel.y, vel.z,
-				up.x, up.y, up.z);
+				0, 1, 0);
 
 			foreach (var component in components) {
 				if (component.NeedUpdate) {

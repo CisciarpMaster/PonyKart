@@ -2,12 +2,15 @@
 using Ponykart.Properties;
 
 namespace Ponykart.Players {
+	public delegate void PlayerEvent();
+
 	/// <summary>
 	/// This class manages the players
 	/// </summary>
 	public class PlayerManager {
 		public Player MainPlayer { get; private set; }
 		public Player[] Players { get; private set; }
+		public event PlayerEvent OnPostPlayerCreation;
 
 		/// <summary>
 		/// Hook up to the level load/unload events
@@ -31,6 +34,9 @@ namespace Ponykart.Players {
 				for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
 					Players[a] = new ComputerPlayer(eventArgs, a);
 				}
+
+				if (OnPostPlayerCreation != null)
+					OnPostPlayerCreation.Invoke();
 			}
 		}
 

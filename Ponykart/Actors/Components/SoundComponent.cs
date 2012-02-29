@@ -49,6 +49,8 @@ namespace Ponykart.Actors {
 
 			Update();
 			Sound.Paused = false;
+
+			soundMain.AddSoundComponent(this);
 		}
 
 		/// <summary>
