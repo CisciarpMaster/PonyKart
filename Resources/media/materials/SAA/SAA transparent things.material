@@ -24,7 +24,8 @@ material AppleTreeBillboards {
 			transparent_sorting on
 			scene_blend alpha_blend
 			//depth_write off
-			alpha_rejection greater_equal 64
+			// lets try with 12 and see if that gets rid of the light blue borders
+			alpha_rejection greater_equal 12
 			lighting off
 
 			texture_unit {
