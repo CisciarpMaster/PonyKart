@@ -6,7 +6,8 @@ function flat(level)
 	
 	stands = spawn("BgStandsWithPhysics", vector(30, 0, 3.3))
 	
-	lyra = spawn("BgPonyLyra", vector(35.5, 1.5, 2))
+	--lyra = spawn("BgPonyLyra", vector(35.5, 1.5, 2))
+	lyra = spawn("LyraSitting", vector(35.5, 1.5, 2.5))
 	bonbon = spawn("BgPonyBonBon", vector(33, 1.5, 2.6))
 	daisy = spawn("BgPonyDaisy", vector(16.5, -0.9, 3))
 	sparkler = spawn("BgPonySparkler", vector(43, -0.9, 3.5))

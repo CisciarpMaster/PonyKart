@@ -48,6 +48,9 @@ namespace Ponykart.Core {
 				else if (thingName.StartsWith("BgPony")) {
 					thing = new BackgroundPony(template, definition);
 				}
+				else if (thingName == "LyraSitting") {
+					thing = new Lyra(template, definition);
+				}
 				else
 					thing = new LThing(template, definition);
 

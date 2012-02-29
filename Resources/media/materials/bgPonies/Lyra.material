@@ -1,0 +1,6 @@
+import * from "BgPony.material"
+
+material SittingLyraBody : BgPony {
+    set_texture_alias BodyColour "SittingLyraBody.dds"
+	set $outline "51 172 123"
+}

@@ -1,0 +1,69 @@
+Physics = None
+
+Model {
+	Mesh = "LyraBody.mesh"
+	Material = "SittingLyraBody"
+	Name = "LyraBody"
+
+	Animated = true
+	AnimationName = "Sit1"
+	AnimationLooping = true
+}
+
+Model {
+	Mesh = "BgPonyEyes.mesh"
+	Material = "LyraEyes"
+	Name = "LyraEyes"
+	
+	Attached = true
+	AttachBone = "Eyes"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyHair1.mesh"
+	Material = "LyraHair"
+	Name = "LyraHair"
+	
+	Attached = true
+	AttachBone = "Hair"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyMane1.mesh"
+	Material = "LyraHair"
+	Name = "LyraMane"
+	
+	Animated = true
+	AnimationName = "SitBasis"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Mane"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "LyraTail.mesh"
+	Material = "LyraHair"
+	Name = "LyraTail"
+	
+	Animated = true
+	AnimationName = "TailSitBasis"
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = "Tail"
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = "BgPonyHorn.mesh"
+	Material = "LyraBody"
+	Name = "LyraHorn"
+	
+	Attached = true
+	AttachBone = "Horn"
+	AttachComponentID = 0
+}

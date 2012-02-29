@@ -129,6 +129,7 @@
     <Compile Include="Actors\Components\SoundComponent.cs" />
     <Compile Include="Actors\Driver.cs" />
     <Compile Include="Actors\InstancedGeometryManager.cs" />
+    <Compile Include="Actors\Lyra.cs" />
     <Compile Include="Actors\StaticGeometryManager.cs" />
     <Compile Include="Actors\Wheels\DriftState.cs" />
     <Compile Include="Actors\Wheels\WheelID.cs" />
