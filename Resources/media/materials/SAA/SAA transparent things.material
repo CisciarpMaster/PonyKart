@@ -25,7 +25,7 @@ material AppleTreeBillboards {
 			scene_blend alpha_blend
 			//depth_write off
 			// lets try with 12 and see if that gets rid of the light blue borders
-			alpha_rejection greater_equal 12
+			alpha_rejection greater_equal 200
 			lighting off
 
 			texture_unit {

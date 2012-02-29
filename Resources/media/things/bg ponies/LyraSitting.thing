@@ -2,22 +2,11 @@ Physics = None
 
 Model {
 	Mesh = "LyraBody.mesh"
-	Material = "SittingLyraBody"
 	Name = "LyraBody"
 
 	Animated = true
 	AnimationName = "Sit1"
 	AnimationLooping = true
-}
-
-Model {
-	Mesh = "BgPonyEyes.mesh"
-	Material = "LyraEyes"
-	Name = "LyraEyes"
-	
-	Attached = true
-	AttachBone = "Eyes"
-	AttachComponentID = 0
 }
 
 Model {

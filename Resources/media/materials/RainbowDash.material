@@ -1,14 +1,9 @@
-material TwilightBody {
+
+material RainbowDashBody {
     technique {
 		pass {
-			//cull_hardware anticlockwise
-			//vertex_program_ref outlined_vs {
-			//}
-			//fragment_program_ref outlined_ps {
-			//	param_named OutlineColour float3 162.0 108.0 186.0
-			//}
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 162 108 186 255
+				param_named edgeColor float4 109 171 221 255
 				param_named scale float 0.23
 				param_named edgeScale float 0.08
 			}
@@ -21,14 +16,13 @@ material TwilightBody {
 			}
 			
             texture_unit {
-                texture "TwilightBody.dds"
+                texture "RainbowDashBody.png"
             }
         }
     }
 }
 
-
-material TwilightEyes {
+material RainbowDashEyes {
     technique {
         pass {
 			vertex_program_ref fresnelTex_vp {
@@ -37,25 +31,17 @@ material TwilightEyes {
 			}
 			
             texture_unit {
-                texture "TwilightEyes.dds"
+                texture "RainbowDashEyes.dds"
             }
         }
     }
 }
 
-
-material TwilightHair {
+material RainbowDashHair {
     technique {
 		pass {
-			//cull_hardware anticlockwise
-			//vertex_program_ref outlined_vs {
-			//}
-			//fragment_program_ref outlined_ps {
-			//	param_named OutlineColour float3 20.0 30.0 67.0
-			//}
-			
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 20 30 67 255
+				param_named edgeColor float4 30 152 213 255
 				param_named scale float 0.2
 				param_named edgeScale float 0.08
 			}
@@ -68,7 +54,32 @@ material TwilightHair {
 			}
 			
             texture_unit {
-                texture "TwilightHair.dds"
+                texture "RainbowDashHair.png"
+            }
+        }
+    }
+}
+
+
+
+material RainbowDashWings {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 109 171 221 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.08
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "RainbowDashWingsFolded.dds"
             }
         }
     }
