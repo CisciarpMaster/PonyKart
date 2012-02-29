@@ -21,6 +21,14 @@ namespace Ponykart.Core {
 		/// </summary>
 		public static event SpawnEvent<Driver> OnDriverCreation;
 
+		private ThingDatabase database;
+		private LevelManager levelManager;
+
+		public Spawner () {
+			database = LKernel.GetG<ThingDatabase>();
+			levelManager = LKernel.GetG<LevelManager>();
+		}
+
 		/// <summary>
 		/// Spawns something!
 		/// </summary>
@@ -33,32 +41,11 @@ namespace Ponykart.Core {
 			}
 
 			lock (this) {
-				LThing thing;
+				var definition = database.GetThingDefinition(thingName);
+				LThing thing = new LThing(template, definition);
 
-				var definition = LKernel.GetG<ThingDatabase>().GetThingDefinition(thingName);
+				levelManager.CurrentLevel.AddThing(thing);
 
-				if (thingName == "Kart" || thingName == "TwiCutlass") {
-					thing = new Kart(template, definition);
-					Invoke(OnKartCreation, thing as Kart);
-				}
-				else if (thingName == "Twilight") {
-					thing = new Driver(template, definition);
-					Invoke(OnDriverCreation, thing as Driver);
-				}
-				else if (thingName.StartsWith("BgPony")) {
-					thing = new BackgroundPony(template, definition);
-				}
-				else if (thingName == "LyraSitting") {
-					thing = new Lyra(template, definition);
-				}
-				else
-					thing = new LThing(template, definition);
-
-				LKernel.Get<LevelManager>().CurrentLevel.AddThing(thing);
-
-#if DEBUG
-				//Launch.Log("[Spawner] Spawning new " + type + " with ID " + thing.ID);
-#endif
 				Invoke(OnThingCreation, thing);
 				return thing;
 			}
@@ -68,13 +55,72 @@ namespace Ponykart.Core {
 		/// Spawns something! This takes a string instead of an enum for the type, but if the string is not a valid type,
 		/// then an exception gets thrown, so be careful! Note that it is not case sensitive.
 		/// </summary>
-		/// <param name="type">The type (class name) for the thing you want to spawn</param>
+		/// <param name="thingName">The type (class name) for the thing you want to spawn</param>
 		/// <param name="spawnPos">Where should it spawn?</param>
 		/// <returns>The thing you spawned</returns>
-		public LThing Spawn(string type, Vector3 spawnPos) {
-			var tt = new ThingBlock(type, spawnPos);
+		public LThing Spawn(string thingName, Vector3 spawnPos) {
+			var tt = new ThingBlock(thingName, spawnPos);
 
-			return Spawn(type, tt);
+			return Spawn(thingName, tt);
+		}
+
+
+
+		public BackgroundPony SpawnBgPony(string thingName, ThingBlock template) {
+			if (Pauser.IsPaused) {
+				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
+			}
+			lock (this) {
+				BackgroundPony pony;
+				var definition = database.GetThingDefinition(thingName);
+				if (thingName == "LyraSitting") {
+					pony = new Lyra(template, definition);
+				}
+				else {
+					pony = new BackgroundPony(template, definition);
+				}
+				levelManager.CurrentLevel.AddThing(pony);
+
+				Invoke(OnThingCreation, pony);
+				return pony;
+			}
+		}
+		public BackgroundPony SpawnBgPony(string thingName, Vector3 spawnPos) {
+			return SpawnBgPony(thingName, new ThingBlock(thingName, spawnPos));
+		}
+
+
+		public Kart SpawnKart(string thingName, ThingBlock template) {
+			if (Pauser.IsPaused) {
+				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
+			}
+			lock (this) {
+				var definition = database.GetThingDefinition(thingName);
+				Kart kart = new Kart(template, definition);
+				
+				levelManager.CurrentLevel.AddThing(kart);
+
+				Invoke(OnKartCreation, kart);
+				Invoke(OnThingCreation, kart);
+				return kart;
+			}
+		}
+
+
+		public Driver SpawnDriver(string thingName, ThingBlock template) {
+			if (Pauser.IsPaused) {
+				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
+			}
+			lock (this) {
+				var definition = database.GetThingDefinition(thingName);
+				Driver driver = new Driver(template, definition);
+
+				levelManager.CurrentLevel.AddThing(driver);
+
+				Invoke(OnDriverCreation, driver);
+				Invoke(OnThingCreation, driver);
+				return driver;
+			}
 		}
 
 		/// <summary>

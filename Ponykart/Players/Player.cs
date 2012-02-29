@@ -51,11 +51,15 @@ namespace Ponykart.Players {
 				driverName = "Twilight";
 				kartName = "TwiCutlass";
 			}
+			else if (eventArgs.Request.CharacterName == "Rainbow Dash") {
+				driverName = "RainbowDash";
+				kartName = "TwiCutlass";
+			}
 			else
 				throw new ArgumentException("Invalid character name!", "eventArgs");
 
-			Kart = LKernel.GetG<Spawner>().Spawn(kartName, block) as Kart;
-			Driver = LKernel.GetG<Spawner>().Spawn(driverName, block) as Driver;
+			Kart = LKernel.GetG<Spawner>().SpawnKart(kartName, block);
+			Driver = LKernel.GetG<Spawner>().SpawnDriver(driverName, block);
 			Driver.AttachToKart(Kart, Vector3.ZERO);
 			Kart.Player = this;
 			Driver.Player = this;

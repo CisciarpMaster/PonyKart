@@ -75,12 +75,11 @@ namespace Ponykart.Sound {
 
 
 		void EveryTenth(object o) {
-			var cam = cameraManager.CurrentCamera;
-
 			if (playerManager.MainPlayer == null) {
 				Engine.Update();
 				return;
 			}
+			var cam = cameraManager.CurrentCamera;
 			RigidBody body = playerManager.MainPlayer.Body;
 
 			Vector3 pos, rot, vel;
