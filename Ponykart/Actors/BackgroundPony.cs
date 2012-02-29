@@ -7,6 +7,9 @@ using PonykartParsers;
 using Timer = System.Threading.Timer;
 
 namespace Ponykart.Actors {
+	/// <summary>
+	/// Class for the background ponies. Manages making them play random animations and moving their neck to face the player.
+	/// </summary>
 	public class BackgroundPony : LThing {
 		// don't care about eyes, hair, horn, or folded wings since they aren't animated
 		protected ModelComponent bodyComponent, maneComponent, tailComponent, wingsComponent;
@@ -110,8 +113,9 @@ namespace Ponykart.Actors {
 				// we use -lookat because our bone points towards +Z, whereas this code was originally made for things facing towards -Z
 				Euler temp = neckFacing.GetRotationTo(-lookat, true, true, true);
 				// limit the offset so the head turns at a maximum of 3 radians per second
-				temp.LimitYaw(new Radian(evt.timeSinceLastFrame * 3f));
-				temp.LimitPitch(new Radian(evt.timeSinceLastFrame * 3f));
+				Radian tempTime = new Radian(evt.timeSinceLastFrame * 3);
+				temp.LimitYaw(tempTime);
+				temp.LimitPitch(tempTime);
 
 				neckFacing = neckFacing + temp;
 				neckFacing.LimitYaw(_neckYawLimit);
