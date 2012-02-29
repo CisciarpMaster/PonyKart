@@ -79,11 +79,6 @@ namespace Ponykart.Actors {
 				Vector3 offsetVec = block.GetVectorProperty("AttachOffsetPosition", Vector3.ZERO);
 
 				lthing.ModelComponents[modelComponentID].Entity.AttachObjectToBone(boneName, Entity, offsetQuat, offsetVec);
-
-				//if (boneName == "Head") {
-					//Vector3 v = lthing.ModelComponents[modelComponentID].Entity.Skeleton.GetBone(boneName)._getDerivedPosition();
-					//System.Console.WriteLine(v);
-				//}
 			}
 			// otherwise continue as normal
 			else {
@@ -157,6 +152,9 @@ namespace Ponykart.Actors {
 				Entity.CastShadows = false;
 		}
 
+		/// <summary>
+		/// Get all of the names of animations this model component has
+		/// </summary>
 		public IEnumerable<string> GetAnimationNames() {
 			if (!Entity.HasSkeleton)
 				yield break;
@@ -166,6 +164,11 @@ namespace Ponykart.Actors {
 			}
 		}
 
+		/// <summary>
+		/// Adds time to the animation of this ModelComponent. This way we can add time without having to worry about whether we're using an 
+		/// animation state or animation blender.
+		/// </summary>
+		/// <param name="time">From evt.timeSinceLastFrame</param>
 		public void AddAnimationTime(float time) {
 			if (AnimationState != null)
 				AnimationState.AddTime(time);
@@ -173,6 +176,9 @@ namespace Ponykart.Actors {
 				AnimationBlender.AddTime(time);
 		}
 
+		/// <summary>
+		/// Does this model component have any animation?
+		/// </summary>
 		public bool HasAnimation {
 			get {
 				return AnimationBlender != null || AnimationState != null;
