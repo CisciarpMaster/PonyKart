@@ -100,6 +100,7 @@ namespace Ponykart.Physics {
 						vertices[current_offset + j] = (orientation * (pt * scale)) + position;
 					}
 					vbuf.Unlock();
+					vbuf.Dispose();
 					next_offset += vertex_data.vertexCount;
 				}
 
@@ -123,6 +124,7 @@ namespace Ponykart.Physics {
 					}
 				}
 				ibuf.Unlock();
+				ibuf.Dispose();
 				current_offset = next_offset;
 			}
 
