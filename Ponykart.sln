@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rescaler", "Rescaler\Rescal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OgreToBulletMesh", "OgreToBulletMesh\OgreToBulletMesh.csproj", "{950DD472-0EF6-4321-BACC-FCD3E3FA2576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protector", "Protector\Protector.csproj", "{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Cupcake|Any CPU = Cupcake|Any CPU
@@ -162,21 +160,6 @@ Global
 		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|Mixed Platforms.Build.0 = Release|x86
 		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|x86.ActiveCfg = Release|x86
 		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|x86.Build.0 = Release|x86
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Cupcake|Any CPU.ActiveCfg = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Cupcake|Any CPU.Build.0 = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Cupcake|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Cupcake|Mixed Platforms.Build.0 = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Cupcake|x86.ActiveCfg = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Release|Any CPU.Build.0 = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -106,6 +106,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Miyagi.Backend.Mogre.dll</HintPath>
     </Reference>
+    <Reference Include="MiyagiDiagnostics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\References\MiyagiDiagnostics.dll</HintPath>
+    </Reference>
     <Reference Include="Mogre">
       <HintPath>..\References\Debug\Mogre.dll</HintPath>
     </Reference>
@@ -313,10 +316,6 @@
     <ProjectReference Include="..\PonykartParsers\PonykartParsers.csproj">
       <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
       <Name>PonykartParsers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Protector\Protector.csproj">
-      <Project>{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}</Project>
-      <Name>Protector</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
