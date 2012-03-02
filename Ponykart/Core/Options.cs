@@ -90,7 +90,6 @@ namespace Ponykart.Core {
 			defaults["ShadowDetail"] = "Some";
 			defaults["ShadowDistance"] = "200";
 			defaults["Twh"] = "No";
-			defaults["MiyagiFontConfig"] = "Disable";
 			// copy it into the regular dictionary
 			dict = new Dictionary<string, string>(defaults);
 		}
