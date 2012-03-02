@@ -314,6 +314,10 @@
       <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
       <Name>PonykartParsers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Protector\Protector.csproj">
+      <Project>{850BDB8D-F3D8-4C27-B707-4FEABF9A2305}</Project>
+      <Name>Protector</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icon 2.ico" />

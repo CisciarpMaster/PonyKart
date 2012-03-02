@@ -4,6 +4,7 @@ using Miyagi.Common;
 using Miyagi.Common.Resources;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
+using MiyagiDiagnostics;
 using Mogre;
 using Ponykart.Levels;
 
@@ -49,6 +50,15 @@ namespace Ponykart.UI {
 			var gui = new GUI("default GUI");
 			MiyagiSys.GUIManager.GUIs.Add(gui);
 
+			// then fix the fonts so they work correctly
+			MiyagiHelper.Config(
+#if DEBUG
+				true,
+#else
+				false,
+#endif
+				MiyagiSys, UIResources.Fonts);
+
 			Launch.Log("[Loading] Miyagi loaded!");
 		}
 
@@ -84,7 +94,6 @@ namespace Ponykart.UI {
 		}
 
 
-		#region helpers
 		public void Serialize() {
 			MiyagiSys.SerializationManager.ExportToFile("media/gui/serialize.mgx");
 		}
@@ -92,7 +101,7 @@ namespace Ponykart.UI {
 		public void ExportImageFont(string ttfName, FontStyle style = FontStyle.Regular, int size = 12, int resolution = 96) {
 			TrueTypeFont.TrueTypeToImageFont("media/gui/Fonts/", "media/gui/Fonts/" + ttfName, style, size, resolution);
 		}
-		#endregion
+
 
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)

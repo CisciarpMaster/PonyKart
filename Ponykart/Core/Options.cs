@@ -34,7 +34,11 @@ namespace Ponykart.Core {
 						foreach (KeyValuePair<string, string> pair in defaults) {
 							writer.WriteLine(pair.Key + "=" + pair.Value);
 						}
+						writer.Flush();
+						writer.Close();
 					}
+					stream.Flush();
+					stream.Close();
 				}
 				ModelDetail = ModelDetailOption.Medium;
 			}
@@ -86,6 +90,7 @@ namespace Ponykart.Core {
 			defaults["ShadowDetail"] = "Some";
 			defaults["ShadowDistance"] = "200";
 			defaults["Twh"] = "No";
+			defaults["MiyagiFontConfig"] = "Disable";
 			// copy it into the regular dictionary
 			dict = new Dictionary<string, string>(defaults);
 		}
