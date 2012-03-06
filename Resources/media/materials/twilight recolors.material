@@ -3,8 +3,8 @@ material Twilight_recolor {
 		pass {
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 $color
-				param_named scale float ".23"
-				param_named edgeScale float ".08"
+				param_named scale float 0.23
+				param_named edgeScale float 0.08
 			}
 		}
         pass {

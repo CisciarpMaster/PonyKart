@@ -1,0 +1,20 @@
+
+material Bird1 {
+    receive_shadows on
+    technique {
+        pass {
+            texture_unit {
+                texture "Bird1Colour.dds"
+				texture_alias birdColour
+            }
+        }
+    }
+}
+
+material Bird1_Orange : Bird1 {
+	set_texture_alias birdColour "Bird1Colour2.dds"
+}
+
+material Bird1_Purple : Bird1 {
+	set_texture_alias birdColour "Bird1Colour3.dds"
+}
