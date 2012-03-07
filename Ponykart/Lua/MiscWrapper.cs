@@ -16,7 +16,7 @@ namespace Ponykart.Lua {
 		public static void LoadLevel(string newLevelName) {
 			LKernel.GetG<LevelManager>().LoadLevel(new LevelChangeRequest() {
 				NewLevelName = newLevelName,
-				CharacterName = "Twilight Sparkle"
+				CharacterNames = LKernel.GetG<Players.PlayerManager>().MakeCharacterString()
 			});
 		}
 

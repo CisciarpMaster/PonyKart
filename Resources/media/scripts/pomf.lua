@@ -1,3 +1,9 @@
+-- commenting this out because
+-- 1) I should probably move it to code
+-- 2) it's causing random crashes
+
+--[[
+
 -- set up our dictionaries of particles
 -- our particle names will be "KartID", ex: "0" for the kart with ID 0
 local particles = {}
@@ -48,3 +54,5 @@ kartHandler.OnTouchdown:Add(onTouchdown)
 -- hopefully prevents a bug where sometimes the pomf particle would stay visible
 kartHandler.OnCloseToTouchdown:Add(onGround)
 kartHandler.OnLiftoff:Add(onGround)
+
+]]--

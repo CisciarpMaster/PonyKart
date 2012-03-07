@@ -16,7 +16,7 @@ material RainbowDashBody {
 			}
 			
             texture_unit {
-                texture "RainbowDashBody.png"
+                texture "RainbowDashBody.dds"
             }
         }
     }
@@ -54,7 +54,7 @@ material RainbowDashHair {
 			}
 			
             texture_unit {
-                texture "RainbowDashHair.png"
+                texture "RainbowDashHair.dds"
             }
         }
     }

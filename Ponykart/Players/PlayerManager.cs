@@ -1,4 +1,5 @@
-﻿using Ponykart.Levels;
+﻿using System.Linq;
+using Ponykart.Levels;
 using Ponykart.Properties;
 
 namespace Ponykart.Players {
@@ -28,6 +29,8 @@ namespace Ponykart.Players {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
 				Players = new Player[Settings.Default.NumberOfPlayers];
 
+				eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
+
 				MainPlayer = new HumanPlayer(eventArgs, 0);
 				Players[0] = MainPlayer;
 
@@ -53,6 +56,52 @@ namespace Ponykart.Players {
 				}
 				MainPlayer = null;
 			}
+		}
+
+
+		readonly string[] _availableCharacters = new string[] { "Twilight Sparkle", "Rainbow Dash", "Applejack" };
+		readonly string _defaultCharacter = "Twilight Sparkle";
+
+		/// <summary>
+		/// Makes a character string from scratch, filling it up with characters, trying to avoid duplicates where it can
+		/// </summary>
+		public string[] MakeCharacterString() {
+			int numPlayers = Settings.Default.NumberOfPlayers;
+			string[] newChars = new string[numPlayers];
+
+			if (MainPlayer == null) {
+				for (int a = 0; a < numPlayers; a++)
+					newChars[a] = _availableCharacters.Where(s => !newChars.Contains(s)).DefaultIfEmpty(_defaultCharacter).First();
+			}
+			else {
+				newChars[0] = MainPlayer.Character;
+				for (int a = 1; a < numPlayers; a++)
+					newChars[a] = _availableCharacters.Where(s => !newChars.Contains(s)).DefaultIfEmpty(_defaultCharacter).First();
+			}
+
+			return newChars;
+		}
+
+		/// <summary>
+		/// Fills up the character input string with other characters, since for most of the quick keyboard commands and stuff,
+		/// we only care about what the player character is, so that's all the array has.
+		/// Obviously that's going to result in array out of bounds errors if we don't fill the rest of the array up
+		/// </summary>
+		string[] FillCharacterString(string[] characters) {
+			int numPlayers = Settings.Default.NumberOfPlayers;
+			if (numPlayers == 1)
+				// don't need to fill it if we've only got one character
+				return characters;
+
+			string[] newChars = new string[numPlayers];
+
+			// the first character must always be filled
+			newChars[0] = characters[0];
+
+			for (int a = 1; a < numPlayers; a++)
+				newChars[a] = _availableCharacters.Where(s => !newChars.Contains(s)).DefaultIfEmpty(_defaultCharacter).First();
+
+			return newChars;
 		}
 	}
 }

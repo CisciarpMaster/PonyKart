@@ -29,6 +29,8 @@ namespace Ponykart.Players {
 		/// </summary>
 		public virtual bool IsControlEnabled { get; set; }
 
+		public string Character { get; protected set; }
+
 		public bool IsComputerControlled { get; private set; }
 
 
@@ -47,12 +49,16 @@ namespace Ponykart.Players {
 			ThingBlock block = new ThingBlock("TwiCutlass", spawnPos, spawnOrient);
 
 			string driverName, kartName;
-			if (eventArgs.Request.CharacterName == "Twilight Sparkle") {
+			if (eventArgs.Request.CharacterNames[id] == "Twilight Sparkle") {
 				driverName = "Twilight";
 				kartName = "TwiCutlass";
 			}
-			else if (eventArgs.Request.CharacterName == "Rainbow Dash") {
+			else if (eventArgs.Request.CharacterNames[id] == "Rainbow Dash") {
 				driverName = "RainbowDash";
+				kartName = "TwiCutlass";
+			}
+			else if (eventArgs.Request.CharacterNames[id] == "Applejack") {
+				driverName = "Applejack";
 				kartName = "TwiCutlass";
 			}
 			else
@@ -63,6 +69,8 @@ namespace Ponykart.Players {
 			Driver.AttachToKart(Kart, Vector3.ZERO);
 			Kart.Player = this;
 			Driver.Player = this;
+
+			Character = eventArgs.Request.CharacterNames[id];
 
 			Kart.OwnerID = id;
 			ID = id;
@@ -134,6 +142,7 @@ namespace Ponykart.Players {
 
 		public virtual void Detach() {
 			Kart = null;
+			Driver = null;
 		}
 	}
 }

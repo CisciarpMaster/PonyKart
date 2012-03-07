@@ -635,7 +635,7 @@
 						</TextStyle>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>False</Enabled>
+						<Enabled>True</Enabled>
 						<Name>character select AJ button</Name>
 						<Rectangle>512,350,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>

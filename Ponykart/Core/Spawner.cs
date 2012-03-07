@@ -29,6 +29,8 @@ namespace Ponykart.Core {
 			levelManager = LKernel.GetG<LevelManager>();
 		}
 
+		private object _spawnLock = new Object();
+
 		/// <summary>
 		/// Spawns something!
 		/// </summary>
@@ -40,7 +42,7 @@ namespace Ponykart.Core {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
 			}
 
-			lock (this) {
+			lock (_spawnLock) {
 				var definition = database.GetThingDefinition(thingName);
 				LThing thing = new LThing(template, definition);
 
@@ -70,7 +72,7 @@ namespace Ponykart.Core {
 			if (Pauser.IsPaused) {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
 			}
-			lock (this) {
+			lock (_spawnLock) {
 				BackgroundPony pony;
 				var definition = database.GetThingDefinition(thingName);
 				if (thingName == "LyraSitting") {
@@ -94,7 +96,7 @@ namespace Ponykart.Core {
 			if (Pauser.IsPaused) {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
 			}
-			lock (this) {
+			lock (_spawnLock) {
 				var definition = database.GetThingDefinition(thingName);
 				Kart kart = new Kart(template, definition);
 				
@@ -111,7 +113,7 @@ namespace Ponykart.Core {
 			if (Pauser.IsPaused) {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
 			}
-			lock (this) {
+			lock (_spawnLock) {
 				var definition = database.GetThingDefinition(thingName);
 				Driver driver = new Driver(template, definition);
 

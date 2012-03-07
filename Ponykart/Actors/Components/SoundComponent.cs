@@ -4,7 +4,6 @@ using Ponykart.Sound;
 using PonykartParsers;
 // to stop VS from getting rid of these in release mode
 #if DEBUG
-using LuaInterface;
 using Ponykart.UI;
 #endif
 
@@ -76,7 +75,7 @@ namespace Ponykart.Actors {
 					OnUpdate.Invoke(owner, Sound);
 #if DEBUG
 				}
-				catch (LuaException ex) {
+				catch (System.Exception ex) {
 					Launch.Log("[Lua] *** EXCEPTION *** at " + ex.Source + ": " + ex.Message);
 					foreach (var v in ex.Data)
 						Launch.Log("[Lua] " + v);

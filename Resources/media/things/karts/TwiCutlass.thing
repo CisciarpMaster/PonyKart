@@ -9,7 +9,7 @@ FrontWheelMesh = "CutlassFrontWheel.mesh"
 BackWheel = "CutlassBackWheel"
 BackWheelMesh = "CutlassBackWheel.mesh"
 PhysicsMaterial = "Kart"
-Script = "TwiCutlass"
+//Script = "TwiCutlass"
 
 CollisionEvents = true
 

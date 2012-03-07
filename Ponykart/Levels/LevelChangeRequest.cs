@@ -5,7 +5,7 @@ namespace Ponykart.Levels {
 	/// </summary>
 	public class LevelChangeRequest {
 		public string NewLevelName { get; set; }
-		public string CharacterName { get; set; }
+		public string[] CharacterNames { get; set; }
 
 		// add more stuff as needed here
 	}

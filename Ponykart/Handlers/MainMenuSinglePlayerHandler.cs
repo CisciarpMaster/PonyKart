@@ -51,7 +51,7 @@ namespace Ponykart.Handlers {
 
 				LevelChangeRequest request = new LevelChangeRequest() {
 					NewLevelName = levelSelection,
-					CharacterName = characterSelection
+					CharacterNames = new string[] { characterSelection },
 				};
 				LKernel.GetG<LevelManager>().LoadLevel(request);
 			}

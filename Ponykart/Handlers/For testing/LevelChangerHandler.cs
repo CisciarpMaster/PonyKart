@@ -34,7 +34,7 @@ namespace Ponykart.Handlers {
 			if (!string.IsNullOrEmpty(s)) {
 				LKernel.GetG<LevelManager>().LoadLevel(new LevelChangeRequest() {
 					NewLevelName = s,
-					CharacterName = "Twilight Sparkle"
+					CharacterNames = LKernel.GetG<Players.PlayerManager>().MakeCharacterString(),
 				});
 			}
 		}

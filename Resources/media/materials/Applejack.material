@@ -1,0 +1,85 @@
+material ApplejackBody {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 242 123 50 255
+				param_named scale float 0.23
+				param_named edgeScale float 0.08
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "ApplejackBody.dds"
+            }
+        }
+    }
+}
+
+material ApplejackEyes {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "ApplejackEyes.dds"
+            }
+        }
+    }
+}
+
+
+material ApplejackHair {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 233 210 100 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.08
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "ApplejackHair.dds"
+            }
+        }
+    }
+}
+
+
+material ApplejackHat {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 184 137 79 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.08
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "ApplejackHat.dds"
+            }
+        }
+    }
+}
