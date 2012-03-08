@@ -97,16 +97,18 @@ namespace Ponykart.Handlers {
 
 		
 		private float elapsed;
+		private readonly LevelManager levelMgr = LKernel.GetG<LevelManager>();
+		private readonly PlayerManager playerMgr = LKernel.GetG<PlayerManager>();
 
 		private void PreSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (Pauser.IsPaused || !LKernel.GetG<LevelManager>().IsValidLevel)
+			if (Pauser.IsPaused || !levelMgr.IsValidLevel)
 				return;
 
 			if (elapsed > raycastTime) {
 				elapsed = 0;
 
 				// loop through each player's kart
-				foreach (Player p in LKernel.GetG<PlayerManager>().Players) {
+				foreach (Player p in playerMgr.Players) {
 					// if the player is null, then skip it
 					//if (p == null)
 					//	continue;
