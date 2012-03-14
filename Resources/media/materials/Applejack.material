@@ -3,7 +3,7 @@ material ApplejackBody {
 		pass {
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 242 123 50 255
-				param_named scale float 0.046
+				param_named scale float 0.23
 				param_named edgeScale float 0.016
 			}
 		}
@@ -42,7 +42,7 @@ material ApplejackHair {
 		pass {
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 233 210 100 255
-				param_named scale float 0.04
+				param_named scale float 0.2
 				param_named edgeScale float 0.016
 			}
 		}
@@ -66,7 +66,7 @@ material ApplejackHat {
 		pass {
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 184 137 79 255
-				param_named scale float 0.04
+				param_named scale float 0.2
 				param_named edgeScale float 0.016
 			}
 		}
