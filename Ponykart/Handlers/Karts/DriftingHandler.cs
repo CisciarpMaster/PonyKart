@@ -30,7 +30,7 @@ namespace Ponykart.Handlers {
 		/// If we're going in reverse or start moving slowly, stop drifting.
 		/// </summary>
 		void OnGround(Kart kart, CollisionWorld.ClosestRayResultCallback callback) {
-			if (kart.IsCompletelyDrifting && kart.VehicleSpeed < 100)
+			if (kart.IsCompletelyDrifting && kart.VehicleSpeed < 20)
 				kart.StopDrifting();
 		}
 
