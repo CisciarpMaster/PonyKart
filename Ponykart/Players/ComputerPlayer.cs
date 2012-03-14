@@ -14,7 +14,7 @@ namespace Ponykart.Players {
 
 		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id, true) {
 			axis = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
-			axis.ModelComponents[0].Node.SetScale(1, 1, 1);//0.5f, 0.5f, 0.5f);
+			axis.ModelComponents[0].Node.SetScale(0.2f, 0.2f, 0.2f);
 
 			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}

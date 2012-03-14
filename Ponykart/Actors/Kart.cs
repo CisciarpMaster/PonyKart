@@ -61,8 +61,8 @@ namespace Ponykart.Actors {
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
-			MaxSpeed = def.GetFloatProperty("maxspeed", 60f);
-			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 20f);
+			MaxSpeed = def.GetFloatProperty("maxspeed", 12f);
+			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 4f);
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
 			IsInAir = false;
@@ -89,7 +89,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected override void PostCreateBody(ThingDefinition def) {
 			Body.CcdMotionThreshold = 0.001f;
-			Body.CcdSweptSphereRadius = 0.2f;
+			Body.CcdSweptSphereRadius = 0.04f;
 
 			Raycaster = new DefaultVehicleRaycaster(LKernel.GetG<PhysicsMain>().World);
 			Tuning = new RaycastVehicle.VehicleTuning();
@@ -121,7 +121,7 @@ namespace Ponykart.Actors {
 			if (!(KartDriftState.StartLeft | KartDriftState.StartRight).HasFlag(state))
 				throw new ArgumentException("You must pass either StartDriftLeft or StartDriftRight!", "state");
 
-			if (_vehicle.CurrentSpeedKmHour < 100 || IsDriftingAtAll)
+			if (_vehicle.CurrentSpeedKmHour < 20 || IsDriftingAtAll)
 				return;
 
 			// update our state

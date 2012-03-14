@@ -1,8 +1,8 @@
 particle_system dust {
 	quota 500
 	material Particles/Dust
-	particle_width 0.7
-	particle_height	0.7
+	particle_width 0.14
+	particle_height	0.14
 	billboard_type point
 	billboard_rotation_type vertex
 
@@ -14,11 +14,11 @@ particle_system dust {
 		repeat_delay 0.1
 		time_to_live 0.4
 		
-		position 0 0 -0.5
+		position 0 0 -0.1
 		
-		width 1
-		height 1
-		depth 1
+		width 0.2
+		height 0.2
+		depth 0.2
 		
 		// for the random particle picker
 		colour_range_start 1 1 1

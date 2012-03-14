@@ -1,8 +1,8 @@
 particle_system mud {
 	quota 100
 	material Particles/Mud
-	particle_width	1.2
-	particle_height	1.2
+	particle_width	0.24
+	particle_height	0.24
 	billboard_type point
 	sorted true
 
@@ -14,11 +14,11 @@ particle_system mud {
 		repeat_delay 0.1
 		time_to_live 0.3333
 		
-		position 0 0 -0.5
+		position 0 0 -0.1
 		
-		width 1
-		height 1
-		depth 1
+		width 0.2
+		height 0.2
+		depth 0.2
 	}
 	affector ColourFader {
 		alpha -3
@@ -29,8 +29,8 @@ particle_system grass
 {
 	quota	100
 	material	Particles/Dust
-	particle_width	0.5
-	particle_height	0.5
+	particle_width	0.1
+	particle_height	0.1
 	billboard_type	point
 
 	emitter Box
@@ -42,9 +42,9 @@ particle_system grass
 		position	0 0 0
 		velocity	0
 		time_to_live	0.3
-		width	0.5
-		height	0.1
-		depth	1
+		width	0.1
+		height	0.02
+		depth	0.2
 	}
 	affector ColourFader
 	{

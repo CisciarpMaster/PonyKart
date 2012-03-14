@@ -216,7 +216,7 @@ namespace Ponykart.Actors {
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
-				if (kart.Body.IsActive && (kart.Vehicle.CurrentSpeedKmHour > 5 || kart.Vehicle.CurrentSpeedKmHour < -5)) {
+				if (kart.Body.IsActive && (kart.Vehicle.CurrentSpeedKmHour > 1 || kart.Vehicle.CurrentSpeedKmHour < -1)) {
 					// don't change the kart's orientation when we're drifting
 					if (kart.IsDriftingAtAll || Math.Abs(info.Steering) > Math.Abs(MaxTurnAngle * speedTurnMultiplier)) {
 						Node.Orientation = kart.RootNode.Orientation;
@@ -247,17 +247,17 @@ namespace Ponykart.Actors {
 		protected void Accelerate() {
 			float speed = vehicle.CurrentSpeedKmHour;
 			// if we are trying to accelerate in the opposite direction that we're moving, then brake
-			if ((AccelerateMultiplier > 0 && speed < -10) || (AccelerateMultiplier < 0 && speed > 10))
+			if ((AccelerateMultiplier > 0 && speed < -2) || (AccelerateMultiplier < 0 && speed > 2))
 			{
 				IsBrakeOn = true;
 			}
 			// if we're mostly stopped and we aren't trying to accelerate, then brake
-			else if (AccelerateMultiplier == 0 && (speed > -10 || speed < 10))
+			else if (AccelerateMultiplier == 0 && (speed > -2 || speed < 2))
 			{
 				IsBrakeOn = true;
 			}
 			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
-			else if ((AccelerateMultiplier > 0 && speed > -10) || (AccelerateMultiplier < 0 && speed < 10)) {
+			else if ((AccelerateMultiplier > 0 && speed > -2) || (AccelerateMultiplier < 0 && speed < 2)) {
 				float _motorForce = 0;
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
@@ -285,13 +285,13 @@ namespace Ponykart.Actors {
 			if (IsBrakeOn) {
 				float speed = vehicle.CurrentSpeedKmHour;
 				// handbrake
-				if (AccelerateMultiplier == 0 && (speed > -10 && speed < 10)) {
+				if (AccelerateMultiplier == 0 && (speed > -2 && speed < 2)) {
 					// the point of this is to lock the wheels in place so we don't move when we're stopped
 					vehicle.SetBrake(BrakeForce * 100, IntWheelID);
 					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction * 100;
 				}
 				// normal brake
-				else if ((AccelerateMultiplier > 0 && speed < -10) || (AccelerateMultiplier < 0 && speed > 10)) {
+				else if ((AccelerateMultiplier > 0 && speed < -2) || (AccelerateMultiplier < 0 && speed > 2)) {
 					// brake to apply when we're changing direction
 					vehicle.SetBrake(BrakeForce, IntWheelID);
 					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;

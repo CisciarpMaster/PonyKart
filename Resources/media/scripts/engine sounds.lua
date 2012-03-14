@@ -1,4 +1,4 @@
-
+--[[
 local function cutlass(kart, sound)
 	sound.PlaybackSpeed = math.min((math.abs(kart.VehicleSpeed) * 0.0075) + 0.7, 3)
 end
@@ -12,3 +12,4 @@ local function addEngineFunction(kart, id)
 end
 
 forEachKart(addEngineFunction)
+]]--

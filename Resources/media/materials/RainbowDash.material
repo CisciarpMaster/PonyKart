@@ -1,11 +1,10 @@
-
 material RainbowDashBody {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 109 171 221 255
-				param_named scale float 0.23
-				param_named edgeScale float 0.08
+				param_named scale float 0.046
+				param_named edgeScale float 0.016
 			}
 		}
 
@@ -42,8 +41,8 @@ material RainbowDashHair {
 		pass {
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 30 152 213 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.08
+				param_named scale float 0.04
+				param_named edgeScale float 0.016
 			}
 		}
 
@@ -67,8 +66,8 @@ material RainbowDashWings {
 		pass {
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 109 171 221 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.08
+				param_named scale float 0.04
+				param_named edgeScale float 0.016
 			}
 		}
 

@@ -57,7 +57,7 @@ namespace Ponykart.Handlers {
 					LKernel.GetG<SoundMain>().Play2D("Sweet Apple Acres 128bpm.ogg", true);
 					break;
 				case KeyCode.KC_U:
-					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity += new Vector3(0, 20, 0);
+					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity += new Vector3(0, 4, 0);
 					break;
 				case KeyCode.KC_F:
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity *= 2f;

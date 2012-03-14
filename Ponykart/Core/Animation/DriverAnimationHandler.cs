@@ -23,7 +23,7 @@ namespace Ponykart.Core {
 				Kart kart = karts[0];
 				Driver driver = kart.Driver;
 
-				if (kart.VehicleSpeed >= -30 || kart.IsInAir) {
+				if (kart.VehicleSpeed >= -6 || kart.IsInAir) {
 					// forwards
 					if (kart.DriftState == KartDriftState.StartLeft || kart.DriftState == KartDriftState.FullLeft) {
 						driver.ChangeAnimationIfNotBlending(DriverAnimation.DriftLeft);
