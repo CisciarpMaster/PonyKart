@@ -121,7 +121,7 @@ namespace Ponykart.Handlers {
 		/// turn on the appropriate particles
 		/// </summary>
 		void OnTouchdown(Kart kart, CollisionWorld.ClosestRayResultCallback callback) {
-			if (kart.VehicleSpeed > 20f || kart.VehicleSpeed < -20f) {
+			if (kart.VehicleSpeed > 4f || kart.VehicleSpeed < -4f) {
 				if (callback.CollisionObject == dirtBody)
 					DirtEmitting(kart.OwnerID, true);
 				else if (callback.CollisionObject == grassBody)
@@ -155,7 +155,7 @@ namespace Ponykart.Handlers {
 			float speed = System.Math.Abs(kart.VehicleSpeed);
 
 			// if the kart is moving slowly, then just turn the particles completely off
-			if (speed < 30) {
+			if (speed < 6) {
 				if (kartSpeedStates[kart.OwnerID] != KartSpeedState.Slow) {
 					// update this if we need to
 					kartSpeedStates[kart.OwnerID] = KartSpeedState.Slow;
@@ -163,7 +163,7 @@ namespace Ponykart.Handlers {
 				}
 			}
 			// if we're moving at a medium speed
-			else if (speed >= 30 && speed < 150) {
+			else if (speed >= 6 && speed < 30) {
 				if (kartSpeedStates[kart.OwnerID] != KartSpeedState.Medium) {
 					// update this if we need to
 					kartSpeedStates[kart.OwnerID] = KartSpeedState.Medium;
@@ -175,9 +175,9 @@ namespace Ponykart.Handlers {
 				}
 
 				// make some new emission rates
-				float dustEmissionRate = (speed / 150) * defaultDustEmissionRate;
-				float grassEmissionRate = (speed / 150) * defaultGrassEmissionRate;
-				float mudEmissionRate = (speed / 150) * defaultMudEmissionRate;
+				float dustEmissionRate = (speed / 30) * defaultDustEmissionRate;
+				float grassEmissionRate = (speed / 30) * defaultGrassEmissionRate;
+				float mudEmissionRate = (speed / 30) * defaultMudEmissionRate;
 
 				// and update the particles
 				Pair<WheelHelper, WheelHelper> pair = wheelHelpers[kart.OwnerID];

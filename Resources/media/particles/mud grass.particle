@@ -53,6 +53,6 @@ particle_system grass
 
 	affector Scaler
 	{
-		rate	5
+		rate	1
 	}
 }

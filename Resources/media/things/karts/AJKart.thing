@@ -1,8 +1,8 @@
 Physics = Dynamic
-Mass = 75
+Mass = 65
 CollisionGroup = Karts
 CollidesWith = Karts
-MaxSpeed = 19.6 // 14 * 1.4
+MaxSpeed = 18 // 14 * 1.4
 MaxReverseSpeed = 4
 FrontWheel = "AJKartFrontWheel"
 FrontLeftWheelMesh = "AJKartLeftWheel.mesh"

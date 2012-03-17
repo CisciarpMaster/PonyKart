@@ -29,7 +29,7 @@ particle_system dust {
 	}
 
 	affector Scaler {
-		rate 4
+		rate 1
 	}
 	
 	affector Rotator {

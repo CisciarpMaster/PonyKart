@@ -12,8 +12,8 @@ FrictionSlip = 60
 RollInfluence = 0.05
 
 BrakeForce = 12
-MotorForce = 320
-TurnAngle = 5.5
+MotorForce = 350
+TurnAngle = 7
 
 SlowSpeed = 12
 HighSpeed = 32
@@ -36,8 +36,8 @@ FrictionSlip = 75
 RollInfluence = 0.05
 
 BrakeForce = 12
-MotorForce = 320
-TurnAngle = 5.5
+MotorForce = 350
+TurnAngle = 7
 
 SlowSpeed = 12
 HighSpeed = 32
