@@ -3,7 +3,6 @@ Physics = None
 Model {
 	Mesh = "Applejack.mesh"
 	Position = 0, -0.1, 0
-	Scale = 0.2, 0.2, 0.2
 	CastsShadows = None
 	
 	Animated = true

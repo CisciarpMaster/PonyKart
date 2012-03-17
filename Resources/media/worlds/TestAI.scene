@@ -3,8 +3,8 @@
 	</environment>
 	<nodes>
 		<node name="AITest_Plane">
-			<position x="-107.092" y="3.13976" z="108.001" />
-			<scale x="2.4319" y="2.4319" z="2.4319" />
+			<position x="-21.4184" y="0.627952" z="21.6002" />
+			<scale x="1" y="1" z="1" />
 			<rotation qx="0" qy="0" qz="0" qw="1" />
 			<entity name="AITest_Plane" castShadows="true" receiveShadows="true" meshFile="AITest_Plane.mesh" static="true">
 				<subentities>

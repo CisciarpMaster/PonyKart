@@ -2,6 +2,6 @@ Physics = None
 Model {
 	Mesh = "axes.mesh"
 	Material = "Core/NodeMaterial"
-	Scale = 0.1, 0.1, 0.1
+	Scale = 0.02, 0.02, 0.02
 	CastsShadows = None
 }

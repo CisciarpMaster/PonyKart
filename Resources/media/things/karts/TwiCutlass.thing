@@ -2,12 +2,14 @@ Physics = Dynamic
 Mass = 75
 CollisionGroup = Karts
 CollidesWith = Karts
-MaxSpeed = 14
+MaxSpeed = 19.6 // 14 * 1.4
 MaxReverseSpeed = 4
 FrontWheel = "CutlassFrontWheel"
-FrontWheelMesh = "CutlassFrontWheel.mesh"
+FrontLeftWheelMesh = "CutlassFrontLeftWheel.mesh"
+FrontRightWheelMesh = "CutlassFrontRightWheel.mesh"
 BackWheel = "CutlassBackWheel"
-BackWheelMesh = "CutlassBackWheel.mesh"
+BackLeftWheelMesh = "CutlassBackLeftWheel.mesh"
+BackRightWheelMesh = "CutlassBackRightWheel.mesh"
 PhysicsMaterial = "Kart"
 //Script = "TwiCutlass"
 
@@ -25,35 +27,26 @@ Model {
 	Mesh = "CutlassSteeringWheel.mesh"
 	Material = "TwiCutlass"
 	Position = 0, 0.323594, 0.212416
-	Orientation = 0, 0, 0, 1
-	Scale = 0.2, 0.2, 0.2
 	CastsShadows = Some
 }
 Model {
 	Mesh = "CutlassSeat.mesh"
 	Material = "TwiCutlass"
 	Position = 0, -0.0866508, -0.01266532
-	Orientation = 0, 0, 0, 1
-	Scale = 0.2, 0.2, 0.2
 	CastsShadows = Some
 }
 Model {
 	Mesh = "CutlassEngine.mesh"
 	Material = "TwiCutlass"
 	Position = 0, -0.0866508, -0.01266532
-	Orientation = 0, 0, 0, 1
-	Scale = 0.2, 0.2, 0.2
 	CastsShadows = Some
 }
 Model {
 	Mesh = "CutlassChassis.mesh"
 	Material = "TwiCutlass"
 	Position = 0, -0.0866508, -0.01266532
-	Orientation = 0, 0, 0, 1
-	Scale = 0.2, 0.2, 0.2
 	CastsShadows = Some
 }
-
 
 
 Shape {

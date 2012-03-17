@@ -1,0 +1,44 @@
+Physics = Dynamic
+Mass = 75
+CollisionGroup = Karts
+CollidesWith = Karts
+MaxSpeed = 19.6 // 14 * 1.4
+MaxReverseSpeed = 4
+FrontWheel = "AJKartFrontWheel"
+FrontLeftWheelMesh = "AJKartLeftWheel.mesh"
+FrontRightWheelMesh = "AJKartRightWheel.mesh"
+BackWheel = "AJKartBackWheel"
+BackLeftWheelMesh = "AJKartLeftWheel.mesh"
+BackRightWheelMesh = "AJKartRightWheel.mesh"
+PhysicsMaterial = "Kart"
+
+CollisionEvents = true
+
+FrontLeftWheelPosition = 0.324, -0.03, 0.52
+FrontRightWheelPosition = -0.324, -0.03, 0.52
+BackLeftWheelPosition = 0.28, -0.03, -0.56
+BackRightWheelPosition = -0.28, -0.03, -0.56
+
+FrontDriftAngle = 40
+BackDriftAngle = 48
+
+Model {
+	Mesh = "AJKart.mesh"
+	Material = "AJKart"
+	Position = 0, 0.01, 0.15
+	CastsShadows = Some
+}
+
+
+Shape {
+	Type = Hull
+	Mesh = "AJKartHull.mesh"
+	Position = 0, 0, 0
+}
+
+Sound {
+	File = "Generic Kart idle Loop.ogg"
+	//File = "RD_Kart_Idle Loop.ogg"
+	Looping = true
+	MinDistance = 20
+}

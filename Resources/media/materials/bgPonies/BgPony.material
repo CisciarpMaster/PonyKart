@@ -1,18 +1,10 @@
 material BgPonyHair {
     technique {
-		set $modscale ".23"
-		set $edgescale ".08"
 		pass {
-			//cull_hardware anticlockwise
-			//vertex_program_ref outlined_vs {
-			//}
-			//fragment_program_ref outlined_ps {
-			//	param_named OutlineColour float3 $outline
-			//}
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 $outline
-				param_named scale float $modscale
-				param_named edgeScale float $edgescale
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
 			}
 		}
         pass {
@@ -33,19 +25,11 @@ material BgPonyHair {
 
 material BgPony {
     technique {
-		set $modscale ".23"
-		set $edgescale ".08"
 		pass {
-			//cull_hardware anticlockwise
-			//vertex_program_ref outlined_vs {
-			//}
-			//fragment_program_ref outlined_ps {
-			//	param_named OutlineColour float3 $outline
-			//}
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 $outline
-				param_named scale float $modscale
-				param_named edgeScale float $edgescale
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
 			}
 		}
         pass {
@@ -66,19 +50,11 @@ material BgPony {
 
 material BgPonyWingsFolded {
     technique {
-		set $modscale ".23"
-		set $edgescale ".08"
 		pass {
-			//cull_hardware anticlockwise
-			//vertex_program_ref outlined_vs {
-			//}
-			//fragment_program_ref outlined_ps {
-			//	param_named OutlineColour float3 $outline
-			//}
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 $outline
-				param_named scale float $modscale
-				param_named edgeScale float $edgescale
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
 			}
 		}
         pass {
@@ -99,19 +75,11 @@ material BgPonyWingsFolded {
 
 material BgPonyWings {
     technique {
-		set $modscale ".23"
-		set $edgescale ".08"
 		pass {
-			//cull_hardware anticlockwise
-			//vertex_program_ref outlined_vs {
-			//}
-			//fragment_program_ref outlined_ps {
-			//	param_named OutlineColour float3 $outline
-			//}
 			vertex_program_ref VertEdge {
 				param_named edgeColor float4 $outline
-				param_named scale float $modscale
-				param_named edgeScale float $edgescale
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
 			}
 		}
         pass {

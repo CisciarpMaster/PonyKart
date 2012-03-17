@@ -65,7 +65,7 @@ namespace Ponykart.Handlers {
 #region Settings
 		private readonly float raycastTime = 0.05f,
 							   longRayLength = 0.8f,
-							   shortRayLength = 0.24f,
+							   shortRayLength = 0.35f,//0.24f,
 							   kartGravityMultiplier = -5.7f,
 							   skidderDuration = 0.7f;
 		private readonly bool kartGravityEnabled = true,
