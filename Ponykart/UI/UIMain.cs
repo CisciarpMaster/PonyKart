@@ -38,10 +38,9 @@ namespace Ponykart.UI {
 			// attach events
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 
-			// set up the system - the first argument has to be "Mogre" because that's the system we're running Miyagi on
-			MiyagiSys = new MiyagiSystem("Mogre");
-			// load the MOIS plugin
-			MiyagiSys.PluginManager.LoadPlugin("Miyagi.Plugin.Input.Mois.dll", input.InputKeyboard, input.InputMouse);
+			var miyagi = new MiyagiLoader();
+			// set up the system
+			MiyagiSys = miyagi.Create(input.InputKeyboard, input.InputMouse);
 
 			// load the resources
 			UIResources.CreateResources(MiyagiSys);
@@ -49,15 +48,6 @@ namespace Ponykart.UI {
 			// add a default GUI to the GUIManager
 			var gui = new GUI("default GUI");
 			MiyagiSys.GUIManager.GUIs.Add(gui);
-
-			// then fix the fonts so they work correctly
-			MiyagiHelper.Config(
-#if DEBUG
-				true,
-#else
-				false,
-#endif
-				MiyagiSys, UIResources.Fonts);
 
 			Launch.Log("[Loading] Miyagi loaded!");
 		}

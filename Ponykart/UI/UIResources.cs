@@ -6,6 +6,7 @@ using Miyagi.Common.Data;
 using Miyagi.Common.Resources;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
+using MiyagiDiagnostics;
 
 namespace Ponykart.UI {
 	/// <summary>
@@ -31,7 +32,14 @@ namespace Ponykart.UI {
 			CreateFonts(system);
 			CreateSkins();
 
-			CreateFromSerialized(system);
+			// then fix the fonts so they work correctly
+			MiyagiHelper.SetupFonts(
+#if DEBUG
+				true,
+#else
+				false,
+#endif
+				system, Fonts, Skins);
 
 			CreateCursor(system.GUIManager);
 		}

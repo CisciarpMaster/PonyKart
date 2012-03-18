@@ -12,7 +12,6 @@
 						<Text> </Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>TopLeft</Alignment>
-							<FontName>BlueHighway</FontName>
 							<ForegroundColour>-1</ForegroundColour>
 						</TextStyle>
 						<Visible>True</Visible>
@@ -60,7 +59,6 @@
 						<Text>Show Commands</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>MiddleCenter</Alignment>
-							<FontName>BlueHighway</FontName>
 							<ForegroundColour>-1</ForegroundColour>
 						</TextStyle>
 					</Control>
