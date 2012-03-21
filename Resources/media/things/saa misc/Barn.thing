@@ -7,194 +7,200 @@ CollidesWith = Environment
 // main barn
 Model {
 	Mesh = "Barn.mesh"
-	Position = 7.96297, 26.8586, 0
+	Position = 1.592594, 5.37172, 0
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = Some
+	RenderingDistance = 200
 }
 // frontleftbottomdoor
 Model {
 	Mesh = "Barn_Door_Bottom.mesh"
-	Position = 11.2229, 2.01974, -17.6692
+	Position = 2.24458, 0.403948, -3.53384
 	Orientation = 0, -0.930418, 0, 0.366501
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = Some
+	RenderingDistance = 200
 }
 // frontrighttopdoor
 Model {
 	Mesh = "Barn_Door_Top.mesh"
-	Position = -9.10718, 7.31765, -17.7276
+	Position = -1.821436, 1.46353, -3.54552
 	Orientation = 0, -0.406737, 0, 0.913545
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = Some
+	RenderingDistance = 200
 }
 // frontlefttopdoor
 Model {
 	Mesh = "Barn_Door_Top.mesh"
-	Position = 9.93524, 7.38608, -18.4935
+	Position = 1.987048, 1.477216, -3.6987
 	Orientation = 0, -0.845728, 0, 0.533614
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = Some
+	RenderingDistance = 200
 }
 // frontrightbottomdoor
 Model {
 	Mesh = "Barn_Door_Bottom.mesh"
-	Position = -8.6534, 1.93295, -17.8905
+	Position = -1.73068, 0.38659, -3.5781
 	Orientation = 0, -0.492424, 0, 0.870356
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = Some
+	RenderingDistance = 200
 }
 Model {
 	Mesh = "Barn_Plants.mesh"
 	Material = "SAA_Transparent_Things_Twosided"
-	Position = 5.48586, 32.0336, 1.00634
+	Position = 1.097172, 6.40672, 0.201268
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = None
-	RenderingDistance = 1000
+	RenderingDistance = 200
 }
 
 
 // box#25
 Shape {
 	Type = Box
-	Position = -9.11944, 7.36007, -17.7806
+	Position = -1.823888, 1.472014, -3.55612
 	Orientation = 0, -0.394744, 0, 0.918791
-	Dimensions = 7.96453, 6.40792, 0.710783
+	Dimensions = 1.592906, 1.281584, 0.1421566
 }
 // box#4
 Shape {
 	Type = Box
-	Position = 9.98335, 7.36007, -18.532
+	Position = 1.99667, 1.472014, -3.7064
 	Orientation = 0, -0.843392, 0, 0.537299
-	Dimensions = 7.96453, 6.40792, 0.710783
+	Dimensions = 1.592906, 1.281584, 0.1421566
 }
 // box#0
 Shape {
 	Type = Box
-	Position = 0.810346, 26.7763, 1.11209
-	Dimensions = 27.8653, 17.6353, 33.047
+	Position = 0.1620692, 5.35526, 0.222418
+	Dimensions = 5.57306, 3.52706, 6.6094
 }
 // box#1
 Shape {
 	Type = Box
-	Position = -10.0343, 9.48417, 1.14871
+	Position = -2.00686, 1.896834, 0.229742
 	Orientation = 0, 0, 0.0348995, 0.999391
-	Dimensions = 4.99999, 20, 32.2156
+	Dimensions = 0.999998, 4, 6.44312
 }
 // box#2
 Shape {
 	Type = Box
-	Position = 12.2663, 9.41847, 1.14871
+	Position = 2.45326, 1.883694, 0.229742
 	Orientation = 0, 0, -0.0348995, 0.999391
-	Dimensions = 5.00001, 20, 32.2156
+	Dimensions = 1.000002, 4, 6.44312
 }
 // box#6
 Shape {
 	Type = Box
-	Position = 9.62164, 8.73665, 1.10925
-	Dimensions = 2, 19, 32.2156
+	Position = 1.924328, 1.74733, 0.22185
+	Dimensions = 0.4, 3.8, 6.44312
 }
 // box#5
 Shape {
 	Type = Box
-	Position = -7.72234, 9.07087, 1.10925
-	Dimensions = 2, 19, 32.2156
+	Position = -1.544468, 1.814174, 0.22185
+	Dimensions = 0.4, 3.8, 6.44312
 }
 // box#9
 Shape {
 	Type = Box
-	Position = -11.5827, 8.45239, 6.82724
+	Position = -2.31654, 1.690478, 1.365448
 	Orientation = 0, 0, 0.0348995, 0.999391
-	Dimensions = 2, 19, 9
+	Dimensions = 0.4, 3.8, 1.8
 }
 // box#10
 Shape {
 	Type = Box
-	Position = 0.767867, 14.5802, -14.6981
-	Dimensions = 16, 8, 1
+	Position = 0.1535734, 2.91604, -2.93962
+	Dimensions = 3.2, 1.6, 0.2
 }
 // box#11
 Shape {
 	Type = Box
-	Position = 0.767867, 14.5802, 16.8657
-	Dimensions = 16, 8, 1
+	Position = 0.1535734, 2.91604, 3.37314
+	Dimensions = 3.2, 1.6, 0.2
 }
 // box#12
 Shape {
 	Type = Box
-	Position = 0.95805, 19.8305, 18.6185
-	Dimensions = 8.5, 3, 2
+	Position = 0.19161, 3.9661, 3.7237
+	Dimensions = 1.7, 0.6, 0.4
 }
 // box#13
 Shape {
 	Type = Box
-	Position = 0.95805, 19.8305, -16.2726
-	Dimensions = 8.5, 3, 2
+	Position = 0.19161, 3.9661, -3.25452
+	Dimensions = 1.7, 0.6, 0.4
 }
 // box#14
 Shape {
 	Type = Box
-	Position = 0.907143, 15.6895, -17.0073
-	Dimensions = 13, 3.5, 4
+	Position = 0.1814286, 3.1379, -3.40146
+	Dimensions = 2.6, 0.7, 0.8
 }
 // box#15
 Shape {
 	Type = Box
-	Position = 0.907143, 15.6895, 19.3094
-	Dimensions = 13, 3.5, 4
+	Position = 0.1814286, 3.1379, 3.86188
+	Dimensions = 2.6, 0.7, 0.8
 }
 // box#16
 Shape {
 	Type = Box
-	Position = 1.11604, 49.0149, -10.2744
-	Dimensions = 8, 28, 8
+	Position = 0.223208, 9.80298, -2.05488
+	Dimensions = 1.6, 5.6, 1.6
 }
 // box#17
 Shape {
 	Type = Box
-	Position = 16.7181, 11.4811, -6.55119
-	Dimensions = 4, 3, 6
+	Position = 3.34362, 2.29622, -1.310238
+	Dimensions = 0.8, 0.6, 1.2
 }
 // box#21
 Shape {
 	Type = Box
-	Position = 21.5528, 6.0026, -1.11583
-	Dimensions = 6.5, 13.1998, 2.7046
+	Position = 4.31056, 1.20052, -0.223166
+	Dimensions = 1.3, 2.63996, 0.54092
 }
 // box#18
 Shape {
 	Type = Box
-	Position = -14.6513, 11.6502, -6.55119
-	Dimensions = 4.5, 3.5, 6
+	Position = -2.93026, 2.33004, -1.310238
+	Dimensions = 0.9, 0.7, 1.2
 }
 // box#20
 Shape {
 	Type = Box
-	Position = 21.2586, 7.74571, 7.98462
-	Dimensions = 16, 17, 16
+	Position = 4.25172, 1.549142, 1.596924
+	Dimensions = 3.2, 3.4, 3.2
 }
 // box#19
 Shape {
 	Type = Box
-	Position = -14.37, 10.4063, 7.62354
-	Dimensions = 4.5, 3.5, 8.5
+	Position = -2.874, 2.08126, 1.524708
+	Dimensions = 0.9, 0.7, 1.7
 }
 // box#22
 Shape {
 	Type = Box
-	Position = 21.5528, 6.0026, 16.5512
-	Dimensions = 6.5, 13.1998, 2.7046
+	Position = 4.31056, 1.20052, 3.31024
+	Dimensions = 1.3, 2.63996, 0.54092
 }
 // box#24
 Shape {
 	Type = Box
-	Position = -8.70151, 1.94419, -17.9429
+	Position = -1.740302, 0.388838, -3.58858
 	Orientation = 0, -0.488621, 0, 0.872496
-	Dimensions = 7.56678, 4.61307, 0.692094
+	Dimensions = 1.513356, 0.922614, 0.1384188
 }
 // box#3
 Shape {
 	Type = Box
-	Position = 11.2802, 1.94419, -17.7219
+	Position = 2.25604, 0.388838, -3.54438
 	Orientation = 0, -0.927184, 0, 0.374607
-	Dimensions = 7.56678, 4.61307, 0.720859
+	Dimensions = 1.513356, 0.922614, 0.1441718
 }
+

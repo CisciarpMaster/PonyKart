@@ -3,6 +3,7 @@ Mass = 0
 CollisionGroup = Road
 CollidesWith = Road
 //DisableVisualization = true
+ForceCompound = true
 
 // SAA_Ramp
 Model {
@@ -15,7 +16,7 @@ Model {
 Shape {
 	Type = Mesh
 	Mesh = "SAA_Ramp_phys.mesh"
-	Position = 0.958, 7.442, 0
+	Position = 0.1916, 1.4884, 0
 	Orientation = 0, 0, 0, 1
-	Scale = 1, 1, 1
 }
+

@@ -4,22 +4,22 @@ function barn(lthing)
 	local unit_y = vector(0, 1, 0)
 
 	-- these two need to be rotated the other way around
-	local topleft = spawn("Barn_Top_Doors", addVectors(lthing.SpawnPosition, vector(-2.95, 7.4, 16.8)))
+	local topleft = spawn("Barn_Top_Doors", addVectors(lthing.SpawnPosition, vector(-0.59, 1.48, 3.36)))
 	setBodyOrientation(topleft.Body, quaternion(0, 1, 0, 0))
-	local bottomleft = spawn("Barn_Bottom_Doors", addVectors(lthing.SpawnPosition, vector(-2.95, 1.9, 16.8)))
+	local bottomleft = spawn("Barn_Bottom_Doors", addVectors(lthing.SpawnPosition, vector(-0.59, 0.38, 3.36)))
 	setBodyOrientation(bottomleft.Body, quaternion(0, 1, 0, 0))
 	
 	-- these ones are fine though
-	local topright = spawn("Barn_Top_Doors", addVectors(lthing.SpawnPosition, vector(4.836, 7.4, 16.8)))
-	local bottomright = spawn("Barn_Bottom_Doors", addVectors(lthing.SpawnPosition, vector(4.846, 1.9, 16.8)))
+	local topright = spawn("Barn_Top_Doors", addVectors(lthing.SpawnPosition, vector(0.9672, 1.48, 3.36)))
+	local bottomright = spawn("Barn_Bottom_Doors", addVectors(lthing.SpawnPosition, vector(0.9692, 0.38, 3.36)))
 	
 	
 	-- make hinges
-	local TLhinge = hingeConstraint(topleft.Body, lthing.Body, vector(3.75, 0, 0), vector(-6.8, 7.4, 16.929), unit_y, unit_y)
-	local BLhinge = hingeConstraint(bottomleft.Body, lthing.Body, vector(3.75, 0, 0), vector(-6.8, 1.9, 16.929), unit_y, unit_y)
+	local TLhinge = hingeConstraint(topleft.Body, lthing.Body, vector(0.75, 0, 0), vector(-1.36, 1.48, 3.3858), unit_y, unit_y)
+	local BLhinge = hingeConstraint(bottomleft.Body, lthing.Body, vector(0.75, 0, 0), vector(-1.36, 0.38, 3.3858), unit_y, unit_y)
 	
-	local TRhinge = hingeConstraint(topright.Body, lthing.Body, vector(3.75, 0, 0), vector(8.685, 7.4, 16.929), unit_y, unit_y)
-	local BRhinge = hingeConstraint(bottomright.Body, lthing.Body, vector(3.75, 0, 0), vector(8.685, 1.9, 16.929), unit_y, unit_y)
+	local TRhinge = hingeConstraint(topright.Body, lthing.Body, vector(0.75, 0, 0), vector(1.737, 1.48, 3.3858), unit_y, unit_y)
+	local BRhinge = hingeConstraint(bottomright.Body, lthing.Body, vector(0.75, 0, 0), vector(1.737, 0.38, 3.3858), unit_y, unit_y)
 	
 	
 	-- remember that methods use : and not .!

@@ -186,5 +186,12 @@ namespace Ponykart.Physics {
 
 			base.Dispose(disposing);
 		}
+
+		public override string ToString() {
+			return Name;
+		}
+		public override int GetHashCode() {
+			return Name.GetHashCode();
+		}
 	}
 }

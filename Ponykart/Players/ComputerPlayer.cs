@@ -14,7 +14,7 @@ namespace Ponykart.Players {
 
 		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id, true) {
 			axis = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
-			axis.ModelComponents[0].Node.SetScale(0.2f, 0.2f, 0.2f);
+			axis.ModelComponents[0].Node.SetScale(0.1f, 0.1f, 0.1f);
 
 			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}
@@ -63,21 +63,22 @@ namespace Ponykart.Players {
 		public void CalculateNewWaypoint(TriggerRegion enteredRegion, TriggerRegion nextRegion, CollisionReportInfo info) {
 			// have to check for this because trigger regions like sending duplicate events
 			// also we check against the previous region in situations where the kart is in two regions at once
-			if (nextRegion != CurrentRegion && nextRegion != PreviousRegion && enteredRegion != PreviousRegion) {
+			if ((nextRegion != CurrentRegion && nextRegion != PreviousRegion && enteredRegion != PreviousRegion) || info == null) {
 
 				// do we need to do all of the transform stuff? it's accurate, but do we need to be particularly accurate?
+				// forward is -X
 				float offset;
 				if (info == null || info.Position == null) {
 					// when we're starting, we'll just use our kart's position for things
 					Vector3 relativePos = nextRegion.Body.WorldTransform.InverseAffine() * Kart.RootNode.Position;
-					offset = relativePos.x / nextRegion.Width;
+					offset = MakeOffset(relativePos, nextRegion);
 				}
 				else {
 					// otherwise calculate using the region we just entered
 					Vector3 relativePos = enteredRegion.Body.WorldTransform.InverseAffine() * info.Position.Value;
-					offset = relativePos.x / enteredRegion.Width;
+					offset = MakeOffset(relativePos, enteredRegion);
 				}
-				nextWaypoint = nextRegion.Body.WorldTransform * new Vector3(offset * nextRegion.Width, 0, 0);
+				nextWaypoint = nextRegion.Body.WorldTransform * new Vector3(0, 0, offset * nextRegion.Width);
 				nextWaypoint.y = 0;
 
 				// update the region pointers
@@ -89,6 +90,16 @@ namespace Ponykart.Players {
 				axis.RootNode.Orientation = nextRegion.Body.Orientation;
 				nextRegion.CycleToNextColor();
 			}
+		}
+
+		private float MakeOffset(Vector3 relativePos, TriggerRegion region) {
+			float offset = relativePos.z / region.Width;
+			if (offset < -0.75f)
+				return -0.75f;
+			else if (offset > 0.75f)
+				return 0.75f;
+			else
+				return offset;
 		}
 
 		public override void Detach() {

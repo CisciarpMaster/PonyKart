@@ -53,7 +53,7 @@ function spawnApple(lthing, offset)
 	relativeSpawn(name, lthing, offset)
 end
 
-local appleRadius = 0.7
+local appleRadius = 0.14
 
 -- spawns a bunch of apples vertically
 function spawnApples(numberOfApples, position)

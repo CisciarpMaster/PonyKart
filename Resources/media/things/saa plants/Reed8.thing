@@ -2,8 +2,8 @@ Physics = None
 
 BillboardSet {
 	Material = "Reeds"
-	Width = 12
-	Height = 12
+	Width = 2.4
+	Height = 2.4
 	Type = OrientedCommon
 	Origin = BottomCenter
 	// left, top, right, bottom
@@ -13,3 +13,4 @@ BillboardSet {
 		Position = 0, 0, 0
 	}
 }
+

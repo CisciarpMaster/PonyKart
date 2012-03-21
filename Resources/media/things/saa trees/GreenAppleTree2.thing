@@ -5,15 +5,14 @@ Imposters = true
 // left, top, right, bottom, origin is top left
 ImposterTextureCoords = 0.25, 0.25, 0.5, 0.5
 ImposterMaterial = "AppleTreeBillboards"
-ImposterWidth = 23
-ImposterHeight = 23
-ImposterOffset = 0, -3, 0
+ImposterWidth = 4.6
+ImposterHeight = 4.6
+ImposterOffset = 0, -0.6, 0
 
 // main tree model
 Model {
 	Mesh = "GreenAppleTree2.mesh"
 	Material = "AppleTree"
-	Position = 0, -3, 0
+	Position = 0, -0.6, 0
 	CastsShadows = Many
-	Scale = 1, 1, 1
 }

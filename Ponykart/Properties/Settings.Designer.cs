@@ -64,7 +64,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int NumberOfPlayers {
             get {
                 return ((int)(this["NumberOfPlayers"]));
@@ -76,7 +76,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-15")]
         public float Gravity {
             get {
                 return ((float)(this["Gravity"]));
@@ -131,6 +131,18 @@ namespace Ponykart.Properties {
             }
             set {
                 this["EnableGlowyRegions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-5.75")]
+        public float KartGravity {
+            get {
+                return ((float)(this["KartGravity"]));
+            }
+            set {
+                this["KartGravity"] = value;
             }
         }
     }

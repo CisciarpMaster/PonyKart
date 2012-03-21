@@ -39,14 +39,14 @@ ShadowColour = 0.8, 0.8, 0.8
 Skybox = "saa_sky"
 
 SAA_Banner {
-	Position = -7.06332, -5.37894, 325.076
+	Position = -1.412664, -1.075788, 65.0152
 	Orientation = 0, 0.707107, -3.09086E-08, 0.707107
 }
 SAA_Bridge {
-	Position = 280.454, 0, -210.054
+	Position = 56.0908, 0, -42.0108
 }
 SAA_Ramp {
-	Position = -107.915, 40.8328, -693.665
+	Position = -21.583, 8.16656, -138.733
 }
 // the physics mesh for the road
 SAA_Road_Combined {
@@ -60,289 +60,290 @@ SAA_Invisible_Walls {
 }
 
 Barn {
-    Position = 92, -1.5, 234.525
+    Position = 18.4, -0.3, 46.905
 }
 CMC_Treehouse {
-	Position = 348.039, 30.0541, -557.766
+	Position = 69.6078, 6.01082, -111.5532
 	// this treehouse is just being really annoying so it gets to use the rotation
 	Rotation = 6.823, 10.8, -2.308
 }
 
 CarrotTopHouse {
-	Position = 29.9956, 13.5218, 494.783
+	Position = 5.99912, 2.70436, 98.9566
 	Orientation = 0, 0.996195, -4.35451E-08, -0.0871557
 }
 
 SAACornRows {
-	Position = -400, 0, -300
+	Position = -80, 0, -60
 }
 
 
 // stuff in the barn area
 ChickenCoop {
-	Position = 145.826, -0.6, 145.18
+	Position = 29.1652, -0.12, 29.036
 	Orientation = 0, -0.170071, 7.43405E-09, 0.985432
 	MapRegion = "Barn"
 }
 ChickenCoop {
-	Position = 161.511, -0.6, 161.724
+	Position = 32.3022, -0.12, 32.3448
 	Orientation = 0, -0.536017, 2.343E-08, 0.844207
 	MapRegion = "Barn"
 }
 ChickenCoop {
-	Position = 167.363, -0.6, 179.454
+	Position = 33.4726, -0.12, 35.8908
 	Orientation = 0, -0.000752181, 3.28789E-11, 1
 	MapRegion = "Barn"
 }
 
 Well {
-	Position = 177.778, -0.5, 231.089
+	Position = 35.5556, -0.1, 46.2178
 	Orientation = -1.47885E-08, 0.987017, -5.51752E-08, 0.160613
 	MapRegion = "Barn"
 }
 
 Farmhouse {
-	Position = 28.5423, -0.6, 205.974
+	Position = 5.70846, -0.12, 41.1948
 	Orientation = 0, -0.836976, 3.65854E-08, 0.54724
 	MapRegion = "Barn"
 }
 Farmhouse {
-	Position = 34.202, -0.7, 188.874
+	Position = 6.8404, -0.14, 37.7748
 	Orientation = 0, -0.785707, 3.43443E-08, 0.618599
 	MapRegion = "Barn"
 }
 Farmhouse {
-	Position = 40.38, -0.7, 169.429
+	Position = 8.076, -0.14, 33.8858
 	Orientation = 0, -0.861438, 3.76547E-08, 0.507862
 	MapRegion = "Barn"
 }
 Farmhouse {
-	Position = 28.569, -0.6, 152.386
+	Position = 5.7138, -0.12, 30.4772
 	Orientation = 0, -0.486735, 2.12758E-08, 0.87355
 	MapRegion = "Barn"
 }
 
 PicnicTable {
-	Position = 28.5687, -0.252338, 230.589
+	Position = 5.71374, -0.0504676, 46.1178
 	Orientation = 0, 0.0742143, -3.24401E-09, 0.997242
 	MapRegion = "Barn"
 }
 PicnicTable {
-	Position = 31.1999, -0.121938, 252.084
+	Position = 6.23998, -0.0243876, 50.4168
 	Orientation = 0.0158113, -0.214953, 0.00348051, 0.97649
 	MapRegion = "Barn"
 }
 PicnicTable {
-	Position = 13.0944, -0.406497, 239.451
+	Position = 2.61888, -0.0812994, 47.8902
 	Orientation = 0, 0.513037, -2.24256E-08, 0.858366
 	MapRegion = "Barn"
 }
 PicnicTable {
-	Position = 35.1879, -1.0450687, 276.281
+	Position = 7.03758, -1.0450687, 55.2562
 	Orientation = 0.0492372, -0.0623778, -0.0105996, 0.996781
 	MapRegion = "Barn"
 }
 PicnicTable {
-	Position = 9.59624, -0.516006, 252.788
+	Position = 1.919248, -0.1032012, 50.5576
 	Orientation = 0, 0.825827, -3.60981E-08, 0.563923
 	MapRegion = "Barn"
 }
 PicnicTable {
-	Position = 7.16948, -0.57792, 218.666
+	Position = 1.433896, -0.115584, 43.7332
 	Orientation = 0, 0.964461, -4.21579E-08, -0.264225
 	MapRegion = "Barn"
 }
 
 // other stuff
 AppleCart {
-	Position = -303.154, 1.57268, -259.393
+	Position = -60.6308, 0.314536, -51.8786
 	Orientation = 0, 0.516584, -2.25806E-08, 0.856236
 	MapRegion = "Buckets"
 }
 AppleCart {
-	Position = -313.995, 2.80554, -232.778
+	Position = -62.799, 0.5611081, -46.5556
 	Orientation = 0, 0.951198, -4.15782E-08, -0.308582
 	MapRegion = "Buckets"
 }
 AppleCart {
-	Position = -362.368, -4.1405, -257.192
+	Position = -72.4736, -0.8281, -51.4384
 	Orientation = 0.030791, 0.751052, -0.027016, 0.658971
 	MapRegion = "Buckets"
 }
 AppleCart {
-	Position = -332.491, -3.11867, -279.563
+	Position = -66.4982, -0.623734, -55.9126
 	Orientation = -0.0251748, 0.0102287, -0.000257601, 0.999631
 	MapRegion = "Buckets"
 }
 AppleCart {
-	Position = -383.142, 0.703443, -317.09
+	Position = -76.6284, 0.1406886, -63.418
 	Orientation = -0.00817085, 0.952011, 0.0238132, 0.305028
 	MapRegion = "Buckets"
 }
 AppleContainerLarge {
-	Position = -308.463, -0.307898, -274.866
+	Position = -61.6926, -0.0615796, -54.9732
 	Orientation = 0, 0.165775, -7.24627E-09, 0.986164
 	MapRegion = "Buckets"
 }
 AppleContainerLarge {
-	Position = -316.292, 3.01027, -219.186
+	Position = -63.2584, 0.6020541, -43.8372
 	Orientation = -0.0477705, -0.23217, 0.0899991, 0.967324
 	MapRegion = "Buckets"
 }
 AppleContainerLarge {
-	Position = -290.629, 1.57002, -244.015
+	Position = -58.1258, 0.314004, -48.803
 	Orientation = 0, -0.0403619, 1.76427E-09, 0.999185
 	MapRegion = "Buckets"
 }
 AppleContainerLarge {
-	Position = -388.855, -0.496803, -287.945
+	Position = -77.771, -0.0993606, -57.589
 	Orientation = 0, -0.0403619, 1.76427E-09, 0.999185
 	MapRegion = "Buckets"
 }
 // by the barn
 AppleContainerLarge {
-	Position = 60.1759, 0.30589, 225.592
+	Position = 12.03518, 0.061178, 45.1184
 	Orientation = 0, 0.165775, -7.24627E-09, 0.986164
 	MapRegion = "Barn"
 }
 AppleContainerSmall {
-	Position = -304.024, 2.0702, -230.673
+	Position = -60.8048, 0.41404, -46.1346
 	MapRegion = "Buckets"
 }
 AppleContainerSmall {
-	Position = -376.828, -0.9736238, -318.154
+	Position = -75.3656, -0.1947248, -63.6308
 	Orientation = 0, -0.318961, 1.39422E-08, 0.947768
 	MapRegion = "Buckets"
 }
 AppleContainerSmall {
-	Position = -305.03, 0.15753, -347.024
+	Position = -61.006, 0.031506, -69.4048
 	Orientation = 0, -0.318961, 1.39422E-08, 0.947768
 	MapRegion = "Buckets"
 }
 AppleContainerSmall {
-	Position = -339.761, -5.23281, -276.579
+	Position = -67.9522, -1.046562, -55.3158
 	Orientation = 0, -0.131127, 5.73173E-09, 0.991366
 	MapRegion = "Buckets"
 }
 Bucket {
-	Position = -316.658, 1.10469, -239.487
+	Position = -63.3316, 0.220938, -47.8974
 	MapRegion = "Buckets"
 }
 Bucket {
-	Position = -370.252, -4.0174, -262.831
+	Position = -74.05041, -0.80348, -52.5662
 	Orientation = 0, 0.399415, -1.7459E-08, 0.91677
 	MapRegion = "Buckets"
 }
 Bucket {
-	Position = -356.517, -5.19089, -252.916
+	Position = -71.3034, -1.038178, -50.5832
 	Orientation = 0, -0.763999, 3.33954E-08, 0.645218
 	MapRegion = "Buckets"
 }
 Bucket {
-	Position = -303.387, 0.0920347, -274.735
+	Position = -60.6774, 0.01840694, -54.947
 	Orientation = 0, 0.399415, -1.7459E-08, 0.91677
 	MapRegion = "Buckets"
 }
 Bucket {
-	Position = -284.154, 1.44556, -251.572
+	Position = -56.8308, 0.289112, -50.3144
 	Orientation = 0, 0.399415, -1.7459E-08, 0.91677
 	MapRegion = "Buckets"
 }
 Bucket {
-	Position = -282.44, 4.98503, -217.582
+	Position = -56.488, 0.9970061, -43.5164
 	Orientation = 0, 0.399415, -1.7459E-08, 0.91677
 	MapRegion = "Buckets"
 }
 Bucket {
-	Position = 155.592, 0.146223, 170.453
+	Position = 31.1184, 0.0292446, 34.0906
 	Orientation = 0, 0.933201, -4.07915E-08, -0.359355
 	MapRegion = "Barn"
 }
 Bucket {
-	Position = 161.559, 0.221205, 183.218
+	Position = 32.3118, 0.044241, 36.6436
 	MapRegion = "Barn"
 }
 Bucket {
-	Position = 145.167, 0.0703785, 156.395
+	Position = 29.0334, 0.0140757, 31.279
 	Orientation = 0, 0.325237, -1.42166E-08, 0.945632
 	MapRegion = "Barn"
 }
 Bucket {
-	Position = 172.885, 8.29738, 226.458
+	Position = 34.577, 1.659476, 45.2916
 	Orientation = 0, 0.683684, -2.98848E-08, 0.729778
 	MapRegion = "Barn"
 }
 FlowerBarrelRed {
-	Position = 183.886, 0.32491, 233.664
+	Position = 36.7772, 0.064982, 46.7328
 	MapRegion = "Barn"
 }
 FlowerBarrelYellow {
-	Position = 190.223, 0.32491, 231.591
+	Position = 38.0446, 0.064982, 46.3182
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 	MapRegion = "Barn"
 }
 // the one by the barn
 FlowerBarrelGreen {
-	Position = 83.7244, -0.642549, 212.17
+	Position = 16.74488, -0.1285098, 42.434
 	MapRegion = "Barn"
 }
 FlowerBarrelGreen {
-	Position = 192.055, 0.37155, 197.47
+	Position = 38.411, 0.07431, 39.494
 	Orientation = 0, 0.888504, -3.88377E-08, 0.458869
 	MapRegion = "Barn"
 }
 Crate {
-	Position = 218.771, -0.591313, 239.717
+	Position = 43.7542, -0.1182626, 47.9434
 	Orientation = 0, -1.86265E-09, 8.14188E-17, 1
 	MapRegion = "Barn"
 }
 Crate {
-	Position = 214.893, -0.591314, 228.269
+	Position = 42.9786, -0.1182628, 45.6538
 	Orientation = 0, 0.422618, -1.84732E-08, 0.906308
 	MapRegion = "Barn"
 }
 Crate {
-	Position = 217.938, 4.52796, 234.504
+	Position = 43.5876, 0.905592, 46.9008
 	Orientation = 0, 0.984808, -4.30473E-08, -0.173648
 	MapRegion = "Barn"
 }
-Crate {
-	Position = -12.1845, -0.591315, 201.684
+// the AI keeps getting stuck on this kart
+/*Crate {
+	Position = -2.4369, -0.118263, 40.3368
 	Orientation = 0, 0.608761, -2.66098E-08, 0.793353
 	MapRegion = "Barn"
-}
+}*/
 Crate {
-	Position = -438.748, 3.06283, -351.029
+	Position = -87.7496, 0.612566, -70.2058
 	Orientation = 0.0107947, -0.257575, -0.0761041, 0.963196
 	MapRegion = "Buckets"
 }
 Crate {
-	Position = -438.008, 2.60831, -335.582
+	Position = -87.6016, 0.521662, -67.1164
 	Orientation = 0.0265538, 0.608182, -0.0346056, 0.792598
 	MapRegion = "Buckets"
 }
 Crate {
-	Position = -439.1, 4.88421, -378.893
+	Position = -87.82, 0.976842, -75.7786
 	Orientation = 0.0331783, 0.0718158, -0.0617098, 0.994954
 	MapRegion = "Buckets"
 }
 Crate {
-	Position = -437.605, 4.182, -368.481
+	Position = -87.521, 0.8364, -73.6962
 	Orientation = 0.0619649, 0.693396, -0.0160833, 0.717708
 	MapRegion = "Buckets"
 }
 Crate {
-	Position = -437.178, 9.46041, -373.049
+	Position = -87.4356, 1.892082, -74.6098
 	Orientation = 0.0561399, 0.978231, 0.0201331, 0.198762
 	MapRegion = "Buckets"
 }
 Crate {
-	Position = -136.137, 46.7468, -651.206
+	Position = -27.2274, 9.34936, -130.2412
 	Orientation = 0.0842442, 0.976445, 0.019888, 0.197642
 	MapRegion = "Ramp"
 }
 Crate {
-	Position = -159.505, 50.3426, -735.117
+	Position = -31.901, 10.06852, -147.0234
 	Orientation = -0.0168441, 0.970102, 0.03473, -0.239609
 	MapRegion = "Ramp"
 }
@@ -350,37 +351,37 @@ Crate {
 
 // stuff in the drivable grass area on that S-turn
 AppleCart {
-	Position = 151.38, 2.4844, 37.0723
+	Position = 30.276, 0.49688, 7.41446
 	Orientation = 0, 0.544802, -2.38141E-08, 0.838565
 	MapRegion = "Bridge"
 }
 AppleCart {
-	Position = 89.3131, 1.53173, -42.7306
+	Position = 17.86262, 0.306346, -8.54612
 	Orientation = 0.0110251, 0.991424, -0.0810175, 0.101942
 	MapRegion = "Bridge"
 }
 AppleContainerSmall {
-	Position = 68.8546, 0.79243, -12.8642
+	Position = 13.77092, 0.158486, -2.57284
 	Orientation = 0.0178886, -0.030182, 0.0511453, 0.998075
 	MapRegion = "Bridge"
 }
 AppleContainerSmall {
-	Position = 96.0349, 2.29395, -2.70654
+	Position = 19.20698, 0.45879, -0.541308
 	Orientation = 0, -0.555358, 2.42754E-08, 0.831612
 	MapRegion = "Bridge"
 }
 Bucket {
-	Position = 181.303, 4.30353, 19.4632
+	Position = 36.2606, 0.860706, 3.89264
 	Orientation = -0.0862961, -0.0145952, 0.0985059, 0.99128
 	MapRegion = "Bridge"
 }
 Bucket {
-	Position = 118.332, 0.766, 45.3913
+	Position = 23.6664, 0.1532, 9.07826
 	Orientation = 0.0468018, 0.0961371, 0.0412593, 0.993411
 	MapRegion = "Bridge"
 }
 Bucket {
-	Position = 106.251, 0.54157, -39.2153
+	Position = 21.2502, 0.108314, -7.84306
 	Orientation = -0.0918146, -0.0828616, -0.0508696, 0.991018
 	MapRegion = "Bridge"
 }
@@ -389,62 +390,62 @@ Bucket {
 // crop field
 // I should probably center these at some point to help with culling
 Bushies1 {
-	Position = 287.373, 2.25262, 203.4531
+	Position = 57.4746, 0.450524, 40.69062
 	MapRegion = "Barn"
 }
 Bushies2 {
-	Position = 317.476, 7.531483, 289.0026
+	Position = 63.4952, 1.506297, 57.80052
 	MapRegion = "Barn"
 }
 Bushies3 {
-	Position = 256.0417, 1.797922, 362.9539
+	Position = 51.20834, 0.3595844, 72.59078
 	MapRegion = "Barn"
 }
 Cabbage1 {
-	Position = 255.9682, 1.949684, 254.9564
+	Position = 51.19364, 0.3899368, 50.99128
 	MapRegion = "Barn"
 }
 Cabbage2 {
-	Position = 318.5871, 3.365897, 202.2679
+	Position = 63.71742, 0.6731794, 40.45358
 	MapRegion = "Barn"
 }
 Cabbage3 {
-	Position = 267.2852, 1.813528, 330.2899
+	Position = 53.45704, 0.3627056, 66.05798
 	MapRegion = "Barn"
 }
 Cabbage4 {
-	Position = 312.7644, 4.991522, 396.9387
+	Position = 62.55288, 0.9983044, 79.38774
 	MapRegion = "Barn"
 }
 Carrots1 {
-	Position = 303.6596, 7.682776, 246.937
+	Position = 60.73192, 1.536555, 49.3874
 	MapRegion = "Barn"
 }
 Carrots2 {
-	Position = 254.6678, 1.24684, 299.0047
+	Position = 50.93356, 0.249368, 59.80094
 	MapRegion = "Barn"
 }
 Carrots3 {
-	Position = 313.6582, 5.201958, 335.0176
+	Position = 62.73164, 1.040392, 67.00352
 	MapRegion = "Barn"
 }
 Carrots4 {
-	Position = 277.526, 4.34375, 398.4717
+	Position = 55.5052, 0.86875, 79.69434
 	MapRegion = "Barn"
 }
 Leafies1 {
-	Position = 255.4023, 1.009405, 209.3232
+	Position = 51.08046, 0.201881, 41.86464
 	MapRegion = "Barn"
 }
 Leafies2 {
-	Position = 289.5165, 6.722434, 289.0285
+	Position = 57.9033, 1.344487, 57.8057
 	MapRegion = "Barn"
 }
 Leafies3 {
-	Position = 298.5891, 3.73319, 361.9637
+	Position = 59.71782, 0.746638, 72.39275
 	MapRegion = "Barn"
 }
 Leafies4 {
-	Position = 248.6513, 3.548966, 400.8447
+	Position = 49.73026, 0.7097932, 80.16894
 	MapRegion = "Barn"
 }

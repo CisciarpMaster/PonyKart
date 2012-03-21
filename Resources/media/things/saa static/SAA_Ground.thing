@@ -21,31 +21,31 @@ Model {
 Model {
 	Mesh = "SAA_Field1.mesh"
 	Material = "SAA_Field"
-	Position = 284.874, 13.2072, 296.972
+	Position = 56.9748, 2.64144, 59.3944
 	CastsShadows = None
 }
 Model {
 	Mesh = "SAA_FieldTransition1.mesh"
 	Material = "SAA_FieldTransition"
-	Position = 284.874, 13.2072, 296.972
+	Position = 56.9748, 2.64144, 59.3944
 	CastsShadows = None
 }
 Model {
 	Mesh = "SAA_Field2.mesh"
 	Material = "SAA_Field"
-	Position = -642.704, 31.6884, -356.73
+	Position = -128.5408, 6.33768, -71.346
 	CastsShadows = None
 }
 Model {
 	Mesh = "SAA_FieldTransition2.mesh"
 	Material = "SAA_FieldTransition"
-	Position = -642.704, 100.545, -356.73
+	Position = -128.5408, 20.109, -71.346
 	CastsShadows = None
 }
 Model {
 	Mesh = "SAA_CornRows.mesh"
 	Material = "SAA_CornRows"
-	Position = -638.601, 32.584, -360.331
+	Position = -127.7202, 6.5168, -72.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
 	CastsShadows = None
 }
@@ -54,7 +54,7 @@ Model {
 Model {
 	Mesh = "SAA_River.mesh"
 	Material = "Water"
-	Position = 368.972, 6.93615, -677.336
+	Position = 73.7944, 1.38723, -135.4672
 	CastsShadows = None
 }
 
@@ -62,31 +62,31 @@ Model {
 Model {
 	Mesh = "SAA_Fence1.mesh"
 	Material = "Fences"
-	Position = 79.8523, -19.6812, -274.898
+	Position = 15.97046, -3.93624, -54.9796
 	CastsShadows = Many
 }
 Model {
 	Mesh = "SAA_Fence2.mesh"
 	Material = "Fences"
-	Position = 79.8523, -19.6816, -274.898
+	Position = 15.97046, -3.93632, -54.9796
 	CastsShadows = Many
 }
 Model {
 	Mesh = "SAA_Fence3.mesh"
 	Material = "Fences"
-	Position = 79.8523, -20.6998, -274.898
+	Position = 15.97046, -4.13996, -54.9796
 	CastsShadows = Many
 }
 Model {
 	Mesh = "SAA_Fence4.mesh"
 	Material = "Fences"
-	Position = 53.2025, -6.82825, -491.058
+	Position = 10.6405, -1.36565, -98.2116
 	CastsShadows = Many
 }
 Model {
 	Mesh = "SAA_Fence5.mesh"
 	Material = "Fences"
-	Position = 53.2025, -6.25403, -491.058
+	Position = 10.6405, -1.250806, -98.2116
 	CastsShadows = Many
 }
 
@@ -96,3 +96,4 @@ Shape {
 	Mesh = "SAA_Ground_Collidable.bullet"
 	Position = 0, 0, 0
 }
+

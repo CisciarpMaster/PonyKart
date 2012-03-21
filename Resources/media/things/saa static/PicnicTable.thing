@@ -7,7 +7,7 @@ ForceCompound = true
 // Entity#0
 Model {
 	Mesh = "PicnicTable.mesh"
-	Position = -0.000190735, 1.08395, 0
+	Position = -3.8147E-05, 0.21679, 0
 	Orientation = 0, 0, 0, 1
 	Scale = 0.1, 0.1, 0.1
 	CastsShadows = Many
@@ -15,7 +15,7 @@ Model {
 // Entity#1
 Model {
 	Mesh = "PicnicTableCloth.mesh"
-	Position = 0, 1.49494, 0
+	Position = 0, 0.298988, 0
 	Orientation = 0, 0, 0, 1
 	Scale = 0.1, 0.1, 0.1
 }
@@ -23,7 +23,8 @@ Model {
 // box#0
 Shape {
 	Type = Box
-	Position = 0, 1.08487, 0
+	Position = 0, 0.216974, 0
 	Orientation = 0, 0, 0, 1
-	Dimensions = 4.07156, 2.21229, 7.64259
+	Dimensions = 0.814312, 0.442458, 1.528518
 }
+

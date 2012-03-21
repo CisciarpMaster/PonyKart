@@ -1,12 +1,12 @@
-KartSpawnPosition0 = -3.664, -5.819, 332.838
-KartSpawnPosition1 = 0.843, -5.94, 323.637
-KartSpawnPosition2 = 5.293, -5.578, 314.803
-KartSpawnPosition3 = 10.101, -5.639, 332.838
-KartSpawnPosition4 = 14.609, -5.888, 323.637
-KartSpawnPosition5 = 19.059, -5.622, 314.803
-KartSpawnPosition6 = 24.004, -5.647, 332.838
-KartSpawnPosition7 = 28.511, -5.928, 323.637
-KartSpawnPosition8 = 32.961, -5.661, 314.803
+KartSpawnPosition0 = -0.7328, -1.1638, 66.5676
+KartSpawnPosition1 = 0.1686, -1.188, 64.7274
+KartSpawnPosition2 = 1.0586, -1.1156, 62.9606
+KartSpawnPosition3 = 2.0202, -1.1278, 66.5676
+KartSpawnPosition4 = 2.9218, -1.1776, 64.7274
+KartSpawnPosition5 = 3.8118, -1.1244, 62.9606
+KartSpawnPosition6 = 4.8008, -1.1294, 66.5676
+KartSpawnPosition7 = 5.7022, -1.1856, 64.7274
+KartSpawnPosition8 = 6.5922, -1.1322, 314.803
 
 // -90 deg around Y axis
 KartSpawnOrientation0 = 0, 0.7071, 0, -0.7071

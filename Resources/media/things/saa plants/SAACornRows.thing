@@ -4,269 +4,240 @@ Physics = None
 Model {
 	Mesh = "SAA_CornRows001.mesh"
 	Material = "SAA_CornRows"
-	Position = -56.87, 16.488, -55.921
+	Position = -11.374, 3.2976, -11.1842
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows002#
 Model {
 	Mesh = "SAA_CornRows002.mesh"
 	Material = "SAA_CornRows"
-	Position = -64.258, 17.9632, -55.581
+	Position = -12.8516, 3.59264, -11.1162
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows003#
 Model {
 	Mesh = "SAA_CornRows003.mesh"
 	Material = "SAA_CornRows"
-	Position = -72.235, 19.3656, -60.331
+	Position = -14.447, 3.87312, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows004#
 Model {
 	Mesh = "SAA_CornRows004.mesh"
 	Material = "SAA_CornRows"
-	Position = -79.773, 20.2474, -60.331
+	Position = -15.9546, 4.04948, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows005#
 Model {
 	Mesh = "SAA_CornRows005.mesh"
 	Material = "SAA_CornRows"
-	Position = -88.805, 20.9573, -60.331
+	Position = -17.761, 4.19146, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows006#
 Model {
 	Mesh = "SAA_CornRows006.mesh"
 	Material = "SAA_CornRows"
-	Position = -96.343, 21.9465, -60.331
+	Position = -19.2686, 4.3893, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows007#
 Model {
 	Mesh = "SAA_CornRows007.mesh"
 	Material = "SAA_CornRows"
-	Position = -106.385, 23.5125, -60.331
+	Position = -21.277, 4.7025, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows008#
 Model {
 	Mesh = "SAA_CornRows008.mesh"
 	Material = "SAA_CornRows"
-	Position = -115.618, 24.704, -60.331
+	Position = -23.1236, 4.9408, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows009#
 Model {
 	Mesh = "SAA_CornRows009.mesh"
 	Material = "SAA_CornRows"
-	Position = -126.151, 26.5699, -60.331
+	Position = -25.2302, 5.31398, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows010#
 Model {
 	Mesh = "SAA_CornRows010.mesh"
 	Material = "SAA_CornRows"
-	Position = -138.86, 28.3697, -60.331
+	Position = -27.772, 5.67394, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows011#
 Model {
 	Mesh = "SAA_CornRows011.mesh"
 	Material = "SAA_CornRows"
-	Position = -151.849, 29.6255, -60.331
+	Position = -30.3698, 5.9251, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows012#
 Model {
 	Mesh = "SAA_CornRows012.mesh"
 	Material = "SAA_CornRows"
-	Position = -164.558, 30.8879, -60.331
+	Position = -32.9116, 6.17758, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows013#
 Model {
 	Mesh = "SAA_CornRows013.mesh"
 	Material = "SAA_CornRows"
-	Position = -177.567, 31.8827, -60.331
+	Position = -35.5134, 6.37654, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows014#
 Model {
 	Mesh = "SAA_CornRows014.mesh"
 	Material = "SAA_CornRows"
-	Position = -190.276, 32.1764, -60.331
+	Position = -38.0552, 6.43528, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows015#
 Model {
 	Mesh = "SAA_CornRows015.mesh"
 	Material = "SAA_CornRows"
-	Position = -203.658, 32.7789, -60.331
+	Position = -40.7316, 6.55578, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows016#
 Model {
 	Mesh = "SAA_CornRows016.mesh"
 	Material = "SAA_CornRows"
-	Position = -216.368, 32.4911, -60.331
+	Position = -43.2736, 6.49822, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows017#
 Model {
 	Mesh = "SAA_CornRows017.mesh"
 	Material = "SAA_CornRows"
-	Position = -229.024, 32.0091, -60.331
+	Position = -45.8048, 6.401821, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows018#
 Model {
 	Mesh = "SAA_CornRows018.mesh"
 	Material = "SAA_CornRows"
-	Position = -241.734, 32.552, -60.331
+	Position = -48.3468, 6.5104, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows019#
 Model {
 	Mesh = "SAA_CornRows019.mesh"
 	Material = "SAA_CornRows"
-	Position = -254.653, 33.2916, -60.331
+	Position = -50.9306, 6.65832, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows020#
 Model {
 	Mesh = "SAA_CornRows020.mesh"
 	Material = "SAA_CornRows"
-	Position = -267.363, 33.6909, -60.331
+	Position = -53.4726, 6.73818, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows021#
 Model {
 	Mesh = "SAA_CornRows021.mesh"
 	Material = "SAA_CornRows"
-	Position = -282.352, 34.3709, -60.331
+	Position = -56.4704, 6.87418, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows022#
 Model {
 	Mesh = "SAA_CornRows022.mesh"
 	Material = "SAA_CornRows"
-	Position = -295.062, 35.1507, -60.331
+	Position = -59.0124, 7.03014, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows023#
 Model {
 	Mesh = "SAA_CornRows023.mesh"
 	Material = "SAA_CornRows"
-	Position = -309.366, 36.1966, -60.331
+	Position = -61.8732, 7.23932, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows024#
 Model {
 	Mesh = "SAA_CornRows024.mesh"
 	Material = "SAA_CornRows"
-	Position = -323.913, 36.8791, -60.331
+	Position = -64.7826, 7.37582, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows025#
 Model {
 	Mesh = "SAA_CornRows025.mesh"
 	Material = "SAA_CornRows"
-	Position = -338.625, 38.2561, -60.331
+	Position = -67.725, 7.65122, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows026#
 Model {
 	Mesh = "SAA_CornRows026.mesh"
 	Material = "SAA_CornRows"
-	Position = -353.096, 40.5969, -60.331
+	Position = -70.6192, 8.11938, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows027#
 Model {
 	Mesh = "SAA_CornRows027.mesh"
 	Material = "SAA_CornRows"
-	Position = -368.21, 42.822, -60.331
+	Position = -73.642, 8.5644, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows028#
 Model {
 	Mesh = "SAA_CornRows028.mesh"
 	Material = "SAA_CornRows"
-	Position = -383.875, 44.7833, -60.331
+	Position = -76.775, 8.95666, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows029#
 Model {
 	Mesh = "SAA_CornRows029.mesh"
 	Material = "SAA_CornRows"
-	Position = -401.073, 47.4609, -60.331
+	Position = -80.2146, 9.49218, -12.0662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
 // SAA_CornRows000#
 Model {
 	Mesh = "SAA_CornRows000.mesh"
 	Material = "SAA_CornRows"
-	Position = -420.182, 50.8962, -50.831
+	Position = -84.0364, 10.17924, -10.1662
 	Orientation = 0.5, 0.5, -0.5, 0.5
-	Scale = 1, 1, 1
 	CastsShadows = None
 }
+

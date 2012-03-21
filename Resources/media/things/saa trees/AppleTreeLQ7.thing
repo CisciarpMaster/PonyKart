@@ -5,8 +5,8 @@ Imposters = true
 // left, top, right, bottom, origin is top left
 ImposterTextureCoords = 0.75, 0.25, 1, 0.5
 ImposterMaterial = "AppleTreeBillboards"
-ImposterWidth = 23
-ImposterHeight = 23
+ImposterWidth = 4.6
+ImposterHeight = 4.6
 ImposterOffset = 0, 0, 0
 
 // main tree model

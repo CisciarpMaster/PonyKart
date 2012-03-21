@@ -5,26 +5,26 @@ CollidesWith = Environment
 
 Model {
 	Mesh = "Well.mesh"
-	Position = 0, 6.88901, 0
+	Position = 0, 1.377802, 0
 	CastsShadows = Some
 }
 
 // box#0
 Shape {
 	Type = Box
-	Position = 1.20587, 8.76777, -0.0813908
+	Position = 0.241174, 1.753554, -0.01627816
 	Orientation = -0.374702, -0.00723239, 0.0170385, 0.926961
-	Dimensions = 6.31543, 7.3586, 7.3586
+	Dimensions = 1.263086, 1.47172, 1.47172
 }
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = 1.33777, 1.88679, -0.148723
-	Dimensions = 7.98027, 4.23277, 7.98027
+	Position = 0.267554, 0.377358, -0.0297446
+	Dimensions = 1.596054, 0.846554, 1.596054
 }
 // box#1
 Shape {
 	Type = Box
-	Position = -3.45276, 5.82721, -0.0813227
-	Dimensions = 3.44395, 1.80741, 0.589819
+	Position = -0.690552, 1.165442, -0.01626454
+	Dimensions = 0.68879, 0.361482, 0.1179638
 }

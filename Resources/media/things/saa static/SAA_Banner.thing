@@ -6,7 +6,7 @@ CollidesWith = Environment
 // Entity#0
 Model {
 	Mesh = "Banner_Sign.mesh"
-	Position = 0.532557, 25.5742, 0
+	Position = 0.1065114, 5.11484, 0
 	Scale = 2.721563, 2.721563, 2.721563
 	CastsShadows = None
 }
@@ -20,7 +20,7 @@ Model {
 // Entity#2
 Model {
 	Mesh = "Banner_Ropes.mesh"
-	Position = 0.6658614, 29.06865, -0.03066206
+	Position = 0.1331723, 5.81373, -0.006132412
 	Scale = 1.3, 1.3, 1.3
 	CastsShadows = None
 }
@@ -28,14 +28,14 @@ Model {
 // box#0
 Shape {
 	Type = Box
-	Position = 33.72694, 16.95265, 0
+	Position = 6.745388, 3.39053, 0
 	Orientation = 0, 0, -0.0305385, 0.999534
-	Dimensions = 1.3, 35.1, 1.3
+	Dimensions = 0.26, 7.02, 0.26
 }
 // box#1
 Shape {
 	Type = Box
-	Position = -32.58515, 17.06705, 0
+	Position = -6.51703, 3.41341, 0
 	Orientation = 0, 0, 0.0305385, 0.999534
-	Dimensions = 1.3, 35.1, 1.3
+	Dimensions = 0.26, 7.02, 0.26
 }

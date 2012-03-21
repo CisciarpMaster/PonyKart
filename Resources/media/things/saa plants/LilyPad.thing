@@ -7,9 +7,10 @@ Model {
 	Material = "Lilypad1"
 	Position = 0, 0, 0
 	CastsShadows = None
-	RenderingDistance = 500
+	RenderingDistance = 100
 	
 	Animated = true
 	AnimationName = "float"
 	AnimationLooping = true
 }
+

@@ -7,7 +7,7 @@ Model {
 	Material = "Lilypad1"
 	Position = 0, 0, 0
 	CastsShadows = None
-	RenderingDistance = 500
+	RenderingDistance = 100
 	
 	Animated = true
 	AnimationName = "float"
@@ -16,8 +16,8 @@ Model {
 
 BillboardSet {
 	Material = "Lily"
-	Width = 3
-	Height = 3
+	Width = 0.6
+	Height = 0.6
 	Type = Point
 	Origin = BottomCenter
 	// left, top, right, bottom
@@ -29,6 +29,7 @@ BillboardSet {
 	AttachOffsetPosition = 0, 0, 0
 	
 	Billboard {
-		Position = 0, -6, 0
+		Position = 0, -1.2, 0
 	}
 }
+

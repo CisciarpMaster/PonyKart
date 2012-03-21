@@ -9,7 +9,7 @@ PhysicsMaterial = "HayBale"
 Shape {
 	Type = Box
 	Position = 0, 0, 0
-	Dimensions = 3.3363, 2.59284, 5.60645
+	Dimensions = 0.66726, 0.518568, 1.12129
 }
 // HayBale2#0
 Model {
@@ -17,3 +17,4 @@ Model {
 	Position = 0, 0, 0
 	CastsShadows = None
 }
+

@@ -66,7 +66,7 @@ namespace Ponykart.Handlers {
 		private readonly float raycastTime = 0.05f,
 							   longRayLength = 0.8f,
 							   shortRayLength = 0.35f,//0.24f,
-							   kartGravityMultiplier = -5.7f,
+							   kartGravity = Settings.Default.KartGravity,
 							   skidderDuration = 0.7f;
 		private readonly bool kartGravityEnabled = true,
 							  useNlerpers = true,
@@ -127,7 +127,7 @@ namespace Ponykart.Handlers {
 						if (kart.IsInAir)
 							kart.Body.Gravity = gravity;
 						else if (callback.HasHit && callback.CollisionObject.GetCollisionGroup() == PonykartCollisionGroups.Road)
-							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * kartGravityMultiplier);
+							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * kartGravity);
 					}
 
 					// if the ray did not hit

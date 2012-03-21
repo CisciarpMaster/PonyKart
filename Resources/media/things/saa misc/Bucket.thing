@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 20
+Mass = 4
 CollisionGroup = Default
 CollidesWith = Default
 Friction = 0.9
@@ -9,21 +9,21 @@ AngularDamping = 0.7
 // Entity#0
 Model {
 	Mesh = "Bucket.mesh"
-	Position = 0, 0.5685465, 0
+	Position = 0, 0.1137093, 0
 	Scale = 1.5, 1.5, 1.5
 	CastsShadows = Some
 }
 // cylinder#0
 Shape {
 	Type = Cylinder
-	Position = 0.01139463, 0.27903, -0.01785015
-	Dimensions = 1.624635, 1.293396, 1.817175
+	Position = 0.002278926, 0.055806, -0.00357003
+	Dimensions = 0.324927, 0.2586792, 0.363435
 }
 // cone#0
 Shape {
 	Type = Cone
-	Position = 0, 0.470361, 0.01851555
+	Position = 0, 0.0940722, 0.00370311
 	Orientation = -0.99999, 0, 0, -0.00436345
-	Height = 1.5
-	Radius = 1.125
+	Height = 0.3
+	Radius = 0.225
 }

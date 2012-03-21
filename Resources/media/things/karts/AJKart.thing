@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 65
+Mass = 45
 CollisionGroup = Karts
 CollidesWith = Karts
 MaxSpeed = 18 // 14 * 1.4

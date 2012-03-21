@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 30
+Mass = 6
 CollisionGroup = Environment
 CollidesWith = Environment
 PhysicsMaterial = "NoFrictionNoBounce"
@@ -15,5 +15,5 @@ Model {
 Shape {
 	Type = Box
 	Position = 0, 0, 0
-	Dimensions = 7.83753, 6.45971, 0.756926
+	Dimensions = 1.567506, 1.291942, 0.1513852
 }

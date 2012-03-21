@@ -9,8 +9,8 @@ Static = true
 // box#0
 Shape {
 	Type = Box
-	Position = 0, -0.3, 0
-	Dimensions = 1, 5, 0.7
+	Position = 0, -0.06, 0
+	Dimensions = 0.2, 1, 0.14
 }
 Model {
 	Mesh = "FencePost.mesh"

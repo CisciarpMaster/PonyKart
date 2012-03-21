@@ -9,8 +9,8 @@ Static = true
 // box#0
 Shape {
 	Type = Box
-	Position = 0, -0.3, 0
-	Dimensions = 9.44014, 5, 0.6
+	Position = 0, -0.06, 0
+	Dimensions = 1.888028, 1, 0.12
 }
 Model {
 	Mesh = "FencePartial.mesh"

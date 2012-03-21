@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 200
+Mass = 40
 CollisionGroup = Default
 CollidesWith = Default
 PhysicsMaterial = "HayBale"
@@ -8,8 +8,8 @@ Deactivated = true
 // box#0
 Shape {
 	Type = Box
-	Position = 0, -0.921256, 0
-	Dimensions = 3.5988, 2.1991, 4.32156
+	Position = 0, -0.1842512, 0
+	Dimensions = 0.71976, 0.43982, 0.864312
 }
 // HayBale3#0
 Model {
@@ -20,7 +20,8 @@ Model {
 // box#1
 Shape {
 	Type = Box
-	Position = -0.004772, 0.774587, 0.388295
+	Position = -0.0009544, 0.1549174, 0.077659
 	Orientation = 0.008304, -0.0155412, -0.0695488, 0.997423
-	Dimensions = 3.45812, 1.77019, 2.47323
+	Dimensions = 0.691624, 0.354038, 0.494646
 }
+

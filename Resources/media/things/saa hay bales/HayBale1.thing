@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 200
+Mass = 40
 CollisionGroup = Default
 CollidesWith = Default
 PhysicsMaterial = "HayBale"
@@ -15,5 +15,6 @@ Model {
 Shape {
 	Type = Box
 	Position = 0, 0, 0
-	Dimensions = 2.74378, 2.24332, 4.38632
+	Dimensions = 0.548756, 0.448664, 0.877264
 }
+
