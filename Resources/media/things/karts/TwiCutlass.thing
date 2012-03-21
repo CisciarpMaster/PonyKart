@@ -15,8 +15,8 @@ PhysicsMaterial = "Kart"
 
 CollisionEvents = true
 
-FrontLeftWheelPosition = 0.330206, 0.1256, 0.430362
-FrontRightWheelPosition = -0.330206, 0.1256, 0.430362
+FrontLeftWheelPosition = 0.330206, 0.0856, 0.430362
+FrontRightWheelPosition = -0.330206, 0.0856, 0.430362
 BackLeftWheelPosition = 0.333536, 0.1016, -0.36976
 BackRightWheelPosition = -0.333536, 0.1016, -0.36976
 

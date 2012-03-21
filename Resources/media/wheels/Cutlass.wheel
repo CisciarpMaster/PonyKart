@@ -3,7 +3,7 @@
 
 Radius = 0.1524
 Width = 0.1496
-SuspensionRestLength = 0.08
+SuspensionRestLength = 0.04
 
 SpringStiffness = 275
 SpringCompression = 4.2
