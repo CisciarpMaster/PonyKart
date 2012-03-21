@@ -15,10 +15,10 @@
       <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="NumberOfPlayers" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">9</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="Gravity" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">-10</Value>
+      <Value Profile="(Default)">-15</Value>
     </Setting>
     <Setting Name="CameraNodeYOffset" Type="System.Single" Scope="User">
       <Value Profile="(Default)">1</Value>

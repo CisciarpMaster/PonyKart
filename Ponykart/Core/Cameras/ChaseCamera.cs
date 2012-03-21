@@ -10,8 +10,8 @@ namespace Ponykart.Core {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Camera = sceneMgr.CreateCamera(name);
-			Camera.NearClipDistance = 0.5f;
-			Camera.FarClipDistance = 3500f;
+			Camera.NearClipDistance = 0.1f;
+			Camera.FarClipDistance = 700f;
 			Camera.AutoAspectRatio = true;
 
 			CameraNode = sceneMgr.RootSceneNode.CreateChildSceneNode(name + "ChaseCamera");
@@ -19,7 +19,7 @@ namespace Ponykart.Core {
 			CameraNode.SetFixedYawAxis(true);
 
 			FollowKart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
-			Camera.SetAutoTracking(true, FollowKart.RootNode, new Vector3(0, 2, 0));
+			Camera.SetAutoTracking(true, FollowKart.RootNode, new Vector3(0, 0.4f, 0));
 		}
 
 		public override void OnSwitchToActive(LCamera oldCamera) {

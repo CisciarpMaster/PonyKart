@@ -7,8 +7,8 @@ namespace Ponykart.Core {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Camera = sceneMgr.CreateCamera(name);
-			Camera.NearClipDistance = 0.5f;
-			Camera.FarClipDistance = 3000f;
+			Camera.NearClipDistance = 0.1f;
+			Camera.FarClipDistance = 600f;
 			Camera.AutoAspectRatio = true;
 
 			Camera.Position = new Vector3(0, 5, -20);

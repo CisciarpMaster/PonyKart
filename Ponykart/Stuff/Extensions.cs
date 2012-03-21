@@ -317,7 +317,7 @@ namespace Ponykart {
 
 		public static void SetupShadows(this SceneManager sceneMgr, Level level) {
 			if (Options.ShadowDetail != ShadowDetailOption.None) {
-				sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_TEXTURE_MODULATIVE;
+				sceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
 				sceneMgr.ShadowFarDistance = float.Parse(Options.Get("ShadowDistance"));
 				sceneMgr.ShadowColour = level.Definition.GetVectorProperty("ShadowColour", new Vector3(0.8f, 0.8f, 0.8f)).ToColourValue();
 			}

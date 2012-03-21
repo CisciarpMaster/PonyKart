@@ -119,8 +119,8 @@ Global
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|Any CPU.ActiveCfg = Debug|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|Mixed Platforms.ActiveCfg = Release|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|Mixed Platforms.Build.0 = Release|x86
-		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.ActiveCfg = Debug|x86
-		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.Build.0 = Debug|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.ActiveCfg = Release|x86
+		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Cupcake|x86.Build.0 = Release|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{E43C72B1-CF8C-4915-B7C8-8A1059C6336B}.Debug|Mixed Platforms.Build.0 = Debug|x86

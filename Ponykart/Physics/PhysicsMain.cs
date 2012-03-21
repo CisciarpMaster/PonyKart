@@ -76,8 +76,8 @@ namespace Ponykart.Physics {
 		}
 
 
-		readonly int _maxSubsteps = 15;
-		readonly float _fixedTimestep = 1f / 90f;
+		readonly int _maxSubsteps = 45;
+		readonly float _fixedTimestep = 1f / 45f;
 		/// <summary>
 		/// Runs just before every frame. Simulates one frame of physics.
 		/// Physics simulation should be the only thing that's using FrameEnded!
@@ -128,13 +128,6 @@ namespace Ponykart.Physics {
 
 			ManifoldPoint.ContactAddedCallback = ContactAdded;
 		}
-
-		/*bool OnContactAdded(ManifoldPoint cp, CollisionObject colObj0, int partId0, int index0, CollisionObject colObj1, int partId1, int index1) {
-			if (ContactAdded != null)
-				ContactAdded(cp, colObj0, partId0, index0, colObj1, partId1, index1);
-
-			return false;
-		}*/
 
 		/// <summary>
 		/// Sets up a new physics scene.

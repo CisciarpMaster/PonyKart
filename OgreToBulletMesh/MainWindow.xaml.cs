@@ -247,6 +247,7 @@ namespace OgreToBulletMesh {
 			updatePB(80);
 
 			BvhTriangleMeshShape trimeshshape = new BvhTriangleMeshShape(trimesh, true, true);
+			trimeshshape.BuildOptimizedBvh();
 
 			updatePB(85);
 

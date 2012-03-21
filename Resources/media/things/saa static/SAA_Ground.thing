@@ -93,7 +93,7 @@ Model {
 
 Shape {
 	Type = Mesh
-	Mesh = "SAA_Ground_Collidable.bullet"
+	Mesh = "SAA_Ground_Collidable_phys.bullet"
 	Position = 0, 0, 0
 }
 

@@ -38,7 +38,7 @@ namespace Ponykart.Handlers {
 
 				// skybox
 				if (def.StringTokens.ContainsKey("skybox"))
-					sceneMgr.SetSkyBox(true, def.GetStringProperty("Skybox", null), 1995f);
+					sceneMgr.SetSkyBox(true, def.GetStringProperty("Skybox", null), 399f);
 
 				// fog
 				FogMode mode = FogMode.FOG_NONE;
@@ -58,8 +58,8 @@ namespace Ponykart.Handlers {
 						mode,
 						def.GetQuatProperty("FogColour", Quaternion.IDENTITY).ToColourValue(),
 						0.001f,
-						def.GetFloatProperty("FogStart", 100),
-						def.GetFloatProperty("FogEnd", 500));
+						def.GetFloatProperty("FogStart", 20),
+						def.GetFloatProperty("FogEnd", 100));
 				}
 
 #if DEBUG

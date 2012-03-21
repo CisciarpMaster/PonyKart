@@ -77,7 +77,7 @@ namespace Ponykart.Actors {
 					BillboardSet.BillboardOrigin = BillboardOrigin.BBO_BOTTOM_RIGHT; break;
 			}
 
-			BillboardSet.RenderingDistance = block.GetFloatProperty("RenderingDistance", 600);
+			BillboardSet.RenderingDistance = block.GetFloatProperty("RenderingDistance", 120);
 
 			// texture coordinates
 			Quaternion rectQ;

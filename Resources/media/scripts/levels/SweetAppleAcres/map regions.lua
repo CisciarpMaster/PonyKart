@@ -194,21 +194,21 @@ if getOption("ModelDetail") == "Medium" then
 -- a low model detail setting wants imposters and no static geometry
 elseif getOption("ModelDetail") == "Low" then
 
-	--[[setImposterVisibility("Start", true)
+	setImposterVisibility("Start", true)
 	setImposterVisibility("Cliff", true)
 	setImposterVisibility("Buckets", true)
 	setImposterVisibility("Ramp", true)
 	setImposterVisibility("River", true)
 	setImposterVisibility("Treehouse", true)
 	setImposterVisibility("Bridge", true)
-	setImposterVisibility("Barn", true)]]
+	setImposterVisibility("Barn", true)
 	
-	setImposterVisibility("Start", false)
+	--[[setImposterVisibility("Start", false)
 	setImposterVisibility("Cliff", false)
 	setImposterVisibility("Buckets", false)
 	setImposterVisibility("Ramp", false)
 	setImposterVisibility("River", false)
 	setImposterVisibility("Treehouse", false)
 	setImposterVisibility("Bridge", false)
-	setImposterVisibility("Barn", false)
+	setImposterVisibility("Barn", false)]]
 end

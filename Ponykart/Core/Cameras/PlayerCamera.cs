@@ -23,8 +23,8 @@ namespace Ponykart.Core {
 
 			// make our camera and set some properties
 			Camera = sceneMgr.CreateCamera(name);
-			Camera.NearClipDistance = 0.5f;
-			Camera.FarClipDistance = 3500f;
+			Camera.NearClipDistance = 0.1f;
+			Camera.FarClipDistance = 700f;
 			Camera.AutoAspectRatio = true;
 
 			// create the nodes we're going to interpolate

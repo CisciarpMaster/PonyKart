@@ -14,8 +14,8 @@ namespace Ponykart.Core {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			Camera = sceneMgr.CreateCamera(name);
-			Camera.NearClipDistance = 0.5f;
-			Camera.FarClipDistance = 3500f;
+			Camera.NearClipDistance = 0.1f;
+			Camera.FarClipDistance = 700f;
 			Camera.AutoAspectRatio = true;
 
 			CameraNode = sceneMgr.RootSceneNode.CreateChildSceneNode(name + "FreeNode");

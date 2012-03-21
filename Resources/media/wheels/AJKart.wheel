@@ -3,16 +3,16 @@
 
 Radius = 0.1871
 Width = 0.081
-SuspensionRestLength = 0.04
+SuspensionRestLength = 0.06
 
-SpringStiffness = 275
+SpringStiffness = 400
 SpringCompression = 4.2
-SpringDamping = 40
-FrictionSlip = 60
-RollInfluence = 0.05
+SpringDamping = 100
+FrictionSlip = 1000
+RollInfluence = 0.01
 
-BrakeForce = 12
-MotorForce = 350
+BrakeForce = 20
+MotorForce = 450
 TurnAngle = 7
 
 SlowSpeed = 12
@@ -24,19 +24,19 @@ SteerDecrementTurn = 1
 
 
 [AJKartBackWheel]
-# 0.3742
+
 Radius = 0.1871
 Width = 0.081
-SuspensionRestLength = 0.04
+SuspensionRestLength = 0.06
 
-SpringStiffness = 275
+SpringStiffness = 400
 SpringCompression = 4.2
-SpringDamping = 40
-FrictionSlip = 75
-RollInfluence = 0.05
+SpringDamping = 100
+FrictionSlip = 2000
+RollInfluence = 0.01
 
-BrakeForce = 12
-MotorForce = 350
+BrakeForce = 20
+MotorForce = 450
 TurnAngle = 7
 
 SlowSpeed = 12

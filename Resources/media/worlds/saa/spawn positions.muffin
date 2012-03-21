@@ -6,7 +6,7 @@ KartSpawnPosition4 = 2.9218, -1.1776, 64.7274
 KartSpawnPosition5 = 3.8118, -1.1244, 62.9606
 KartSpawnPosition6 = 4.8008, -1.1294, 66.5676
 KartSpawnPosition7 = 5.7022, -1.1856, 64.7274
-KartSpawnPosition8 = 6.5922, -1.1322, 314.803
+KartSpawnPosition8 = 6.5922, -1.1322, 62.9606
 
 // -90 deg around Y axis
 KartSpawnOrientation0 = 0, 0.7071, 0, -0.7071
