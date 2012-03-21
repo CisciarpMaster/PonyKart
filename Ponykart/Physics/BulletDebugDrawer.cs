@@ -11,7 +11,7 @@ namespace Ponykart.Physics {
 		ManualObject lines;
 		ManualObject triangles;
 		public DebugDrawModes DebugMode { get; set; }
-		readonly float maxRenderDistanceSquared = 100 * 100;
+		readonly float maxRenderDistanceSquared = 20 * 20;
 
 		bool begin = false;
 

@@ -52,5 +52,15 @@ namespace Ponykart.Physics {
 		public override int GetHashCode() {
 			return ID;
 		}
+
+		/// <summary>
+		/// If this has a LThing associated with it and that LThing is a kart, this returns it as a kart. Otherwise it returns null.
+		/// </summary>
+		public Kart GetThingAsKart() {
+			if (Thing != null && Thing is Kart)
+				return Thing as Kart;
+			else
+				return null;
+		}
 	}
 }

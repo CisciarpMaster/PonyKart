@@ -106,7 +106,7 @@ namespace SceneToMuffin {
 			SaveFileDialog dlg = new SaveFileDialog();
 			dlg.DefaultExt = ".muffin";
 			dlg.Filter = "Lymph Muffin files|*.muffin";
-			dlg.FileName = originalFilename.Substring(originalFilename.LastIndexOf("\\") + 1).Replace(".scene", ".muffin");
+			dlg.FileName = Path.ChangeExtension(originalFilename, ".muffin");
 
 			bool? result = dlg.ShowDialog();
 

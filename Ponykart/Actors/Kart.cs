@@ -25,6 +25,8 @@ namespace Ponykart.Actors {
 		public float MaxReverseSpeed { get { return _maxReverseSpeed; } set { _maxReverseSpeed = value; MaxReverseSpeedSquared = value * value; } }
 		public float MaxSpeedSquared { get; private set; }
 		public float MaxReverseSpeedSquared { get; private set; }
+
+		public readonly float InitialMaxSpeed;
 		/// <summary>
 		/// Should only be set by KartHandler
 		/// </summary>
@@ -61,7 +63,7 @@ namespace Ponykart.Actors {
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
-			MaxSpeed = def.GetFloatProperty("maxspeed", 12f);
+			InitialMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 12f);
 			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 4f);
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;

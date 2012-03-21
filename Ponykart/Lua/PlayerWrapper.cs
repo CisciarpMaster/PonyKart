@@ -1,8 +1,10 @@
 ﻿using System;
+using BulletSharp;
 using LuaNetInterface;
 using Ponykart.Actors;
 using Ponykart.Handlers;
 using Ponykart.Levels;
+using Ponykart.Physics;
 using Ponykart.Players;
 
 namespace Ponykart.Lua {
@@ -54,6 +56,14 @@ namespace Ponykart.Lua {
 		[LuaFunction("getKartHandler", "Gets the KartHandler")]
 		public static KartHandler GetKartHandler() {
 			return LKernel.GetG<KartHandler>();
+		}
+
+		[LuaFunction("getKartFromBody", "gets the Kart out of a RigidBody", "RigidBody")]
+		public static Kart GetKartFromBody(RigidBody enteredBody) {
+			if (enteredBody.UserObject is CollisionObjectDataHolder) {
+				return (enteredBody.UserObject as CollisionObjectDataHolder).GetThingAsKart();
+			}
+			return null;
 		}
 	}
 }

@@ -68,7 +68,6 @@ if getOption("ModelDetail") == "Medium" then
 	local function bucketsTriggerRegion(region, shape, flags, info)
 		if checkPlayer(shape) and currentRegion ~= "Buckets" then
 			currentRegion = "Buckets"
-		
 			if isEnterFlag(flags) then
 				show("Start")
 				show("Cliff")
@@ -176,14 +175,14 @@ if getOption("ModelDetail") == "Medium" then
 	local iden = quat(0, 0, 0, 1)
 
 	-- create our regions!
-	createBoxTriggerRegion("startTriggerRegion", startTriggerRegion, vec(128.4655, 55.3625, 60.738), vec(-180.371, 43.273, 319.494), iden)
-	createBoxTriggerRegion("cliffTriggerRegion", cliffTriggerRegion, vec(65.189, 70.6485, 211.1895), vec(-318.423, 70.648, 75.149), iden)
-	createBoxTriggerRegion("bucketsTriggerRegion", bucketsTriggerRegion, vec(124.403, 63.056, 200.649), vec(-336.431, 52.028, -339.59), iden)
-	createBoxTriggerRegion("rampTriggerRegion", rampTriggerRegion, vec(168.823, 66.583, 155.504), vec(-242.448, 66.583, -696.777), iden)
-	createBoxTriggerRegion("riverTriggerRegion", riverTriggerRegion, vec(163.3765, 68.951, 157.602), vec(93.109, 56.093, -694.3), iden)
-	createBoxTriggerRegion("treehouseTriggerRegion", treehouseTriggerRegion, vec(100.9415, 72.3965, 237.368), vec(348.96, 72.397, -450.379), iden)
-	createBoxTriggerRegion("bridgeTriggerRegion", bridgeTriggerRegion, vec(178.2205, 54.084, 156.443), vec(149.331, 40.06, -53.333), iden)
-	createBoxTriggerRegion("barnTriggerRegion", barnTriggerRegion, vec(153.9025, 44.6625, 153.9025), vec(101.665, -33.559, 257.315), iden)
+	createBoxTriggerRegion("startTriggerRegion", startTriggerRegion, vec(25.6931, 11.0725, 12.1476), vec(-36.0742, 8.6546, 63.8988), iden)
+	createBoxTriggerRegion("cliffTriggerRegion", cliffTriggerRegion, vec(13.0378, 14.1297, 42.2379), vec(-63.6846, 14.1296, 15.0298), iden)
+	createBoxTriggerRegion("bucketsTriggerRegion", bucketsTriggerRegion, vec(24.8806, 12.611, 40.1298), vec(-67.2862, 10.405, -67.918), iden)
+	createBoxTriggerRegion("rampTriggerRegion", rampTriggerRegion, vec(33.7646, 13.3166, 31.1008), vec(-48.4896, 13.3166, -139.3554), iden)
+	createBoxTriggerRegion("riverTriggerRegion", riverTriggerRegion, vec(32.6753, 13.7902, 31.5204), vec(18.6218, 11.2186, -138.86), iden)
+	createBoxTriggerRegion("treehouseTriggerRegion", treehouseTriggerRegion, vec(20.188, 14.479, 47.474), vec(69.792, 14.479, -90.076), iden)
+	createBoxTriggerRegion("bridgeTriggerRegion", bridgeTriggerRegion, vec(35.644, 10.817, 31.289), vec(29.866, 8.012, -10.667), iden)
+	createBoxTriggerRegion("barnTriggerRegion", barnTriggerRegion, vec(30.7805, 8.9325, 30.7805), vec(20.333, -6.712, 51.463), iden)
 
 	-- hide some things when we start up
 	hide("Bridge")
@@ -195,12 +194,21 @@ if getOption("ModelDetail") == "Medium" then
 -- a low model detail setting wants imposters and no static geometry
 elseif getOption("ModelDetail") == "Low" then
 
-	setImposterVisibility("Start", true)
+	--[[setImposterVisibility("Start", true)
 	setImposterVisibility("Cliff", true)
 	setImposterVisibility("Buckets", true)
 	setImposterVisibility("Ramp", true)
 	setImposterVisibility("River", true)
 	setImposterVisibility("Treehouse", true)
 	setImposterVisibility("Bridge", true)
-	setImposterVisibility("Barn", true)
+	setImposterVisibility("Barn", true)]]
+	
+	setImposterVisibility("Start", false)
+	setImposterVisibility("Cliff", false)
+	setImposterVisibility("Buckets", false)
+	setImposterVisibility("Ramp", false)
+	setImposterVisibility("River", false)
+	setImposterVisibility("Treehouse", false)
+	setImposterVisibility("Bridge", false)
+	setImposterVisibility("Barn", false)
 end

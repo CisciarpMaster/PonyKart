@@ -44,6 +44,7 @@ namespace Ponykart.Physics {
 					Launch.Log("[PhysicsMain] " + filename + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
 					// it does not have a file, so we need to convert our ogre mesh
 					shape = new BvhTriangleMeshShape(OgreToBulletMesh.Convert(ent, node), true, true);
+					(shape as BvhTriangleMeshShape).BuildOptimizedBvh();
 					// and then export it as a .bullet file
 					SerializeShape(shape, node.Name);
 				}
@@ -184,6 +185,8 @@ namespace Ponykart.Physics {
 													 component.Transform.ExtractQuaternion(),
 													 Vector3.UNIT_SCALE),
 							true, true);
+
+						(componentShape as BvhTriangleMeshShape).BuildOptimizedBvh();
 
 						// and then export it as a .bullet file
 						SerializeShape(componentShape, name);

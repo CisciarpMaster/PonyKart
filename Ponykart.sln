@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rescaler", "Rescaler\Rescal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OgreToBulletMesh", "OgreToBulletMesh\OgreToBulletMesh.csproj", "{950DD472-0EF6-4321-BACC-FCD3E3FA2576}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneToTriggerRegion", "SceneToTriggerRegion\SceneToTriggerRegion.csproj", "{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Cupcake|Any CPU = Cupcake|Any CPU
@@ -160,6 +162,21 @@ Global
 		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|Mixed Platforms.Build.0 = Release|x86
 		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|x86.ActiveCfg = Release|x86
 		{950DD472-0EF6-4321-BACC-FCD3E3FA2576}.Release|x86.Build.0 = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Cupcake|Any CPU.ActiveCfg = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Cupcake|Mixed Platforms.ActiveCfg = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Cupcake|Mixed Platforms.Build.0 = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Cupcake|x86.ActiveCfg = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Cupcake|x86.Build.0 = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Debug|x86.ActiveCfg = Debug|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Debug|x86.Build.0 = Debug|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Release|Any CPU.ActiveCfg = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Release|Mixed Platforms.Build.0 = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Release|x86.ActiveCfg = Release|x86
+		{6A35DCD6-55D4-46FE-BCD9-0B108FFFBBA1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

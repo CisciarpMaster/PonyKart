@@ -2,7 +2,6 @@
 using BulletSharp;
 using LuaNetInterface;
 using Mogre;
-using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Physics;
 
@@ -130,23 +129,6 @@ namespace Ponykart.Lua {
 
 			if (tr != null)
 				AddToDispose(tr, trh);
-		}
-
-		/////////////////////////////////////
-
-		[LuaFunction("getKartFromBody", "gets the Kart out of a RigidBody", "RigidBody")]
-		public static Kart GetKartFromBody(RigidBody enteredBody) {
-			object o = enteredBody.UserObject;
-			CollisionObjectDataHolder codh = o as CollisionObjectDataHolder;
-			if (codh != null) {
-				LThing thing = codh.Thing;
-				if (thing != null) {
-					Kart kart = thing as Kart;
-					if (kart != null)
-						return kart;
-				}
-			}
-			return null;
 		}
 	}
 }

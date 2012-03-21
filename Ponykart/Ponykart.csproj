@@ -176,6 +176,7 @@
     <Compile Include="Handlers\UI\CountdownUIHandler.cs" />
     <Compile Include="Handlers\UI\MainMenuUIHandler.cs" />
     <Compile Include="Levels\LevelChangeRequest.cs" />
+    <Compile Include="Players\AITriggerRegionHandler.cs" />
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\KartHandler.cs" />

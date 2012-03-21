@@ -1,3 +1,4 @@
+--[[
 local threshold = 2
 
 local regions = {}
@@ -14,12 +15,12 @@ end
 
 local iden = quat(0, 0, 0, 1)
 
---[[
+--
 	 how to make trigger regions:
 	 1) make a box in 3ds max, 2x2x2
 	 2) align to world, so when you set the position gizmo, "forward" is -X
 	 3) place them all around the level
-]]
+
 
 regions[0] = createBoxTriggerRegion("TriggerRegion0", (function(r,b,f,i) goTo(r,regions[1],b,i) end), vec(threshold, 9.08414, 6.12005), vec(-1.54619, 7.12765, 64.91), iden)
 regions[1] = createBoxTriggerRegion("TriggerRegion1", (function(r,b,f,i) goTo(r,regions[2],b,i) end), vec(threshold, 9.08414, 6.12005), vec(-10.0019, 6.65829, 64.7552), iden)
@@ -99,3 +100,4 @@ local function setInitialRegion(kart, id)
 end
 
 forEachKart(setInitialRegion)
+]]

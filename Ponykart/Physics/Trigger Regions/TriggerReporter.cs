@@ -13,7 +13,9 @@ namespace Ponykart.Physics {
 	/// </summary>
 	public class TriggerReporter {
 		public IDictionary<string, TriggerRegion> Regions { get; private set; }
-
+		public event TriggerReportEvent OnTriggerContact;
+		public event TriggerReportEvent OnTriggerEnter;
+		public event TriggerReportEvent OnTriggerLeave;
 
 		public TriggerReporter() {
 			Launch.Log("[Loading] Creating TriggerReporter...");
@@ -47,13 +49,25 @@ namespace Ponykart.Physics {
 				if (info.Flags == ObjectTouchingFlags.StartedTouching) {
 					region.CurrentlyCollidingWith.Add(kartBody);
 					region.InvokeTrigger(kartBody, TriggerReportFlags.Enter, info);
+
+					if (OnTriggerContact != null)
+						OnTriggerContact(region, kartBody, TriggerReportFlags.Enter, info);
+					if (OnTriggerEnter != null)
+						OnTriggerEnter(region, kartBody, TriggerReportFlags.Enter, info);
 				}
 				// stopped touching = leave
 				else if (info.Flags == ObjectTouchingFlags.StoppedTouching) {
 					region.CurrentlyCollidingWith.Remove(kartBody);
 					region.InvokeTrigger(kartBody, TriggerReportFlags.Leave, info);
+
+					if (OnTriggerContact != null)
+						OnTriggerContact(region, kartBody, TriggerReportFlags.Leave, info);
+					if (OnTriggerLeave != null)
+						OnTriggerLeave(region, kartBody, TriggerReportFlags.Leave, info);
 				}
 			}
+
+			
 		}
 
 		/// <summary>
