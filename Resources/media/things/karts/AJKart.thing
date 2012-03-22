@@ -32,7 +32,7 @@ Model {
 
 Shape {
 	Type = Hull
-	Mesh = "AJKartHull.mesh"
+	Mesh = "AJKartHull.bullet"
 	Position = 0, 0, 0
 }
 

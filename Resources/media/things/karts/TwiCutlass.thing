@@ -51,7 +51,7 @@ Model {
 
 Shape {
 	Type = Hull
-	Mesh = "CutlassHull.mesh"
+	Mesh = "CutlassHull.bullet"
 	Position = 0, 0, 0
 }
 

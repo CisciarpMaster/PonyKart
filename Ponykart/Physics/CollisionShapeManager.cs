@@ -137,62 +137,87 @@ namespace Ponykart.Physics {
 				case ThingEnum.Sphere:
 					componentShape = new SphereShape(component.Radius);
 					break;
-				case ThingEnum.Hull:
-					var sceneMgr = LKernel.GetG<SceneManager>();
-					// get our entity if we have one, create it if we don't
-					Entity ent = sceneMgr.HasEntity(component.Mesh) ? sceneMgr.GetEntity(component.Mesh) : sceneMgr.CreateEntity(component.Mesh, component.Mesh);
+				case ThingEnum.Hull: {
+						// physics/example.bullet
+						string name = Path.GetFileNameWithoutExtension(component.Mesh);
+						string bulletFilePath;
 
-					TriangleMesh trimesh = OgreToBulletMesh.Convert(ent.GetMesh(),
-																	component.Transform.GetTrans(),
-																	component.Transform.ExtractQuaternion(),
-																	Vector3.UNIT_SCALE);
-					componentShape = new ConvexTriangleMeshShape(trimesh);
+						if (component.Mesh.EndsWith(".mesh")) {
+							bulletFilePath = Settings.Default.BulletFileLocation + name + ".bullet";
+						}
+						else if (component.Mesh.EndsWith(".bullet")) {
+							bulletFilePath = Settings.Default.BulletFileLocation + component.Mesh;
+						}
+						else {
+							throw new ApplicationException("Your \"Mesh\" property needs to end in either .mesh or .bullet!");
+						}
 
-					// TODO: figure out how to deal with concave triangle mesh shapes since apparently they aren't being exported
-					//LKernel.GetG<PhysicsMain>().SerializeShape(Shape, name);
-					break;
-				case ThingEnum.Mesh:
-					// example
-					// physics/example.bullet
-					string name = Path.GetFileNameWithoutExtension(component.Mesh);
-					string bulletFilePath;
+						// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
+						if (File.Exists(bulletFilePath)) {
+							// so it has a file
+							componentShape = ImportCollisionShape(name);
+						}
+						else {
+							var sceneMgr = LKernel.GetG<SceneManager>();
+							// get our entity if we have one, create it if we don't
+							Entity ent = sceneMgr.HasEntity(component.Mesh) ? sceneMgr.GetEntity(component.Mesh) : sceneMgr.CreateEntity(component.Mesh, component.Mesh);
 
-					if (component.Mesh.EndsWith(".mesh")) {
-						bulletFilePath = Settings.Default.BulletFileLocation + name + ".bullet";
+							ConvexHullShape hull = OgreToBulletMesh.ConvertToHull(
+								ent.GetMesh(),
+								component.Transform.GetTrans(),
+								component.Transform.ExtractQuaternion(),
+								Vector3.UNIT_SCALE);
+							componentShape = hull;
+
+							// TODO: figure out how to deal with concave triangle mesh shapes since apparently they aren't being exported
+							SerializeShape(componentShape, name);
+						}
+						break;
 					}
-					else if (component.Mesh.EndsWith(".bullet")) {
-						bulletFilePath = Settings.Default.BulletFileLocation + component.Mesh;
+				case ThingEnum.Mesh: {
+						// example
+						// physics/example.bullet
+						string name = Path.GetFileNameWithoutExtension(component.Mesh);
+						string bulletFilePath;
+
+						if (component.Mesh.EndsWith(".mesh")) {
+							bulletFilePath = Settings.Default.BulletFileLocation + name + ".bullet";
+						}
+						else if (component.Mesh.EndsWith(".bullet")) {
+							bulletFilePath = Settings.Default.BulletFileLocation + component.Mesh;
+						}
+						else {
+							throw new ApplicationException("Your \"Mesh\" property needs to end in either .mesh or .bullet!");
+						}
+
+						// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
+						if (File.Exists(bulletFilePath)) {
+							// so it has a file
+							componentShape = ImportCollisionShape(name);
+						}
+						else {
+							Launch.Log("[CollisionShapeManager] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
+
+							// it does not have a file, so we need to convert our ogre mesh
+							var sceneMgr = LKernel.GetG<SceneManager>();
+							Entity ent = sceneMgr.HasEntity(component.Mesh) ? sceneMgr.GetEntity(component.Mesh) : sceneMgr.CreateEntity(component.Mesh, component.Mesh);
+
+							componentShape = new BvhTriangleMeshShape(
+								OgreToBulletMesh.Convert(
+									ent.GetMesh(),
+									component.Transform.GetTrans(),
+									component.Transform.ExtractQuaternion(),
+									Vector3.UNIT_SCALE),
+								true,
+								true);
+
+							(componentShape as BvhTriangleMeshShape).BuildOptimizedBvh();
+
+							// and then export it as a .bullet file
+							SerializeShape(componentShape, name);
+						}
+						break;
 					}
-					else {
-						throw new ApplicationException("Your \"Mesh\" property needs to end in either .mesh or .bullet!");
-					}
-
-					// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
-					if (File.Exists(bulletFilePath)) {
-						// so it has a file
-						componentShape = ImportCollisionShape(name);
-					}
-					else {
-						Launch.Log("[CollisionShapeManager] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
-
-						// it does not have a file, so we need to convert our ogre mesh
-						sceneMgr = LKernel.GetG<SceneManager>();
-						ent = sceneMgr.HasEntity(component.Mesh) ? sceneMgr.GetEntity(component.Mesh) : sceneMgr.CreateEntity(component.Mesh, component.Mesh);
-
-						componentShape = new BvhTriangleMeshShape(
-							OgreToBulletMesh.Convert(ent.GetMesh(),
-													 component.Transform.GetTrans(),
-													 component.Transform.ExtractQuaternion(),
-													 Vector3.UNIT_SCALE),
-							true, true);
-
-						(componentShape as BvhTriangleMeshShape).BuildOptimizedBvh();
-
-						// and then export it as a .bullet file
-						SerializeShape(componentShape, name);
-					}
-					break;
-
 				default:
 					throw new ApplicationException("ShapeComponent's Type was invalid!");
 			}

@@ -12,7 +12,7 @@ Model {
 }
 // CrateConvex
 Shape {
-	Type = Mesh
+	Type = Hull
 	Mesh = "CrateConvex.bullet"
 	Position = 0, 0, 0
 }

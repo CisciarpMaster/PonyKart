@@ -1,4 +1,5 @@
-﻿using BulletSharp;
+﻿using System.Linq;
+using BulletSharp;
 using Mogre;
 
 namespace Ponykart.Physics {
@@ -38,6 +39,24 @@ namespace Ponykart.Physics {
 			return BulletMesh;
 		}
 
+		public static ConvexHullShape ConvertToHull(MeshPtr mesh, Vector3 pos, Quaternion orientation, Vector3 scale) {
+
+			Launch.Log("[Loading] Converting " + mesh.Name + " to a BulletSharp.ConvexHull");
+
+			uint vertex_count = default(uint);
+			Vector3[] vertices = default(Vector3[]);
+			uint index_count = default(uint);
+			uint[] indices = default(uint[]);
+
+			GetMeshInformation(mesh, ref vertex_count, ref vertices, ref index_count, ref indices, pos, orientation, scale);
+
+			ConvexHullShape hull = new ConvexHullShape(vertices.Distinct().ToArray());
+
+			return hull;
+		}
+
+
+
 		/// <summary>
 		/// Give it an entity and it'll create a BulletSharp.TriangleMesh out of it
 		/// </summary>
@@ -46,6 +65,16 @@ namespace Ponykart.Physics {
 		/// <returns>A bullet trimesh</returns>
 		public static TriangleMesh Convert(Entity ent, SceneNode node) {
 			return Convert(ent.GetMesh(), node._getDerivedPosition(), node._getDerivedOrientation(), node._getDerivedScale());
+		}
+
+		/// <summary>
+		/// Give it an entity and it'll create a BulletSharp.ConvexHullShape out of it
+		/// </summary>
+		/// <param name="ent">The entity to convert. It'll grab its mesh and use all of its submeshes</param>
+		/// <param name="node">The node the entity is attached to. We aren't modifying it, but we'll use its transforms</param>
+		/// <returns>A bullet trimesh</returns>
+		public static ConvexHullShape ConvertToHull(Entity ent, SceneNode node) {
+			return ConvertToHull(ent.GetMesh(), node._getDerivedPosition(), node._getDerivedOrientation(), node._getDerivedScale());
 		}
 
 		public unsafe static void GetMeshInformation(MeshPtr mesh, ref uint vertex_count, ref Vector3[] vertices, ref uint index_count, ref uint[] indices,
