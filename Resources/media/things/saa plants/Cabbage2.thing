@@ -6,6 +6,7 @@ BillboardSet {
 	Origin = BottomCenter
 	Width = 1
 	Height = 1
+	RenderingDistance = 60
 	Billboard {
 		Position = 2.256774, -0.3739414, -5.320972
 		TextureCoords = 0.125, 0.625, 0.25, 0.75
