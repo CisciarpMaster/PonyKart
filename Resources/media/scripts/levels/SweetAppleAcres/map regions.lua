@@ -1,24 +1,41 @@
--- only run this part if our model detail level is set to "Medium"
--- a high model detail setting doesn't want imposters
-if getOption("ModelDetail") == "Medium" then
+if getOption("ModelDetail") == "Medium" or getOption("ModelDetail") == "Low" then
 
+	local show
+	local hide
 	local player = playerKart()
 	local currentRegion
 
-	local function show(regionName)
-		setInstancedGeometryVisibility(regionName, true)
-		setStaticGeometryVisibility(regionName, true)
-		setRegionNodeVisibility(regionName, true)
-		
-		setImposterVisibility(regionName, false)
-	end
+	-- only run this part if our model detail level is set to "Medium"
+	-- a high model detail setting doesn't want imposters
+	if getOption("ModelDetail") == "Medium" then
+	
+		-- we have static, instanced, and imposters to deal with
+		show = function(regionName)
+			setInstancedGeometryVisibility(regionName, true)
+			setStaticGeometryVisibility(regionName, true)
+			setRegionNodeVisibility(regionName, true)
+			
+			setImposterVisibility(regionName, false)
+		end
 
-	local function hide(regionName)
-		setInstancedGeometryVisibility(regionName, false)
-		setStaticGeometryVisibility(regionName, false)
-		setRegionNodeVisibility(regionName, false)
+		hide = function(regionName)
+			setInstancedGeometryVisibility(regionName, false)
+			setStaticGeometryVisibility(regionName, false)
+			setRegionNodeVisibility(regionName, false)
+			
+			setImposterVisibility(regionName, true)
+		end
+	else
+		-- no imposters this time
+		-- no static or instanced geometry
 		
-		setImposterVisibility(regionName, true)
+		show = function(regionName)
+			setRegionNodeVisibility(regionName, true)
+		end
+		
+		hide = function(regionName)
+			setRegionNodeVisibility(regionName, false)
+		end
 	end
 
 	-- returns whether the given shape is the player's kart, since we only want the player to be affecting geometry
@@ -190,25 +207,16 @@ if getOption("ModelDetail") == "Medium" then
 	hide("River")
 	hide("Ramp")
 	hide("Buckets")
-
--- a low model detail setting wants imposters and no static geometry
-elseif getOption("ModelDetail") == "Low" then
-
-	setImposterVisibility("Start", true)
-	setImposterVisibility("Cliff", true)
-	setImposterVisibility("Buckets", true)
-	setImposterVisibility("Ramp", true)
-	setImposterVisibility("River", true)
-	setImposterVisibility("Treehouse", true)
-	setImposterVisibility("Bridge", true)
-	setImposterVisibility("Barn", true)
 	
-	--[[setImposterVisibility("Start", false)
-	setImposterVisibility("Cliff", false)
-	setImposterVisibility("Buckets", false)
-	setImposterVisibility("Ramp", false)
-	setImposterVisibility("River", false)
-	setImposterVisibility("Treehouse", false)
-	setImposterVisibility("Bridge", false)
-	setImposterVisibility("Barn", false)]]
+	-- unhide all of the trees
+	--[[if getOption("ModelDetail") == "Low" then
+		setImposterVisibility("Start", true)
+		setImposterVisibility("Cliff", true)
+		setImposterVisibility("Buckets", true)
+		setImposterVisibility("Ramp", true)
+		setImposterVisibility("River", true)
+		setImposterVisibility("Treehouse", true)
+		setImposterVisibility("Bridge", true)
+		setImposterVisibility("Barn", true)
+	end]]
 end
