@@ -244,3 +244,13 @@ Haypile {
 	Orientation = 0, -0.211367, 9.23917E-09, 0.977407
 	MapRegion = "Barn"
 }
+Haypile {
+	Position = 22.754, -0.2, 45.273
+	MapRegion = "Barn"
+}
+
+Haypile {
+	Position = 24.254, -0.2, 46
+	Orientation = 0, -0.211367, 9.23917E-09, 0.977407
+	MapRegion = "Barn"
+}
