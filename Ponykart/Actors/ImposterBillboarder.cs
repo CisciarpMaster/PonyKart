@@ -77,8 +77,14 @@ namespace Ponykart.Actors {
 						billboardSet.BillboardType = BillboardType.BBT_ORIENTED_COMMON;
 						billboardSet.CommonDirection = billboardSet.CommonUpVector = Vector3.UNIT_Y;
 						billboardSet.BillboardOrigin = BillboardOrigin.BBO_BOTTOM_CENTER;
-						billboardSet.RenderingDistance = 2000;
-						billboardSet.Visible = false;
+						if (Options.ModelDetail == ModelDetailOption.Medium) {
+							billboardSet.RenderingDistance = 400;
+							billboardSet.Visible = false;
+						}
+						else if (Options.ModelDetail == ModelDetailOption.Low) {
+							billboardSet.RenderingDistance = 120;
+							billboardSet.Visible = true;
+						}
 						billboardSet.CastShadows = false;
 
 						// attach the new billboard set

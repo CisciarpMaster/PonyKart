@@ -8,13 +8,13 @@ namespace Ponykart.Actors {
 	public class StaticGeometryManager {
 		IDictionary<string, StaticGeometry> sgeoms;
 		IDictionary<string, Entity> ents;
-		private readonly float _staticRegionSize = 20f;
+		private readonly float _staticRegionSize = 4f;
 		private readonly Vector3 regionDimensions;
 
 		public StaticGeometryManager() {
 			ents = new Dictionary<string, Entity>();
 			sgeoms = new Dictionary<string, StaticGeometry>();
-			regionDimensions = new Vector3(_staticRegionSize, 1000, _staticRegionSize);
+			regionDimensions = new Vector3(_staticRegionSize, 200, _staticRegionSize);
 
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
@@ -83,7 +83,7 @@ namespace Ponykart.Actors {
 				sg = LKernel.GetG<SceneManager>().CreateStaticGeometry(sgeomName);
 
 				sg.RegionDimensions = regionDimensions;
-				sg.RenderingDistance = 300;
+				sg.RenderingDistance = 300 / 5f;
 
 				sgeoms.Add(sgeomName, sg);
 			}

@@ -19,6 +19,7 @@ namespace Ponykart.Handlers {
 		float defaultDustEmissionRate = -1;
 		float defaultMudEmissionRate = -1;
 		float defaultGrassEmissionRate = -1;
+		readonly float renderingDistance = 60f;
 
 		/// <summary>
 		/// I mostly put this in C# because running a lua function 10 times every second per kart seemed like it could cause some slowdowns
@@ -46,6 +47,10 @@ namespace Ponykart.Handlers {
 				lefthelper.mud = sceneMgr.CreateParticleSystem("wheelMudLeftParticle" + p.ID, "mud");
 				lefthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassLeftParticle" + p.ID, "grass");
 
+				lefthelper.dust.RenderingDistance = renderingDistance;
+				lefthelper.mud.RenderingDistance = renderingDistance;
+				lefthelper.grass.RenderingDistance = renderingDistance;
+
 				p.Kart.LeftParticleNode.AttachObject(lefthelper.dust);
 				p.Kart.LeftParticleNode.AttachObject(lefthelper.mud);
 				//p.Kart.LeftParticleNode.AttachObject(lefthelper.grass);
@@ -58,6 +63,10 @@ namespace Ponykart.Handlers {
 				righthelper.dust = sceneMgr.CreateParticleSystem("wheelDustRightParticle" + p.ID, "dust");
 				righthelper.mud = sceneMgr.CreateParticleSystem("wheelMudRightParticle" + p.ID, "mud");
 				righthelper.grass = sceneMgr.CreateParticleSystem("wheelGrassRightParticle" + p.ID, "grass");
+
+				righthelper.dust.RenderingDistance = renderingDistance;
+				righthelper.mud.RenderingDistance = renderingDistance;
+				righthelper.grass.RenderingDistance = renderingDistance;
 
 				p.Kart.RightParticleNode.AttachObject(righthelper.dust);
 				p.Kart.RightParticleNode.AttachObject(righthelper.mud);

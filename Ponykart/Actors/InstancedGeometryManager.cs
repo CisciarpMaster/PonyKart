@@ -15,7 +15,7 @@ namespace Ponykart.Actors {
 		// uses map group + mesh name as a key
 		IDictionary<string, Entity> ents;
 
-		private readonly float _instancedRegionSize = 300f;
+		private readonly float _instancedRegionSize = 60f;
 		private readonly int _numInstancesPerBatch = 1; // maximum 80
 		readonly Vector3 regionDimensions;
 
@@ -25,7 +25,7 @@ namespace Ponykart.Actors {
 			igeoms = new Dictionary<string, InstancedGeometry>();
 			transforms = new Dictionary<string, IList<Transform>>();
 			ents = new Dictionary<string, Entity>();
-			regionDimensions = new Vector3(_instancedRegionSize, 1000, _instancedRegionSize);
+			regionDimensions = new Vector3(_instancedRegionSize, 200, _instancedRegionSize);
 
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
