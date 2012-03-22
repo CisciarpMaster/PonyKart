@@ -12,6 +12,8 @@ namespace Ponykart.Physics {
 		ManualObject triangles;
 		public DebugDrawModes DebugMode { get; set; }
 		readonly float maxRenderDistanceSquared = 20 * 20;
+		LevelManager levelMgr;
+		SceneNode mainPlayerKartNode;
 
 		bool begin = false;
 
@@ -54,7 +56,10 @@ namespace Ponykart.Physics {
 			triangles.End();
 			begin = false;
 
-			DebugMode = DebugDrawModes.DrawWireframe | DebugDrawModes.DrawAabb | DebugDrawModes.FastWireframe;
+			DebugMode = DebugDrawModes.DrawWireframe | /*DebugDrawModes.DrawAabb |*/ DebugDrawModes.FastWireframe;
+
+			levelMgr = LKernel.GetG<LevelManager>();
+			mainPlayerKartNode = LKernel.GetG<PlayerManager>().MainPlayer.Kart.RootNode;
 
 			PhysicsMain.PreSimulate += PreSimulate;
 			PhysicsMain.PostSimulate += PostSimulate;
@@ -87,8 +92,8 @@ namespace Ponykart.Physics {
 		/// A little condition to check whether we should render a line or not
 		/// </summary>
 		bool DrawCondition(Vector3 compare) {
-			return !PhysicsMain.DrawLines || !LKernel.GetG<LevelManager>().IsValidLevel
-				|| (LKernel.GetG<PlayerManager>().MainPlayer.NodePosition - compare).SquaredLength > maxRenderDistanceSquared;
+			return !PhysicsMain.DrawLines || !levelMgr.IsValidLevel
+				|| (mainPlayerKartNode.Position - compare).SquaredLength > maxRenderDistanceSquared;
 		}
 
 		/// <summary>

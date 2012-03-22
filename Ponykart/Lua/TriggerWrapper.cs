@@ -130,5 +130,14 @@ namespace Ponykart.Lua {
 			if (tr != null)
 				AddToDispose(tr, trh);
 		}
+
+		[LuaFunction("getTriggerRegion", "Gets a trigger region", "string nameOfRegion")]
+		public static TriggerRegion GetTriggerRegion(string nameOfRegion) {
+			TriggerRegion tr;
+			if (LKernel.Get<TriggerReporter>().Regions.TryGetValue(nameOfRegion, out tr))
+				return tr;
+			else
+				return null;
+		}
 	}
 }

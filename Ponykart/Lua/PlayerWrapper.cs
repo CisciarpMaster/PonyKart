@@ -35,6 +35,15 @@ namespace Ponykart.Lua {
 			}
 		}
 
+		[LuaFunction("getKart", "Gets the kart with the given ID", "int id - 0 is the player kart")]
+		public static Kart GetKart(int id) {
+			if (LKernel.GetG<LevelManager>().IsPlayableLevel && LKernel.GetG<PlayerManager>().Players.Length > id) {
+				return LKernel.GetG<PlayerManager>().Players[id].Kart;
+			}
+			else
+				return null;
+		}
+
 		[LuaFunction("playerKart", "Returns the player's kart")]
 		public static Kart GetPlayerKart() {
 			if (LKernel.GetG<LevelManager>().IsPlayableLevel) {

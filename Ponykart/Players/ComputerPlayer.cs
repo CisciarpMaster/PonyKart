@@ -79,7 +79,7 @@ namespace Ponykart.Players {
 					offset = MakeOffset(relativePos, enteredRegion);
 				}
 				nextWaypoint = nextRegion.Body.WorldTransform * new Vector3(0, 0, offset * nextRegion.Width);
-				nextWaypoint.y = 0;
+				nextWaypoint.y = Kart.RootNode.Position.y;
 
 				// update the region pointers
 				PreviousRegion = enteredRegion;
@@ -93,12 +93,15 @@ namespace Ponykart.Players {
 		}
 
 		private float MakeOffset(Vector3 relativePos, TriggerRegion region) {
-			float offset = relativePos.z / region.Width;
-			if (offset < -0.75f)
+			
+			float offset = relativePos.z / (region.Width * 2);
+			//System.Console.WriteLine(relativePos.z + " | " + region.Width + " | " + offset);
+
+			/*if (offset < -0.75f)
 				return -0.75f;
 			else if (offset > 0.75f)
 				return 0.75f;
-			else
+			else*/
 				return offset;
 		}
 

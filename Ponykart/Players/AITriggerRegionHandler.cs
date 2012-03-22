@@ -12,11 +12,9 @@ namespace Ponykart.Players {
 	public class AITriggerRegionHandler {
 		CultureInfo culture = CultureInfo.InvariantCulture;
 
-		IDictionary<int, TriggerRegion> triggerRegions;
 		IDictionary<TriggerRegion, TriggerRegion> nextTriggerRegions;
 
 		public AITriggerRegionHandler() {
-			triggerRegions = new Dictionary<int, TriggerRegion>();
 			nextTriggerRegions = new Dictionary<TriggerRegion, TriggerRegion>();
 
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
@@ -24,11 +22,14 @@ namespace Ponykart.Players {
 		}
 
 
+		/// <summary>
+		/// Parses the level's .tr file (if it has one) and sets up the AI trigger regions
+		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type != LevelType.Race)
 				return;
 
-			triggerRegions = new Dictionary<int, TriggerRegion>();
+			
 			nextTriggerRegions = new Dictionary<TriggerRegion, TriggerRegion>();
 
 			/*
@@ -39,7 +40,8 @@ namespace Ponykart.Players {
 			if (File.Exists("media/worlds/" + eventArgs.NewLevel.Name + ".tr")) {
 
 				var collisionShapeMgr = LKernel.GetG<CollisionShapeManager>();
-				IDictionary<TriggerRegion, int> tempDic = new Dictionary<TriggerRegion, int>();
+				var tempDic = new Dictionary<TriggerRegion, int>();
+				var triggerRegions = new Dictionary<int, TriggerRegion>();
 
 				using (StreamReader reader = new StreamReader("media/worlds/" + eventArgs.NewLevel.Name + ".tr")) {
 					float threshold = float.Parse(reader.ReadLine());
@@ -86,34 +88,33 @@ namespace Ponykart.Players {
 				}
 
 				tempDic.Clear();
+				triggerRegions.Clear();
 
 				LKernel.GetG<TriggerReporter>().OnTriggerEnter += OnTriggerEnter;
 			}
 		}
 
-		void OnTriggerEnter(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info) {
+		/// <summary>
+		/// When a kart enters a trigger region, check that it's one of the AI ones, and if so, tell the kart where to go next
+		/// </summary>
+		void OnTriggerEnter(TriggerRegion currentRegion, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info) {
 			TriggerRegion nextRegion;
-			if (nextTriggerRegions.TryGetValue(region, out nextRegion)) {
-				GoTo(region, nextRegion, otherBody, info);
-			}
-		}
+			if (nextTriggerRegions.TryGetValue(currentRegion, out nextRegion)) {
+				Kart kart = null;
 
-		void GoTo(TriggerRegion currentRegion, TriggerRegion nextRegion, RigidBody body, CollisionReportInfo info) {
-			Kart kart = null;
+				if (otherBody.UserObject is CollisionObjectDataHolder) {
+					kart = (otherBody.UserObject as CollisionObjectDataHolder).GetThingAsKart();
+				}
 
-			if (body.UserObject is CollisionObjectDataHolder) {
-				kart = (body.UserObject as CollisionObjectDataHolder).GetThingAsKart();
-			}
-
-			if (kart != null && kart.Player.IsComputerControlled) {
-				(kart.Player as ComputerPlayer).CalculateNewWaypoint(currentRegion, nextRegion, info);
+				if (kart != null && kart.Player.IsComputerControlled) {
+					(kart.Player as ComputerPlayer).CalculateNewWaypoint(currentRegion, nextRegion, info);
+				}
 			}
 		}
 
 		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
 			LKernel.GetG<TriggerReporter>().OnTriggerEnter -= OnTriggerEnter;
 
-			triggerRegions.Clear();
 			nextTriggerRegions.Clear();
 		}
 	}
