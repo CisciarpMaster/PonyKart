@@ -12,22 +12,27 @@ namespace Ponykart.Players {
 		public TriggerRegion PreviousRegion { get; private set; }
 		private LThing axis;
 
-		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id) : base(eventArgs, id, true) {
+		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id)
+			: base(eventArgs, id, true) {
+#if DEBUG
 			axis = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
 			axis.ModelComponents[0].Node.SetScale(0.1f, 0.1f, 0.1f);
+#endif
 
 			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}
 
 		void EveryTenth(object o) {
+
 			Vector3 vecToTar = nextWaypoint - Kart.RootNode.Position;
 			// not using Y so set it to 0
 			vecToTar.y = 0;
-					
-			float steerFactor = SteerTowards(vecToTar);
 
-			Kart.TurnMultiplier = steerFactor;
-			Kart.Acceleration = 1.0f - (System.Math.Abs(steerFactor) / 3f);
+			if (IsControlEnabled) {
+				float steerFactor = SteerTowards(vecToTar);
+				Kart.TurnMultiplier = steerFactor;
+				Kart.Acceleration = 1.0f - (System.Math.Abs(steerFactor) / 3f);
+			}
 		}
 
 		/// <summary>
@@ -86,14 +91,16 @@ namespace Ponykart.Players {
 				CurrentRegion = nextRegion;
 
 				// update this axis' position
+#if DEBUG
 				axis.RootNode.Position = nextWaypoint;
 				axis.RootNode.Orientation = nextRegion.Body.Orientation;
 				nextRegion.CycleToNextColor();
+#endif
 			}
 		}
 
 		private float MakeOffset(Vector3 relativePos, TriggerRegion region) {
-			
+
 			float offset = relativePos.z / (region.Width * 2);
 			//System.Console.WriteLine(relativePos.z + " | " + region.Width + " | " + offset);
 
@@ -102,7 +109,23 @@ namespace Ponykart.Players {
 			else if (offset > 0.75f)
 				return 0.75f;
 			else*/
-				return offset;
+			return offset;
+		}
+
+		public override bool IsControlEnabled {
+			get {
+				return base.IsControlEnabled;
+			}
+			set {
+				base.IsControlEnabled = value;
+
+				if (value) {
+					Kart.Acceleration = 1;
+				}
+				else {
+					Kart.Acceleration = 0;
+				}
+			}
 		}
 
 		public override void Detach() {

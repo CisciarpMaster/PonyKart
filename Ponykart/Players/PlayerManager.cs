@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Properties;
 
@@ -20,6 +21,16 @@ namespace Ponykart.Players {
 			Launch.Log("[Loading] Creating PlayerManager...");
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
+
+			RaceCountdown.OnCountdown += new RaceCountdownEvent(RaceCountdown_OnCountdown);
+		}
+
+		void RaceCountdown_OnCountdown(RaceCountdownState state) {
+			if (state == RaceCountdownState.Go) {
+				foreach (var player in Players) {
+					player.IsControlEnabled = true;
+				}
+			}
 		}
 
 		/// <summary>
