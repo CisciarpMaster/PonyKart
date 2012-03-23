@@ -6,13 +6,18 @@ namespace Ponykart.Actors {
 	/// Represents a physics collision shape
 	/// </summary>
 	public class ShapeComponent : LDisposable {
-		public Matrix4 Transform { get; protected set; }
+		public Matrix4 Transform { get; set; }
 
 		public ThingEnum Type { get; private set; }
 		public Vector3 Dimensions { get; private set; }
 		public float Radius { get; private set; }
 		public float Height { get; private set; }
 		public string Mesh { get; private set; }
+
+		public float MinHeight { get; private set; }
+		public float MaxHeight { get; private set; }
+		public int Width { get; private set; }
+		public int Length { get; private set; }
 
 		/// <summary>
 		/// For physics
@@ -37,6 +42,14 @@ namespace Ponykart.Actors {
 					break;
 				case ThingEnum.Sphere:
 					Radius = block.GetFloatProperty("radius", null);
+					break;
+				case ThingEnum.Heightmap:
+					MinHeight = block.GetFloatProperty("MinHeight", null);
+					MaxHeight = block.GetFloatProperty("MaxHeight", null);
+					Width = (int) block.GetFloatProperty("Width", null);
+					Length = (int) block.GetFloatProperty("Length", null);
+					Mesh = block.GetStringProperty("mesh", null);
+					Dimensions = block.GetVectorProperty("dimensions", null) / 2f;
 					break;
 				case ThingEnum.Hull:
 				case ThingEnum.Mesh:

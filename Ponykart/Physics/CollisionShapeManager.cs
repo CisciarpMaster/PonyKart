@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using BulletSharp;
 using BulletSharp.Serialize;
@@ -33,7 +34,7 @@ namespace Ponykart.Physics {
 		/// <returns></returns>
 		public CollisionShape GetShapeFromFile(string filename, Entity ent, SceneNode node) {
 			CollisionShape shape;
-			
+
 			if (!Shapes.TryGetValue(filename, out shape)) {
 				// check to see if the .bullet file exists
 				if (File.Exists(Settings.Default.BulletFileLocation + filename)) {
@@ -118,26 +119,21 @@ namespace Ponykart.Physics {
 		/// Creates a collision shape for a shape component
 		/// </summary>
 		private CollisionShape CreateShapeForComponent(ShapeComponent component) {
-			CollisionShape componentShape;
-
 			switch (component.Type) {
 				case ThingEnum.Box:
-					componentShape = new BoxShape(component.Dimensions);
-					break;
+					return new BoxShape(component.Dimensions);
 				case ThingEnum.Cylinder:
-					componentShape = new CylinderShape(component.Dimensions);
-					break;
+					return new CylinderShape(component.Dimensions);
 				case ThingEnum.Cone:
-					componentShape = new ConeShape(component.Radius, component.Height);
-					(componentShape as ConeShape).ConeUpIndex = 1;
-					break;
+					var cone = new ConeShape(component.Radius, component.Height);
+					cone.ConeUpIndex = 1;
+					return cone;
 				case ThingEnum.Capsule:
-					componentShape = new CapsuleShape(component.Radius, component.Height);
-					break;
+					return new CapsuleShape(component.Radius, component.Height);
 				case ThingEnum.Sphere:
-					componentShape = new SphereShape(component.Radius);
-					break;
+					return new SphereShape(component.Radius);
 				case ThingEnum.Hull: {
+						CollisionShape shape;
 						// physics/example.bullet
 						string name = Path.GetFileNameWithoutExtension(component.Mesh);
 						string bulletFilePath;
@@ -155,7 +151,7 @@ namespace Ponykart.Physics {
 						// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
 						if (File.Exists(bulletFilePath)) {
 							// so it has a file
-							componentShape = ImportCollisionShape(name);
+							shape = ImportCollisionShape(name);
 						}
 						else {
 							var sceneMgr = LKernel.GetG<SceneManager>();
@@ -167,14 +163,15 @@ namespace Ponykart.Physics {
 								component.Transform.GetTrans(),
 								component.Transform.ExtractQuaternion(),
 								Vector3.UNIT_SCALE);
-							componentShape = hull;
+							shape = hull;
 
 							// TODO: figure out how to deal with concave triangle mesh shapes since apparently they aren't being exported
-							SerializeShape(componentShape, name);
+							SerializeShape(shape, name);
 						}
-						break;
+						return shape;
 					}
 				case ThingEnum.Mesh: {
+						CollisionShape shape;
 						// example
 						// physics/example.bullet
 						string name = Path.GetFileNameWithoutExtension(component.Mesh);
@@ -193,7 +190,7 @@ namespace Ponykart.Physics {
 						// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
 						if (File.Exists(bulletFilePath)) {
 							// so it has a file
-							componentShape = ImportCollisionShape(name);
+							shape = ImportCollisionShape(name);
 						}
 						else {
 							Launch.Log("[CollisionShapeManager] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
@@ -202,7 +199,7 @@ namespace Ponykart.Physics {
 							var sceneMgr = LKernel.GetG<SceneManager>();
 							Entity ent = sceneMgr.HasEntity(component.Mesh) ? sceneMgr.GetEntity(component.Mesh) : sceneMgr.CreateEntity(component.Mesh, component.Mesh);
 
-							componentShape = new BvhTriangleMeshShape(
+							shape = new BvhTriangleMeshShape(
 								OgreToBulletMesh.Convert(
 									ent.GetMesh(),
 									component.Transform.GetTrans(),
@@ -211,18 +208,51 @@ namespace Ponykart.Physics {
 								true,
 								true);
 
-							(componentShape as BvhTriangleMeshShape).BuildOptimizedBvh();
+							(shape as BvhTriangleMeshShape).BuildOptimizedBvh();
 
 							// and then export it as a .bullet file
-							SerializeShape(componentShape, name);
+							SerializeShape(shape, name);
 						}
-						break;
+						return shape;
+					}
+				case ThingEnum.Heightmap: {
+						string filename = Settings.Default.BulletFileLocation + component.Mesh;
+						//FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+						Bitmap bitmap = new Bitmap(filename);
+
+						int width = 256;
+						int length = 256;
+
+						byte[] terr = new byte[width * length * 4];
+						MemoryStream file = new MemoryStream(terr);
+						BinaryWriter writer = new BinaryWriter(file);
+						for (int i = 0; i < width; i++) {
+							for (int j = 0; j < length; j++) {
+								writer.Write(bitmap.GetPixel((int) (((float) i / width) * bitmap.Width), (int) (((float) j / length) * bitmap.Height)).R / 255f);
+								//writer.Write(bitmap.GetPixel(i, j).R / 255f);
+							}
+						}
+						writer.Flush();
+						file.Position = 0;
+
+						float heightScale = component.MaxHeight - component.MinHeight / 255f;
+						Vector3 scale = component.Dimensions;
+
+						var heightfield = new HeightfieldTerrainShape(width, length, file, heightScale,
+							component.MinHeight, component.MaxHeight, 1, PhyScalarType.PhyFloat, false);
+
+						//heightfield.SetUseDiamondSubdivision(true);
+						//heightfield.LocalScaling = new Vector3(scale.x / width, scale.y, scale.z / length);
+
+						//Matrix4 trans = new Matrix4();
+						//trans.MakeTransform(new Vector3(-scale.x / 2f, scale.y / 2f, -scale.z / 2f), new Vector3(scale.x, 1, scale.z), Quaternion.IDENTITY);
+						//component.Transform = trans;
+
+						return heightfield;
 					}
 				default:
 					throw new ApplicationException("ShapeComponent's Type was invalid!");
 			}
-
-			return componentShape;
 		}
 
 

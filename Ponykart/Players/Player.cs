@@ -61,6 +61,14 @@ namespace Ponykart.Players {
 				driverName = "Applejack";
 				kartName = "AJKart";
 			}
+			else if (eventArgs.Request.CharacterNames[id] == "Rarity") {
+				driverName = "Rarity";
+				kartName = "TwiCutlass";
+			}
+			else if (eventArgs.Request.CharacterNames[id] == "Fluttershy") {
+				driverName = "Fluttershy";
+				kartName = "TwiCutlass";
+			}
 			else
 				throw new ArgumentException("Invalid character name!", "eventArgs");
 

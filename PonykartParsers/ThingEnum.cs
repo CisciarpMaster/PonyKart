@@ -46,6 +46,10 @@ namespace PonykartParsers {
 		/// For trimeshes
 		/// </summary>
 		Mesh,
+		/// <summary>
+		/// For heightmaps
+		/// </summary>
+		Heightmap,
 
 
 		// collision groups
