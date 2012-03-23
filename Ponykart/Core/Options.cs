@@ -88,7 +88,7 @@ namespace Ponykart.Core {
 			// Low or High
 			defaults["ModelDetail"] = "Medium";
 			defaults["ShadowDetail"] = "Some";
-			defaults["ShadowDistance"] = "200";
+			defaults["ShadowDistance"] = "40";
 			defaults["Twh"] = "No";
 			// copy it into the regular dictionary
 			dict = new Dictionary<string, string>(defaults);
