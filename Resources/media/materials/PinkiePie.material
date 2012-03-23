@@ -1,0 +1,61 @@
+material PinkiePieBody {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 254 146 197 255
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "PinkiePieBody.dds"
+            }
+        }
+    }
+}
+
+material PinkiePieEyes {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "PinkiePieEyes.dds"
+            }
+        }
+    }
+}
+
+
+material PinkiePieHair {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 220 65 145 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "PinkiePieHair.dds"
+            }
+        }
+    }
+}

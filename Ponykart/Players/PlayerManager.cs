@@ -70,7 +70,7 @@ namespace Ponykart.Players {
 		}
 
 
-		readonly string[] _availableCharacters = new string[] { "Twilight Sparkle", "Rainbow Dash", "Applejack", "Fluttershy", "Rarity" };
+		readonly string[] _availableCharacters = new string[] { "Twilight Sparkle", "Rainbow Dash", "Applejack", "Pinkie Pie", "Fluttershy", "Rarity" };
 		readonly string _defaultCharacter = "Twilight Sparkle";
 
 		/// <summary>

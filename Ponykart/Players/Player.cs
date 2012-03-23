@@ -49,28 +49,34 @@ namespace Ponykart.Players {
 			ThingBlock block = new ThingBlock("TwiCutlass", spawnPos, spawnOrient);
 
 			string driverName, kartName;
-			if (eventArgs.Request.CharacterNames[id] == "Twilight Sparkle") {
-				driverName = "Twilight";
-				kartName = "TwiCutlass";
+			switch (eventArgs.Request.CharacterNames[id]) {
+				case "Twilight Sparkle":
+					driverName = "Twilight";
+					kartName = "TwiCutlass";
+					break;
+				case "Rainbow Dash":
+					driverName = "RainbowDash";
+					kartName = "TwiCutlass";
+					break;
+				case "Applejack":
+					driverName = "Applejack";
+					kartName = "AJKart";
+					break;
+				case "Rarity":
+					driverName = "Rarity";
+					kartName = "TwiCutlass";
+					break;
+				case "Fluttershy":
+					driverName = "Fluttershy";
+					kartName = "TwiCutlass";
+					break;
+				case "Pinkie Pie":
+					driverName = "PinkiePie";
+					kartName = "TwiCutlass";
+					break;
+				default:
+					throw new ArgumentException("Invalid character name!", "eventArgs");
 			}
-			else if (eventArgs.Request.CharacterNames[id] == "Rainbow Dash") {
-				driverName = "RainbowDash";
-				kartName = "TwiCutlass";
-			}
-			else if (eventArgs.Request.CharacterNames[id] == "Applejack") {
-				driverName = "Applejack";
-				kartName = "AJKart";
-			}
-			else if (eventArgs.Request.CharacterNames[id] == "Rarity") {
-				driverName = "Rarity";
-				kartName = "TwiCutlass";
-			}
-			else if (eventArgs.Request.CharacterNames[id] == "Fluttershy") {
-				driverName = "Fluttershy";
-				kartName = "TwiCutlass";
-			}
-			else
-				throw new ArgumentException("Invalid character name!", "eventArgs");
 
 			Kart = LKernel.GetG<Spawner>().SpawnKart(kartName, block);
 			Driver = LKernel.GetG<Spawner>().SpawnDriver(driverName, block);
