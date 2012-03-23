@@ -3,13 +3,38 @@ using MOIS;
 using Ponykart.Actors;
 using Ponykart.Players;
 using Vector3 = Mogre.Vector3;
+using Ponykart.Physics;
+using BulletSharp;
 
 namespace Ponykart.Handlers {
 	[Handler(HandlerScope.Level, LevelType.Race, "SweetAppleAcres")]
 	public class SAA_JumpAround : ILevelHandler {
+		TriggerRegion tr;
 
 		public SAA_JumpAround() {
 			LKernel.GetG<InputMain>().OnKeyboardPress_Anything += OnKeyboardPress;
+
+			tr = new TriggerRegion("RiverTriggerRegion", new Vector3(-12.4589f, 2.30107f, -138.952f), new Quaternion(-0.00359472f, 0.000143133f, 0.999202f, 0.0397857f),
+				new BoxShape(10.9985f, 2.71301f, 32.6104f));
+
+			tr.OnTrigger += new TriggerReportEvent(tr_OnTrigger);
+		}
+
+		void tr_OnTrigger(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info) {
+			var pos = new Vector3(-305.8f, 45.4037f, -693.169f) / 5f;
+			var quat = new Quaternion(0.7143f, 0, -0.6998f, 0);
+
+			quat = quat * new Quaternion(0, 0, 1, 0);
+
+			Matrix4 mat = new Matrix4();
+			mat.MakeTransform(pos, Vector3.UNIT_SCALE, quat);
+
+			Kart kart = (otherBody.UserObject as CollisionObjectDataHolder).GetThingAsKart();
+
+			if (kart != null) {
+				kart.Body.WorldTransform = mat;
+				kart.Body.Activate();
+			}
 		}
 
 		void OnKeyboardPress(KeyEvent eventArgs) {
@@ -70,6 +95,8 @@ namespace Ponykart.Handlers {
 
 		public void Detach() {
 			LKernel.GetG<InputMain>().OnKeyboardPress_Anything -= OnKeyboardPress;
+
+			tr.Dispose();
 		}
 	}
 }
