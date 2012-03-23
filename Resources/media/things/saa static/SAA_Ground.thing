@@ -2,7 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Road
 CollidesWith = Road
-DisableVisualization = true
+//DisableVisualization = true
 
 Model {
 	Mesh = "SAA_Ground.mesh"

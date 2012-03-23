@@ -2,7 +2,7 @@ Physics = Static
 Mass = 0
 CollisionGroup = Road
 CollidesWith = Road
-DisableVisualization = true
+//DisableVisualization = true
 
 Model {
 	Mesh = "SAA_Road.mesh"
@@ -38,3 +38,13 @@ Shape {
 	Mesh = "SAA_Road_Combined.bullet"
 	Position = 0, 0, 0
 }
+/*Shape {
+	Type = Heightmap
+	Mesh = "saa.png"
+	Position = 4.161, 4.204, -45.293
+	Width = 40
+	Length = 40
+	Dimensions = 252.456, 12.04, 166.53
+	MinHeight = -1.836
+	MaxHeight = 10.243
+}*/

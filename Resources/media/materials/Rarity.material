@@ -1,0 +1,61 @@
+material RarityBody {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 191 192 195 255
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "RarityBody.dds"
+            }
+        }
+    }
+}
+
+material RarityEyes {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "RarityEyes.dds"
+            }
+        }
+    }
+}
+
+
+material RarityHair {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 75 20 101 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "RarityHair.dds"
+            }
+        }
+    }
+}

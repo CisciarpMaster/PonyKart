@@ -657,7 +657,7 @@
 						</TextStyle>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>False</Enabled>
+						<Enabled>True</Enabled>
 						<Name>character select FS button</Name>
 						<Rectangle>512,450,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
@@ -669,7 +669,7 @@
 						</TextStyle>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>False</Enabled>
+						<Enabled>True</Enabled>
 						<Name>character select rarity button</Name>
 						<Rectangle>512,500,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>

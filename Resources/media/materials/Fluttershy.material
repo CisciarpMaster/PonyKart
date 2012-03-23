@@ -1,0 +1,85 @@
+material FluttershyBody {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 246 221 102 255
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "FluttershyBody.dds"
+            }
+        }
+    }
+}
+
+material FluttershyEyes {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "FluttershyEyes.dds"
+            }
+        }
+    }
+}
+
+material FluttershyHair {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 255 141 197 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "FluttershyHair.dds"
+            }
+        }
+    }
+}
+
+
+
+material FluttershyWings {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 246 221 102 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "FluttershyWingsFolded.dds"
+            }
+        }
+    }
+}
