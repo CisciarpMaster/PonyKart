@@ -34,11 +34,7 @@ namespace Ponykart.Core {
 						foreach (KeyValuePair<string, string> pair in defaults) {
 							writer.WriteLine(pair.Key + "=" + pair.Value);
 						}
-						writer.Flush();
-						writer.Close();
 					}
-					stream.Flush();
-					stream.Close();
 				}
 				ModelDetail = ModelDetailOption.Medium;
 			}

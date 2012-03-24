@@ -9,7 +9,8 @@ namespace Ponykart.Physics {
 	public delegate void TriggerReportEvent(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info);
 
 	public class TriggerRegion : LDisposable {
-		public RigidBody Body { get; protected set; }
+		public CollisionObject Body { get; protected set; }
+		
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
@@ -83,15 +84,25 @@ namespace Ponykart.Physics {
 
 			var motionState = new DefaultMotionState();//new MogreMotionState(null, Node);
 			motionState.WorldTransform = transform;
-			var info = new RigidBodyConstructionInfo(0, motionState, shape);
-			info.StartWorldTransform = transform;
+			//var info = new RigidBodyConstructionInfo(0, motionState, shape);
+			//info.StartWorldTransform = transform;
 			// make our ghost object
-			Body = new RigidBody(info);
+			/*Body = new RigidBody(info);
 			Body.CollisionFlags = CollisionFlags.NoContactResponse | CollisionFlags.CustomMaterialCallback;
 			Body.CollisionShape = shape;
 			Body.WorldTransform = info.StartWorldTransform;
 			Body.UserObject = new CollisionObjectDataHolder(Body, PonykartCollisionGroups.Triggers, name);
+			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);*/
+
+			//Create a REAL ghost object
+		 	Body = new GhostObject();
+			Body.CollisionShape = shape;
+			Body.WorldTransform = transform;
+			Body.UserObject = new CollisionObjectDataHolder(Body, PonykartCollisionGroups.Triggers, name);
+
+			Body.CollisionFlags |= CollisionFlags.NoContactResponse | CollisionFlags.CustomMaterialCallback;
 			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
+
 
 			// then add this to the trigger reporter
 			LKernel.GetG<TriggerReporter>().Regions.Add(name, this);

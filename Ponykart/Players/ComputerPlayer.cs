@@ -93,7 +93,7 @@ namespace Ponykart.Players {
 				// update this axis' position
 #if DEBUG
 				axis.RootNode.Position = nextWaypoint;
-				axis.RootNode.Orientation = nextRegion.Body.Orientation;
+				//axis.RootNode.Orientation = nextRegion.Body.Orientation;
 				nextRegion.CycleToNextColor();
 #endif
 			}

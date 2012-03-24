@@ -30,14 +30,15 @@ namespace Ponykart.Physics {
 		/// </summary>
 		void CollisionEvent(CollisionReportInfo info) {
 			// get our objects
-			RigidBody triggerBody, kartBody;
+			RigidBody kartBody;
+			GhostObject triggerBody;
 			if (info.FirstObject.GetCollisionGroup() == PonykartCollisionGroups.Triggers) {
 				//ghost = info.SecondObject as GhostObject;
-				triggerBody = info.FirstObject as RigidBody;
+				triggerBody = info.FirstObject as GhostObject;
 				kartBody = info.SecondObject as RigidBody;
 			}
 			else {
-				triggerBody = info.SecondObject as RigidBody;
+				triggerBody = info.SecondObject as GhostObject;
 				kartBody = info.FirstObject as RigidBody;
 			}
 

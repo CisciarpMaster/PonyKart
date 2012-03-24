@@ -90,7 +90,7 @@ namespace Ponykart.Physics {
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
 
-			world.StepSimulation(SlowMo ? evt.timeSinceLastFrame / 3f : evt.timeSinceLastFrame, _maxSubsteps, _fixedTimestep);
+			world.StepSimulation(SlowMo ? evt.timeSinceLastFrame / 10f : evt.timeSinceLastFrame, _maxSubsteps, _fixedTimestep);
 
 			// run the events that go just after we simulate
 			if (PostSimulate != null)
@@ -98,6 +98,12 @@ namespace Ponykart.Physics {
 
 			if (DrawLines)
 				world.DebugDrawWorld();
+
+			/*foreach (var item in LKernel.GetG<LevelManager>().CurrentLevel.Things) {
+				if (item.Value.Name.Contains("Apple") && !item.Value.Name.Contains("Tree")) {
+					System.Console.WriteLine(item.Value.Body.IsActive);
+				}
+			}*/
 
 			return true;
 		}
@@ -113,12 +119,12 @@ namespace Ponykart.Physics {
 			dcc = new DefaultCollisionConfiguration();
 			dispatcher = new CollisionDispatcher(dcc);
 			// set up this stuff... not quite sure what it's for, but you need it if you want the CCD to work for the karts
-			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape,
 				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape));
 			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape,
-				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
-			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape,
-				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexTriangleMeshShape, BroadphaseNativeType.ConvexTriangleMeshShape));
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape));
+			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape,
+				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape));
 
 			world = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, dcc);
 			// and then turn on CCD
