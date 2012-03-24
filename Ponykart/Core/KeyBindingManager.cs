@@ -12,6 +12,9 @@ namespace Ponykart.Core {
 		TurnRight,
 		Drift,
 		Reverse,
+		SteeringAxis,
+		AccelerateAxis,
+		BrakeAxis
 	}
 
 	/// <summary>
@@ -24,9 +27,12 @@ namespace Ponykart.Core {
 		/// </summary>
 		private IDictionary<LKey, KeyCode> LKeysDict;
 		private IDictionary<KeyCode, LKey> MOISKeysDict;
+		private IDictionary<ControllerButtons, LKey> LButtonsDict;
+		private IDictionary<ControllerAxis, LKey> LAxisDict;
+
 		public IDictionary<LKey, Action> PressEventsDict { get; private set; }
 		public IDictionary<LKey, Action> ReleaseEventsDict { get; private set; }
-
+		public IDictionary<LKey, Action> AxisEvents { get; private set; }
 
 		public KeyBindingManager() {
 			Launch.Log("[Loading] Creating KeyBindingManager...");
@@ -34,17 +40,29 @@ namespace Ponykart.Core {
 			MOISKeysDict = new Dictionary<KeyCode, LKey>();
 			PressEventsDict = new Dictionary<LKey, Action>();
 			ReleaseEventsDict = new Dictionary<LKey, Action>();
+			AxisEvents = new Dictionary<LKey, Action>( );
+			LButtonsDict = new Dictionary<ControllerButtons, LKey>( );
+			LAxisDict = new Dictionary<ControllerAxis, LKey>( );
 
 			SetupInitialBindings();
 
 			var input = LKernel.GetG<InputMain>();
 			input.OnKeyboardPress_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardPressAnything);
 			input.OnKeyboardRelease_Anything += new LymphInputEvent<KeyEvent>(OnKeyboardReleaseAnything);
+			input.OnLeftXAxisMoved += new AxisMovedEventHandler( input_OnLeftXAxisMoved );
 
 			if (Options.GetBool("Twh")) {
 				input.OnMousePress_Anything += new LymphInputEvent<MouseEvent, MouseButtonID>(OnMousePress_Anything);
 				input.OnMouseRelease_Anything += new LymphInputEvent<MouseEvent, MouseButtonID>(OnMouseRelease_Anything);
 			}
+		}
+
+		void input_OnLeftXAxisMoved( object sender, ControllerAxisArgument e )
+		{
+			if ( LKernel.GetG<InputSwallowerManager>( ).IsSwallowed( ) )
+				return;
+
+			Invoke( AxisEvents[LAxisDict[e.Axis]] );
 		}
 
 		// temporary, so twh can control the camera better when filming
@@ -91,6 +109,8 @@ namespace Ponykart.Core {
 			MOISKeysDict[KeyCode.KC_D] = LKey.TurnRight;
 			MOISKeysDict[KeyCode.KC_SPACE] = LKey.Drift;
 			MOISKeysDict[KeyCode.KC_S] = LKey.Reverse;
+			LButtonsDict[ControllerButtons.A] = LKey.Drift;		
+			LAxisDict[ControllerAxis.LeftX] = LKey.SteeringAxis;
 
 			PressEventsDict.Add(LKey.Accelerate, null);
 			PressEventsDict.Add(LKey.TurnLeft, null);

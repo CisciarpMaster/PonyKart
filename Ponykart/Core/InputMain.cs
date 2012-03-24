@@ -5,6 +5,7 @@ using System;
 using Mogre;
 using MOIS;
 using Ponykart.Levels;
+using Ponykart.Core;
 using Type = MOIS.Type;
 
 namespace Ponykart {
@@ -22,6 +23,7 @@ namespace Ponykart {
 		public InputManager InputManager { get; private set; }
 		public Keyboard InputKeyboard { get; private set; }
 		public Mouse InputMouse { get; private set; }
+		public ControllerManager InputController { get; private set; }
 
 		public InputMain() {
 			Launch.Log("[Loading] Initialising MOIS input system");
@@ -42,6 +44,7 @@ namespace Ponykart {
 			// Create all devices (except joystick, as most people have Keyboard/Mouse) using buffered input.
 			InputKeyboard = (Keyboard) InputManager.CreateInputObject(Type.OISKeyboard, true);
 			InputMouse = (Mouse) InputManager.CreateInputObject(Type.OISMouse, true);
+			InputController = new ControllerManager( );
 
 			// sets the mouseState initial width and height (default is too low)
 			MouseState_NativePtr mouseState = InputMouse.MouseState;
@@ -70,6 +73,10 @@ namespace Ponykart {
 				InputMouse.MouseReleased += new MouseListener.MouseReleasedHandler(MouseReleased);
 				InputMouse.MouseMoved += new MouseListener.MouseMovedHandler(MouseMotion);
 			}
+			if ( InputController != null )
+			{
+				Launch.Log( "[Loading] Setting up joypad listeners" );
+			}
 		}
 
 		// ============================================================
@@ -97,6 +104,17 @@ namespace Ponykart {
 		// ============================================================
 
 		#region Event firing helpers
+		/// <summary>
+		/// Fires an event for an axis on a joypad
+		/// </summary>
+		/// <param name="handler"></param>
+		/// <param name="eventArgs"></param>
+		void FireAxisEvent( AxisMovedEventHandler handler, ControllerAxisArgument eventArgs )
+		{
+			if ( handler != null )
+				handler( this, eventArgs );
+		}
+		
 		/// <summary>
 		/// Fires an event. Helper method so I don't have to check every single event for null.
 		/// </summary>
@@ -202,6 +220,16 @@ namespace Ponykart {
 			return true;
 		}
 
+		bool ControllerAxisMoved( ControllerAxisArgument e )
+		{
+			switch ( e.Axis )
+			{
+				case ControllerAxis.LeftX:
+					FireAxisEvent( OnLeftXAxisMoved, e ); break;
+			}
+			return true;
+		}
+
 		// =========================================================
 
 		#region Events
@@ -222,9 +250,12 @@ namespace Ponykart {
 		public event LymphInputEvent<MouseEvent, MouseButtonID> OnMouseRelease_Middle;
 
 		public event LymphInputEvent<MouseEvent> OnMouseMove;
+
+		public event AxisMovedEventHandler OnLeftXAxisMoved;
 		#endregion
 	}
 
 	public delegate void LymphInputEvent<T>(T eventArgs);
 	public delegate void LymphInputEvent<T, U>(T eventArg1, U eventArg2);
+	public delegate void AxisMovedEventHandler( object sender, ControllerAxisArgument e );
 }

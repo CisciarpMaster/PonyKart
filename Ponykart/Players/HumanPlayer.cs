@@ -23,6 +23,8 @@ namespace Ponykart.Players {
 			bindings.ReleaseEventsDict[LKey.TurnLeft] += OnStopTurnLeft;
 			bindings.PressEventsDict[LKey.TurnRight] += OnStartTurnRight;
 			bindings.ReleaseEventsDict[LKey.TurnRight] += OnStopTurnRight;
+			//bindings.AxisEvents[LKey.SteeringAxis] += OnSteeringAxisMoved;
+			//bindings.AxisEvents[LKey.AccelerateAxis] += OnAccelerateAxisMoved;
 		}
 
 		public override bool IsControlEnabled {
@@ -242,5 +244,9 @@ namespace Ponykart.Players {
 
 			base.Detach();
 		}
+
+		public System.Action OnSteeringAxisMoved { get; set; }
+
+		public System.Action OnAccelerateAxisMoved { get; set; }
 	}
 }
