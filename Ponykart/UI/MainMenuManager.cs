@@ -3,6 +3,7 @@ using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Ponykart.Levels;
+using Ponykart.Networking;
 
 namespace Ponykart.UI {
 	/// <summary>
@@ -65,14 +66,14 @@ namespace Ponykart.UI {
 
 			NetworkHostPortTextBox = NetworkHostGui.GetControl<TextBox>("host info port text box");
 			NetworkHostPasswordTextBox = NetworkHostGui.GetControl<TextBox>("host info password text box");
-			NetworkHostGui.GetControl<Button>("host info next button").MouseClick += (o, e) => Invoke(OnHostInfo_SelectNext, o, e);
+            NetworkHostGui.GetControl<Button>("host info next button").MouseClick += (o, e) => Invoke(OnHostInfo_SelectNext, o, e);
 			NetworkHostGui.GetControl<Button>("host info back button").MouseClick += (o, e) => Invoke(OnHostInfo_SelectBack, o, e);
 
 			NetworkClientIPTextBox = NetworkClientGui.GetControl<TextBox>("client info IP text box");
 			NetworkClientPortTextBox = NetworkClientGui.GetControl<TextBox>("client info port text box");
 			NetworkClientPasswordTextBox = NetworkClientGui.GetControl<TextBox>("client info password text box");
-			NetworkClientGui.GetControl<Button>("client info next button").MouseClick += (o, e) => Invoke(OnClientInfo_SelectNext, o, e);
-			NetworkClientGui.GetControl<Button>("client info back button").MouseClick += (o, e) => Invoke(OnClientInfo_SelectBack, o, e);
+            NetworkClientGui.GetControl<Button>("client info next button").MouseClick += (o, e) => Invoke(OnClientInfo_SelectNext, o, e);
+            NetworkClientGui.GetControl<Button>("client info back button").MouseClick += (o, e) => Invoke(OnClientInfo_SelectBack, o, e);
 
 			LobbyLabel = LobbyGui.GetControl<Label>("lobby label");
 			LobbyGui.GetControl<Button>("lobby next button").MouseClick += (o, e) => Invoke(OnLobby_SelectNext, o, e);
