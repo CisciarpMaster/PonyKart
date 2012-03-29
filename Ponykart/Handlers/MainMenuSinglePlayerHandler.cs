@@ -15,30 +15,9 @@ namespace Ponykart.Handlers {
 		string characterSelection;
 
 		public MainMenuSinglePlayerHandler() {
-			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
-			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
-		}
-
-		/// <summary>
-		/// unhook from the main menu events
-		/// </summary>
-		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			if (eventArgs.OldLevel.Type == LevelType.Menu) {
-				var mmm = LKernel.GetG<MainMenuManager>();
-				mmm.OnLevelSelect -= OnLevelSelect;
-				mmm.OnCharacterSelect -= OnCharacterSelect;
-			}
-		}
-
-		/// <summary>
-		/// hook into the main menu events
-		/// </summary>
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (eventArgs.NewLevel.Type == LevelType.Menu) {
-				var mmm = LKernel.GetG<MainMenuManager>();
-				mmm.OnLevelSelect += OnLevelSelect;
-				mmm.OnCharacterSelect += OnCharacterSelect;
-			}
+			var mmm = LKernel.GetG<MainMenuManager>();
+			mmm.OnLevelSelect += new MainMenuLevelSelectEvent(OnLevelSelect);
+			mmm.OnCharacterSelect += new MainMenuCharacterSelectEvent(OnCharacterSelect);
 		}
 
 		/// <summary>

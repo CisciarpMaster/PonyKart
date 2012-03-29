@@ -107,15 +107,15 @@ namespace Ponykart.Handlers {
 		/// network host -> game type
 		/// </summary>
 		void OnHostInfo_SelectBack(Button button, MouseButtonEventArgs eventArgs) {
-            GameType = GameTypeEnum.None;
-            SwitchGui(mmm.NetworkHostGui, mmm.GameTypeGui);
+			GameType = GameTypeEnum.None;
+			SwitchGui(mmm.NetworkHostGui, mmm.GameTypeGui);
 		}
 
 		/// <summary>
 		/// network host -> level select
 		/// </summary>
-        void OnHostInfo_SelectNext(Button button, MouseButtonEventArgs eventArgs)
-        {
+		void OnHostInfo_SelectNext(Button button, MouseButtonEventArgs eventArgs)
+		{
 			SwitchGui(mmm.NetworkHostGui, mmm.LevelSelectGui);
 		}
 
@@ -130,8 +130,8 @@ namespace Ponykart.Handlers {
 		/// <summary>
 		/// network client -> lobby
 		/// </summary>
-        void OnClientInfo_SelectNext(Button button, MouseButtonEventArgs eventArgs)
-        {
+		void OnClientInfo_SelectNext(Button button, MouseButtonEventArgs eventArgs)
+		{
 			SwitchGui(mmm.NetworkClientGui, mmm.LobbyGui);
 		}
 
@@ -147,7 +147,7 @@ namespace Ponykart.Handlers {
 				case GameTypeEnum.NetworkedHost:
 					mmm.NetworkHostPasswordTextBox.Text = "";
 					mmm.NetworkHostPortTextBox.Text = "";
-                    NetworkManager.StopThread();
+					LKernel.GetG<NetworkManager>().StopThread();
 					SwitchGui(mmm.LevelSelectGui, mmm.NetworkHostGui);
 					break;
 				default:
@@ -183,7 +183,7 @@ namespace Ponykart.Handlers {
 					mmm.NetworkClientIPTextBox.Text = "";
 					mmm.NetworkClientPasswordTextBox.Text = "";
 					mmm.NetworkClientPortTextBox.Text = "";
-                    NetworkManager.StopThread();
+					LKernel.GetG<NetworkManager>().StopThread();
 					SwitchGui(mmm.LobbyGui, mmm.NetworkClientGui);
 					break;
 				default:

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using Ponykart.Players;
-using Ponykart.UI;
 
 namespace Ponykart.Networking
 {  
@@ -100,10 +99,10 @@ namespace Ponykart.Networking
         private UdpClient Listener;
         private IPEndPoint ListenEP;
         // For sending information. Host has many, Client has one.
-        private IDictionary<int,Connection> Connections;
+        private IDictionary<int, Connection> Connections;
         public Connection SingleConnection;
         // Password for connection
-        public String Password;
+        public string Password;
 
         // What kind of Networking connection we have
         public int NetworkType;
@@ -112,7 +111,7 @@ namespace Ponykart.Networking
         private int MaxConnections;
 
         // Networking thread 
-        public static Thread NetworkingThread;
+        public Thread NetworkingThread;
         
         private Player LocalPlayer { get; set; }
         private Player[] NetPlayers { get; set; }
@@ -127,8 +126,8 @@ namespace Ponykart.Networking
         /// Initializes as Host
         /// </summary>
         /// <param name="port">Port to listen on</param>
-        /// <param name="password">String password</param>
-        public void InitManager(int port, String password) {
+        /// <param name="password">string password</param>
+        public void InitManager(int port, string password) {
             NetworkType = HOST;
             Password = password;
             Listener = new UdpClient(port);
@@ -141,7 +140,7 @@ namespace Ponykart.Networking
         /// </summary>
         /// <param name="port">Port to connect on. Trusted to be valid.</param>
         /// <param name="ip">IP (TRUSTED!! To be valid)</param>
-        public void InitManager(int port, String password, String ip)
+        public void InitManager(int port, string password, string ip)
         {
             NetworkType = CLIENT;
             Password = password;
@@ -155,8 +154,8 @@ namespace Ponykart.Networking
         public void OnPacket(byte[] packet) {
             Launch.Log("Processing packet.");
             Packet p = new Packet(packet);
-            Launch.Log(String.Format("Protocol string: {0}. Ours: {1}", System.Text.ASCIIEncoding.ASCII.GetString(p.Protocol),
-                                                                       System.Text.ASCIIEncoding.ASCII.GetString(Protocol)));
+            Launch.Log(string.Format("Protocol string: {0}. Ours: {1}", System.Text.ASCIIEncoding.ASCII.GetString(p.Protocol),
+                                                                        System.Text.ASCIIEncoding.ASCII.GetString(Protocol)));
             if (p.Protocol.SequenceEqual(Protocol)) {
                 Launch.Log("Packet of our protocol.");
                 if (NetworkType == CLIENT) {
@@ -185,21 +184,20 @@ namespace Ponykart.Networking
         /// Starts up the listener thread.
         /// </summary>
         /// <param name="nConnections">Maximum concurrent connections</param>
-        public static void StartThread(int nConnections) {
-            NetworkManager m = LKernel.Get<NetworkManager>();
-            Thread t = new Thread(m.AcceptConnections);
+        public void StartThread(int nConnections) {
+            Thread t = new Thread(AcceptConnections);
             Launch.Log("Network thread opened.");
-            NetworkManager.NetworkingThread = t;
+            NetworkingThread = t;
             t.Start(nConnections);
         }
 
         /// <summary>
         /// Kill network thread.
         /// </summary>
-        public static void StopThread() {
+        public void StopThread() {
             Launch.Log("Network thread halting...");
-            NetworkManager.NetworkingThread.Abort();
-            NetworkManager.NetworkingThread.Join();
+            NetworkingThread.Abort();
+            NetworkingThread.Join();
             Launch.Log("Network thread joined.");
         }
 
@@ -212,7 +210,7 @@ namespace Ponykart.Networking
             MaxConnections = nConnections;
             Launch.Log("waiting for connections...");
             try {
-                while (true) {
+                while (!Launch.Quit) {
                     if (Listener.Available > 0) {
                         Launch.Log("Packet available");
                         OnPacket(Listener.Receive(ref ListenEP));
