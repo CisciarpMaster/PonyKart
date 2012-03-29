@@ -87,7 +87,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BulletSharp">
+    <Reference Include="BulletSharp, Version=2.80.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\References\BulletSharp.dll</HintPath>
     </Reference>
     <Reference Include="irrKlang.NET4, Version=1.0.3861.18767, Culture=neutral, PublicKeyToken=a854741bd80517c7, processorArchitecture=x86">

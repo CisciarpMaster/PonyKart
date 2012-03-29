@@ -75,15 +75,15 @@ namespace Ponykart.Players {
 				float offset;
 				if (info == null || info.Position == null) {
 					// when we're starting, we'll just use our kart's position for things
-					Vector3 relativePos = nextRegion.Body.WorldTransform.InverseAffine() * Kart.RootNode.Position;
+					Vector3 relativePos = nextRegion.Ghost.WorldTransform.InverseAffine() * Kart.RootNode.Position;
 					offset = MakeOffset(relativePos, nextRegion);
 				}
 				else {
 					// otherwise calculate using the region we just entered
-					Vector3 relativePos = enteredRegion.Body.WorldTransform.InverseAffine() * info.Position.Value;
+					Vector3 relativePos = enteredRegion.Ghost.WorldTransform.InverseAffine() * info.Position.Value;
 					offset = MakeOffset(relativePos, enteredRegion);
 				}
-				nextWaypoint = nextRegion.Body.WorldTransform * new Vector3(0, 0, offset * nextRegion.Width);
+				nextWaypoint = nextRegion.Ghost.WorldTransform * new Vector3(0, 0, offset * nextRegion.Width);
 				nextWaypoint.y = Kart.RootNode.Position.y;
 
 				// update the region pointers

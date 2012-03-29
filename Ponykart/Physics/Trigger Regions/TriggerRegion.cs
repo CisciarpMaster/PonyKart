@@ -9,7 +9,7 @@ namespace Ponykart.Physics {
 	public delegate void TriggerReportEvent(TriggerRegion region, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info);
 
 	public class TriggerRegion : LDisposable {
-		public CollisionObject Body { get; protected set; }
+		public GhostObject Ghost { get; protected set; }
 		
 		public string Name { get; protected set; }
 		public SceneNode Node { get; protected set; }
@@ -82,26 +82,17 @@ namespace Ponykart.Physics {
 			Matrix4 transform = new Matrix4();
 			transform.MakeTransform(position, Vector3.UNIT_SCALE, orientation);
 
-			var motionState = new DefaultMotionState();//new MogreMotionState(null, Node);
+			var motionState = new DefaultMotionState();
 			motionState.WorldTransform = transform;
-			//var info = new RigidBodyConstructionInfo(0, motionState, shape);
-			//info.StartWorldTransform = transform;
-			// make our ghost object
-			/*Body = new RigidBody(info);
-			Body.CollisionFlags = CollisionFlags.NoContactResponse | CollisionFlags.CustomMaterialCallback;
-			Body.CollisionShape = shape;
-			Body.WorldTransform = info.StartWorldTransform;
-			Body.UserObject = new CollisionObjectDataHolder(Body, PonykartCollisionGroups.Triggers, name);
-			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);*/
 
-			//Create a REAL ghost object
-		 	Body = new GhostObject();
-			Body.CollisionShape = shape;
-			Body.WorldTransform = transform;
-			Body.UserObject = new CollisionObjectDataHolder(Body, PonykartCollisionGroups.Triggers, name);
+			// thanks to kloplop321 in #ogre3d for his help with this
+		 	Ghost = new GhostObject();
+			Ghost.CollisionShape = shape;
+			Ghost.WorldTransform = transform;
+			Ghost.UserObject = new CollisionObjectDataHolder(Ghost, PonykartCollisionGroups.Triggers, name);
 
-			Body.CollisionFlags |= CollisionFlags.NoContactResponse | CollisionFlags.CustomMaterialCallback;
-			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Body, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
+			Ghost.CollisionFlags |= CollisionFlags.NoContactResponse | CollisionFlags.CustomMaterialCallback;
+			LKernel.GetG<PhysicsMain>().World.AddCollisionObject(Ghost, PonykartCollisionGroups.Triggers, PonykartCollidesWithGroups.Triggers);
 
 
 			// then add this to the trigger reporter
@@ -158,15 +149,15 @@ namespace Ponykart.Physics {
 		/// </summary>
 		public float Width {
 			get {
-				switch (Body.CollisionShape.ShapeType) {
+				switch (Ghost.CollisionShape.ShapeType) {
 					case BroadphaseNativeType.BoxShape:
-						return (Body.CollisionShape as BoxShape).HalfExtentsWithoutMargin.x;
+						return (Ghost.CollisionShape as BoxShape).HalfExtentsWithoutMargin.x;
 					case BroadphaseNativeType.CapsuleShape:
-						return (Body.CollisionShape as CapsuleShape).Radius;
+						return (Ghost.CollisionShape as CapsuleShape).Radius;
 					case BroadphaseNativeType.CylinderShape:
-						return (Body.CollisionShape as CylinderShape).Radius;
+						return (Ghost.CollisionShape as CylinderShape).Radius;
 					case BroadphaseNativeType.SphereShape:
-						return (Body.CollisionShape as SphereShape).Radius;
+						return (Ghost.CollisionShape as SphereShape).Radius;
 					default:
 						return 0;
 				}
