@@ -39,7 +39,7 @@ namespace Ponykart.Core {
 				kart.Body.Activate();
 
 				Matrix4 mat = new Matrix4();
-				mat.MakeTransform(pos, Vector3.UNIT_SCALE, kart.RootNode.Orientation);
+				mat.MakeTransform(pos, Vector3.UNIT_SCALE, kart.ActualOrientation);
 				kart.Body.WorldTransform = mat;
 			}
 		}
@@ -131,11 +131,11 @@ namespace Ponykart.Core {
 			base.OnSwitchToActive(oldCamera);
 
 			var kart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
-			CameraNode.Position = kart.RootNode.Position;
-			CameraNode.Orientation = kart.RootNode.Orientation;
+			CameraNode.Position = kart.ActualPosition;
+			CameraNode.Orientation = kart.ActualOrientation;
 
 			CameraNode.Translate(new Vector3(0, Settings.Default.CameraNodeYOffset, Settings.Default.CameraNodeZOffset), Node.TransformSpace.TS_LOCAL);
-			CameraNode.LookAt(kart.RootNode.Position, Node.TransformSpace.TS_WORLD);
+			CameraNode.LookAt(kart.ActualPosition, Node.TransformSpace.TS_WORLD);
 		}
 
 		/// <summary>

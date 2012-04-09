@@ -11,7 +11,7 @@ namespace Ponykart.Physics {
 
 		protected SceneNode node;
 		protected Matrix4 transform;
-		protected LThing owner;
+		private LThing owner;
 
 		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
 		public MogreMotionState(LThing thing, Matrix4 transform, SceneNode node) {

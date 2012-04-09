@@ -121,8 +121,6 @@ namespace Ponykart.Physics {
 			// set up this stuff... not quite sure what it's for, but you need it if you want the CCD to work for the karts
 			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape,
 				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape));
-			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.TriangleMeshShape, BroadphaseNativeType.TriangleMeshShape,
-				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape));
 			dispatcher.RegisterCollisionCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape,
 				dcc.GetCollisionAlgorithmCreateFunc(BroadphaseNativeType.ConvexHullShape, BroadphaseNativeType.ConvexHullShape));
 

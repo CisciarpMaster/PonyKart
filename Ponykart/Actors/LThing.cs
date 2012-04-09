@@ -37,7 +37,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected virtual MotionState InitializationMotionState {
 			get {
-				if (SoundComponents.Count > 0)
+				if (SoundComponents != null)
 					return new MogreMotionState(this, SpawnPosition, SpawnOrientation, RootNode);
 				else
 					return new MogreMotionState(null, SpawnPosition, SpawnOrientation, RootNode);
@@ -46,7 +46,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// The actual motion state.
 		/// </summary>
-		protected MotionState MotionState { get; set; }
+		protected MotionState MotionState { get; private set; }
 		/// <summary>
 		/// The body's collision group
 		/// </summary>
@@ -96,12 +96,6 @@ namespace Ponykart.Actors {
 			ID = IDs.Incremental;
 			Name = template.ThingName;
 
-			ModelComponents = new List<ModelComponent>();
-			ShapeComponents = new List<ShapeComponent>();
-			RibbonComponents = new List<RibbonComponent>();
-			BillboardSetComponents = new List<BillboardSetComponent>();
-			SoundComponents = new List<SoundComponent>();
-
 			// get our three basic transforms
 			SpawnPosition = template.GetVectorProperty("position", null);
 
@@ -113,7 +107,7 @@ namespace Ponykart.Actors {
 
 
 			// and start setting up this thing!
-			Setup(template, def);
+			PreSetup(template, def);
 			SetupMogre(template, def);
 
 			InitialiseComponents(template, def);
@@ -124,7 +118,7 @@ namespace Ponykart.Actors {
 			// Need a few variations of identical objects with different scales? Gonna have to make different .things for them.
 			// Though it might be easier to just have one general .thing for them, and all it does is run a script that randomly
 			// gets one of the others.
-			if (ShapeComponents.Count == 0)
+			if (ShapeComponents == null)
 				RootNode.Scale(SpawnScale);
 			RootNode.SetInitialState();
 
@@ -147,7 +141,7 @@ namespace Ponykart.Actors {
 		/// Use this method if you need some more stuff to happen before the constructor starts setting everything up.
 		/// For example if you need to get more things out of the ThingTemplate, you can use this for that.
 		/// </summary>
-		protected virtual void Setup(ThingBlock template, ThingDefinition def) { }
+		protected virtual void PreSetup(ThingBlock template, ThingDefinition def) { }
 
 		/// <summary>
 		/// Sets up mogre stuff, like our root scene node
@@ -163,15 +157,16 @@ namespace Ponykart.Actors {
 				this.RootNode = sceneMgr.RootSceneNode.CreateChildSceneNode(Name + ID);
 			}
 			else {
+				string mapRegionNodeName = mapRegion + "Node";
 				// there is a map region, make our root node a child of a node with the region's name
 				// first check to see if that node exists already
-				if (sceneMgr.HasSceneNode(mapRegion + "Node")) {
+				if (sceneMgr.HasSceneNode(mapRegionNodeName)) {
 					// if it does, just attach our node to it
-					this.RootNode = sceneMgr.GetSceneNode(mapRegion + "Node").CreateChildSceneNode(Name + ID);
+					this.RootNode = sceneMgr.GetSceneNode(mapRegionNodeName).CreateChildSceneNode(Name + ID);
 				}
 				else {
 					// if it doesn't, create it first, then attach our node to it
-					SceneNode newSceneNode = sceneMgr.RootSceneNode.CreateChildSceneNode(mapRegion + "Node");
+					SceneNode newSceneNode = sceneMgr.RootSceneNode.CreateChildSceneNode(mapRegionNodeName);
 					this.RootNode = newSceneNode.CreateChildSceneNode(Name + ID);
 				}
 			}
@@ -182,27 +177,42 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected void InitialiseComponents(ThingBlock template, ThingDefinition def) {
 			// ogre stuff
-			foreach (var mblock in def.ModelBlocks)
-				ModelComponents.Add(new ModelComponent(this, template, mblock, def));
+			if (def.ModelBlocks.Count > 0) {
+				ModelComponents = new List<ModelComponent>(def.ModelBlocks.Count);
+				foreach (var mblock in def.ModelBlocks)
+					ModelComponents.Add(new ModelComponent(this, template, mblock, def));
+			}
 			// bullet stuff
-			foreach (var sblock in def.ShapeBlocks)
-				ShapeComponents.Add(new ShapeComponent(this, sblock));
+			if (def.ShapeBlocks.Count > 0) {
+				ShapeComponents = new List<ShapeComponent>(def.ShapeBlocks.Count);
+				foreach (var sblock in def.ShapeBlocks)
+					ShapeComponents.Add(new ShapeComponent(this, sblock));
+			}
 			// ribbons
-			foreach (var rblock in def.RibbonBlocks)
-				RibbonComponents.Add(new RibbonComponent(this, template, rblock));
+			if (def.RibbonBlocks.Count > 0) {
+				RibbonComponents = new List<RibbonComponent>(def.RibbonBlocks.Count);
+				foreach (var rblock in def.RibbonBlocks)
+					RibbonComponents.Add(new RibbonComponent(this, template, rblock));
+			}
 			// billboard sets
-			foreach (var bblock in def.BillboardSetBlocks)
-				BillboardSetComponents.Add(new BillboardSetComponent(this, template, bblock));
+			if (def.BillboardSetBlocks.Count > 0) {
+				BillboardSetComponents = new List<BillboardSetComponent>(def.BillboardSetBlocks.Count);
+				foreach (var bblock in def.BillboardSetBlocks)
+					BillboardSetComponents.Add(new BillboardSetComponent(this, template, bblock));
+			}
 			// sounds
-			foreach (var sblock in def.SoundBlocks)
-				SoundComponents.Add(new SoundComponent(this, template, sblock));
+			if (def.SoundBlocks.Count > 0) {
+				SoundComponents = new List<SoundComponent>(def.SoundBlocks.Count);
+				foreach (var sblock in def.SoundBlocks)
+					SoundComponents.Add(new SoundComponent(this, template, sblock));
+			}
 		}
 
 		protected virtual void PostInitialiseComponents(ThingBlock template, ThingDefinition def) { }
 
 		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
 			// if we have no shape components then we don't set up physics
-			if (ShapeComponents.Count == 0)
+			if (ShapeComponents == null)
 				return;
 
 			PreSetUpBodyInfo(def);
@@ -234,7 +244,7 @@ namespace Ponykart.Actors {
 			shape.CalculateLocalInertia(mass, out inertia);
 
 			// if it's static and doesn't have a sound, we don't need a mogre motion state because we'll be disposing of the root node afterwards
-			if (def.GetBoolProperty("Static", false) && SoundComponents.Count == 0)
+			if (def.GetBoolProperty("Static", false) && SoundComponents == null)
 				MotionState = new DefaultMotionState();
 			else
 				MotionState = InitializationMotionState;
@@ -343,10 +353,12 @@ namespace Ponykart.Actors {
 		/// Makes all model components play the specified animation immediately, if they have it.
 		/// </summary>
 		public virtual void ChangeAnimation(string animationName) {
-			foreach (var mcomp in ModelComponents) {
-				if (mcomp.AnimationBlender != null && mcomp.Entity.AllAnimationStates.HasAnimationState(animationName)) {
-					mcomp.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-					mcomp.AnimationBlender.AddTime((int) ID);
+			if (ModelComponents != null) {
+				foreach (var mcomp in ModelComponents) {
+					if (mcomp.AnimationBlender != null && mcomp.Entity.AllAnimationStates.HasAnimationState(animationName)) {
+						mcomp.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+						mcomp.AnimationBlender.AddTime((int) ID);
+					}
 				}
 			}
 		}
@@ -355,17 +367,19 @@ namespace Ponykart.Actors {
 		/// Plays a random animation, if it has one.
 		/// </summary>
 		public virtual void RandomAnimation() {
-			var anims = ModelComponents[0].GetAnimationNames();
-			if (anims.Count() > 0) {
-				Random rand = new Random(IDs.Random);
-				string animName = "";
-				do {
-					int index = rand.Next(anims.Count());
-					animName = anims.ElementAt(index);
-					// don't want to play any "Basis" animations
-				} while (!animName.Contains("Basis"));
+			if (ModelComponents != null) {
+				var anims = ModelComponents[0].GetAnimationNames();
+				if (anims.Count() > 0) {
+					Random rand = new Random(IDs.Random);
+					string animName = "";
+					do {
+						int index = rand.Next(anims.Count());
+						animName = anims.ElementAt(index);
+						// don't want to play any "Basis" animations
+					} while (!animName.Contains("Basis"));
 
-				ChangeAnimation(animName);
+					ChangeAnimation(animName);
+				}
 			}
 		}
 
@@ -398,21 +412,24 @@ namespace Ponykart.Actors {
 
 				var sceneMgr = LKernel.GetG<SceneManager>();
 
+				// this bool is to check we only fully dispose lthings if ALL of their model components are static/instanced
 				bool removedAllModelComponents = true;
 				// dispose of all of the model components
-				foreach (ModelComponent mc in ModelComponents) {
-					if (mc.Entity == null) {
-						mc.Dispose();
-					}
-					else {
-						removedAllModelComponents = false;
+				if (ModelComponents != null) {
+					foreach (ModelComponent mc in ModelComponents) {
+						if (mc.Entity == null) {
+							mc.Dispose();
+						}
+						else {
+							removedAllModelComponents = false;
+						}
 					}
 				}
 
 				// if we have no ribbons, billboards, or sounds, we can get rid of the root node
-				if (removedAllModelComponents && RibbonComponents.Count == 0 && BillboardSetComponents.Count == 0 && SoundComponents.Count == 0) {
+				if (removedAllModelComponents && RibbonComponents == null && BillboardSetComponents == null && SoundComponents == null) {
 					// if we have no shapes, we can get rid of everything
-					if (ShapeComponents.Count == 0) {
+					if (ShapeComponents == null/*.Count == 0*/) {
 						Dispose(true);
 					}
 					// but otherwise we can still get rid of the root scene node
@@ -438,23 +455,31 @@ namespace Ponykart.Actors {
 
 			if (disposing) {
 				// dispose all of our components
-				foreach (ModelComponent mc in ModelComponents)
-					mc.Dispose();
-				foreach (ShapeComponent sc in ShapeComponents)
-					sc.Dispose();
-				foreach (RibbonComponent rc in RibbonComponents)
-					rc.Dispose();
-				foreach (BillboardSetComponent bb in BillboardSetComponents)
-					bb.Dispose();
-				foreach (SoundComponent sb in SoundComponents)
-					sb.Dispose();
-
-				// clear our components
-				ModelComponents.Clear();
-				ShapeComponents.Clear();
-				RibbonComponents.Clear();
-				BillboardSetComponents.Clear();
-				SoundComponents.Clear();
+				if (ModelComponents != null) { 
+					foreach (ModelComponent mc in ModelComponents)
+						mc.Dispose();
+					ModelComponents.Clear();
+				}
+				if (ShapeComponents != null) {
+					foreach (ShapeComponent sc in ShapeComponents)
+						sc.Dispose();
+					ShapeComponents.Clear();
+				}
+				if (RibbonComponents != null) {
+					foreach (RibbonComponent rc in RibbonComponents)
+						rc.Dispose();
+					RibbonComponents.Clear();
+				}
+				if (BillboardSetComponents != null) {
+					foreach (BillboardSetComponent bb in BillboardSetComponents)
+						bb.Dispose();
+					BillboardSetComponents.Clear();
+				}
+				if (SoundComponents != null) {
+					foreach (SoundComponent sb in SoundComponents)
+						sb.Dispose();
+					SoundComponents.Clear();
+				}
 			}
 
 			// these are conditional in case we want to dispose stuff in the middle of a level

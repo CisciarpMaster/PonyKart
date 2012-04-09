@@ -17,7 +17,7 @@ namespace Ponykart.Actors {
 	public class Kart : LThing {
 		public int OwnerID { get; set; }
 		protected override MotionState InitializationMotionState {
-			get { return new MogreMotionState(this, SpawnPosition, SpawnOrientation, RootNode); }
+			get { return new KartMotionState(this, SpawnPosition, SpawnOrientation, RootNode); }
 		}
 		private float _maxSpeed;
 		public float MaxSpeed { get { return _maxSpeed; } set { _maxSpeed = value; MaxSpeedSquared = value * value; } }
@@ -90,6 +90,8 @@ namespace Ponykart.Actors {
 		/// After we create our RigidBody, we turn it into a vehicle
 		/// </summary>
 		protected override void PostCreateBody(ThingDefinition def) {
+			kartMotionState = MotionState as KartMotionState;
+
 			Body.CcdMotionThreshold = 0.001f;
 			Body.CcdSweptSphereRadius = 0.04f;
 
@@ -383,6 +385,41 @@ namespace Ponykart.Actors {
 					return WheelBR;
 				default:
 					return null;
+			}
+		}
+
+
+		KartMotionState kartMotionState;
+		/// <summary>
+		/// Gets the kart's actual orientation according to the physics world and not the graphics world.
+		/// </summary>
+		public Quaternion ActualOrientation {
+			get {
+				return kartMotionState.actualOrientation;
+			}
+		}
+		/// <summary>
+		/// Gets the kart's interpolated orientation according to the graphics world and not the physics world.
+		/// </summary>
+		public Quaternion InterpolatedOrientation {
+			get {
+				return RootNode.Orientation;
+			}
+		}
+		/// <summary>
+		/// Gets the kart's actual position according to the physics world and not the graphics world.
+		/// </summary>
+		public Vector3 ActualPosition {
+			get {
+				return kartMotionState.actualPosition;
+			}
+		}
+		/// <summary>
+		/// Gets the kart's interpolated position according to the graphics world and not the physics world.
+		/// </summary>
+		public Vector3 InterpolatedPosition {
+			get {
+				return RootNode.Position;
 			}
 		}
 

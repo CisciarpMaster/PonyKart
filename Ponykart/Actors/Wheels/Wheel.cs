@@ -3,7 +3,6 @@ using BulletSharp;
 using Mogre;
 using Ponykart.Core;
 using Ponykart.Physics;
-using Math = Mogre.Math;
 
 namespace Ponykart.Actors {
 	// might want to make this abstract and make two more classes for front and back wheels
@@ -204,7 +203,7 @@ namespace Ponykart.Actors {
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
-			Node.Orientation = kart.RootNode.Orientation;//kart.Vehicle.GetWheelInfo(IntWheelID).WorldTransform.ExtractQuaternion();
+			Node.Orientation = kart.ActualOrientation;//kart.Vehicle.GetWheelInfo(IntWheelID).WorldTransform.ExtractQuaternion();
 
 			// and then hook up to the event
 			PhysicsMain.PostSimulate += PostSimulate;
@@ -218,8 +217,8 @@ namespace Ponykart.Actors {
 				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
 				if (kart.Body.IsActive && (kart.Vehicle.CurrentSpeedKmHour > 1 || kart.Vehicle.CurrentSpeedKmHour < -1)) {
 					// don't change the kart's orientation when we're drifting
-					if (kart.IsDriftingAtAll || Math.Abs(info.Steering) > Math.Abs(MaxTurnAngle * speedTurnMultiplier)) {
-						Node.Orientation = kart.RootNode.Orientation;
+					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(MaxTurnAngle * speedTurnMultiplier)) {
+						Node.Orientation = kart.ActualOrientation;
 					}
 					else {
 						Node.Orientation = info.WorldTransform.ExtractQuaternion();
@@ -334,7 +333,7 @@ namespace Ponykart.Actors {
 				else {
 					float relativeSpeed = axleSpeed - SlowSpeed;
 					float maxRelativeSpeed = HighSpeed - SlowSpeed;
-					speedTurnMultiplier = 1 + (Math.Cos((relativeSpeed * Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnMultiplier - 1f));
+					speedTurnMultiplier = 1 + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnMultiplier - 1f));
 				}
 			}
 			// no multiplier when we're drifting
@@ -365,7 +364,7 @@ namespace Ponykart.Actors {
 			// smooth out the turning
 
 			if (DriftState == WheelDriftState.None) {
-				if (Math.Abs(targetSteerAngle - IdealSteerAngle) < Math.Abs(currentAngle - IdealSteerAngle))
+				if (System.Math.Abs(targetSteerAngle - IdealSteerAngle) < System.Math.Abs(currentAngle - IdealSteerAngle))
 					// we are not turning any more, so the wheels are moving back to their forward positions
 					steerChange = SteerDecrementTurn * timeSinceLastFrame;
 				else

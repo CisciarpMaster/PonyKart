@@ -127,7 +127,7 @@ namespace Ponykart.Handlers {
 						if (kart.IsInAir)
 							kart.Body.Gravity = gravity;
 						else if (callback.HasHit && callback.CollisionObject.GetCollisionGroup() == PonykartCollisionGroups.Road)
-							kart.Body.Gravity = gravity + (kart.RootNode.GetLocalYAxis() * kartGravity);
+							kart.Body.Gravity = gravity + (kart.ActualOrientation.YAxis/**/ * kartGravity);
 					}
 
 					// if the ray did not hit
@@ -166,8 +166,8 @@ namespace Ponykart.Handlers {
 		/// <returns>The ray result callback</returns>
 		private DynamicsWorld.ClosestRayResultCallback CastRay(Kart kart, float rayLength, DiscreteDynamicsWorld world) {
 			// get a ray pointing downwards from the kart (-Y axis)
-			Vector3 from = kart.RootNode.Position + kart.RootNode.GetLocalYAxis(); // have to move it up a bit
-			Vector3 to = from - kart.RootNode.GetLocalYAxis() * (rayLength + 1); // add 1 to compensate for the "moving up" we did to the "from" vector
+			Vector3 from = kart.ActualPosition + kart.ActualOrientation.YAxis /*kart.RootNode.GetLocalYAxis()*/; // have to move it up a bit
+			Vector3 to = from - kart.ActualOrientation.YAxis/*kart.RootNode.GetLocalYAxis()*/ * (rayLength + 1); // add 1 to compensate for the "moving up" we did to the "from" vector
 
 			// make our ray
 			var callback = new DynamicsWorld.ClosestRayResultCallback(from, to);

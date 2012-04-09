@@ -180,9 +180,8 @@
     <Compile Include="Handlers\UI\MainMenuUIHandler.cs" />
     <Compile Include="Levels\LevelChangeRequest.cs" />
     <Compile Include="Networking\PonykartPacket.cs" />
-    <Compile Include="Networking\UDPPacket.cs" />
-    <Compile Include="Networking\ReliableUDPConnection.cs" />
-    <Compile Include="Players\AITriggerRegionHandler.cs" />
+    <Compile Include="Physics\Motion States\KartMotionState.cs" />
+    <Compile Include="Networking\UDPPacket.cs" />    <Compile Include="Networking\ReliableUDPConnection.cs" />    <Compile Include="Players\AITriggerRegionHandler.cs" />
     <Compile Include="Players\NetworkPlayer.cs" />
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />

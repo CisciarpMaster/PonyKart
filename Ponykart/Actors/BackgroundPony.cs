@@ -100,15 +100,15 @@ namespace Ponykart.Actors {
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 		}
 
-		private readonly Radian _neckYawLimit = new Degree(70f);
-		private readonly Radian _neckPitchLimit = new Degree(60f);
+		private readonly Radian NECK_YAW_LIMIT = new Degree(70f);
+		private readonly Radian NECK_PITCH_LIMIT = new Degree(60f);
 
 		/// <summary>
 		/// Rotate the neck bone to face the kart. Will eventually need to redo this when we have multiple karts, to face whichever's nearest, etc.
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
 			if (!Pauser.IsPaused) {
-				Vector3 lookat = RootNode.ConvertWorldToLocalPosition(followKart.RootNode.Position);
+				Vector3 lookat = RootNode.ConvertWorldToLocalPosition(followKart.ActualPosition);
 				// temp is how much you need to rotate to get from the current orientation to the new orientation
 				// we use -lookat because our bone points towards +Z, whereas this code was originally made for things facing towards -Z
 				Euler temp = neckFacing.GetRotationTo(-lookat, true, true, true);
@@ -118,8 +118,8 @@ namespace Ponykart.Actors {
 				temp.LimitPitch(tempTime);
 
 				neckFacing = neckFacing + temp;
-				neckFacing.LimitYaw(_neckYawLimit);
-				neckFacing.LimitPitch(_neckPitchLimit);
+				neckFacing.LimitYaw(NECK_YAW_LIMIT);
+				neckFacing.LimitPitch(NECK_PITCH_LIMIT);
 				neckbone.Orientation = neckFacing;
 			}
 

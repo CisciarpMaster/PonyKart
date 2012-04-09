@@ -24,7 +24,7 @@ namespace Ponykart.Players {
 
 		void EveryTenth(object o) {
 
-			Vector3 vecToTar = nextWaypoint - Kart.RootNode.Position;
+			Vector3 vecToTar = nextWaypoint - Kart.ActualPosition;
 			// not using Y so set it to 0
 			vecToTar.y = 0;
 
@@ -41,7 +41,7 @@ namespace Ponykart.Players {
 		/// <param name="vecToTar">the next waypoint position - the current kart position</param>
 		/// <returns>A float between -1 and 1, inclusive</returns>
 		private float SteerTowards(Vector3 vecToTar) {
-			Vector3 xaxis = Kart.Body.Orientation.XAxis;
+			Vector3 xaxis = Kart.ActualOrientation.XAxis;
 
 			xaxis.Normalise();
 			vecToTar.Normalise();
@@ -75,7 +75,7 @@ namespace Ponykart.Players {
 				float offset;
 				if (info == null || info.Position == null) {
 					// when we're starting, we'll just use our kart's position for things
-					Vector3 relativePos = nextRegion.Ghost.WorldTransform.InverseAffine() * Kart.RootNode.Position;
+					Vector3 relativePos = nextRegion.Ghost.WorldTransform.InverseAffine() * Kart.ActualPosition;
 					offset = MakeOffset(relativePos, nextRegion);
 				}
 				else {
@@ -84,7 +84,7 @@ namespace Ponykart.Players {
 					offset = MakeOffset(relativePos, enteredRegion);
 				}
 				nextWaypoint = nextRegion.Ghost.WorldTransform * new Vector3(0, 0, offset * nextRegion.Width);
-				nextWaypoint.y = Kart.RootNode.Position.y;
+				nextWaypoint.y = Kart.ActualPosition.y;
 
 				// update the region pointers
 				PreviousRegion = enteredRegion;
