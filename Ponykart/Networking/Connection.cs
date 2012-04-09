@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Ponykart.Handlers;
+using Ponykart.Players;
 
 namespace Ponykart.Networking {
 
@@ -11,31 +12,43 @@ namespace Ponykart.Networking {
 	/// Represents the connection between a client and host across UDP.
 	/// </summary>
 	public class Connection {
-		public Int32 ConnectionID;
-		public byte[] IDArray;
-		public IPEndPoint DestinationEP;
 		private DateTime LastSentTime, LastRecvTime;
-		private UdpClient Sender;
-		private List<Message> Sent;
+        public long ZeroMoment,RemoteOffset;
 		public bool validated;
+        public readonly ReliableUDPConnection UDPConnection;
+        public readonly int Cid;
+        Queue<Message> OutgoingQueue;
+
+        /// <summary>
+        /// Gets the top message on the queue, then removes it (!). 
+        /// Generates an empty message if there are none waiting.
+        /// </summary>
+        public Message TopMessage {
+            get {
+                if (OutgoingQueue.Count > 0) {
+                    return OutgoingQueue.Dequeue();
+                } else {
+                    return new Message(Commands.NoMessage, "", true);
+                }
+            }
+        }
 
 		/// <summary>
 		/// Creates a connection, given a destination to send to and a connection ID.
 		/// </summary>
 		public Connection(UdpClient sender, IPEndPoint destinationep, int cid) {
-			DestinationEP = destinationep;
-			ConnectionID = cid;
-			Sender = sender;
-			IDArray = System.BitConverter.GetBytes(ConnectionID);
-			Sent = new List<Message>();
+            UDPConnection = new ReliableUDPConnection(sender, destinationep, cid, this);
+            OutgoingQueue = new Queue<Message>();
+            Cid = cid;
 		}
 
 		/// <summary>
 		/// Handle the information in a packet received via this connection.
 		/// </summary>
 		/// <param name="packet"></param>
-		public void Handle(Packet packet) {
-			string contents = System.Text.ASCIIEncoding.ASCII.GetString(packet.Contents);
+		public void Handle(PonykartPacket packet) {
+            LastRecvTime = System.DateTime.Now;
+            string contents = packet.StringContents;
 			Launch.Log(string.Format("Received packet type {1}: {0}", contents, packet.Type));
 			NetworkManager nm = LKernel.Get<NetworkManager>();
 			if (!Enum.IsDefined(typeof(Commands), (Commands) packet.Type)) {
@@ -52,11 +65,13 @@ namespace Ponykart.Networking {
 					else {
 						if (nm.Password.SequenceEqual(contents)) {
 							Launch.Log(string.Format("Client provided correct password ({0})", contents));
+                            validated = true;
 							SendPacket((Int16) Commands.ConnectAccept, contents);
 						}
 						else {
 							Launch.Log(string.Format("Client gave bad password: {0} instead of {1}", contents, nm.Password));
 							SendPacket((Int16) Commands.ConnectReject, (string) null);
+                            CloseConnection();
 						}
 					}
 					break;
@@ -70,7 +85,7 @@ namespace Ponykart.Networking {
 #region Pre-game Setup
 				case Commands.SelectLevel:
 					if (nm.NetworkType == NetworkManager.CLIENT) {
-						LKernel.Get<MainMenuMultiplayerHandler>().LevelSelection = BitConverter.ToString(packet.Contents);
+						LKernel.Get<MainMenuMultiplayerHandler>().LevelSelection = packet.StringContents;
 						SendPacket(Commands.LevelAccept, "");
 					}
 					break;
@@ -83,82 +98,35 @@ namespace Ponykart.Networking {
 				case Commands.ServerMessage:
 					Launch.Log(string.Format("Server message: '{0}'", contents));
 					break;
+                case Commands.NoMessage: // Do nothing.
+                    break;
 				default: // Unimplemented packet type
 					Launch.Log(string.Format("Got unimplemented packet type: {0}", packet.Type));
 					break;
 			}
 		}
-
-		/// <summary>
-		/// Creates a packet byte array.
-		/// </summary>
-		private byte[] PacketToBytes(Packet p) {
-			var timeArr = BitConverter.GetBytes(p.Timestamp);
-			var typeArr = BitConverter.GetBytes(p.Type);
-			var packet = new byte[p.Contents.Length + 16];
-			Array.Copy(NetworkManager.Protocol, packet, 4);
-			Array.Copy(IDArray, 0, packet, 4, 4);
-			Array.Copy(typeArr, 0, packet, 8, 2);
-			Array.Copy(timeArr, 2, packet, 10, 6);
-			Array.Copy(p.Contents, 0, packet, 16, p.Contents.Length);
-			return packet;
-		}
-
-		private Packet CreatePacket(Message m) {
-			Packet p = new Packet {
-				CID = BitConverter.ToInt32(IDArray, 0),
-				Contents = m.Contents,
-				Protocol = NetworkManager.Protocol,
-				Timestamp = System.DateTime.Now.Ticks,
-				Type = m.Type
-			};
-			return p;
-		}
-
 		/// <summary>
 		/// Sends a packet down this connection with the given contents and type.
 		/// </summary>
 		/// <param name="type"></param>
 		/// <param name="contents"></param>
 		/// <returns></returns>
-		public bool SendPacket(Int16 type, string contents) {
-			return SendPacket(type, System.Text.ASCIIEncoding.ASCII.GetBytes(contents));
+		public void SendPacket(Int16 type, string contents, bool isVolatile=false) {
+			SendPacket((Commands)type, contents, isVolatile);
 		}
-		public bool SendPacket(Commands type, string contents) {
-			return SendPacket((short) type, System.Text.ASCIIEncoding.ASCII.GetBytes(contents));
+		public void SendPacket(Commands type, string contents, bool isVolatile=false) {
+			SendPacket(type, System.Text.ASCIIEncoding.ASCII.GetBytes(contents),isVolatile);
 		}
-		/// <summary>
-		/// Sends a packet down this connection with the given contents and type.
-		/// </summary>
-		/// <param name="type"></param>
-		/// <param name="contents"></param>
-		/// <returns></returns>
-		public bool SendPacket(Int16 type, byte[] contents) {
-			LastSentTime = System.DateTime.Now;
-			var message = new Message(type, contents, LastSentTime.Ticks);
-			Sent.Add(message);
-			return SendPacket(message);
-		}
+        public void SendPacket(Commands type, byte[] contents, bool isVolatile=false) {
+            LastSentTime = System.DateTime.Now;
+            //var message = new UDPPacket(new PonykartPacket(type, contents, this), UDPConnection);
+            var message = new Message(type, contents, isVolatile);
+            OutgoingQueue.Enqueue(message);
+        }
 
-		public bool SendPacket(Message message) {
-			var packet = PacketToBytes(CreatePacket(message));
-			if (Sender.Send(packet, packet.Length, DestinationEP) == 0) {
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
-		/// <summary>
-		/// Resends any packets that have not received a reply
-		/// </summary>
-		public void ResendPackets() {
-			var unresponded = from message in Sent
-							  where (message.Responded == false)
-							  select message;
-			foreach (var message in unresponded) {
-				SendPacket(message);
-			}
-		}
-	}
+        public void CloseConnection() {
+            UDPConnection.Close();
+            LKernel.Get<NetworkManager>().CloseConnection(this);
+        }
+    }
 }
