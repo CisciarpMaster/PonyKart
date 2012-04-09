@@ -15,7 +15,8 @@ namespace Ponykart.Networking {
         private Dictionary<UInt32,UDPPacket> Sent;
         public UInt32 Ack = 0;
         public UInt32 AckField = 0;
-        private int sequenceNo = 0;
+        int sequenceNo = 0;
+        long LastReceivedTicks = 0;
         Connection Owner;
 
         public ReliableUDPConnection(UdpClient sender, IPEndPoint destinationep, int cid, Connection owner) {
@@ -26,11 +27,18 @@ namespace Ponykart.Networking {
             Owner = owner;
         }
 
+        public void Handle(UDPPacket p) {
+            AddAck(p);
+            ProcessAcks(p.Ack, p.AckField);
+            Owner.Handle(p.Contents);
+        }
+            
         /// <summary>
         /// Adds a packet that has been received to the next ack that will be sent
         /// </summary>
         /// <param name="p"></param>
         void AddAck(UDPPacket p) {
+            LastReceivedTicks = System.DateTime.Now.Ticks;
             if (p.SequenceNo > Ack) {
                 AckField <<= (int)(p.SequenceNo - Ack);
             }
@@ -89,7 +97,9 @@ namespace Ponykart.Networking {
         }
 
         public void Send() {
-            SendPacket(new UDPPacket(Owner.TopMessage.ToPKPacket(Owner),this));
+            var message = new UDPPacket(Owner.TopMessage.ToPKPacket(Owner),this);
+            AddPacket(message);
+            SendPacket(message);
         }
 
         public void Close() {

@@ -183,6 +183,7 @@
     <Compile Include="Networking\UDPPacket.cs" />
     <Compile Include="Networking\ReliableUDPConnection.cs" />
     <Compile Include="Players\AITriggerRegionHandler.cs" />
+    <Compile Include="Players\NetworkPlayer.cs" />
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\KartHandler.cs" />

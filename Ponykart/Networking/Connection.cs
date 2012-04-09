@@ -121,6 +121,7 @@ namespace Ponykart.Networking {
             LastSentTime = System.DateTime.Now;
             //var message = new UDPPacket(new PonykartPacket(type, contents, this), UDPConnection);
             var message = new Message(type, contents, isVolatile);
+            Launch.Log(String.Format("Queued outgoing packet of type {0}", type));
             OutgoingQueue.Enqueue(message);
         }
 

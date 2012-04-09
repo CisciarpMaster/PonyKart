@@ -8,11 +8,11 @@ namespace Ponykart.Networking  {
     /// Represents a UDP Packet - Protocol ID, Connection ID, Sequence Number, acks, and a message.
     /// </summary>
     public class UDPPacket {
-        public byte[] Protocol;
+        public readonly byte[] Protocol;
         public readonly UInt32 CID;
         public readonly UInt32 SequenceNo;
-        UInt32 Ack;
-        UInt32 AckField;
+        public readonly UInt32 Ack;
+        public readonly UInt32 AckField;
         public readonly PonykartPacket Contents;
         public bool Responded;
         /// <summary>

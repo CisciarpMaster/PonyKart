@@ -67,7 +67,7 @@ namespace Ponykart.Handlers {
 			netMgr.InitManager(int.Parse(mmm.NetworkClientPortTextBox.Text),
 							   mmm.NetworkClientPasswordTextBox.Text,
 							   mmm.NetworkClientIPTextBox.Text);
-			netMgr.SingleConnection.SendPacket((short) Commands.Connect, mmm.NetworkClientPasswordTextBox.Text);
+			netMgr.SingleConnection.SendPacket(Commands.Connect, mmm.NetworkClientPasswordTextBox.Text);
 			netMgr.StartThread(1);
 		}
 		/// <summary>
@@ -76,7 +76,7 @@ namespace Ponykart.Handlers {
 		void OnLevelSelect(Button button, MouseButtonEventArgs eventArgs, string levelSelection) {
 			if (LKernel.Get<MainMenuUIHandler>().GameType == GameTypeEnum.NetworkedHost) {
 				this.LevelSelection = levelSelection;
-				netMgr.ForEachConnection(c => c.SendPacket((short) Commands.SelectLevel, levelSelection));
+				netMgr.ForEachConnection(c => c.SendPacket(Commands.SelectLevel, levelSelection));
 			}
 		}
 

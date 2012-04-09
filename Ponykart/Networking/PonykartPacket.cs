@@ -31,7 +31,7 @@ namespace Ponykart.Networking {
 
     public class PonykartPacket {
         Int64 Timestamp;
-        Int16 _Type;
+        Int32 _Type;
         Connection Owner;
         PacketSource Source;
         public bool Volatile = false;
@@ -57,15 +57,15 @@ namespace Ponykart.Networking {
         }
         /// <summary>
         /// Get specific header information from a ponykart packet
-        /// Packet format: TTTTTTTTYYCC....
-        ///                0       8 10
+        /// Packet format: TTTTTTTTYYYYCC....
+        ///                0       8   12
         /// Timestamp, Type, Contents
         /// </summary>
         static Int64 GetTimestamp(byte[] creator) {
             return BitConverter.ToInt64(creator, 0);
         }
-        static Int16 GetPType(byte[] creator) {
-            return BitConverter.ToInt16(creator, 8);
+        static Int32 GetPType(byte[] creator) {
+            return BitConverter.ToInt32(creator, 8);
         }
         /// <summary>
         /// Strips out header information from a packet and returns the contents
@@ -84,8 +84,8 @@ namespace Ponykart.Networking {
             var typeArr = BitConverter.GetBytes(_Type);
             var packet = new byte[Contents.Length + 10];
             Array.Copy(timeArr, 0, packet, 0, 8);
-            Array.Copy(typeArr, 0, packet, 8, 2);
-            Array.Copy(Contents, 0, packet, 10, Contents.Length);
+            Array.Copy(typeArr, 0, packet, 8, 4);
+            Array.Copy(Contents, 0, packet, 12, Contents.Length);
             return packet;
         }
 
@@ -103,7 +103,7 @@ namespace Ponykart.Networking {
         public PonykartPacket(Commands type, byte[] contents, Connection c, bool isVolatile) { // Outgoing
             Contents = contents;
             Timestamp = System.DateTime.Now.Ticks;
-            _Type = (Int16)type;
+            _Type = (Int32)type;
             Owner = c;
             Source = PacketSource.Local;
             Volatile = isVolatile;
@@ -112,7 +112,7 @@ namespace Ponykart.Networking {
         public PonykartPacket(Commands type, string contents, Connection c, bool isVolatile) { // Outgoing
             Contents = System.Text.ASCIIEncoding.ASCII.GetBytes(contents);
             Timestamp = System.DateTime.Now.Ticks;
-            _Type = (Int16)type;
+            _Type = (Int32)type;
             Owner = c;
             Source = PacketSource.Local;
             Volatile = isVolatile;

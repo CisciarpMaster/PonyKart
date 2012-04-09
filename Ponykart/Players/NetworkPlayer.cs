@@ -4,6 +4,6 @@ using System.Linq;
 using System.Text;
 
 namespace Ponykart.Players {
-    public class NetworkPlayer : Player {
-    }
+    //public class NetworkPlayer : Player {
+    //}
 }

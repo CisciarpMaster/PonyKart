@@ -53,7 +53,7 @@ namespace Ponykart.Networking
         public Thread NetworkingThread;
 
         // Speed to send packets at
-        public int PacketsPerSecond;
+        public int PacketsPerSecond = 30;
 
         // Time last packet was sent
         long LastSentTicks;
@@ -108,18 +108,18 @@ namespace Ponykart.Networking
                 if (NetworkType == CLIENT) {
                   //  Launch.Log("Received packet as client");
                     if (p.CID == SingleConnection.UDPConnection.ConnectionID) {
-                        SingleConnection.Handle(p.Contents);
+                        SingleConnection.UDPConnection.Handle(p);
                     }
                 }
                 else if (NetworkType == HOST) {
                   //  Launch.Log("Received packet as host");
                     int id = (int)p.CID;
                     if (Connections.ContainsKey(id)) {
-                        Connections[id].Handle(p.Contents);
+                        Connections[id].UDPConnection.Handle(p);
                     } else if (Connections.Keys.Count < MaxConnections) {
                         Launch.Log("Allowing new connection");
                         Connections.Add(id, new Connection(Listener, new IPEndPoint(ListenEP.Address, ListenEP.Port), id));
-                        Connections[id].Handle(p.Contents);
+                        Connections[id].UDPConnection.Handle(p);
                     }
 
                 }
@@ -163,7 +163,10 @@ namespace Ponykart.Networking
                         Launch.Log("Packet available");
                         OnPacket(Listener.Receive(ref ListenEP));
                     }
+                    Launch.Log(String.Format("Seconds since last: {0}; Ticks: {1}", new TimeSpan(PacketsPerSecond*(System.DateTime.Now.Ticks - LastSentTicks)).Seconds,
+                        PacketsPerSecond * (System.DateTime.Now.Ticks - LastSentTicks)));
                     if (new TimeSpan((System.DateTime.Now.Ticks - LastSentTicks) * PacketsPerSecond).Seconds > 1)  {
+                        LastSentTicks = System.DateTime.Now.Ticks;
                         ForEachUDPConnection(udpc => udpc.Send());
                     }
                     ForEachUDPConnection(udpc => udpc.ResendPackets());
