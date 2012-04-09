@@ -73,5 +73,45 @@
                 </subentities>
             </entity>
         </node>
+		<node name="testlevel_Helix001">
+            <position x="-34.5677" y="0" z="-43.7921" />
+            <scale x="1.5" y="1.5" z="1.5" />
+            <rotation qx="0" qy="-0.707107" qz="3.09086e-008" qw="0.707107" />
+            <entity name="testlevel_Helix001" castShadows="true" receiveShadows="true" meshFile="testlevel_Helix001.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="yellowbrick" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="testlevel_Helix002">
+            <position x="29.437" y="14.31354" z="-35.1889" />
+            <scale x="1.5" y="1.5" z="1.5" />
+            <rotation qx="-0.5" qy="0.5" qz="-0.5" qw="0.5" />
+            <entity name="testlevel_Helix002" castShadows="true" receiveShadows="true" meshFile="testlevel_Helix002.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="redbrick" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="testlevel_Line001">
+            <position x="-37.7314" y="1.62696e-006" z="37.2206" />
+            <scale x="1" y="2.07794" z="2.07794" />
+            <rotation qx="-4.69087e-016" qy="0.32209" qz="-1.4079e-008" qw="0.946709" />
+            <entity name="testlevel_Line001" castShadows="true" receiveShadows="true" meshFile="testlevel_Line001.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="bluebrick" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="testlevel_TorusKnot001">
+            <position x="33.831" y="16.146" z="37.2399" />
+            <scale x="1.5" y="1.5" z="1.5" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="testlevel_TorusKnot001" castShadows="true" receiveShadows="true" meshFile="testlevel_TorusKnot001.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="yellowbrick" />
+                </subentities>
+            </entity>
+        </node>
     </nodes>
 </scene>
