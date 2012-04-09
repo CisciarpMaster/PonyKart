@@ -1,6 +1,7 @@
 ﻿using System;
 using BulletSharp;
 using Mogre;
+using Ponykart.Core;
 using Ponykart.Handlers;
 using Ponykart.Physics;
 using Ponykart.Players;
@@ -11,8 +12,7 @@ namespace Ponykart.Actors {
 	public delegate void KartEvent(Kart kart);
 
 	/// <summary>
-	/// Base class for karts. Eventually this'll be abstract.
-	/// Z is forwards!
+	/// Base class for karts. Z is forwards!
 	/// </summary>
 	public class Kart : LThing {
 		public int OwnerID { get; set; }
@@ -78,12 +78,12 @@ namespace Ponykart.Actors {
 		/// Make some nodes for us to attach wheel particles to
 		/// </summary>
 		protected override void PostInitialiseComponents(ThingBlock template, ThingDefinition def) {
-			Vector3 frontleft = def.GetVectorProperty("frontleftwheelposition", null);
-			Vector3 frontright = def.GetVectorProperty("frontrightwheelposition", null);
-			Vector3 backleft = def.GetVectorProperty("backleftwheelposition", null);
-			Vector3 backright = def.GetVectorProperty("backrightwheelposition", null);
-			LeftParticleNode = RootNode.CreateChildSceneNode(frontleft.MidPoint(backleft));
-			RightParticleNode = RootNode.CreateChildSceneNode(frontright.MidPoint(backright));
+			Vector3 frontleft  = def.GetVectorProperty("FrontLeftWheelPosition",  null);
+			Vector3 frontright = def.GetVectorProperty("FrontRightWheelPosition", null);
+			Vector3 backleft   = def.GetVectorProperty("BackLeftWheelPosition",   null);
+			Vector3 backright  = def.GetVectorProperty("BackRightWheelPosition",  null);
+			LeftParticleNode   = RootNode.CreateChildSceneNode(frontleft.MidPoint(backleft));
+			RightParticleNode  = RootNode.CreateChildSceneNode(frontright.MidPoint(backright));
 		}
 
 		/// <summary>
@@ -103,19 +103,75 @@ namespace Ponykart.Actors {
 			LKernel.GetG<PhysicsMain>().World.AddAction(_vehicle);
 
 			var wheelFac = LKernel.GetG<WheelFactory>();
-			string frontWheelName = def.GetStringProperty("frontwheel", null);
-			string backWheelName = def.GetStringProperty("backwheel", null);
-			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("frontleftwheelposition", null), def.GetStringProperty("FrontLeftWheelMesh", null));
-			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("frontrightwheelposition", null), def.GetStringProperty("FrontRightWheelMesh", null));
-			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("backleftwheelposition", null), def.GetStringProperty("BackLeftWheelMesh", null));
-			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("backrightwheelposition", null), def.GetStringProperty("BackRightWheelMesh", null));
+			string frontWheelName = def.GetStringProperty("FrontWheel", null);
+			string backWheelName = def.GetStringProperty("BackWheel", null);
+			WheelFL = wheelFac.CreateWheel(frontWheelName, WheelID.FrontLeft, this, def.GetVectorProperty("FrontLeftWheelPosition", null), def.GetStringProperty("FrontLeftWheelMesh", null));
+			WheelFR = wheelFac.CreateWheel(frontWheelName, WheelID.FrontRight, this, def.GetVectorProperty("FrontRightWheelPosition", null), def.GetStringProperty("FrontRightWheelMesh", null));
+			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("BackLeftWheelPosition", null), def.GetStringProperty("BackLeftWheelMesh", null));
+			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("BackRightWheelPosition", null), def.GetStringProperty("BackRightWheelMesh", null));
 
 			LeftParticleNode.Position -= new Vector3(0, WheelBL.Radius * 0.7f, 0);
 			RightParticleNode.Position -= new Vector3(0, WheelBR.Radius * 0.7f, 0);
 			
 			Body.LinearVelocity = new Vector3(0, 1, 0);
+
+			PhysicsMain.FinaliseBeforeSimulation += FinaliseBeforeSimulation;
+			RaceCountdown.OnCountdown += OnCountdown;
 		}
 
+		// ---------------------------------------------------------------------------
+
+		bool _canDisableKarts = false;
+		/// <summary>
+		/// limit the wheels' speed!
+		/// </summary>
+		void FinaliseBeforeSimulation(DiscreteDynamicsWorld world, FrameEvent evt) {
+			float currentSpeed = _vehicle.CurrentSpeedKmHour;
+			bool isDriftingAtAll = IsDriftingAtAll;
+			bool isInAir = IsInAir;
+
+			// going forwards
+			// using 20 because we don't need to check the kart's linear velocity if it's going really slowly
+			if ((currentSpeed > 20 && !isInAir && !isDriftingAtAll)
+				|| currentSpeed < -20 && isDriftingAtAll
+				|| currentSpeed > 20 && isDriftingAtAll) {
+				// check its velocity against the max velocity (both are squared to avoid unnecessary square roots)
+				if (Body.LinearVelocity.SquaredLength > MaxSpeedSquared) {
+					Vector3 vec = Body.LinearVelocity;
+					vec.Normalise();
+					vec *= _maxSpeed;
+					Body.LinearVelocity = vec;
+				}
+			}
+			// going in reverse, so we want to limit the speed even more
+			else if (currentSpeed < -20 && !isInAir && !isDriftingAtAll) {
+				if (Body.LinearVelocity.SquaredLength > MaxReverseSpeedSquared) {
+					Vector3 vec = Body.LinearVelocity;
+					vec.Normalise();
+					vec *= _maxReverseSpeed;
+					Body.LinearVelocity = vec;
+				}
+			}
+			else if (currentSpeed < 5 && currentSpeed > -5 && !isInAir) {
+				if (_canDisableKarts && _accelerate == 0 && _turnMultiplier == 0) {
+					Body.ForceActivationState(ActivationState.WantsDeactivation);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Give it a second or two to get the wheels in the right positions before we can deactivate the karts when they're stopped
+		/// </summary>
+		void OnCountdown(RaceCountdownState state) {
+			if (state == RaceCountdownState.Two) {
+				_canDisableKarts = true;
+
+				RaceCountdown.OnCountdown -= OnCountdown;
+			}
+		}
+
+
+#region drifting
 		/// <summary>
 		/// Start drifting in a certain direction
 		/// </summary>
@@ -230,10 +286,10 @@ namespace Ponykart.Actors {
 			if (OnFinishDrifting != null)
 				OnFinishDrifting(this);
 		}
+#endregion
 
 
-
-		#region Properties
+#region Properties
 		private float _friction;
 		/// <summary>
 		/// Sets the friction of the wheels
@@ -347,8 +403,9 @@ namespace Ponykart.Actors {
 					|| DriftState == KartDriftState.StopLeft || DriftState == KartDriftState.StopRight;
 			}
 		}
-		#endregion
+#endregion
 
+#region helpers
 		/// <summary>
 		/// A little helper method since we do stuff to all four wheels so often
 		/// </summary>
@@ -387,8 +444,9 @@ namespace Ponykart.Actors {
 					return null;
 			}
 		}
+#endregion
 
-
+#region properties for actual and interpolated position and orientation
 		KartMotionState kartMotionState;
 		/// <summary>
 		/// Gets the kart's actual orientation according to the physics world and not the graphics world.
@@ -422,10 +480,13 @@ namespace Ponykart.Actors {
 				return RootNode.Position;
 			}
 		}
+#endregion
 
 		protected override void Dispose(bool disposing) {
 			if (IsDisposed)
 				return;
+
+			PhysicsMain.FinaliseBeforeSimulation -= FinaliseBeforeSimulation;
 
 			if (disposing) {
 				// then we have to dispose of all of the wheels

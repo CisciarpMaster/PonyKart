@@ -163,7 +163,6 @@
     <Compile Include="Handlers\CameraCreator.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
     <Compile Include="Handlers\Helpers\Rotater.cs" />
-    <Compile Include="Handlers\Karts\KartSpeedLimiterHandler.cs" />
     <Compile Include="Handlers\Helpers\Nlerper.cs" />
     <Compile Include="Handlers\Karts\PomfHandler.cs" />
     <Compile Include="Handlers\MainMenuSinglePlayerHandler.cs" />
@@ -181,7 +180,9 @@
     <Compile Include="Levels\LevelChangeRequest.cs" />
     <Compile Include="Networking\PonykartPacket.cs" />
     <Compile Include="Physics\Motion States\KartMotionState.cs" />
-    <Compile Include="Networking\UDPPacket.cs" />    <Compile Include="Networking\ReliableUDPConnection.cs" />    <Compile Include="Players\AITriggerRegionHandler.cs" />
+    <Compile Include="Networking\UDPPacket.cs" />
+    <Compile Include="Networking\ReliableUDPConnection.cs" />
+    <Compile Include="Players\AITriggerRegionHandler.cs" />
     <Compile Include="Players\NetworkPlayer.cs" />
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />

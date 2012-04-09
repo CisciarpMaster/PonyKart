@@ -6,8 +6,8 @@ namespace Ponykart.Physics {
 		private Kart kart;
 
 		/// <param name="thing">The connected lthing, used for updating sounds. You can pass null to skip updating sounds.</param>
-		public KartMotionState(Kart kart, Vector3 position, Quaternion orientation, SceneNode node) :
-			base(kart, position, orientation, node)
+		public KartMotionState(Kart kart, Vector3 position, Quaternion orientation, SceneNode node)
+			: base(kart, position, orientation, node)
 		{
 			transform = new Matrix4(orientation);
 			transform.MakeTransform(position, Vector3.UNIT_SCALE, orientation);

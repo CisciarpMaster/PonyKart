@@ -215,7 +215,7 @@ namespace Ponykart.Actors {
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
-				if (kart.Body.IsActive && (kart.Vehicle.CurrentSpeedKmHour > 1 || kart.Vehicle.CurrentSpeedKmHour < -1)) {
+				if (kart.Body.IsActive && (kart.VehicleSpeed > 1 || kart.VehicleSpeed < -1)) {
 					// don't change the kart's orientation when we're drifting
 					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(MaxTurnAngle * speedTurnMultiplier)) {
 						Node.Orientation = kart.ActualOrientation;

@@ -49,7 +49,7 @@ AccelMultiplier: {12}
 Gravity: {13}
 KartDriftState: {14} , WheelDriftState: {15}
 Player Pos: {16} X, {17} Y, {18} Z",
-						kart.Vehicle.CurrentSpeedKmHour,
+						kart.VehicleSpeed,
 						Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(0)), Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(1)),
 						Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(2)), Math.RadiansToDegrees(kart.Vehicle.GetSteeringValue(3)),
 						kart.Body.LinearVelocity.Length, kart.Body.LinearVelocity,
@@ -59,7 +59,7 @@ Player Pos: {16} X, {17} Y, {18} Z",
 						kart.Acceleration,
 						kart.Body.Gravity,
 						kart.DriftState, kart.WheelFL.DriftState,
-                        mainPlayer.NodePosition.x, mainPlayer.NodePosition.y, mainPlayer.NodePosition.z);
+						mainPlayer.NodePosition.x, mainPlayer.NodePosition.y, mainPlayer.NodePosition.z);
 				}
 			}
 			elapsed += evt.timeSinceLastFrame;

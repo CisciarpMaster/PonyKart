@@ -2,7 +2,6 @@
 [AJKartFrontWheel]
 
 Radius = 0.1871
-#0.081
 Width = 0.14960
 SuspensionRestLength = 0.06
 
@@ -14,7 +13,7 @@ RollInfluence = 0.01
 
 BrakeForce = 20
 MotorForce = 450
-TurnAngle = 10
+TurnAngle = 5.5
 
 SlowSpeed = 12
 HighSpeed = 32
@@ -27,19 +26,18 @@ SteerDecrementTurn = 1
 [AJKartBackWheel]
 
 Radius = 0.1871
-#0.081
 Width = 0.348
 SuspensionRestLength = 0.06
 
 SpringStiffness = 400
 SpringCompression = 4.2
 SpringDamping = 100
-FrictionSlip = 2000
+FrictionSlip = 1000
 RollInfluence = 0.01
 
 BrakeForce = 20
 MotorForce = 450
-TurnAngle = 10
+TurnAngle = 5.5
 
 SlowSpeed = 12
 HighSpeed = 32

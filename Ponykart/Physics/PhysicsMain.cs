@@ -29,6 +29,11 @@ namespace Ponykart.Physics {
 		/// Is invoked right after the physics world is simulated.
 		/// </summary>
 		public static event PhysicsSimulateEvent PostSimulate;
+		/// <summary>
+		/// Is invoked just after PreSimulate but just before the physics world is simulated.
+		/// You should use this as a last "get everything ready" point before we simulate.
+		/// </summary>
+		public static event PhysicsSimulateEvent FinaliseBeforeSimulation;
 
 		public static event ContactAdded ContactAdded;
 
@@ -89,6 +94,9 @@ namespace Ponykart.Physics {
 			// run the events that go just before we simulate
 			if (PreSimulate != null)
 				PreSimulate(world, evt);
+
+			if (FinaliseBeforeSimulation != null)
+				FinaliseBeforeSimulation(world, evt);
 
 			world.StepSimulation(SlowMo ? evt.timeSinceLastFrame / 10f : evt.timeSinceLastFrame, _maxSubsteps, _fixedTimestep);
 

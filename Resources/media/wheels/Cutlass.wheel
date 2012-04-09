@@ -27,7 +27,7 @@ SteerDecrementTurn = 1
 
 Radius = 0.1696
 Width = 0.348
-SuspensionRestLength = 0.04
+SuspensionRestLength = 0.06
 
 SpringStiffness = 400
 SpringCompression = 4.2
