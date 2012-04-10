@@ -10,8 +10,8 @@ namespace Ponykart.Actors {
 		public SceneNode Node { get; protected set; }
 		public Entity Entity { get; protected set; }
 
-		#region properties
-		#region readonly properties
+#region properties
+#region readonly properties
 		/// <summary>
 		/// The radius of the wheel
 		/// </summary>
@@ -92,7 +92,7 @@ namespace Ponykart.Actors {
 		/// (RADIANS) how much to decrement the wheel's angle by, each frame
 		/// </summary>
 		protected readonly float SteerDecrementTurn;
-		#endregion
+#endregion
 
 		/// <summary>
 		/// Lets us keep track of which wheel this is on the kart
@@ -135,7 +135,7 @@ namespace Ponykart.Actors {
 
 		readonly Kart kart;
 		readonly RaycastVehicle vehicle;
-		#endregion
+#endregion
 
 		/// <summary>
 		/// This should only be used by the WheelFactory
@@ -224,6 +224,10 @@ namespace Ponykart.Actors {
 						Node.Orientation = info.WorldTransform.ExtractQuaternion();
 					}
 				}
+				else {
+					// TODO: fix it so wheels aren't spinning when we're stopped, but they can still move left and right
+					Node.Orientation = info.WorldTransform.ExtractQuaternion();
+				}
 
 				// the wheel sorta "comes off" when it's moving quickly in the air, so we only need to update the translation then
 				if (!kart.IsInAir) {
@@ -286,8 +290,8 @@ namespace Ponykart.Actors {
 				// handbrake
 				if (AccelerateMultiplier == 0 && (speed > -2 && speed < 2)) {
 					// the point of this is to lock the wheels in place so we don't move when we're stopped
-					vehicle.SetBrake(BrakeForce * 100, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction * 100;
+					vehicle.SetBrake(10000, IntWheelID);
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = 10000;
 				}
 				// normal brake
 				else if ((AccelerateMultiplier > 0 && speed < -2) || (AccelerateMultiplier < 0 && speed > 2)) {

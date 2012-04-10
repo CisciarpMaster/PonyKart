@@ -37,7 +37,7 @@ namespace Ponykart.Physics {
 
 			if (!Shapes.TryGetValue(filename, out shape)) {
 				// check to see if the .bullet file exists
-				if (File.Exists(Settings.Default.BulletFileLocation + filename)) {
+				if (File.Exists(Settings.Default.BulletFileLocation + Path.GetFileNameWithoutExtension(filename) + ".bullet")) {
 					// if it does not, import it (make sure we get rid of the extension first)
 					shape = ImportCollisionShape(Path.GetFileNameWithoutExtension(filename));
 				}

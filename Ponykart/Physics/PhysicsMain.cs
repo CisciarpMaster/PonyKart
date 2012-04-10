@@ -168,7 +168,7 @@ namespace Ponykart.Physics {
 
 					CollisionShape shape;
 
-					string bulletFilePath = Settings.Default.BulletFileLocation + dslNode.Name + ".bullet";
+					string bulletFilePath = dslNode.Name + ".bullet";
 
 					shape = LKernel.GetG<CollisionShapeManager>().GetShapeFromFile(bulletFilePath, dslEnt, dslNode);
 
