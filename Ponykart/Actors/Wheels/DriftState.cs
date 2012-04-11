@@ -1,5 +1,4 @@
-﻿
-namespace Ponykart.Actors {
+﻿namespace Ponykart.Actors {
 	/// <summary>
 	/// Lets us keep track of whether we're drifting or not, and if we are, which direction we're drifting in
 	/// </summary>
@@ -41,6 +40,26 @@ namespace Ponykart.Actors {
 		/// You should unset this flag once you know the desired direction.
 		/// </summary>
 		WantsDriftingButNotTurning,
+	}
+
+	public static class KartDriftStateExtensions {
+		public static bool IsFullDrift(this KartDriftState kds) {
+			return kds == KartDriftState.FullLeft || kds == KartDriftState.FullRight;
+		}
+
+		public static bool IsStartDrift(this KartDriftState kds) {
+			return kds == KartDriftState.StartLeft || kds == KartDriftState.StartRight;
+		}
+
+		public static bool IsStopDrift(this KartDriftState kds) {
+			return kds == KartDriftState.StopLeft || kds == KartDriftState.StopRight;
+		}
+
+		public static bool IsDriftingAtAll(this KartDriftState kds) {
+			return kds == KartDriftState.FullLeft || kds == KartDriftState.FullRight
+				|| kds == KartDriftState.StartLeft || kds == KartDriftState.StartRight
+				|| kds == KartDriftState.StopLeft || kds == KartDriftState.StopRight;
+		}
 	}
 
 	/// <summary>

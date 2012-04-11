@@ -64,7 +64,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int NumberOfPlayers {
             get {
                 return ((int)(this["NumberOfPlayers"]));
@@ -76,7 +76,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-18")]
         public float Gravity {
             get {
                 return ((float)(this["Gravity"]));

@@ -1,0 +1,79 @@
+<scene formatVersion="1.0" upAxis="y" unitsPerMeter="39.3701" minOgreVersion="1.7" ogreMaxVersion="2.4.1" author="OgreMax Scene Exporter (www.ogremax.com)" application="3DS Max">
+    <environment>
+        <colourAmbient r="0.333333" g="0.333333" b="0.333333" />
+        <colourBackground r="0" g="0" b="0" />
+        <clipping near="0" far="100000" />
+    </environment>
+    <nodes>
+        <node name="Section 2">
+            <position x="71.561" y="165.578" z="-4.90937" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
+            <entity name="Section 2" castShadows="true" receiveShadows="true" meshFile="Section 2.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Barn_Area" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Plane006">
+            <position x="-225.891" y="53.7604" z="398.565" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
+            <entity name="Plane006" castShadows="true" receiveShadows="true" meshFile="Plane006.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Field" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object004">
+            <position x="-225.891" y="53.7604" z="398.565" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
+            <entity name="Object004" castShadows="true" receiveShadows="true" meshFile="Object004.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Road" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Plane03">
+            <position x="-42.7039" y="73.3584" z="-73.4401" />
+            <scale x="0.2" y="0.2" z="0.2" />
+            <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
+            <entity name="Plane03" castShadows="true" receiveShadows="true" meshFile="Plane03.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Cliff" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="default">
+            <position x="104.955" y="142.081" z="-18.0677" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="default" castShadows="true" receiveShadows="true" meshFile="default.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="road">
+            <position x="104.955" y="142.081" z="-18.0677" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="road" castShadows="true" receiveShadows="true" meshFile="road.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Road" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="bridge">
+            <position x="104.955" y="142.081" z="-18.0677" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="bridge" castShadows="true" receiveShadows="true" meshFile="bridge.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Bridge" />
+                </subentities>
+            </entity>
+        </node>
+    </nodes>
+</scene>

@@ -12,13 +12,15 @@ FrictionSlip = 1000
 RollInfluence = 0.01
 
 BrakeForce = 20
-MotorForce = 450
+MotorForce = 500
 TurnAngle = 5.5
 
 SlowSpeed = 12
 HighSpeed = 32
-SlowTurnMultiplier = 3
-DriftingTurnMultiplier = 0.8
+SlowTurnAngleMultiplier = 3
+SlowTurnSpeedMultiplier = 3
+DriftingTurnAngle = 5
+DriftingTurnSpeed = 0.6
 SteerIncrementTurn = 0.4
 SteerDecrementTurn = 1
 
@@ -36,12 +38,14 @@ FrictionSlip = 1000
 RollInfluence = 0.01
 
 BrakeForce = 20
-MotorForce = 450
+MotorForce = 500
 TurnAngle = 5.5
 
 SlowSpeed = 12
 HighSpeed = 32
-SlowTurnMultiplier = 3
-DriftingTurnMultiplier = 0.8
+SlowTurnAngleMultiplier = 3
+SlowTurnSpeedMultiplier = 3
+DriftingTurnAngle = 5
+DriftingTurnSpeed = 0.6
 SteerIncrementTurn = 0.4
 SteerDecrementTurn = 1

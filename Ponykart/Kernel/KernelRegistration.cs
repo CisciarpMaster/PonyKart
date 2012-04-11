@@ -73,9 +73,9 @@ namespace Ponykart {
 			AddGlobalObject(new Spawner());
 			AddGlobalObject(new AnimationManager());
 
-            // networking
-            splash.Increment("Creating Network manager...");
-            AddGlobalObject(new NetworkManager());
+			// networking
+			splash.Increment("Creating Network manager...");
+			AddGlobalObject(new NetworkManager());
 
 			// Miyagi and stuff
 			splash.Increment("Initialising Miyagi...");
@@ -98,6 +98,7 @@ namespace Ponykart {
 			splash.Increment("Spawning players...");
 			AddGlobalObject(new PlayerManager());
 			AddGlobalObject(new RaceCountdown());
+			AddGlobalObject(new LThingHelperManager());
 
 			// more mogre stuff
 			splash.Increment("Setting up static and instanced geometry managers...");

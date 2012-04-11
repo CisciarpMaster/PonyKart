@@ -8,19 +8,21 @@ SuspensionRestLength = 0.06
 SpringStiffness = 400
 SpringCompression = 4.2
 SpringDamping = 100
-FrictionSlip = 1000
+FrictionSlip = 30
 RollInfluence = 0.01
 
-BrakeForce = 20
-MotorForce = 450
-TurnAngle = 5.5
+BrakeForce = 30
+MotorForce = 500
+TurnAngle = 3
 
-SlowSpeed = 12
-HighSpeed = 32
-SlowTurnMultiplier = 3
-DriftingTurnMultiplier = 0.8
-SteerIncrementTurn = 0.4
-SteerDecrementTurn = 1
+SlowSpeed = 20
+HighSpeed = 50
+SlowTurnAngleMultiplier = 5
+SlowTurnSpeedMultiplier = 3
+DriftingTurnAngle = 3
+DriftingTurnSpeed = 0.6
+SteerIncrementTurn = 0.2
+SteerDecrementTurn = 0.8
 
 
 [CutlassBackWheel]
@@ -32,16 +34,18 @@ SuspensionRestLength = 0.06
 SpringStiffness = 400
 SpringCompression = 4.2
 SpringDamping = 100
-FrictionSlip = 1000
+FrictionSlip = 30
 RollInfluence = 0.01
 
-BrakeForce = 20
-MotorForce = 450
-TurnAngle = 5.5
+BrakeForce = 30
+MotorForce = 500
+TurnAngle = 3
 
-SlowSpeed = 12
-HighSpeed = 32
-SlowTurnMultiplier = 3
-DriftingTurnMultiplier = 0.8
-SteerIncrementTurn = 0.4
-SteerDecrementTurn = 1
+SlowSpeed = 20
+HighSpeed = 50
+SlowTurnAngleMultiplier = 5
+SlowTurnSpeedMultiplier = 3
+DriftingTurnAngle = 3
+DriftingTurnSpeed = 0.6
+SteerIncrementTurn = 0.2
+SteerDecrementTurn = 0.8

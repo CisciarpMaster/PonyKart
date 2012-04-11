@@ -2,7 +2,6 @@
 using BulletSharp;
 using Mogre;
 using Ponykart.Core;
-using Ponykart.Handlers;
 using Ponykart.Physics;
 using Ponykart.Players;
 using PonykartParsers;
@@ -58,11 +57,15 @@ namespace Ponykart.Actors {
 		public RaycastVehicle.VehicleTuning Tuning { get; protected set; }
 		protected VehicleRaycaster Raycaster;
 
+		private LThingHelperManager helperMgr;
+
 
 		public static event KartEvent OnStartDrifting, OnDrifting, OnStopDrifting, OnFinishDrifting;
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
+			helperMgr = LKernel.GetG<LThingHelperManager>();
+
 			InitialMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 12f);
 			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 4f);
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
@@ -162,34 +165,35 @@ namespace Ponykart.Actors {
 		/// </summary>
 		void FinaliseBeforeSimulation(DiscreteDynamicsWorld world, FrameEvent evt) {
 			float currentSpeed = _vehicle.CurrentSpeedKmHour;
-			bool isDriftingAtAll = IsDriftingAtAll;
-			bool isInAir = IsInAir;
+			bool isDriftingAtAll = DriftState.IsDriftingAtAll();
 
-			// going forwards
-			// using 20 because we don't need to check the kart's linear velocity if it's going really slowly
-			if ((currentSpeed > 20 && !isInAir && !isDriftingAtAll)
-				|| currentSpeed < -20 && isDriftingAtAll
-				|| currentSpeed > 20 && isDriftingAtAll) {
-				// check its velocity against the max velocity (both are squared to avoid unnecessary square roots)
-				if (Body.LinearVelocity.SquaredLength > MaxSpeedSquared) {
-					Vector3 vec = Body.LinearVelocity;
-					vec.Normalise();
-					vec *= _maxSpeed;
-					Body.LinearVelocity = vec;
+			if (!IsInAir) {
+				// going forwards
+				// using 20 because we don't need to check the kart's linear velocity if it's going really slowly
+				if ((currentSpeed > 20f && !isDriftingAtAll)
+					|| currentSpeed < -20f && isDriftingAtAll
+					|| currentSpeed > 20f && isDriftingAtAll) {
+					// check its velocity against the max velocity (both are squared to avoid unnecessary square roots)
+					if (Body.LinearVelocity.SquaredLength > MaxSpeedSquared) {
+						Vector3 vec = Body.LinearVelocity;
+						vec.Normalise();
+						vec *= _maxSpeed;
+						Body.LinearVelocity = vec;
+					}
 				}
-			}
-			// going in reverse, so we want to limit the speed even more
-			else if (currentSpeed < -20 && !isInAir && !isDriftingAtAll) {
-				if (Body.LinearVelocity.SquaredLength > MaxReverseSpeedSquared) {
-					Vector3 vec = Body.LinearVelocity;
-					vec.Normalise();
-					vec *= _maxReverseSpeed;
-					Body.LinearVelocity = vec;
+				// going in reverse, so we want to limit the speed even more
+				else if (currentSpeed < -20f && !isDriftingAtAll) {
+					if (Body.LinearVelocity.SquaredLength > MaxReverseSpeedSquared) {
+						Vector3 vec = Body.LinearVelocity;
+						vec.Normalise();
+						vec *= _maxReverseSpeed;
+						Body.LinearVelocity = vec;
+					}
 				}
-			}
-			else if (currentSpeed < 4 && currentSpeed > -4 && !isInAir) {
-				if (_canDisableKarts && _accelerate == 0) {
-					Body.ForceActivationState(ActivationState.WantsDeactivation);
+				else if (currentSpeed < 4f && currentSpeed > -4f) {
+					if (_canDisableKarts && _accelerate == 0f) {
+						Body.ForceActivationState(ActivationState.WantsDeactivation);
+					}
 				}
 			}
 		}
@@ -213,14 +217,18 @@ namespace Ponykart.Actors {
 		/// <param name="state">This must be either StartDriftLeft or StartDriftRight</param>
 		public void StartDrifting(KartDriftState state) {
 			// first check to make sure we weren't passed an incorrect argument
-			if (!(KartDriftState.StartLeft | KartDriftState.StartRight).HasFlag(state))
+			if (!state.IsStartDrift())
 				throw new ArgumentException("You must pass either StartDriftLeft or StartDriftRight!", "state");
 
-			if (_vehicle.CurrentSpeedKmHour < 20 || IsDriftingAtAll)
+			if (_vehicle.CurrentSpeedKmHour < 20f || DriftState.IsDriftingAtAll())
 				return;
 
 			// update our state
 			DriftState = state;
+
+			Body.LinearVelocity += new Vector3(0, 3, 0);
+
+			ForEachWheel(StartDrifting_WheelFunction);
 
 			if (OnStartDrifting != null)
 				OnStartDrifting(this);
@@ -236,49 +244,47 @@ namespace Ponykart.Actors {
 			if (OnDrifting != null)
 				OnDrifting(this);
 
-			if (DriftState == KartDriftState.FullLeft) {
-				new Rotater<Kart>(this, 0.3f, -_halfFrontDriftAngle, RotaterAxisMode.RelativeY);
-			}
-			else if (DriftState == KartDriftState.FullRight) {
-				new Rotater<Kart>(this, 0.3f, _halfFrontDriftAngle, RotaterAxisMode.RelativeY);
-			}
+			
+		}
 
-			ForEachWheel(w => {
-				// left
-				if (this.DriftState == KartDriftState.FullLeft) {
-					w.DriftState = WheelDriftState.Left;
+		/// <summary>
+		/// Put this in a separate function so we can edit it at runtime, since VS doesn't like us trying to edit anonymous functions
+		/// </summary>
+		private void StartDrifting_WheelFunction(Wheel w) {
+			// left
+			if (this.DriftState == KartDriftState.StartLeft) {
+				w.DriftState = WheelDriftState.Left;
 
-					// change the back wheels' angles
-					if (w.ID == WheelID.FrontRight || w.ID == WheelID.BackRight) {
-						w.IdealSteerAngle = BackDriftAngle;
-						_vehicle.SetSteeringValue(BackDriftAngle, w.IntWheelID);
-						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
-					}
-					// change the front wheels' angles
-					else {
-						w.IdealSteerAngle = FrontDriftAngle;
-						_vehicle.SetSteeringValue(FrontDriftAngle, w.IntWheelID);
-						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
-					}
+				// change the back wheels' angles
+				if (w.ID == WheelID.FrontRight || w.ID == WheelID.BackRight) {
+					w.IdealSteerAngle = BackDriftAngle;
+					_vehicle.SetSteeringValue(BackDriftAngle, w.IntWheelID);
+					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
 				}
-				// right
-				else if (this.DriftState == KartDriftState.FullRight) {
-					w.DriftState = WheelDriftState.Right;
-
-					// change the back wheels' angles
-					if (w.ID == WheelID.FrontLeft || w.ID == WheelID.BackLeft) {
-						w.IdealSteerAngle = -BackDriftAngle;
-						_vehicle.SetSteeringValue(-BackDriftAngle, w.IntWheelID);
-						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
-					}
-					// change the front wheels' angles
-					else {
-						w.IdealSteerAngle = -FrontDriftAngle;
-						_vehicle.SetSteeringValue(-FrontDriftAngle, w.IntWheelID);
-						_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
-					}
+				// change the front wheels' angles
+				else {
+					w.IdealSteerAngle = FrontDriftAngle;
+					_vehicle.SetSteeringValue(FrontDriftAngle, w.IntWheelID);
+					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 				}
-			});
+			}
+			// right
+			else if (this.DriftState == KartDriftState.StartRight) {
+				w.DriftState = WheelDriftState.Right;
+
+				// change the back wheels' angles
+				if (w.ID == WheelID.FrontLeft || w.ID == WheelID.BackLeft) {
+					w.IdealSteerAngle = -BackDriftAngle;
+					_vehicle.SetSteeringValue(-BackDriftAngle, w.IntWheelID);
+					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
+				}
+				// change the front wheels' angles
+				else {
+					w.IdealSteerAngle = -FrontDriftAngle;
+					_vehicle.SetSteeringValue(-FrontDriftAngle, w.IntWheelID);
+					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
+				}
+			}
 		}
 
 		/// <summary>
@@ -291,28 +297,28 @@ namespace Ponykart.Actors {
 			else if (DriftState == KartDriftState.FullRight || DriftState == KartDriftState.StartRight)
 				DriftState = KartDriftState.StopRight;
 
+			// make the wheels back to normal
+			ForEachWheel(StopDrifting_WheelFunction);
+
 			// eeeeeveeeeeent
 			if (OnStopDrifting != null)
 				OnStopDrifting(this);
+		}
 
-			// make the wheels back to normal
-			ForEachWheel(w => {
-				w.DriftState = WheelDriftState.None;
-				w.IdealSteerAngle = 0;
+		/// <summary>
+		/// Put this in a separate function so we can edit it at runtime, since VS doesn't like us trying to edit anonymous functions
+		/// </summary>
+		private void StopDrifting_WheelFunction(Wheel w) {
+			w.DriftState = WheelDriftState.None;
+			w.IdealSteerAngle = 0f;
 
-				if (w.ID == WheelID.FrontRight || w.ID == WheelID.FrontLeft) {
-					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
-				}
-				else {
-					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
-					_vehicle.ApplyEngineForce(0, w.IntWheelID);
-				}
-			});
-
-			_vehicle.GetWheelInfo((int) WheelID.FrontLeft).IsFrontWheel = true;
-			_vehicle.GetWheelInfo((int) WheelID.FrontRight).IsFrontWheel = true;
-			_vehicle.GetWheelInfo((int) WheelID.BackLeft).IsFrontWheel = false;
-			_vehicle.GetWheelInfo((int) WheelID.BackRight).IsFrontWheel = false;
+			if (w.ID == WheelID.FrontRight || w.ID == WheelID.FrontLeft) {
+				_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
+			}
+			else {
+				_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
+				//_vehicle.ApplyEngineForce(0f, w.IntWheelID);
+			}
 		}
 
 		public void FinishDrifting() {
@@ -351,7 +357,7 @@ namespace Ponykart.Actors {
 				return _accelerate;
 			}
 			set {
-				if (value != 0)
+				if (value != 0f)
 					Body.Activate();
 				this._accelerate = value;
 
@@ -375,14 +381,14 @@ namespace Ponykart.Actors {
 				return _turnMultiplier;
 			}
 			set {
-				if (IsCompletelyDrifting) {
-					if (this._turnMultiplier - value < 0) {
-						new Rotater<Kart>(this, 0.3f, _turnMultiplierPositiveDriftDegree, RotaterAxisMode.RelativeY);
+				/*if (IsCompletelyDrifting) {
+					if (this._turnMultiplier - value < 0f) {
+						helperMgr.CreateRotater(this, 0.3f, _turnMultiplierPositiveDriftDegree, RotaterAxisMode.RelativeY);
 					}
-					else if (this._turnMultiplier - value > 0) {
-						new Rotater<Kart>(this, 0.3f, _turnMultiplierNegativeDriftDegree, RotaterAxisMode.RelativeY);
+					else if (this._turnMultiplier - value > 0f) {
+						helperMgr.CreateRotater(this, 0.3f, _turnMultiplierNegativeDriftDegree, RotaterAxisMode.RelativeY);
 					}
-				}
+				}*/
 
 				this._turnMultiplier = value;
 
@@ -406,7 +412,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsCompletelyDrifting {
 			get {
-				return DriftState == KartDriftState.FullLeft || DriftState == KartDriftState.FullRight;
+				return DriftState.IsFullDrift();
 			}
 		}
 
@@ -415,7 +421,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsStartingDrifting {
 			get {
-				return DriftState == KartDriftState.StartLeft || DriftState == KartDriftState.StartRight;
+				return DriftState.IsStartDrift();
 			}
 		}
 
@@ -424,7 +430,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsStoppingDrifting {
 			get {
-				return DriftState == KartDriftState.StopLeft || DriftState == KartDriftState.StopRight;
+				return DriftState.IsStopDrift();
 			}
 		}
 
@@ -433,9 +439,7 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public bool IsDriftingAtAll {
 			get {
-				return DriftState == KartDriftState.FullLeft || DriftState == KartDriftState.FullRight
-					|| DriftState == KartDriftState.StartLeft || DriftState == KartDriftState.StartRight
-					|| DriftState == KartDriftState.StopLeft || DriftState == KartDriftState.StopRight;
+				return DriftState.IsDriftingAtAll();
 			}
 		}
 #endregion
@@ -476,12 +480,13 @@ namespace Ponykart.Actors {
 				case WheelID.BackRight:
 					return WheelBR;
 				default:
-					return null;
+					throw new ArgumentOutOfRangeException("wid", "Invalid wheel ID number!");
 			}
 		}
 #endregion
 
-#region properties for actual and interpolated position and orientation
+#region Properties for actual and interpolated position and orientation
+
 		KartMotionState kartMotionState;
 		/// <summary>
 		/// Gets the kart's actual orientation according to the physics world and not the graphics world.

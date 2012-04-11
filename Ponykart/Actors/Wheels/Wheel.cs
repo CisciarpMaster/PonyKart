@@ -79,11 +79,19 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// how much should the wheel's turn angle increase by at slow speeds?
 		/// </summary>
-		protected readonly float SlowTurnMultiplier;
+		protected readonly float SlowTurnAngleMultiplier;
 		/// <summary>
-		/// how much should the wheel's turn angle increase by when drifting?
+		/// how much should the wheel's rotation speed increase by at slow speeds?
 		/// </summary>
-		protected readonly float DriftingTurnMultiplier;
+		protected readonly float SlowTurnSpeedMultiplier;
+		/// <summary>
+		/// how much should the wheel's turn anglebe when drifting?
+		/// </summary>
+		protected readonly float DriftingTurnAngle;
+		/// <summary>
+		/// (RADIANS) how much to increment the wheel's angle by, each frame, when drifting
+		/// </summary>
+		protected readonly float DriftingTurnSpeed;
 		/// <summary>
 		/// (RADIANS) how much to increment the wheel's angle by, each frame
 		/// </summary>
@@ -165,8 +173,10 @@ namespace Ponykart.Actors {
 			MaxTurnAngle = new Degree(dict["TurnAngle"]).ValueRadians;
 			SlowSpeed = dict["SlowSpeed"];
 			HighSpeed = dict["HighSpeed"];
-			SlowTurnMultiplier = dict["SlowTurnMultiplier"];
-			DriftingTurnMultiplier = dict["DriftingTurnMultiplier"];
+			SlowTurnAngleMultiplier = dict["SlowTurnAngleMultiplier"];
+			SlowTurnSpeedMultiplier = dict["SlowTurnSpeedMultiplier"];
+			DriftingTurnAngle = new Degree(dict["DriftingTurnAngle"]).ValueRadians;
+			DriftingTurnSpeed = new Degree(dict["DriftingTurnSpeed"]).ValueRadians;
 			SteerIncrementTurn = new Degree(dict["SteerIncrementTurn"]).ValueRadians;
 			SteerDecrementTurn = new Degree(dict["SteerDecrementTurn"]).ValueRadians;
 
@@ -215,9 +225,9 @@ namespace Ponykart.Actors {
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
-				if (kart.Body.IsActive && (kart.VehicleSpeed > 1 || kart.VehicleSpeed < -1)) {
+				if (kart.Body.IsActive && (kart.VehicleSpeed > 1f || kart.VehicleSpeed < -1f)) {
 					// don't change the kart's orientation when we're drifting
-					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(MaxTurnAngle * speedTurnMultiplier)) {
+					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(MaxTurnAngle * CalculateTurnAngleMultiplier())) {
 						Node.Orientation = kart.ActualOrientation;
 					}
 					else {
@@ -250,18 +260,18 @@ namespace Ponykart.Actors {
 		protected void Accelerate() {
 			float speed = vehicle.CurrentSpeedKmHour;
 			// if we are trying to accelerate in the opposite direction that we're moving, then brake
-			if ((AccelerateMultiplier > 0 && speed < -2) || (AccelerateMultiplier < 0 && speed > 2))
+			if ((AccelerateMultiplier > 0f && speed < -2f) || (AccelerateMultiplier < 0f && speed > 2f))
 			{
 				IsBrakeOn = true;
 			}
 			// if we're mostly stopped and we aren't trying to accelerate, then brake
-			else if (AccelerateMultiplier == 0 && (speed > -2 || speed < 2))
+			else if (AccelerateMultiplier == 0f && (speed > -2f || speed < 2f))
 			{
 				IsBrakeOn = true;
 			}
 			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
-			else if ((AccelerateMultiplier > 0 && speed > -2) || (AccelerateMultiplier < 0 && speed < 2)) {
-				float _motorForce = 0;
+			else if ((AccelerateMultiplier > 0f && speed > -2f) || (AccelerateMultiplier < 0f && speed < 2f)) {
+				float _motorForce = 0f;
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
 				if (DriftState == WheelDriftState.None) {
@@ -288,13 +298,13 @@ namespace Ponykart.Actors {
 			if (IsBrakeOn) {
 				float speed = vehicle.CurrentSpeedKmHour;
 				// handbrake
-				if (AccelerateMultiplier == 0 && (speed > -2 && speed < 2)) {
+				if (AccelerateMultiplier == 0f && (speed > -2f && speed < 2f)) {
 					// the point of this is to lock the wheels in place so we don't move when we're stopped
-					vehicle.SetBrake(10000, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = 10000;
+					vehicle.SetBrake(10000f, IntWheelID);
+					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = 10000f;
 				}
 				// normal brake
-				else if ((AccelerateMultiplier > 0 && speed < -2) || (AccelerateMultiplier < 0 && speed > 2)) {
+				else if ((AccelerateMultiplier > 0f && speed < -2f) || (AccelerateMultiplier < 0f && speed > 2f)) {
 					// brake to apply when we're changing direction
 					vehicle.SetBrake(BrakeForce, IntWheelID);
 					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
@@ -307,77 +317,152 @@ namespace Ponykart.Actors {
 				}
 			}
 			else {
-				vehicle.SetBrake(0, IntWheelID);
+				vehicle.SetBrake(0f, IntWheelID);
 				vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
 			}
 		}
 
-		// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
-		float speedTurnMultiplier;
+		// ---------------------------------------------------------
+
+		/// <summary>
+		/// Calculates the turning multipliers, based on our current speed and drift state.
+		/// </summary>
+		protected void CalculateTurnMultipliers(out float turnAngleMultiplier, out float turnSpeedMultiplier) {
+			float axleSpeed = vehicle.CurrentSpeedKmHour;
+
+			if (DriftState == WheelDriftState.None) {
+				// less than the slow speed = extra turn multiplier
+				if (axleSpeed < SlowSpeed) {
+					turnAngleMultiplier = SlowTurnAngleMultiplier;
+					turnSpeedMultiplier = SlowTurnSpeedMultiplier;
+				}
+				// more than the high speed = no extra multiplier
+				else if (axleSpeed > HighSpeed) {
+					turnAngleMultiplier = 1f;
+					turnSpeedMultiplier = 1f;
+				}
+				// somewhere in between = time for a cosine curve!
+				else {
+					float relativeSpeed = axleSpeed - SlowSpeed;
+					float maxRelativeSpeed = HighSpeed - SlowSpeed;
+					turnAngleMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnAngleMultiplier - 1f));
+					turnSpeedMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnSpeedMultiplier - 1f));
+				}
+			}
+			// no multiplier when we're drifting
+			else {
+				turnAngleMultiplier = 1;
+				turnSpeedMultiplier = 1;
+			}
+		}
+
+		/// <summary>
+		/// Same as CalculateTurnMultipliers(), but only does the Angle part.
+		/// </summary>
+		public float CalculateTurnAngleMultiplier() {
+			float axleSpeed = vehicle.CurrentSpeedKmHour;
+
+			if (DriftState == WheelDriftState.None) {
+				// less than the slow speed = extra turn multiplier
+				if (axleSpeed < SlowSpeed) {
+					return SlowTurnAngleMultiplier;
+				}
+				// more than the high speed = no extra multiplier
+				else if (axleSpeed > HighSpeed) {
+					return 1f;
+				}
+				// somewhere in between = time for a cosine curve!
+				else {
+					float relativeSpeed = axleSpeed - SlowSpeed;
+					float maxRelativeSpeed = HighSpeed - SlowSpeed;
+					return 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnAngleMultiplier - 1f));
+				}
+			}
+			// no multiplier when we're drifting
+			else {
+				return 1f;
+			}
+		}
+
+		/// <summary>
+		/// Calculates the angle the wheel should try to be at (in radians).
+		/// Use this one if you don't know what the turnAngleMultiplier is.
+		/// </summary>
+		/// <returns>Radians</returns>
+		public float CalculateTurnAngle() {
+			return CalculateTurnAngle(CalculateTurnAngleMultiplier());
+		}
+
+
+		/// <summary>
+		/// Calculates the angle the wheel should try to be at (in radians).
+		/// Use this one if you already know what the turnAngleMultiplier is.
+		/// </summary>
+		/// <param name="turnAngleMultiplier"></param>
+		/// <returns>Radians</returns>
+		public float CalculateTurnAngle(float turnAngleMultiplier) {
+			bool isFrontWheel = vehicle.GetWheelInfo(IntWheelID).IsFrontWheel;
+			if (DriftState == WheelDriftState.None && (ID == WheelID.FrontLeft || ID == WheelID.FrontRight)) {
+				// front wheels, no drift
+				// calculate what angle the wheels should try to be at
+				return (MaxTurnAngle * TurnMultiplier * turnAngleMultiplier) + IdealSteerAngle;
+			}
+			else if ((DriftState == WheelDriftState.Left && (ID == WheelID.FrontLeft || ID == WheelID.BackLeft))
+				 || (DriftState == WheelDriftState.Right && (ID == WheelID.FrontRight || ID == WheelID.BackRight))) {
+				// "front" wheels, yes drift
+				return (DriftingTurnAngle * TurnMultiplier) + IdealSteerAngle;
+			}
+			else {
+				// back wheels
+				return IdealSteerAngle;
+			}
+		}
+
+		/// <summary>
+		/// now we have to figure out how much we have to change by.
+		/// smooth out the turning
+		/// </summary>
+		protected float CalculateSteerChange(float targetSteerAngle, float speedTurnSpeedMultiplier, float currentAngle, float timestep) {
+			if (DriftState == WheelDriftState.None) {
+				if (kart.DriftState.IsStopDrift()) {
+					return 0.0174532925f * SlowTurnAngleMultiplier * timestep;
+				}
+				else if (System.Math.Abs(targetSteerAngle - IdealSteerAngle) < System.Math.Abs(currentAngle - IdealSteerAngle)) {
+					// we are not turning any more, so the wheels are moving back to their forward positions
+					return SteerDecrementTurn * speedTurnSpeedMultiplier * timestep;
+				}
+				else {
+					// we are turning, so the wheels are moving to their turned positions
+					return SteerIncrementTurn * speedTurnSpeedMultiplier * timestep;
+				}
+			}
+			else {
+				return DriftingTurnSpeed * timestep;
+			}
+		}
+
 
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
 		protected void Turn(float timeSinceLastFrame) {
-			
-			timeSinceLastFrame *= 100;
-
 			// first we figure out what our maximum turn angle is depending on kart speed
 			float axleSpeed = vehicle.CurrentSpeedKmHour;
+			float speedTurnSpeedMultiplier;
+			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
+			float speedTurnAngleMultiplier;
 
-
-			if (DriftState == WheelDriftState.None) {
-				// less than the slow speed = extra turn multiplier
-				if (axleSpeed < SlowSpeed)
-					speedTurnMultiplier = SlowTurnMultiplier;
-				// more than the high speed = no extra multiplier
-				else if (axleSpeed > HighSpeed)
-					speedTurnMultiplier = 1;
-				// somewhere in between = time for a cosine curve!
-				else {
-					float relativeSpeed = axleSpeed - SlowSpeed;
-					float maxRelativeSpeed = HighSpeed - SlowSpeed;
-					speedTurnMultiplier = 1 + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnMultiplier - 1f));
-				}
-			}
-			// no multiplier when we're drifting
-			else {
-				speedTurnMultiplier = DriftingTurnMultiplier;
-			}
-
+			CalculateTurnMultipliers(out speedTurnAngleMultiplier, out speedTurnSpeedMultiplier);
 
 			// pick whether the wheel can turn or not depending on whether it's drifting
 			// only "front" wheels turn!
-			float _turnAngle = 0;
+			float targetSteerAngle = CalculateTurnAngle(speedTurnAngleMultiplier);
 
-			if ((DriftState == WheelDriftState.None && (ID == WheelID.FrontLeft || ID == WheelID.FrontRight))
-				|| (DriftState == WheelDriftState.Left && (ID == WheelID.FrontLeft || ID == WheelID.BackLeft))
-				|| (DriftState == WheelDriftState.Right && (ID == WheelID.FrontRight || ID == WheelID.BackRight)))
-			{
-				_turnAngle = MaxTurnAngle;
-			}
-
-
-			// okay so now we know what angle the wheel should try to be at
-			float targetSteerAngle = (_turnAngle * TurnMultiplier * speedTurnMultiplier) + IdealSteerAngle;
 
 			float currentAngle = vehicle.GetSteeringValue(IntWheelID);
-			float steerChange;
-
 			// now we have to figure out how much we have to change by
 			// smooth out the turning
-
-			if (DriftState == WheelDriftState.None) {
-				if (System.Math.Abs(targetSteerAngle - IdealSteerAngle) < System.Math.Abs(currentAngle - IdealSteerAngle))
-					// we are not turning any more, so the wheels are moving back to their forward positions
-					steerChange = SteerDecrementTurn * timeSinceLastFrame;
-				else
-					// we are turning, so the wheels are moving to their turned positions
-					steerChange = SteerIncrementTurn * timeSinceLastFrame;
-			}
-			else {
-				steerChange = SteerIncrementTurn * timeSinceLastFrame;
-			}
+			float steerChange = CalculateSteerChange(targetSteerAngle, speedTurnSpeedMultiplier, currentAngle, timeSinceLastFrame * 100f);
 
 
 			// turn the wheels! All of the logic here makes sure that we don't turn further than the wheel can turn,

@@ -25,14 +25,6 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		public ConcurrentDictionary<Kart, SelfRighter> SelfRighters { get; private set; }
 		/// <summary>
-		/// Dictionary of our nlerpers
-		/// </summary>
-		public ConcurrentDictionary<Kart, Nlerper<Kart>> Nlerpers { get; private set; }
-		/// <summary>
-		/// Dictionary of our skidders
-		/// </summary>
-		public ConcurrentDictionary<Kart, Skidder> Skidders { get; private set; }
-		/// <summary>
 		/// What is the kart currently driving on?
 		/// </summary>
 		public ConcurrentDictionary<Kart, CollisionObject> CurrentlyDrivingOn { get; private set; }
@@ -62,12 +54,14 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		public static event KartGroundEvent OnGroundChanged;
 
+		private LThingHelperManager helperMgr;
+
 #region Settings
 		private readonly float raycastTime = 0.05f,
 							   longRayLength = 0.8f,
 							   shortRayLength = 0.35f,//0.24f,
 							   kartGravity = Settings.Default.KartGravity,
-							   skidderDuration = 0.7f;
+							   skidderDuration = 0.5f;
 		private readonly bool kartGravityEnabled = true,
 							  useNlerpers = true,
 							  useSkidders = true,
@@ -77,6 +71,8 @@ namespace Ponykart.Handlers {
 
 
 		public KartHandler() {
+			helperMgr = LKernel.GetG<LThingHelperManager>();
+
 			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
 		}
@@ -87,8 +83,6 @@ namespace Ponykart.Handlers {
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
 				SelfRighters = new ConcurrentDictionary<Kart, SelfRighter>();
-				Nlerpers = new ConcurrentDictionary<Kart, Nlerper<Kart>>();
-				Skidders = new ConcurrentDictionary<Kart, Skidder>();
 				CurrentlyDrivingOn = new ConcurrentDictionary<Kart, CollisionObject>();
 
 				PhysicsMain.PreSimulate += PreSimulate;
@@ -227,21 +221,13 @@ namespace Ponykart.Handlers {
 
 			// if we have a nlerper, get rid of it
 			if (useNlerpers) {
-				Nlerper<Kart> n;
-				if (Nlerpers.TryGetValue(kart, out n)) {
-					n.Detach();
-					Nlerpers.TryRemove(kart, out n);
-				}
+				helperMgr.RemoveNlerper(kart);
 			}
 
 			// add a skidder!
 			if (useSkidders) {
-				Skidder s;
-				if (Skidders.TryGetValue(kart, out s)) {
-					s.Detach();
-					Skidders.TryRemove(kart, out s);
-				}
-				Skidders[kart] = new Skidder(kart, skidderDuration);
+				helperMgr.RemoveSkidder(kart);
+				helperMgr.CreateSkidder(kart, skidderDuration);
 			}
 
 			// align the kart just to make sure
@@ -287,21 +273,18 @@ namespace Ponykart.Handlers {
 				return;
 
 			// don't bother if they're already within 1 degree of each other
-			if (kart.Body.Orientation.YAxis.DirectionEquals(callback.HitNormalWorld, 0.01745f))
+			if (kart.ActualOrientation.YAxis.DirectionEquals(callback.HitNormalWorld, 0.01745f))
 				return;
 
 			// get the rotation we need to do to rotate this kart to the ground's normal
-			Quaternion rotTo = kart.Body.Orientation.YAxis.GetRotationTo(callback.HitNormalWorld);
+			Quaternion rotTo = kart.ActualOrientation.YAxis.GetRotationTo(callback.HitNormalWorld);
 			// rotTo * old orientation is the same as rotate(rotTo) on SceneNodes, but since this isn't a scene node we have to do it this way
-			Quaternion newOrientation = rotTo * kart.Body.Orientation;
+			Quaternion newOrientation = rotTo * kart.ActualOrientation;
 
 			if (useNlerp && useNlerpers) {
 				// if we already have a nlerper, get rid of it
-				Nlerper<Kart> n;
-				if (Nlerpers.TryGetValue(kart, out n)) {
-					n.Detach();
-				}
-				Nlerpers[kart] = new Nlerper<Kart>(kart, duration, newOrientation);
+				helperMgr.RemoveNlerper(kart);
+				helperMgr.CreateNlerper(kart, duration, newOrientation);
 			}
 			else {
 				// update our body
@@ -321,18 +304,6 @@ namespace Ponykart.Handlers {
 					h.Detach();
 				}
 				SelfRighters.Clear();
-
-				// same for these
-				foreach (Nlerper<Kart> n in Nlerpers.Values) {
-					n.Detach();
-				}
-				Nlerpers.Clear();
-
-				// and these
-				foreach (Skidder s in Skidders.Values) {
-					s.Detach();
-				}
-				Skidders.Clear();
 			}
 		}
 	}

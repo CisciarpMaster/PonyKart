@@ -59,6 +59,9 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_U:
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity += new Vector3(0, 4, 0);
 					break;
+				case KeyCode.KC_R:
+					LKernel.GetG<LThingHelperManager>().CreateRotater(LKernel.GetG<PlayerManager>().MainPlayer.Kart, 0.25f, new Degree(90), RotaterAxisMode.RelativeY);
+					break;
 				case KeyCode.KC_F:
 					LKernel.GetG<PlayerManager>().MainPlayer.Body.LinearVelocity *= 2f;
 					break;

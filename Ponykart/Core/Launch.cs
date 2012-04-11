@@ -110,7 +110,9 @@ namespace Ponykart {
 		/// <param name="message">The message to log</param>
 		[DebuggerHidden]
 		public static void Log(string message) {
+#if DEBUG
 			Debug.WriteLine(message);
+#endif
 			if (LogManager.Singleton != null)
 				LogManager.Singleton.LogMessage(message);
 		}
