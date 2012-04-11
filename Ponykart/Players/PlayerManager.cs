@@ -2,6 +2,7 @@
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Properties;
+using System;
 
 namespace Ponykart.Players {
 	public delegate void PlayerEvent();
@@ -41,8 +42,12 @@ namespace Ponykart.Players {
 				Players = new Player[Settings.Default.NumberOfPlayers];
 
 				eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
-
-				MainPlayer = new HumanPlayer(eventArgs, 0);
+				if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
+					MainPlayer = new HumanPlayer(eventArgs, 0);
+				else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))
+					MainPlayer = new WiiMotePlayer(eventArgs, 0);
+				else
+					throw new Exception("Illegal Controller type - " + Options.Get("Controller"));
 				Players[0] = MainPlayer;
 
 				for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
