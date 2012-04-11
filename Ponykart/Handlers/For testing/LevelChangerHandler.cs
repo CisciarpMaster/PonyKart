@@ -29,6 +29,8 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_3:
 					s = "SweetAppleAcres"; break;
 				case KeyCode.KC_4:
+					s = "WhitetailWoods"; break;
+				case KeyCode.KC_5:
 					s = "TestAI"; break;
 			}
 			if (!string.IsNullOrEmpty(s)) {

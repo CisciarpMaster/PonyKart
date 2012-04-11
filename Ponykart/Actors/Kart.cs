@@ -45,12 +45,12 @@ namespace Ponykart.Actors {
 		public SceneNode LeftParticleNode { get; private set; }
 		public SceneNode RightParticleNode { get; private set; }
 
-		/// <summary> RADIANS </summary>
+		/// <summary> (RADIANS) The angle of the "front" wheels during drifting </summary>
 		public readonly float FrontDriftAngle;
-		/// <summary> RADIANS </summary>
+		/// <summary> (RADIANS) The angle of the "back" wheels during drifting </summary>
 		public readonly float BackDriftAngle;
-		/// <summary> RADIANS </summary>
-		public readonly float _halfFrontDriftAngle;
+		/// <summary> (RADIANS) The angle the kart "jumps" through when starting drifting </summary>
+		public readonly Radian DriftTransitionAngle;
 
 		protected RaycastVehicle _vehicle;
 		public RaycastVehicle Vehicle { get { return _vehicle; } }
@@ -64,15 +64,17 @@ namespace Ponykart.Actors {
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
-			InitialMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 12f);
+			InitialMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 18f);
 			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 4f);
+
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
 			MaxReverseSpeedSquared = MaxReverseSpeed * MaxReverseSpeed;
+
 			IsInAir = false;
 
-			FrontDriftAngle = new Degree(def.GetFloatProperty("FrontDriftAngle", 86)).ValueRadians;
-			BackDriftAngle = new Degree(def.GetFloatProperty("BackDriftAngle", 89)).ValueRadians;
-			_halfFrontDriftAngle = FrontDriftAngle / 2f;
+			FrontDriftAngle = new Degree(def.GetFloatProperty("FrontDriftAngle", 46)).ValueRadians;
+			BackDriftAngle = new Degree(def.GetFloatProperty("BackDriftAngle", 55)).ValueRadians;
+			DriftTransitionAngle = new Degree(def.GetFloatProperty("DriftTransitionAngle", 40));
 		}
 
 		/// <summary>

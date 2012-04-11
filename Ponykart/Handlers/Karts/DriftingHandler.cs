@@ -93,21 +93,21 @@ namespace Ponykart.Handlers {
 		/// <returns>A quaternion representing the new orientation you want the kart to be when the nlerper's done.</returns>
 		private Quaternion makeNewOrientation(Kart kart, StartOrStopState state) {
 			// make the angle we need to rotate the kart by
-			float angle;
+			Radian angle;
 			if ((state == StartOrStopState.StartDrifting && kart.DriftState == KartDriftState.StartLeft)
 				|| (state == StartOrStopState.StopDrifting && kart.DriftState == KartDriftState.StopRight))
 			{
-				angle = -kart._halfFrontDriftAngle;
+				angle = -kart.DriftTransitionAngle;
 			}
 			else if ((state == StartOrStopState.StartDrifting && kart.DriftState == KartDriftState.StartRight)
 				|| (state == StartOrStopState.StopDrifting && kart.DriftState == KartDriftState.StopLeft))
 			{
-				angle = kart._halfFrontDriftAngle;
+				angle = kart.DriftTransitionAngle;
 			}
 			else
 				throw new ApplicationException("How did we get here?");
 
-			Quaternion rot = new Quaternion(new Radian(angle * 1.75f), kart.ActualOrientation.YAxis);
+			Quaternion rot = new Quaternion(angle, kart.ActualOrientation.YAxis);
 			Quaternion newOrientation = kart.ActualOrientation * rot;
 
 			return newOrientation;

@@ -21,7 +21,7 @@ SlowTurnAngleMultiplier = 5
 SlowTurnSpeedMultiplier = 3
 DriftingTurnAngle = 3
 DriftingTurnSpeed = 0.6
-SteerIncrementTurn = 0.2
+SteerIncrementTurn = 0.3
 SteerDecrementTurn = 0.8
 
 
@@ -47,5 +47,5 @@ SlowTurnAngleMultiplier = 5
 SlowTurnSpeedMultiplier = 3
 DriftingTurnAngle = 3
 DriftingTurnSpeed = 0.6
-SteerIncrementTurn = 0.2
+SteerIncrementTurn = 0.3
 SteerDecrementTurn = 0.8
