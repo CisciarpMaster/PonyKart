@@ -57,15 +57,13 @@ namespace Ponykart.Actors {
 		public RaycastVehicle.VehicleTuning Tuning { get; protected set; }
 		protected VehicleRaycaster Raycaster;
 
-		private LThingHelperManager helperMgr;
+		private readonly LThingHelperManager helperMgr = LKernel.GetG<LThingHelperManager>();
 
 
 		public static event KartEvent OnStartDrifting, OnDrifting, OnStopDrifting, OnFinishDrifting;
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
-			helperMgr = LKernel.GetG<LThingHelperManager>();
-
 			InitialMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 12f);
 			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 4f);
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;

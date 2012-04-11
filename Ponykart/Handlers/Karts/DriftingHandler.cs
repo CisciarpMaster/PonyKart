@@ -15,11 +15,10 @@ namespace Ponykart.Handlers {
 		/// Need to keep track of which nlerpers are ours and which ones we're using
 		/// </summary>
 		IList<Nlerper> startNlerpers, stopNlerpers;
-		LThingHelperManager helperMgr;
+		readonly LThingHelperManager helperMgr = LKernel.GetG<LThingHelperManager>();
 
 
 		public DriftingHandler() {
-			helperMgr = LKernel.GetG<LThingHelperManager>();
 
 			startNlerpers = new List<Nlerper>();
 			stopNlerpers = new List<Nlerper>();
