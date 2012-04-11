@@ -41,8 +41,8 @@ namespace Ponykart.Handlers {
 		/// This helps "set up" the drifting - rotates the kart appropriately and lowers the friction while doing so.
 		/// </summary>
 		void OnStartDrifting(Kart kart) {
-			startNlerpers.Add(helperMgr.CreateNlerper(kart, 0.3f, makeNewOrientation(kart, StartOrStopState.StartDrifting)));
-			helperMgr.CreateSkidder(kart, 0.4f);
+			startNlerpers.Add(helperMgr.CreateNlerper(kart, 0.2f, makeNewOrientation(kart, StartOrStopState.StartDrifting)));
+			helperMgr.CreateSkidder(kart, 0.5f);
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace Ponykart.Handlers {
 				int index = startNlerpers.IndexOf(nlerper);
 				if (index != -1) {
 					// okay so that means we need to start actually drifting now!
-					kart.ForEachWheel(w => w.Friction = w.FrictionSlip);
+					//kart.ForEachWheel(w => w.Friction = w.FrictionSlip);
 					kart.StartActuallyDrifting();
 					// remove it
 					startNlerpers.RemoveAt(index);
@@ -68,7 +68,7 @@ namespace Ponykart.Handlers {
 					index = stopNlerpers.IndexOf(nlerper);
 					if (index != -1) {
 						// now we need to finish up
-						kart.ForEachWheel(w => w.Friction = w.FrictionSlip);
+						//kart.ForEachWheel(w => w.Friction = w.FrictionSlip);
 						kart.FinishDrifting();
 						// remove it
 						stopNlerpers.RemoveAt(index);
@@ -82,7 +82,7 @@ namespace Ponykart.Handlers {
 		/// </summary>
 		void OnStopDrifting(Kart kart) {
 			// making it nlerp without actually changing its orientation is a way of "locking" its orientation for a duration
-			stopNlerpers.Add(helperMgr.CreateNlerper(kart, 0.3f, kart.ActualOrientation));
+			stopNlerpers.Add(helperMgr.CreateNlerper(kart, 0.25f, kart.ActualOrientation /*makeNewOrientation(kart, StartOrStopState.StopDrifting)*/));
 			helperMgr.CreateSkidder(kart, 0.4f);
 		}
 

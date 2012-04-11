@@ -20,9 +20,9 @@ FrontRightWheelPosition = -0.330206, 0.0856, 0.430362
 BackLeftWheelPosition = 0.333536, 0.1016, -0.36976
 BackRightWheelPosition = -0.333536, 0.1016, -0.36976
 
-FrontDriftAngle = 46 //40 //35 //53
+FrontDriftAngle = 44 //40 //35 //53
 BackDriftAngle = 55 //48 //45 //60
-DriftTransitionAngle = 40.25
+DriftTransitionAngle = 50 //40.25
 
 Model {
 	Mesh = "CutlassSteeringWheel.mesh"

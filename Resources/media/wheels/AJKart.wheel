@@ -19,9 +19,9 @@ SlowSpeed = 20
 HighSpeed = 50
 SlowTurnAngleMultiplier = 5
 SlowTurnSpeedMultiplier = 3
-DriftingTurnAngle = 3
+DriftingTurnAngle = 4
 DriftingTurnSpeed = 0.6
-SteerIncrementTurn = 0.2
+SteerIncrementTurn = 0.3
 SteerDecrementTurn = 0.8
 
 
@@ -45,7 +45,7 @@ SlowSpeed = 20
 HighSpeed = 50
 SlowTurnAngleMultiplier = 5
 SlowTurnSpeedMultiplier = 3
-DriftingTurnAngle = 3
+DriftingTurnAngle = 4
 DriftingTurnSpeed = 0.6
-SteerIncrementTurn = 0.2
+SteerIncrementTurn = 0.3
 SteerDecrementTurn = 0.8

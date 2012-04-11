@@ -213,7 +213,7 @@ namespace Ponykart.Actors {
 			Node.AttachObject(Entity);
 			Node.InheritOrientation = false;
 
-			Node.Orientation = kart.ActualOrientation;//kart.Vehicle.GetWheelInfo(IntWheelID).WorldTransform.ExtractQuaternion();
+			Node.Orientation = kart.ActualOrientation;
 
 			// and then hook up to the event
 			PhysicsMain.PostSimulate += PostSimulate;
@@ -351,8 +351,8 @@ namespace Ponykart.Actors {
 			}
 			// no multiplier when we're drifting
 			else {
-				turnAngleMultiplier = 1;
-				turnSpeedMultiplier = 1;
+				turnAngleMultiplier = 1f;
+				turnSpeedMultiplier = 1f;
 			}
 		}
 
@@ -418,6 +418,9 @@ namespace Ponykart.Actors {
 			}
 		}
 
+		const float STOP_DRIFT_STEER_CHANGE = 0.0104719755f /*(0.6 degrees)*/ * 0.5f * 5f /*(slow turn angle multiplier)*/;
+		const float START_DRIFT_STEER_CHANGE = 0.0104719755f /*(0.6 degrees)*/ * 3f * 5f /*(slow turn angle multiplier)*/;
+
 		/// <summary>
 		/// now we have to figure out how much we have to change by.
 		/// smooth out the turning
@@ -425,7 +428,7 @@ namespace Ponykart.Actors {
 		protected float CalculateSteerChange(float targetSteerAngle, float speedTurnSpeedMultiplier, float currentAngle, float timestep) {
 			if (DriftState == WheelDriftState.None) {
 				if (kart.DriftState.IsStopDrift()) {
-					return 0.0174532925f * SlowTurnAngleMultiplier * timestep;
+					return STOP_DRIFT_STEER_CHANGE * timestep;
 				}
 				else if (System.Math.Abs(targetSteerAngle - IdealSteerAngle) < System.Math.Abs(currentAngle - IdealSteerAngle)) {
 					// we are not turning any more, so the wheels are moving back to their forward positions
@@ -437,6 +440,9 @@ namespace Ponykart.Actors {
 				}
 			}
 			else {
+				if (kart.DriftState.IsStartDrift()) {
+					return START_DRIFT_STEER_CHANGE * timestep;
+				}
 				return DriftingTurnSpeed * timestep;
 			}
 		}

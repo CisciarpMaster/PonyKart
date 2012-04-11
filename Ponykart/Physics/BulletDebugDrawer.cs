@@ -56,7 +56,8 @@ namespace Ponykart.Physics {
 			triangles.End();
 			begin = false;
 
-			DebugMode = DebugDrawModes.DrawWireframe | /*DebugDrawModes.DrawAabb |*/ DebugDrawModes.FastWireframe;
+			DebugMode = DebugDrawModes.DrawWireframe | /*DebugDrawModes.DrawAabb |*/ DebugDrawModes.FastWireframe
+				| DebugDrawModes.EnableCCD | DebugDrawModes.DrawNormals;
 
 			levelMgr = LKernel.GetG<LevelManager>();
 			mainPlayerKartNode = LKernel.GetG<PlayerManager>().MainPlayer.Kart.RootNode;
@@ -133,7 +134,7 @@ namespace Ponykart.Physics {
 			if (!begin || DrawCondition(from))
 				return;
 
-			colour = new ColourValue(1, 1, 1, 0.3f);
+			colour = new ColourValue(1f, 1f, 1f, 0.3f);
 
 			// I'm sure there's a better way of doing this
 			Vector3 loo = new Vector3(to.x, from.y, from.z);
@@ -180,11 +181,85 @@ namespace Ponykart.Physics {
 		}
 
 		public void DrawBox(Vector3 bbMin, Vector3 bbMax, Matrix4 trans, ColourValue colour) {
-			
+			Vector3 origin = trans.GetTrans();
+			if (DrawCondition(origin))
+				return;
+
+			Vector3 loo = trans * new Vector3(bbMin.x, bbMax.y, bbMax.z);
+			Vector3 olo = trans * new Vector3(bbMax.x, bbMin.y, bbMax.z);
+			Vector3 ool = trans * new Vector3(bbMax.x, bbMax.y, bbMin.z);
+			Vector3 llo = trans * new Vector3(bbMin.x, bbMin.y, bbMax.z);
+			Vector3 lol = trans * new Vector3(bbMin.x, bbMax.y, bbMin.z);
+			Vector3 oll = trans * new Vector3(bbMax.x, bbMin.y, bbMin.z);
+
+			bbMin = trans * bbMin;
+			bbMax = trans * bbMax;
+
+			lines.Position(bbMax); lines.Colour(colour);
+			lines.Position(loo); lines.Colour(colour);
+			lines.Position(bbMax); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(bbMax); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+
+			lines.Position(bbMin); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(bbMin); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(bbMin); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+
+			lines.Position(loo); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(loo); lines.Colour(colour);
 		}
 
 		public void DrawBox(Vector3 bbMin, Vector3 bbMax, ColourValue colour) {
-			
+			if (DrawCondition(bbMin))
+				return;
+
+			Vector3 loo = new Vector3(bbMin.x, bbMax.y, bbMax.z);
+			Vector3 olo = new Vector3(bbMax.x, bbMin.y, bbMax.z);
+			Vector3 ool = new Vector3(bbMax.x, bbMax.y, bbMin.z);
+			Vector3 llo = new Vector3(bbMin.x, bbMin.y, bbMax.z);
+			Vector3 lol = new Vector3(bbMin.x, bbMax.y, bbMin.z);
+			Vector3 oll = new Vector3(bbMax.x, bbMin.y, bbMin.z);
+
+			lines.Position(bbMax); lines.Colour(colour);
+			lines.Position(loo); lines.Colour(colour);
+			lines.Position(bbMax); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(bbMax); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+
+			lines.Position(bbMin); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(bbMin); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(bbMin); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+
+			lines.Position(loo); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(lol); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+			lines.Position(ool); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+			lines.Position(oll); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(olo); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(llo); lines.Colour(colour);
+			lines.Position(loo); lines.Colour(colour);
 		}
 
 		/// <summary>
@@ -282,8 +357,8 @@ namespace Ponykart.Physics {
 		/// This doesn't seem to even work half the time
 		/// </summary>
 		public void DrawContactPoint(Vector3 pointOnB, Vector3 normalOnB, float distance, int lifeTime, ColourValue colour) {
-			if (DrawCondition(pointOnB))
-				return;
+			//if (DrawCondition(pointOnB))
+			//	return;
 
 			lines.Position(pointOnB);
 			lines.Colour(colour);
@@ -462,7 +537,27 @@ namespace Ponykart.Physics {
 		}
 
 		public void DrawTransform(Matrix4 transform, float orthoLen) {
+			Vector3 origin = transform.GetTrans();
+
+			if (DrawCondition(origin))
+				return;
 			
+			Quaternion orient = transform.ExtractQuaternion();
+
+			lines.Position(origin);
+			lines.Colour(ColourValue.Red);
+			lines.Position(origin + (orient.XAxis * orthoLen));
+			lines.Colour(ColourValue.Red);
+
+			lines.Position(origin);
+			lines.Colour(ColourValue.Green);
+			lines.Position(origin + (orient.YAxis * orthoLen));
+			lines.Colour(ColourValue.Green);
+
+			lines.Position(origin);
+			lines.Colour(ColourValue.Blue);
+			lines.Position(origin + (orient.ZAxis * orthoLen));
+			lines.Colour(ColourValue.Blue);
 		}
 
 		/// <param name="__unnamed004">alpha?</param>

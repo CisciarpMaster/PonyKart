@@ -190,11 +190,11 @@ namespace Ponykart.Actors {
 						Body.LinearVelocity = vec;
 					}
 				}
-				else if (currentSpeed < 4f && currentSpeed > -4f) {
-					if (_canDisableKarts && _accelerate == 0f) {
+				else //if (currentSpeed < 4f && currentSpeed > -4f) {
+					if (_canDisableKarts /*&& _accelerate == 0f*/) {
 						Body.ForceActivationState(ActivationState.WantsDeactivation);
 					}
-				}
+				//}
 			}
 		}
 
@@ -226,8 +226,6 @@ namespace Ponykart.Actors {
 			// update our state
 			DriftState = state;
 
-			Body.LinearVelocity += new Vector3(0, 3, 0);
-
 			ForEachWheel(StartDrifting_WheelFunction);
 
 			if (OnStartDrifting != null)
@@ -243,8 +241,6 @@ namespace Ponykart.Actors {
 
 			if (OnDrifting != null)
 				OnDrifting(this);
-
-			
 		}
 
 		/// <summary>
@@ -258,13 +254,11 @@ namespace Ponykart.Actors {
 				// change the back wheels' angles
 				if (w.ID == WheelID.FrontRight || w.ID == WheelID.BackRight) {
 					w.IdealSteerAngle = BackDriftAngle;
-					_vehicle.SetSteeringValue(BackDriftAngle, w.IntWheelID);
 					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
 				}
 				// change the front wheels' angles
 				else {
 					w.IdealSteerAngle = FrontDriftAngle;
-					_vehicle.SetSteeringValue(FrontDriftAngle, w.IntWheelID);
 					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 				}
 			}
@@ -275,13 +269,11 @@ namespace Ponykart.Actors {
 				// change the back wheels' angles
 				if (w.ID == WheelID.FrontLeft || w.ID == WheelID.BackLeft) {
 					w.IdealSteerAngle = -BackDriftAngle;
-					_vehicle.SetSteeringValue(-BackDriftAngle, w.IntWheelID);
 					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
 				}
 				// change the front wheels' angles
 				else {
 					w.IdealSteerAngle = -FrontDriftAngle;
-					_vehicle.SetSteeringValue(-FrontDriftAngle, w.IntWheelID);
 					_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = true;
 				}
 			}
@@ -317,7 +309,6 @@ namespace Ponykart.Actors {
 			}
 			else {
 				_vehicle.GetWheelInfo(w.IntWheelID).IsFrontWheel = false;
-				//_vehicle.ApplyEngineForce(0f, w.IntWheelID);
 			}
 		}
 
@@ -381,20 +372,9 @@ namespace Ponykart.Actors {
 				return _turnMultiplier;
 			}
 			set {
-				/*if (IsCompletelyDrifting) {
-					if (this._turnMultiplier - value < 0f) {
-						helperMgr.CreateRotater(this, 0.3f, _turnMultiplierPositiveDriftDegree, RotaterAxisMode.RelativeY);
-					}
-					else if (this._turnMultiplier - value > 0f) {
-						helperMgr.CreateRotater(this, 0.3f, _turnMultiplierNegativeDriftDegree, RotaterAxisMode.RelativeY);
-					}
-				}*/
-
 				this._turnMultiplier = value;
 
-				ForEachWheel(w => {
-					w.TurnMultiplier = value;
-				});
+				ForEachWheel(w => w.TurnMultiplier = value);
 			}
 		}
 

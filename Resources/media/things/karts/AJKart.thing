@@ -19,9 +19,9 @@ FrontRightWheelPosition = -0.324, -0.03, 0.52
 BackLeftWheelPosition = 0.28, -0.03, -0.56
 BackRightWheelPosition = -0.28, -0.03, -0.56
 
-FrontDriftAngle = 46
+FrontDriftAngle = 44
 BackDriftAngle = 55
-DriftTransitionAngle = 40.25
+DriftTransitionAngle = 50
 
 Model {
 	Mesh = "AJKart.mesh"
