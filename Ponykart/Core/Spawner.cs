@@ -24,7 +24,7 @@ namespace Ponykart.Core {
 		private ThingDatabase database;
 		private LevelManager levelManager;
 
-		public Spawner () {
+		public Spawner() {
 			database = LKernel.GetG<ThingDatabase>();
 			levelManager = LKernel.GetG<LevelManager>();
 		}
@@ -67,7 +67,7 @@ namespace Ponykart.Core {
 		}
 
 
-
+#region Specific spawners
 		public BackgroundPony SpawnBgPony(string thingName, ThingBlock template) {
 			if (Pauser.IsPaused) {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
@@ -124,6 +124,22 @@ namespace Ponykart.Core {
 				return driver;
 			}
 		}
+
+		public Derpy SpawnDerpy(ThingBlock template) {
+			if (Pauser.IsPaused) {
+				throw new InvalidOperationException("Attempted to spawn \"Derpy\" while paused!");
+			}
+			lock (_spawnLock) {
+				var definition = database.GetThingDefinition("Derpy");
+				Derpy driver = new Derpy(template, definition);
+
+				levelManager.CurrentLevel.AddThing(driver);
+
+				Invoke(OnThingCreation, driver);
+				return driver;
+			}
+		}
+#endregion
 
 		/// <summary>
 		/// helper

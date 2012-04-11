@@ -37,5 +37,10 @@ namespace Ponykart.Lua {
 		public static LThing SpawnBgPony(string thingName, Vector3 pos) {
 			return LKernel.Get<Spawner>().SpawnBgPony(thingName, pos);
 		}
+
+		[LuaFunction("spawnDerpy", "Spawns derpy", "Vector3 pos")]
+		public static Derpy SpawnDerpy(Vector3 pos) {
+			return LKernel.GetG<Spawner>().SpawnDerpy(new PonykartParsers.ThingBlock("Derpy", pos));
+		}
 	}
 }

@@ -53,7 +53,7 @@ namespace Ponykart.Actors {
 			bodyComponent.Entity.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
 
 			Skeleton skeleton = bodyComponent.Entity.Skeleton;
-			// set up all of the animation states to not use the head bone
+			// set up all of the animation states to not use the neck bone
 			neckbone = skeleton.GetBone("Neck");
 			neckbone.SetManuallyControlled(true);
 			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
@@ -62,7 +62,7 @@ namespace Ponykart.Actors {
 					continue;
 
 				state.CreateBlendMask(skeleton.NumBones);
-				state.SetBlendMaskEntry(neckbone.Handle, 0);
+				state.SetBlendMaskEntry(neckbone.Handle, 0f);
 			}
 			neckbone.InheritOrientation = false;
 
@@ -76,15 +76,15 @@ namespace Ponykart.Actors {
 			neckFacing = new Euler(0, 0, 0);
 
 			// set up a blend mask so only the eyebrow bones have any effect on the blink animation
-			blinkState.CreateBlendMask(skeleton.NumBones, 0);
+			blinkState.CreateBlendMask(skeleton.NumBones, 0f);
 			ushort handle = skeleton.GetBone("EyeBrowTop.R").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1);
+			blinkState.SetBlendMaskEntry(handle, 1f);
 			handle = skeleton.GetBone("EyeBrowBottom.R").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1);
+			blinkState.SetBlendMaskEntry(handle, 1f);
 			handle = skeleton.GetBone("EyeBrowTop.L").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1);
+			blinkState.SetBlendMaskEntry(handle, 1f);
 			handle = skeleton.GetBone("EyeBrowBottom.L").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1);
+			blinkState.SetBlendMaskEntry(handle, 1f);
 
 			// add the blink state to the animation manager so it has time added to it
 			LKernel.GetG<AnimationManager>().Add(blinkState);
