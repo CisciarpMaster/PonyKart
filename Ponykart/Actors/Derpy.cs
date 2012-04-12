@@ -2,13 +2,11 @@
 using Ponykart.Core;
 using Ponykart.Players;
 using PonykartParsers;
-using Timer = System.Threading.Timer;
 
 namespace Ponykart.Actors {
 	public class Derpy : LThing {
 
 		private AnimationState blinkState;
-		private Timer animTimer;
 		private const float BLEND_TIME = 1f;
 		private Kart followKart;
 
@@ -53,15 +51,22 @@ namespace Ponykart.Actors {
 					startLightComponent.Entity.Visible = false;
 					flagComponent.Entity.Visible = true;
 					flagComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+
+					startLightComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
 				}
 				else if (animationName == "HoldStartLight1") {
 					flagComponent.Entity.Visible = false;
 					startLightComponent.Entity.Visible = true;
-					// start light only has one animation
+					startLightComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+
+					flagComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
 				}
 				else {
 					flagComponent.Entity.Visible = false;
 					startLightComponent.Entity.Visible = false;
+
+					startLightComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
+					flagComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
 				}
 			}
 		}

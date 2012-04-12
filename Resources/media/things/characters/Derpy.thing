@@ -13,7 +13,7 @@ Model {
 Model {
 	Mesh = "DerpyFlag.mesh"
 	Material = "DerpyFlag"
-	Position = 0, 0, 0 //-0.266, -0.601, 0.291
+	Position = -0.266, -0.601, 0.291
 	CastsShadows = None
 	
 	Animated = true
@@ -28,7 +28,7 @@ Model {
 Model {
 	Mesh = "DerpyStartLight.mesh"
 	Material = "DerpyStartLight"
-	Position = 0, 0, 0 //0, 0.833, 2.597
+	Position = 0, 0.833, 2.597
 	CastsShadows = None
 	
 	Animated = true
