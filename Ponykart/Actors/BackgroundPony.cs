@@ -53,18 +53,6 @@ namespace Ponykart.Actors {
 			bodyComponent.Entity.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
 
 			Skeleton skeleton = bodyComponent.Entity.Skeleton;
-			// set up all of the animation states to not use the neck bone
-			neckbone = skeleton.GetBone("Neck");
-			neckbone.SetManuallyControlled(true);
-			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
-				// don't add a blend mask to the blink state because we'll make a different one for it
-				if (state.AnimationName == "Blink2")
-					continue;
-
-				state.CreateBlendMask(skeleton.NumBones);
-				state.SetBlendMaskEntry(neckbone.Handle, 0f);
-			}
-			neckbone.InheritOrientation = false;
 
 			// set up the blink animation state with some stuff
 			blinkState = bodyComponent.Entity.GetAnimationState("Blink2");
@@ -72,6 +60,19 @@ namespace Ponykart.Actors {
 			blinkState.Loop = true;
 			blinkState.Weight = 1;
 			blinkState.AddTime(ID);
+
+			// set up all of the animation states to not use the neck bone
+			neckbone = skeleton.GetBone("Neck");
+			neckbone.SetManuallyControlled(true);
+			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
+				// don't add a blend mask to the blink state because we'll make a different one for it
+				if (state == blinkState)
+					continue;
+
+				state.CreateBlendMask(skeleton.NumBones);
+				state.SetBlendMaskEntry(neckbone.Handle, 0f);
+			}
+			neckbone.InheritOrientation = false;
 
 			neckFacing = new Euler(0, 0, 0);
 

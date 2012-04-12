@@ -8,7 +8,9 @@ namespace Ponykart.Actors {
 		private Kart followKart;
 
 		private SceneNode interpNode;
-		private Euler facing;
+		private Euler bodyFacing;
+		private Euler neckFacing;
+		private Bone neckBone;
 
 		private ModelComponent bodyComponent;
 		private ModelComponent flagComponent;
@@ -21,7 +23,8 @@ namespace Ponykart.Actors {
 			flagComponent = ModelComponents[1];
 			startLightComponent = ModelComponents[2];
 
-			facing = new Euler(0, 0, 0);
+			bodyFacing = new Euler(0, 0, 0);
+			neckFacing = new Euler(0, 0, 0);
 
 			bodyComponent.Entity.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
 
@@ -32,6 +35,20 @@ namespace Ponykart.Actors {
 			blinkState.AddTime(ID);
 
 			Skeleton skeleton = bodyComponent.Entity.Skeleton;
+
+			neckBone = skeleton.GetBone("Neck");
+			neckBone.SetManuallyControlled(true);
+			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
+				// don't add a blend mask to the blink state because we'll make a different one for it
+				if (state == blinkState)
+					continue;
+
+				state.CreateBlendMask(skeleton.NumBones);
+				state.SetBlendMaskEntry(neckBone.Handle, 0f);
+			}
+			neckBone.InheritOrientation = false;
+
+
 			blinkState.CreateBlendMask(skeleton.NumBones, 0f);
 			ushort handle = skeleton.GetBone("EyeBrowTop.R").Handle;
 			blinkState.SetBlendMaskEntry(handle, 1f);
@@ -64,26 +81,41 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		//private readonly Radian PITCH_LIMIT = new Degree(25f);
+		private readonly Radian NECK_YAW_LIMIT = new Degree(70f);
+		private readonly Radian NECK_PITCH_LIMIT = new Degree(60f);
 
 		bool FrameStarted(FrameEvent evt) {
 			if (Pauser.IsPaused)
 				return true;
 
-			Vector3 derivedInterp = interpNode._getDerivedPosition();
-			Vector3 derivedDerpy = this.RootNode._getDerivedPosition();
+			{
+				Vector3 derivedInterp = interpNode._getDerivedPosition();
+				Vector3 derivedDerpy = this.RootNode._getDerivedPosition();
 
-			Vector3 displacement = derivedInterp - derivedDerpy;
-			this.RootNode.Translate(displacement * 6 * evt.timeSinceLastFrame);
+				Vector3 displacement = derivedInterp - derivedDerpy;
+				this.RootNode.Translate(displacement * 6 * evt.timeSinceLastFrame);
+			}
 
-
-			Vector3 lookat = followKart.ActualPosition - this.RootNode.Position;
-			Euler temp = facing.GetRotationTo(-lookat, true, false, true);
+			// update orientation of derpy
+			Vector3 lookat_body = this.RootNode.Position - followKart.ActualPosition;
+			Euler temp_body = bodyFacing.GetRotationTo(lookat_body, true, false, true);
 			Radian tempTime = new Radian(evt.timeSinceLastFrame * 3f);
-			temp.LimitYaw(tempTime);
+			temp_body.LimitYaw(tempTime);
 
-			facing = facing + temp;
-			this.RootNode.Orientation = facing;
+			bodyFacing = bodyFacing + temp_body;
+			this.RootNode.Orientation = bodyFacing;
+
+			// update orientation of neck
+			Vector3 lookat_neck = this.RootNode.ConvertWorldToLocalPosition(followKart.ActualPosition);
+			Euler temp_neck = neckFacing.GetRotationTo(-lookat_neck, true, true, true);
+			tempTime *= 1.5f;
+			temp_neck.LimitYaw(tempTime);
+			temp_neck.LimitPitch(tempTime);
+
+			neckFacing = neckFacing + temp_neck;
+			neckFacing.LimitYaw(NECK_YAW_LIMIT);
+			neckFacing.LimitPitch(NECK_PITCH_LIMIT);
+			neckBone.Orientation = neckFacing;
 
 			return true;
 		}
@@ -98,9 +130,6 @@ namespace Ponykart.Actors {
 			interpNode.Parent.RemoveChild(interpNode);
 			kart.RootNode.AddChild(interpNode);
 
-			//this.RootNode.InheritOrientation = false;
-			//this.RootNode.SetAutoTracking(true, kart.RootNode, Vector3.UNIT_Z, new Vector3(0, 0, 3f));
-			//this.RootNode.SetFixedYawAxis(true, Vector3.UNIT_Y);
 			this.RootNode.Position = Vector3.ZERO;
 
 			interpNode.Position = offset;
@@ -124,10 +153,6 @@ namespace Ponykart.Actors {
 			// reattach it to the scene's root scene node so she still gets rendered
 			followKart.RootNode.RemoveChild(interpNode);
 			interpNode.Creator.RootSceneNode.AddChild(interpNode);
-
-			//this.RootNode.InheritOrientation = true;
-			//this.RootNode.SetAutoTracking(false);
-			//this.RootNode.SetFixedYawAxis(false);
 
 			followKart = null;
 		}
