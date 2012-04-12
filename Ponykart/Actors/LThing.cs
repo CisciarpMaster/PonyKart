@@ -81,6 +81,7 @@ namespace Ponykart.Actors {
 		public List<BillboardSetComponent> BillboardSetComponents { get; protected set; }
 		public List<SoundComponent> SoundComponents { get; protected set; }
 
+
 		/// <summary>
 		/// Constructor woo!
 		/// </summary>
@@ -146,7 +147,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Sets up mogre stuff, like our root scene node
 		/// </summary>
-		protected void SetupMogre(ThingBlock template, ThingDefinition def) {
+		private void SetupMogre(ThingBlock template, ThingDefinition def) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
 
 			// create our root node
@@ -175,7 +176,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Make our components
 		/// </summary>
-		protected void InitialiseComponents(ThingBlock template, ThingDefinition def) {
+		private void InitialiseComponents(ThingBlock template, ThingDefinition def) {
 			// ogre stuff
 			if (def.ModelBlocks.Count > 0) {
 				ModelComponents = new List<ModelComponent>(def.ModelBlocks.Count);
@@ -210,7 +211,7 @@ namespace Ponykart.Actors {
 
 		protected virtual void PostInitialiseComponents(ThingBlock template, ThingDefinition def) { }
 
-		protected void SetupPhysics(ThingBlock template, ThingDefinition def) {
+		private void SetupPhysics(ThingBlock template, ThingDefinition def) {
 			// if we have no shape components then we don't set up physics
 			if (ShapeComponents == null)
 				return;
@@ -231,7 +232,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Set up all of the stuff needed before we create our body
 		/// </summary>
-		protected void SetUpBodyInfo(ThingDefinition def) {
+		private void SetUpBodyInfo(ThingDefinition def) {
 			// set up our collision shapes
 			CollisionShape shape = LKernel.GetG<CollisionShapeManager>().CreateAndRegisterShape(this, def);
 
@@ -303,7 +304,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Creates the body and makes it static/kinematic if specified.
 		/// </summary>
-		protected void CreateBody(ThingDefinition def) {
+		private void CreateBody(ThingDefinition def) {
 			Body = new RigidBody(Info);
 
 			// stick on our flags
@@ -335,7 +336,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Sets the body's UserObject
 		/// </summary>
-		protected void SetBodyUserObject() {
+		private void SetBodyUserObject() {
 			Body.UserObject = new CollisionObjectDataHolder(this);
 		}
 
@@ -344,7 +345,7 @@ namespace Ponykart.Actors {
 		/// If this thing was made from a .muffin, this is called from Level.RunLevelScripts to make sure it runs after everything else is created.
 		/// If it was made on the fly, it runs at the end of the constructor, as long as it's a valid level of course.
 		/// </summary>
-		public virtual void RunScript() {
+		public void RunScript() {
 			if (Script != null)
 				LKernel.GetG<LuaMain>().DoFunctionForLThing(Script, this);
 		}
@@ -405,7 +406,7 @@ namespace Ponykart.Actors {
 		/// If this is a static/instanced thing with no ribbons, billboards, or sounds, we can clean up a whole bunch of stuff
 		/// to make it faster for ogre.
 		/// </summary>
-		protected void DisposeIfStaticOrInstanced(ThingDefinition def) {
+		private void DisposeIfStaticOrInstanced(ThingDefinition def) {
 			if (def.GetBoolProperty("Static", false) || def.GetBoolProperty("Instanced", false)) {
 				if (IsDisposed)
 					return;

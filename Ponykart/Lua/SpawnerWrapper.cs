@@ -16,10 +16,7 @@ namespace Ponykart.Lua {
 			"string thingName - The name of the .thing you want to spawn. Not case sensitive.",
 			"Vector3 pos - Spawn position")]
 		public static LThing Spawn(string thingName, Vector3 pos) {
-			if (thingName.StartsWith("BgPony") || thingName == "LyraSitting")
-				return LKernel.Get<Spawner>().SpawnBgPony(thingName, pos);
-			else
-				return LKernel.Get<Spawner>().Spawn(thingName, pos);
+			return LKernel.Get<Spawner>().Spawn(thingName, pos);
 		}
 
 		[LuaFunction("relativeSpawn", "Spawns a game object relative to another game object. This does not return anything.", 
@@ -35,12 +32,17 @@ namespace Ponykart.Lua {
 			"string thingName - The name of the .thing you want to spawn. Not case sensitive.",
 			"Vector3 pos - Spawn position")]
 		public static LThing SpawnBgPony(string thingName, Vector3 pos) {
-			return LKernel.Get<Spawner>().SpawnBgPony(thingName, pos);
+			if (thingName.StartsWith("BgPony"))
+				return LKernel.Get<Spawner>().Spawn<BackgroundPony>(thingName, pos, (t, d) => new BackgroundPony(t, d));
+			else if (thingName == "LyraSitting")
+				return LKernel.Get<Spawner>().Spawn<Lyra>(thingName, pos, (t, d) => new Lyra(t, d));
+			else
+				throw new System.ArgumentException("Invalid background pony thing name!", "thingName");
 		}
 
 		[LuaFunction("spawnDerpy", "Spawns derpy", "Vector3 pos")]
 		public static Derpy SpawnDerpy(Vector3 pos) {
-			return LKernel.GetG<Spawner>().SpawnDerpy(new PonykartParsers.ThingBlock("Derpy", pos));
+			return LKernel.GetG<Spawner>().Spawn<Derpy>("Derpy", pos, (t, d) => new Derpy(t, d));
 		}
 	}
 }

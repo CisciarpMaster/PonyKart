@@ -6,7 +6,7 @@ Model {
 	CastsShadows = None
 	
 	Animated = true
-	AnimationName = "Stand"
+	AnimationName = "Hover1"
 	AnimationLooping = true
 }
 

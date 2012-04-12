@@ -66,32 +66,56 @@ namespace Ponykart.Core {
 			return Spawn(thingName, tt);
 		}
 
-
-#region Specific spawners
-		public BackgroundPony SpawnBgPony(string thingName, ThingBlock template) {
+		/// <summary>
+		/// To avoid needing a separate spawner method for every single subclass of LThing, we can use this method instead since it's, well, generic.
+		/// </summary>
+		/// <typeparam name="T">
+		/// Your subclass of LThing that you want to spawn. Don't use Driver or Kart; there are already specific spawner methods for those types.
+		/// </typeparam>
+		/// <param name="thingName">The name of the Thing you want to spawn.</param>
+		/// <param name="template">The template for the thing you want to spawn.</param>
+		/// <param name="construct">
+		/// This is the fun part. Here you specify a function that calls the constructor of the T type you specified.
+		/// For example, if we want to spawn Derpy, you'd use <code>(t, d) => new Derpy(t, d)</code>.
+		/// </param>
+		/// <returns>The thing you just spawned.</returns>
+		public T Spawn<T>(string thingName, ThingBlock template, Func<ThingBlock, ThingDefinition, T> construct) where T : LThing {
 			if (Pauser.IsPaused) {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
 			}
 			lock (_spawnLock) {
-				BackgroundPony pony;
 				var definition = database.GetThingDefinition(thingName);
-				if (thingName == "LyraSitting") {
-					pony = new Lyra(template, definition);
-				}
-				else {
-					pony = new BackgroundPony(template, definition);
-				}
-				levelManager.CurrentLevel.AddThing(pony);
+				T driver = construct(template, definition);
 
-				Invoke(OnThingCreation, pony);
-				return pony;
+				levelManager.CurrentLevel.AddThing(driver);
+
+				Invoke(OnThingCreation, driver);
+				return driver;
 			}
 		}
-		public BackgroundPony SpawnBgPony(string thingName, Vector3 spawnPos) {
-			return SpawnBgPony(thingName, new ThingBlock(thingName, spawnPos));
+
+		/// <summary>
+		/// To avoid needing a separate spawner method for every single subclass of LThing, we can use this method instead since it's, well, generic.
+		/// </summary>
+		/// <typeparam name="T">
+		/// Your subclass of LThing that you want to spawn. Don't use Driver or Kart; there are already specific spawner methods for those types.
+		/// </typeparam>
+		/// <param name="thingName">The name of the Thing you want to spawn.</param>
+		/// <param name="pos">The position that you want this thing to be spawned at.</param>
+		/// <param name="construct">
+		/// This is the fun part. Here you specify a function that calls the constructor of the T type you specified.
+		/// For example, if we want to spawn Derpy, you'd use <code>(t, d) => new Derpy(t, d)</code>.
+		/// </param>
+		/// <returns>The thing you just spawned.</returns>
+		public T Spawn<T>(string thingName, Vector3 pos, Func<ThingBlock, ThingDefinition, T> construct) where T : LThing {
+			return Spawn<T>(thingName, new ThingBlock(thingName, pos), construct);
 		}
 
 
+#region Specific spawners
+		/// <summary>
+		/// Spawns a kart.
+		/// </summary>
 		public Kart SpawnKart(string thingName, ThingBlock template) {
 			if (Pauser.IsPaused) {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
@@ -108,7 +132,9 @@ namespace Ponykart.Core {
 			}
 		}
 
-
+		/// <summary>
+		/// Spawns a driver.
+		/// </summary>
 		public Driver SpawnDriver(string thingName, ThingBlock template) {
 			if (Pauser.IsPaused) {
 				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
@@ -120,21 +146,6 @@ namespace Ponykart.Core {
 				levelManager.CurrentLevel.AddThing(driver);
 
 				Invoke(OnDriverCreation, driver);
-				Invoke(OnThingCreation, driver);
-				return driver;
-			}
-		}
-
-		public Derpy SpawnDerpy(ThingBlock template) {
-			if (Pauser.IsPaused) {
-				throw new InvalidOperationException("Attempted to spawn \"Derpy\" while paused!");
-			}
-			lock (_spawnLock) {
-				var definition = database.GetThingDefinition("Derpy");
-				Derpy driver = new Derpy(template, definition);
-
-				levelManager.CurrentLevel.AddThing(driver);
-
 				Invoke(OnThingCreation, driver);
 				return driver;
 			}

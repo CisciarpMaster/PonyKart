@@ -40,4 +40,8 @@ function flat(level)
 	cherry:Stand()
 	sun:Fly()
 	dizzy:Fly()
+	
+	derpy = spawnDerpy(vector(0, 0, 0))
+	derpy:ChangeAnimation("Hover1")
+	derpy:AttachToKart(vector(1, 1, 2), playerKart())
 end
