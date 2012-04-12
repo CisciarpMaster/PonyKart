@@ -179,9 +179,7 @@ namespace Ponykart.Actors {
 
 			if (disposing) {
 				LKernel.GetG<AnimationManager>().Remove(blinkState);
-				//LKernel.GetG<SceneManager>().DestroySceneNode(interpNode);
 			}
-			//interpNode.Dispose();
 
 			base.Dispose(disposing);
 		}

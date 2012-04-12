@@ -43,5 +43,5 @@ function flat(level)
 	
 	derpy = spawnDerpy(vector(0, 0, 0))
 	derpy:ChangeAnimation("Hover1")
-	derpy:AttachToKart(vector(1, 1, 2), playerKart())
+	derpy:AttachToKart(vector(-1, 1, 2), playerKart())
 end
