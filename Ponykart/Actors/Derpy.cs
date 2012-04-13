@@ -66,6 +66,9 @@ namespace Ponykart.Actors {
 			anim = DerpyAnimation.Hover1;
 		}
 
+		/// <summary>
+		/// Change animations based on kart speed
+		/// </summary>
 		void EveryTenth(object state) {
 			if (followKart == null)
 				return;
@@ -84,17 +87,20 @@ namespace Ponykart.Actors {
 		private readonly Radian NECK_YAW_LIMIT = new Degree(70f);
 		private readonly Radian NECK_PITCH_LIMIT = new Degree(60f);
 
+		/// <summary>
+		/// Update position and orientation of body and neck
+		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
 			if (Pauser.IsPaused)
 				return true;
 
-			{
-				Vector3 derivedInterp = interpNode._getDerivedPosition();
-				Vector3 derivedDerpy = this.RootNode._getDerivedPosition();
+			// update position
+			Vector3 derivedInterp = interpNode._getDerivedPosition();
+			Vector3 derivedDerpy = this.RootNode._getDerivedPosition();
 
-				Vector3 displacement = derivedInterp - derivedDerpy;
-				this.RootNode.Translate(displacement * 6 * evt.timeSinceLastFrame);
-			}
+			Vector3 displacement = derivedInterp - derivedDerpy;
+			this.RootNode.Translate(displacement * 6 * evt.timeSinceLastFrame);
+			
 
 			// update orientation of derpy
 			Vector3 lookat_body = this.RootNode.Position - followKart.ActualPosition;
