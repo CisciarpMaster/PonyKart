@@ -194,9 +194,9 @@
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\KartHandler.cs" />
-    <Compile Include="Kernel\KernelHandlers.cs" />
-    <Compile Include="Kernel\KernelLevelCleanup.cs" />
-    <Compile Include="Kernel\KernelOgreInitialisers.cs" />
+    <Compile Include="Kernel\LKernel %28handlers%29.cs" />
+    <Compile Include="Kernel\LKernel %28level cleanup%29.cs" />
+    <Compile Include="Kernel\LKernel %28ogre initialisers%29.cs" />
     <Compile Include="Levels\LevelType.cs" />
     <Compile Include="Kernel\HandlerAttribute.cs" />
     <Compile Include="Kernel\ILevelHandler.cs" />
@@ -244,7 +244,7 @@
     <Compile Include="Lua\TriggerWrapper.cs" />
     <Compile Include="Lua\MiscWrapper.cs" />
     <Compile Include="Lua\LuaMain.cs" />
-    <Compile Include="Kernel\KernelRegistration.cs" />
+    <Compile Include="Kernel\LKernel %28registration%29.cs" />
     <Compile Include="Kernel\LKernel.cs" />
     <Compile Include="Core\Pauser.cs" />
     <Compile Include="Physics\Trigger Regions\TriggerReporter.cs" />
