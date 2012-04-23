@@ -20,5 +20,6 @@
 		<TextBox Height="36" HorizontalAlignment="Left" Margin="458,86,0,0" Name="orientationWTextBox" VerticalAlignment="Top" Width="99" VerticalContentAlignment="Center" Text="1" />
 		<Button Content="Convert" Height="32" HorizontalAlignment="Left" Margin="459,6,0,0" Name="convertButton" VerticalAlignment="Top" Width="98" Click="convertButton_Click" IsEnabled="False" />
 		<ProgressBar Height="23" HorizontalAlignment="Left" Margin="12,170,0,0" Name="progressBar" VerticalAlignment="Top" Width="545" Foreground="DodgerBlue" />
+		<CheckBox Content="Convex hull?" Height="16" HorizontalAlignment="Left" Margin="123,14,0,0" Name="hullCheckBox" VerticalAlignment="Top" ToolTip="Checked, this will produce a convex hull. Unchecked, it will produce an optimised BvhTriangleShapeMesh." />
 	</Grid>
 </Window>

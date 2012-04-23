@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -77,6 +78,19 @@ namespace OgreToBulletMesh {
 			}
 
 			return BulletMesh;
+		}
+
+		public ConvexHullShape ConvertToHull(MeshPtr mesh, Vector3 pos, Quaternion orientation, Vector3 scale) {
+			uint vertex_count = default(uint);
+			Vector3[] vertices = default(Vector3[]);
+			uint index_count = default(uint);
+			uint[] indices = default(uint[]);
+
+			GetMeshInformation(mesh, ref vertex_count, ref vertices, ref index_count, ref indices, pos, orientation, scale);
+
+			ConvexHullShape hull = new ConvexHullShape(vertices.Distinct().ToArray());
+
+			return hull;
 		}
 
 		/// <summary>
@@ -241,21 +255,41 @@ namespace OgreToBulletMesh {
 			scale.y = string.IsNullOrWhiteSpace(scaleYTextBox.Text) ? 1 : float.Parse(scaleYTextBox.Text, culture);
 			scale.z = string.IsNullOrWhiteSpace(scaleZTextBox.Text) ? 1 : float.Parse(scaleZTextBox.Text, culture);
 
+
+			BulletSharp.DataStream stream;
+
 			// convert it
-			TriangleMesh trimesh = Convert(ogremesh, pos, orient, scale);
+			if (hullCheckBox.IsChecked == false) {
+				// trimesh
+				TriangleMesh trimesh = Convert(ogremesh, pos, orient, scale);
 
-			updatePB(80);
+				updatePB(80);
 
-			BvhTriangleMeshShape trimeshshape = new BvhTriangleMeshShape(trimesh, true, true);
-			trimeshshape.BuildOptimizedBvh();
+				BvhTriangleMeshShape trimeshshape = new BvhTriangleMeshShape(trimesh, true, true);
+				trimeshshape.BuildOptimizedBvh();
 
-			updatePB(85);
+				updatePB(85);
 
-			DefaultSerializer serializer = new DefaultSerializer();
-			serializer.StartSerialization();
-			trimeshshape.SerializeSingleShape(serializer);
-			serializer.FinishSerialization();
-			var stream = serializer.LockBuffer();
+				DefaultSerializer serializer = new DefaultSerializer();
+				serializer.StartSerialization();
+				trimeshshape.SerializeSingleShape(serializer);
+				serializer.FinishSerialization();
+				stream = serializer.LockBuffer();
+			}
+			else {
+				// convex hull
+
+				ConvexHullShape hull = ConvertToHull(ogremesh, pos, orient, scale);
+
+				updatePB(85);
+
+				DefaultSerializer serializer = new DefaultSerializer();
+				serializer.StartSerialization();
+				hull.SerializeSingleShape(serializer);
+				serializer.FinishSerialization();
+				stream = serializer.LockBuffer();
+			}
+			
 
 			updatePB(90);
 

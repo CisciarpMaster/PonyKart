@@ -194,7 +194,7 @@ namespace Ponykart.Handlers {
 			if (OnInAir != null)
 				OnInAir(kart, callback);
 		}
-
+		
 		/// <summary>
 		/// Run when our long ray penetrates the ground
 		/// </summary>
@@ -204,7 +204,6 @@ namespace Ponykart.Handlers {
 			srh.Detach();
 			SelfRighters.TryRemove(kart, out srh);
 #endif
-
 #if NLERPERS
 			AlignKartWithNormal(kart, callback, true, 0.2f);
 #endif

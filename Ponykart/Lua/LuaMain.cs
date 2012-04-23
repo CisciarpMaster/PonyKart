@@ -1,4 +1,9 @@
-﻿using System;
+﻿// I put these in #if thingies because when I save files, VS removes usings I'm not using
+#if !DEBUG
+using System.Collections.Generic;
+using Mogre;
+#endif
+using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -15,8 +20,7 @@ namespace Ponykart.Lua {
 	// obviously if you want it to be in the global namespace, adding documentation for that namespace is pointless
 	public class LuaMain {
 		public LuaVirtualMachine LuaVM { get; private set; }
-		public static readonly string luaFileLocation = "media/scripts/";
-		public static readonly string luaLevelFileLocation = "media/scripts/levels/";
+		public static readonly string luaLevelFileLocation = "media/level scripts/";
 
 		public event LuaEvent OnRegister;
 
@@ -52,15 +56,15 @@ namespace Ponykart.Lua {
 		/// <summary>
 		/// Loads up all of the script files.
 		/// </summary>
-		/// <param name="levelName">We will also load files from /levels/levelName/ if it exists</param>
+		/// <param name="levelName">We will also load files from /level scripts/levelName/ if it exists</param>
 		public void LoadScriptFiles(string levelName) {
-			// "media/scripts/"
-			Launch.Log("[LuaMain] Loading all scripts from " + luaFileLocation);
+			Launch.Log("[LuaMain] Loading all scripts...");
 
-			// first get all of the scripts that aren't in the /levels/ directory
-			var scripts = Directory.EnumerateFiles(luaFileLocation, "*.lua", SearchOption.AllDirectories).Where(s => !s.Contains("/levels"));
+#if DEBUG
+			// first get all of the scripts that aren't in the /level scripts/ directory
+			var scripts = Directory.EnumerateFiles("media/", "*.lua", SearchOption.AllDirectories).Where(s => !s.Contains("/level scripts"));
 
-			// then get all of the scripts that are in the /levels/ directory (but only the level we're interested in)
+			// then get all of the scripts that are in the /level scripts/ directory (but only the level we're interested in)
 			if (Directory.Exists(luaLevelFileLocation + levelName + "/")) {
 				Launch.Log("[LuaMain] Loading all scripts from " + luaLevelFileLocation + levelName + "/");
 				scripts = scripts.Concat(Directory.EnumerateFiles(luaLevelFileLocation + levelName + "/", "*.lua", SearchOption.AllDirectories));
@@ -69,6 +73,19 @@ namespace Ponykart.Lua {
 			foreach (string file in scripts) {
 				DoFile(file);
 			}
+#else
+			foreach (string group in ResourceGroupManager.Singleton.GetResourceGroups().Where(s => ResourceGroupManager.Singleton.IsResourceGroupInitialised(s))) {
+				var resourceLocations = ResourceGroupManager.Singleton.ListResourceLocations(group).Where(s => s != "Bootstrap");
+
+				foreach (string loc in resourceLocations) {
+					var scripts = Directory.EnumerateFiles(loc, "*.lua", SearchOption.TopDirectoryOnly);
+
+					foreach (string file in scripts) {
+						DoFile(file);
+					}
+				}
+			}
+#endif
 		}
 
 		public void DoFunctionForLThing(string functionName, LThing thing) {
@@ -128,9 +145,6 @@ namespace Ponykart.Lua {
 		public void DoFile(string filename) {
 			if (LKernel.GetG<LevelManager>().IsValidLevel) {
 				Launch.Log("[LuaMain] Running file: " + filename);
-				// adding this in case you try to run a script but forget the file path
-				if (!filename.StartsWith(luaFileLocation))
-					filename = luaFileLocation + filename;
 
 				try {
 					LuaVM.Lua.DoFile(filename);

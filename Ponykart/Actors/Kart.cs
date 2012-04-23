@@ -190,11 +190,11 @@ namespace Ponykart.Actors {
 						Body.LinearVelocity = vec;
 					}
 				}
-				/*else //if (currentSpeed < 4f && currentSpeed > -4f) {
+				else if (currentSpeed < 4f && currentSpeed > -4f) {
 					if (_canDisableKarts && _accelerate == 0f) {
 						Body.ForceActivationState(ActivationState.WantsDeactivation);
 					}
-				}*/
+				}
 			}
 		}
 

@@ -1,0 +1,87 @@
+material RainbowDashBody {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 109 171 221 255
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.3
+			}
+			
+            texture_unit {
+                texture "RainbowDashBody.dds"
+            }
+        }
+    }
+}
+
+material RainbowDashEyes {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "RainbowDashEyes.dds"
+            }
+        }
+    }
+}
+
+material RainbowDashHair {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 30 152 213 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "RainbowDashHair.dds"
+            }
+        }
+    }
+}
+
+
+
+material RainbowDashWings {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 109 171 221 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.3
+			}
+			
+            texture_unit {
+                texture "RainbowDashWingsFolded.dds"
+            }
+        }
+    }
+}

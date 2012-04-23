@@ -1,0 +1,14 @@
+material Rope {
+	technique {
+		pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+			texture_unit {
+				texture "rope.dds"
+			}
+		}
+	}
+}

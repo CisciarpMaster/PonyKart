@@ -1,0 +1,69 @@
+material TwilightBody {
+    technique {
+		pass {
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 162 108 186 255
+				param_named scale float 0.23
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "TwilightBody.dds"
+            }
+        }
+    }
+}
+
+material TwilightEyes {
+    technique {
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+			}
+			
+            texture_unit {
+                texture "TwilightEyes.dds"
+            }
+        }
+    }
+}
+
+
+material TwilightHair {
+    technique {
+		pass {
+			//cull_hardware anticlockwise
+			//vertex_program_ref outlined_vs {
+			//}
+			//fragment_program_ref outlined_ps {
+			//	param_named OutlineColour float3 20.0 30.0 67.0
+			//}
+			
+			vertex_program_ref VertEdge {
+				param_named edgeColor float4 20 30 67 255
+				param_named scale float 0.2
+				param_named edgeScale float 0.016
+			}
+		}
+
+        pass {
+			vertex_program_ref fresnelTex_vp {
+			}
+			fragment_program_ref fresnelTex_Self_fp {
+				param_named Alpha float 0.5
+			}
+			
+            texture_unit {
+                texture "TwilightHair.dds"
+            }
+        }
+    }
+}

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using BulletSharp;
 using IrrKlang;
 using Mogre;
@@ -21,6 +23,8 @@ namespace Ponykart.Sound {
 		private CameraManager cameraManager;
 		private PlayerManager playerManager;
 
+		private IDictionary<string, string> fileList;
+
 		/// <summary>
 		/// The sound manager class.
 		/// </summary>
@@ -38,6 +42,7 @@ namespace Ponykart.Sound {
 
 			playerManager.OnPostPlayerCreation += new PlayerEvent(OnPostPlayerCreation);
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
+			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
 			LKernel.GetG<Pauser>().PauseEvent += new PauseEvent(PauseEvent);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
@@ -73,6 +78,27 @@ namespace Ponykart.Sound {
 			components = new HashSet<SoundComponent>();
 		}
 
+		/// <summary>
+		/// prepares file locations
+		/// </summary>
+		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
+			fileList = new Dictionary<string, string>();
+
+			foreach (string group in ResourceGroupManager.Singleton.GetResourceGroups().Where(s => ResourceGroupManager.Singleton.IsResourceGroupInitialised(s))) {
+				if (group == "Bootstrap")
+					continue;
+
+				var resourceLocations = ResourceGroupManager.Singleton.ListResourceLocations(group);
+
+				foreach (string loc in resourceLocations) {
+					var scripts = Directory.EnumerateFiles(loc, "*.ogg").Union(Directory.EnumerateFiles(loc, "*.mp3")).Union(Directory.EnumerateFiles(loc, "*.wav"));
+
+					foreach (string file in scripts) {
+						fileList[Path.GetFileName(file)] = file;
+					}
+				}
+			}
+		}
 
 		void EveryTenth(object o) {
 			if (playerManager.MainPlayer == null) {
@@ -257,7 +283,14 @@ namespace Ponykart.Sound {
 		/// </summary>
 		/// <param name="filename">Don't include the "media/sound/" bit.</param>
 		public ISoundSource GetSource(string filename) {
-			return Engine.GetSoundSource("media/sound/" + filename, true);
+			string _path = Path.GetFileName(filename);
+			string fullpath;
+
+			if (fileList.TryGetValue(_path, out fullpath)) {
+				return Engine.GetSoundSource(fullpath, true);
+			}
+			else
+				throw new FileNotFoundException(_path + " was not found!");
 		}
 
 		public void AddSoundComponent(SoundComponent sc) {

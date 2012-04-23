@@ -312,7 +312,7 @@ namespace Ponykart.Actors {
 				// normal brake
 				else {
 					// brake to apply when we're just slowing down
-					vehicle.SetBrake(BrakeForce * 0.75f, IntWheelID);
+					vehicle.SetBrake(/*BrakeForce * 0.75f*/0, IntWheelID);
 					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
 				}
 			}

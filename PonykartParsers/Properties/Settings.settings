@@ -11,8 +11,5 @@
     <Setting Name="ThingFileExtension" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.thing</Value>
     </Setting>
-    <Setting Name="ThingFileLocation" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">media/things/</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

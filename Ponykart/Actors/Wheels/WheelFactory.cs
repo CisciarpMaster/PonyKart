@@ -31,7 +31,7 @@ namespace Ponykart.Actors {
 			wheels.Clear();
 
 			// get all of the filenames of the files in media/wheels/
-			IEnumerable<string> files = Directory.EnumerateFiles("media/wheels/", "*.wheel");
+			IEnumerable<string> files = Directory.EnumerateFiles("media/vehicles/", "*.wheel", SearchOption.AllDirectories);
 
 			foreach (string filename in files) {
 				// I forgot ogre had this functionality already built in

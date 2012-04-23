@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if !DEBUG
+using System.Linq;
+#endif
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -6,15 +9,47 @@ using BulletSharp;
 using BulletSharp.Serialize;
 using Mogre;
 using Ponykart.Actors;
-using Ponykart.Properties;
+using Ponykart.Levels;
 using PonykartParsers;
 
 namespace Ponykart.Physics {
 	public class CollisionShapeManager {
 		IDictionary<string, CollisionShape> Shapes;
+		IDictionary<string, string> bulletFiles;
 
 		public CollisionShapeManager() {
 			Shapes = new Dictionary<string, CollisionShape>();
+
+			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
+		}
+
+		/// <summary>
+		/// Enumerates through our resource group paths and finds all of the .bullet files
+		/// </summary>
+		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
+			bulletFiles = new Dictionary<string, string>();
+
+#if !DEBUG
+			foreach (string group in ResourceGroupManager.Singleton.GetResourceGroups().Where(s => ResourceGroupManager.Singleton.IsResourceGroupInitialised(s))) {
+				if (group == "Bootstrap")
+						continue;
+
+				var resourceLocations = ResourceGroupManager.Singleton.ListResourceLocations(group);
+
+				foreach (string loc in resourceLocations) {
+					var scripts = Directory.EnumerateFiles(loc, "*.bullet", SearchOption.TopDirectoryOnly);
+
+					foreach (string file in scripts) {
+						bulletFiles[Path.GetFileNameWithoutExtension(file)] = file;
+					}
+				}
+			}
+#else
+			var files = Directory.EnumerateFiles("media/", "*.bullet", SearchOption.AllDirectories);
+			foreach (string file in files) {
+				bulletFiles.Add(Path.GetFileNameWithoutExtension(file), file);
+			}
+#endif
 		}
 
 		/// <summary>
@@ -37,9 +72,10 @@ namespace Ponykart.Physics {
 
 			if (!Shapes.TryGetValue(filename, out shape)) {
 				// check to see if the .bullet file exists
-				if (File.Exists(Settings.Default.BulletFileLocation + Path.GetFileNameWithoutExtension(filename) + ".bullet")) {
+				string bulletfile = GetBulletFile(filename);
+				if (bulletfile != null) {
 					// if it does not, import it (make sure we get rid of the extension first)
-					shape = ImportCollisionShape(Path.GetFileNameWithoutExtension(filename));
+					shape = ImportCollisionShape(Path.GetFileNameWithoutExtension(bulletfile));
 				}
 				else {
 					Launch.Log("[PhysicsMain] " + filename + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
@@ -55,6 +91,20 @@ namespace Ponykart.Physics {
 			}
 
 			return shape;
+		}
+
+		/// <summary>
+		/// Gets a bullet file's full path
+		/// </summary>
+		/// <param name="filename">The filename, without any path or extension</param>
+		/// <returns>The bullet file's full path if it was found, or null if it wasn't</returns>
+		public string GetBulletFile(string filename) {
+			string result;
+			if (bulletFiles.TryGetValue(Path.GetFileNameWithoutExtension(filename), out result)) {
+				return result;
+			}
+			else
+				return null;
 		}
 
 		/// <summary>
@@ -134,27 +184,16 @@ namespace Ponykart.Physics {
 					return new SphereShape(component.Radius);
 				case ThingEnum.Hull: {
 						CollisionShape shape;
-						// physics/example.bullet
+
 						string name = Path.GetFileNameWithoutExtension(component.Mesh);
-						string bulletFilePath;
-
-						if (component.Mesh.EndsWith(".mesh")) {
-							bulletFilePath = Settings.Default.BulletFileLocation + name + ".bullet";
-						}
-						else if (component.Mesh.EndsWith(".bullet")) {
-							bulletFilePath = Settings.Default.BulletFileLocation + component.Mesh;
-						}
-						else {
-							throw new ApplicationException("Your \"Mesh\" property needs to end in either .mesh or .bullet!");
-						}
-
-						// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
-						if (File.Exists(bulletFilePath)) {
+						string bulletFilePath = GetBulletFile(name);
+						
+						if (bulletFilePath != null) {
 							// so it has a file
 							shape = ImportCollisionShape(name);
 						}
 						else {
-							var sceneMgr = LKernel.GetG<SceneManager>();
+							/*var sceneMgr = LKernel.GetG<SceneManager>();
 							// get our entity if we have one, create it if we don't
 							Entity ent = sceneMgr.HasEntity(component.Mesh) ? sceneMgr.GetEntity(component.Mesh) : sceneMgr.CreateEntity(component.Mesh, component.Mesh);
 
@@ -166,7 +205,8 @@ namespace Ponykart.Physics {
 							shape = hull;
 
 							// TODO: figure out how to deal with concave triangle mesh shapes since apparently they aren't being exported
-							SerializeShape(shape, name);
+							SerializeShape(shape, name);*/
+							throw new FileNotFoundException("Your \"Mesh\" property did not point to an existing .bullet file!", component.Mesh);
 						}
 						return shape;
 					}
@@ -175,25 +215,15 @@ namespace Ponykart.Physics {
 						// example
 						// physics/example.bullet
 						string name = Path.GetFileNameWithoutExtension(component.Mesh);
-						string bulletFilePath;
-
-						if (component.Mesh.EndsWith(".mesh")) {
-							bulletFilePath = Settings.Default.BulletFileLocation + name + ".bullet";
-						}
-						else if (component.Mesh.EndsWith(".bullet")) {
-							bulletFilePath = Settings.Default.BulletFileLocation + component.Mesh;
-						}
-						else {
-							throw new ApplicationException("Your \"Mesh\" property needs to end in either .mesh or .bullet!");
-						}
+						string bulletFilePath = GetBulletFile(name);
 
 						// right, so what we do is test to see if this shape has a .bullet file, and if it doesn't, create one
-						if (File.Exists(bulletFilePath)) {
+						if (bulletFilePath != null) {
 							// so it has a file
 							shape = ImportCollisionShape(name);
 						}
 						else {
-							Launch.Log("[CollisionShapeManager] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
+							/*Launch.Log("[CollisionShapeManager] " + bulletFilePath + " does not exist, converting Ogre mesh into physics trimesh and exporting new .bullet file...");
 
 							// it does not have a file, so we need to convert our ogre mesh
 							var sceneMgr = LKernel.GetG<SceneManager>();
@@ -211,12 +241,13 @@ namespace Ponykart.Physics {
 							(shape as BvhTriangleMeshShape).BuildOptimizedBvh();
 
 							// and then export it as a .bullet file
-							SerializeShape(shape, name);
+							SerializeShape(shape, name);*/
+							throw new FileNotFoundException("Your \"Mesh\" property did not point to an existing .bullet file!", component.Mesh);
 						}
 						return shape;
 					}
 				case ThingEnum.Heightmap: {
-						string filename = Settings.Default.BulletFileLocation + component.Mesh;
+						string filename = "media/" + component.Mesh;
 						//FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
 						Bitmap bitmap = new Bitmap(filename);
 
@@ -259,23 +290,28 @@ namespace Ponykart.Physics {
 		/// <summary>
 		/// Imports a collision shape from a .bullet file.
 		/// </summary>
-		/// <param name="name">Part of the filename. "media/physics/" + name + ".bullet"</param>
+		/// <param name="bulletfile">Part of the filename. "media/physics/" + name + ".bullet"</param>
 		/// <remarks>
 		/// This only imports the first collision shape from the file. If it has multiple, they will be ignored.
 		/// </remarks>
-		public CollisionShape ImportCollisionShape(string name) {
+		public CollisionShape ImportCollisionShape(string bulletfile) {
 			BulletWorldImporter importer = new BulletWorldImporter(LKernel.GetG<PhysicsMain>().World);
 
-			// load that file
-			if (importer.LoadFile(Settings.Default.BulletFileLocation + name + ".bullet")) {
-				Launch.Log(string.Concat("[PhysicsMain] Importing ", Settings.Default.BulletFileLocation, name, ".bullet..."));
-				// these should only have one collision shape in them, so we'll just use that
-				return importer.GetCollisionShapeByIndex(0);
+			string filename;
+			if (bulletFiles.TryGetValue(bulletfile, out filename)) {
+				// load that file
+				if (importer.LoadFile(filename)) {
+					Launch.Log(string.Concat("[PhysicsMain] Importing ", bulletfile, "..."));
+					// these should only have one collision shape in them, so we'll just use that
+					return importer.GetCollisionShapeByIndex(0);
+				}
+				else {
+					// if the file wasn't able to be loaded, throw an exception
+					throw new IOException(bulletfile + " was unable to be imported!");
+				}
 			}
-			else {
-				// if the file wasn't able to be loaded, throw an exception
-				throw new IOException(Settings.Default.BulletFileLocation + name + ".bullet was unable to be imported!");
-			}
+			else
+				throw new FileNotFoundException("That .bullet file was not found!", bulletfile);
 		}
 
 		/// <summary>
@@ -284,7 +320,7 @@ namespace Ponykart.Physics {
 		/// <param name="shape">The shape you want to serialize.</param>
 		/// <param name="name">The name of the shape - this will be used as part of its filename. "media/physics/" + name + ".bullet"</param>
 		public void SerializeShape(CollisionShape shape, string name) {
-			Launch.Log(string.Concat("[PhysicsMain] Serializing new bullet mesh: ", Settings.Default.BulletFileLocation, name, ".bullet..."));
+			Launch.Log(string.Concat("[PhysicsMain] Serializing new bullet mesh: ", "media/", name, ".bullet..."));
 			// so we don't have to do this in the future, we make a .bullet file out of it
 			DefaultSerializer serializer = new DefaultSerializer();
 			serializer.StartSerialization();
@@ -293,7 +329,7 @@ namespace Ponykart.Physics {
 			var stream = serializer.LockBuffer();
 
 			// export it
-			using (var filestream = File.Create(Settings.Default.BulletFileLocation + name + ".bullet", serializer.CurrentBufferSize)) {
+			using (var filestream = File.Create("media/" + name + ".bullet", serializer.CurrentBufferSize)) {
 				stream.CopyTo(filestream);
 				filestream.Close();
 			}

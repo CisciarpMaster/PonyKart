@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Mogre;
-using PonykartParsers.Properties;
 using PonykartParsers.ThingParser;
 using Node = PonykartParsers.ThingParser.Node;
 
@@ -13,7 +12,7 @@ namespace PonykartParsers {
 	public class ThingImporter {
 		private RuleInstance root;
 		private static CultureInfo culture = CultureInfo.InvariantCulture;
-		private static IEnumerable<string> fileList;
+		private static IDictionary<string, string> fileList;
 #if !DEBUG
 		private static bool hasPreparedFileList = false;
 #endif
@@ -21,7 +20,22 @@ namespace PonykartParsers {
 #if !DEBUG
 			if (!hasPreparedFileList) {
 #endif
-				fileList = Directory.EnumerateFiles(Settings.Default.ThingFileLocation, "*" + Settings.Default.ThingFileExtension, SearchOption.AllDirectories);
+				fileList = new Dictionary<string, string>();
+
+				foreach (string group in ResourceGroupManager.Singleton.GetResourceGroups().Where(s => ResourceGroupManager.Singleton.IsResourceGroupInitialised(s))) {
+					if (group == "Bootstrap")
+						continue;
+
+					var resourceLocations = ResourceGroupManager.Singleton.ListResourceLocations(group);
+
+					foreach (string loc in resourceLocations) {
+						var scripts = Directory.EnumerateFiles(loc, "*.thing", SearchOption.TopDirectoryOnly);
+
+						foreach (string file in scripts) {
+							fileList[Path.GetFileNameWithoutExtension(file)] = file;
+						}
+					}
+				}
 #if !DEBUG
 				hasPreparedFileList = true;
 			}
@@ -35,13 +49,10 @@ namespace PonykartParsers {
 
 			// make the file path
 			// this just searches for "media/things/foo.thing"
-			string filePath = Settings.Default.ThingFileLocation + nameOfThing + Settings.Default.ThingFileExtension;
+			string filePath;
 			// this searches subfolders for .things
-			if (!File.Exists(filePath)) {
-				filePath = fileList.FirstOrDefault((s) => s.Contains(nameOfThing));
-				// we went through all of the files and couldn't find it, so it doesn't exist or we typo'd somewhere
-				if (filePath == null)
-					throw new ArgumentException(nameOfThing + ".thing does not exist!", "nameOfThing");
+			if (!fileList.TryGetValue(nameOfThing, out filePath)) {
+				throw new FileNotFoundException(nameOfThing + ".thing does not exist!", nameOfThing);
 			}
 
 			LogManager.Singleton.LogMessage("[ThingImporter] Importing and parsing thing: " + filePath);
