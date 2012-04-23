@@ -625,7 +625,7 @@
 						<Name>character select RD button</Name>
 						<Rectangle>512,300,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
-						<Text>Lightning Lesbian</Text>
+						<Text>Speedycloud</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>MiddleCenter</Alignment>
 							<FontName>Zil</FontName>
@@ -649,19 +649,7 @@
 						<Name>character select PP button</Name>
 						<Rectangle>512,400,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
-						<Text>Song Smile</Text>
-						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
-							<Alignment>MiddleCenter</Alignment>
-							<FontName>Zil</FontName>
-							<ForegroundColour>-1</ForegroundColour>
-						</TextStyle>
-					</Control>
-					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
-						<Name>character select FS button</Name>
-						<Rectangle>512,450,300,40</Rectangle>
-						<SkinName>PKButtonSkin</SkinName>
-						<Text>Yellowquiet</Text>
+						<Text>PANKA PA</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>MiddleCenter</Alignment>
 							<FontName>Zil</FontName>
@@ -671,9 +659,21 @@
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
 						<Name>character select rarity button</Name>
-						<Rectangle>512,500,300,40</Rectangle>
+						<Rectangle>512,450,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>Squiggletail</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>character select FS button</Name>
+						<Rectangle>512,500,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Yellowau2.3sm</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>MiddleCenter</Alignment>
 							<FontName>Zil</FontName>
