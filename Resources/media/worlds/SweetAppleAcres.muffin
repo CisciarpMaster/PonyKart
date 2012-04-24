@@ -306,7 +306,7 @@ Crate {
 	Orientation = 0, 0.984808, -4.30473E-08, -0.173648
 	MapRegion = "Barn"
 }
-// the AI keeps getting stuck on this kart
+// the AI keeps getting stuck on this crate
 /*Crate {
 	Position = -2.4369, -0.118263, 40.3368
 	Orientation = 0, 0.608761, -2.66098E-08, 0.793353
@@ -388,7 +388,6 @@ Bucket {
 
 
 // crop field
-// I should probably center these at some point to help with culling
 Bushies1 {
 	Position = 57.4746, 0.450524, 40.69062
 	MapRegion = "Barn"
