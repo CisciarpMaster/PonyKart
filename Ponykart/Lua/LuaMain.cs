@@ -75,7 +75,10 @@ namespace Ponykart.Lua {
 			}
 #else
 			foreach (string group in ResourceGroupManager.Singleton.GetResourceGroups().Where(s => ResourceGroupManager.Singleton.IsResourceGroupInitialised(s))) {
-				var resourceLocations = ResourceGroupManager.Singleton.ListResourceLocations(group).Where(s => s != "Bootstrap");
+				if (group == "Bootstrap")
+					continue;
+
+				var resourceLocations = ResourceGroupManager.Singleton.ListResourceLocations(group);
 
 				foreach (string loc in resourceLocations) {
 					var scripts = Directory.EnumerateFiles(loc, "*.lua", SearchOption.TopDirectoryOnly);

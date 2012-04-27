@@ -293,23 +293,18 @@ namespace Ponykart.Actors {
 					IsBrakeOn = true; //false;
 				}
 			}
-			// if we are trying to accelerate in the opposite direction that we're moving, then brake
-			else if ((AccelerateMultiplier > 0f && currentSpeed < -2f) || (AccelerateMultiplier < 0f && currentSpeed > 2f))
-			{
-				float _motorForce = GetMotorForceForDriftState(ID, DriftState, DefaultMotorForce);
-
-				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
-				IsBrakeOn = true;
-			}
-			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
-			else if ((AccelerateMultiplier > 0f && currentSpeed > -2f) || (AccelerateMultiplier < 0f && currentSpeed < 2f)) {
-
+			else {
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
 				float _motorForce = GetMotorForceForDriftState(ID, DriftState, DefaultMotorForce);
-				
 				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
-				IsBrakeOn = false;
+
+				// if we are trying to accelerate in the opposite direction that we're moving, then brake
+				if ((AccelerateMultiplier > 0f && currentSpeed < -2f) || (AccelerateMultiplier < 0f && currentSpeed > 2f))
+					IsBrakeOn = true;
+				// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
+				else if ((AccelerateMultiplier > 0f && currentSpeed > -2f) || (AccelerateMultiplier < 0f && currentSpeed < 2f))
+					IsBrakeOn = false;
 			}
 		}
 
@@ -350,7 +345,7 @@ namespace Ponykart.Actors {
 				// normal brake
 				else {
 					// brake to apply when we're just slowing down
-					vehicle.SetBrake(0f/*BrakeForce * 0.25f*/, IntWheelID);
+					vehicle.SetBrake(1f/*BrakeForce * 0.25f*/, IntWheelID);
 				}
 			}
 			else {
