@@ -9,4 +9,8 @@ function SweetAppleAcres(level)
 	create3DSound("Mountain Stream1.ogg", vector(-20.1831, 8.16656, -138.733), true)
 	
 	forEachKart(decreaseKartSpeed)
+	
+	derpy = spawnDerpy(vector(0, 0, 0))
+	derpy:ChangeAnimation("Hover1")
+	derpy:AttachToKart(vector(-1, 1, 2), playerKart())
 end
