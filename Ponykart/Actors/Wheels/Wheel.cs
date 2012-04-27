@@ -225,9 +225,11 @@ namespace Ponykart.Actors {
 		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
 			if (!Pauser.IsPaused) {
 				WheelInfo info = kart.Vehicle.GetWheelInfo(IntWheelID);
+				float currentSpeed = vehicle.CurrentSpeedKmHour;
+
 				if (kart.Body.IsActive && (kart.VehicleSpeed > 1f || kart.VehicleSpeed < -1f)) {
 					// don't change the kart's orientation when we're drifting
-					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(MaxTurnAngle * CalculateTurnAngleMultiplier())) {
+					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(MaxTurnAngle * CalculateTurnAngleMultiplier(currentSpeed))) {
 						Node.Orientation = kart.ActualOrientation;
 					}
 					else {
@@ -247,30 +249,26 @@ namespace Ponykart.Actors {
 				else {
 					Node.Position = AxlePoint;
 				}
-			
-				Accelerate();
-				Brake();
-				Turn(evt.timeSinceLastFrame);
+
+				
+				ChangeFriction(currentSpeed);
+				Accelerate(currentSpeed);
+				Brake(currentSpeed);
+				Turn(evt.timeSinceLastFrame, currentSpeed);
 			}
+		}
+
+		protected void ChangeFriction(float currentSpeed) {
+
 		}
 
 		/// <summary>
 		/// Apply some torque to the engine.
 		/// </summary>
-		protected void Accelerate() {
-			float speed = vehicle.CurrentSpeedKmHour;
-			// if we are trying to accelerate in the opposite direction that we're moving, then brake
-			if ((AccelerateMultiplier > 0f && speed < -2f) || (AccelerateMultiplier < 0f && speed > 2f))
-			{
-				float _motorForce = GetMotorForceForDriftState(ID, DriftState, MotorForce);
-
-				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
-				IsBrakeOn = true;
-			}
+		protected void Accelerate(float currentSpeed) {
 			// if we're mostly stopped and we aren't trying to accelerate, then brake
-			else if (AccelerateMultiplier == 0f)
-			{
-				if (speed > -2f || speed < 2f) {
+			if (AccelerateMultiplier == 0f) {
+				if (currentSpeed > -2f || currentSpeed < 2f) {
 					vehicle.ApplyEngineForce(0f, IntWheelID);
 					IsBrakeOn = true;
 				}
@@ -279,8 +277,16 @@ namespace Ponykart.Actors {
 					IsBrakeOn = true; //false;
 				}
 			}
+			// if we are trying to accelerate in the opposite direction that we're moving, then brake
+			else if ((AccelerateMultiplier > 0f && currentSpeed < -2f) || (AccelerateMultiplier < 0f && currentSpeed > 2f))
+			{
+				float _motorForce = GetMotorForceForDriftState(ID, DriftState, MotorForce);
+
+				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
+				IsBrakeOn = true;
+			}
 			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
-			else if ((AccelerateMultiplier > 0f && speed > -2f) || (AccelerateMultiplier < 0f && speed < 2f)) {
+			else if ((AccelerateMultiplier > 0f && currentSpeed > -2f) || (AccelerateMultiplier < 0f && currentSpeed < 2f)) {
 
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
@@ -313,17 +319,16 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Apply some brake torque.
 		/// </summary>
-		protected void Brake() {
+		protected void Brake(float currentSpeed) {
 			if (IsBrakeOn) {
-				float speed = vehicle.CurrentSpeedKmHour;
 				// handbrake
-				if (AccelerateMultiplier == 0f && (speed > -2f && speed < 2f)) {
+				if (AccelerateMultiplier == 0f && (currentSpeed > -2f && currentSpeed < 2f)) {
 					// the point of this is to lock the wheels in place so we don't move when we're stopped
 					vehicle.SetBrake(10000f, IntWheelID);
 					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = 10000f;
 				}
 				// normal brake
-				else if ((AccelerateMultiplier > 0f && speed < -2f) || (AccelerateMultiplier < 0f && speed > 2f)) {
+				else if ((AccelerateMultiplier > 0f && currentSpeed < -2f) || (AccelerateMultiplier < 0f && currentSpeed > 2f)) {
 					// brake to apply when we're changing direction
 					vehicle.SetBrake(BrakeForce, IntWheelID);
 					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
@@ -346,23 +351,21 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Calculates the turning multipliers, based on our current speed and drift state.
 		/// </summary>
-		protected void CalculateTurnMultipliers(out float turnAngleMultiplier, out float turnSpeedMultiplier) {
-			float axleSpeed = vehicle.CurrentSpeedKmHour;
-
+		protected void CalculateTurnMultipliers(float currentSpeed, out float turnAngleMultiplier, out float turnSpeedMultiplier) {
 			if (DriftState == WheelDriftState.None) {
 				// less than the slow speed = extra turn multiplier
-				if (axleSpeed < SlowSpeed) {
+				if (currentSpeed < SlowSpeed) {
 					turnAngleMultiplier = SlowTurnAngleMultiplier;
 					turnSpeedMultiplier = SlowTurnSpeedMultiplier;
 				}
 				// more than the high speed = no extra multiplier
-				else if (axleSpeed > HighSpeed) {
+				else if (currentSpeed > HighSpeed) {
 					turnAngleMultiplier = 1f;
 					turnSpeedMultiplier = 1f;
 				}
 				// somewhere in between = time for a cosine curve!
 				else {
-					float relativeSpeed = axleSpeed - SlowSpeed;
+					float relativeSpeed = currentSpeed - SlowSpeed;
 					float maxRelativeSpeed = HighSpeed - SlowSpeed;
 					turnAngleMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnAngleMultiplier - 1f));
 					turnSpeedMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnSpeedMultiplier - 1f));
@@ -378,21 +381,19 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Same as CalculateTurnMultipliers(), but only does the Angle part.
 		/// </summary>
-		public float CalculateTurnAngleMultiplier() {
-			float axleSpeed = vehicle.CurrentSpeedKmHour;
-
+		public float CalculateTurnAngleMultiplier(float currentSpeed) {
 			if (DriftState == WheelDriftState.None) {
 				// less than the slow speed = extra turn multiplier
-				if (axleSpeed < SlowSpeed) {
+				if (currentSpeed < SlowSpeed) {
 					return SlowTurnAngleMultiplier;
 				}
 				// more than the high speed = no extra multiplier
-				else if (axleSpeed > HighSpeed) {
+				else if (currentSpeed > HighSpeed) {
 					return 1f;
 				}
 				// somewhere in between = time for a cosine curve!
 				else {
-					float relativeSpeed = axleSpeed - SlowSpeed;
+					float relativeSpeed = currentSpeed - SlowSpeed;
 					float maxRelativeSpeed = HighSpeed - SlowSpeed;
 					return 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnAngleMultiplier - 1f));
 				}
@@ -401,15 +402,6 @@ namespace Ponykart.Actors {
 			else {
 				return 1f;
 			}
-		}
-
-		/// <summary>
-		/// Calculates the angle the wheel should try to be at (in radians).
-		/// Use this one if you don't know what the turnAngleMultiplier is.
-		/// </summary>
-		/// <returns>Radians</returns>
-		public float CalculateTurnAngle() {
-			return CalculateTurnAngle(CalculateTurnAngleMultiplier());
 		}
 
 
@@ -470,14 +462,12 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Rotates our wheels.
 		/// </summary>
-		protected void Turn(float timeSinceLastFrame) {
-			// first we figure out what our maximum turn angle is depending on kart speed
-			float axleSpeed = vehicle.CurrentSpeedKmHour;
+		protected void Turn(float timeSinceLastFrame, float currentSpeed) {
 			float speedTurnSpeedMultiplier;
 			// this bit lets us do sharper turns when we move slowly, but less sharp turns when we're going fast. Works better!
 			float speedTurnAngleMultiplier;
 
-			CalculateTurnMultipliers(out speedTurnAngleMultiplier, out speedTurnSpeedMultiplier);
+			CalculateTurnMultipliers(currentSpeed, out speedTurnAngleMultiplier, out speedTurnSpeedMultiplier);
 
 			// pick whether the wheel can turn or not depending on whether it's drifting
 			// only "front" wheels turn!
