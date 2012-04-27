@@ -262,33 +262,52 @@ namespace Ponykart.Actors {
 			// if we are trying to accelerate in the opposite direction that we're moving, then brake
 			if ((AccelerateMultiplier > 0f && speed < -2f) || (AccelerateMultiplier < 0f && speed > 2f))
 			{
+				float _motorForce = GetMotorForceForDriftState(ID, DriftState, MotorForce);
+
+				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
 				IsBrakeOn = true;
 			}
 			// if we're mostly stopped and we aren't trying to accelerate, then brake
-			else if (AccelerateMultiplier == 0f && (speed > -2f || speed < 2f))
+			else if (AccelerateMultiplier == 0f)
 			{
-				IsBrakeOn = true;
+				if (speed > -2f || speed < 2f) {
+					vehicle.ApplyEngineForce(0f, IntWheelID);
+					IsBrakeOn = true;
+				}
+				else {
+					vehicle.ApplyEngineForce(0f, IntWheelID);
+					IsBrakeOn = true; //false;
+				}
 			}
 			// if we're either mostly stopped or going in the correct direction, take off the brake and accelerate
 			else if ((AccelerateMultiplier > 0f && speed > -2f) || (AccelerateMultiplier < 0f && speed < 2f)) {
-				float _motorForce = 0f;
+
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
-				if (DriftState == WheelDriftState.None) {
-					if (ID == WheelID.BackLeft || ID == WheelID.BackRight)
-						_motorForce = MotorForce;
-				}
-				else if (DriftState == WheelDriftState.Left) {
-					if (ID == WheelID.FrontRight || ID == WheelID.BackRight)
-						_motorForce = MotorForce;
-				}
-				else if (DriftState == WheelDriftState.Right) {
-					if (ID == WheelID.FrontLeft || ID == WheelID.BackLeft)
-						_motorForce = MotorForce;
-				}
+				float _motorForce = GetMotorForceForDriftState(ID, DriftState, MotorForce);
+				
 				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
 				IsBrakeOn = false;
 			}
+		}
+
+		/// <summary>
+		/// Depending on the wheel's ID and our drift state, this determines what its motor force should be, since the karts are rear-wheel drive
+		/// </summary>
+		private float GetMotorForceForDriftState(WheelID id, WheelDriftState driftState, float motorForce) {
+			if (driftState == WheelDriftState.None) {
+				if (id == WheelID.BackLeft || id == WheelID.BackRight)
+					return motorForce;
+			}
+			else if (driftState == WheelDriftState.Left) {
+				if (id == WheelID.FrontRight || id == WheelID.BackRight)
+					return motorForce;
+			}
+			else if (driftState == WheelDriftState.Right) {
+				if (id == WheelID.FrontLeft || id == WheelID.BackLeft)
+					return motorForce;
+			}
+			return 0f;
 		}
 
 		/// <summary>
@@ -312,7 +331,7 @@ namespace Ponykart.Actors {
 				// normal brake
 				else {
 					// brake to apply when we're just slowing down
-					vehicle.SetBrake(/*BrakeForce * 0.75f*/0, IntWheelID);
+					vehicle.SetBrake(BrakeForce * 0.25f/*0.75f*/, IntWheelID);
 					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
 				}
 			}

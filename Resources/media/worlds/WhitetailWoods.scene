@@ -5,13 +5,53 @@
         <clipping near="0" far="100000" />
     </environment>
     <nodes>
+        <node name="Plane002">
+            <position x="27.9544" y="36.029" z="72.9279" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
+            <entity name="Plane002" castShadows="true" receiveShadows="true" meshFile="Plane002.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object002">
+            <position x="-214.281" y="73.2799" z="-108.624" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="-2.30522e-007" qy="-0.255228" qz="-4.96947e-008" qw="0.966881" />
+            <entity name="Object002" castShadows="true" receiveShadows="true" meshFile="Object002.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
+                </subentities>
+            </entity>
+        </node>
         <node name="Section 2">
             <position x="71.561" y="165.578" z="-4.90937" />
             <scale x="0.07" y="0.07" z="0.07" />
             <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
-            <entity name="Section 2" castShadows="true" receiveShadows="true" meshFile="Section 2.mesh" static="true">
+            <entity name="Section 2" castShadows="true" receiveShadows="true" meshFile="Section 2.mesh">
                 <subentities>
-                    <subentity index="0" materialName="SAA_Barn_Area" />
+                    <subentity index="0" materialName="SAA_Grass" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Object003">
+            <position x="-295.922" y="54.9298" z="127.146" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="0" qy="-0.344634" qz="1.50644e-008" qw="0.938737" />
+            <entity name="Object003" castShadows="true" receiveShadows="true" meshFile="Object003.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Cliff 1">
+            <position x="-208.576" y="53.1967" z="371.69" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
+            <entity name="Cliff 1" castShadows="true" receiveShadows="true" meshFile="Cliff 1.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
             </entity>
         </node>
@@ -19,9 +59,9 @@
             <position x="-225.891" y="53.7604" z="398.565" />
             <scale x="0.07" y="0.07" z="0.07" />
             <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
-            <entity name="Plane006" castShadows="true" receiveShadows="true" meshFile="Plane006.mesh" static="true">
+            <entity name="Plane006" castShadows="true" receiveShadows="true" meshFile="Plane006.mesh">
                 <subentities>
-                    <subentity index="0" materialName="SAA_Field" />
+                    <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
             </entity>
         </node>
@@ -29,9 +69,29 @@
             <position x="-225.891" y="53.7604" z="398.565" />
             <scale x="0.07" y="0.07" z="0.07" />
             <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
-            <entity name="Object004" castShadows="true" receiveShadows="true" meshFile="Object004.mesh" static="true">
+            <entity name="Object004" castShadows="true" receiveShadows="true" meshFile="Object004.mesh">
                 <subentities>
-                    <subentity index="0" materialName="SAA_Road" />
+                    <subentity index="0" materialName="SAA_Grass" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Plane007">
+            <position x="130.49" y="55.4555" z="121.812" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="-2.28527e-007" qy="-0.285059" qz="-5.55031e-008" qw="0.95851" />
+            <entity name="Plane007" castShadows="true" receiveShadows="true" meshFile="Plane007.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Plane008">
+            <position x="-119.005" y="62.5511" z="-179.873" />
+            <scale x="0.07" y="0.07" z="0.07" />
+            <rotation qx="0" qy="0.316272" qz="-1.38247e-008" qw="0.948669" />
+            <entity name="Plane008" castShadows="true" receiveShadows="true" meshFile="Plane008.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
             </entity>
         </node>
@@ -39,17 +99,17 @@
             <position x="-42.7039" y="73.3584" z="-73.4401" />
             <scale x="0.2" y="0.2" z="0.2" />
             <rotation qx="0" qy="-1.04216e-014" qz="-2.38419e-007" qw="1" />
-            <entity name="Plane03" castShadows="true" receiveShadows="true" meshFile="Plane03.mesh">
+            <entity name="Plane03" castShadows="true" receiveShadows="true" meshFile="Plane03.mesh" static="true">
                 <subentities>
-                    <subentity index="0" materialName="SAA_Cliff" />
+                    <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
             </entity>
         </node>
-        <node name="default">
+        <node name="default01">
             <position x="104.955" y="142.081" z="-18.0677" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="default" castShadows="true" receiveShadows="true" meshFile="default.mesh" static="true">
+            <entity name="default01" castShadows="true" receiveShadows="true" meshFile="default01.mesh" static="true">
                 <subentities>
                     <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
@@ -72,6 +132,16 @@
             <entity name="bridge" castShadows="true" receiveShadows="true" meshFile="bridge.mesh" static="true">
                 <subentities>
                     <subentity index="0" materialName="SAA_Bridge" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="road2">
+            <position x="104.955" y="142.081" z="-18.0677" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="road2" castShadows="true" receiveShadows="true" meshFile="road2.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Road" />
                 </subentities>
             </entity>
         </node>
