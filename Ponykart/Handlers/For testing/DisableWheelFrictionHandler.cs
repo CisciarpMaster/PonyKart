@@ -14,7 +14,7 @@ namespace Ponykart.Handlers {
 				return;
 
 			if (eventArgs.key == KeyCode.KC_H) {
-				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.Friction = w.FrictionSlip);
+				LKernel.GetG<PlayerManager>().MainPlayer.Kart.ForEachWheel(w => w.Friction = w.DefaultFrictionSlip);
 			}
 		}
 

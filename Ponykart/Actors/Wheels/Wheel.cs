@@ -15,51 +15,51 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// The radius of the wheel
 		/// </summary>
-		public readonly float Radius; // 0.5 (lymph)
+		public readonly float DefaultRadius; // 0.5 (lymph)
 		/// <summary>
 		/// The width of the wheel
 		/// </summary>
-		public readonly float Width; // 0.4 (demo)
+		public readonly float DefaultWidth; // 0.4 (demo)
 		/// <summary>
 		/// The length of the suspension when it's fully extended
 		/// </summary>
-		protected readonly float SuspensionRestLength; // 0.6 (demo) // 0.3 (zg)
+		protected readonly float DefaultSuspensionRestLength; // 0.6 (demo) // 0.3 (zg)
 
 		/// <summary>
 		/// The stiffness of the suspension spring. Higher values can help make the suspension return to rest length more quickly,
 		/// but can also make the suspension oscillate.
 		/// </summary>
-		protected readonly float SpringStiffness; // 100 (zg)
+		protected readonly float DefaultSpringStiffness; // 100 (zg)
 		/// <summary>
 		/// I have no idea what this does, since changing it doesn't seem to have any effect on the suspension whatsoever
 		/// </summary>
-		protected readonly float SpringCompression; // 4.2 (zg)
+		protected readonly float DefaultSpringCompression; // 4.2 (zg)
 		/// <summary>
 		/// How much force the suspension spring can absorb before returning to rest length. Higher numbers can make the kart smoother,
 		/// but too high and the kart starts to shake (around 100)
 		/// </summary>
-		protected readonly float SpringDamping; // 20 (zg)
+		protected readonly float DefaultSpringDamping; // 20 (zg)
 		/// <summary>
 		/// The friction of the wheel. Higher numbers give more friction, 0 gives no friction.
 		/// </summary>
-		public readonly float FrictionSlip; // 1000 (demo)
+		public readonly float DefaultFrictionSlip; // 1000 (demo)
 		/// <summary>
 		/// How much the wheel resists rolling (around its "forward" axis). Lower numbers give more resistance.
 		/// </summary>
-		protected readonly float RollInfluence; // 1 (zg)
+		protected readonly float DefaultRollInfluence; // 1 (zg)
 
 		/// <summary>
 		/// How much force the wheel exerts when braking.
 		/// </summary>
-		protected readonly float BrakeForce;
+		protected readonly float DefaultBrakeForce;
 		/// <summary>
 		/// How much force the wheel's motor exerts, if it's a back wheel.
 		/// </summary>
-		protected readonly float MotorForce;
+		protected readonly float DefaultMotorForce;
 		/// <summary>
 		/// (RADIANS) The maximum amount the wheel can turn by, if it's a front wheel.
 		/// </summary>
-		protected readonly float MaxTurnAngle; // 0.3 rads (demo)
+		protected readonly float DefaultMaxTurnAngle; // 0.3 rads (demo)
 		/// <summary>
 		/// Which way is "up"?
 		/// </summary>
@@ -71,35 +71,35 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// any slower than this and you will have the fully multiplied turn angle
 		/// </summary>
-		protected readonly float SlowSpeed;
+		protected readonly float DefaultSlowSpeed;
 		/// <summary>
 		/// any faster than this and you will have the regular turn angle
 		/// </summary>
-		protected readonly float HighSpeed;
+		protected readonly float DefaultHighSpeed;
 		/// <summary>
 		/// how much should the wheel's turn angle increase by at slow speeds?
 		/// </summary>
-		protected readonly float SlowTurnAngleMultiplier;
+		protected readonly float DefaultSlowTurnAngleMultiplier;
 		/// <summary>
 		/// how much should the wheel's rotation speed increase by at slow speeds?
 		/// </summary>
-		protected readonly float SlowTurnSpeedMultiplier;
+		protected readonly float DefaultSlowTurnSpeedMultiplier;
 		/// <summary>
 		/// how much should the wheel's turn anglebe when drifting?
 		/// </summary>
-		protected readonly float DriftingTurnAngle;
+		protected readonly float DefaultDriftingTurnAngle;
 		/// <summary>
 		/// (RADIANS) how much to increment the wheel's angle by, each frame, when drifting
 		/// </summary>
-		protected readonly float DriftingTurnSpeed;
+		protected readonly float DefaultDriftingTurnSpeed;
 		/// <summary>
 		/// (RADIANS) how much to increment the wheel's angle by, each frame
 		/// </summary>
-		protected readonly float SteerIncrementTurn;
+		protected readonly float DefaultSteerIncrementTurn;
 		/// <summary>
 		/// (RADIANS) how much to decrement the wheel's angle by, each frame
 		/// </summary>
-		protected readonly float SteerDecrementTurn;
+		protected readonly float DefaultSteerDecrementTurn;
 #endregion
 
 		/// <summary>
@@ -160,25 +160,25 @@ namespace Ponykart.Actors {
 			vehicle = kart.Vehicle;
 
 			// set up our readonlies
-			Radius = dict["Radius"];
-			Width = dict["Width"];
-			SuspensionRestLength = dict["SuspensionRestLength"];
-			SpringStiffness = dict["SpringStiffness"];
-			SpringCompression = dict["SpringCompression"];
-			SpringDamping = dict["SpringDamping"];
+			DefaultRadius = dict["Radius"];
+			DefaultWidth = dict["Width"];
+			DefaultSuspensionRestLength = dict["SuspensionRestLength"];
+			DefaultSpringStiffness = dict["SpringStiffness"];
+			DefaultSpringCompression = dict["SpringCompression"];
+			DefaultSpringDamping = dict["SpringDamping"];
 			Friction = dict["FrictionSlip"];
-			RollInfluence = dict["RollInfluence"];
-			BrakeForce = dict["BrakeForce"];
-			MotorForce = dict["MotorForce"];
-			MaxTurnAngle = new Degree(dict["TurnAngle"]).ValueRadians;
-			SlowSpeed = dict["SlowSpeed"];
-			HighSpeed = dict["HighSpeed"];
-			SlowTurnAngleMultiplier = dict["SlowTurnAngleMultiplier"];
-			SlowTurnSpeedMultiplier = dict["SlowTurnSpeedMultiplier"];
-			DriftingTurnAngle = new Degree(dict["DriftingTurnAngle"]).ValueRadians;
-			DriftingTurnSpeed = new Degree(dict["DriftingTurnSpeed"]).ValueRadians;
-			SteerIncrementTurn = new Degree(dict["SteerIncrementTurn"]).ValueRadians;
-			SteerDecrementTurn = new Degree(dict["SteerDecrementTurn"]).ValueRadians;
+			DefaultRollInfluence = dict["RollInfluence"];
+			DefaultBrakeForce = dict["BrakeForce"];
+			DefaultMotorForce = dict["MotorForce"];
+			DefaultMaxTurnAngle = new Degree(dict["TurnAngle"]).ValueRadians;
+			DefaultSlowSpeed = dict["SlowSpeed"];
+			DefaultHighSpeed = dict["HighSpeed"];
+			DefaultSlowTurnAngleMultiplier = dict["SlowTurnAngleMultiplier"];
+			DefaultSlowTurnSpeedMultiplier = dict["SlowTurnSpeedMultiplier"];
+			DefaultDriftingTurnAngle = new Degree(dict["DriftingTurnAngle"]).ValueRadians;
+			DefaultDriftingTurnSpeed = new Degree(dict["DriftingTurnSpeed"]).ValueRadians;
+			DefaultSteerIncrementTurn = new Degree(dict["SteerIncrementTurn"]).ValueRadians;
+			DefaultSteerDecrementTurn = new Degree(dict["SteerDecrementTurn"]).ValueRadians;
 
 			// give our fields some default values
 			AccelerateMultiplier = 0;
@@ -186,7 +186,7 @@ namespace Ponykart.Actors {
 			IsBrakeOn = false;
 			DriftState = WheelDriftState.None;
 			IntWheelID = (int) wheelID;
-			FrictionSlip = Friction;
+			DefaultFrictionSlip = Friction;
 			IdealSteerAngle = 0f;
 
 			// need to tell bullet whether it's a front wheel or not
@@ -196,16 +196,16 @@ namespace Ponykart.Actors {
 			else
 				isFrontWheel = false;
 
-			vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, SuspensionRestLength, Radius, kart.Tuning, isFrontWheel);
+			vehicle.AddWheel(connectionPoint, WheelDirection, WheelAxle, DefaultSuspensionRestLength, DefaultRadius, kart.Tuning, isFrontWheel);
 
 			WheelInfo info = vehicle.GetWheelInfo(IntWheelID);
-			info.SuspensionStiffness = SpringStiffness;
-			info.WheelDampingRelaxation = SpringDamping;
-			info.WheelDampingCompression = SpringCompression;
+			info.SuspensionStiffness = DefaultSpringStiffness;
+			info.WheelDampingRelaxation = DefaultSpringDamping;
+			info.WheelDampingCompression = DefaultSpringCompression;
 			info.FrictionSlip = Friction;
-			info.RollInfluence = RollInfluence;
+			info.RollInfluence = DefaultRollInfluence;
 
-			AxlePoint = connectionPoint + new Vector3(0, -SuspensionRestLength, 0);
+			AxlePoint = connectionPoint + new Vector3(0, -DefaultSuspensionRestLength, 0);
 
 			// create our node and entity
 			Node = owner.RootNode.CreateChildSceneNode("wheelNode" + kart.ID + ID, AxlePoint);
@@ -229,7 +229,7 @@ namespace Ponykart.Actors {
 
 				if (kart.Body.IsActive && (kart.VehicleSpeed > 1f || kart.VehicleSpeed < -1f)) {
 					// don't change the kart's orientation when we're drifting
-					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(MaxTurnAngle * CalculateTurnAngleMultiplier(currentSpeed))) {
+					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(DefaultMaxTurnAngle * CalculateTurnAngleMultiplier(currentSpeed))) {
 						Node.Orientation = kart.ActualOrientation;
 					}
 					else {
@@ -241,7 +241,7 @@ namespace Ponykart.Actors {
 					Node.Orientation = info.WorldTransform.ExtractQuaternion();
 				}
 
-				// the wheel sorta "comes off" when it's moving quickly in the air, so we only need to update the translation then
+				// the wheel sorta "comes off" when it's moving quickly in the air, so we only need to update the z translation then
 				if (!kart.IsInAir) {
 					Vector3 trans = info.WorldTransform.GetTrans();
 					Node.SetPosition(AxlePoint.x, kart.RootNode.ConvertWorldToLocalPosition(trans).y, AxlePoint.z);
@@ -249,17 +249,33 @@ namespace Ponykart.Actors {
 				else {
 					Node.Position = AxlePoint;
 				}
-
 				
-				ChangeFriction(currentSpeed);
+				ChangeFriction(info, currentSpeed);
 				Accelerate(currentSpeed);
 				Brake(currentSpeed);
 				Turn(evt.timeSinceLastFrame, currentSpeed);
 			}
 		}
 
-		protected void ChangeFriction(float currentSpeed) {
+		private const float MINIMUM_FRICTION = 3f;
 
+		/// <summary>
+		/// Changes wheel friction depending on our current speed
+		/// </summary>
+		protected void ChangeFriction(WheelInfo info, float currentSpeed) {
+			// really strong friction so we don't roll down hills when we're stopped
+			if (AccelerateMultiplier == 0f && currentSpeed > -2f && currentSpeed < 2f)
+				info.FrictionSlip = 10000f;
+			// if we're going slower than the slow speed, keep friction at maximum
+			else if (currentSpeed < DefaultSlowSpeed)
+				info.FrictionSlip = DefaultFrictionSlip;
+			// otherwise, change friction based on speed to a minimum
+			else {
+				float newFric = this.Friction * (1 - ((currentSpeed - DefaultSlowSpeed) / ((kart.MaxSpeed * 3.6f) - DefaultSlowSpeed)));
+				if (newFric < MINIMUM_FRICTION)
+					newFric = MINIMUM_FRICTION;
+				info.FrictionSlip = newFric;
+			}
 		}
 
 		/// <summary>
@@ -280,7 +296,7 @@ namespace Ponykart.Actors {
 			// if we are trying to accelerate in the opposite direction that we're moving, then brake
 			else if ((AccelerateMultiplier > 0f && currentSpeed < -2f) || (AccelerateMultiplier < 0f && currentSpeed > 2f))
 			{
-				float _motorForce = GetMotorForceForDriftState(ID, DriftState, MotorForce);
+				float _motorForce = GetMotorForceForDriftState(ID, DriftState, DefaultMotorForce);
 
 				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
 				IsBrakeOn = true;
@@ -290,7 +306,7 @@ namespace Ponykart.Actors {
 
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
-				float _motorForce = GetMotorForceForDriftState(ID, DriftState, MotorForce);
+				float _motorForce = GetMotorForceForDriftState(ID, DriftState, DefaultMotorForce);
 				
 				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
 				IsBrakeOn = false;
@@ -325,24 +341,20 @@ namespace Ponykart.Actors {
 				if (AccelerateMultiplier == 0f && (currentSpeed > -2f && currentSpeed < 2f)) {
 					// the point of this is to lock the wheels in place so we don't move when we're stopped
 					vehicle.SetBrake(10000f, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = 10000f;
 				}
 				// normal brake
 				else if ((AccelerateMultiplier > 0f && currentSpeed < -2f) || (AccelerateMultiplier < 0f && currentSpeed > 2f)) {
 					// brake to apply when we're changing direction
-					vehicle.SetBrake(BrakeForce, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
+					vehicle.SetBrake(DefaultBrakeForce, IntWheelID);
 				}
 				// normal brake
 				else {
 					// brake to apply when we're just slowing down
-					vehicle.SetBrake(BrakeForce * 0.25f/*0.75f*/, IntWheelID);
-					vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
+					vehicle.SetBrake(0f/*BrakeForce * 0.25f*/, IntWheelID);
 				}
 			}
 			else {
 				vehicle.SetBrake(0f, IntWheelID);
-				vehicle.GetWheelInfo(IntWheelID).FrictionSlip = Friction;
 			}
 		}
 
@@ -354,21 +366,21 @@ namespace Ponykart.Actors {
 		protected void CalculateTurnMultipliers(float currentSpeed, out float turnAngleMultiplier, out float turnSpeedMultiplier) {
 			if (DriftState == WheelDriftState.None) {
 				// less than the slow speed = extra turn multiplier
-				if (currentSpeed < SlowSpeed) {
-					turnAngleMultiplier = SlowTurnAngleMultiplier;
-					turnSpeedMultiplier = SlowTurnSpeedMultiplier;
+				if (currentSpeed < DefaultSlowSpeed) {
+					turnAngleMultiplier = DefaultSlowTurnAngleMultiplier;
+					turnSpeedMultiplier = DefaultSlowTurnSpeedMultiplier;
 				}
 				// more than the high speed = no extra multiplier
-				else if (currentSpeed > HighSpeed) {
+				else if (currentSpeed > DefaultHighSpeed) {
 					turnAngleMultiplier = 1f;
 					turnSpeedMultiplier = 1f;
 				}
 				// somewhere in between = time for a cosine curve!
 				else {
-					float relativeSpeed = currentSpeed - SlowSpeed;
-					float maxRelativeSpeed = HighSpeed - SlowSpeed;
-					turnAngleMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnAngleMultiplier - 1f));
-					turnSpeedMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnSpeedMultiplier - 1f));
+					float relativeSpeed = currentSpeed - DefaultSlowSpeed;
+					float maxRelativeSpeed = DefaultHighSpeed - DefaultSlowSpeed;
+					turnAngleMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (DefaultSlowTurnAngleMultiplier - 1f));
+					turnSpeedMultiplier = 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (DefaultSlowTurnSpeedMultiplier - 1f));
 				}
 			}
 			// no multiplier when we're drifting
@@ -384,18 +396,18 @@ namespace Ponykart.Actors {
 		public float CalculateTurnAngleMultiplier(float currentSpeed) {
 			if (DriftState == WheelDriftState.None) {
 				// less than the slow speed = extra turn multiplier
-				if (currentSpeed < SlowSpeed) {
-					return SlowTurnAngleMultiplier;
+				if (currentSpeed < DefaultSlowSpeed) {
+					return DefaultSlowTurnAngleMultiplier;
 				}
 				// more than the high speed = no extra multiplier
-				else if (currentSpeed > HighSpeed) {
+				else if (currentSpeed > DefaultHighSpeed) {
 					return 1f;
 				}
 				// somewhere in between = time for a cosine curve!
 				else {
-					float relativeSpeed = currentSpeed - SlowSpeed;
-					float maxRelativeSpeed = HighSpeed - SlowSpeed;
-					return 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (SlowTurnAngleMultiplier - 1f));
+					float relativeSpeed = currentSpeed - DefaultSlowSpeed;
+					float maxRelativeSpeed = DefaultHighSpeed - DefaultSlowSpeed;
+					return 1f + (Mogre.Math.Cos((relativeSpeed * Mogre.Math.PI) / (maxRelativeSpeed * 2f)) * (DefaultSlowTurnAngleMultiplier - 1f));
 				}
 			}
 			// no multiplier when we're drifting
@@ -416,12 +428,12 @@ namespace Ponykart.Actors {
 			if (DriftState == WheelDriftState.None && (ID == WheelID.FrontLeft || ID == WheelID.FrontRight)) {
 				// front wheels, no drift
 				// calculate what angle the wheels should try to be at
-				return (MaxTurnAngle * TurnMultiplier * turnAngleMultiplier) + IdealSteerAngle;
+				return (DefaultMaxTurnAngle * TurnMultiplier * turnAngleMultiplier) + IdealSteerAngle;
 			}
 			else if ((DriftState == WheelDriftState.Left && (ID == WheelID.FrontLeft || ID == WheelID.BackLeft))
 				 || (DriftState == WheelDriftState.Right && (ID == WheelID.FrontRight || ID == WheelID.BackRight))) {
 				// "front" wheels, yes drift
-				return (DriftingTurnAngle * TurnMultiplier) + IdealSteerAngle;
+				return (DefaultDriftingTurnAngle * TurnMultiplier) + IdealSteerAngle;
 			}
 			else {
 				// back wheels
@@ -443,18 +455,18 @@ namespace Ponykart.Actors {
 				}
 				else if (System.Math.Abs(targetSteerAngle - IdealSteerAngle) < System.Math.Abs(currentAngle - IdealSteerAngle)) {
 					// we are not turning any more, so the wheels are moving back to their forward positions
-					return SteerDecrementTurn * speedTurnSpeedMultiplier * timestep;
+					return DefaultSteerDecrementTurn * speedTurnSpeedMultiplier * timestep;
 				}
 				else {
 					// we are turning, so the wheels are moving to their turned positions
-					return SteerIncrementTurn * speedTurnSpeedMultiplier * timestep;
+					return DefaultSteerIncrementTurn * speedTurnSpeedMultiplier * timestep;
 				}
 			}
 			else {
 				if (kart.DriftState.IsStartDrift()) {
 					return START_DRIFT_STEER_CHANGE * timestep;
 				}
-				return DriftingTurnSpeed * timestep;
+				return DefaultDriftingTurnSpeed * timestep;
 			}
 		}
 

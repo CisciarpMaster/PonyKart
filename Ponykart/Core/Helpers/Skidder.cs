@@ -43,7 +43,7 @@ namespace Ponykart.Core {
 			float fraction = progress / duration;
 			// update friction
 			kart.ForEachWheel(w => {
-				w.Friction = w.FrictionSlip * fraction;
+				w.Friction = w.DefaultFrictionSlip * fraction;
 			});
 
 			// limit angular velocity
@@ -79,7 +79,7 @@ namespace Ponykart.Core {
 
 				// reset it back to normal
 				kart.ForEachWheel(w => {
-					w.Friction = w.FrictionSlip;
+					w.Friction = w.DefaultFrictionSlip;
 				});
 
 				PhysicsMain.PreSimulate -= PreSimulate;

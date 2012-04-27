@@ -113,8 +113,8 @@ namespace Ponykart.Actors {
 			WheelBL = wheelFac.CreateWheel(backWheelName, WheelID.BackLeft, this, def.GetVectorProperty("BackLeftWheelPosition", null), def.GetStringProperty("BackLeftWheelMesh", null));
 			WheelBR = wheelFac.CreateWheel(backWheelName, WheelID.BackRight, this, def.GetVectorProperty("BackRightWheelPosition", null), def.GetStringProperty("BackRightWheelMesh", null));
 
-			LeftParticleNode.Position -= new Vector3(0, WheelBL.Radius * 0.7f, 0);
-			RightParticleNode.Position -= new Vector3(0, WheelBR.Radius * 0.7f, 0);
+			LeftParticleNode.Position -= new Vector3(0, WheelBL.DefaultRadius * 0.7f, 0);
+			RightParticleNode.Position -= new Vector3(0, WheelBR.DefaultRadius * 0.7f, 0);
 			
 			Body.LinearVelocity = new Vector3(0, 1, 0);
 
