@@ -47,7 +47,7 @@ namespace Ponykart.Physics {
 #else
 			var files = Directory.EnumerateFiles("media/", "*.bullet", SearchOption.AllDirectories);
 			foreach (string file in files) {
-				bulletFiles.Add(Path.GetFileNameWithoutExtension(file), file);
+				bulletFiles[Path.GetFileNameWithoutExtension(file)] = file;
 			}
 #endif
 		}

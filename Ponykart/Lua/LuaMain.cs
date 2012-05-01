@@ -93,7 +93,7 @@ namespace Ponykart.Lua {
 
 		public void DoFunctionForLThing(string functionName, LThing thing) {
 			if (LKernel.GetG<LevelManager>().IsValidLevel) {
-				lock (this) {
+				lock (LuaVM.Lua) {
 					try {
 						LuaVM.Lua["lthing"] = thing;
 						LuaVM.Lua.GetFunction(functionName).Call(thing);
