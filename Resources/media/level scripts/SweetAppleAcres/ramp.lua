@@ -3,7 +3,7 @@ local function rampIncSpeed(r, body, flags, i)
 	local kart = getKartFromBody(body)
 	if kart ~= nil and isEnterFlag(flags) then
 		-- for regular speed
-		--kart.MaxSpeed = kart.InitialMaxSpeed * 1.5
+		--kart.MaxSpeed = kart.DefaultMaxSpeed * 1.5
 		
 		-- for SAA's slow speed
 		kart.MaxSpeed = 84 -- twi's * 1.2
@@ -14,10 +14,10 @@ local function rampDecSpeed(r, body, flags, i)
 	local kart = getKartFromBody(body)
 	if kart ~= nil and isEnterFlag(flags) then
 		-- for regular speed
-		--kart.MaxSpeed = kart.InitialMaxSpeed
+		--kart.MaxSpeed = kart.DefaultMaxSpeed
 		
 		-- for SAA's slow speed
-		kart.MaxSpeed = kart.InitialMaxSpeed / 1.4
+		kart.MaxSpeed = kart.DefaultMaxSpeed / 1.4
 	end
 end
 
