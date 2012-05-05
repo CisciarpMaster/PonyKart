@@ -16,6 +16,7 @@ material TwilightBody {
 			
             texture_unit {
                 texture "TwilightBody.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -31,6 +32,7 @@ material TwilightEyes {
 			
             texture_unit {
                 texture "TwilightEyes.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -63,6 +65,7 @@ material TwilightHair {
 			
             texture_unit {
                 texture "TwilightHair.dds"
+				mipmap_bias -1
             }
         }
     }

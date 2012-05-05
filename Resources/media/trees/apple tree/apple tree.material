@@ -74,6 +74,7 @@ material AppleTreeBillboards {
 			texture_unit {
 				texture "apple tree billboards.dds"
 				tex_address_mode clamp
+				mipmap_bias -1
 			}
 		}
 	}

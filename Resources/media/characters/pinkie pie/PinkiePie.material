@@ -17,6 +17,7 @@ material PinkiePieBody {
 			
             texture_unit {
                 texture "PinkiePieBody.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -32,6 +33,7 @@ material PinkiePieEyes {
 			
             texture_unit {
                 texture "PinkiePieEyes.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -56,6 +58,7 @@ material PinkiePieHair {
 			
             texture_unit {
                 texture "PinkiePieHair.dds"
+				mipmap_bias -1
             }
         }
     }

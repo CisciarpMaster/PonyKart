@@ -11,6 +11,8 @@ material LilyPads {
 				texture_alias Diffuse
 				texture "lilypad_001.dds"
 				tex_address_mode clamp
+				filtering anisotropic
+				max_anisotropy 4
 			}
 		}
 	}
@@ -49,6 +51,7 @@ material Lily {
 			texture_unit {
 				texture "lilypad_lily.dds"
 				tex_address_mode clamp
+				mipmap_bias -2
 			}
 		}
 	}

@@ -9,6 +9,7 @@ material FlowerBarrel {
 			texture_unit {
 				texture "SAA transparent things.dds"
 				tex_address_mode clamp
+				mipmap_bias -2
 			}
 		}
 	}

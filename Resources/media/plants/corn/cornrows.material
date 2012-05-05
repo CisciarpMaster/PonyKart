@@ -17,6 +17,7 @@ material SAA_CornRows {
 			texture_unit {
 				texture "cornrows.dds"
 				tex_address_mode mirror
+				mipmap_bias -2
 			}
 		}
 	}

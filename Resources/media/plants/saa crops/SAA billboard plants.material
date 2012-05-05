@@ -11,6 +11,7 @@ material Billboards {
 			texture_unit {
 				texture "saa billboards.dds"
 				tex_address_mode clamp
+				mipmap_bias -1
 			}
 		}
 	}

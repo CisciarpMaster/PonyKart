@@ -12,6 +12,8 @@ material SAA_Field {
 			
 			texture_unit {
 				texture "saa_dirt_02.dds"
+				filtering anisotropic
+				max_anisotropy 4
 			}
 		}
 	}
@@ -30,6 +32,8 @@ material SAA_FieldTransition {
 			texture_unit {
 				texture "saa_crop2.dds"
 				tex_address_mode wrap clamp
+				filtering anisotropic
+				max_anisotropy 4
 			}
 		}
 	}

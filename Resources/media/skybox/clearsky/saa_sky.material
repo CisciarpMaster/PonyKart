@@ -10,6 +10,7 @@ material saa_sky {
 				// front (-Z), back (+Z), left (-X?), right (+X?), up (+Y), down (-Y)
 				cubic_texture "skyboxfront.png" "skyboxback.png" "skyboxleft.png" "skyboxright.png" "skyboxup.png" "skyboxdown.png" separateUV
 				tex_address_mode clamp
+				mipmap_bias -5
 			}
 		}
 	}

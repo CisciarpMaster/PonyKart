@@ -17,6 +17,7 @@ material DerpyBody {
 			
             texture_unit {
                 texture "DerpyBody.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -32,6 +33,7 @@ material DerpyEyes {
 			
             texture_unit {
                 texture "DerpyEyes.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -56,6 +58,7 @@ material DerpyHair {
 			
             texture_unit {
                 texture "DerpyHair.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -81,6 +84,7 @@ material DerpyWings {
 			
             texture_unit {
                 texture "DerpyWings.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -104,6 +108,7 @@ material DerpyVest {
 			
             texture_unit {
                 texture "DerpyVest.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -120,6 +125,7 @@ material DerpyFlag {
 			
             texture_unit {
                 texture "DerpyFlag.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -136,6 +142,7 @@ material DerpyStartLight {
 			
             texture_unit {
                 texture "DerpyStartLight.dds"
+				mipmap_bias -1
             }
         }
     }

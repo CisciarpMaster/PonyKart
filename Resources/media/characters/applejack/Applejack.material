@@ -17,6 +17,7 @@ material ApplejackBody {
 			
             texture_unit {
                 texture "ApplejackBody.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -32,6 +33,7 @@ material ApplejackEyes {
 			
             texture_unit {
                 texture "ApplejackEyes.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -57,6 +59,7 @@ material ApplejackHair {
 			
             texture_unit {
                 texture "ApplejackHair.dds"
+				mipmap_bias -1
             }
         }
     }
@@ -81,6 +84,7 @@ material ApplejackHat {
 			
             texture_unit {
                 texture "ApplejackHat.dds"
+				mipmap_bias -1
             }
         }
     }

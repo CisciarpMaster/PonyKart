@@ -11,6 +11,8 @@ material AJKart {
 			
 			texture_unit {
 				texture "AJKart.dds"
+				filtering anisotropic
+				max_anisotropy 4
 			}
 		}
 	}

@@ -11,6 +11,7 @@ material Reeds {
 			texture_unit {
 				texture "Reeds.dds"
 				tex_address_mode clamp
+				mipmap_bias -2
 			}
 		}
 	}

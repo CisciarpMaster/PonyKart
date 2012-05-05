@@ -113,6 +113,7 @@ material BgPonyEyes {
             texture_unit {
                 texture "LowPolyEyesWhite.dds"
                 colour_op alpha_blend
+				mipmap_bias -2
             }
         }
     }
