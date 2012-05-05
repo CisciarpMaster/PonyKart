@@ -14,10 +14,10 @@ PhysicsMaterial = "Kart"
 
 CollisionEvents = true
 
-FrontLeftWheelPosition = 0.324, -0.03, 0.52
-FrontRightWheelPosition = -0.324, -0.03, 0.52
-BackLeftWheelPosition = 0.28, -0.03, -0.56
-BackRightWheelPosition = -0.28, -0.03, -0.56
+FrontLeftWheelPosition = 0.324, 0, 0.52
+FrontRightWheelPosition = -0.324, 0, 0.52
+BackLeftWheelPosition = 0.28, 0, -0.56
+BackRightWheelPosition = -0.28, 0, -0.56
 
 FrontDriftAngle = 44
 BackDriftAngle = 55
@@ -26,7 +26,7 @@ DriftTransitionAngle = 50
 Model {
 	Mesh = "AJKart.mesh"
 	Material = "AJKart"
-	Position = 0, 0.01, 0.15
+	Position = 0, 0.04, 0.15
 	CastsShadows = Some
 }
 
@@ -34,7 +34,7 @@ Model {
 Shape {
 	Type = Hull
 	Mesh = "AJKartHull.bullet"
-	Position = 0, 0, 0
+	Position = 0, 0.03, 0
 }
 
 Sound {
