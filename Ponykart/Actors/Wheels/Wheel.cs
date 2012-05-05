@@ -229,7 +229,7 @@ namespace Ponykart.Actors {
 
 				if (kart.Body.IsActive && (kart.VehicleSpeed > 1f || kart.VehicleSpeed < -1f)) {
 					// don't change the kart's orientation when we're drifting
-					if (kart.IsDriftingAtAll || System.Math.Abs(info.Steering) > System.Math.Abs(DefaultMaxTurnAngle * CalculateTurnAngleMultiplier(currentSpeed))) {
+					if (kart.IsDriftingAtAll) {
 						Node.Orientation = kart.ActualOrientation;
 					}
 					else {
@@ -272,9 +272,7 @@ namespace Ponykart.Actors {
 			// otherwise, change friction based on speed to a minimum
 			else {
 				float newFric = this.Friction * (1 - ((currentSpeed - DefaultSlowSpeed) / ((kart.MaxSpeed * 3.6f) - DefaultSlowSpeed)));
-				if (newFric < MINIMUM_FRICTION)
-					newFric = MINIMUM_FRICTION;
-				info.FrictionSlip = newFric;
+				info.FrictionSlip = System.Math.Max(newFric, MINIMUM_FRICTION);
 			}
 		}
 
