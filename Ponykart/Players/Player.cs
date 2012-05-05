@@ -56,7 +56,7 @@ namespace Ponykart.Players {
 					break;
 				case "Rainbow Dash":
 					driverName = "RainbowDash";
-					kartName = "TwiCutlass";
+					kartName = "DashJavelin";
 					break;
 				case "Applejack":
 					driverName = "Applejack";

@@ -25,7 +25,7 @@ namespace Ponykart.Actors {
 		public float MaxSpeedSquared { get; private set; }
 		public float MaxReverseSpeedSquared { get; private set; }
 
-		public readonly float InitialMaxSpeed;
+		public readonly float DefaultMaxSpeed;
 		/// <summary>
 		/// Should only be set by KartHandler
 		/// </summary>
@@ -64,7 +64,7 @@ namespace Ponykart.Actors {
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
-			InitialMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 18f);
+			DefaultMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 18f);
 			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 4f);
 
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;
@@ -172,7 +172,8 @@ namespace Ponykart.Actors {
 				// using 20 because we don't need to check the kart's linear velocity if it's going really slowly
 				if ((currentSpeed > 20f && !isDriftingAtAll)
 					|| currentSpeed < -20f && isDriftingAtAll
-					|| currentSpeed > 20f && isDriftingAtAll) {
+					|| currentSpeed > 20f && isDriftingAtAll)
+				{
 					// check its velocity against the max velocity (both are squared to avoid unnecessary square roots)
 					if (Body.LinearVelocity.SquaredLength > MaxSpeedSquared) {
 						Vector3 vec = Body.LinearVelocity;

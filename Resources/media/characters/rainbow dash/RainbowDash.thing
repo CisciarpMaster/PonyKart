@@ -2,7 +2,7 @@ Physics = None
 
 Model {
 	Mesh = "RainbowDash.mesh"
-	Position = 0, -0.1, 0
+	Position = 0, -0.12, -0.04
 	CastsShadows = None
 	
 	Animated = true

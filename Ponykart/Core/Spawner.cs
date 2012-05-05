@@ -122,7 +122,12 @@ namespace Ponykart.Core {
 			}
 			lock (_spawnLock) {
 				var definition = database.GetThingDefinition(thingName);
-				Kart kart = new Kart(template, definition);
+
+				Kart kart;
+				if (thingName == "DashJavelin")
+					kart = new DashJavelin(template, definition);
+				else
+					kart = new Kart(template, definition);
 				
 				levelManager.CurrentLevel.AddThing(kart);
 

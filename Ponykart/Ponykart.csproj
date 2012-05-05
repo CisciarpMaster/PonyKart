@@ -134,6 +134,7 @@
     <Compile Include="Actors\BackgroundPony.cs" />
     <Compile Include="Actors\Components\BillboardSetComponent.cs" />
     <Compile Include="Actors\Components\SoundComponent.cs" />
+    <Compile Include="Actors\DashJavelin.cs" />
     <Compile Include="Actors\Derpy.cs" />
     <Compile Include="Actors\Driver.cs" />
     <Compile Include="Actors\InstancedGeometryManager.cs" />
