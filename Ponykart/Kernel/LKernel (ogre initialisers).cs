@@ -119,6 +119,7 @@ namespace Ponykart {
 #if !DEBUG
 			TextureManager.Singleton.Verbose = false;
 			MeshManager.Singleton.Verbose = false;
+			SkeletonManager.Singleton.Verbose = false;
 #endif
 
 #if DEBUG
