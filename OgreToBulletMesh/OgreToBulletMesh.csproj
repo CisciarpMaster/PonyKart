@@ -50,7 +50,7 @@
     <Reference Include="BulletSharp">
       <HintPath>..\References\BulletSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Mogre">
+    <Reference Include="Mogre, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\References\Release\Mogre.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -118,8 +118,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)Resources\OgreMain.dll" "$(TargetDir)" /S /C /Q /Y
-xcopy "$(SolutionDir)Resources\media\plugins\RenderSystem_Direct3D9.dll" "$(TargetDir)" /S /C /Q /Y
+    <PostBuildEvent>xcopy "$(SolutionDir)References\Release\*" "$(TargetDir)" /S /C /Q /Y
 xcopy "$(ProjectDir)ToCopy\*" "$(TargetDir)" /S /C /Q /Y
 </PostBuildEvent>
   </PropertyGroup>

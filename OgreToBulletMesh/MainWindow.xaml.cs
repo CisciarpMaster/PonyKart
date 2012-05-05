@@ -198,7 +198,7 @@ namespace OgreToBulletMesh {
 
 			if (result == true) {
 				meshFilename = dlg.FileName;
-				browseMeshLabel.Content = meshFilename;
+				browseMeshLabel.Content = Path.GetFileName(meshFilename);
 
 				convertButton.IsEnabled = true;
 			}
