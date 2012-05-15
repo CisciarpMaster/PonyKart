@@ -68,9 +68,9 @@ namespace Ponykart.Handlers {
 
 			netMgr.InitManager(int.Parse(mmm.NetworkClientPortTextBox.Text),
 							   mmm.NetworkClientPasswordTextBox.Text,
-							   mmm.NetworkClientIPTextBox.Text);
+                               mmm.NetworkClientIPTextBox.Text);
+            netMgr.StartThread(1);
 			netMgr.SingleConnection.SendPacket(Commands.Connect, mmm.NetworkClientPasswordTextBox.Text);
-			netMgr.StartThread(1);
 		}
 		/// <summary>
 		/// Saves the chosen level for later
@@ -88,7 +88,7 @@ namespace Ponykart.Handlers {
 
 				LevelChangeRequest request = new LevelChangeRequest() {
 					NewLevelName = _levelSelection,
-					CharacterNames = new string[] { characterSelection },
+					CharacterNames = new string[] { characterSelection ?? "Twilight Sparkle" },
 				};
 				LKernel.GetG<LevelManager>().LoadLevel(request);
 			}
