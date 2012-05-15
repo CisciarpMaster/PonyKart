@@ -72,7 +72,7 @@ namespace Ponykart.Networking {
         /// </summary>
         static byte[] GetContents(byte[] packet) {
             var contents = new byte[packet.Length - 12];
-            Array.Copy(packet, 10, contents, 0, packet.Length - 12);
+            Array.Copy(packet, 12, contents, 0, packet.Length - 12);
             return contents;
         }
 

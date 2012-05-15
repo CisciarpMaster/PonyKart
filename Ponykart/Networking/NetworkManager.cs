@@ -159,7 +159,7 @@ namespace Ponykart.Networking
             LastSentTicks = 0;
             try {
                 while (!Launch.Quit) {
-                    if (Listener.Available > 0) {
+                    if (Listener.Client != null && Listener.Available > 0) {
                         //Launch.Log("Packet available");
                         OnPacket(Listener.Receive(ref ListenEP));
                     }
