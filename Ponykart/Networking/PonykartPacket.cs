@@ -13,7 +13,7 @@ namespace Ponykart.Networking {
     public struct Message {
         Commands Type;
         byte[] Contents;
-        bool Volatile;
+        public bool Volatile;
         public PonykartPacket ToPKPacket(Connection owner) {
             return new PonykartPacket(Type, Contents, owner, Volatile);
         }
@@ -46,7 +46,7 @@ namespace Ponykart.Networking {
         }
         public Commands Type {
             get {
-                return Enum.IsDefined(typeof(Commands), _Type) ? (Commands)Type : Commands.NoMessage;
+                return Enum.IsDefined(typeof(Commands), _Type) ? (Commands)_Type : Commands.NoMessage;
             }
         }
         byte[] Contents;
@@ -71,8 +71,8 @@ namespace Ponykart.Networking {
         /// Strips out header information from a packet and returns the contents
         /// </summary>
         static byte[] GetContents(byte[] packet) {
-            var contents = new byte[packet.Length - 10];
-            Array.Copy(packet, 10, contents, 0, packet.Length - 10);
+            var contents = new byte[packet.Length - 12];
+            Array.Copy(packet, 10, contents, 0, packet.Length - 12);
             return contents;
         }
 
@@ -82,7 +82,7 @@ namespace Ponykart.Networking {
         public byte[] ToBytes() {
             var timeArr = BitConverter.GetBytes(Timestamp);
             var typeArr = BitConverter.GetBytes(_Type);
-            var packet = new byte[Contents.Length + 10];
+            var packet = new byte[Contents.Length + 12];
             Array.Copy(timeArr, 0, packet, 0, 8);
             Array.Copy(typeArr, 0, packet, 8, 4);
             Array.Copy(Contents, 0, packet, 12, Contents.Length);

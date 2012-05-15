@@ -36,7 +36,7 @@ namespace Ponykart.Networking {
 		/// <summary>
 		/// Creates a connection, given a destination to send to and a connection ID.
 		/// </summary>
-		public Connection(UdpClient sender, IPEndPoint destinationep, int cid) {
+		public Connection(UdpClient sender, IPEndPoint destinationep, Int32 cid) {
             UDPConnection = new ReliableUDPConnection(sender, destinationep, cid, this);
             OutgoingQueue = new Queue<Message>();
             Cid = cid;
@@ -115,7 +115,7 @@ namespace Ponykart.Networking {
 			SendPacket((Commands)type, contents, isVolatile);
 		}
 		public void SendPacket(Commands type, string contents, bool isVolatile=false) {
-			SendPacket(type, System.Text.ASCIIEncoding.ASCII.GetBytes(contents),isVolatile);
+			SendPacket(type, System.Text.ASCIIEncoding.ASCII.GetBytes(contents??""),isVolatile);
 		}
         public void SendPacket(Commands type, byte[] contents, bool isVolatile=false) {
             LastSentTime = System.DateTime.Now;

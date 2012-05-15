@@ -13,13 +13,13 @@ namespace Ponykart.Networking {
         public byte[] IDArray;
         public IPEndPoint DestinationEP;
         private Dictionary<UInt32,UDPPacket> Sent;
-        public UInt32 Ack = 0;
+        public UInt32 RemoteSeqNo = 0;
         public UInt32 AckField = 0;
         int sequenceNo = 0;
         long LastReceivedTicks = 0;
         Connection Owner;
 
-        public ReliableUDPConnection(UdpClient sender, IPEndPoint destinationep, int cid, Connection owner) {
+        public ReliableUDPConnection(UdpClient sender, IPEndPoint destinationep, Int32 cid, Connection owner) {
             DestinationEP = destinationep;
             ConnectionID = cid;
             Sender = sender;
@@ -39,12 +39,12 @@ namespace Ponykart.Networking {
         /// <param name="p"></param>
         void AddAck(UDPPacket p) {
             LastReceivedTicks = System.DateTime.Now.Ticks;
-            if (p.SequenceNo > Ack) {
-                AckField <<= (int)(p.SequenceNo - Ack);
+            if (p.SequenceNo > RemoteSeqNo) {
+                AckField <<= (int)(p.SequenceNo - RemoteSeqNo);
             }
-            AckField |= (UInt32)(1 << (int)(Ack - p.SequenceNo));
-            if (p.SequenceNo >= Ack) {
-                Ack = p.SequenceNo;
+            AckField |= (UInt32)(1 << (int)(RemoteSeqNo - p.SequenceNo));
+            if (p.SequenceNo >= RemoteSeqNo) {
+                RemoteSeqNo = p.SequenceNo;
             }
         }
 
@@ -58,6 +58,8 @@ namespace Ponykart.Networking {
                 if (((int)AckField & 1) == 1) {
                     if (Sent.ContainsKey((UInt32)(Ack - i))) {
                         Sent[(UInt32)(Ack - i)].Responded = true;
+                        Launch.Log(String.Format("Remote partner received packet {0} type {1}", Sent[(UInt32)(Ack - i)].SequenceNo,
+                            Sent[(UInt32)(Ack - i)].Contents.Type));
                     }
                 }
                 AckField >>= 1;
@@ -85,20 +87,23 @@ namespace Ponykart.Networking {
         public void ResendPackets() {
             var unresponded = from message in Sent.Values
                               where !message.Responded
-                              where message.SequenceNo + LKernel.Get<NetworkManager>().PacketsPerSecond < Ack
+                              where message.SequenceNo + LKernel.Get<NetworkManager>().PacketsPerSecond*10 < sequenceNo
                               select message;
             foreach (var message in unresponded) {
                 SendPacket(message);
             }
         }
 
-        public void AddPacket(UDPPacket message) {
+        public void AddPacket(UDPPacket message) {            
             Sent[message.SequenceNo] = message;
         }
 
         public void Send() {
-            var message = new UDPPacket(Owner.TopMessage.ToPKPacket(Owner),this);
-            AddPacket(message);
+            var TopPacket = Owner.TopMessage.ToPKPacket(Owner);
+            var message = new UDPPacket(TopPacket,this);
+            if (!TopPacket.Volatile) {
+                AddPacket(message);
+            }
             SendPacket(message);
         }
 

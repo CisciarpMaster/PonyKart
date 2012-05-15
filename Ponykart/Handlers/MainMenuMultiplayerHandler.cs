@@ -47,6 +47,8 @@ namespace Ponykart.Handlers {
 					CharacterNames = new string[] { characterSelection },
 				};
 				LKernel.GetG<LevelManager>().LoadLevel(request);
+                netMgr.ForEachConnection(c => c.SendPacket(Commands.StartGame,"",false);
+                
 			}
 		}
 

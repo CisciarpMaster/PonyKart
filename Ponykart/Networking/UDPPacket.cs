@@ -62,7 +62,7 @@ namespace Ponykart.Networking  {
             Protocol = NetworkManager.Protocol;
             CID = (UInt32)sender.ConnectionID;
             SequenceNo = sender.NextSequenceNumber;
-            Ack = sender.Ack;
+            Ack = sender.RemoteSeqNo;
             AckField = sender.AckField;
             Contents = contents;
             Responded = contents.Volatile;
@@ -72,12 +72,13 @@ namespace Ponykart.Networking  {
         /// </summary>
         public byte[] ToBytes() {
             var contentBytes = this.Contents.ToBytes();
-            var packet = new byte[contentBytes.Length + 16];
+            var packet = new byte[contentBytes.Length + 20];
             Array.Copy(NetworkManager.Protocol,0, packet, 0, 4);
-            Array.Copy(BitConverter.GetBytes(CID),0, packet, 4, 4);
-            Array.Copy(BitConverter.GetBytes(Ack),0, packet, 8, 4);
-            Array.Copy(BitConverter.GetBytes(AckField), 0, packet, 12, 4);
-            Array.Copy(contentBytes, 0, packet, 16, contentBytes.Length);
+            Array.Copy(BitConverter.GetBytes(CID), 0, packet, 4, 4);
+            Array.Copy(BitConverter.GetBytes(SequenceNo), 0, packet, 8, 4);
+            Array.Copy(BitConverter.GetBytes(Ack),0, packet, 12, 4);
+            Array.Copy(BitConverter.GetBytes(AckField), 0, packet, 16, 4);
+            Array.Copy(contentBytes, 0, packet, 20, contentBytes.Length);
             return packet;
         }
     }

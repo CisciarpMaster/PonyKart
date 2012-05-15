@@ -91,9 +91,9 @@ namespace Ponykart.Networking
             Password = password;
             Listener = new UdpClient(port); //Todo: Add checks
             ListenEP = new IPEndPoint(IPAddress.Parse(ip), port); //Todo: Add checks
-            SingleConnection = new Connection(Listener, ListenEP, 0);
+            SingleConnection = new Connection(Listener, ListenEP, GenerateCID());
             Connections = new Dictionary<int, Connection>();
-            Connections.Add(0, SingleConnection);
+            Connections.Add(0, SingleConnection); 
         }
         /// <summary>
         /// Called every time we receive a new packet.
@@ -160,11 +160,9 @@ namespace Ponykart.Networking
             try {
                 while (!Launch.Quit) {
                     if (Listener.Available > 0) {
-                        Launch.Log("Packet available");
+                        //Launch.Log("Packet available");
                         OnPacket(Listener.Receive(ref ListenEP));
                     }
-                    Launch.Log(String.Format("Seconds since last: {0}; Ticks: {1}", new TimeSpan(PacketsPerSecond*(System.DateTime.Now.Ticks - LastSentTicks)).Seconds,
-                        PacketsPerSecond * (System.DateTime.Now.Ticks - LastSentTicks)));
                     if (new TimeSpan((System.DateTime.Now.Ticks - LastSentTicks) * PacketsPerSecond).Seconds > 1)  {
                         LastSentTicks = System.DateTime.Now.Ticks;
                         ForEachUDPConnection(udpc => udpc.Send());
@@ -190,6 +188,13 @@ namespace Ponykart.Networking
 
         public void CloseConnection(Connection connection) {
             Connections.Remove(connection.Cid);
+        }
+
+        public Int32 GenerateCID() {
+            Random r = new Random();
+            var randarr = new byte[4];
+            r.NextBytes(randarr);
+            return BitConverter.ToInt32(randarr, 0);
         }
     }
 }
