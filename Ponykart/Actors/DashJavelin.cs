@@ -7,6 +7,7 @@ namespace Ponykart.Actors {
 		private AnimationState jetMax;
 		private AnimationState jetMin;
 		private float topSpeedKmHour;
+		private float jetOpening = 0f;
 
 		public DashJavelin(ThingBlock block, ThingDefinition def) : base(block, def) {
 			ModelComponent chassis = ModelComponents[0];
@@ -33,24 +34,43 @@ namespace Ponykart.Actors {
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 		}
 
+		const float OPEN_AMOUNT = 0.05f;
 		/// <summary>
 		/// Change the width of the jet engine based on our current speed
 		/// </summary>
 		bool FrameStarted(FrameEvent evt) {
 			// crop it to be between 0 and 1
-			float whatIfPoneWasAnts = _vehicle.CurrentSpeedKmHour / topSpeedKmHour;
-			if (whatIfPoneWasAnts > 1) {
-				jetMax.Weight = 1f;
-				jetMin.Weight = 0f;
-			}
-			else if (whatIfPoneWasAnts < 0) {
-				jetMax.Weight = 0f;
-				jetMin.Weight = 1f;
+
+			if (_acceleration <= 0f) {
+				float relSpeed = (_vehicle.CurrentSpeedKmHour / topSpeedKmHour) * 0.5f;
+
+				if (relSpeed > 0.5f) {
+					relSpeed = 0.5f;
+				}
+				else if (relSpeed < 0f) {
+					relSpeed = 0f;
+				}
+
+				if (relSpeed < jetOpening && jetOpening > 0f) {
+					if (jetOpening - relSpeed < OPEN_AMOUNT)
+						jetOpening = relSpeed;
+					else
+						jetOpening -= OPEN_AMOUNT;
+				}
+				else if (relSpeed > jetOpening && jetOpening < 1f) {
+					if (relSpeed - jetOpening < OPEN_AMOUNT)
+						jetOpening = relSpeed;
+					else
+						jetOpening += OPEN_AMOUNT;
+				}
 			}
 			else {
-				jetMax.Weight = whatIfPoneWasAnts;
-				jetMin.Weight = 1f - whatIfPoneWasAnts;
+				if (jetOpening < 1f)
+					jetOpening += OPEN_AMOUNT;
 			}
+
+			jetMax.Weight = jetOpening;
+			jetMin.Weight = 1f - jetOpening;
 
 			return true;
 		}

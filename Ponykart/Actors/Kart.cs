@@ -119,42 +119,7 @@ namespace Ponykart.Actors {
 			Body.LinearVelocity = new Vector3(0, 1, 0);
 
 			PhysicsMain.FinaliseBeforeSimulation += FinaliseBeforeSimulation;
-			//PhysicsMain.PostSimulate += PostSimulate;
 			RaceCountdown.OnCountdown += OnCountdown;
-		}
-
-		// ---------------------------------------------------------------------------
-
-		float targetSpeed;
-		void PostSimulate(DiscreteDynamicsWorld world, FrameEvent evt) {
-			if (!IsInAir) {
-				float currSpeed = Body.LinearVelocity.Length * System.Math.Sign(_vehicle.CurrentSpeedKmHour);
-				if (currSpeed < targetSpeed)
-					targetSpeed = currSpeed;
-
-				if (_accelerate > 0) {
-					if (targetSpeed < MaxSpeed)
-						targetSpeed += 0.1f;
-					else
-						targetSpeed = MaxSpeed;
-				}
-				else if (_accelerate < 0) {
-					if (targetSpeed > -MaxReverseSpeed)
-						targetSpeed -= 0.1f;
-					else
-						targetSpeed = -MaxReverseSpeed;
-				}
-				else if (_accelerate == 0 && targetSpeed > 2) {
-					targetSpeed -= 0.05f;
-				}
-				else if (_accelerate == 0 && targetSpeed < -2)
-					targetSpeed += 0.05f;
-
-				Vector3 vec = Body.LinearVelocity;
-				vec.Normalise();
-				vec *= System.Math.Abs(targetSpeed);
-				Body.LinearVelocity = vec;
-			}
 		}
 
 		// ---------------------------------------------------------------------------
@@ -192,7 +157,7 @@ namespace Ponykart.Actors {
 					}
 				}
 				else if (currentSpeed < 4f && currentSpeed > -4f) {
-					if (_canDisableKarts && _accelerate == 0f) {
+					if (_canDisableKarts && _acceleration == 0f) {
 						Body.ForceActivationState(ActivationState.WantsDeactivation);
 					}
 				}
@@ -323,7 +288,7 @@ namespace Ponykart.Actors {
 
 
 #region Properties
-		private float _friction;
+		protected float _friction;
 		/// <summary>
 		/// Sets the friction of the wheels
 		/// </summary>
@@ -340,18 +305,18 @@ namespace Ponykart.Actors {
 			}
 		}
 
-		private float _accelerate;
+		protected float _acceleration;
 		/// <summary>
 		/// Sets the motor torque of all wheels and sets their brake torque to 0.
 		/// </summary>
 		public float Acceleration {
 			get {
-				return _accelerate;
+				return _acceleration;
 			}
 			set {
 				if (value != 0f)
 					Body.Activate();
-				this._accelerate = value;
+				this._acceleration = value;
 
 				ForEachWheel(w => {
 					w.AccelerateMultiplier = value;
@@ -362,7 +327,7 @@ namespace Ponykart.Actors {
 
 		private readonly Radian _turnMultiplierPositiveDriftDegree = new Degree(10);
 		private readonly Radian _turnMultiplierNegativeDriftDegree = new Degree(-10);
-		private float _turnMultiplier;
+		protected float _turnMultiplier;
 		/// <summary>
 		/// Turns the wheels
 		/// 
@@ -508,7 +473,6 @@ namespace Ponykart.Actors {
 				return;
 
 			PhysicsMain.FinaliseBeforeSimulation -= FinaliseBeforeSimulation;
-			PhysicsMain.PostSimulate -= PostSimulate;
 			RaceCountdown.OnCountdown -= OnCountdown;
 
 			if (disposing) {
