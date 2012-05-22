@@ -48,3 +48,25 @@ WTW_LeafTree9 {
 WTW_LeafTree10 {
 	Position = 132.861, 58.397, 63.758
 }
+
+WTW_WoodsTree1 {
+	Position = 129.5824, 59.739, 58.877
+}
+WTW_WoodsTree2 {
+	Position = 127.316, 60.73, 55.077
+}
+WTW_WoodsTree3 {
+	Position = 124.731, 61.763, 51.426
+}
+WTW_WoodsTree4 {
+	Position = 121.944, 63.082, 46.872
+}
+WTW_WoodsTree5 {
+	Position = 118.852, 64.574, 41.4793
+}
+WTW_WoodsTree6 {
+	Position = 114.564, 66.049, 36.065
+}
+WTW_WoodsTree7 {
+	Position = 110.035, 67.637, 27.525
+}
