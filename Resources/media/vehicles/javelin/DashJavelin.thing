@@ -33,16 +33,42 @@ Model {
 	AnimationLooping = true
 }
 
-
 Shape {
 	Type = Hull
 	Mesh = "DashJavelinHull.bullet"
 	Position = 0, 0, 0
 }
 
-Sound {
-	File = "Generic Kart idle Loop.ogg"
-	//File = "RD_Kart_Idle Loop.ogg"
+Ribbon {
+	Material = "ribbon"
+	Length = 6
+	Elements = 20
+	Width = 0.2
+	WidthChange = 0.4
+	Colour = 0, 0.7, 1, 1
+	ColourChange = 0, 0, 0, 3
+	Position = 0, 0.313, -0.784
+}
+
+
+Sound { // 0
+	File = "RD_Kart_Idle.mp3"
 	Looping = true
+	MinDistance = 20
+}
+Sound { // 1
+	File = "RD_Kart_Full.mp3"
+	Looping = true
+	Volume = 0
+	MinDistance = 20
+}
+Sound { // 2
+	File = "RD_Kart_Rev_Down.mp3"
+	Looping = false
+	MinDistance = 20
+}
+Sound { // 3
+	File = "RD_Kart_Rev_Up.mp3"
+	Looping = false
 	MinDistance = 20
 }

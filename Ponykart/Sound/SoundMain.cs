@@ -47,7 +47,7 @@ namespace Ponykart.Sound {
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
 			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
-			Engine.Default3DSoundMinDistance = 50;
+			Engine.Default3DSoundMinDistance = 50f;
 
 			Launch.Log("[Loading] IrrKlang and SoundMain initialised!");
 		}

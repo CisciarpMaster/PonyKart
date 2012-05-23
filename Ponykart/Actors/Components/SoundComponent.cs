@@ -40,7 +40,7 @@ namespace Ponykart.Actors {
 			Sound.PlaybackSpeed = block.GetFloatProperty("Speed", 1);
 			float volume;
 			if (block.FloatTokens.TryGetValue("volume", out volume))
-				Sound.Volume += volume;
+				Sound.Volume = volume;
 
 			Sound.MinDistance = block.GetFloatProperty("mindistance", soundMain.Engine.Default3DSoundMinDistance);
 

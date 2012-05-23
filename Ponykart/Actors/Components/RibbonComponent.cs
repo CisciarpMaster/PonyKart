@@ -18,6 +18,7 @@ namespace Ponykart.Actors {
 		/// The SceneNode that the ribbon is attached to
 		/// </summary>
 		public SceneNode RibbonNode { get; private set; }
+		protected SceneNode TrackedRibbonNode;
 
 		/// <summary>
 		/// For ribbons!
@@ -39,18 +40,20 @@ namespace Ponykart.Actors {
 
 			// set up some properties
 			Ribbon.SetMaterialName(block.GetStringProperty("material", "ribbon"));
-			Ribbon.TrailLength = block.GetFloatProperty("length", 5);
-			Ribbon.MaxChainElements = (uint) block.GetFloatProperty("elements", 10);
-			Ribbon.SetInitialWidth(0, block.GetFloatProperty("width", 1));
+			Ribbon.TrailLength = block.GetFloatProperty("length", 5f);
+			Ribbon.MaxChainElements = (uint) block.GetFloatProperty("elements", 10f);
+			Ribbon.SetInitialWidth(0, block.GetFloatProperty("width", 1f));
 			Ribbon.SetInitialColour(0, block.GetQuatProperty("colour", new Quaternion(1, 1, 1, 1)).ToColourValue());
 			Ribbon.SetColourChange(0, block.GetQuatProperty("colourchange", new Quaternion(0, 0, 0, 3)).ToColourValue());
+			Ribbon.SetWidthChange(0, block.GetFloatProperty("widthchange", 1f));
 
 			// attach it to the node
 			RibbonNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode(Name + ID + "RibbonNode");
-			Ribbon.AddNode(lthing.RootNode);
+			TrackedRibbonNode = lthing.RootNode.CreateChildSceneNode(Name + ID + "TrackedRibbonNode");
+			Ribbon.AddNode(TrackedRibbonNode);
 			RibbonNode.AttachObject(Ribbon);
 
-			RibbonNode.Position = block.GetVectorProperty("position", null);
+			TrackedRibbonNode.Position = block.GetVectorProperty("position", null);
 		}
 
 		public override string ToString() {
@@ -69,13 +72,14 @@ namespace Ponykart.Actors {
 
 			if (Options.GetBool("Ribbons") && Ribbon != null && RibbonNode != null) {
 				if (disposing) {
-					RibbonNode.DetachObject(Ribbon);
-					foreach (SceneNode n in Ribbon.GetNodeIterator())
-						Ribbon.RemoveNode(n);
-					if (valid)
+					//RibbonNode.DetachObject(Ribbon);
+					//foreach (SceneNode n in Ribbon.GetNodeIterator())
+					//	Ribbon.RemoveNode(n);
+					if (valid) {
 						sceneMgr.DestroyRibbonTrail(Ribbon);
-					if (valid)
 						sceneMgr.DestroySceneNode(RibbonNode);
+						sceneMgr.DestroySceneNode(TrackedRibbonNode);
+					}
 				}
 				Ribbon.Dispose();
 				Ribbon = null;

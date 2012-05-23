@@ -9,7 +9,8 @@ material ribbon {
 			texture_unit {
 				texture "ribbonband.png" 1d
 				tex_address_mode clamp
-				filtering none
+				filtering anisotropic
+				max_anisotropy 4
 			}
 		}
 	}

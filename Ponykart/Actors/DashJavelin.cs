@@ -1,4 +1,5 @@
-﻿using Mogre;
+﻿using IrrKlang;
+using Mogre;
 using Ponykart.Core;
 using PonykartParsers;
 
@@ -6,8 +7,13 @@ namespace Ponykart.Actors {
 	public class DashJavelin : Kart {
 		private AnimationState jetMax;
 		private AnimationState jetMin;
-		private float topSpeedKmHour;
+		private readonly float topSpeedKmHour;
 		private float jetOpening = 0f;
+
+		private RibbonTrail jetRibbon;
+
+		private ISound idleSound, fullSound, revDownSound, revUpSound;
+		private DashKartSoundState state;
 
 		public DashJavelin(ThingBlock block, ThingDefinition def) : base(block, def) {
 			ModelComponent chassis = ModelComponents[0];
@@ -28,13 +34,20 @@ namespace Ponykart.Actors {
 			// we want the two animations to blend together, not add to each other
 			chassisEnt.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_AVERAGE;
 
+			jetRibbon = RibbonComponents[0].Ribbon;
+
+			idleSound = SoundComponents[0].Sound;
+			fullSound = SoundComponents[1].Sound;
+			revDownSound = SoundComponents[2].Sound;
+			revUpSound = SoundComponents[3].Sound;
+
 			// convert from linear velocity to KPH
 			topSpeedKmHour = DefaultMaxSpeed * 3.6f;
 
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
 		}
 
-		const float OPEN_AMOUNT = 0.05f;
+		const float JET_FLAP_OPEN_AMOUNT = 0.05f;
 		/// <summary>
 		/// Change the width of the jet engine based on our current speed
 		/// </summary>
@@ -52,21 +65,27 @@ namespace Ponykart.Actors {
 				}
 
 				if (relSpeed < jetOpening && jetOpening > 0f) {
-					if (jetOpening - relSpeed < OPEN_AMOUNT)
+					if (jetOpening - relSpeed < JET_FLAP_OPEN_AMOUNT)
 						jetOpening = relSpeed;
 					else
-						jetOpening -= OPEN_AMOUNT;
+						jetOpening -= JET_FLAP_OPEN_AMOUNT;
 				}
 				else if (relSpeed > jetOpening && jetOpening < 1f) {
-					if (relSpeed - jetOpening < OPEN_AMOUNT)
+					if (relSpeed - jetOpening < JET_FLAP_OPEN_AMOUNT)
 						jetOpening = relSpeed;
 					else
-						jetOpening += OPEN_AMOUNT;
+						jetOpening += JET_FLAP_OPEN_AMOUNT;
 				}
+
+				jetRibbon.SetInitialWidth(0u, jetOpening * 0.2f);
+				jetRibbon.SetColourChange(0u, 0f, 0f, 0f, 20f);
 			}
 			else {
 				if (jetOpening < 1f)
-					jetOpening += OPEN_AMOUNT;
+					jetOpening += JET_FLAP_OPEN_AMOUNT;
+
+				jetRibbon.SetInitialWidth(0u, jetOpening * 0.2f);
+				jetRibbon.SetColourChange(0u, 0f, 0f, 0f, 3f);
 			}
 
 			jetMax.Weight = jetOpening;
@@ -85,6 +104,13 @@ namespace Ponykart.Actors {
 			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
 
 			base.Dispose(disposing);
+		}
+
+		enum DashKartSoundState {
+			PostRevDown,
+			RevUpRunning,
+			PostRevUp,
+			RevDownRunning
 		}
 	}
 }
