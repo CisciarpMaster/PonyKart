@@ -58,8 +58,10 @@ namespace Ponykart.Networking {
                 if (((int)AckField & 1) == 1) {
                     if (Sent.ContainsKey((UInt32)(Ack - i))) {
                         Sent[(UInt32)(Ack - i)].Responded = true;
-                        Launch.Log(String.Format("Remote partner received packet {0} type {1}", Sent[(UInt32)(Ack - i)].SequenceNo,
-                            Sent[(UInt32)(Ack - i)].Contents.Type));
+                        if (Sent[(UInt32)(Ack - i)].Contents.Type != Commands.NoMessage)  {
+                            Launch.Log(String.Format("Remote partner received packet {0} type {1}", Sent[(UInt32)(Ack - i)].SequenceNo,
+                                Sent[(UInt32)(Ack - i)].Contents.Type));
+                        }
                     }
                 }
                 AckField >>= 1;
@@ -73,10 +75,12 @@ namespace Ponykart.Networking {
             }
         }
         bool SendPacket(UDPPacket packet) {
+            packet.LastSent = DateTime.Now;
             var bytes = packet.ToBytes();
             if (Sender.Send(bytes, bytes.Length, DestinationEP) == 0) {
                 return false;
             } else {
+                //Launch.Log(String.Format("Sent message id {0} type {1}", packet.SequenceNo, packet.Contents.Type));
                 return true;
             }
         }
@@ -87,7 +91,7 @@ namespace Ponykart.Networking {
         public void ResendPackets() {
             var unresponded = from message in Sent.Values
                               where !message.Responded
-                              where message.SequenceNo + LKernel.Get<NetworkManager>().PacketsPerSecond*10 < sequenceNo
+                              where (DateTime.Now - message.LastSent) > TimeSpan.FromSeconds(5)
                               select message;
             foreach (var message in unresponded) {
                 SendPacket(message);

@@ -14,6 +14,7 @@ namespace Ponykart.Networking  {
         public readonly UInt32 Ack;
         public readonly UInt32 AckField;
         public readonly PonykartPacket Contents;
+        public DateTime LastSent;
         public bool Responded;
         /// <summary>
         /// Get specific header information from a packet
