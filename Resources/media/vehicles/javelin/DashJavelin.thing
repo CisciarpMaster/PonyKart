@@ -52,23 +52,15 @@ Ribbon {
 
 
 Sound { // 0
-	File = "RD_Kart_Idle.mp3"
+	File = "RD_Kart_Idle.ogg"
 	Looping = true
 	MinDistance = 20
+	StartPaused = false
 }
 Sound { // 1
-	File = "RD_Kart_Full.mp3"
+	File = "RD_Kart_Full.ogg"
 	Looping = true
 	Volume = 0
 	MinDistance = 20
-}
-Sound { // 2
-	File = "RD_Kart_Rev_Down.mp3"
-	Looping = false
-	MinDistance = 20
-}
-Sound { // 3
-	File = "RD_Kart_Rev_Up.mp3"
-	Looping = false
-	MinDistance = 20
+	StartPaused = false
 }

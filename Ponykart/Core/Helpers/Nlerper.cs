@@ -18,7 +18,7 @@ namespace Ponykart.Core {
 		Quaternion orientSrc;
 		Quaternion orientDest;
 		float progress = 0;
-		float duration;
+		readonly float duration;
 		LThing thing;
 
 		/// <summary>

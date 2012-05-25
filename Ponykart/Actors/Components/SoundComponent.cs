@@ -34,8 +34,9 @@ namespace Ponykart.Actors {
 			bool looping = block.GetBoolProperty("looping", true);
 			bool sfx = block.GetBoolProperty("SpecialEffects", false);
 			relativePosition = block.GetVectorProperty("position", Vector3.ZERO);
+			bool startPaused = block.GetBoolProperty("StartPaused", true);
 
-			Sound = soundMain.Play3D(source, relativePosition, looping, true, sfx);
+			Sound = soundMain.Play3D(source, relativePosition, looping, startPaused, sfx);
 
 			Sound.PlaybackSpeed = block.GetFloatProperty("Speed", 1);
 			float volume;
