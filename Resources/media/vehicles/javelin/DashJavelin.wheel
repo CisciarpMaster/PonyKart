@@ -2,7 +2,7 @@
 [JavelinFrontWheel]
 
 Radius = 0.1524
-Width = 0.1496
+Width = 0.15
 SuspensionRestLength = 0.04
 
 SpringStiffness = 400
@@ -28,7 +28,7 @@ SteerDecrementTurn = 0.8
 [JavelinBackWheel]
 
 Radius = 0.1696
-Width = 0.348
+Width = 0.15
 SuspensionRestLength = 0.03
 
 SpringStiffness = 400
