@@ -95,8 +95,10 @@ namespace Ponykart.Actors {
 				}
 
 				// make the ribbon smaller
-				jetRibbon.SetInitialWidth(0u, jetOpening * 0.2f);
-				jetRibbon.SetColourChange(0u, 0f, 0f, 0f, 20f);
+				if (jetRibbon != null) {
+					jetRibbon.SetInitialWidth(0u, jetOpening * 0.2f);
+					jetRibbon.SetColourChange(0u, 0f, 0f, 0f, 20f);
+				}
 
 				// play the rev down sound, crossfade
 				if (relSpeed < 0.5f && !idleState) {
@@ -113,8 +115,10 @@ namespace Ponykart.Actors {
 					jetOpening += JET_FLAP_INTERP;
 
 				// make the ribbon bigger
-				jetRibbon.SetInitialWidth(0u, jetOpening * 0.2f);
-				jetRibbon.SetColourChange(0u, 0f, 0f, 0f, 3f);
+				if (jetRibbon != null) {
+					jetRibbon.SetInitialWidth(0u, jetOpening * 0.2f);
+					jetRibbon.SetColourChange(0u, 0f, 0f, 0f, 3f);
+				}
 
 				// play the rev up sound, crossfade
 				if (relSpeed > 0.5f && idleState) {
