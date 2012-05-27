@@ -15,37 +15,19 @@ PhysicsMaterial = "Kart"
 
 CollisionEvents = true
 
-FrontLeftWheelPosition = 0.330206, 0.0856, 0.430362
-FrontRightWheelPosition = -0.330206, 0.0856, 0.430362
-BackLeftWheelPosition = 0.333536, 0.1016, -0.36976
-BackRightWheelPosition = -0.333536, 0.1016, -0.36976
+FrontLeftWheelPosition = 0.268, 0.05880, 0.473
+FrontRightWheelPosition = -0.268, 0.05880, 0.473
+BackLeftWheelPosition = 0.231, 0.06606, -0.355
+BackRightWheelPosition = -0.231, 0.06606, -0.355
 
 FrontDriftAngle = 44 //40 //35 //53
 BackDriftAngle = 55 //48 //45 //60
 DriftTransitionAngle = 50 //40.25
 
 Model {
-	Mesh = "CutlassSteeringWheel.mesh"
-	Material = "TwiCutlass"
-	Position = 0, 0.323594, 0.212416
-	CastsShadows = Some
-}
-Model {
-	Mesh = "CutlassSeat.mesh"
-	Material = "TwiCutlass"
-	Position = 0, -0.0866508, -0.01266532
-	CastsShadows = Some
-}
-Model {
-	Mesh = "CutlassEngine.mesh"
-	Material = "TwiCutlass"
-	Position = 0, -0.0866508, -0.01266532
-	CastsShadows = Some
-}
-Model {
-	Mesh = "CutlassChassis.mesh"
-	Material = "TwiCutlass"
-	Position = 0, -0.0866508, -0.01266532
+	Mesh = "TwiCutlass.mesh"
+	Material = "TwilightKart"
+	Position = 0, 0, 0
 	CastsShadows = Some
 }
 

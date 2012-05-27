@@ -1,7 +1,7 @@
-material TwiCutlass {
+material TwilightKart {
+	receive_shadows on
 	technique {
 		pass {
-		
 			vertex_program_ref fresnelTex_vp {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
@@ -11,6 +11,8 @@ material TwiCutlass {
 			
 			texture_unit {
 				texture "Twilight_Cutlass.dds"
+				filtering anisotropic
+				max_anisotropy 4
 			}
 		}
 	}

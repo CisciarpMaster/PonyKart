@@ -1,8 +1,8 @@
 
 [CutlassFrontWheel]
 
-Radius = 0.1524
-Width = 0.1496
+Radius = 0.17
+Width = 0.15
 SuspensionRestLength = 0.06
 
 SpringStiffness = 400
@@ -27,9 +27,9 @@ SteerDecrementTurn = 0.8
 
 [CutlassBackWheel]
 
-Radius = 0.1696
-Width = 0.348
-SuspensionRestLength = 0.06
+Radius = 0.18
+Width = 0.15
+SuspensionRestLength = 0.05
 
 SpringStiffness = 400
 SpringCompression = 4.2
