@@ -91,9 +91,9 @@ namespace Ponykart.Sound {
 				var resourceLocations = ResourceGroupManager.Singleton.ListResourceLocations(group);
 
 				foreach (string loc in resourceLocations) {
-					var scripts = Directory.EnumerateFiles(loc, "*.ogg").Union(Directory.EnumerateFiles(loc, "*.mp3")).Union(Directory.EnumerateFiles(loc, "*.wav"));
+					var soundfiles = Directory.EnumerateFiles(loc, "*.ogg").Union(Directory.EnumerateFiles(loc, "*.mp3")).Union(Directory.EnumerateFiles(loc, "*.wav"));
 
-					foreach (string file in scripts) {
+					foreach (string file in soundfiles) {
 						fileList[Path.GetFileName(file)] = file;
 					}
 				}
