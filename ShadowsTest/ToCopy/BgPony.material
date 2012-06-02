@@ -1,0 +1,76 @@
+material BgPony {
+    technique {
+        pass {
+			vertex_program_ref bgPonyBody_vp {
+			}
+			fragment_program_ref bgPonyBody_fp {
+				param_named BodyColour float3 0.589 0.883 0.922
+				param_named AOColour float3 0.297 0.656 0.883
+			}
+			
+            texture_unit {
+				texture "bgponyAO.dds"
+				tex_coord_set 1
+            }
+			texture_unit {
+				texture "bgponyExtras.png"
+				tex_coord_set 2
+			}
+        }
+    }
+}
+
+material BgPonyWings {
+	technique {
+		pass {
+			vertex_program_ref bgPonyWings_vp {
+			}
+			fragment_program_ref bgPonyWings_fp {
+				param_named BodyColour float3 0.589 0.883 0.922
+				param_named AOColour float3 0.297 0.656 0.883
+			}
+			
+			texture_unit {
+				texture "BgPonyWingsAO.dds"
+			}
+		}
+	}
+}
+
+material BgPonyWingsFolded {
+	technique {
+		pass {
+			vertex_program_ref bgPonyWings_vp {
+			}
+			fragment_program_ref bgPonyWings_fp {
+				param_named BodyColour float3 0.589 0.883 0.922
+				param_named AOColour float3 0.297 0.656 0.883
+			}
+			
+			texture_unit {
+				texture "BgPonyWingsFoldedAO.dds"
+			}
+		}
+	}
+}
+
+material BgPonyEyes {
+	technique {
+		pass {
+			vertex_program_ref bgPonyEyes_vp {
+			}
+			fragment_program_ref bgPonyEyes_fp {
+				param_named BottomIrisColour float3 0.719 0.223 0.457
+				param_named TopIrisColour float3 0.391 0.145 0.254
+				param_named HighlightColour float3 0.938 0.703 0.828
+			}
+			
+			texture_unit {
+				texture "BgPonyEyes.png"
+			}
+			texture_unit {
+				texture "BgPonyEyeOverlay.png"
+			}
+		}
+	}
+}

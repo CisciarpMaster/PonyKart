@@ -4,8 +4,8 @@ vertex_program newAnimatedParticle_vp hlsl {
 	target vs_2_0
 	
 	default_params {
-		param_named numTilesU int 2
-		param_named numTilesV int 1
+		//param_named numTilesU int 2
+		//param_named numTilesV int 1
 		param_named_auto worldViewProj worldviewproj_matrix
 	}
 }
@@ -27,8 +27,8 @@ material partmat {
 			//depth_write off
 			
 			vertex_program_ref newAnimatedParticle_vp {
-				param_named numTilesU int 6
-				param_named numTilesV int 6
+				//param_named numTilesU int 6
+				//param_named numTilesV int 6
 			}
 			
 			fragment_program_ref newAnimatedParticle_fp {

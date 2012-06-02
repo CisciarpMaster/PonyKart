@@ -34,7 +34,7 @@ namespace ShadowsTest {
 			root = new Root("plugins.cfg", "", "Ogre.log");
 
 			renderSystem = root.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
-			renderSystem.SetConfigOption("Full Screen", "Yes");
+			renderSystem.SetConfigOption("Full Screen", "No");
 			renderSystem.SetConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
 			root.RenderSystem = renderSystem;
 
@@ -42,12 +42,12 @@ namespace ShadowsTest {
 			window = root.Initialise(true, "shadow test");
 
 			sceneMgr = root.CreateSceneManager(SceneType.ST_GENERIC, "sceneMgr");
-			sceneMgr.AmbientLight = new ColourValue(0.3f, 0.3f, 0.3f);
+			sceneMgr.AmbientLight = new ColourValue(0.8f, 0.8f, 0.8f);
 
 
 			camera = sceneMgr.CreateCamera("cam");
-			camera.Position = new Vector3(12, 12, 12);
-			camera.LookAt(new Vector3(0, 0, 0));
+			camera.Position = new Vector3(1, 1, 1);
+			camera.LookAt(new Vector3(-1, -1, -1));
 			camera.SetAutoTracking(true, sceneMgr.RootSceneNode);
 			camera.NearClipDistance = 0.1f;
 			camera.FarClipDistance = 2000;
@@ -62,7 +62,7 @@ namespace ShadowsTest {
 
 			CreateThings();
 
-			SetupParticles();
+			//SetupParticles();
 			//SetupShadows();
 
 			SetupInput();
@@ -148,8 +148,8 @@ You can also use WASDQE to move the camera around."
 			directionalLight2.Type = Light.LightTypes.LT_DIRECTIONAL;
 			directionalLight2.Direction = new Vector3(-0.1f, -1, 0.1f);
 			directionalLight2.Direction.Normalise();
-			directionalLight2.DiffuseColour = new ColourValue(0.7f, 0.7f, 0.7f);
-			directionalLight2.SpecularColour = new ColourValue(0.7f, 0.7f, 0.7f);
+			directionalLight2.DiffuseColour = new ColourValue(1f, 1f, 1f);
+			directionalLight2.SpecularColour = new ColourValue(1f, 1f, 1f);
 			directionalLight2.Position = new Vector3(0, 10, 0);
 			directionalLight2.CastShadows = true;
 
@@ -181,14 +181,29 @@ You can also use WASDQE to move the camera around."
 			groundEnt.CastShadows = false;
 
 			// and then some boxes that will cast the shadows
-			rotatingNode = CreateBox(new Vector3(0, 4, 0), "redbrick");
+			/*rotatingNode = CreateBox(new Vector3(0, 4, 0), "redbrick");
 			CreateBox(new Vector3(2, 1.1f, 2), "bluebrick");
-			CreateBox(new Vector3(-1, 2, -3), "yellowbrick");
+			CreateBox(new Vector3(-1, 2, -3), "yellowbrick");*/
+
+			rotatingNode = CreateNode(new Vector3(0, 0, 0), "BgPonyBody.mesh", "BgPony");
+
+			SceneNode wingsNode = CreateNode(new Vector3(0, 0.3848f, 0.0808f), "BgPonyWings.mesh", "BgPonyWings");
+			wingsNode.ParentSceneNode.RemoveChild(wingsNode);
+			rotatingNode.AddChild(wingsNode);
+
+			SceneNode hornNode = CreateNode(new Vector3(0, 0.721f, 0.325f), "BgPonyHorn.mesh", "BgPony");
+			hornNode.ParentSceneNode.RemoveChild(hornNode);
+			rotatingNode.AddChild(hornNode);
+
+			SceneNode eyeNode = CreateNode(new Vector3(0, 0.601f, 0.305f), "BgPonyEyes.mesh", "BgPonyEyes");
+			eyeNode.ParentSceneNode.RemoveChild(eyeNode);
+			rotatingNode.AddChild(eyeNode);
 		}
 
-		SceneNode CreateBox(Vector3 pos, string material = "brick") {
+
+		SceneNode CreateNode(Vector3 pos, string meshFile, string material = "yellowbrick") {
 			SceneNode boxNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
-			Entity ent = sceneMgr.CreateEntity("kartchassis.mesh");
+			Entity ent = sceneMgr.CreateEntity(meshFile);
 			ent.CastShadows = true;
 			boxNode.AttachObject(ent);
 			boxNode.Position = pos;
@@ -229,22 +244,22 @@ You can also use WASDQE to move the camera around."
 					directionalLight2.Visible = !directionalLight2.Visible;
 					break;
 				case KeyCode.KC_W:
-					camera.Position += new Vector3(1, 0, 0);
+					camera.Position += new Vector3(0.1f, 0, 0);
 					break;
 				case KeyCode.KC_S:
-					camera.Position -= new Vector3(1, 0, 0);
+					camera.Position -= new Vector3(0.1f, 0, 0);
 					break;
 				case KeyCode.KC_A:
-					camera.Position += new Vector3(0, 0, 1);
+					camera.Position += new Vector3(0, 0, 0.1f);
 					break;
 				case KeyCode.KC_D:
-					camera.Position -= new Vector3(0, 0, 1);
+					camera.Position -= new Vector3(0, 0, 0.1f);
 					break;
 				case KeyCode.KC_Q:
-					camera.Position += new Vector3(0, 1, 0);
+					camera.Position += new Vector3(0, 0.1f, 0);
 					break;
 				case KeyCode.KC_E:
-					camera.Position -= new Vector3(0, 1, 0);
+					camera.Position -= new Vector3(0, 0.1f, 0);
 					break;
 			}
 
@@ -264,7 +279,8 @@ You can also use WASDQE to move the camera around."
 			InputKeyboard.Capture();
 
 			// rotate our box
-			rotatingNode.Rotate(rotQuat);
+			if (rotatingNode != null)
+				rotatingNode.Rotate(rotQuat);
 
 			return !quit;
 		}

@@ -55,8 +55,8 @@
     <StartupObject>ShadowsTest.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mogre">
-      <HintPath>..\References\Debug\Mogre.dll</HintPath>
+    <Reference Include="Mogre, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\References\Release\Mogre.dll</HintPath>
     </Reference>
     <Reference Include="MOIS">
       <HintPath>..\References\MOIS.dll</HintPath>
@@ -100,11 +100,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)Resources\OgreMain.dll" "$(TargetDir)" /S /C /Q /Y
-xcopy "$(SolutionDir)Resources\media\plugins\Plugin_ParticleFX.dll" "$(TargetDir)" /S /C /Q /Y
-xcopy "$(SolutionDir)Resources\media\plugins\RenderSystem_Direct3D9.dll" "$(TargetDir)" /S /C /Q /Y
-xcopy "$(SolutionDir)Resources\cg.dll" "$(TargetDir)" /S /C /Q /Y
-xcopy "$(SolutionDir)Resources\media\plugins\Plugin_CgProgramManager.dll" "$(TargetDir)" /S /C /Q /Y
+    <PostBuildEvent>xcopy "$(SolutionDir)References\Release\OgreMain.dll" "$(TargetDir)" /S /C /Q /Y
+xcopy "$(SolutionDir)References\Release\OgrePaging.dll" "$(TargetDir)" /S /C /Q /Y
+xcopy "$(SolutionDir)References\Release\OgreRTShaderSystem.dll" "$(TargetDir)" /S /C /Q /Y
+xcopy "$(SolutionDir)References\Release\OgreTerrain.dll" "$(TargetDir)" /S /C /Q /Y
+xcopy "$(SolutionDir)References\Release\media\plugins\*" "$(TargetDir)" /S /C /Q /Y
 xcopy "$(ProjectDir)ToCopy\*" "$(TargetDir)" /S /C /Q /Y
 </PostBuildEvent>
   </PropertyGroup>
