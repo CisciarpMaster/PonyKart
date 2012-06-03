@@ -23,7 +23,7 @@ material BgPony {
 material BgPonyWings {
 	technique {
 		pass {
-			vertex_program_ref bgPonyWings_vp {
+			vertex_program_ref bgPonyExtras_vp {
 			}
 			fragment_program_ref bgPonyWings_fp {
 				param_named BodyColour float3 0.589 0.883 0.922
@@ -40,7 +40,7 @@ material BgPonyWings {
 material BgPonyWingsFolded {
 	technique {
 		pass {
-			vertex_program_ref bgPonyWings_vp {
+			vertex_program_ref bgPonyExtras_vp {
 			}
 			fragment_program_ref bgPonyWings_fp {
 				param_named BodyColour float3 0.589 0.883 0.922
@@ -57,7 +57,7 @@ material BgPonyWingsFolded {
 material BgPonyEyes {
 	technique {
 		pass {
-			vertex_program_ref bgPonyEyes_vp {
+			vertex_program_ref bgPonyExtras_vp {
 			}
 			fragment_program_ref bgPonyEyes_fp {
 				param_named BottomIrisColour float3 0.719 0.223 0.457
@@ -66,10 +66,46 @@ material BgPonyEyes {
 			}
 			
 			texture_unit {
-				texture "BgPonyEyes.png"
+				texture "BgPonyEyes.dds"
 			}
 			texture_unit {
-				texture "BgPonyEyeOverlay.png"
+				texture "BgPonyEyeOverlay.dds"
+			}
+		}
+	}
+}
+
+material BgPonyHair_1Colour {
+	technique {
+		pass {
+			vertex_program_ref bgPonyExtras_vp {
+			}
+			fragment_program_ref bgPonyHair1_fp {
+				param_named HairColour float3 0.938 0.703 0.828
+				param_named AOColour float3 0.391 0.145 0.254
+			}
+			
+			texture_unit {
+				texture "BgPonyHairAo1.png"
+			}
+		}
+	}
+}
+
+material BgPonyHair_2Colours {
+	technique {
+		pass {
+			vertex_program_ref bgPonyExtras_vp {
+			}
+			fragment_program_ref bgPonyHair2_fp {
+				param_named HairColour1 float3 1 1 0
+				param_named AOColour1 float3 1 0 0
+				param_named HairColour2 float3 0 1 1
+				param_named AOColour2 float3 0 0 1
+			}
+			
+			texture_unit {
+				texture "BgPonyHairAo1.png"
 			}
 		}
 	}

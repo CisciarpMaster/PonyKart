@@ -198,6 +198,18 @@ You can also use WASDQE to move the camera around."
 			SceneNode eyeNode = CreateNode(new Vector3(0, 0.601f, 0.305f), "BgPonyEyes.mesh", "BgPonyEyes");
 			eyeNode.ParentSceneNode.RemoveChild(eyeNode);
 			rotatingNode.AddChild(eyeNode);
+
+			SceneNode hairNode = CreateNode(new Vector3(0, 0.765f, 0.229f), "BgPonyHair1.mesh", "BgPonyHair2");
+			hairNode.ParentSceneNode.RemoveChild(hairNode);
+			rotatingNode.AddChild(hairNode);
+
+			SceneNode maneNode = CreateNode(new Vector3(0, 0.7256f, 0.1058f), "BgPonyMane1.mesh", "BgPonyHair2");
+			maneNode.ParentSceneNode.RemoveChild(maneNode);
+			rotatingNode.AddChild(maneNode);
+
+			SceneNode tailNode = CreateNode(new Vector3(0, 0.4536f, -0.0782f), "BgPonyTail1.mesh", "BgPonyHair2");
+			tailNode.ParentSceneNode.RemoveChild(tailNode);
+			rotatingNode.AddChild(tailNode);
 		}
 
 
