@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -55,7 +56,7 @@ namespace BackgroundPonyCreator {
 			hairAOColour2 = new ColourValue(0.844f, 0.641f, 0.246f);
 
 		MogreImage mogreImageSource;
-		
+
 		// ---------------------------------------
 
 		public MainWindow() {
@@ -114,7 +115,7 @@ namespace BackgroundPonyCreator {
 
 			CreateThings();
 			//SetupInput();
-			
+
 
 			mogreImageSource.Root.FrameStarted += FrameStarted;
 		}
@@ -184,15 +185,15 @@ namespace BackgroundPonyCreator {
 					tailEnts[3] = tailEnts[2];
 					continue;
 				}
-				
-				hairEnts[a] = sceneMgr.CreateEntity("BgPonyHair" + (a+1) + ".mesh");
-				hairEnts[a].SetMaterialName("BgPonyHair_Double_" + (a+1));
 
-				maneEnts[a] = sceneMgr.CreateEntity("BgPonyMane" + (a+1) + ".mesh");
-				maneEnts[a].SetMaterialName("BgPonyHair_Double_" + (a+1));
+				hairEnts[a] = sceneMgr.CreateEntity("BgPonyHair" + (a + 1) + ".mesh");
+				hairEnts[a].SetMaterialName("BgPonyHair_Double_" + (a + 1));
 
-				tailEnts[a] = sceneMgr.CreateEntity("BgPonyTail" + (a+1) + ".mesh");
-				tailEnts[a].SetMaterialName("BgPonyHair_Double_" + (a+1));
+				maneEnts[a] = sceneMgr.CreateEntity("BgPonyMane" + (a + 1) + ".mesh");
+				maneEnts[a].SetMaterialName("BgPonyHair_Double_" + (a + 1));
+
+				tailEnts[a] = sceneMgr.CreateEntity("BgPonyTail" + (a + 1) + ".mesh");
+				tailEnts[a].SetMaterialName("BgPonyHair_Double_" + (a + 1));
 			}
 
 			wingsEnt.Visible = false;
@@ -308,7 +309,7 @@ namespace BackgroundPonyCreator {
 				}
 			}
 		}
-		
+
 
 		/*void SetupInput() {
 			ParamList pl = new ParamList();
@@ -373,6 +374,8 @@ namespace BackgroundPonyCreator {
 			ps = mat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
 			ps.SetNamedConstant("BodyColour", colour);
 			mat.GetTechnique(0).GetPass(1).SetFragmentProgramParameters(ps);
+
+			bodyColourButton.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustBodyAOColour(ColourValue colour) {
@@ -414,6 +417,8 @@ namespace BackgroundPonyCreator {
 			psEdge = mat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
 			psEdge.SetNamedConstant("OutlineColour", colour);
 			mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(psEdge);
+
+			bodyShadingButton.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustEyeColour1(ColourValue colour) {
@@ -421,6 +426,8 @@ namespace BackgroundPonyCreator {
 			var ps = mat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
 			ps.SetNamedConstant("TopIrisColour", colour);
 			mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(ps);
+
+			eyeColour1Button.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustEyeColour2(ColourValue colour) {
@@ -428,6 +435,8 @@ namespace BackgroundPonyCreator {
 			var ps = mat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
 			ps.SetNamedConstant("BottomIrisColour", colour);
 			mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(ps);
+
+			eyeColour2Button.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustEyeHighlightColour(ColourValue colour) {
@@ -435,6 +444,8 @@ namespace BackgroundPonyCreator {
 			var ps = mat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
 			ps.SetNamedConstant("HighlightColour", colour);
 			mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(ps);
+
+			eyeHighlightButton.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustHairColour1(ColourValue colour) {
@@ -452,6 +463,7 @@ namespace BackgroundPonyCreator {
 				ps.SetNamedConstant("HairColour1", colour);
 				mat.GetTechnique(0).GetPass(1).SetFragmentProgramParameters(ps);
 			}
+			hairColour1Button.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustHairAOColour1(ColourValue colour) {
@@ -474,6 +486,7 @@ namespace BackgroundPonyCreator {
 				psCol.SetNamedConstant("AOColour1", colour);
 				mat.GetTechnique(0).GetPass(1).SetFragmentProgramParameters(psCol);
 			}
+			hairAOColour1Button.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustHairColour2(ColourValue colour) {
@@ -486,6 +499,7 @@ namespace BackgroundPonyCreator {
 				ps.SetNamedConstant("HairColour2", colour);
 				mat.GetTechnique(0).GetPass(1).SetFragmentProgramParameters(ps);
 			}
+			hairColour2Button.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 
 		void AdjustHairAOColour2(ColourValue colour) {
@@ -502,6 +516,7 @@ namespace BackgroundPonyCreator {
 				psEdge.SetNamedConstant("OutlineColour", colour);
 				mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(psEdge);
 			}
+			hairAOColour2Button.Background = new SolidColorBrush(colour.ToWindowsMediaColor());
 		}
 		#endregion
 
@@ -547,8 +562,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				bodyColour = dialog.Color.ToMogre();
 				AdjustBodyColour(bodyColour);
-
-				bodyColourButton.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -561,8 +574,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				bodyAOColour = dialog.Color.ToMogre();
 				AdjustBodyAOColour(bodyAOColour);
-
-				bodyShadingButton.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -575,8 +586,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				eyeColour1 = dialog.Color.ToMogre();
 				AdjustEyeColour1(eyeColour1);
-
-				eyeColour1Button.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -589,8 +598,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				eyeColour2 = dialog.Color.ToMogre();
 				AdjustEyeColour2(eyeColour2);
-
-				eyeColour2Button.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -603,8 +610,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				eyeHighlightColour = dialog.Color.ToMogre();
 				AdjustEyeHighlightColour(eyeHighlightColour);
-
-				eyeHighlightButton.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -617,8 +622,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				hairColour1 = dialog.Color.ToMogre();
 				AdjustHairColour1(hairColour1);
-
-				hairColour1Button.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -631,8 +634,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				hairAOColour1 = dialog.Color.ToMogre();
 				AdjustHairAOColour1(hairAOColour1);
-
-				hairAOColour1Button.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -645,8 +646,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				hairColour2 = dialog.Color.ToMogre();
 				AdjustHairColour2(hairColour2);
-
-				hairColour2Button.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 
@@ -659,8 +658,6 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				hairAOColour2 = dialog.Color.ToMogre();
 				AdjustHairAOColour2(hairAOColour2);
-
-				hairAOColour2Button.Background = new SolidColorBrush(dialog.Color.ToWindowsMediaColor());
 			}
 		}
 		#endregion
@@ -782,7 +779,7 @@ namespace BackgroundPonyCreator {
 		private void cutieMarkButton_Click(object sender, RoutedEventArgs e) {
 			OpenFileDialog dialog = new OpenFileDialog();
 			dialog.Title = "\u2588\u2588\u2588 MAKE SURE THE IMAGE IS IN THE SAME FOLDER AS THE OTHER CUTIE MARKS! \u2588\u2588\u2588";
-			dialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory + "\\materials";
+			dialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory + "\\materials\\cutiemarks";
 			dialog.DefaultExt = ".png";
 			dialog.Filter = "PNG Images|*.png";
 			dialog.Multiselect = false;
@@ -805,17 +802,152 @@ namespace BackgroundPonyCreator {
 			PlayAnimation(text);
 		}
 
+		private void randomizeButton_Click(object sender, RoutedEventArgs e) {
+			Random random = new Random();
 
+			// colours
+			ColourValue randomBody = MakeRandomColour(random);
+			AdjustBodyColour(randomBody);
+			AdjustBodyAOColour(randomBody * 0.7f);
 
+			AdjustEyeColour1(MakeRandomColour(random));
+			ColourValue randomEyes = MakeRandomColour(random);
+			AdjustEyeColour2(randomEyes);
+			AdjustEyeHighlightColour(ColourValue.White - (randomEyes * 0.2f));
+
+			ColourValue hair1 = MakeRandomColour(random);
+			ColourValue hair2 = MakeRandomColour(random);
+			AdjustHairColour1(hair1);
+			AdjustHairAOColour1(hair1 * 0.7f);
+			AdjustHairColour2(hair2);
+			AdjustHairAOColour2(hair2 * 0.7f);
+
+			// hairstyles
+			int hairID;
+			do {
+				hairID = random.Next(6);
+			} while (hairID == 3);
+
+			for (int a = 0; a < 6; a++) {
+				if (a == 3) continue;
+
+				if (a == hairID) {
+					hairEnts[a].Visible = true;
+					maneEnts[a].Visible = true;
+					tailEnts[a].Visible = true;
+				}
+				else {
+					hairEnts[a].Visible = false;
+					maneEnts[a].Visible = false;
+					tailEnts[a].Visible = false;
+				}
+			}
+			hairStyleComboBox.SelectedItem = hairStyleComboBox.Items[hairID];
+			activeHairstyle = hairID;
+
+			// horn
+			if (RandomBool(random)) {
+				// unicorn
+				if (RandomBool(random)) {
+					hornEnt.Visible = true;
+					wingsEnt.Visible = false;
+					foldedWingsEnt.Visible = false;
+
+					hornCheckBox.IsChecked = true;
+					wingsCheckBox.IsChecked = false;
+					foldedWingsCheckBox.IsChecked = false;
+				}
+				// earth pone
+				else {
+					hornEnt.Visible = false;
+					wingsEnt.Visible = false;
+					foldedWingsEnt.Visible = false;
+
+					hornCheckBox.IsChecked = false;
+					wingsCheckBox.IsChecked = false;
+					foldedWingsCheckBox.IsChecked = false;
+				}
+			}
+			// no horn
+			else {
+				// pegasus with spread wings
+				if (RandomBool(random)) {
+					hornEnt.Visible = false;
+					wingsEnt.Visible = true;
+					foldedWingsEnt.Visible = false;
+
+					hornCheckBox.IsChecked = false;
+					wingsCheckBox.IsChecked = true;
+					foldedWingsCheckBox.IsChecked = false;
+				}
+				// pegasus with folded wings
+				else {
+					hornEnt.Visible = false;
+					wingsEnt.Visible = false;
+					foldedWingsEnt.Visible = true;
+
+					hornCheckBox.IsChecked = false;
+					wingsCheckBox.IsChecked = false;
+					foldedWingsCheckBox.IsChecked = true;
+				}
+			}
+
+			// hair colors
+			if (RandomBool(random)) {
+				oneHairColourRadioButton_Checked(null, null);
+				oneHairColourRadioButton.IsChecked = true;
+			}
+			else {
+				twoHairColoursRadioButton_Checked(null, null);
+				twoHairColoursRadioButton.IsChecked = true;
+			}
+
+			// animation
+			int randomAnim = random.Next(14);
+			PlayAnimation((string) (animationComboBox.Items[randomAnim] as ComboBoxItem).Content);
+			animationComboBox.SelectedItem = animationComboBox.Items[randomAnim];
+
+			// random cutie mark
+			string cm = GetRandomCutieMark(random);
+			MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPony");
+			mat.GetTechnique(0).GetPass(1).GetTextureUnitState(1).SetTextureName(cm);
+		}
+
+		private ColourValue MakeRandomColour(Random random) {
+			return new ColourValue((float) random.NextDouble(), (float) random.NextDouble(), (float) random.NextDouble());
+		}
+
+		private bool RandomBool(Random random) {
+			return random.Next(2) == 1;
+		}
+
+		private string GetRandomCutieMark(Random random) {
+			string file = null;
+			try {
+				var di = new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory + "\\materials\\cutiemarks");
+				var rgFiles = di.GetFiles("*.png");
+				int fileCount = rgFiles.Count();
+				if (fileCount > 0) {
+					int x = random.Next( 0, fileCount );
+					file = rgFiles.ElementAt(x).Name;
+				}
+			}
+			catch {}
+			return file;
+		}
 	}
 
 	public static class Extensions {
 		public static ColourValue ToMogre(this Color col) {
-			return new ColourValue(col.R / 256f, col.G / 256f, col.B / 256f);
+			return new ColourValue(col.R / 255f, col.G / 255f, col.B / 255f);
 		}
 
 		public static Color ToWindows(this ColourValue col) {
-			return Color.FromArgb((int) (col.r * 256), (int) (col.g * 256), (int) (col.b * 256));
+			return Color.FromArgb((int) (col.r * 255), (int) (col.g * 255), (int) (col.b * 255));
+		}
+
+		public static System.Windows.Media.Color ToWindowsMediaColor(this ColourValue col) {
+			return System.Windows.Media.Color.FromRgb((byte) (col.r * 255), (byte) (col.g * 255), (byte) (col.b * 255));
 		}
 
 		public static System.Windows.Media.Color ToWindowsMediaColor(this System.Drawing.Color col) {
