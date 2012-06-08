@@ -35,7 +35,7 @@ namespace ShadowsTest {
 
 			renderSystem = root.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
 			renderSystem.SetConfigOption("Full Screen", "No");
-			renderSystem.SetConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
+			renderSystem.SetConfigOption("Video Mode", "1920 x 1200 @ 32-bit colour");
 			root.RenderSystem = renderSystem;
 
 			SetupResources();
@@ -46,9 +46,9 @@ namespace ShadowsTest {
 
 
 			camera = sceneMgr.CreateCamera("cam");
-			camera.Position = new Vector3(1, 1, 1);
-			camera.LookAt(new Vector3(-1, -1, -1));
-			camera.SetAutoTracking(true, sceneMgr.RootSceneNode);
+			camera.Position = new Vector3(0.8f, 0.8f, 0.8f);
+			camera.LookAt(new Vector3(-1, 1, -1));
+			camera.SetAutoTracking(true, sceneMgr.RootSceneNode.CreateChildSceneNode(new Vector3(0, 0.4f, 0)));
 			camera.NearClipDistance = 0.1f;
 			camera.FarClipDistance = 2000;
 
@@ -191,7 +191,7 @@ You can also use WASDQE to move the camera around."
 			wingsNode.ParentSceneNode.RemoveChild(wingsNode);
 			rotatingNode.AddChild(wingsNode);
 
-			SceneNode hornNode = CreateNode(new Vector3(0, 0.721f, 0.325f), "BgPonyHorn.mesh", "BgPony");
+			SceneNode hornNode = CreateNode(new Vector3(0, 0.721f, 0.325f), "BgPonyHorn.mesh", "BgPonyHorn");
 			hornNode.ParentSceneNode.RemoveChild(hornNode);
 			rotatingNode.AddChild(hornNode);
 
@@ -199,17 +199,27 @@ You can also use WASDQE to move the camera around."
 			eyeNode.ParentSceneNode.RemoveChild(eyeNode);
 			rotatingNode.AddChild(eyeNode);
 
-			SceneNode hairNode = CreateNode(new Vector3(0, 0.765f, 0.229f), "BgPonyHair1.mesh", "BgPonyHair2");
+			SceneNode hairNode = CreateNode(new Vector3(0, 0.765f, 0.229f), "BgPonyHair1.mesh", "BgPonyHair_2Colours");
 			hairNode.ParentSceneNode.RemoveChild(hairNode);
 			rotatingNode.AddChild(hairNode);
 
-			SceneNode maneNode = CreateNode(new Vector3(0, 0.7256f, 0.1058f), "BgPonyMane1.mesh", "BgPonyHair2");
+			SceneNode maneNode = CreateNode(new Vector3(0, 0.7256f, 0.1058f), "BgPonyMane1.mesh", "BgPonyHair_2Colours");
 			maneNode.ParentSceneNode.RemoveChild(maneNode);
 			rotatingNode.AddChild(maneNode);
 
-			SceneNode tailNode = CreateNode(new Vector3(0, 0.4536f, -0.0782f), "BgPonyTail1.mesh", "BgPonyHair2");
+			SceneNode tailNode = CreateNode(new Vector3(0, 0.4536f, -0.0782f), "BgPonyTail1.mesh", "BgPonyHair_2Colours");
 			tailNode.ParentSceneNode.RemoveChild(tailNode);
 			rotatingNode.AddChild(tailNode);
+
+			MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPony");
+			var ps = mat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
+			ps.SetNamedConstant("BodyColour", new ColourValue(1, 0, 0));
+			mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(ps);
+
+			//mat.Reload();
+
+			//(rotatingNode.GetAttachedObject(0) as Entity).SetMaterial(mat);
+
 		}
 
 
@@ -291,8 +301,14 @@ You can also use WASDQE to move the camera around."
 			InputKeyboard.Capture();
 
 			// rotate our box
-			if (rotatingNode != null)
+			if (rotatingNode != null) {
 				rotatingNode.Rotate(rotQuat);
+
+				MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPony");
+				var ps = mat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
+				ps.SetNamedConstant("BodyColour", new ColourValue(rotatingNode.Orientation.Yaw.ValueDegrees / 90f, 0, 0));
+				mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(ps);
+			}
 
 			return !quit;
 		}

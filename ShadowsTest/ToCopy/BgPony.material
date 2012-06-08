@@ -13,11 +13,30 @@ material BgPony {
 				tex_coord_set 1
             }
 			texture_unit {
-				texture "bgponyExtras.png"
+				texture "tornadoes.png"
 				tex_coord_set 2
+				mipmap_bias -1
 			}
         }
     }
+}
+
+material BgPonyHorn {
+	technique {
+		pass {
+			vertex_program_ref bgPonyExtras_vp {
+			}
+			fragment_program_ref bgPonyWings_fp {
+				param_named BodyColour float3 0.589 0.883 0.922
+				param_named AOColour float3 0.297 0.656 0.883
+			}
+			
+            texture_unit {
+				texture "bgponyAO.dds"
+				tex_coord_set 1
+            }
+		}
+	}
 }
 
 material BgPonyWings {
@@ -75,7 +94,7 @@ material BgPonyEyes {
 	}
 }
 
-material BgPonyHair_1Colour {
+material BgPonyHair_Single {
 	technique {
 		pass {
 			vertex_program_ref bgPonyExtras_vp {
@@ -86,13 +105,13 @@ material BgPonyHair_1Colour {
 			}
 			
 			texture_unit {
-				texture "BgPonyHairAo1.png"
+				texture_alias HairAOTex
 			}
 		}
 	}
 }
 
-material BgPonyHair_2Colours {
+material BgPonyHair_Double {
 	technique {
 		pass {
 			vertex_program_ref bgPonyExtras_vp {
@@ -105,8 +124,39 @@ material BgPonyHair_2Colours {
 			}
 			
 			texture_unit {
-				texture "BgPonyHairAo1.png"
+				texture_alias HairAOTex
 			}
 		}
 	}
+}
+
+material BgPonyHair_Single_1 : BgPonyHair_Single {
+	set_texture_alias HairAOTex "BgPonyHairAo1.dds"
+}
+material BgPonyHair_Double_1 : BgPonyHair_Double {
+	set_texture_alias HairAOTex "BgPonyHairAo1.dds"
+}
+material BgPonyHair_Single_2 : BgPonyHair_Single {
+	set_texture_alias HairAOTex "BgPonyHairAo2.dds"
+}
+material BgPonyHair_Double_2 : BgPonyHair_Double {
+	set_texture_alias HairAOTex "BgPonyHairAo2.dds"
+}
+material BgPonyHair_Single_3 : BgPonyHair_Single {
+	set_texture_alias HairAOTex "BgPonyHairAo3.dds"
+}
+material BgPonyHair_Double_3 : BgPonyHair_Double {
+	set_texture_alias HairAOTex "BgPonyHairAo3.dds"
+}
+material BgPonyHair_Single_5 : BgPonyHair_Single {
+	set_texture_alias HairAOTex "BgPonyHairAo5.dds"
+}
+material BgPonyHair_Double_5 : BgPonyHair_Double {
+	set_texture_alias HairAOTex "BgPonyHairAo5.dds"
+}
+material BgPonyHair_Single_6 : BgPonyHair_Single {
+	set_texture_alias HairAOTex "BgPonyHairAo6.dds"
+}
+material BgPonyHair_Double_6 : BgPonyHair_Double {
+	set_texture_alias HairAOTex "BgPonyHairAo6.dds"
 }
