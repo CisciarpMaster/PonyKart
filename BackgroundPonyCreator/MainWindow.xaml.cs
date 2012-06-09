@@ -924,7 +924,7 @@ namespace BackgroundPonyCreator {
 		private string GetRandomCutieMark(Random random) {
 			string file = null;
 			try {
-				var di = new DirectoryInfo("\\materials\\cutiemarks");
+				var di = new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory + "\\materials\\cutiemarks");
 				var rgFiles = di.GetFiles("*.png");
 				int fileCount = rgFiles.Count();
 				if (fileCount > 0) {
