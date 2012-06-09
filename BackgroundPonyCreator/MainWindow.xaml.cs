@@ -779,7 +779,7 @@ namespace BackgroundPonyCreator {
 		private void cutieMarkButton_Click(object sender, RoutedEventArgs e) {
 			OpenFileDialog dialog = new OpenFileDialog();
 			dialog.Title = "\u2588\u2588\u2588 MAKE SURE THE IMAGE IS IN THE SAME FOLDER AS THE OTHER CUTIE MARKS! \u2588\u2588\u2588";
-			dialog.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory + "\\materials\\cutiemarks";
+			dialog.InitialDirectory = "\\materials\\cutiemarks\\";
 			dialog.DefaultExt = ".png";
 			dialog.Filter = "PNG Images|*.png";
 			dialog.Multiselect = false;
@@ -924,7 +924,7 @@ namespace BackgroundPonyCreator {
 		private string GetRandomCutieMark(Random random) {
 			string file = null;
 			try {
-				var di = new DirectoryInfo(System.AppDomain.CurrentDomain.BaseDirectory + "\\materials\\cutiemarks");
+				var di = new DirectoryInfo("\\materials\\cutiemarks");
 				var rgFiles = di.GetFiles("*.png");
 				int fileCount = rgFiles.Count();
 				if (fileCount > 0) {
