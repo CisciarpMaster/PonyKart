@@ -23,7 +23,8 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <PublishUrl>C:\Users\Pyritie\Desktop\Ponykart\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>

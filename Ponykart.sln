@@ -230,8 +230,8 @@ Global
 		{586CB2DB-7273-4ECE-876F-9736F6A4464C}.Release|Win32.Build.0 = Release|Win32
 		{586CB2DB-7273-4ECE-876F-9736F6A4464C}.Release|x86.ActiveCfg = Release|Win32
 		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|Any CPU.ActiveCfg = Release|x86
-		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|Mixed Platforms.ActiveCfg = Debug|x86
-		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|Mixed Platforms.Build.0 = Debug|x86
+		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|Mixed Platforms.ActiveCfg = Release|x86
+		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|Mixed Platforms.Build.0 = Release|x86
 		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|Win32.ActiveCfg = Release|x86
 		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|x86.ActiveCfg = Release|x86
 		{A757C732-B996-4EA4-9678-A3D1DB7BE1FA}.Cupcake|x86.Build.0 = Release|x86
