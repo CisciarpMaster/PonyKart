@@ -68,6 +68,7 @@
 			</Grid>
 		</GroupBox>
 		<Image HorizontalAlignment="Left" Margin="233,0,0,0" Name="MogreImage" Stretch="Fill" VerticalAlignment="Stretch" Width="921" />
-		<Button Content="Randomize!" Height="29" HorizontalAlignment="Left" Margin="12,613,0,0" Name="randomizeButton" VerticalAlignment="Top" Width="209" Click="randomizeButton_Click" />
+		<Button Content="Randomize!" Height="25" HorizontalAlignment="Left" Margin="12,613,0,0" Name="randomizeButton" VerticalAlignment="Top" Width="102" Click="randomizeButton_Click" />
+		<Button Content="Export" Height="25" HorizontalAlignment="Left" Margin="125,613,0,0" Name="exportButton" VerticalAlignment="Top" Width="102" Click="exportButton_Click" />
 	</Grid>
 </Window>

@@ -54,6 +54,7 @@ namespace BackgroundPonyCreator {
 			hairAOColour1 = new ColourValue(0.805f, 0.543f, 0.16f),
 			hairColour2 = new ColourValue(0.917f, 0.902f, 0.563f),
 			hairAOColour2 = new ColourValue(0.844f, 0.641f, 0.246f);
+		string cutieMarkTexture = "cloud_and_sun.png";
 
 		MogreImage mogreImageSource;
 
@@ -789,6 +790,8 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPony");
 				mat.GetTechnique(0).GetPass(1).GetTextureUnitState(1).SetTextureName(Path.GetFileName(dialog.FileName));
+
+				cutieMarkTexture = Path.GetFileName(dialog.FileName);
 			}
 		}
 
@@ -934,6 +937,150 @@ namespace BackgroundPonyCreator {
 			}
 			catch {}
 			return file;
+		}
+
+		private void exportButton_Click(object sender, RoutedEventArgs e) {
+			SaveFileDialog dialog = new SaveFileDialog();
+			dialog.Title = "Export background pony material";
+			dialog.DefaultExt = ".material";
+			dialog.Filter = "Lymph Thing file|*.thing";
+
+			var result = dialog.ShowDialog();
+
+			if (result == System.Windows.Forms.DialogResult.OK) {
+				string name = Path.GetFileNameWithoutExtension(dialog.FileName);
+
+				using (var stream = File.Create(dialog.FileName)) {
+					using (var writer = new StreamWriter(stream)) {
+						writer.WriteLine("Physics = None");
+						writer.WriteLine("BodyColour = " + bodyColour.r + ", " + bodyColour.g + ", " + bodyColour.b);
+						writer.WriteLine("BodyAOColour = " + bodyAOColour.r + ", " + bodyAOColour.g + ", " + bodyAOColour.b);
+						writer.WriteLine("CutieMark = \"" + cutieMarkTexture + "\"");
+						writer.WriteLine("EyeColour1 = " + eyeColour1.r + ", " + eyeColour1.g + ", " + eyeColour1.b);
+						writer.WriteLine("EyeColour2 = " + eyeColour2.r + ", " + eyeColour2.g + ", " + eyeColour2.b);
+						writer.WriteLine("EyeHighlightColour = " + eyeHighlightColour.r + ", " + eyeHighlightColour.g + ", " + eyeHighlightColour.b);
+
+						bool twoHairs = twoHairColoursRadioButton.IsChecked.Value;
+						if (twoHairs) {
+							writer.WriteLine("TwoHairColours = true");
+							writer.WriteLine("HairColour1 = " + hairColour1.r + ", " + hairColour1.g + ", " + hairColour1.b);
+							writer.WriteLine("HairAOColour1 = " + hairAOColour1.r + ", " + hairAOColour1.g + ", " + hairAOColour1.b);
+							writer.WriteLine("HairColour2 = " + hairColour2.r + ", " + hairColour2.g + ", " + hairColour2.b);
+							writer.WriteLine("HairAOColour2 = " + hairAOColour2.r + ", " + hairAOColour2.g + ", " + hairAOColour2.b);
+						}
+						else {
+							writer.WriteLine("TwoHairColours = false");
+							writer.WriteLine("HairColour = " + hairColour1.r + ", " + hairColour1.g + ", " + hairColour1.b);
+							writer.WriteLine("HairAOColour = " + hairAOColour1.r + ", " + hairAOColour1.g + ", " + hairAOColour1.b);
+						}
+
+						int _hairID = activeHairstyle + 1;
+						string _hairMat = "BgPonyHair_" + (twoHairs ? "Double_" : "Single_") + _hairID;
+
+						writer.WriteLine(
+@"Model {
+	Mesh = ""BgPonyBody.mesh""
+	Material = ""BgPony""
+	Name = """ + name + @"Body""
+
+	Animated = true
+	AnimationName = ""Stand1""
+	AnimationLooping = true
+}
+
+Model {
+	Mesh = ""BgPonyEyes.mesh""
+	Material = ""BgPonyEyes""
+	Name = """ + name + @"Eyes""
+
+	Attached = true
+	AttachBone = ""Eyes""
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = ""BgPonyHair" + _hairID + @".mesh""
+	Material = """ + _hairMat + @"""
+	Name = """ + name + @"Hair""
+
+	Attached = true
+	AttachBone = ""Hair""
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = ""BgPonyMane" + _hairID + @".mesh""
+	Material = """ + _hairMat + @"""
+	Name = """ + name + @"Mane""
+
+	Animated = true
+	AnimationName = ""Stand1""
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = ""Mane""
+	AttachComponentID = 0
+}
+
+Model {
+	Mesh = ""BgPonyTail" + _hairID + @".mesh""
+	Material = """ + _hairMat + @"""
+	Name = """ + name + @"Tail""
+
+	Animated = true
+	AnimationName = ""Stand1""
+	AnimationLooping = true
+	
+	Attached = true
+	AttachBone = ""Tail""
+	AttachComponentID = 0
+}
+");
+						if (hornCheckBox.IsChecked == true) {
+							writer.WriteLine(
+@"Model {
+	Mesh = ""BgPonyHorn.mesh""
+	Material = ""BgPonyHorn""
+	Name = """ + name + @"Horn""
+	
+	Attached = true
+	AttachBone = ""Horn""
+	AttachComponentID = 0
+}
+");
+						}
+						if (wingsCheckBox.IsChecked == true) {
+							writer.WriteLine(
+@"Model {
+	Mesh = ""BgPonyWings.mesh""
+	Material = ""BgPonyWings""
+	Name = """ + name + @"Wings""
+	
+	Animated = true
+	AnimationName = ""Flap1""
+	AnimationLooping = true
+
+	Attached = true
+	AttachBone = ""Wings""
+	AttachComponentID = 0
+}
+");
+						}
+						if (foldedWingsCheckBox.IsChecked == true) {
+							writer.WriteLine(
+@"Model {
+	Mesh = ""BgPonyWingsFolded.mesh""
+	Material = ""BgPonyWingsFolded""
+	Name = """ + name + @"WingsFolded""
+	
+	Attached = true
+	AttachBone = ""Wings""
+	AttachComponentID = 0
+}");
+						}
+					}
+				}
+			}
 		}
 	}
 
