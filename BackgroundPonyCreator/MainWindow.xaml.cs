@@ -950,38 +950,44 @@ namespace BackgroundPonyCreator {
 			if (result == System.Windows.Forms.DialogResult.OK) {
 				string name = Path.GetFileNameWithoutExtension(dialog.FileName);
 
-				using (var stream = File.Create(dialog.FileName)) {
-					using (var writer = new StreamWriter(stream)) {
-						writer.Write("\"" + name + "\" ");
-						writer.Write(activeHairstyle + 1);
+				using (var writer = File.Exists(dialog.FileName) ? File.AppendText(dialog.FileName) : File.CreateText(dialog.FileName)) {
+					writer.WriteLine();
+					writer.Write("\"" + name + "\" ");
+					writer.Write(activeHairstyle + 1);
 
-						if (hornCheckBox.IsChecked == true)
-							writer.Write(" unicorn ");
-						else if (wingsCheckBox.IsChecked == true || foldedWingsCheckBox.IsChecked == true)
-							writer.Write(" pegasus ");
-						else
-							writer.Write(" earth ");
+					if (hornCheckBox.IsChecked == true)
+						writer.Write(" unicorn ");
+					else if (foldedWingsCheckBox.IsChecked == true)
+						writer.Write(" pegasus ");
+					else if (wingsCheckBox.IsChecked == true)
+						writer.Write(" flyingpegasus ");
+					else
+						writer.Write(" earth ");
 
-						writer.Write(bodyColour.r + " " + bodyColour.g + " " + bodyColour.b + " ");
-						writer.Write(bodyAOColour.r + " " + bodyAOColour.g + " " + bodyAOColour.b + " ");
-						writer.Write(eyeColour1.r + " " + eyeColour1.g + " " + eyeColour1.b + " ");
-						writer.Write(eyeColour2.r + " " + eyeColour2.g + " " + eyeColour2.b + " ");
-						writer.Write(eyeHighlightColour.r + " " + eyeHighlightColour.g + " " + eyeHighlightColour.b + " ");
-						writer.Write("\"" + cutieMarkTexture + "\" ");
+					writer.Write(bodyColour.r + " " + bodyColour.g + " " + bodyColour.b + " ");
+					writer.Write(bodyAOColour.r + " " + bodyAOColour.g + " " + bodyAOColour.b + " ");
+					writer.Write(eyeColour1.r + " " + eyeColour1.g + " " + eyeColour1.b + " ");
+					writer.Write(eyeColour2.r + " " + eyeColour2.g + " " + eyeColour2.b + " ");
+					writer.Write(eyeHighlightColour.r + " " + eyeHighlightColour.g + " " + eyeHighlightColour.b + " ");
+					writer.Write("\"" + cutieMarkTexture + "\" ");
 
-						bool twoHairs = twoHairColoursRadioButton.IsChecked.Value;
-						writer.Write(twoHairs + " ");
-						if (twoHairs) {
-							writer.Write(hairColour1.r + " " + hairColour1.g + " " + hairColour1.b + " ");
-							writer.Write(hairAOColour1.r + " " + hairAOColour1.g + " " + hairAOColour1.b + " ");
-							writer.Write(hairColour2.r + " " + hairColour2.g + " " + hairColour2.b + " ");
-							writer.Write(hairAOColour2.r + " " + hairAOColour2.g + " " + hairAOColour2.b + " ");
-						}
-						else {
-							writer.Write(hairColour1.r + " " + hairColour1.g + " " + hairColour1.b + " ");
-							writer.Write(hairAOColour1.r + " " + hairAOColour1.g + " " + hairAOColour1.b + " ");
-						}
+					bool twoHairs = twoHairColoursRadioButton.IsChecked.Value;
+					writer.Write(twoHairs.ToString().ToLower() + " ");
+					if (twoHairs) {
+						writer.Write(hairColour1.r + " " + hairColour1.g + " " + hairColour1.b + " ");
+						writer.Write(hairAOColour1.r + " " + hairAOColour1.g + " " + hairAOColour1.b + " ");
+						writer.Write(hairColour2.r + " " + hairColour2.g + " " + hairColour2.b + " ");
+						writer.Write(hairAOColour2.r + " " + hairAOColour2.g + " " + hairAOColour2.b + " ");
+
+						writer.Write(2);
 					}
+					else {
+						writer.Write(hairColour1.r + " " + hairColour1.g + " " + hairColour1.b + " ");
+						writer.Write(hairAOColour1.r + " " + hairAOColour1.g + " " + hairAOColour1.b + " ");
+					}
+
+					writer.Flush();
+					writer.Close();
 				}
 			}
 		}
