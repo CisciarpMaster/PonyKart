@@ -2,7 +2,7 @@ Physics = None
 
 Model {
 	Mesh = "LyraBody.mesh"
-	Name = "LyraBody"
+	Name = "SittingLyraBody"
 
 	Animated = true
 	AnimationName = "Sit1"
@@ -11,7 +11,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyHair1.mesh"
-	Material = "LyraHair"
+	Material = "SittingLyraHair"
 	Name = "LyraHair"
 	
 	Attached = true
@@ -21,7 +21,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyMane1.mesh"
-	Material = "LyraHair"
+	Material = "SittingLyraHair"
 	Name = "LyraMane"
 	
 	Animated = true
@@ -35,7 +35,7 @@ Model {
 
 Model {
 	Mesh = "LyraTail.mesh"
-	Material = "LyraHair"
+	Material = "SittingLyraHair"
 	Name = "LyraTail"
 	
 	Animated = true
@@ -49,7 +49,7 @@ Model {
 
 Model {
 	Mesh = "BgPonyHorn.mesh"
-	Material = "LyraBody"
+	Material = "SittingLyraBody"
 	Name = "LyraHorn"
 	
 	Attached = true

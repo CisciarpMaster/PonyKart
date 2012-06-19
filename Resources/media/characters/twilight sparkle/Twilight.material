@@ -2,9 +2,9 @@ material TwilightBody {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 162 108 186 255
-				param_named scale float 0.23
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.6352 0.4235 0.7294
 			}
 		}
 
@@ -42,17 +42,10 @@ material TwilightEyes {
 material TwilightHair {
     technique {
 		pass {
-			//cull_hardware anticlockwise
-			//vertex_program_ref outlined_vs {
-			//}
-			//fragment_program_ref outlined_ps {
-			//	param_named OutlineColour float3 20.0 30.0 67.0
-			//}
-			
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 20 30 67 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.0784 0.1176 0.2627
 			}
 		}
 

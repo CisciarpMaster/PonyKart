@@ -2,6 +2,7 @@
 using Mogre;
 using Ponykart.Actors;
 using Ponykart.Core;
+using PonykartParsers;
 
 namespace Ponykart.Lua {
 	//[LuaPackage("Spawner", "This is a wrapper for the Spawner. Use it to spawn game objects.")]
@@ -32,12 +33,10 @@ namespace Ponykart.Lua {
 			"string thingName - The name of the .thing you want to spawn. Not case sensitive.",
 			"Vector3 pos - Spawn position")]
 		public static LThing SpawnBgPony(string thingName, Vector3 pos) {
-			if (thingName.StartsWith("BgPony"))
-				return LKernel.Get<Spawner>().Spawn<BackgroundPony>(thingName, pos, (t, d) => new BackgroundPony(t, d));
-			else if (thingName == "LyraSitting")
+			if (thingName == "LyraSitting")
 				return LKernel.Get<Spawner>().Spawn<Lyra>(thingName, pos, (t, d) => new Lyra(t, d));
 			else
-				throw new System.ArgumentException("Invalid background pony thing name!", "thingName");
+				return LKernel.Get<Spawner>().Spawn<BackgroundPony>("BgPony", thingName, new ThingBlock("BgPony", pos), (n, t, d) => new BackgroundPony(n, t, d));
 		}
 
 		[LuaFunction("spawnDerpy", "Spawns derpy", "Vector3 pos")]

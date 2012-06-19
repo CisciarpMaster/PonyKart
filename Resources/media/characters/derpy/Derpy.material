@@ -2,9 +2,9 @@ material DerpyBody {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 145 146 173 255
-				param_named scale float 0.23
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.5686 0.5686 0.6784
 			}
 		}
 
@@ -43,9 +43,9 @@ material DerpyHair {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 217 208 100 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.8509 0.8156 0.3921
 			}
 		}
 
@@ -69,9 +69,9 @@ material DerpyWings {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 145 146 173 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.5686 0.5686 0.6784
 			}
 		}
 
@@ -95,9 +95,9 @@ material DerpyVest {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 25 25 25 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.0980 0.0980 0.0980
 			}
 		}
         pass {

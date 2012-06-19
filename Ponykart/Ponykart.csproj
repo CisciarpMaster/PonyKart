@@ -166,6 +166,7 @@
     <Compile Include="Core\Options.cs" />
     <Compile Include="Core\OptionsEnums.cs" />
     <Compile Include="Handlers\CompositorHandler.cs" />
+    <Compile Include="Handlers\DerpyHandler.cs" />
     <Compile Include="Handlers\For testing\DisableWheelFrictionHandler.cs" />
     <Compile Include="Handlers\CameraCreator.cs" />
     <Compile Include="Handlers\Karts\DriftingHandler.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Handlers\Karts\PomfHandler.cs" />
     <Compile Include="Handlers\MainMenuSinglePlayerHandler.cs" />
     <Compile Include="Handlers\Per-level\SAA_JumpAround.cs" />
+    <Compile Include="Core\LapCounter.cs" />
     <Compile Include="Handlers\Per-level\SAA_WheelParticleHandler.cs" />
     <Compile Include="Core\Helpers\Skidder.cs" />
     <Compile Include="Handlers\For testing\PrimitiveCreatorHandler.cs" />
@@ -207,7 +209,7 @@
     <Compile Include="Lua\MogreWrapper.cs" />
     <Compile Include="Lua\PhysicsWrapper.cs" />
     <Compile Include="Lua\PlayerWrapper.cs" />
-    <Compile Include="Lua\RaceCountdownWrapper.cs" />
+    <Compile Include="Lua\RaceWrapper.cs" />
     <Compile Include="Networking\Connection.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="Physics\CollisionObjectDataHolder.cs" />

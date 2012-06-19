@@ -85,12 +85,40 @@ namespace Ponykart.Core {
 			}
 			lock (_spawnLock) {
 				var definition = database.GetThingDefinition(thingName);
-				T driver = construct(template, definition);
+				T thing = construct(template, definition);
 
-				levelManager.CurrentLevel.AddThing(driver);
+				levelManager.CurrentLevel.AddThing(thing);
 
-				Invoke(OnThingCreation, driver);
-				return driver;
+				Invoke(OnThingCreation, thing);
+				return thing;
+			}
+		}
+
+		/// <summary>
+		/// To avoid needing a separate spawner method for every single subclass of LThing, we can use this method instead since it's, well, generic.
+		/// </summary>
+		/// <typeparam name="T">
+		/// Your subclass of LThing that you want to spawn. Don't use Driver or Kart; there are already specific spawner methods for those types.
+		/// </typeparam>
+		/// <param name="thingName">The name of the Thing you want to spawn.</param>
+		/// <param name="template">The template for the thing you want to spawn.</param>
+		/// <param name="construct">
+		/// This is the fun part. Here you specify a function that calls the constructor of the T type you specified.
+		/// For example, if we want to spawn Derpy, you'd use <code>(t, d) => new Derpy(t, d)</code>.
+		/// </param>
+		/// <returns>The thing you just spawned.</returns>
+		public T Spawn<T>(string thingName, string extraParam, ThingBlock template, Func<string, ThingBlock, ThingDefinition, T> construct) where T : LThing {
+			if (Pauser.IsPaused) {
+				throw new InvalidOperationException("Attempted to spawn \"" + thingName + "\" while paused!");
+			}
+			lock (_spawnLock) {
+				var definition = database.GetThingDefinition(thingName);
+				T thing = construct(extraParam, template, definition);
+
+				levelManager.CurrentLevel.AddThing(thing);
+
+				Invoke(OnThingCreation, thing);
+				return thing;
 			}
 		}
 

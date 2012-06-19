@@ -98,6 +98,7 @@ namespace Ponykart {
 			splash.Increment("Spawning players...");
 			AddGlobalObject(new PlayerManager());
 			AddGlobalObject(new RaceCountdown());
+			AddGlobalObject(new LapCounter());
 			AddGlobalObject(new LThingHelperManager());
 
 			// more mogre stuff

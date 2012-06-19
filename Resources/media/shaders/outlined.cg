@@ -40,10 +40,10 @@ void main_vp(float2 uv 				: TEXCOORD0,
 }
 
 void EdgeVP(float4 position : POSITION,
-			float4 normal : NORMAL0,
+			float4 normal : NORMAL,
 			out float4 oPos : POSITION,
-			out float4 oColor : COLOR,
-			uniform float4 edgeColor,
+			//out float4 oColor : COLOR,
+			//uniform float4 edgeColor,
 			uniform float4 eyePosition,
 			uniform float scale,
 			uniform float edgeScale,
@@ -58,7 +58,7 @@ void EdgeVP(float4 position : POSITION,
 	position += ((scale / 8.0f)+1.0) * edgeScale * float4(normal.xy, 0, 0);
  
 	oPos=position;
-	oColor=edgeColor / 255.0f;
+	//oColor=edgeColor / 255.0f;
 }
 
 //----------------------------------------------------------------------
@@ -85,7 +85,7 @@ float4 main_ps(float2 uv 			: TEXCOORD0,
 
 	float3 light = saturate( saturate( dot( WorldNormal, lightPosition ) * 0.5f + 0.5f ) * ( 1 - Ambient ) + Ambient );
 
-    float3 result = OutlineColour / 255.0f * light;
+    float3 result = OutlineColour * light; // outlinecolour / 255f
 
 	return float4(result, texture.a);
 }

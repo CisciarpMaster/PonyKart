@@ -2,9 +2,9 @@ material FluttershyBody {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 246 221 102 255
-				param_named scale float 0.23
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.9647 0.8666 0.4
 			}
 		}
 
@@ -26,12 +26,12 @@ material FluttershyBody {
 material FluttershyEyes {
     technique {
         pass {
-			vertex_program_ref fresnelTex_vp {
+            vertex_program_ref fresnelTex_vp {
 			}
 			fragment_program_ref fresnelTex_Self_fp {
 			}
 			
-            texture_unit {
+			texture_unit {
                 texture "FluttershyEyes.dds"
 				mipmap_bias -1
             }
@@ -43,9 +43,9 @@ material FluttershyHair {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 255 141 197 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 1.0 0.5529 0.7725
 			}
 		}
 
@@ -70,9 +70,9 @@ material FluttershyWings {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 246 221 102 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.9647 0.8666 0.4
 			}
 		}
 

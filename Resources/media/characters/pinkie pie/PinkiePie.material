@@ -2,9 +2,9 @@ material PinkiePieBody {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 254 146 197 255
-				param_named scale float 0.23
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.996 0.5725 0.7725
 			}
 		}
 
@@ -44,9 +44,9 @@ material PinkiePieHair {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 220 65 145 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.8627 0.2549 0.5686
 			}
 		}
 

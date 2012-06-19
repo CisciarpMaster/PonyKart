@@ -2,9 +2,9 @@ material RarityBody {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 191 192 195 255
-				param_named scale float 0.23
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.749 0.749 0.7647
 			}
 		}
 
@@ -44,9 +44,9 @@ material RarityHair {
     technique {
 		pass {
 			vertex_program_ref VertEdge {
-				param_named edgeColor float4 75 20 101 255
-				param_named scale float 0.2
-				param_named edgeScale float 0.016
+			}
+			fragment_program_ref outlined_ps {
+				param_named OutlineColour float3 0.2941 0.0784 0.3961
 			}
 		}
 

@@ -11,10 +11,14 @@ namespace Ponykart.Actors {
 	public delegate void KartEvent(Kart kart);
 
 	/// <summary>
-	/// Base class for karts. Z is forwards!
+	/// Base class for karts. -Z is forwards!
 	/// </summary>
 	public class Kart : LThing {
+		/// <summary>
+		/// A special ID number just for the karts. 0 is usually the player kart, but don't rely on this.
+		/// </summary>
 		public int OwnerID { get; set; }
+
 		protected override MotionState InitializationMotionState {
 			get { return new KartMotionState(this, SpawnPosition, SpawnOrientation, RootNode); }
 		}

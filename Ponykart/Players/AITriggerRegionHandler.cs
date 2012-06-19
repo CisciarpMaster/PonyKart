@@ -126,22 +126,6 @@ namespace Ponykart.Players
                 {
                     (kart.Player as ComputerPlayer).CalculateNewWaypoint(currentRegion, nextRegion, info);
                 }
-                if (kart != null)
-                {
-                    if (currentRegion.Name == "AITriggerRegion0" || currentRegion.Name == "AITriggerRegion1")
-                    {
-                        kart.Player.atStart = true;
-                    }
-                    else
-                    {
-                        kart.Player.atStart = false;
-                    }
-
-                    if (currentRegion.Name == "AITriggerRegion28")
-                    {
-                        kart.Player.pastMid = true;
-                    }
-                }
             }
         }
     }

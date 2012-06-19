@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Threading;
 using Mogre;
 using Ponykart.Core;
@@ -11,10 +14,16 @@ namespace Ponykart.Actors {
 	/// Class for the background ponies. Manages making them play random animations and moving their neck to face the player.
 	/// </summary>
 	public class BackgroundPony : LThing {
+		protected static BackgroundPonyLoader loader;
+		protected static CultureInfo culture = CultureInfo.InvariantCulture;
+
 		// don't care about eyes, hair, horn, or folded wings since they aren't animated
-		protected ModelComponent bodyComponent, maneComponent, tailComponent, wingsComponent;
+		protected Entity bodyEnt, wingsEnt, hornEnt, foldedWingsEnt, eyesEnt, hairEnt, maneEnt, tailEnt;
+		protected AnimationBlender bodyBlender, wingsBlender, maneBlender, tailBlender;
+		protected readonly string nameOfPonyCharacter;
+
 		public Pose AnimPose { get; protected set; }
-		public Type PonyType { get; protected set; }
+		public readonly Type PonyType;
 		protected bool cheering = false;
 		protected AnimationState blinkState;
 		protected Timer animTimer;
@@ -26,36 +35,185 @@ namespace Ponykart.Actors {
 		protected Bone neckbone;
 		protected Kart followKart;
 
-		public BackgroundPony(ThingBlock block, ThingDefinition def) : base(block, def) {
-			AnimPose = Pose.Standing;
-			PonyType = Type.Earth;
+		public BackgroundPony(string bgPonyName, ThingBlock block, ThingDefinition def) : base(block, def) {
+			// initialise the loader if we haven't already
+			if (loader == null)
+				loader = new BackgroundPonyLoader();
 
-			foreach (ModelComponent mc in ModelComponents) {
-				if (mc.Name.EndsWith("Body"))
-					bodyComponent = mc;
-				else if (mc.Name.EndsWith("Mane"))
-					maneComponent = mc;
-				else if (mc.Name.EndsWith("Tail"))
-					tailComponent = mc;
-				else if (mc.Name.EndsWith("Wings")) {
-					wingsComponent = mc;
-					PonyType = Type.Pegasus;
+			AnimPose = Pose.Standing;
+			random = new Random(IDs.Random);
+
+			if (bgPonyName == null)
+				nameOfPonyCharacter = block.GetStringProperty("PonyName", null);
+			else
+				nameOfPonyCharacter = bgPonyName;
+
+			// get a line to parse
+			string _line;
+			if (!loader.BackgroundPonyDict.TryGetValue(nameOfPonyCharacter, out _line)) {
+				// if the line doesn't exist, make a random one
+				_line = loader.AllValues[random.Next(loader.AllValues.Length)];
+				Launch.Log("[WARNING] The specified background pony (" + nameOfPonyCharacter + ") does not exist, using random one instead...");
+			}
+			// split up the data
+			string[] _data = _line.Split(' ');
+			// get our hairstyle ID number
+			int hairstyleID = int.Parse(_data[1], culture);
+			// set the pony type
+			if (_data[2] == "pegasus")
+				PonyType = Type.Pegasus;
+			else if (_data[2] == "flyingpegasus")
+				PonyType = Type.FlyingPegasus;
+			else if (_data[2] == "earth")
+				PonyType = Type.Earth;
+			else if (_data[2] == "unicorn")
+				PonyType = Type.Unicorn;
+
+			// create nodes and stuff
+			var sceneMgr = LKernel.Get<SceneManager>();
+
+#region creation
+			bodyEnt = sceneMgr.CreateEntity("BgPonyBody.mesh");
+			RootNode.AttachObject(bodyEnt);
+
+			eyesEnt = sceneMgr.CreateEntity("BgPonyEyes.mesh");
+
+			if (PonyType == Type.Unicorn) 
+				hornEnt = sceneMgr.CreateEntity("BgPonyHorn.mesh");
+			else if (PonyType == Type.FlyingPegasus) 
+				wingsEnt = sceneMgr.CreateEntity("BgPonyWings.mesh");
+			else if (PonyType == Type.Pegasus) 
+				foldedWingsEnt = sceneMgr.CreateEntity("BgPonyWingsFolded.mesh");
+			
+
+			// create hair
+			hairEnt = sceneMgr.CreateEntity("BgPonyHair" + hairstyleID + ".mesh");
+			maneEnt = sceneMgr.CreateEntity("BgPonyMane" + hairstyleID + ".mesh");
+			tailEnt = sceneMgr.CreateEntity("BgPonyTail" + hairstyleID + ".mesh");
+
+			// attach stuff
+			bodyEnt.AttachObjectToBone("Eyes", eyesEnt);
+			bodyEnt.AttachObjectToBone("Hair", hairEnt);
+			bodyEnt.AttachObjectToBone("Mane", maneEnt);
+			bodyEnt.AttachObjectToBone("Tail", tailEnt);
+			if (PonyType == Type.Unicorn)
+				bodyEnt.AttachObjectToBone("Horn", hornEnt);
+			else if (PonyType == Type.Pegasus)
+				bodyEnt.AttachObjectToBone("Wings", foldedWingsEnt);
+			else if (PonyType == Type.FlyingPegasus)
+				bodyEnt.AttachObjectToBone("Wings", wingsEnt);
+#endregion
+
+#region setting up colors in materials
+			// body colour
+			ColourValue bodyColour = new ColourValue(float.Parse(_data[3], culture), float.Parse(_data[4], culture), float.Parse(_data[5], culture));
+			ColourValue bodyAOColour = new ColourValue(float.Parse(_data[6], culture), float.Parse(_data[7], culture), float.Parse(_data[8], culture));
+
+			MaterialPtr newMat = SetBodyPartMaterialColours("BgPony", bodyColour, bodyAOColour);
+			newMat.GetTechnique(0).GetPass(1).GetTextureUnitState(1).SetTextureName(_data[18].Substring(1, _data[18].Length - 2));
+
+			bodyEnt.SetMaterial(newMat);
+			
+			// extra body parts
+			if (PonyType == Type.Unicorn) {
+				newMat = SetBodyPartMaterialColours("BgPonyHorn", bodyColour, bodyAOColour);
+				hornEnt.SetMaterial(newMat);
+			}
+			else if (PonyType == Type.Pegasus) {
+				newMat = SetBodyPartMaterialColours("BgPonyWingsFolded", bodyColour, bodyAOColour);
+				foldedWingsEnt.SetMaterial(newMat);
+			}
+			else if (PonyType == Type.FlyingPegasus) {
+				newMat = SetBodyPartMaterialColours("BgPonyWings", bodyColour, bodyAOColour);
+				wingsEnt.SetMaterial(newMat);
+			}
+			
+			// eye colours
+			{
+				ColourValue eyeColour1 = new ColourValue(float.Parse(_data[9], culture), float.Parse(_data[10], culture), float.Parse(_data[11], culture));
+				ColourValue eyeColour2 = new ColourValue(float.Parse(_data[12], culture), float.Parse(_data[13], culture), float.Parse(_data[14], culture));
+				ColourValue eyeHighlightColour = new ColourValue(float.Parse(_data[15], culture), float.Parse(_data[16], culture), float.Parse(_data[17], culture));
+
+				MaterialPtr originalMat = MaterialManager.Singleton.GetByName("BgPonyEyes");
+				Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve("BgPonyEyes" + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
+				newMat = (MaterialPtr) pair.first;
+
+				if (pair.second) {
+					newMat = originalMat.Clone("BgPonyEyes" + eyeColour1);
+
+					var ps = newMat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
+						ps.SetNamedConstant("TopIrisColour", eyeColour1);
+						ps.SetNamedConstant("BottomIrisColour", eyeColour2);
+						ps.SetNamedConstant("HighlightColour", eyeHighlightColour);
+					newMat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(ps);
 				}
-				else if (mc.Name.EndsWith("WingsFolded")) {
-					PonyType = Type.Pegasus;
-				}
-				else if (mc.Name.EndsWith("Horn")) {
-					PonyType = Type.Unicorn;
-				}
+
+				eyesEnt.SetMaterial(newMat);
 			}
 
-			// make sure our animations add their weights and don't just average out. The AnimationBlender already handles averaging between two anims.
-			bodyComponent.Entity.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
+			// hair colours
+			{
+				ColourValue hairColour1 = new ColourValue(float.Parse(_data[20], culture), float.Parse(_data[21], culture), float.Parse(_data[22], culture));
+				ColourValue hairAOColour1 = new ColourValue(float.Parse(_data[23], culture), float.Parse(_data[24], culture), float.Parse(_data[25], culture));
 
-			Skeleton skeleton = bodyComponent.Entity.Skeleton;
+				// two hair colours
+				if (bool.Parse(_data[19])) {
+					ColourValue hairColour2 = new ColourValue(float.Parse(_data[26], culture), float.Parse(_data[27], culture), float.Parse(_data[28], culture));
+					ColourValue hairAOColour2 = new ColourValue(float.Parse(_data[29], culture), float.Parse(_data[30], culture), float.Parse(_data[31], culture));
+
+					MaterialPtr originalMat = MaterialManager.Singleton.GetByName("BgPonyHair_Double_" + hairstyleID);
+					Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve("BgPonyHair_Double_" + hairstyleID + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
+					newMat = (MaterialPtr) pair.first;
+
+					if (pair.second) {
+						newMat = originalMat.Clone("BgPonyHair_Double_" + hairstyleID + hairColour1);
+
+						var ps = newMat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
+							ps.SetNamedConstant("HairColour1", hairColour1);
+							ps.SetNamedConstant("AOColour1", hairAOColour1);
+							ps.SetNamedConstant("HairColour2", hairColour2);
+							ps.SetNamedConstant("AOColour2", hairAOColour2);
+						newMat.GetTechnique(0).GetPass(1).SetFragmentProgramParameters(ps);
+
+						if (int.Parse(_data[32], culture) == 2)
+							SetMaterialFragmentParameter(newMat, 0, "OutlineColour", hairAOColour2);
+						else if (int.Parse(_data[32], culture) == 1)
+							SetMaterialFragmentParameter(newMat, 0, "OutlineColour", hairAOColour1);
+					}
+					hairEnt.SetMaterial(newMat);
+					maneEnt.SetMaterial(newMat);
+					tailEnt.SetMaterial(newMat);
+				}
+				// one colour
+				else {
+					MaterialPtr originalMat = MaterialManager.Singleton.GetByName("BgPonyHair_Single_" + hairstyleID);
+					Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve("BgPonyHair_Single_" + hairstyleID + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
+					newMat = (MaterialPtr) pair.first;
+
+					if (pair.second) {
+						newMat = originalMat.Clone("BgPonyHair_Single_" + hairstyleID + hairColour1);
+
+						var ps = newMat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
+							ps.SetNamedConstant("HairColour", hairColour1);
+							ps.SetNamedConstant("AOColour", hairAOColour1);
+						newMat.GetTechnique(0).GetPass(1).SetFragmentProgramParameters(ps);
+
+						SetMaterialFragmentParameter(newMat, 0, "OutlineColour", hairAOColour1);
+					}
+					hairEnt.SetMaterial(newMat);
+					maneEnt.SetMaterial(newMat);
+					tailEnt.SetMaterial(newMat);
+				}
+			}
+#endregion
+
+#region animation
+			// make sure our animations add their weights and don't just average out. The AnimationBlender already handles averaging between two anims.
+			Skeleton skeleton = bodyEnt.Skeleton;
+			skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
 
 			// set up the blink animation state with some stuff
-			blinkState = bodyComponent.Entity.GetAnimationState("Blink2");
+			blinkState = bodyEnt.GetAnimationState("Blink2");
 			blinkState.Enabled = true;
 			blinkState.Loop = true;
 			blinkState.Weight = 1;
@@ -64,7 +222,7 @@ namespace Ponykart.Actors {
 			// set up all of the animation states to not use the neck bone
 			neckbone = skeleton.GetBone("Neck");
 			neckbone.SetManuallyControlled(true);
-			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
+			foreach (var state in bodyEnt.AllAnimationStates.GetAnimationStateIterator()) {
 				// don't add a blend mask to the blink state because we'll make a different one for it
 				if (state == blinkState)
 					continue;
@@ -88,17 +246,62 @@ namespace Ponykart.Actors {
 			blinkState.SetBlendMaskEntry(handle, 1f);
 
 			// add the blink state to the animation manager so it has time added to it
-			LKernel.GetG<AnimationManager>().Add(blinkState);
+			AnimationManager animMgr = LKernel.GetG<AnimationManager>();
+			animMgr.Add(blinkState);
+
+			// set up other animated things
+			bodyBlender = new AnimationBlender(bodyEnt);
+			bodyBlender.Init("Stand1", true);
+			animMgr.Add(bodyBlender);
+
+			maneBlender = new AnimationBlender(maneEnt);
+			maneBlender.Init("Stand1", true);
+			animMgr.Add(maneBlender);
+
+			tailBlender = new AnimationBlender(tailEnt);
+			tailBlender.Init("Stand1", true);
+			animMgr.Add(tailBlender);
+
+			if (PonyType == Type.FlyingPegasus) {
+				wingsBlender = new AnimationBlender(wingsEnt);
+				wingsBlender.Init("Flap1", true);
+				animMgr.Add(wingsBlender);
+			}
 
 			// set up some timers to handle animation changing
-			random = new Random(IDs.Random);
 			animTimer = new Timer(new TimerCallback(AnimTimerTick), null, random.Next(ANIMATION_TIMESPAN_MINIMUM, ANIMATION_TIMESPAN_MAXIMUM), Timeout.Infinite);
 
 			// add a bit of time to things so the animations aren't all synced at the beginning
 			AddTimeToBodyManeAndTail();
+#endregion
 
 			followKart = LKernel.GetG<PlayerManager>().MainPlayer.Kart;
 			LKernel.GetG<Root>().FrameStarted += FrameStarted;
+		}
+
+		private void SetMaterialFragmentParameter(MaterialPtr mat, ushort passIndex, string constantName, ColourValue colour) {
+			var ps = mat.GetTechnique(0).GetPass(passIndex).GetFragmentProgramParameters();
+				ps.SetNamedConstant(constantName, colour);
+			mat.GetTechnique(0).GetPass(passIndex).SetFragmentProgramParameters(ps);
+		}
+
+		protected MaterialPtr SetBodyPartMaterialColours(string materialName, ColourValue bodyColour, ColourValue bodyAOColour) {
+			MaterialPtr originalMat = MaterialManager.Singleton.GetByName(materialName);
+			Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve(materialName + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
+			MaterialPtr newMat = (MaterialPtr) pair.first;
+			// if the material already exists, you don't have to modify it
+			if (pair.second) {
+				newMat = originalMat.Clone(materialName + bodyColour);
+
+				var ps = newMat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
+					ps.SetNamedConstant("BodyColour", bodyColour);
+					ps.SetNamedConstant("AOColour", bodyAOColour);
+				newMat.GetTechnique(0).GetPass(1).SetFragmentProgramParameters(ps);
+
+				SetMaterialFragmentParameter(newMat, 0, "OutlineColour", bodyAOColour);
+			}
+
+			return newMat;
 		}
 
 		private readonly Radian NECK_YAW_LIMIT = new Degree(70f);
@@ -127,13 +330,14 @@ namespace Ponykart.Actors {
 			return true;
 		}
 
+#region animation changing
 		/// <summary>
 		/// helper method to add animation blending to the three main animated parts of the bg ponies
 		/// </summary>
 		protected virtual void AnimateBodyManeAndTail(string animationName, AnimationBlendingTransition transition, float duration, bool looping) {
-			bodyComponent.AnimationBlender.Blend(animationName, transition, duration, looping);
-			maneComponent.AnimationBlender.Blend(animationName, transition, duration, looping);
-			tailComponent.AnimationBlender.Blend(animationName, transition, duration, looping);
+			bodyBlender.Blend(animationName, transition, duration, looping);
+			maneBlender.Blend(animationName, transition, duration, looping);
+			tailBlender.Blend(animationName, transition, duration, looping);
 		}
 
 		/// <summary>
@@ -141,9 +345,9 @@ namespace Ponykart.Actors {
 		/// </summary>
 		public virtual void AddTimeToBodyManeAndTail() {
 			float rand = (float) random.NextDouble();
-			bodyComponent.AnimationBlender.AddTime(rand);
-			maneComponent.AnimationBlender.AddTime(rand);
-			tailComponent.AnimationBlender.AddTime(rand);
+			bodyBlender.AddTime(rand);
+			maneBlender.AddTime(rand);
+			tailBlender.AddTime(rand);
 		}
 
 		/// <summary>
@@ -157,9 +361,9 @@ namespace Ponykart.Actors {
 		/// Make the wings (if we have some) change their animation instantly
 		/// </summary>
 		public virtual void ChangeWingAnimation(string animationName) {
-			if (wingsComponent != null) {
-				wingsComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-				wingsComponent.AnimationBlender.AddTime(ID);
+			if (PonyType == Type.FlyingPegasus) {
+				wingsBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+				wingsBlender.AddTime(ID);
 			}
 		}
 
@@ -169,8 +373,8 @@ namespace Ponykart.Actors {
 		public virtual void Stand() {
 			string anim = "Stand" + random.Next(1, 4);
 			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, BLEND_TIME, true);
-			if (wingsComponent != null)
-				wingsComponent.AnimationBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
+			if (PonyType == Type.FlyingPegasus)
+				wingsBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
 			AnimPose = Pose.Standing;
 		}
@@ -181,8 +385,8 @@ namespace Ponykart.Actors {
 		public virtual void Sit() {
 			string anim = "Sit" + random.Next(1, 4);
 			AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, BLEND_TIME, true);
-			if (wingsComponent != null)
-				wingsComponent.AnimationBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
+			if (PonyType == Type.FlyingPegasus)
+				wingsBlender.Blend("WingsRest", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
 			AnimPose = Pose.Sitting;
 		}
@@ -191,13 +395,13 @@ namespace Ponykart.Actors {
 		/// Play a random flying animation (if this is a pegasus) and change our pose to Flying
 		/// </summary>
 		public virtual void Fly() {
-			if (wingsComponent != null) {
+			if (PonyType == Type.FlyingPegasus) {
 				string anim = "Fly" + random.Next(1, 5);
 
 				AnimateBodyManeAndTail(anim, AnimationBlendingTransition.BlendWhileAnimating, BLEND_TIME, true);
 
 				anim = "Flap" + random.Next(1, 4);
-				wingsComponent.AnimationBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
+				wingsBlender.Blend(anim, AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
 
 				AnimPose = Pose.Flying;
 			}
@@ -270,6 +474,7 @@ namespace Ponykart.Actors {
 			else if (AnimPose == Pose.Flying)
 				Fly();
 		}
+#endregion
 
 		/// <summary>
 		/// method for the animation timer to run
@@ -293,7 +498,40 @@ namespace Ponykart.Actors {
 				return;
 
 			if (disposing) {
-				LKernel.GetG<AnimationManager>().Remove(blinkState);
+				var animMgr = LKernel.GetG<AnimationManager>();
+				animMgr.Remove(blinkState);
+				animMgr.Remove(bodyBlender);
+				animMgr.Remove(maneBlender);
+				animMgr.Remove(tailBlender);
+				if (PonyType == Type.FlyingPegasus)
+					animMgr.Remove(wingsBlender);
+
+				if (LKernel.GetG<Levels.LevelManager>().IsValidLevel) {
+					var sceneMgr = LKernel.Get<SceneManager>();
+					sceneMgr.DestroyEntity(bodyEnt);
+					bodyEnt.Dispose();
+					sceneMgr.DestroyEntity(eyesEnt);
+					eyesEnt.Dispose();
+					sceneMgr.DestroyEntity(hairEnt);
+					hairEnt.Dispose();
+					sceneMgr.DestroyEntity(maneEnt);
+					maneEnt.Dispose();
+					sceneMgr.DestroyEntity(tailEnt);
+					tailEnt.Dispose();
+
+					if (PonyType == Type.FlyingPegasus) {
+						sceneMgr.DestroyEntity(wingsEnt);
+						wingsEnt.Dispose();
+					}
+					else if (PonyType == Type.Unicorn) {
+						sceneMgr.DestroyEntity(hornEnt);
+						hornEnt.Dispose();
+					}
+					else if (PonyType == Type.Pegasus) {
+						sceneMgr.DestroyEntity(foldedWingsEnt);
+						foldedWingsEnt.Dispose();
+					}
+				}
 			}
 			if (animTimer != null)
 				animTimer.Dispose();
@@ -312,9 +550,39 @@ namespace Ponykart.Actors {
 		}
 
 		public enum Type {
+			/// <summary> No wings or horn </summary>
 			Earth,
+			/// <summary> Folded wings </summary>
 			Pegasus,
+			/// <summary> Spread wings, even if it's not actually flying </summary>
+			FlyingPegasus,
+			/// <summary> Horn </summary>
 			Unicorn
 		}
+
+		/// <summary>
+		/// static class to load all of the bg pony data from a file
+		/// </summary>
+		protected class BackgroundPonyLoader {
+			public Dictionary<string, string> BackgroundPonyDict { get; private set; }
+			public string[] AllValues { get; private set; }
+
+			public BackgroundPonyLoader() {
+				BackgroundPonyDict = new Dictionary<string, string>();
+
+				using (var reader = new StreamReader(File.OpenRead("media/background ponies/all.bgp"))) {
+					while (!reader.EndOfStream) {
+						string line = reader.ReadLine();
+
+						BackgroundPonyDict[line.Substring(1, line.IndexOf("\" ") - 1)] = line;
+					}
+				}
+
+				AllValues = new string[BackgroundPonyDict.Values.Count];
+				BackgroundPonyDict.Values.CopyTo(AllValues, 0);
+			}
+		}
 	}
+
+	
 }
