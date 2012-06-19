@@ -2,236 +2,248 @@
 using Ponykart.Core;
 using PonykartParsers;
 
-namespace Ponykart.Actors {
-	public class Derpy : LThing {
-		private AnimationState blinkState;
-		private Kart followKart;
+namespace Ponykart.Actors
+{
+    public class Derpy : LThing
+    {
+        private readonly Radian NECK_PITCH_LIMIT = new Degree(60f);
+        private readonly Radian NECK_YAW_LIMIT = new Degree(70f);
+        private DerpyAnimation anim;
+        private AnimationState blinkState;
+        private ModelComponent bodyComponent;
+        private Euler bodyFacing;
+        private ModelComponent flagComponent;
+        private Kart followKart;
+        private SceneNode interpNode;
+        private Bone neckBone;
+        private Euler neckFacing;
+        private ModelComponent startLightComponent;
 
-		private SceneNode interpNode;
-		private Euler bodyFacing;
-		private Euler neckFacing;
-		private Bone neckBone;
+        public Derpy(ThingBlock block, ThingDefinition def)
+            : base(block, def)
+        {
+            bodyComponent = ModelComponents[0];
+            flagComponent = ModelComponents[1];
+            startLightComponent = ModelComponents[2];
 
-		private ModelComponent bodyComponent;
-		private ModelComponent flagComponent;
-		private ModelComponent startLightComponent;
+            bodyFacing = new Euler(0, 0, 0);
+            neckFacing = new Euler(0, 0, 0);
 
-		private DerpyAnimation anim;
+            bodyComponent.Entity.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
 
-		public Derpy(ThingBlock block, ThingDefinition def) : base(block, def) {
-			bodyComponent = ModelComponents[0];
-			flagComponent = ModelComponents[1];
-			startLightComponent = ModelComponents[2];
+            blinkState = bodyComponent.Entity.GetAnimationState("Blink2");
+            blinkState.Enabled = true;
+            blinkState.Loop = true;
+            blinkState.Weight = 1f;
+            blinkState.AddTime(ID);
 
-			bodyFacing = new Euler(0, 0, 0);
-			neckFacing = new Euler(0, 0, 0);
+            Skeleton skeleton = bodyComponent.Entity.Skeleton;
 
-			bodyComponent.Entity.Skeleton.BlendMode = SkeletonAnimationBlendMode.ANIMBLEND_CUMULATIVE;
+            neckBone = skeleton.GetBone("Neck");
+            neckBone.SetManuallyControlled(true);
+            foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator())
+            {
+                // don't add a blend mask to the blink state because we'll make a different one for it
+                if (state == blinkState)
+                    continue;
 
-			blinkState = bodyComponent.Entity.GetAnimationState("Blink2");
-			blinkState.Enabled = true;
-			blinkState.Loop = true;
-			blinkState.Weight = 1f;
-			blinkState.AddTime(ID);
+                state.CreateBlendMask(skeleton.NumBones);
+                state.SetBlendMaskEntry(neckBone.Handle, 0f);
+            }
+            neckBone.InheritOrientation = false;
 
-			Skeleton skeleton = bodyComponent.Entity.Skeleton;
+            blinkState.CreateBlendMask(skeleton.NumBones, 0f);
+            ushort handle = skeleton.GetBone("EyeBrowTop.R").Handle;
+            blinkState.SetBlendMaskEntry(handle, 1f);
+            handle = skeleton.GetBone("EyeBrowBottom.R").Handle;
+            blinkState.SetBlendMaskEntry(handle, 1f);
+            handle = skeleton.GetBone("EyeBrowTop.L").Handle;
+            blinkState.SetBlendMaskEntry(handle, 1f);
+            handle = skeleton.GetBone("EyeBrowBottom.L").Handle;
+            blinkState.SetBlendMaskEntry(handle, 1f);
 
-			neckBone = skeleton.GetBone("Neck");
-			neckBone.SetManuallyControlled(true);
-			foreach (var state in bodyComponent.Entity.AllAnimationStates.GetAnimationStateIterator()) {
-				// don't add a blend mask to the blink state because we'll make a different one for it
-				if (state == blinkState)
-					continue;
+            LKernel.GetG<AnimationManager>().Add(blinkState);
 
-				state.CreateBlendMask(skeleton.NumBones);
-				state.SetBlendMaskEntry(neckBone.Handle, 0f);
-			}
-			neckBone.InheritOrientation = false;
+            interpNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("DerpyInterpNode" + ID, Vector3.ZERO);
 
+            anim = DerpyAnimation.Hover1;
+        }
 
-			blinkState.CreateBlendMask(skeleton.NumBones, 0f);
-			ushort handle = skeleton.GetBone("EyeBrowTop.R").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1f);
-			handle = skeleton.GetBone("EyeBrowBottom.R").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1f);
-			handle = skeleton.GetBone("EyeBrowTop.L").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1f);
-			handle = skeleton.GetBone("EyeBrowBottom.L").Handle;
-			blinkState.SetBlendMaskEntry(handle, 1f);
+        private enum DerpyAnimation
+        {
+            Hover1,
+            Forward1,
+            Lift1,
+            FlagWave1,
+            FlagWave2,
+            HoldStartLight1,
+        }
 
-			LKernel.GetG<AnimationManager>().Add(blinkState);
+        /// <summary>
+        /// Specifies a kart to follow around
+        /// </summary>
+        public void AttachToKart(Vector3 offset, Kart kart)
+        {
+            this.followKart = kart;
 
-			interpNode = LKernel.GetG<SceneManager>().RootSceneNode.CreateChildSceneNode("DerpyInterpNode" + ID, Vector3.ZERO);
+            // attach this to the kart's node
+            interpNode.Parent.RemoveChild(interpNode);
+            kart.RootNode.AddChild(interpNode);
 
-			anim = DerpyAnimation.Hover1;
-		}
+            this.RootNode.Position = Vector3.ZERO;
 
-		/// <summary>
-		/// Change animations based on kart speed
-		/// </summary>
-		void EveryTenth(object state) {
-			if (followKart == null)
-				return;
+            interpNode.Position = offset;
 
-			float speed = followKart.VehicleSpeed;
-			if ((speed < 30f && speed > -15f) && anim == DerpyAnimation.Forward1) {
-				bodyComponent.AnimationBlender.Blend("Hover1", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
-				anim = DerpyAnimation.Hover1;
-			}
-			else if ((speed > 30f || speed < -15f) && anim == DerpyAnimation.Hover1) {
-				bodyComponent.AnimationBlender.Blend("Forward1", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
-				anim = DerpyAnimation.Forward1;
-			}
-		}
+            LKernel.GetG<Root>().FrameStarted += FrameStarted;
+            Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
+        }
 
-		private readonly Radian NECK_YAW_LIMIT = new Degree(70f);
-		private readonly Radian NECK_PITCH_LIMIT = new Degree(60f);
+        /// <summary>
+        /// Blink once
+        /// </summary>
+        public virtual void Blink()
+        {
+            blinkState.Enabled = true;
+            blinkState.TimePosition = 0;
+        }
 
-		/// <summary>
-		/// Update position and orientation of body and neck
-		/// </summary>
-		bool FrameStarted(FrameEvent evt) {
-			if (Pauser.IsPaused)
-				return true;
+        public override void ChangeAnimation(string animationName)
+        {
+            if (bodyComponent.Entity.AllAnimationStates.HasAnimationState(animationName))
+            {
+                bodyComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
 
-			// update position
-			Vector3 derivedInterp = interpNode._getDerivedPosition();
-			Vector3 derivedDerpy = this.RootNode._getDerivedPosition();
+                if (animationName == "FlagWave1" || animationName == "FlagWave2")
+                {
+                    startLightComponent.Entity.Visible = false;
+                    flagComponent.Entity.Visible = true;
 
-			Vector3 displacement = derivedInterp - derivedDerpy;
-			this.RootNode.Translate(displacement * 6 * evt.timeSinceLastFrame);
-			
+                    flagComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+                    startLightComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
+                }
+                else if (animationName == "HoldStartLight1")
+                {
+                    flagComponent.Entity.Visible = false;
+                    startLightComponent.Entity.Visible = true;
 
-			// update orientation of derpy
-			Vector3 lookat_body = this.RootNode.Position - followKart.ActualPosition;
-			Euler temp_body = bodyFacing.GetRotationTo(lookat_body, true, false, true);
-			Radian tempTime = new Radian(evt.timeSinceLastFrame * 3f);
-			temp_body.LimitYaw(tempTime);
+                    startLightComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+                    flagComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
+                }
+                else
+                {
+                    flagComponent.Entity.Visible = false;
+                    startLightComponent.Entity.Visible = false;
 
-			bodyFacing = bodyFacing + temp_body;
-			this.RootNode.Orientation = bodyFacing;
+                    startLightComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
+                    flagComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
+                }
+            }
+        }
 
-			// update orientation of neck
-			Vector3 lookat_neck = this.RootNode.ConvertWorldToLocalPosition(followKart.ActualPosition);
-			Euler temp_neck = neckFacing.GetRotationTo(-lookat_neck, true, true, true);
-			tempTime *= 1.5f;
-			temp_neck.LimitYaw(tempTime);
-			temp_neck.LimitPitch(tempTime);
+        /// <summary>
+        /// Detach from the kart
+        /// </summary>
+        public void DetachFromKart()
+        {
+            if (followKart == null)
+                return;
 
-			neckFacing = neckFacing + temp_neck;
-			neckFacing.LimitYaw(NECK_YAW_LIMIT);
-			neckFacing.LimitPitch(NECK_PITCH_LIMIT);
-			neckBone.Orientation = neckFacing;
+            LKernel.GetG<Root>().FrameStarted -= FrameStarted;
+            Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
 
-			return true;
-		}
+            //this.RootNode.Position = Vector3.ZERO;
 
-		/// <summary>
-		/// Specifies a kart to follow around
-		/// </summary>
-		public void AttachToKart(Vector3 offset, Kart kart) {
-			this.followKart = kart;
+            // reattach it to the scene's root scene node so she still gets rendered
+            followKart.RootNode.RemoveChild(interpNode);
+            interpNode.Creator.RootSceneNode.AddChild(interpNode);
 
-			// attach this to the kart's node
-			interpNode.Parent.RemoveChild(interpNode);
-			kart.RootNode.AddChild(interpNode);
+            followKart = null;
+        }
 
-			this.RootNode.Position = Vector3.ZERO;
+        protected override void Dispose(bool disposing)
+        {
+            if (IsDisposed)
+                return;
 
-			interpNode.Position = offset;
+            LKernel.GetG<Root>().FrameStarted -= FrameStarted;
+            Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
 
-			LKernel.GetG<Root>().FrameStarted += FrameStarted;
-			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
-		}
+            if (disposing)
+            {
+                LKernel.GetG<AnimationManager>().Remove(blinkState);
+            }
 
-		/// <summary>
-		/// Detach from the kart
-		/// </summary>
-		public void DetachFromKart() {
-			if (followKart == null)
-				return;
+            base.Dispose(disposing);
+        }
 
-			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
-			Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
+        /// <summary>
+        /// Change animations based on kart speed
+        /// </summary>
+        private void EveryTenth(object state)
+        {
+            if (followKart == null)
+                return;
+            float speed = followKart.VehicleSpeed;
+            if ((speed < 30f && speed > -15f) && anim == DerpyAnimation.Forward1)
+            {
+                bodyComponent.AnimationBlender.Blend("Hover1", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
+                anim = DerpyAnimation.Hover1;
+            }
+            else if ((speed > 30f || speed < -15f) && anim == DerpyAnimation.Hover1)
+            {
+                bodyComponent.AnimationBlender.Blend("Forward1", AnimationBlendingTransition.BlendThenAnimate, 0.2f, true);
+                anim = DerpyAnimation.Forward1;
+            }
+        }
 
-			this.RootNode.Position = Vector3.ZERO;
+        /// <summary>
+        /// Update position and orientation of body and neck
+        /// </summary>
+        private bool FrameStarted(FrameEvent evt)
+        {
+            if (Pauser.IsPaused)
+                return true;
 
-			// reattach it to the scene's root scene node so she still gets rendered
-			followKart.RootNode.RemoveChild(interpNode);
-			interpNode.Creator.RootSceneNode.AddChild(interpNode);
+            // update position
+            Vector3 derivedInterp = interpNode._getDerivedPosition();
+            Vector3 derivedDerpy = this.RootNode._getDerivedPosition();
 
-			followKart = null;
-		}
+            Vector3 displacement = derivedInterp - derivedDerpy;
+            this.RootNode.Translate(displacement * 6 * evt.timeSinceLastFrame);
 
+            // update orientation of derpy
+            Vector3 lookat_body = this.RootNode.Position - followKart.ActualPosition;
+            Euler temp_body = bodyFacing.GetRotationTo(lookat_body, true, false, true);
+            Radian tempTime = new Radian(evt.timeSinceLastFrame * 3f);
+            temp_body.LimitYaw(tempTime);
 
+            bodyFacing = bodyFacing + temp_body;
+            this.RootNode.Orientation = bodyFacing;
 
-		public override void ChangeAnimation(string animationName) {
-			if (bodyComponent.Entity.AllAnimationStates.HasAnimationState(animationName)) {
-				bodyComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
+            // update orientation of neck
+            Vector3 lookat_neck = this.RootNode.ConvertWorldToLocalPosition(followKart.ActualPosition);
+            Euler temp_neck = neckFacing.GetRotationTo(-lookat_neck, true, true, true);
+            tempTime *= 1.5f;
+            temp_neck.LimitYaw(tempTime);
+            temp_neck.LimitPitch(tempTime);
 
-				if (animationName == "FlagWave1" || animationName == "FlagWave2") {
-					startLightComponent.Entity.Visible = false;
-					flagComponent.Entity.Visible = true;
+            neckFacing = neckFacing + temp_neck;
+            neckFacing.LimitYaw(NECK_YAW_LIMIT);
+            neckFacing.LimitPitch(NECK_PITCH_LIMIT);
+            neckBone.Orientation = neckFacing;
 
-					flagComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-					startLightComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
-				}
-				else if (animationName == "HoldStartLight1") {
-					flagComponent.Entity.Visible = false;
-					startLightComponent.Entity.Visible = true;
+            return true;
+        }
 
-					startLightComponent.AnimationBlender.Blend(animationName, AnimationBlendingTransition.BlendSwitch, 0, true);
-					flagComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
-				}
-				else {
-					flagComponent.Entity.Visible = false;
-					startLightComponent.Entity.Visible = false;
+        /*
+            Body animaitons:
+            Stand, Hover1, Forward1, Lift1, Blink, Blink2 (2 blinks spread out), Flap1, Flap2 (Same as Flap 1 but 12 fames shorter), WingsRest
 
-					startLightComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
-					flagComponent.AnimationBlender.Blend("Basis", AnimationBlendingTransition.BlendSwitch, 0, true);
-				}
-			}
-		}
+            Body/Flag animations:
+            FlagWave1, FlagWave2
 
-		/// <summary>
-		/// Blink once
-		/// </summary>
-		public virtual void Blink() {
-			blinkState.Enabled = true;
-			blinkState.TimePosition = 0;
-		}
-
-		protected override void Dispose(bool disposing) {
-			if (IsDisposed)
-				return;
-
-			LKernel.GetG<Root>().FrameStarted -= FrameStarted;
-			Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
-
-			if (disposing) {
-				LKernel.GetG<AnimationManager>().Remove(blinkState);
-			}
-
-			base.Dispose(disposing);
-		}
-
-		/*
-			Body animaitons:
-			Stand, Hover1, Forward1, Lift1, Blink, Blink2 (2 blinks spread out), Flap1, Flap2 (Same as Flap 1 but 12 fames shorter), WingsRest
-
-			Body/Flag animations:
-			FlagWave1, FlagWave2
-
-			Body/StartLight animations:
-			HoldStartLight1
-		 */
-		enum DerpyAnimation {
-			Hover1,
-			Forward1,
-			Lift1,
-			FlagWave1,
-			FlagWave2,
-			HoldStartLight1,
-		}
-	}
+            Body/StartLight animations:
+            HoldStartLight1
+         */
+    }
 }

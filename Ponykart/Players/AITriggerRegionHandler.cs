@@ -7,115 +7,142 @@ using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Physics;
 
-namespace Ponykart.Players {
-	[Handler(HandlerScope.Global)]
-	public class AITriggerRegionHandler {
-		CultureInfo culture = CultureInfo.InvariantCulture;
+namespace Ponykart.Players
+{
+    [Handler(HandlerScope.Global)]
+    public class AITriggerRegionHandler
+    {
+        CultureInfo culture = CultureInfo.InvariantCulture;
+        IDictionary<TriggerRegion, TriggerRegion> nextTriggerRegions;
 
-		IDictionary<TriggerRegion, TriggerRegion> nextTriggerRegions;
+        public AITriggerRegionHandler()
+        {
+            nextTriggerRegions = new Dictionary<TriggerRegion, TriggerRegion>();
 
-		public AITriggerRegionHandler() {
-			nextTriggerRegions = new Dictionary<TriggerRegion, TriggerRegion>();
+            LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
+            LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
+        }
 
-			LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
-			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
-		}
+        /// <summary>
+        /// Parses the level's .tr file (if it has one) and sets up the AI trigger regions
+        /// </summary>
+        private void OnLevelLoad(LevelChangedEventArgs eventArgs)
+        {
+            if (eventArgs.NewLevel.Type != LevelType.Race)
+                return;
 
+            nextTriggerRegions = new Dictionary<TriggerRegion, TriggerRegion>();
 
-		/// <summary>
-		/// Parses the level's .tr file (if it has one) and sets up the AI trigger regions
-		/// </summary>
-		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
-			if (eventArgs.NewLevel.Type != LevelType.Race)
-				return;
+            /*
+             * threshold
+             * id idTO height width posX posY posZ orientX orientY orientZ orientW
+             */
 
-			
-			nextTriggerRegions = new Dictionary<TriggerRegion, TriggerRegion>();
+            if (File.Exists("media/worlds/" + eventArgs.NewLevel.Name + ".tr"))
+            {
+                var collisionShapeMgr = LKernel.GetG<CollisionShapeManager>();
+                var tempDic = new Dictionary<TriggerRegion, int>();
+                var triggerRegions = new Dictionary<int, TriggerRegion>();
 
-			/*
-			 * threshold
-			 * id idTO height width posX posY posZ orientX orientY orientZ orientW
-			 */
+                using (StreamReader reader = new StreamReader("media/worlds/" + eventArgs.NewLevel.Name + ".tr"))
+                {
+                    float threshold = float.Parse(reader.ReadLine());
 
-			if (File.Exists("media/worlds/" + eventArgs.NewLevel.Name + ".tr")) {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        // ignore comments
+                        if (line.StartsWith("//"))
+                            continue;
 
-				var collisionShapeMgr = LKernel.GetG<CollisionShapeManager>();
-				var tempDic = new Dictionary<TriggerRegion, int>();
-				var triggerRegions = new Dictionary<int, TriggerRegion>();
+                        string[] parts = line.Split(' ');
+                        if (parts.Length == 11)
+                        {
+                            int id = int.Parse(parts[0], culture);
+                            int idTo = int.Parse(parts[1], culture);
+                            Vector3 dims = new Vector3(
+                                threshold,
+                                float.Parse(parts[2], culture),
+                                float.Parse(parts[3], culture));
+                            Vector3 pos = new Vector3(
+                                float.Parse(parts[4], culture),
+                                float.Parse(parts[5], culture),
+                                float.Parse(parts[6], culture));
+                            Quaternion orient = new Quaternion(
+                                float.Parse(parts[7], culture),
+                                float.Parse(parts[8], culture),
+                                float.Parse(parts[9], culture),
+                                float.Parse(parts[10], culture));
 
-				using (StreamReader reader = new StreamReader("media/worlds/" + eventArgs.NewLevel.Name + ".tr")) {
-					float threshold = float.Parse(reader.ReadLine());
+                            CollisionShape shape;
+                            if (!collisionShapeMgr.TryGetShape(parts[2] + parts[3], out shape))
+                            {
+                                shape = new BoxShape(dims);
+                                collisionShapeMgr.RegisterShape(parts[2] + parts[3], shape);
+                            }
 
-					string line;
-					while ((line = reader.ReadLine()) != null) {
-						// ignore comments
-						if (line.StartsWith("//"))
-							continue;
+                            TriggerRegion tr = new TriggerRegion("AITriggerRegion" + id, pos, orient, shape);
 
-						string[] parts = line.Split(' ');
-						if (parts.Length == 11) {
-							int id = int.Parse(parts[0], culture);
-							int idTo = int.Parse(parts[1], culture);
-							Vector3 dims = new Vector3(
-								threshold,
-								float.Parse(parts[2], culture),
-								float.Parse(parts[3], culture));
-							Vector3 pos = new Vector3(
-								float.Parse(parts[4], culture),
-								float.Parse(parts[5], culture),
-								float.Parse(parts[6], culture));
-							Quaternion orient = new Quaternion(
-								float.Parse(parts[7], culture),
-								float.Parse(parts[8], culture),
-								float.Parse(parts[9], culture),
-								float.Parse(parts[10], culture));
+                            triggerRegions[id] = tr;
+                            tempDic[tr] = idTo;
+                        }
+                    }
+                }
+                foreach (var kvp in tempDic)
+                {
+                    nextTriggerRegions[kvp.Key] = triggerRegions[kvp.Value];
+                }
 
-							CollisionShape shape;
-							if (!collisionShapeMgr.TryGetShape(parts[2] + parts[3], out shape)) {
-								shape = new BoxShape(dims);
-								collisionShapeMgr.RegisterShape(parts[2] + parts[3], shape);
-							}
+                tempDic.Clear();
+                triggerRegions.Clear();
 
-							TriggerRegion tr = new TriggerRegion("AITriggerRegion" + id, pos, orient, shape);
+                LKernel.GetG<TriggerReporter>().OnTriggerEnter += OnTriggerEnter;
+            }
+        }
 
-							triggerRegions[id] = tr;
-							tempDic[tr] = idTo;
-						}
-					}
-				}
-				foreach (var kvp in tempDic) {
-					nextTriggerRegions[kvp.Key] = triggerRegions[kvp.Value];
-				}
+        private void OnLevelUnload(LevelChangedEventArgs eventArgs)
+        {
+            LKernel.GetG<TriggerReporter>().OnTriggerEnter -= OnTriggerEnter;
 
-				tempDic.Clear();
-				triggerRegions.Clear();
+            nextTriggerRegions.Clear();
+        }
 
-				LKernel.GetG<TriggerReporter>().OnTriggerEnter += OnTriggerEnter;
-			}
-		}
+        /// <summary>
+        /// When a kart enters a trigger region, check that it's one of the AI ones, and if so, tell the kart where to go next
+        /// </summary>
+        private void OnTriggerEnter(TriggerRegion currentRegion, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info)
+        {
+            TriggerRegion nextRegion;
+            if (nextTriggerRegions.TryGetValue(currentRegion, out nextRegion))
+            {
+                Kart kart = null;
 
-		/// <summary>
-		/// When a kart enters a trigger region, check that it's one of the AI ones, and if so, tell the kart where to go next
-		/// </summary>
-		void OnTriggerEnter(TriggerRegion currentRegion, RigidBody otherBody, TriggerReportFlags flags, CollisionReportInfo info) {
-			TriggerRegion nextRegion;
-			if (nextTriggerRegions.TryGetValue(currentRegion, out nextRegion)) {
-				Kart kart = null;
+                if (otherBody.UserObject is CollisionObjectDataHolder)
+                {
+                    kart = (otherBody.UserObject as CollisionObjectDataHolder).GetThingAsKart();
+                }
 
-				if (otherBody.UserObject is CollisionObjectDataHolder) {
-					kart = (otherBody.UserObject as CollisionObjectDataHolder).GetThingAsKart();
-				}
+                if (kart != null && kart.Player.IsComputerControlled)
+                {
+                    (kart.Player as ComputerPlayer).CalculateNewWaypoint(currentRegion, nextRegion, info);
+                }
+                if (kart != null)
+                {
+                    if (currentRegion.Name == "AITriggerRegion0" || currentRegion.Name == "AITriggerRegion1")
+                    {
+                        kart.Player.atStart = true;
+                    }
+                    else
+                    {
+                        kart.Player.atStart = false;
+                    }
 
-				if (kart != null && kart.Player.IsComputerControlled) {
-					(kart.Player as ComputerPlayer).CalculateNewWaypoint(currentRegion, nextRegion, info);
-				}
-			}
-		}
-
-		void OnLevelUnload(LevelChangedEventArgs eventArgs) {
-			LKernel.GetG<TriggerReporter>().OnTriggerEnter -= OnTriggerEnter;
-
-			nextTriggerRegions.Clear();
-		}
-	}
+                    if (currentRegion.Name == "AITriggerRegion28")
+                    {
+                        kart.Player.pastMid = true;
+                    }
+                }
+            }
+        }
+    }
 }
