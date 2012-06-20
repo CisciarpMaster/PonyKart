@@ -39,6 +39,21 @@ namespace Ponykart.Lua {
 				return LKernel.Get<Spawner>().Spawn<BackgroundPony>("BgPony", thingName, new ThingBlock("BgPony", pos), (n, t, d) => new BackgroundPony(n, t, d));
 		}
 
+		[LuaFunction("spawnRandomStandingBgPony", "Spawns a random standing background pony", "Vector3 pos")]
+		public static BackgroundPony SpawnRandomStandingBgPony(Vector3 pos) {
+			return BackgroundPony.SpawnRandomStandingPony(pos);
+		}
+
+		[LuaFunction("spawnRandomSittingBgPony", "Spawns a random sitting background pony", "Vector3 pos")]
+		public static BackgroundPony SpawnRandomSittingBgPony(Vector3 pos) {
+			return BackgroundPony.SpawnRandomSittingPony(pos);
+		}
+
+		[LuaFunction("spawnRandomFlyingBgPony", "Spawns a random flying background pony", "Vector3 pos")]
+		public static BackgroundPony SpawnRandomFlyingBgPony(Vector3 pos) {
+			return BackgroundPony.SpawnRandomFlyingPony(pos);
+		}
+
 		[LuaFunction("spawnDerpy", "Spawns derpy", "Vector3 pos")]
 		public static Derpy SpawnDerpy(Vector3 pos) {
 			return LKernel.GetG<Spawner>().Spawn<Derpy>("Derpy", pos, (t, d) => new Derpy(t, d));

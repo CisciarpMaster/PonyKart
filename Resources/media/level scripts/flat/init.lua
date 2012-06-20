@@ -1,10 +1,5 @@
 function flat(level)
-	--[[local x, n
-	for x = 1, numBgPones do
-		spawn("BgPony" .. x, vector(x * 5, 0, 0))
-	end ]]
-	
-	stands = spawn("BgStandsWithPhysics", vector(6, 0, 0.66))
+	spawn("BgStandsWithPhysics", vector(6, 0, 0.66))
 	
 	lyra = spawnBgPony("LyraSitting", vector(7.1, 0.3, 0.5))
 	bonbon = spawnBgPony("BonBon", vector(6.6, 0.3, 0.52))
@@ -22,7 +17,6 @@ function flat(level)
 	sun = spawnBgPony("SunF", vector(6.4, 1.6, -0.6))
 	dizzy = spawnBgPony("DizzyF", vector(4.8, 1.5, -0.7))
 	
-	--lyra:Sit()
 	bonbon:Sit()
 	daisy:Stand()
 	daisy:Cheer()
@@ -40,4 +34,13 @@ function flat(level)
 	cherry:Stand()
 	sun:Fly()
 	dizzy:Fly()
+	
+	local x
+	local z
+	
+	for x = -30, -20 do
+		for z = -30, -20 do
+			spawnRandomStandingBgPony(vector(x, -0.18, z))
+		end
+	end
 end

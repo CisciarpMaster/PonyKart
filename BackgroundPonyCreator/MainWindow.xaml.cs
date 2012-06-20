@@ -45,6 +45,8 @@ namespace BackgroundPonyCreator {
 		AnimationState[] maneStates, tailStates;
 		string currentAnimation;
 
+		const int NUMBER_OF_HAIRSTYLES = 6;
+
 		ColourValue bodyColour = new ColourValue(0.707f, 0.688f, 0.902f),
 			bodyAOColour = new ColourValue(0.445f, 0.465f, 0.758f),
 			eyeColour1 = new ColourValue(0.387f, 0.254f, 0.387f),
@@ -90,7 +92,6 @@ namespace BackgroundPonyCreator {
 				OnOgreInitComplete(null, null);
 			}
 		}
-
 		private void OnOgreInitComplete(object sender, RoutedEventArgs args) {
 			if (AutoUpdateViewportSize) {
 				MogreImage.SizeChanged += new SizeChangedEventHandler(MogreImage_SizeChanged);
@@ -120,14 +121,12 @@ namespace BackgroundPonyCreator {
 
 			mogreImageSource.Root.FrameStarted += FrameStarted;
 		}
-
 		private void InitializeImage() {
 			mogreImageSource = new MogreImage();
 			mogreImageSource.CreateDefaultScene = false;
 			mogreImageSource.ViewportSize = PreferredMogreViewportSize;
 			MogreImage.Source = mogreImageSource;
 		}
-
 		public Size PreferredMogreViewportSize {
 			get {
 				if (MogreImage.ActualHeight == 0 || MogreImage.ActualWidth == 0) {
@@ -136,7 +135,6 @@ namespace BackgroundPonyCreator {
 				return new Size(MogreImage.ActualWidth, MogreImage.ActualHeight);
 			}
 		}
-
 		void MogreImage_SizeChanged(object sender, SizeChangedEventArgs e) {
 			mogreImageSource.ViewportSize = PreferredMogreViewportSize;
 		}
@@ -174,19 +172,11 @@ namespace BackgroundPonyCreator {
 			foldedWingsEnt = sceneMgr.CreateEntity("BgPonyWingsFolded.mesh");
 			foldedWingsEnt.SetMaterialName("BgPonyWingsFolded");
 
-			hairEnts = new Entity[6];
-			maneEnts = new Entity[6];
-			tailEnts = new Entity[6];
+			hairEnts = new Entity[NUMBER_OF_HAIRSTYLES];
+			maneEnts = new Entity[NUMBER_OF_HAIRSTYLES];
+			tailEnts = new Entity[NUMBER_OF_HAIRSTYLES];
 
-			for (int a = 0; a < 6; a++) {
-				// there is no hair#4
-				if (a == 3) {
-					hairEnts[3] = hairEnts[2];
-					maneEnts[3] = maneEnts[2];
-					tailEnts[3] = tailEnts[2];
-					continue;
-				}
-
+			for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 				hairEnts[a] = sceneMgr.CreateEntity("BgPonyHair" + (a + 1) + ".mesh");
 				hairEnts[a].SetMaterialName("BgPonyHair_Double_" + (a + 1));
 
@@ -201,10 +191,7 @@ namespace BackgroundPonyCreator {
 			foldedWingsEnt.Visible = false;
 			hornEnt.Visible = false;
 
-			for (int a = 1; a < 6; a++) {
-				if (a == 3)
-					continue;
-
+			for (int a = 1; a < NUMBER_OF_HAIRSTYLES; a++) {
 				hairEnts[a].Visible = false;
 				maneEnts[a].Visible = false;
 				tailEnts[a].Visible = false;
@@ -223,9 +210,7 @@ namespace BackgroundPonyCreator {
 			ponyEnt.AttachObjectToBone("Horn", hornEnt);
 			ponyEnt.AttachObjectToBone("Wings", wingsEnt);
 			ponyEnt.AttachObjectToBone("Wings", foldedWingsEnt);
-			for (int a = 0; a < 6; a++) {
-				if (a == 3) continue;
-
+			for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 				ponyEnt.AttachObjectToBone("Hair", hairEnts[a]);
 				ponyEnt.AttachObjectToBone("Mane", maneEnts[a]);
 				ponyEnt.AttachObjectToBone("Tail", tailEnts[a]);
@@ -253,10 +238,9 @@ namespace BackgroundPonyCreator {
 
 			animState = ponyEnt.GetAnimationState("Stand1");
 			wingsState = wingsEnt.GetAnimationState("Flap1");
-			maneStates = new AnimationState[6];
-			tailStates = new AnimationState[6];
-			for (int a = 0; a < 6; a++) {
-				if (a == 3) continue;
+			maneStates = new AnimationState[NUMBER_OF_HAIRSTYLES];
+			tailStates = new AnimationState[NUMBER_OF_HAIRSTYLES];
+			for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 				maneStates[a] = maneEnts[a].GetAnimationState("Stand1");
 				tailStates[a] = tailEnts[a].GetAnimationState("Stand1");
 				maneStates[a].Enabled = tailStates[a].Enabled = true;
@@ -279,9 +263,7 @@ namespace BackgroundPonyCreator {
 
 				animState = newState;
 			}
-			for (int a = 0; a < 6; a++) {
-				if (a == 3) continue;
-
+			for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 				{
 					AnimationState newState;
 					if (maneEnts[a].Skeleton.HasAnimation(animName))
@@ -310,49 +292,6 @@ namespace BackgroundPonyCreator {
 				}
 			}
 		}
-
-
-		/*void SetupInput() {
-			ParamList pl = new ParamList();
-			IntPtr windowHnd = new WindowInteropHelper(this).Handle;
-			pl.Insert("WINDOW", windowHnd.ToString());
-
-			InputManager = InputManager.CreateInputSystem(pl);
-			InputKeyboard = (Keyboard) InputManager.CreateInputObject(MOIS.Type.OISKeyboard, true);
-
-			InputKeyboard.KeyPressed += new KeyListener.KeyPressedHandler(InputKeyboard_KeyPressed);
-		}
-
-		bool InputKeyboard_KeyPressed(KeyEvent arg) {
-			Console.WriteLine(arg.key);
-
-			switch (arg.key) {
-				case KeyCode.KC_ESCAPE:
-					quit = true;
-					break;
-				case KeyCode.KC_W:
-					camera.Position += new Vector3(0.1f, 0, 0);
-					break;
-				case KeyCode.KC_S:
-					camera.Position -= new Vector3(0.1f, 0, 0);
-					break;
-				case KeyCode.KC_A:
-					camera.Position += new Vector3(0, 0, 0.1f);
-					break;
-				case KeyCode.KC_D:
-					camera.Position -= new Vector3(0, 0, 0.1f);
-					break;
-				case KeyCode.KC_Q:
-					camera.Position += new Vector3(0, 0.1f, 0);
-					break;
-				case KeyCode.KC_E:
-					camera.Position -= new Vector3(0, 0.1f, 0);
-					break;
-			}
-
-			return !quit;
-		}
-		*/
 
 		#region Color adjusting methods
 		void AdjustBodyColour(ColourValue colour) {
@@ -388,7 +327,7 @@ namespace BackgroundPonyCreator {
 			var psEdge = mat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
 			psEdge.SetNamedConstant("OutlineColour", colour);
 			mat.GetTechnique(0).GetPass(0).SetFragmentProgramParameters(psEdge);
-
+			
 
 			mat = MaterialManager.Singleton.GetByName("BgPonyHorn");
 			psAO = mat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
@@ -450,9 +389,7 @@ namespace BackgroundPonyCreator {
 		}
 
 		void AdjustHairColour1(ColourValue colour) {
-			for (int a = 1; a <= 6; a++) {
-				if (a == 4)
-					continue;
+			for (int a = 1; a <= NUMBER_OF_HAIRSTYLES; a++) {
 
 				MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPonyHair_Single_" + a);
 				var ps = mat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
@@ -468,9 +405,7 @@ namespace BackgroundPonyCreator {
 		}
 
 		void AdjustHairAOColour1(ColourValue colour) {
-			for (int a = 1; a <= 6; a++) {
-				if (a == 4)
-					continue;
+			for (int a = 1; a <= NUMBER_OF_HAIRSTYLES; a++) {
 
 				MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPonyHair_Single_" + a);
 				var psCol = mat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
@@ -491,9 +426,7 @@ namespace BackgroundPonyCreator {
 		}
 
 		void AdjustHairColour2(ColourValue colour) {
-			for (int a = 1; a <= 6; a++) {
-				if (a == 4)
-					continue;
+			for (int a = 1; a <= NUMBER_OF_HAIRSTYLES; a++) {
 
 				MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPonyHair_Double_" + a);
 				var ps = mat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
@@ -504,9 +437,7 @@ namespace BackgroundPonyCreator {
 		}
 
 		void AdjustHairAOColour2(ColourValue colour) {
-			for (int a = 1; a <= 6; a++) {
-				if (a == 4)
-					continue;
+			for (int a = 1; a <= NUMBER_OF_HAIRSTYLES; a++) {
 
 				MaterialPtr mat = MaterialManager.Singleton.GetByName("BgPonyHair_Double_" + a);
 				var psCol = mat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
@@ -536,8 +467,7 @@ namespace BackgroundPonyCreator {
 				animState.AddTime(evt.timeSinceLastFrame);
 				blinkState.AddTime(evt.timeSinceLastFrame);
 				wingsState.AddTime(evt.timeSinceLastFrame);
-				for (int a = 0; a < 6; a++) {
-					if (a == 3) continue;
+				for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 					maneStates[a].AddTime(evt.timeSinceLastFrame);
 					tailStates[a].AddTime(evt.timeSinceLastFrame);
 				}
@@ -715,11 +645,7 @@ namespace BackgroundPonyCreator {
 			hairColour2Button.IsEnabled = false;
 			hairAOColour2Button.IsEnabled = false;
 
-			for (int a = 0; a < 6; a++) {
-				// there is no hair#4
-				if (a == 3)
-					continue;
-
+			for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 				hairEnts[a].SetMaterialName("BgPonyHair_Single_" + (a + 1));
 				maneEnts[a].SetMaterialName("BgPonyHair_Single_" + (a + 1));
 				tailEnts[a].SetMaterialName("BgPonyHair_Single_" + (a + 1));
@@ -733,11 +659,7 @@ namespace BackgroundPonyCreator {
 			hairColour2Button.IsEnabled = true;
 			hairAOColour2Button.IsEnabled = true;
 
-			for (int a = 0; a < 6; a++) {
-				// there is no hair#4
-				if (a == 3)
-					continue;
-
+			for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 				hairEnts[a].SetMaterialName("BgPonyHair_Double_" + (a + 1));
 				maneEnts[a].SetMaterialName("BgPonyHair_Double_" + (a + 1));
 				tailEnts[a].SetMaterialName("BgPonyHair_Double_" + (a + 1));
@@ -757,9 +679,7 @@ namespace BackgroundPonyCreator {
 
 			int hairID = int.Parse("" + text[9]) - 1;
 
-			for (int a = 0; a < 6; a++) {
-				if (a == 3) continue;
-
+			for (int a = 0; a < NUMBER_OF_HAIRSTYLES; a++) {
 				if (a == hairID) {
 					hairEnts[a].Visible = true;
 					maneEnts[a].Visible = true;

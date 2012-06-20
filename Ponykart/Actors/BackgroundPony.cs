@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Mogre;
 using Ponykart.Core;
@@ -14,7 +15,24 @@ namespace Ponykart.Actors {
 	/// Class for the background ponies. Manages making them play random animations and moving their neck to face the player.
 	/// </summary>
 	public class BackgroundPony : LThing {
-		protected static BackgroundPonyLoader loader;
+		protected static BackgroundPonyLoader _loader_;
+		protected static BackgroundPonyLoader loader {
+			get {
+				if (_loader_ == null)
+					_loader_ = new BackgroundPonyLoader();
+				return _loader_;
+			}
+		}
+		protected static Random _random_;
+		protected static Random random {
+			get {
+				if (_random_ == null)
+					_random_ = new Random();
+				return _random_;
+			}
+		}
+
+
 		protected static CultureInfo culture = CultureInfo.InvariantCulture;
 
 		// don't care about eyes, hair, horn, or folded wings since they aren't animated
@@ -30,21 +48,17 @@ namespace Ponykart.Actors {
 		protected const float BLEND_TIME = 1f;
 		// milliseconds
 		protected const int ANIMATION_TIMESPAN_MINIMUM = 5000, ANIMATION_TIMESPAN_MAXIMUM = 8000;
-		protected Random random;
+
 		protected Euler neckFacing;
 		protected Bone neckbone;
 		protected Kart followKart;
 
-		public BackgroundPony(string bgPonyName, ThingBlock block, ThingDefinition def) : base(block, def) {
-			// initialise the loader if we haven't already
-			if (loader == null)
-				loader = new BackgroundPonyLoader();
-
+		public BackgroundPony(string bgPonyName, ThingBlock block, ThingDefinition def)
+			: base(block, def) {
 			AnimPose = Pose.Standing;
-			random = new Random(IDs.Random);
 
 			if (bgPonyName == null)
-				nameOfPonyCharacter = block.GetStringProperty("PonyName", null);
+				nameOfPonyCharacter = loader.GetRandomLine();
 			else
 				nameOfPonyCharacter = bgPonyName;
 
@@ -52,7 +66,7 @@ namespace Ponykart.Actors {
 			string _line;
 			if (!loader.BackgroundPonyDict.TryGetValue(nameOfPonyCharacter, out _line)) {
 				// if the line doesn't exist, make a random one
-				_line = loader.AllValues[random.Next(loader.AllValues.Length)];
+				_line = loader.GetRandomLine();
 				Launch.Log("[WARNING] The specified background pony (" + nameOfPonyCharacter + ") does not exist, using random one instead...");
 			}
 			// split up the data
@@ -78,13 +92,13 @@ namespace Ponykart.Actors {
 
 			eyesEnt = sceneMgr.CreateEntity("BgPonyEyes.mesh");
 
-			if (PonyType == Type.Unicorn) 
+			if (PonyType == Type.Unicorn)
 				hornEnt = sceneMgr.CreateEntity("BgPonyHorn.mesh");
-			else if (PonyType == Type.FlyingPegasus) 
+			else if (PonyType == Type.FlyingPegasus)
 				wingsEnt = sceneMgr.CreateEntity("BgPonyWings.mesh");
-			else if (PonyType == Type.Pegasus) 
+			else if (PonyType == Type.Pegasus)
 				foldedWingsEnt = sceneMgr.CreateEntity("BgPonyWingsFolded.mesh");
-			
+
 
 			// create hair
 			hairEnt = sceneMgr.CreateEntity("BgPonyHair" + hairstyleID + ".mesh");
@@ -106,28 +120,31 @@ namespace Ponykart.Actors {
 
 #region setting up colors in materials
 			// body colour
-			ColourValue bodyColour = new ColourValue(float.Parse(_data[3], culture), float.Parse(_data[4], culture), float.Parse(_data[5], culture));
-			ColourValue bodyAOColour = new ColourValue(float.Parse(_data[6], culture), float.Parse(_data[7], culture), float.Parse(_data[8], culture));
+			{
+				ColourValue bodyColour = new ColourValue(float.Parse(_data[3], culture), float.Parse(_data[4], culture), float.Parse(_data[5], culture));
+				ColourValue bodyAOColour = new ColourValue(float.Parse(_data[6], culture), float.Parse(_data[7], culture), float.Parse(_data[8], culture));
 
-			MaterialPtr newMat = SetBodyPartMaterialColours("BgPony", bodyColour, bodyAOColour);
-			newMat.GetTechnique(0).GetPass(1).GetTextureUnitState(1).SetTextureName(_data[18].Substring(1, _data[18].Length - 2));
 
-			bodyEnt.SetMaterial(newMat);
-			
-			// extra body parts
-			if (PonyType == Type.Unicorn) {
-				newMat = SetBodyPartMaterialColours("BgPonyHorn", bodyColour, bodyAOColour);
-				hornEnt.SetMaterial(newMat);
+				MaterialPtr bodyMat = SetBodyPartMaterialColours("BgPony", bodyColour, bodyAOColour);
+				bodyMat.GetTechnique(0).GetPass(1).GetTextureUnitState(1).SetTextureName(_data[18].Substring(1, _data[18].Length - 2));
+
+				bodyEnt.SetMaterial(bodyMat);
+
+				// extra body parts
+				if (PonyType == Type.Unicorn) {
+					bodyMat = SetBodyPartMaterialColours("BgPonyHorn", bodyColour, bodyAOColour);
+					hornEnt.SetMaterial(bodyMat);
+				}
+				else if (PonyType == Type.Pegasus) {
+					bodyMat = SetBodyPartMaterialColours("BgPonyWingsFolded", bodyColour, bodyAOColour);
+					foldedWingsEnt.SetMaterial(bodyMat);
+				}
+				else if (PonyType == Type.FlyingPegasus) {
+					bodyMat = SetBodyPartMaterialColours("BgPonyWings", bodyColour, bodyAOColour);
+					wingsEnt.SetMaterial(bodyMat);
+				}
 			}
-			else if (PonyType == Type.Pegasus) {
-				newMat = SetBodyPartMaterialColours("BgPonyWingsFolded", bodyColour, bodyAOColour);
-				foldedWingsEnt.SetMaterial(newMat);
-			}
-			else if (PonyType == Type.FlyingPegasus) {
-				newMat = SetBodyPartMaterialColours("BgPonyWings", bodyColour, bodyAOColour);
-				wingsEnt.SetMaterial(newMat);
-			}
-			
+
 			// eye colours
 			{
 				ColourValue eyeColour1 = new ColourValue(float.Parse(_data[9], culture), float.Parse(_data[10], culture), float.Parse(_data[11], culture));
@@ -135,11 +152,9 @@ namespace Ponykart.Actors {
 				ColourValue eyeHighlightColour = new ColourValue(float.Parse(_data[15], culture), float.Parse(_data[16], culture), float.Parse(_data[17], culture));
 
 				MaterialPtr originalMat = MaterialManager.Singleton.GetByName("BgPonyEyes");
-				Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve("BgPonyEyes" + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
-				newMat = (MaterialPtr) pair.first;
-
-				if (pair.second) {
-					newMat = originalMat.Clone("BgPonyEyes" + eyeColour1);
+				MaterialPtr newMat = MaterialManager.Singleton.GetByName("BgPonyEyes" + nameOfPonyCharacter);
+				if (newMat == null) {
+					newMat = originalMat.Clone("BgPonyEyes" + nameOfPonyCharacter);
 
 					var ps = newMat.GetTechnique(0).GetPass(0).GetFragmentProgramParameters();
 						ps.SetNamedConstant("TopIrisColour", eyeColour1);
@@ -162,11 +177,9 @@ namespace Ponykart.Actors {
 					ColourValue hairAOColour2 = new ColourValue(float.Parse(_data[29], culture), float.Parse(_data[30], culture), float.Parse(_data[31], culture));
 
 					MaterialPtr originalMat = MaterialManager.Singleton.GetByName("BgPonyHair_Double_" + hairstyleID);
-					Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve("BgPonyHair_Double_" + hairstyleID + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
-					newMat = (MaterialPtr) pair.first;
-
-					if (pair.second) {
-						newMat = originalMat.Clone("BgPonyHair_Double_" + hairstyleID + hairColour1);
+					MaterialPtr newMat = MaterialManager.Singleton.GetByName("BgPonyHair_Double_" + hairstyleID + nameOfPonyCharacter);
+					if (newMat == null) {
+						newMat = originalMat.Clone("BgPonyHair_Double_" + hairstyleID + nameOfPonyCharacter);
 
 						var ps = newMat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
 							ps.SetNamedConstant("HairColour1", hairColour1);
@@ -187,11 +200,9 @@ namespace Ponykart.Actors {
 				// one colour
 				else {
 					MaterialPtr originalMat = MaterialManager.Singleton.GetByName("BgPonyHair_Single_" + hairstyleID);
-					Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve("BgPonyHair_Single_" + hairstyleID + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
-					newMat = (MaterialPtr) pair.first;
-
-					if (pair.second) {
-						newMat = originalMat.Clone("BgPonyHair_Single_" + hairstyleID + hairColour1);
+					MaterialPtr newMat = MaterialManager.Singleton.GetByName("BgPonyHair_Single_" + hairstyleID + nameOfPonyCharacter);
+					if (newMat == null) {
+						newMat = originalMat.Clone("BgPonyHair_Single_" + hairstyleID + nameOfPonyCharacter);
 
 						var ps = newMat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
 							ps.SetNamedConstant("HairColour", hairColour1);
@@ -287,11 +298,10 @@ namespace Ponykart.Actors {
 
 		protected MaterialPtr SetBodyPartMaterialColours(string materialName, ColourValue bodyColour, ColourValue bodyAOColour) {
 			MaterialPtr originalMat = MaterialManager.Singleton.GetByName(materialName);
-			Pair<ResourcePtr, bool> pair = MaterialManager.Singleton.CreateOrRetrieve(materialName + nameOfPonyCharacter, ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME);
-			MaterialPtr newMat = (MaterialPtr) pair.first;
-			// if the material already exists, you don't have to modify it
-			if (pair.second) {
-				newMat = originalMat.Clone(materialName + bodyColour);
+			MaterialPtr newMat = MaterialManager.Singleton.GetByName(materialName + nameOfPonyCharacter);
+			if (newMat == null) { 
+				// if the material already exists, you don't have to modify it
+				newMat = originalMat.Clone(materialName + nameOfPonyCharacter);
 
 				var ps = newMat.GetTechnique(0).GetPass(1).GetFragmentProgramParameters();
 					ps.SetNamedConstant("BodyColour", bodyColour);
@@ -565,7 +575,10 @@ namespace Ponykart.Actors {
 		/// </summary>
 		protected class BackgroundPonyLoader {
 			public Dictionary<string, string> BackgroundPonyDict { get; private set; }
-			public string[] AllValues { get; private set; }
+			// these just have names
+			public string[] EarthPonies { get; private set; }
+			public string[] Unicorns { get; private set; }
+			public string[] Pegasi { get; private set; }
 
 			public BackgroundPonyLoader() {
 				BackgroundPonyDict = new Dictionary<string, string>();
@@ -574,13 +587,81 @@ namespace Ponykart.Actors {
 					while (!reader.EndOfStream) {
 						string line = reader.ReadLine();
 
-						BackgroundPonyDict[line.Substring(1, line.IndexOf("\" ") - 1)] = line;
+						if (line.StartsWith("//"))
+							continue;
+
+						string name = line.Substring(1, line.IndexOf("\" ") - 1);
+						BackgroundPonyDict[name] = line;
+
+						// add flying pegasi as well
+						if (line.Contains(" pegasus ")) {
+							BackgroundPonyDict[name + "F"] = line.Replace(" pegasus ", " flyingpegasus ");
+						}
 					}
 				}
 
-				AllValues = new string[BackgroundPonyDict.Values.Count];
-				BackgroundPonyDict.Values.CopyTo(AllValues, 0);
+				EarthPonies = BackgroundPonyDict.Keys.Where(s => s.Contains(" earth ")).ToArray();
+				Unicorns = BackgroundPonyDict.Keys.Where(s => s.Contains(" unicorns ")).ToArray();
+				Pegasi = BackgroundPonyDict.Keys.Where(s => s.Contains(" pegasus ")).ToArray();
 			}
+
+			public string GetRandomLine() {
+				return BackgroundPonyDict.ElementAt(random.Next(BackgroundPonyDict.Count)).Value;
+			}
+
+			public string GetRandomName() {
+				return BackgroundPonyDict.ElementAt(random.Next(BackgroundPonyDict.Count)).Key;
+			}
+
+			public string GetRandomEarthPony() {
+				return EarthPonies[random.Next(EarthPonies.Length)];
+			}
+
+			public string GetRandomUnicorn() {
+				return Unicorns[random.Next(Unicorns.Length)];
+			}
+
+			public string GetRandomPegasus() {
+				return Pegasi[random.Next(Pegasi.Length)];
+			}
+		}
+
+		// some helper methods for spawning these
+		public static BackgroundPony SpawnPony(string name, Vector3 pos) {
+			return SpawnPony(name, pos, Quaternion.IDENTITY);
+		}
+		public static BackgroundPony SpawnPony(string name, Vector3 pos, Quaternion orient) {
+			return LKernel.Get<Spawner>().Spawn<BackgroundPony>("BgPony", name, new ThingBlock("BgPony", pos, orient), (n,t,d) => new BackgroundPony(n,t,d));
+		}
+
+
+		public static BackgroundPony SpawnRandomStandingPony(Vector3 pos) {
+			return SpawnRandomStandingPony(pos, Quaternion.IDENTITY);
+		}
+		public static BackgroundPony SpawnRandomStandingPony(Vector3 pos, Quaternion orient) {
+			var pone = LKernel.Get<Spawner>().Spawn<BackgroundPony>("BgPony", loader.GetRandomName(), new ThingBlock("BgPony", pos, orient), (n,t,d) => new BackgroundPony(n,t,d));
+			pone.Stand();
+			return pone;
+		}
+
+
+		public static BackgroundPony SpawnRandomSittingPony(Vector3 pos) {
+			return SpawnRandomSittingPony(pos, Quaternion.IDENTITY);
+		}
+		public static BackgroundPony SpawnRandomSittingPony(Vector3 pos, Quaternion orient) {
+			var pone = LKernel.Get<Spawner>().Spawn<BackgroundPony>("BgPony", loader.GetRandomName(), new ThingBlock("BgPony", pos, orient), (n,t,d) => new BackgroundPony(n,t,d));
+			pone.Sit();
+			return pone;
+		}
+
+
+		public static BackgroundPony SpawnRandomFlyingPony(Vector3 pos) {
+			return SpawnRandomFlyingPony(pos, Quaternion.IDENTITY);
+		}
+		public static BackgroundPony SpawnRandomFlyingPony(Vector3 pos, Quaternion orient) {
+			var pone = LKernel.Get<Spawner>().Spawn<BackgroundPony>("BgPony", loader.GetRandomPegasus()+"F", new ThingBlock("BgPony", pos, orient), (n,t,d) => new BackgroundPony(n,t,d));
+			pone.Fly();
+			return pone;
 		}
 	}
 

@@ -140,7 +140,7 @@ namespace Ponykart.Actors
 				anim = (DerpyAnimation) System.Enum.Parse(typeof(DerpyAnimation), animationName, true);
 			}
 		}
-
+		
 		/// <summary>
 		/// Detach from the kart
 		/// </summary>

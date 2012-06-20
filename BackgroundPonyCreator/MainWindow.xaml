@@ -52,7 +52,7 @@
 					<ComboBoxItem Content="HairStyle1" IsSelected="True" />
 					<ComboBoxItem Content="HairStyle2" />
 					<ComboBoxItem Content="HairStyle3" />
-					<ComboBoxItem Content="HairStyle4" IsEnabled="False" />
+					<ComboBoxItem Content="HairStyle4" />
 					<ComboBoxItem Content="HairStyle5" />
 					<ComboBoxItem Content="HairStyle6" />
 				</ComboBox>
