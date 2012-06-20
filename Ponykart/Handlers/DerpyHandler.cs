@@ -21,9 +21,9 @@ namespace Ponykart.Handlers {
 			// setup the timer
 			timer = new Timer((x) => { derpy.ChangeAnimation("Forward1"); }, null, Timeout.Infinite, Timeout.Infinite);
 
-			LapCounter.OnPlayerLap += new LapCounterEvent(OnPlayerLap);
-			LapCounter.OnPlayerFinish += new RaceFinishEvent(OnPlayerFinish);
-			RaceCountdown.OnCountdown += new RaceCountdownEvent(OnCountdown);
+			LapCounter.OnPlayerLap += OnPlayerLap;
+			LapCounter.OnPlayerFinish += OnPlayerFinish;
+			RaceCountdown.OnCountdown += OnCountdown;
 		}
 
 		void OnCountdown(RaceCountdownState state) {
@@ -42,9 +42,9 @@ namespace Ponykart.Handlers {
 		}
 
 		public void Detach() {
-			LapCounter.OnPlayerLap -= new LapCounterEvent(OnPlayerLap);
-			LapCounter.OnPlayerFinish -= new RaceFinishEvent(OnPlayerFinish);
-			RaceCountdown.OnCountdown -= new RaceCountdownEvent(OnCountdown);
+			LapCounter.OnPlayerLap -= OnPlayerLap;
+			LapCounter.OnPlayerFinish -= OnPlayerFinish;
+			RaceCountdown.OnCountdown -= OnCountdown;
 
 			timer.Dispose();
 			derpy.Dispose();
