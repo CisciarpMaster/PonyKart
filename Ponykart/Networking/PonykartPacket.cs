@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using System.Text;
 
 namespace Ponykart.Networking {
@@ -50,6 +51,11 @@ namespace Ponykart.Networking {
             }
         }
         byte[] Contents;
+        byte[] ByteContents {
+            get {
+                return (byte[])Contents.Clone();
+            }
+        }
         public string StringContents {
             get {
                 return System.Text.ASCIIEncoding.ASCII.GetString(Contents);

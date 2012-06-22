@@ -31,7 +31,9 @@ namespace Ponykart.Players {
 
 		public string Character { get; protected set; }
 
-		public bool IsComputerControlled { get; private set; }
+        public bool IsComputerControlled { get; private set; }
+
+        public bool IsLocal { get; private set; }
 
 
 		public Player(LevelChangedEventArgs eventArgs, int id, bool isComputerControlled) {

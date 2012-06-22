@@ -56,7 +56,27 @@ namespace Ponykart.Players {
 
 				if (OnPostPlayerCreation != null)
 					OnPostPlayerCreation.Invoke();
-			}
+            } else if (eventArgs.NewLevel.Type == LevelType.Multi) {
+                Networking.NetworkManager netMgr = LKernel.GetG<Networking.NetworkManager>();
+                Players = new Player[netMgr.Players.Count];
+
+                eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
+                if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
+                    MainPlayer = new HumanPlayer(eventArgs, 0);
+                else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))
+                    MainPlayer = new WiiMotePlayer(eventArgs, 0);
+                else
+                    throw new Exception("Illegal Controller type - " + Options.Get("Controller"));
+                Players[0] = MainPlayer;
+
+                for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
+                    Players[a] = new ComputerPlayer(eventArgs, a);
+                }
+
+                if (OnPostPlayerCreation != null)
+                    OnPostPlayerCreation.Invoke();
+
+            }
 		}
 
 		/// <summary>

@@ -5,15 +5,42 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Timers;
+using Ponykart.Actors;
+using Ponykart.Physics;
 using Ponykart.Players;
+using BulletSharp;
+using Mogre;
 
 namespace Ponykart.Networking
 {  
-
-     public enum Commands {
+    [Serializable]
+    public class KartInformation {
+        public int ID, index;
+        public Vector3 Location;
+        public Vector3 Position;
+        public KartInformation(int id) {
+            ID = id;
+        }
+    }
+        
+    public enum Commands {
         Connect = 0x0000,
         ConnectAccept = 0x0001,
         ConnectReject = 0x0002,
+
+        GameFull = 0x0020,
+
+        RequestPlayer = 0x0100,
+        NewPlayer = 0x0101,
+        RejectPlayer = 0x0102,
+
+        RequestPlayerChange = 0x0110,
+        PlayerChange = 0x0111,
+        RejectChange = 0x0112,
+
+        LeaveGame = 0x0F00,
+        RemovePlayer = 0x0F01,
+
         SelectLevel = 0x1000,
         LevelAccept = 0x1001,
         CharacterSelect = 0x1010,
@@ -21,9 +48,13 @@ namespace Ponykart.Networking
         Characters = 0x1100,
         StartGame = 0x1F00,
         StartAccept = 0x1F01,
+
+        SendPositions = 0x3000,
+        
         ServerMessage = 0xF000,
         NoMessage = 0xFFFF // empty message only to send acks
     };
+    public enum NetworkTypes {Client, Host};
 
     /// <summary>
     /// This class manages Network connections
@@ -44,10 +75,13 @@ namespace Ponykart.Networking
         public string Password;
 
         // What kind of Networking connection we have
-        public int NetworkType;
+        public NetworkTypes NetworkType;
 
         // Keep track of how many concurrent connections we allow
         private int MaxConnections;
+        
+        // What is this connection's ID, according to the host?
+        public int MyCID;
 
         // Networking thread 
         public Thread NetworkingThread;
@@ -57,10 +91,22 @@ namespace Ponykart.Networking
 
         // Time last packet was sent
         long LastSentTicks;
-        
-        private Player LocalPlayer { get; set; }
-        private Player[] NetPlayers { get; set; }
-        
+
+        // Is the race currently running?
+        public bool GameRunning = false;
+
+        public List<NetworkEntity> Players; // Keep this synchronized among all connections!
+
+        private int NextGlobalID = 0;
+
+        private int LastQueriedKart;
+
+        // List of Karts we need to send information about
+        private Dictionary<Kart,KartInformation> _karts;
+        public IDictionary<Kart, KartInformation> Karts {
+            get { return _karts; }
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -73,11 +119,12 @@ namespace Ponykart.Networking
         /// <param name="port">Port to listen on</param>
         /// <param name="password">string password</param>
         public void InitManager(int port, string password) {
-            NetworkType = HOST;
+            NetworkType = NetworkTypes.Host;
             Password = password;
             Listener = new UdpClient(port);
             ListenEP = new IPEndPoint(IPAddress.Any, port);
             Connections = new Dictionary<int,Connection>();
+            Players = new List<NetworkEntity>();
         }
 
         /// <summary>
@@ -87,13 +134,14 @@ namespace Ponykart.Networking
         /// <param name="ip">IP (TRUSTED!! To be valid)</param>
         public void InitManager(int port, string password, string ip)
         {
-            NetworkType = CLIENT;
+            NetworkType = NetworkTypes.Client;
             Password = password;
             Listener = new UdpClient(port); //Todo: Add checks
             ListenEP = new IPEndPoint(IPAddress.Parse(ip), port); //Todo: Add checks
             SingleConnection = new Connection(Listener, ListenEP, GenerateCID());
             Connections = new Dictionary<int, Connection>();
-            Connections.Add(0, SingleConnection); 
+            Connections.Add(0, SingleConnection);
+            Players = new List<NetworkEntity>();
         }
         /// <summary>
         /// Called every time we receive a new packet.
@@ -105,13 +153,13 @@ namespace Ponykart.Networking
     //                                                                   System.Text.ASCIIEncoding.ASCII.GetString(Protocol)));
             if (p.Protocol.SequenceEqual(Protocol)) {
                // Launch.Log("Packet of our protocol.");
-                if (NetworkType == CLIENT) {
+                if (NetworkType == NetworkTypes.Client) {
                   //  Launch.Log("Received packet as client");
                     if (p.CID == SingleConnection.UDPConnection.ConnectionID) {
                         SingleConnection.UDPConnection.Handle(p);
                     }
                 }
-                else if (NetworkType == HOST) {
+                else if (NetworkType == NetworkTypes.Host) {
                   //  Launch.Log("Received packet as host");
                     int id = (int)p.CID;
                     if (Connections.ContainsKey(id)) {
@@ -196,5 +244,42 @@ namespace Ponykart.Networking
             r.NextBytes(randarr);
             return BitConverter.ToInt32(randarr, 0);
         }
+
+        public void OnLevelLoad(/* arguments? */) {
+            _karts = new Dictionary<Kart, KartInformation>();
+            PlayerManager pm = LKernel.GetG<PlayerManager>();
+            for (int i = 0; i < pm.Players.Length; i++) {
+                _karts[pm.Players[i].Kart] = new KartInformation(i);
+            }
+        }
+
+        public void OnSimulateWorld(DiscreteDynamicsWorld world) {
+            PlayerManager pm = LKernel.GetG<PlayerManager>();
+            foreach(Kart K in (from p in pm.Players select p.Kart) ) { /* gratuitous use of LINQ anyone? */
+                _karts[K].Position = K.ActualPosition;
+            }
+        }
+
+
+        public int AssignGlobalID() {
+            return NextGlobalID++;
+        }
+
+        public string SerializeKarts() {
+            string s = "";
+            for (int i = 0; i < Players.Count; i++) {
+                LastQueriedKart++;
+                if (LastQueriedKart >= Players.Count) {
+                    LastQueriedKart = 0;
+                }
+                if (Players[LastQueriedKart].local || NetworkType == NetworkTypes.Host) {
+                    var buff = Players[LastQueriedKart].SerializeLocation();
+                    if (s.Length + buff.Length >= UDPPacket.MaxContentLength) {
+                        return s;
+                    }
+                }
+            }
+            return s;
+        }            
     }
 }

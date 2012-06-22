@@ -94,6 +94,7 @@ namespace Ponykart.Networking {
                               where (DateTime.Now - message.LastSent) > TimeSpan.FromSeconds(5)
                               select message;
             foreach (var message in unresponded) {
+                message.SequenceNo = NextSequenceNumber;
                 SendPacket(message);
             }
         }

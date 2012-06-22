@@ -22,6 +22,12 @@ namespace Ponykart {
 		/// <summary>
 		/// For races.
 		/// </summary>
-		Race = 4
+		Race = 4,
+        /// <summary>
+        /// Multiplayer Race
+        /// </summary>
+        Multi = 8
+
+
 	}
 }

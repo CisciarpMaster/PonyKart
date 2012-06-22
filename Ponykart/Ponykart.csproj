@@ -188,6 +188,7 @@
     <Compile Include="Handlers\UI\CountdownUIHandler.cs" />
     <Compile Include="Handlers\UI\MainMenuUIHandler.cs" />
     <Compile Include="Levels\LevelChangeRequest.cs" />
+    <Compile Include="Networking\NetworkEntity.cs" />
     <Compile Include="Networking\PonykartPacket.cs" />
     <Compile Include="Physics\Motion States\KartMotionState.cs" />
     <Compile Include="Networking\UDPPacket.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Players\AITriggerRegionHandler.cs" />
     <Compile Include="Players\NetworkPlayer.cs" />
     <Compile Include="Players\WiiMotePlayer.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Sound\SoundCrossfader.cs" />
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />

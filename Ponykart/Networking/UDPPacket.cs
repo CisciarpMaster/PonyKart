@@ -10,12 +10,13 @@ namespace Ponykart.Networking  {
     public class UDPPacket {
         public readonly byte[] Protocol;
         public readonly UInt32 CID;
-        public readonly UInt32 SequenceNo;
+        public UInt32 SequenceNo;
         public readonly UInt32 Ack;
         public readonly UInt32 AckField;
         public readonly PonykartPacket Contents;
         public DateTime LastSent;
         public bool Responded;
+        public static int MaxContentLength = 512 - 32;
         /// <summary>
         /// Get specific header information from a packet
         /// Packet format: PPPPIIIISSSSAAAAFFFFCCCCCCCCCCC
