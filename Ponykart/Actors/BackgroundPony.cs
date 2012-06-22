@@ -663,6 +663,11 @@ namespace Ponykart.Actors {
 			pone.Fly();
 			return pone;
 		}
+		
+		public static BackgroundPony SpawnByNum(int id, Vector3 pos) {
+			return LKernel.Get<Spawner>().Spawn<BackgroundPony>("BgPony", loader.BackgroundPonyDict.ElementAt(id).Key,
+				new ThingBlock("BgPony", pos), (n, t, d) => new BackgroundPony(n, t, d));
+		}
 	}
 
 	

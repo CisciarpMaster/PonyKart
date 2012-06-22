@@ -53,6 +53,11 @@ namespace Ponykart.Lua {
 		public static BackgroundPony SpawnRandomFlyingBgPony(Vector3 pos) {
 			return BackgroundPony.SpawnRandomFlyingPony(pos);
 		}
+		
+		[LuaFunction("spawnBgPonyByNum", "words words", "int", "vector")]
+		public static BackgroundPony SpawnBgPonyByNum(int id, Vector3 pos) {
+			return BackgroundPony.SpawnByNum(id, pos);
+		}
 
 		[LuaFunction("spawnDerpy", "Spawns derpy", "Vector3 pos")]
 		public static Derpy SpawnDerpy(Vector3 pos) {

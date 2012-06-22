@@ -35,12 +35,16 @@ function flat(level)
 	sun:Fly()
 	dizzy:Fly()
 	
-	local x
-	local z
+	local x, z
+	local id = 0
+	local pone
 	
-	for x = -30, -20 do
-		for z = -30, -20 do
-			spawnRandomStandingBgPony(vector(x, -0.18, z))
+	for x = -29, -20 do
+		for z = -29, -20 do
+			pone = spawnBgPonyByNum(id, vector(x, -0.18, z))
+			pone:Stand()
+			
+			id = id + 1
 		end
 	end
 end
