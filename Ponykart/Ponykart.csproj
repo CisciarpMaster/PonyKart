@@ -196,7 +196,6 @@
     <Compile Include="Players\AITriggerRegionHandler.cs" />
     <Compile Include="Players\NetworkPlayer.cs" />
     <Compile Include="Players\WiiMotePlayer.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="Sound\SoundCrossfader.cs" />
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />

@@ -9,7 +9,7 @@ using System.Collections;
 namespace Ponykart.Networking {
     public class ReliableUDPConnection {
         private UdpClient Sender;
-        public Int32 ConnectionID;
+        public UInt32 ConnectionID;
         public byte[] IDArray;
         public IPEndPoint DestinationEP;
         private Dictionary<UInt32,UDPPacket> Sent;
@@ -19,7 +19,7 @@ namespace Ponykart.Networking {
         long LastReceivedTicks = 0;
         Connection Owner;
 
-        public ReliableUDPConnection(UdpClient sender, IPEndPoint destinationep, Int32 cid, Connection owner) {
+        public ReliableUDPConnection(UdpClient sender, IPEndPoint destinationep, UInt32 cid, Connection owner) {
             DestinationEP = destinationep;
             ConnectionID = cid;
             Sender = sender;

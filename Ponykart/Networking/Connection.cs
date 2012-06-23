@@ -19,7 +19,7 @@ namespace Ponykart.Networking {
         public long ZeroMoment,RemoteOffset;
 		public bool validated;
         public readonly ReliableUDPConnection UDPConnection;
-        public readonly int Cid;
+        public readonly UInt32 Cid;
         public int PlayerCt = 1;
         Queue<Message> OutgoingQueue;
         NetworkManager nm;
@@ -56,7 +56,7 @@ namespace Ponykart.Networking {
 		/// <summary>
 		/// Creates a connection, given a destination to send to and a connection ID.
 		/// </summary>
-		public Connection(UdpClient sender, IPEndPoint destinationep, Int32 cid) {
+		public Connection(UdpClient sender, IPEndPoint destinationep, UInt32 cid) {
             UDPConnection = new ReliableUDPConnection(sender, destinationep, cid, this);
             OutgoingQueue = new Queue<Message>();
             Cid = cid;

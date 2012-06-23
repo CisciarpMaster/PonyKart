@@ -69,7 +69,7 @@ namespace Ponykart.Networking
         private UdpClient Listener;
         private IPEndPoint ListenEP;
         // For sending information. Host has many, Client has one.
-        private IDictionary<int, Connection> Connections;
+        private IDictionary<UInt32, Connection> Connections;
         public Connection SingleConnection;
         // Password for connection
         public string Password;
@@ -123,7 +123,7 @@ namespace Ponykart.Networking
             Password = password;
             Listener = new UdpClient(port);
             ListenEP = new IPEndPoint(IPAddress.Any, port);
-            Connections = new Dictionary<int,Connection>();
+            Connections = new Dictionary<UInt32,Connection>();
             Players = new List<NetworkEntity>();
         }
 
@@ -139,7 +139,7 @@ namespace Ponykart.Networking
             Listener = new UdpClient(port); //Todo: Add checks
             ListenEP = new IPEndPoint(IPAddress.Parse(ip), port); //Todo: Add checks
             SingleConnection = new Connection(Listener, ListenEP, GenerateCID());
-            Connections = new Dictionary<int, Connection>();
+            Connections = new Dictionary<UInt32, Connection>();
             Connections.Add(0, SingleConnection);
             Players = new List<NetworkEntity>();
         }
@@ -161,7 +161,7 @@ namespace Ponykart.Networking
                 }
                 else if (NetworkType == NetworkTypes.Host) {
                   //  Launch.Log("Received packet as host");
-                    int id = (int)p.CID;
+                    UInt32 id = p.CID;
                     if (Connections.ContainsKey(id)) {
                         Connections[id].UDPConnection.Handle(p);
                     } else if (Connections.Keys.Count < MaxConnections) {
@@ -238,11 +238,11 @@ namespace Ponykart.Networking
             Connections.Remove(connection.Cid);
         }
 
-        public Int32 GenerateCID() {
+        public UInt32 GenerateCID() {
             Random r = new Random();
             var randarr = new byte[4];
             r.NextBytes(randarr);
-            return BitConverter.ToInt32(randarr, 0);
+            return BitConverter.ToUInt32(randarr, 0);
         }
 
         public void OnLevelLoad(/* arguments? */) {
