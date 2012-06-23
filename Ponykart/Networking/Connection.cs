@@ -23,7 +23,6 @@ namespace Ponykart.Networking {
         public int PlayerCt = 1;
         Queue<Message> OutgoingQueue;
         NetworkManager nm;
-        List<KartInformation> KartsToSend;
         public IEnumerable<NetworkEntity> Players {
             get {
                 return (from ent in LKernel.Get<NetworkManager>().Players
@@ -110,16 +109,22 @@ namespace Ponykart.Networking {
                         if (nm.Players.Count < Settings.Default.NumberOfPlayers) {
                             var NPlayer = new NetworkEntity(this);
                             nm.Players.Add(NPlayer);
-                            nm.ForEachConnection((c) => c.SendPacket(Commands.NewPlayer, NPlayer.Serialize()));
+                            nm.ForEachConnection((c) => c.SendPacket((c == this)?Commands.NewLocalPlayer:Commands.NewPlayer, NPlayer.Serialize()));
                         } else {
-                            // TODO: Reject player
+                            SendPacket(Commands.RejectPlayer, "Full");
                         }
                     }
                     break;
 
                 case Commands.NewPlayer :
                     if (nm.NetworkType == NetworkTypes.Client) {
-                        nm.Players.Add(NetworkEntity.Deserialize(packet.StringContents,this));
+                        nm.Players.Add(NetworkEntity.Deserialize(packet.StringContents,this, false));
+                    }
+                    break;
+
+                case Commands.NewLocalPlayer:
+                    if (nm.NetworkType == NetworkTypes.Client) {
+                        nm.Players.Add(NetworkEntity.Deserialize(packet.StringContents, null, true));
                     }
                     break;
 
@@ -173,7 +178,7 @@ namespace Ponykart.Networking {
 #endregion
                 case Commands.SendPositions:
                     if (nm.NetworkType == NetworkTypes.Client) {
-                        // TODO: implement. 
+                        NetworkEntity.DeSerializeLocations(packet.StringContents);
                     } else {
                     }
                     break;
@@ -205,14 +210,6 @@ namespace Ponykart.Networking {
             var message = new Message(type, contents, isVolatile);
             Launch.Log(String.Format("Queued outgoing packet of type {0}", type));
             OutgoingQueue.Enqueue(message);
-        }
-
-        public void SetKarts() {
-            PlayerManager pm = LKernel.GetG<PlayerManager>();
-            NetworkManager nm = LKernel.GetG<NetworkManager>();
-            if(nm.NetworkType == NetworkTypes.Client) {
-                KartsToSend = (from p in pm.Players where p.IsLocal select nm.Karts[p.Kart]).ToList<KartInformation>();
-            } else {}
         }
 
         public void CloseConnection() {

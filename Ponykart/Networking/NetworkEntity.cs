@@ -51,15 +51,9 @@ namespace Ponykart.Networking {
         }
         public Connection owner;
 
-        public NetworkEntity(Connection parent, int globalid) {
+        public NetworkEntity(Connection parent, int globalid, string name, string selection, bool islocal) {
             if (parent != null) { owner = parent; }
-            local = true;
-            nm = LKernel.Get<NetworkManager>();
-        }
-
-        public NetworkEntity(Connection parent, int globalid, string name, string selection) {
-            if (parent != null) { owner = parent; }
-            local = false;
+            local = islocal;
             _GlobalID = globalid;
             _Selection = selection;
             _Name = name;
@@ -108,14 +102,14 @@ namespace Ponykart.Networking {
         /// <param name="contents">The XML tree representing the entity</param>
         /// <param name="parent">The connection that received this tree</param>
         /// <returns>A new NetworkEntity</returns>
-        public static NetworkEntity Deserialize(string contents, Connection parent) {
-            var AsXML = XElement.Parse(contents).Element("Entity");
+        public static NetworkEntity Deserialize(string contents, Connection parent, bool local) {
+            var AsXML = XElement.Parse(contents);
 
             var Name = AsXML.Attribute("Name").Value;
             var ID = int.Parse(AsXML.Attribute("Id").Value);
             var Selection = AsXML.Attribute("Selection").Value;
 
-            return new NetworkEntity(parent, ID, Name, Selection);
+            return new NetworkEntity(parent, ID, Name, Selection, local);
         }
 
         /// <summary>
@@ -136,7 +130,7 @@ namespace Ponykart.Networking {
         }
 
         public static bool PerformChange(string contents, Connection sender) {
-            var AsXML = XElement.Parse(contents).Element("Change");
+            var AsXML = XElement.Parse(contents);
 
             var Property = AsXML.Attribute("Property").Value;
             var Value = AsXML.Attribute("Value").Value;
@@ -164,6 +158,14 @@ namespace Ponykart.Networking {
                                             new XAttribute("Vel", player.Kart.VehicleSpeed),
                                             new XAttribute("Or", player.Kart.ActualOrientation));
             return XKart.ToString();
+        }
+
+
+        public static void DeSerializeLocations(string contents)
+        {
+            var AsXML = XElement.Parse(contents);
+
+            if (true) { }
         }
     }
 }

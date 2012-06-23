@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Timers;
 using Ponykart.Actors;
+using Ponykart.Levels;
 using Ponykart.Physics;
 using Ponykart.Players;
 using BulletSharp;
@@ -13,16 +14,6 @@ using Mogre;
 
 namespace Ponykart.Networking
 {  
-    [Serializable]
-    public class KartInformation {
-        public int ID, index;
-        public Vector3 Location;
-        public Vector3 Position;
-        public KartInformation(int id) {
-            ID = id;
-        }
-    }
-        
     public enum Commands {
         Connect = 0x0000,
         ConnectAccept = 0x0001,
@@ -33,6 +24,7 @@ namespace Ponykart.Networking
         RequestPlayer = 0x0100,
         NewPlayer = 0x0101,
         RejectPlayer = 0x0102,
+        NewLocalPlayer = 0x0103,
 
         RequestPlayerChange = 0x0110,
         PlayerChange = 0x0111,
@@ -101,12 +93,6 @@ namespace Ponykart.Networking
 
         private int LastQueriedKart;
 
-        // List of Karts we need to send information about
-        private Dictionary<Kart,KartInformation> _karts;
-        public IDictionary<Kart, KartInformation> Karts {
-            get { return _karts; }
-        }
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -125,6 +111,7 @@ namespace Ponykart.Networking
             ListenEP = new IPEndPoint(IPAddress.Any, port);
             Connections = new Dictionary<UInt32,Connection>();
             Players = new List<NetworkEntity>();
+            InitializeHandlers();
         }
 
         /// <summary>
@@ -142,6 +129,12 @@ namespace Ponykart.Networking
             Connections = new Dictionary<UInt32, Connection>();
             Connections.Add(0, SingleConnection);
             Players = new List<NetworkEntity>();
+            InitializeHandlers();
+        }
+
+        public void InitializeHandlers() {
+            LevelManager.OnLevelPostLoad += new LevelEvent((arg) => GameRunning = true);
+            LevelManager.OnLevelUnload += new LevelEvent((arg) => GameRunning = false);
         }
         /// <summary>
         /// Called every time we receive a new packet.
@@ -245,22 +238,6 @@ namespace Ponykart.Networking
             return BitConverter.ToUInt32(randarr, 0);
         }
 
-        public void OnLevelLoad(/* arguments? */) {
-            _karts = new Dictionary<Kart, KartInformation>();
-            PlayerManager pm = LKernel.GetG<PlayerManager>();
-            for (int i = 0; i < pm.Players.Length; i++) {
-                _karts[pm.Players[i].Kart] = new KartInformation(i);
-            }
-        }
-
-        public void OnSimulateWorld(DiscreteDynamicsWorld world) {
-            PlayerManager pm = LKernel.GetG<PlayerManager>();
-            foreach(Kart K in (from p in pm.Players select p.Kart) ) { /* gratuitous use of LINQ anyone? */
-                _karts[K].Position = K.ActualPosition;
-            }
-        }
-
-
         public int AssignGlobalID() {
             return NextGlobalID++;
         }
@@ -277,6 +254,7 @@ namespace Ponykart.Networking
                     if (s.Length + buff.Length >= UDPPacket.MaxContentLength) {
                         return s;
                     }
+                    s += buff;
                 }
             }
             return s;

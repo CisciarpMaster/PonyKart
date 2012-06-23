@@ -97,6 +97,7 @@ namespace Ponykart.Networking {
                               where (DateTime.Now - message.LastSent) > TimeSpan.FromSeconds(5)
                               select message;
             foreach (var message in unresponded) {
+                Launch.Log(String.Format("[Networking] Resent packet {0} due to possible timeout", message.SequenceNo)); 
                 message.SequenceNo = NextSequenceNumber;
                 SendPacket(message);
             }
