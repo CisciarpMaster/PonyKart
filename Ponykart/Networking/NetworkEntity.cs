@@ -71,6 +71,8 @@ namespace Ponykart.Networking {
             owner = parent;
             nm = LKernel.Get<NetworkManager>();
             _GlobalID = nm.AssignGlobalID();
+            _Name = String.Format("Ponefag{0}", _GlobalID);
+            _Selection = "Twilight Sparkle";
         }
         /// <summary>
         /// Use to attempt to set the name among all instances.

@@ -71,7 +71,7 @@ namespace Ponykart.Networking {
             LastRecvTime = System.DateTime.Now;
             string contents = packet.StringContents;
             byte[] contentsArr = packet.ToBytes();
-			Launch.Log(string.Format("Received packet type {1}: {0}", contents, packet.Type));
+			//Launch.Log(string.Format("Received packet type {1}: {0}", contents, packet.Type));
 			NetworkManager nm = LKernel.Get<NetworkManager>();
 			if (!Enum.IsDefined(typeof(Commands), (Commands) packet.Type)) {
 				// Unrecognized packet type!
@@ -107,10 +107,12 @@ namespace Ponykart.Networking {
 #region Player Management
                 case Commands.RequestPlayer :
                     if (nm.NetworkType == NetworkTypes.Host) {
-                        if (nm.Players.Count >= Settings.Default.NumberOfPlayers) {
+                        if (nm.Players.Count < Settings.Default.NumberOfPlayers) {
                             var NPlayer = new NetworkEntity(this);
                             nm.Players.Add(NPlayer);
                             nm.ForEachConnection((c) => c.SendPacket(Commands.NewPlayer, NPlayer.Serialize()));
+                        } else {
+                            // TODO: Reject player
                         }
                     }
                     break;

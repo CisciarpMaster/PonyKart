@@ -39,6 +39,7 @@ namespace Ponykart.Networking {
         /// <param name="p"></param>
         void AddAck(UDPPacket p) {
             LastReceivedTicks = System.DateTime.Now.Ticks;
+            // evil bit-field hacking. TODO: explain?
             if (p.SequenceNo > RemoteSeqNo) {
                 AckField <<= (int)(p.SequenceNo - RemoteSeqNo);
             }
@@ -54,14 +55,16 @@ namespace Ponykart.Networking {
         /// <param name="Ack"></param>
         /// <param name="AckField"></param>
         void ProcessAcks(UInt32 Ack, UInt32 AckField) {
+            // evil bit-field hacking. TODO: explain?
             for (int i = 0; i < 32; i++) {
                 if (((int)AckField & 1) == 1) {
                     if (Sent.ContainsKey((UInt32)(Ack - i))) {
-                        Sent[(UInt32)(Ack - i)].Responded = true;
-                        if (Sent[(UInt32)(Ack - i)].Contents.Type != Commands.NoMessage)  {
-                            Launch.Log(String.Format("Remote partner received packet {0} type {1}", Sent[(UInt32)(Ack - i)].SequenceNo,
-                                Sent[(UInt32)(Ack - i)].Contents.Type));
+                        var packet = Sent[(UInt32)(Ack - i)];
+                        if (packet.Contents.Type != Commands.NoMessage && !packet.Responded)  {
+                            Launch.Log(String.Format("Remote partner received packet {0} type {1}", packet.SequenceNo,
+                               packet.Contents.Type));
                         }
+                        packet.Responded = true;
                     }
                 }
                 AckField >>= 1;
