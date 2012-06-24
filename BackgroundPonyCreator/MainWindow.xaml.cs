@@ -45,7 +45,7 @@ namespace BackgroundPonyCreator {
 		AnimationState[] maneStates, tailStates;
 		string currentAnimation;
 
-		const int NUMBER_OF_HAIRSTYLES = 6;
+		const int NUMBER_OF_HAIRSTYLES = 8;
 
 		ColourValue bodyColour = new ColourValue(0.707f, 0.688f, 0.902f),
 			bodyAOColour = new ColourValue(0.445f, 0.465f, 0.758f),

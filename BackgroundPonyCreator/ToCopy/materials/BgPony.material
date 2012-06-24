@@ -258,3 +258,15 @@ material BgPonyHair_Single_6 : BgPonyHair_Single {
 material BgPonyHair_Double_6 : BgPonyHair_Double {
 	set_texture_alias HairAOTex "BgPonyHairAo6.dds"
 }
+material BgPonyHair_Single_7 : BgPonyHair_Single {
+	set_texture_alias HairAOTex "BgPonyHairAo7.dds"
+}
+material BgPonyHair_Double_7 : BgPonyHair_Double {
+	set_texture_alias HairAOTex "BgPonyHairAo7.dds"
+}
+material BgPonyHair_Single_8 : BgPonyHair_Single {
+	set_texture_alias HairAOTex "BgPonyHairAo8.dds"
+}
+material BgPonyHair_Double_8 : BgPonyHair_Double {
+	set_texture_alias HairAOTex "BgPonyHairAo8.dds"
+}

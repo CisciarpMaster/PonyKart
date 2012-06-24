@@ -55,6 +55,8 @@
 					<ComboBoxItem Content="HairStyle4" />
 					<ComboBoxItem Content="HairStyle5" />
 					<ComboBoxItem Content="HairStyle6" />
+					<ComboBoxItem Content="HairStyle7" />
+					<ComboBoxItem Content="HairStyle8" />
 				</ComboBox>
 				<Label Content="Hair Style:" Height="30" HorizontalAlignment="Left" Margin="6,36,0,0" Name="label8" VerticalAlignment="Top" Width="86" />
 				<Label Content="Colour 1:" Height="28" HorizontalAlignment="Left" Margin="6,71,0,0" Name="label9" VerticalAlignment="Top" Width="86" />

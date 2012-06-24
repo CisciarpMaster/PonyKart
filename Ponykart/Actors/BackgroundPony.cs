@@ -644,7 +644,7 @@ namespace Ponykart.Actors {
 			return pone;
 		}
 
-
+		
 		public static BackgroundPony SpawnRandomSittingPony(Vector3 pos) {
 			return SpawnRandomSittingPony(pos, Quaternion.IDENTITY);
 		}
