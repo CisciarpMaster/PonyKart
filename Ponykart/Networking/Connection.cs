@@ -55,7 +55,7 @@ namespace Ponykart.Networking {
 		/// </summary>
 		public Connection(UdpClient sender, IPEndPoint destinationep, UInt32 cid) {
             UDPConnection = new ReliableUDPConnection(sender, destinationep, cid, this);
-            UDPConnection.OnPacketRecv += PacketHandler;
+            UDPConnection.OnPacketRecv += (p) => PacketHandler(p.Contents);
             OutgoingQueue = new Queue<Message>();
             Cid = cid;
             nm = LKernel.GetG<NetworkManager>();
@@ -85,9 +85,11 @@ namespace Ponykart.Networking {
 						if (nm.Password.SequenceEqual(contents)) {
 							Launch.Log(string.Format("Client provided correct password ({0})", contents));
                             validated = true;
-							SendPacket((Int16) Commands.ConnectAccept, contents);
-						}
-						else {
+							SendPacket(Commands.ConnectAccept, contents);
+                            foreach(NetworkEntity ne in nm.Players) {
+                                SendPacket(Commands.NewPlayer, ne.Serialize());
+                            }
+						} else {
 							Launch.Log(string.Format("Client gave bad password: {0} instead of {1}", contents, nm.Password));
 							SendPacket((Int16) Commands.ConnectReject, (string) null);
                             CloseConnection();
@@ -161,7 +163,7 @@ namespace Ponykart.Networking {
                     break;
 
 #endregion
-                #region Pre-game Setup
+#region Pre-game Setup
                 case Commands.SelectLevel:
 					if (nm.NetworkType == NetworkTypes.Client) {
 						LKernel.Get<MainMenuMultiplayerHandler>().LevelSelection = packet.StringContents;
@@ -169,7 +171,8 @@ namespace Ponykart.Networking {
 					}
 					break;
 				case Commands.StartGame:
-					if (nm.NetworkType == NetworkTypes.Client) {
+                    if (nm.NetworkType == NetworkTypes.Client) {
+                        LKernel.Get<MainMenuMultiplayerHandler>().LevelSelection = packet.StringContents;
 						LKernel.Get<MainMenuMultiplayerHandler>().Start_Game();
 					}
 					break;

@@ -7,19 +7,39 @@ using System.Net.Sockets;
 using System.Collections;
 
 namespace Ponykart.Networking {
-    public delegate void PacketHandler(PonykartPacket P);
+    public delegate void PacketHandler(UDPPacket P);
     public class ReliableUDPConnection {
         private UdpClient Sender;
         public UInt32 ConnectionID;
         public byte[] IDArray;
         public IPEndPoint DestinationEP;
         private Dictionary<UInt32,UDPPacket> Sent;
-        public UInt32 RemoteSeqNo = 0;
-        public UInt32 AckField = 0;
+        private HashSet<UInt32> Received;
+
+        private UInt32 _AckField = 0;
+        private UInt32 _RemoteSeqNo = 0;
+
+        public UInt32 RemoteSeqNo {
+            get {
+                var tmp = SpecialAck ?? _RemoteSeqNo;
+                SpecialAck = null;
+                return tmp;
+            }
+        }
+
+        public UInt32 AckField {
+            get {
+                var tmp = SpecialField ?? _AckField;
+                SpecialField = null;
+                return tmp;
+            }
+        }
         int sequenceNo = 0;
         long LastReceivedTicks = 0;
         Connection Owner;
         public event PacketHandler OnPacketRecv;
+        UInt32? SpecialAck = null;
+        UInt32? SpecialField = null;
 
         public ReliableUDPConnection(UdpClient sender, IPEndPoint destinationep, UInt32 cid, Connection owner) {
             DestinationEP = destinationep;
@@ -27,12 +47,33 @@ namespace Ponykart.Networking {
             Sender = sender;
             Sent = new Dictionary<UInt32,UDPPacket>();
             Owner = owner;
+            Received = new HashSet<UInt32>();
+            OnPacketRecv += new PacketHandler(RegisterPacket);
         }
 
+        /// <summary>
+        /// Determine if a given UDP packet has been seen before (this is a resend)
+        /// </summary>
+        bool DuplicatePacket(UDPPacket p) { 
+            return Received.Contains(p.SequenceNo);
+        }
+
+        /// <summary>
+        /// Notes that we have received this packet, keeping track via sequence number
+        /// </summary>
+        void RegisterPacket(UDPPacket p) {
+            Received.Add(p.SequenceNo);
+        }
+
+        /// <summary>
+        /// Called whenever we receive a packet.
+        /// </summary>
         public void Handle(UDPPacket p) {
             AddAck(p);
             ProcessAcks(p.Ack, p.AckField);
-            OnPacketRecv(p.Contents);
+            if (!DuplicatePacket(p)) {
+                OnPacketRecv(p);
+            } 
         }
             
         /// <summary>
@@ -41,14 +82,22 @@ namespace Ponykart.Networking {
         /// <param name="p"></param>
         void AddAck(UDPPacket p) {
             LastReceivedTicks = System.DateTime.Now.Ticks;
+            if (p.SequenceNo < RemoteSeqNo - 32) {
+                PrepareSpecialAck(p.SequenceNo);
+            }
             // evil bit-field hacking. TODO: explain?
             if (p.SequenceNo > RemoteSeqNo) {
-                AckField <<= (int)(p.SequenceNo - RemoteSeqNo);
+                _AckField <<= (int)(p.SequenceNo - RemoteSeqNo);
             }
-            AckField |= (UInt32)(1 << (int)(RemoteSeqNo - p.SequenceNo));
+            _AckField |= (UInt32)(1 << (int)(RemoteSeqNo - p.SequenceNo));
             if (p.SequenceNo >= RemoteSeqNo) {
-                RemoteSeqNo = p.SequenceNo;
+                _RemoteSeqNo = p.SequenceNo;
             }
+        }
+
+        private void PrepareSpecialAck(uint p) {
+            SpecialAck = p;
+            SpecialField = 1;
         }
 
         /// <summary>
@@ -100,7 +149,7 @@ namespace Ponykart.Networking {
                               select message;
             foreach (var message in unresponded) {
                 Launch.Log(String.Format("[Networking] Resent packet {0} due to possible timeout", message.SequenceNo)); 
-                message.SequenceNo = NextSequenceNumber;
+                //message.SequenceNo = NextSequenceNumber;
                 SendPacket(message);
             }
         }

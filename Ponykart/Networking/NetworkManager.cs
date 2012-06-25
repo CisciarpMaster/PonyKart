@@ -71,9 +71,6 @@ namespace Ponykart.Networking
 
         // Keep track of how many concurrent connections we allow
         private int MaxConnections;
-        
-        // What is this connection's ID, according to the host?
-        public int MyCID;
 
         // Networking thread 
         public Thread NetworkingThread;

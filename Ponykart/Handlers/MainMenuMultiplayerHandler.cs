@@ -52,7 +52,7 @@ namespace Ponykart.Handlers {
                     IsMultiplayer = true,
 				};
 				LKernel.GetG<LevelManager>().LoadLevel(request);
-                netMgr.ForEachConnection(c => c.SendPacket(Commands.StartGame, "", false));
+                netMgr.ForEachConnection(c => c.SendPacket(Commands.StartGame, _levelSelection, false));
                 
 			}
 		}
