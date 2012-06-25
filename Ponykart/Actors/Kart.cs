@@ -491,5 +491,20 @@ namespace Ponykart.Actors {
 
 			base.Dispose(disposing);
 		}
+
+        /// <summary>
+        /// Changes the position, velocity, and orientation according to the remote instructions
+        /// </summary>
+        internal void SetState(Vector3 newPosition, Vector3 newLinearVelocity, Quaternion newOrientation) {
+            kartMotionState.actualPosition = newPosition;
+            kartMotionState.actualOrientation = newOrientation;
+
+
+            Matrix4 mat = new Matrix4();
+            mat.MakeTransform(newPosition, Vector3.UNIT_SCALE, newOrientation);
+
+            Body.WorldTransform = mat;
+            Body.LinearVelocity = newLinearVelocity;
+        }
     }
 }

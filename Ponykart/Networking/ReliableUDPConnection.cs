@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Collections;
 
 namespace Ponykart.Networking {
+    public delegate void PacketHandler(PonykartPacket P);
     public class ReliableUDPConnection {
         private UdpClient Sender;
         public UInt32 ConnectionID;
@@ -18,6 +19,7 @@ namespace Ponykart.Networking {
         int sequenceNo = 0;
         long LastReceivedTicks = 0;
         Connection Owner;
+        public event PacketHandler OnPacketRecv;
 
         public ReliableUDPConnection(UdpClient sender, IPEndPoint destinationep, UInt32 cid, Connection owner) {
             DestinationEP = destinationep;
@@ -30,7 +32,7 @@ namespace Ponykart.Networking {
         public void Handle(UDPPacket p) {
             AddAck(p);
             ProcessAcks(p.Ack, p.AckField);
-            Owner.Handle(p.Contents);
+            OnPacketRecv(p.Contents);
         }
             
         /// <summary>

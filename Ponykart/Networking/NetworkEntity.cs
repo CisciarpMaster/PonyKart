@@ -12,45 +12,43 @@ namespace Ponykart.Networking {
         public Player player;
         public bool local;
         NetworkManager nm;
-        private int _GlobalID;
+        internal int _GlobalID;
+        internal string _Name;
+        private string _Selection;
+
+        #region Properties
 
         /// <summary>
-        /// Set this to change the global id directly
+        /// Assigned global player ID
         /// </summary>
         public int GlobalID {
             get {
                 return _GlobalID;
             }
-            set {
-                _GlobalID = value;
-            }
         }
-        private string _Name;
         /// <summary>
-        /// Set this to change the name directly
+        /// Current player name
         /// </summary>
         public string Name {
             get {
                 return _Name;
             }
-            set {
-                _Name = value;
-            }
         }
-        private string _Selection;
         /// <summary>
-        /// Set this to change the selection directly
+        /// Current Kart selection
         /// </summary>
         public string Selection {
             get {
                 return _Selection;
             }
-            set {
-                _Selection = value;
-            }
         }
+        #endregion
+
         public Connection owner;
 
+        /// <summary>
+        /// Create a new NetworkEntity that is fully designated by a remote host.
+        /// </summary>
         public NetworkEntity(Connection parent, int globalid, string name, string selection, bool islocal) {
             nm = LKernel.Get<NetworkManager>();
             if (parent != null) { owner = parent; }
@@ -59,7 +57,9 @@ namespace Ponykart.Networking {
             _Selection = selection;
             _Name = name;
         }
-
+        /// <summary>
+        /// Generate a new remote NetworkEntity at this host.
+        /// </summary>
         public NetworkEntity(Connection parent) {
             nm = LKernel.Get<NetworkManager>();
             local = false;
@@ -69,6 +69,9 @@ namespace Ponykart.Networking {
             _Selection = "Twilight Sparkle";
         }
 
+        /// <summary>
+        /// Generate a new local NetworkEntity at this host.
+        /// </summary>
         public NetworkEntity() {
             nm = LKernel.Get<NetworkManager>();
             local = true;
@@ -81,7 +84,6 @@ namespace Ponykart.Networking {
         /// <summary>
         /// Use to attempt to set the name among all instances.
         /// </summary>
-        /// <param name="name">The new name</param>
         public void SetName(string name) {
             if (nm.NetworkType == NetworkTypes.Client) {
                 owner.SendPacket(Commands.RequestPlayerChange, SerializeChange("Name",name));
@@ -94,7 +96,6 @@ namespace Ponykart.Networking {
         /// <summary>
         /// Turn this NetworkEntity into a string that can be sent to a client
         /// </summary>
-        /// <returns></returns>
         public string Serialize() {
             var SWriter = new StringWriter();
             var XWriter = new XmlTextWriter(SWriter);
@@ -109,9 +110,6 @@ namespace Ponykart.Networking {
         /// <summary>
         /// Turn a string representing a player into a NetworkEntity
         /// </summary>
-        /// <param name="contents">The XML tree representing the entity</param>
-        /// <param name="parent">The connection that received this tree</param>
-        /// <returns>A new NetworkEntity</returns>
         public static NetworkEntity Deserialize(string contents, Connection parent, bool local) {
             var AsXML = XElement.Parse(contents);
 
@@ -125,9 +123,6 @@ namespace Ponykart.Networking {
         /// <summary>
         /// Turn a status change into an XML string
         /// </summary>
-        /// <param name="index">The parameter to change</param>
-        /// <param name="val">The new value</param>
-        /// <returns>An XML string</returns>
         public string SerializeChange(string index, string val) {
             var SWriter = new StringWriter();
             var XWriter = new XmlTextWriter(SWriter);
@@ -139,6 +134,9 @@ namespace Ponykart.Networking {
             return SWriter.ToString();
         }
 
+        /// <summary>
+        /// Changes this entity's properties according to the given xml schema
+        /// </summary>
         public static bool PerformChange(string contents, Connection sender) {
             var AsXML = XElement.Parse(contents);
 
@@ -151,10 +149,10 @@ namespace Ponykart.Networking {
             if (target.owner != sender) { return false; }
             switch (Property) {
                 case "Selection":
-                    target.Selection = Value;
+                    target._Selection = Value;
                     break;
                 case "Name":
-                    target.Name = Value;
+                    target._Name = Value;
                     break;
                 default:
                     return false;
@@ -162,31 +160,45 @@ namespace Ponykart.Networking {
             return true;
         }
 
+        /// <summary>
+        /// Turn this player's current location, velocity, and orientation into a string.
+        /// </summary>
         public string SerializeLocation() {
             var nm = LKernel.Get<NetworkManager>();
-            var pos = player.Kart.ActualPosition;
-            var vel = player.Kart.VehicleSpeed;
-            var orn = player.Kart.ActualOrientation;
+            var pos = player.Kart.Body.CenterOfMassPosition;
+            var vel = player.Kart.Body.LinearVelocity;
+            var orn = player.Kart.Body.Orientation;
             var XKart = new XElement("Kart", new XAttribute("Id", _GlobalID),
                                             new XAttribute("Pos", String.Format("{0} {1} {2}", pos.x, pos.y, pos.z)),
-                                            new XAttribute("Vel", String.Format("{0}", vel)),
-                                            new XAttribute("Or", String.Format("{0} {1} {2} {3}", orn.x, orn.y, orn.z, orn.w)));
+                                            new XAttribute("Vel", String.Format("{0} {1} {2}", vel.x, vel.y, vel.z)),
+                                            new XAttribute("Or", String.Format("{0} {1} {2} {3}", orn.w, orn.x, orn.y, orn.z)));
             return XKart.ToString();
         }
 
-
-        public static void DeSerializeLocations(string contents) {
+        /// <summary>
+        /// Perform the given location change if valid.
+        /// </summary>
+        public static void DeserializeLocations(string contents) {
             var AsXML = XElement.Parse(contents);
 
+            // anonymous types!
             var Karts = (from x in AsXML.Elements("Kart") 
                          select new {
                              IDStr = x.Attribute("Id").Value,
                              PositionStr = x.Attribute("Pos").Value,
                              SpeedStr = x.Attribute("Vel").Value, 
                              OrientationStr = x.Attribute("Or").Value
-                         });
-
-
+                         }).ToDictionary((a) => Int32.Parse(a.IDStr));
+            foreach (NetworkEntity ne in LKernel.Get<NetworkManager>().Players) {
+                if (Karts.ContainsKey(ne.GlobalID) && !ne.local) {
+                    var Kart = Karts[ne.GlobalID];
+                    var PosList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                    var SpeedList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                    var OrList = Kart.OrientationStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                    ne.player.Kart.SetState(new Mogre.Vector3(PosList[0], PosList[1], PosList[2]), new Mogre.Vector3(SpeedList[0], SpeedList[1], SpeedList[2]), new Mogre.Quaternion(OrList[0], OrList[1], OrList[2], OrList[3]));
+                }
+            }
+            return;
         }
     }
 }

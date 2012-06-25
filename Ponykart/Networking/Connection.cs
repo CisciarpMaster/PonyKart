@@ -20,19 +20,17 @@ namespace Ponykart.Networking {
 		public bool validated;
         public readonly ReliableUDPConnection UDPConnection;
         public readonly UInt32 Cid;
-        public int PlayerCt = 1;
         Queue<Message> OutgoingQueue;
         NetworkManager nm;
+        /// <summary>
+        /// Enumerate all the players that are on the other end of this connection.
+        /// </summary>
         public IEnumerable<NetworkEntity> Players {
             get {
                 return (from ent in LKernel.Get<NetworkManager>().Players
                         where ent.owner == this
                         select ent);
             }
-        }
-
-        string PrepareKarts() {
-            return "";
         }
 
         /// <summary>
@@ -57,6 +55,7 @@ namespace Ponykart.Networking {
 		/// </summary>
 		public Connection(UdpClient sender, IPEndPoint destinationep, UInt32 cid) {
             UDPConnection = new ReliableUDPConnection(sender, destinationep, cid, this);
+            UDPConnection.OnPacketRecv += PacketHandler;
             OutgoingQueue = new Queue<Message>();
             Cid = cid;
             nm = LKernel.GetG<NetworkManager>();
@@ -65,8 +64,7 @@ namespace Ponykart.Networking {
 		/// <summary>
 		/// Handle the information in a packet received via this connection.
 		/// </summary>
-		/// <param name="packet"></param>
-		public void Handle(PonykartPacket packet) {
+		public void PacketHandler(PonykartPacket packet) {
             LastRecvTime = System.DateTime.Now;
             string contents = packet.StringContents;
             byte[] contentsArr = packet.ToBytes();
@@ -178,7 +176,7 @@ namespace Ponykart.Networking {
 #endregion
                 case Commands.SendPositions:
                     if (nm.NetworkType == NetworkTypes.Client) {
-                        NetworkEntity.DeSerializeLocations(packet.StringContents);
+                        NetworkEntity.DeserializeLocations(packet.StringContents);
                     } else {
                     }
                     break;
@@ -195,15 +193,18 @@ namespace Ponykart.Networking {
 		/// <summary>
 		/// Sends a packet down this connection with the given contents and type.
 		/// </summary>
-		/// <param name="type"></param>
-		/// <param name="contents"></param>
-		/// <returns></returns>
 		public void SendPacket(Int16 type, string contents, bool isVolatile=false) {
 			SendPacket((Commands)type, contents, isVolatile);
 		}
+        /// <summary>
+        /// Sends a packet down this connection with the given contents and type.
+        /// </summary>
 		public void SendPacket(Commands type, string contents="", bool isVolatile=false) {
 			SendPacket(type, System.Text.ASCIIEncoding.ASCII.GetBytes(contents??""),isVolatile);
 		}
+        /// <summary>
+        /// Sends a packet down this connection with the given contents and type.
+        /// </summary>
         public void SendPacket(Commands type, byte[] contents, bool isVolatile=false) {
             LastSentTime = System.DateTime.Now;
             //var message = new UDPPacket(new PonykartPacket(type, contents, this), UDPConnection);
@@ -212,6 +213,9 @@ namespace Ponykart.Networking {
             OutgoingQueue.Enqueue(message);
         }
 
+        /// <summary>
+        /// Close the UDP connection attached to this connection, and then the connection itself
+        /// </summary>
         public void CloseConnection() {
             UDPConnection.Close();
             LKernel.Get<NetworkManager>().CloseConnection(this);
