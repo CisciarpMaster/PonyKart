@@ -179,9 +179,9 @@ namespace Ponykart.Networking {
 #endregion
                 case Commands.SendPositions:
                     if (nm.NetworkType == NetworkTypes.Client) {
-                        NetworkEntity.DeserializeLocations(packet.StringContents);
+                        NetworkEntity.DeserializeLocations(packet.StringContents, this);
                     } else {
-                        NetworkEntity.DeserializeLocations(packet.StringContents);
+                        NetworkEntity.DeserializeLocations(packet.StringContents, this);
                     }
                     break;
 				case Commands.ServerMessage:
