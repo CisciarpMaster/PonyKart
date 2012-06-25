@@ -181,6 +181,7 @@ namespace Ponykart.Networking {
                     if (nm.NetworkType == NetworkTypes.Client) {
                         NetworkEntity.DeserializeLocations(packet.StringContents);
                     } else {
+                        NetworkEntity.DeserializeLocations(packet.StringContents);
                     }
                     break;
 				case Commands.ServerMessage:

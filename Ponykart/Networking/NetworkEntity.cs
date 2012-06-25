@@ -178,7 +178,7 @@ namespace Ponykart.Networking {
         /// <summary>
         /// Perform the given location change if valid.
         /// </summary>
-        public static void DeserializeLocations(string contents) {
+        public static void DeserializeLocations(string contents, Connection sender) {
             var AsXML = XElement.Parse(contents);
 
             // anonymous types!
@@ -191,11 +191,16 @@ namespace Ponykart.Networking {
                          }).ToDictionary((a) => Int32.Parse(a.IDStr));
             foreach (NetworkEntity ne in LKernel.Get<NetworkManager>().Players) {
                 if (Karts.ContainsKey(ne.GlobalID) && !ne.local) {
-                    var Kart = Karts[ne.GlobalID];
-                    var PosList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
-                    var SpeedList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
-                    var OrList = Kart.OrientationStr.Split(' ').Select((s) => float.Parse(s)).ToList();
-                    ne.player.Kart.SetState(new Mogre.Vector3(PosList[0], PosList[1], PosList[2]), new Mogre.Vector3(SpeedList[0], SpeedList[1], SpeedList[2]), new Mogre.Quaternion(OrList[0], OrList[1], OrList[2], OrList[3]));
+                    if (ne.owner == sender || ne.nm.NetworkType == NetworkTypes.Client) {
+                        var Kart = Karts[ne.GlobalID];
+                        var PosList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                        var SpeedList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                        var OrList = Kart.OrientationStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                        var Pos = new Mogre.Vector3(PosList[0], PosList[1], PosList[2]);
+                        var Speed = new Mogre.Vector3(SpeedList[0], SpeedList[1], SpeedList[2]);
+                        var Or = new Mogre.Quaternion(OrList[0], OrList[1], OrList[2], OrList[3]);
+                        ne.player.Kart.SetState(Pos, Speed, Or);
+                    }
                 }
             }
             return;

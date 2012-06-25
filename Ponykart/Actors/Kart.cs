@@ -495,7 +495,7 @@ namespace Ponykart.Actors {
         /// <summary>
         /// Changes the position, velocity, and orientation according to the remote instructions
         /// </summary>
-        internal void SetState(Vector3 newPosition, Vector3 newLinearVelocity, Quaternion newOrientation) {
+        public void SetState(Vector3 newPosition, Vector3 newLinearVelocity, Quaternion newOrientation) {
             kartMotionState.actualPosition = newPosition;
             kartMotionState.actualOrientation = newOrientation;
 
