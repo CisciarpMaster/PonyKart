@@ -112,6 +112,7 @@ namespace Ponykart.Networking
             Connections = new Dictionary<UInt32,Connection>();
             Players = new List<NetworkEntity>();
             InitializeHandlers();
+            Players.Add(new NetworkEntity());
         }
 
         /// <summary>
@@ -119,8 +120,7 @@ namespace Ponykart.Networking
         /// </summary>
         /// <param name="port">Port to connect on. Trusted to be valid.</param>
         /// <param name="ip">IP (TRUSTED!! To be valid)</param>
-        public void InitManager(int port, string password, string ip)
-        {
+        public void InitManager(int port, string password, string ip) {
             NetworkType = NetworkTypes.Client;
             Password = password;
             Listener = new UdpClient(port); //Todo: Add checks
@@ -133,8 +133,15 @@ namespace Ponykart.Networking
         }
 
         public void InitializeHandlers() {
-            LevelManager.OnLevelPostLoad += new LevelEvent((arg) => GameRunning = true);
-            LevelManager.OnLevelUnload += new LevelEvent((arg) => GameRunning = false);
+            LevelManager.OnLevelUnload += new LevelEvent((arg) => { GameRunning = false; });
+            LevelManager.OnLevelLoad += new LevelEvent((arg) => { GameRunning = true; });
+            //Launch.OnEveryUnpausedTenthOfASecondEvent += new TimerCallback(DebugGenerateKarts);            
+        }
+
+        void DebugGenerateKarts(object state) {
+            if (GameRunning) {
+                var _ = SerializeKarts();
+            }
         }
         /// <summary>
         /// Called every time we receive a new packet.
@@ -243,21 +250,24 @@ namespace Ponykart.Networking
         }
 
         public string SerializeKarts() {
-            string s = "";
-            for (int i = 0; i < Players.Count; i++) {
-                LastQueriedKart++;
-                if (LastQueriedKart >= Players.Count) {
-                    LastQueriedKart = 0;
-                }
-                if (Players[LastQueriedKart].local || NetworkType == NetworkTypes.Host) {
-                    var buff = Players[LastQueriedKart].SerializeLocation();
-                    if (s.Length + buff.Length >= UDPPacket.MaxContentLength) {
-                        return s;
+            string s = "<karts>";
+            lock (Players) {
+                for (int i = 0; i < Players.Count; i++) {
+                    LastQueriedKart++;
+                    if (LastQueriedKart >= Players.Count) {
+                        LastQueriedKart = 0;
                     }
-                    s += buff;
+                    if (Players[LastQueriedKart].local || NetworkType == NetworkTypes.Host) {
+                        var player = Players[LastQueriedKart];
+                        var buff = Players[LastQueriedKart].SerializeLocation();
+                        if (s.Length + buff.Length >= UDPPacket.MaxContentLength - 7) {
+                            return s + "</karts>";
+                        }
+                        s += buff;
+                    }
                 }
             }
-            return s;
-        }            
+            return s + "</karts>";
+        }
     }
 }

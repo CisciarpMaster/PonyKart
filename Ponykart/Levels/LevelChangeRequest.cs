@@ -6,6 +6,7 @@ namespace Ponykart.Levels {
 	public class LevelChangeRequest {
 		public string NewLevelName { get; set; }
 		public string[] CharacterNames { get; set; }
+        public bool IsMultiplayer { get; set; }
 
 		// add more stuff as needed here
 	}

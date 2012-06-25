@@ -39,42 +39,47 @@ namespace Ponykart.Players {
 		/// </summary>
 		void OnLevelLoad(LevelChangedEventArgs eventArgs) {
 			if (eventArgs.NewLevel.Type == LevelType.Race) {
-				Players = new Player[Settings.Default.NumberOfPlayers];
+                if (!eventArgs.Request.IsMultiplayer) {
+                    Players = new Player[Settings.Default.NumberOfPlayers];
 
-				eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
-				if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
-					MainPlayer = new HumanPlayer(eventArgs, 0);
-				else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))
-					MainPlayer = new WiiMotePlayer(eventArgs, 0);
-				else
-					throw new Exception("Illegal Controller type - " + Options.Get("Controller"));
-				Players[0] = MainPlayer;
+                    eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
+                    if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
+                        MainPlayer = new HumanPlayer(eventArgs, 0);
+                    else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))
+                        MainPlayer = new WiiMotePlayer(eventArgs, 0);
+                    else
+                        throw new Exception("Illegal Controller type - " + Options.Get("Controller"));
+                    Players[0] = MainPlayer;
 
-				for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
-					Players[a] = new ComputerPlayer(eventArgs, a);
-				}
+                    for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
+                        Players[a] = new ComputerPlayer(eventArgs, a);
+                    }
 
-				if (OnPostPlayerCreation != null)
-					OnPostPlayerCreation.Invoke();
-            } else if (eventArgs.NewLevel.Type == LevelType.Multi) {
-                Networking.NetworkManager netMgr = LKernel.GetG<Networking.NetworkManager>();
-                Players = new Player[netMgr.Players.Count];
+                    if (OnPostPlayerCreation != null)
+                        OnPostPlayerCreation.Invoke();
+                } else {
+                    Networking.NetworkManager netMgr = LKernel.GetG<Networking.NetworkManager>();
+                    Players = new Player[netMgr.Players.Count];
 
-                eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
-                if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
-                    MainPlayer = new HumanPlayer(eventArgs, 0);
-                else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))
-                    MainPlayer = new WiiMotePlayer(eventArgs, 0);
-                else
-                    throw new Exception("Illegal Controller type - " + Options.Get("Controller"));
-                Players[0] = MainPlayer;
+                    eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
+                    if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
+                        MainPlayer = new HumanPlayer(eventArgs, 0);
+                    else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))
+                        MainPlayer = new WiiMotePlayer(eventArgs, 0);
+                    else
+                        throw new Exception("Illegal Controller type - " + Options.Get("Controller"));
+                    Players[0] = MainPlayer;
+                    (from player in netMgr.Players where player.local select player).First().player = Players[0];
+                    var NonLocalPlayers = (from player in netMgr.Players where player.local == false select player).ToArray();
+                    for (int a = 1; a < netMgr.Players.Count; a++) {
+                        Players[a] = new ComputerPlayer(eventArgs, a);
+                        NonLocalPlayers[a - 1].player = Players[a];
 
-                for (int a = 1; a < Settings.Default.NumberOfPlayers; a++) {
-                    Players[a] = new ComputerPlayer(eventArgs, a);
+                    }
+
+                    if (OnPostPlayerCreation != null)
+                        OnPostPlayerCreation.Invoke();
                 }
-
-                if (OnPostPlayerCreation != null)
-                    OnPostPlayerCreation.Invoke();
 
             }
 		}

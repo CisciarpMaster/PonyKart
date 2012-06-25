@@ -49,6 +49,7 @@ namespace Ponykart.Handlers {
 				LevelChangeRequest request = new LevelChangeRequest() {
 					NewLevelName = _levelSelection,
 					CharacterNames = new string[] { characterSelection },
+                    IsMultiplayer = true,
 				};
 				LKernel.GetG<LevelManager>().LoadLevel(request);
                 netMgr.ForEachConnection(c => c.SendPacket(Commands.StartGame, "", false));
@@ -122,6 +123,7 @@ namespace Ponykart.Handlers {
 				LevelChangeRequest request = new LevelChangeRequest() {
 					NewLevelName = _levelSelection,
 					CharacterNames = new string[] { characterSelection ?? "Twilight Sparkle" },
+                    IsMultiplayer = true,
 				};
 				LKernel.GetG<LevelManager>().LoadLevel(request);
 			}

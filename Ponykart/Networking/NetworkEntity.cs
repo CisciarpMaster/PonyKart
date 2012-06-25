@@ -52,22 +52,32 @@ namespace Ponykart.Networking {
         public Connection owner;
 
         public NetworkEntity(Connection parent, int globalid, string name, string selection, bool islocal) {
+            nm = LKernel.Get<NetworkManager>();
             if (parent != null) { owner = parent; }
             local = islocal;
             _GlobalID = globalid;
             _Selection = selection;
             _Name = name;
-            nm = LKernel.Get<NetworkManager>();
         }
 
         public NetworkEntity(Connection parent) {
+            nm = LKernel.Get<NetworkManager>();
             local = false;
             owner = parent;
-            nm = LKernel.Get<NetworkManager>();
             _GlobalID = nm.AssignGlobalID();
             _Name = String.Format("Ponefag{0}", _GlobalID);
             _Selection = "Twilight Sparkle";
         }
+
+        public NetworkEntity() {
+            nm = LKernel.Get<NetworkManager>();
+            local = true;
+            owner = null;
+            _GlobalID = nm.AssignGlobalID();
+            _Selection = "Twilight Sparkle";
+            _Name = String.Format("Ponefag{0}", _GlobalID);
+        }
+
         /// <summary>
         /// Use to attempt to set the name among all instances.
         /// </summary>
@@ -153,19 +163,30 @@ namespace Ponykart.Networking {
         }
 
         public string SerializeLocation() {
+            var nm = LKernel.Get<NetworkManager>();
+            var pos = player.Kart.ActualPosition;
+            var vel = player.Kart.VehicleSpeed;
+            var orn = player.Kart.ActualOrientation;
             var XKart = new XElement("Kart", new XAttribute("Id", _GlobalID),
-                                            new XAttribute("Pos", player.Kart.ActualPosition),
-                                            new XAttribute("Vel", player.Kart.VehicleSpeed),
-                                            new XAttribute("Or", player.Kart.ActualOrientation));
+                                            new XAttribute("Pos", String.Format("{0} {1} {2}", pos.x, pos.y, pos.z)),
+                                            new XAttribute("Vel", String.Format("{0}", vel)),
+                                            new XAttribute("Or", String.Format("{0} {1} {2} {3}", orn.x, orn.y, orn.z, orn.w)));
             return XKart.ToString();
         }
 
 
-        public static void DeSerializeLocations(string contents)
-        {
+        public static void DeSerializeLocations(string contents) {
             var AsXML = XElement.Parse(contents);
 
-            if (true) { }
+            var Karts = (from x in AsXML.Elements("Kart") 
+                         select new {
+                             IDStr = x.Attribute("Id").Value,
+                             PositionStr = x.Attribute("Pos").Value,
+                             SpeedStr = x.Attribute("Vel").Value, 
+                             OrientationStr = x.Attribute("Or").Value
+                         });
+
+
         }
     }
 }
