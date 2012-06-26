@@ -164,15 +164,17 @@ namespace Ponykart.Networking {
         /// Turn this player's current location, velocity, and orientation into a string.
         /// </summary>
         public string SerializeLocation() {
-            var nm = LKernel.Get<NetworkManager>();
-            var pos = player.Kart.Body.CenterOfMassPosition;
-            var vel = player.Kart.Body.LinearVelocity;
-            var orn = player.Kart.Body.Orientation;
-            var XKart = new XElement("Kart", new XAttribute("Id", _GlobalID),
-                                            new XAttribute("Pos", String.Format("{0} {1} {2}", pos.x, pos.y, pos.z)),
-                                            new XAttribute("Vel", String.Format("{0} {1} {2}", vel.x, vel.y, vel.z)),
-                                            new XAttribute("Or", String.Format("{0} {1} {2} {3}", orn.w, orn.x, orn.y, orn.z)));
-            return XKart.ToString();
+            try {
+                var nm = LKernel.Get<NetworkManager>();
+                var pos = player.Kart.Body.CenterOfMassPosition;
+                var vel = player.Kart.Body.LinearVelocity;
+                var orn = player.Kart.Body.Orientation;
+                var XKart = new XElement("Kart", new XAttribute("Id", _GlobalID),
+                                                new XAttribute("Pos", String.Format("{0} {1} {2}", pos.x, pos.y, pos.z)),
+                                                new XAttribute("Vel", String.Format("{0} {1} {2}", vel.x, vel.y, vel.z)),
+                                                new XAttribute("Or", String.Format("{0} {1} {2} {3}", orn.w, orn.x, orn.y, orn.z)));
+                return XKart.ToString();
+            } catch (Exception e) { return ""; }
         }
 
         /// <summary>
@@ -192,14 +194,16 @@ namespace Ponykart.Networking {
             foreach (NetworkEntity ne in LKernel.Get<NetworkManager>().Players) {
                 if (Karts.ContainsKey(ne.GlobalID) && !ne.local) {
                     if (ne.owner == sender || ne.nm.NetworkType == NetworkTypes.Client) {
-                        var Kart = Karts[ne.GlobalID];
-                        var PosList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
-                        var SpeedList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
-                        var OrList = Kart.OrientationStr.Split(' ').Select((s) => float.Parse(s)).ToList();
-                        var Pos = new Mogre.Vector3(PosList[0], PosList[1], PosList[2]);
-                        var Speed = new Mogre.Vector3(SpeedList[0], SpeedList[1], SpeedList[2]);
-                        var Or = new Mogre.Quaternion(OrList[0], OrList[1], OrList[2], OrList[3]);
-                        ne.player.Kart.SetState(Pos, Speed, Or);
+                        try {
+                            var Kart = Karts[ne.GlobalID];
+                            var PosList = Kart.PositionStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                            var SpeedList = Kart.SpeedStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                            var OrList = Kart.OrientationStr.Split(' ').Select((s) => float.Parse(s)).ToList();
+                            var Pos = new Mogre.Vector3(PosList[0], PosList[1], PosList[2]);
+                            var Speed = new Mogre.Vector3(SpeedList[0], SpeedList[1], SpeedList[2]);
+                            var Or = new Mogre.Quaternion(OrList[0], OrList[1], OrList[2], OrList[3]);
+                            ne.player.Kart.SetState(Pos, Speed, Or);
+                        } finally { }
                     }
                 }
             }

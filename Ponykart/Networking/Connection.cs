@@ -18,6 +18,7 @@ namespace Ponykart.Networking {
 		private DateTime LastSentTime, LastRecvTime;
         public long ZeroMoment,RemoteOffset;
 		public bool validated;
+        public bool ReadyToSend = false;
         public readonly ReliableUDPConnection UDPConnection;
         public readonly UInt32 Cid;
         Queue<Message> OutgoingQueue;
@@ -40,7 +41,11 @@ namespace Ponykart.Networking {
         public Message TopMessage {
             get {
                 if (OutgoingQueue.Count > 0) {
-                    return OutgoingQueue.Dequeue();
+                    if (OutgoingQueue.First().Type == Commands.Connect || ReadyToSend) {
+                        return OutgoingQueue.Dequeue();
+                    } else {
+                        throw new Exception("Not ready yet");
+                    }
                 } else {
                     if (nm.GameRunning) {
                         return new Message(Commands.SendPositions, nm.SerializeKarts(), true);
@@ -80,11 +85,11 @@ namespace Ponykart.Networking {
 				case Commands.Connect:
 					if (nm.NetworkType == NetworkTypes.Client) {
 						return;
-					}
-					else {
+					} else {
 						if (nm.Password.SequenceEqual(contents)) {
 							Launch.Log(string.Format("Client provided correct password ({0})", contents));
                             validated = true;
+                            ReadyToSend = true;
 							SendPacket(Commands.ConnectAccept, contents);
                             foreach(NetworkEntity ne in nm.Players) {
                                 SendPacket(Commands.NewPlayer, ne.Serialize());
@@ -98,6 +103,7 @@ namespace Ponykart.Networking {
 					break;
 				case Commands.ConnectAccept:
 					Launch.Log("Server accepted our password.");
+                    ReadyToSend = true;
 					break;
 				case Commands.ConnectReject:
 					Launch.Log("Server rejected our password.");
@@ -213,8 +219,10 @@ namespace Ponykart.Networking {
             LastSentTime = System.DateTime.Now;
             //var message = new UDPPacket(new PonykartPacket(type, contents, this), UDPConnection);
             var message = new Message(type, contents, isVolatile);
-            Launch.Log(String.Format("Queued outgoing packet of type {0}", type));
-            OutgoingQueue.Enqueue(message);
+            if (validated) {
+                Launch.Log(String.Format("Queued outgoing packet of type {0}", type));
+                OutgoingQueue.Enqueue(message);
+            }
         }
 
         /// <summary>

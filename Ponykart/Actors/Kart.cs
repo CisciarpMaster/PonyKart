@@ -505,6 +505,7 @@ namespace Ponykart.Actors {
 
             Body.WorldTransform = mat;
             Body.LinearVelocity = newLinearVelocity;
+            Body.Activate();
         }
     }
 }

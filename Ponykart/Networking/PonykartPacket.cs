@@ -12,7 +12,7 @@ namespace Ponykart.Networking {
     }
 
     public struct Message {
-        Commands Type;
+        public Commands Type;
         byte[] Contents;
         public bool Volatile;
         public PonykartPacket ToPKPacket(Connection owner) {

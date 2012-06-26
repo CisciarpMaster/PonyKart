@@ -49,6 +49,7 @@ namespace Ponykart.Networking {
             Owner = owner;
             Received = new HashSet<UInt32>();
             OnPacketRecv += new PacketHandler(RegisterPacket);
+            OnPacketRecv += new PacketHandler(OnPacket);
         }
 
         /// <summary>
@@ -74,6 +75,12 @@ namespace Ponykart.Networking {
             if (!DuplicatePacket(p)) {
                 OnPacketRecv(p);
             } 
+        }
+
+        public void OnPacket(UDPPacket p) {
+            if (p.Contents.Type != Commands.NoMessage && p.Contents.Type != Commands.SendPositions) {
+                Launch.Log(String.Format("[Networking] Got packet of type {0}", p.Contents.Type));
+            }
         }
             
         /// <summary>
@@ -134,7 +141,6 @@ namespace Ponykart.Networking {
             if (Sender.Send(bytes, bytes.Length, DestinationEP) == 0) {
                 return false;
             } else {
-                //Launch.Log(String.Format("Sent message id {0} type {1}", packet.SequenceNo, packet.Contents.Type));
                 return true;
             }
         }
@@ -159,7 +165,10 @@ namespace Ponykart.Networking {
         }
 
         public void Send() {
-            var TopPacket = Owner.TopMessage.ToPKPacket(Owner);
+            PonykartPacket TopPacket;
+            try {
+                TopPacket = Owner.TopMessage.ToPKPacket(Owner);
+            } catch (Exception e) { return; } 
             var message = new UDPPacket(TopPacket,this);
             if (!TopPacket.Volatile) {
                 AddPacket(message);
