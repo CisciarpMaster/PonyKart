@@ -171,12 +171,15 @@ namespace Ponykart.Players {
 			base.OnStartTurnLeft();
 
 			if (IsControlEnabled) {
+#if DRIFTING_ENABLED
 				// if we're waiting to drift
 				if (Kart.DriftState == KartDriftState.WantsDriftingButNotTurning) {
 					Kart.StartDrifting(KartDriftState.StartRight);
 				}
 				// normal steering
-				else {
+				else
+#endif
+				{
 					// if both turns are pressed, we go straight
 					if (bindings.IsKeyPressed(LKey.TurnRight))
 						Kart.TurnMultiplier = 0f;
@@ -204,11 +207,14 @@ namespace Ponykart.Players {
 			base.OnStartTurnRight();
 
 			if (IsControlEnabled) {
+#if DRIFTING_ENABLED
 				if (Kart.DriftState == KartDriftState.WantsDriftingButNotTurning) {
 					Kart.StartDrifting(KartDriftState.StartLeft);
 				}
 				// normal steering
-				else {
+				else
+#endif
+				{
 					// if both turns are pressed, we go straight
 					if (bindings.IsKeyPressed(LKey.TurnLeft))
 						Kart.TurnMultiplier = 0f;
