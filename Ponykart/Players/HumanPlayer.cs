@@ -1,4 +1,8 @@
-﻿using Ponykart.Actors;
+﻿// comment this out if you want drifting to be disabled for human-controlled karts.
+// useful if you want to send a version out to users while the drifting is broken
+//#define DRIFTING_ENABLED
+
+using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
 
@@ -95,6 +99,7 @@ namespace Ponykart.Players {
 		protected override void OnStartDrift() {
 			base.OnStartDrift();
 
+#if DRIFTING_ENABLED
 			if (IsControlEnabled) {
 				// if left is pressed and right isn't, start drifting left
 				if (bindings.IsKeyPressed(LKey.TurnLeft) && !bindings.IsKeyPressed(LKey.TurnRight)) {
@@ -109,6 +114,7 @@ namespace Ponykart.Players {
 					Kart.DriftState = KartDriftState.WantsDriftingButNotTurning;
 				}
 			}
+#endif
 		}
 		/// <summary>
 		/// cancel the drift
@@ -116,6 +122,7 @@ namespace Ponykart.Players {
 		protected override void OnStopDrift() {
 			base.OnStopDrift();
 
+#if DRIFTING_ENABLED
 			if (IsControlEnabled) {
 				// if we were drifting left
 				if (Kart.DriftState == KartDriftState.FullLeft || Kart.DriftState == KartDriftState.StartLeft) {
@@ -130,6 +137,7 @@ namespace Ponykart.Players {
 					Kart.DriftState = KartDriftState.None;
 				}
 			}
+#endif
 		}
 
 
