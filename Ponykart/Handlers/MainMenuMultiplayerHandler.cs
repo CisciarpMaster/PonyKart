@@ -55,7 +55,7 @@ namespace Ponykart.Handlers {
                 LKernel.GetG<LevelManager>().LoadLevel(request);
                 netMgr.ForEachConnection(c => c.SendPacket(Commands.StartGame, _levelSelection, false));
 
-            } else {
+            } else if (LKernel.Get<MainMenuUIHandler>().GameType == GameTypeEnum.NetworkedClient) {
                 try {
                     var MainPlayer = (from p in netMgr.Players where p.local select p).First();
                     netMgr.SingleConnection.SendPacket(Commands.RequestPlayerChange, MainPlayer.SerializeChange("Selection", characterSelection));
