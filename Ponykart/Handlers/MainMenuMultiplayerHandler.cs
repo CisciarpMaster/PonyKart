@@ -3,6 +3,7 @@ using Miyagi.UI.Controls;
 using Ponykart.Levels;
 using Ponykart.Networking;
 using Ponykart.UI;
+using System.Linq;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -43,18 +44,23 @@ namespace Ponykart.Handlers {
 			//This will need to do other things at some point.
             //Like what, past Elision? You're so fucking helpful.
 			this.characterSelection = characterSelection;
-			if (LKernel.Get<MainMenuUIHandler>().GameType == GameTypeEnum.NetworkedHost) {
+            if (LKernel.Get<MainMenuUIHandler>().GameType == GameTypeEnum.NetworkedHost) {
 
                 string[] characters = new string[netMgr.Players.Count];
-				LevelChangeRequest request = new LevelChangeRequest() {
-					NewLevelName = _levelSelection,
-					CharacterNames = new string[] { characterSelection },
+                LevelChangeRequest request = new LevelChangeRequest() {
+                    NewLevelName = _levelSelection,
+                    CharacterNames = new string[] { characterSelection },
                     IsMultiplayer = true,
-				};
-				LKernel.GetG<LevelManager>().LoadLevel(request);
+                };
+                LKernel.GetG<LevelManager>().LoadLevel(request);
                 netMgr.ForEachConnection(c => c.SendPacket(Commands.StartGame, _levelSelection, false));
-                
-			}
+
+            } else {
+                try {
+                    var MainPlayer = (from p in netMgr.Players where p.local select p).First();
+                    netMgr.SingleConnection.SendPacket(Commands.RequestPlayerChange, MainPlayer.SerializeChange("Selection", characterSelection));
+                } finally { }
+            }
 		}
 
 		/// <summary>
