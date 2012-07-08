@@ -94,9 +94,9 @@
                     <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
             </entity>
-	   </node>
- 	   <node name="WTW_Road1">
-            <position x="0" y="0.05" z="0" />
+        </node>
+        <node name="WTW_Road1">
+            <position x="0" y="0" z="0" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
             <entity name="WTW_Road1" castShadows="true" receiveShadows="true" meshFile="WTW_Road1.mesh" static="true">
