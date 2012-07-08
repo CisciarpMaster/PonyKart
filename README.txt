@@ -10,4 +10,4 @@ If this becomes too much of a problem, we'll be forced to make the game closed s
 
 - Hoppip, ponykart lead
 
-PS: if it crashes during loading when you try running it, make sure you have a DirectX 9 component and a VC++ x86 redistributable installed - google them if you don't have them
+PS: if it crashes during loading when you try running it, make sure you have a DirectX 9 component and a VC++ x86 redistributable installed - google them if you don't have them 
