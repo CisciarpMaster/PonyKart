@@ -16,7 +16,9 @@ namespace Ponykart.Handlers {
 			// spawn derpy
 			derpy = LKernel.GetG<Spawner>().Spawn<Derpy>("Derpy", Vector3.ZERO, (t, d) => new Derpy(t, d));
 			derpy.ChangeAnimation("HoldStartLight1");
-			derpy.AttachToKart(new Vector3(-1f, 1f, 2f), LKernel.GetG<Players.PlayerManager>().MainPlayer.Kart);
+			if (!Options.GetBool("Twh")) {
+				derpy.AttachToKart(new Vector3(-1f, 1f, 2f), LKernel.GetG<Players.PlayerManager>().MainPlayer.Kart);
+			}
 
 			// setup the timer
 			timer = new Timer((x) => { derpy.ChangeAnimation("Forward1"); }, null, Timeout.Infinite, Timeout.Infinite);
