@@ -78,8 +78,8 @@ namespace Ponykart.Core {
 				{"sRGB Gamma Conversion","No"},
 				// Yes or No
 				{"Music","No"},
-				{"Sounds","No"},
-				{"Ribbons","No"},
+				{"Sounds","Yes"},
+				{"Ribbons","Yes"},
 				// Low or High
 				{"ModelDetail","Medium"},
 				{"ShadowDetail","Some"},

@@ -1,4 +1,4 @@
-﻿#define ENABLE_COUNTDOWN
+﻿//#define ENABLE_COUNTDOWN
 
 using Mogre;
 using Ponykart.Levels;

@@ -15,9 +15,9 @@ KartSpawnOrientation0 = 0.001, 0.9505, 0.0029, 0.3107
 Background = 0.7373, 0.8902, 0.9490
 Ambient = 0.8, 0.8, 0.8
 FogType = "Linear"
-FogColour = 0.7373, 0.8902, 0.9490, 0.25
-FogStart = 200
-FogEnd = 4000
+FogColour = 0.7, 0.8, 0.9, 0.3
+FogStart = 10
+FogEnd = 1000
 SunlightDirection = 1, -1, 1
 Skybox = "saa_sky"
 

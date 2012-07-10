@@ -314,6 +314,8 @@ namespace Ponykart.Actors {
 			return newMat;
 		}
 
+		///////////////////////////////////////////////////
+
 		private readonly Radian NECK_YAW_LIMIT = new Degree(70f);
 		private readonly Radian NECK_PITCH_LIMIT = new Degree(60f);
 
@@ -339,6 +341,11 @@ namespace Ponykart.Actors {
 
 			return true;
 		}
+
+		/// <summary>
+		/// Do nothing
+		/// </summary>
+		protected override void InitialiseComponents(ThingBlock template, ThingDefinition def) { }
 
 #region animation changing
 		/// <summary>

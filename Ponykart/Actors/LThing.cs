@@ -176,7 +176,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Make our components
 		/// </summary>
-		private void InitialiseComponents(ThingBlock template, ThingDefinition def) {
+		protected virtual void InitialiseComponents(ThingBlock template, ThingDefinition def) {
 			// ogre stuff
 			if (def.ModelBlocks.Count > 0) {
 				ModelComponents = new List<ModelComponent>(def.ModelBlocks.Count);
