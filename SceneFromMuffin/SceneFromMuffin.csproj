@@ -45,6 +45,10 @@
     <Reference Include="Mogre">
       <HintPath>..\References\Release\Mogre.dll</HintPath>
     </Reference>
+    <Reference Include="Muffins, Version=1.2.4556.33511, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PonykartParsers\bin\x86\Debug\Muffins.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -105,12 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Icon 1.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PonykartParsers\PonykartParsers.csproj">
-      <Project>{BE300323-9D6D-4CA5-BA9C-41736DFF973D}</Project>
-      <Name>PonykartParsers</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
