@@ -155,21 +155,21 @@ namespace BackgroundPonyCreator {
 
 
 			ponyNode = sceneMgr.RootSceneNode.CreateChildSceneNode();
-			ponyEnt = sceneMgr.CreateEntity("BgPonyBody.mesh");
+			ponyEnt = sceneMgr.CreateEntity("BgPonyColtBody.mesh");
 			ponyNode.AttachObject(ponyEnt);
 			ponyNode.Position = new Vector3(0, 0, 0);
 			ponyEnt.SetMaterialName("BgPony");
 
-			wingsEnt = sceneMgr.CreateEntity("BgPonyWings.mesh");
+			wingsEnt = sceneMgr.CreateEntity("BgPonyColtWings.mesh");
 			wingsEnt.SetMaterialName("BgPonyWings");
 
 			hornEnt = sceneMgr.CreateEntity("BgPonyHorn.mesh");
 			hornEnt.SetMaterialName("BgPonyHorn");
 
-			eyesEnt = sceneMgr.CreateEntity("BgPonyEyes.mesh");
+			eyesEnt = sceneMgr.CreateEntity("BgPonyColtEyes.mesh");
 			eyesEnt.SetMaterialName("BgPonyEyes");
 
-			foldedWingsEnt = sceneMgr.CreateEntity("BgPonyWingsFolded.mesh");
+			foldedWingsEnt = sceneMgr.CreateEntity("BgPonyColtWingsFolded.mesh");
 			foldedWingsEnt.SetMaterialName("BgPonyWingsFolded");
 
 			hairEnts = new Entity[NUMBER_OF_HAIRSTYLES];
