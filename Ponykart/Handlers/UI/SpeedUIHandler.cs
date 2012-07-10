@@ -23,8 +23,12 @@ namespace Ponykart.Handlers {
 
 		void OnKeyboardPress_Anything(KeyEvent eventArgs) {
 			if (!LKernel.GetG<InputSwallowerManager>().IsSwallowed()) {
-				if (eventArgs.key == KeyCode.KC_MINUS)
+				if (eventArgs.key == KeyCode.KC_MINUS) {
 					label.Visible = !label.Visible;
+
+					var button = LKernel.GetG<UIMain>().GuiManager.GetControl<Button>("show/hide commands button");
+					button.Visible = !button.Visible;
+				}
 			}
 		}
 
