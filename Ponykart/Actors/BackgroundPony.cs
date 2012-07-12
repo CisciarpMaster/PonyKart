@@ -345,7 +345,7 @@ namespace Ponykart.Actors {
 		/// <summary>
 		/// Do nothing
 		/// </summary>
-		protected override void InitialiseComponents(ThingBlock template, ThingDefinition def) { }
+		//protected override void InitialiseComponents(ThingBlock template, ThingDefinition def) { }
 
 #region animation changing
 		/// <summary>
