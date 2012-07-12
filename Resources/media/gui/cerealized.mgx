@@ -168,7 +168,7 @@
 					<!-- count label -->
 					<Control Type="Miyagi.UI.Controls.Label">
 						<Name>lap count label</Name>
-						<Rectangle>0,0,1365,768</Rectangle>
+						<Rectangle>20,20,1365,768</Rectangle>
 						<Text>1</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
 							<Alignment>TopLeft</Alignment>
