@@ -105,6 +105,16 @@
                 </subentities>
             </entity>
         </node>
+        <node name="WTW_Cliffs">
+            <position x="0" y="0" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="WTW_Cliffs" castShadows="true" receiveShadows="true" meshFile="WTW_Cliffs.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Barn_Area" />
+                </subentities>
+            </entity>
+        </node>
 		<node name="Grass 1">
             <position x="-64.4425" y="57.3248" z="453.734" />
             <scale x="1" y="1" z="1" />
