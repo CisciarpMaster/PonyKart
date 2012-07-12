@@ -45,21 +45,21 @@
                 </subentities>
             </entity>
         </node>
-        <node name="default01">
-            <position x="104.955" y="142.081" z="-18.0677" />
+       <node name="Terrain_smooth">
+            <position x="18.7722" y="61.2232" z="-174.238" />
             <scale x="1" y="1" z="1" />
             <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="default01" castShadows="true" receiveShadows="true" meshFile="default01.mesh" static="true">
+            <entity name="Terrain_smooth" castShadows="true" receiveShadows="true" meshFile="Terrain_smooth.mesh" static="true">
                 <subentities>
                     <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
             </entity>
         </node>
-        <node name="road">
-            <position x="104.955" y="142.081" z="-18.0677" />
+        <node name="Road_plane">
+            <position x="-0.806534" y="71.6478" z="22.5626" />
             <scale x="1" y="1" z="1" />
-            <rotation qx="0" qy="0" qz="0" qw="1" />
-            <entity name="road" castShadows="true" receiveShadows="true" meshFile="road.mesh" static="true">
+            <rotation qx="-2.38419e-007" qy="0" qz="0" qw="1" />
+            <entity name="Road_plane" castShadows="true" receiveShadows="true" meshFile="Road_plane.mesh" static="true">
                 <subentities>
                     <subentity index="0" materialName="SAA_Road" />
                 </subentities>
@@ -142,6 +142,86 @@
             <entity name="Cliff 01" castShadows="true" receiveShadows="true" meshFile="Cliff 01.mesh" static="true">
                 <subentities>
                     <subentity index="0" materialName="SAA_Cliff" />
+                </subentities>
+            </entity>
+        </node>
+		        <node name="Water">
+            <position x="17.6079" y="61.2232" z="-174.238" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Water" castShadows="true" receiveShadows="true" meshFile="Water.mesh">
+                <subentities>
+                    <subentity index="0" materialName="Water" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Water2">
+            <position x="18.7722" y="61.2232" z="-174.238" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Water2" castShadows="true" receiveShadows="true" meshFile="Water2.mesh">
+                <subentities>
+                    <subentity index="0" materialName="Water" />
+                </subentities>
+            </entity>
+        </node>
+		<node name="Rock_overhang">
+            <position x="-112.692" y="215.326" z="46.6414" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Rock_overhang" castShadows="true" receiveShadows="true" meshFile="Rock_overhang.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Cliff" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Rock_broken_top">
+            <position x="45.4455" y="93.1351" z="-4.20626" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="-0.468287" qz="2.04695e-008" qw="0.883577" />
+            <entity name="Rock_broken_top" castShadows="true" receiveShadows="true" meshFile="Rock_broken_top.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Cliff" />
+                </subentities>
+            </entity>
+        </node>
+        <node name="Rock_broken_side">
+            <position x="49.8755" y="91.8937" z="-4.62865" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0.0889461" qy="-0.275396" qz="-0.672082" qw="0.68158" />
+            <entity name="Rock_broken_side" castShadows="true" receiveShadows="true" meshFile="Rock_broken_side.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Cliff" />
+                </subentities>
+            </entity>
+        </node>
+		<node name="Object01">
+            <position x="-106.143" y="175.792" z="58.0003" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Object01" castShadows="true" receiveShadows="true" meshFile="Object01.mesh">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Cliff" />
+                </subentities>
+            </entity>
+        </node>
+		<node name="Plane05">
+            <position x="-112.692" y="215.326" z="46.6414" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="0" qy="0" qz="0" qw="1" />
+            <entity name="Plane05" castShadows="true" receiveShadows="true" meshFile="Plane05.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Cliff" />
+                </subentities>
+            </entity>
+        </node>
+		<node name="Road_shoulder">
+            <position x="-0.806534" y="71.6478" z="22.5626" />
+            <scale x="1" y="1" z="1" />
+            <rotation qx="-2.38419e-007" qy="0" qz="0" qw="1" />
+            <entity name="Road_shoulder" castShadows="true" receiveShadows="true" meshFile="Road_shoulder.mesh" static="true">
+                <subentities>
+                    <subentity index="0" materialName="SAA_Grass" />
                 </subentities>
             </entity>
         </node>
