@@ -49,14 +49,15 @@ namespace Ponykart.Handlers {
             //Like what, past Elision? You're so fucking helpful.
 			this.characterSelection = characterSelection;
             if (LKernel.Get<MainMenuUIHandler>().GameType == GameTypeEnum.NetworkedHost) {
-                (from p in netMgr.Players where p.local select p).First().SetName(characterSelection);
+                var localplayer = (from p in netMgr.Players where p.local select p).First();
+                localplayer.SetName(characterSelection);
                 string[] characters = new string[netMgr.Players.Count];
                 foreach (NetworkEntity p in netMgr.Players) {
                     characters[p._GlobalID] = p.Selection ?? "Twilight Sparkle";
                 }
                 LevelChangeRequest request = new LevelChangeRequest() {
                     NewLevelName = _levelSelection,
-                    CharacterNames = new string[] { characterSelection },
+                    CharacterNames = characters,
                     IsMultiplayer = true,
                 };
                 LKernel.GetG<LevelManager>().LoadLevel(request);

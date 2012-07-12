@@ -63,7 +63,7 @@ namespace Ponykart.Players {
                     
                     var IndexedPlayers = (from player in netMgr.Players select new { id = player.GlobalID, p = player }).ToDictionary((tuple)=>tuple.id, (tuple)=>tuple.p);
                     int localid = (from id in IndexedPlayers.Keys where IndexedPlayers[id].local select id).First();
-                    eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
+                    //eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
                     if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
                         MainPlayer = new HumanPlayer(eventArgs, localid);
                     else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))

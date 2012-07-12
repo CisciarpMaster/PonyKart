@@ -94,6 +94,17 @@ namespace Ponykart.Networking {
         }
 
         /// <summary>
+        /// Use to attempt to set the selection among all instances.
+        /// </summary>
+        public void SetName(string selection) {
+            if (nm.NetworkType == NetworkTypes.Client) {
+                owner.SendPacket(Commands.RequestPlayerChange, SerializeChange("Selection", selection));
+            } else {
+                _Selection = selection;
+                nm.ForEachConnection((c) => c.SendPacket(Commands.PlayerChange, SerializeChange("Selection", selection)));
+            }
+        }
+        /// <summary>
         /// Turn this NetworkEntity into a string that can be sent to a client
         /// </summary>
         public string Serialize() {
