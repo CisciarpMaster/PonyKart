@@ -3,7 +3,6 @@ using Vector3 = Mogre.Vector3;
 
 namespace Ponykart.Core {
 	public class SmoothFreeCamera : FreeCamera {
-		protected Vector3 translateTo;
 		protected SceneNode TargetNode;
 
 		public SmoothFreeCamera(string name) : base(name) {

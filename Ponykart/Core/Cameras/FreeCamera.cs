@@ -8,7 +8,10 @@ using Vector3 = Mogre.Vector3;
 namespace Ponykart.Core {
 	public class FreeCamera : LCamera {
 		protected Vector3 Offset;
-		protected float Speed = 1;
+		protected float moveMultiplier = DEFAULT_MOVE_MULTIPLIER;
+		protected float turnMultiplier = DEFAULT_TURN_MULTIPLIER;
+		private const float DEFAULT_MOVE_MULTIPLIER = 0.5f;
+		private const float DEFAULT_TURN_MULTIPLIER = 0.125f;
 
 		public FreeCamera(string name) : base(name) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
@@ -51,8 +54,8 @@ namespace Ponykart.Core {
 			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed() || !IsActive)
 				return;
 
-			CameraNode.Yaw(new Degree(-eventArgs.state.X.rel / 8f), Node.TransformSpace.TS_WORLD);
-			CameraNode.Pitch(new Degree(-eventArgs.state.Y.rel / 8f), Node.TransformSpace.TS_LOCAL);
+			CameraNode.Yaw(new Degree(-eventArgs.state.X.rel * turnMultiplier), Node.TransformSpace.TS_WORLD);
+			CameraNode.Pitch(new Degree(-eventArgs.state.Y.rel * turnMultiplier), Node.TransformSpace.TS_LOCAL);
 		}
 
 		/// <summary>
@@ -116,10 +119,16 @@ namespace Ponykart.Core {
 					Offset.y -= 1;
 					break;
 				case KeyCode.KC_PGUP:
-					Speed *= 2;
+					moveMultiplier *= 2;
 					break;
 				case KeyCode.KC_PGDOWN:
-					Speed /= 2;
+					moveMultiplier /= 2;
+					break;
+				case KeyCode.KC_HOME:
+					turnMultiplier *= 1.5f;
+					break;
+				case KeyCode.KC_END:
+					turnMultiplier /= 1.5f;
 					break;
 			}
 		}
@@ -145,11 +154,12 @@ namespace Ponykart.Core {
 			base.OnSwitchToInactive(newCamera);
 
 			Offset = Vector3.ZERO;
-			Speed = 1;
+			moveMultiplier = DEFAULT_MOVE_MULTIPLIER;
+			turnMultiplier = DEFAULT_TURN_MULTIPLIER;
 		}
 
 		protected override bool UpdateCamera(FrameEvent evt) {
-			CameraNode.Translate(Offset * Speed, Node.TransformSpace.TS_LOCAL);
+			CameraNode.Translate(Offset * moveMultiplier, Node.TransformSpace.TS_LOCAL);
 			return true;
 		}
 
