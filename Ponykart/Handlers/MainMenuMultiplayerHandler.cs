@@ -50,7 +50,7 @@ namespace Ponykart.Handlers {
 			this.characterSelection = characterSelection;
             if (LKernel.Get<MainMenuUIHandler>().GameType == GameTypeEnum.NetworkedHost) {
                 var localplayer = (from p in netMgr.Players where p.local select p).First();
-                localplayer.SetName(characterSelection);
+                localplayer.SetSelection(characterSelection);
                 string[] characters = new string[netMgr.Players.Count];
                 foreach (NetworkEntity p in netMgr.Players) {
                     characters[p._GlobalID] = p.Selection ?? "Twilight Sparkle";
