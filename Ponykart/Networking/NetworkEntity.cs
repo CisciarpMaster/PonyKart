@@ -203,7 +203,7 @@ namespace Ponykart.Networking {
                             var Speed = new Mogre.Vector3(SpeedList[0], SpeedList[1], SpeedList[2]);
                             var Or = new Mogre.Quaternion(OrList[0], OrList[1], OrList[2], OrList[3]);
                             ne.player.Kart.SetState(Pos, Speed, Or);
-                        } finally { }
+                        } catch (Exception e) { }
                     }
                 }
             }

@@ -41,6 +41,9 @@ namespace Ponykart.Networking
         StartGame = 0x1F00,
         StartAccept = 0x1F01,
 
+        ReadyToRumble = 0x2000,
+        BeginRumbling = 0x2001,
+
         SendPositions = 0x3000,
         
         ServerMessage = 0xF000,
@@ -90,6 +93,14 @@ namespace Ponykart.Networking
 
         private int LastQueriedKart;
 
+        public List<Connection> ReadyConnections;
+
+        public bool AllConnectionsReady {
+            get {
+                return ReadyConnections.Count == Connections.Count;
+            }
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -110,8 +121,15 @@ namespace Ponykart.Networking
             Players = new List<NetworkEntity>();
             InitializeHandlers();
             Players.Add(new NetworkEntity());
+            ReadyConnections = new List<Connection>();
+            LevelManager.OnLevelPostLoad += new LevelEvent(OnLevelPostLoad);
         }
 
+        void OnLevelPostLoad(LevelChangedEventArgs lcea) {
+            if (NetworkType == NetworkTypes.Client) {
+                SingleConnection.SendPacket(Commands.ReadyToRumble);
+            }
+        }
         /// <summary>
         /// Initializes as Client
         /// </summary>
@@ -127,6 +145,7 @@ namespace Ponykart.Networking
             Connections.Add(0, SingleConnection);
             Players = new List<NetworkEntity>();
             InitializeHandlers();
+            LevelManager.OnLevelPostLoad += new LevelEvent(OnLevelPostLoad);
         }
 
         public void InitializeHandlers() {

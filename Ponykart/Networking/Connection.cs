@@ -9,6 +9,7 @@ using Ponykart.Handlers;
 using Ponykart.Players;
 using Ponykart.Properties;
 using Ponykart.Networking;
+using Ponykart.Core;
 
 namespace Ponykart.Networking {
 	/// <summary>
@@ -183,6 +184,22 @@ namespace Ponykart.Networking {
 					}
 					break;
 #endregion
+#region Game
+                case Commands.ReadyToRumble :
+                    if (nm.NetworkType == NetworkTypes.Host) {
+                        nm.ReadyConnections.Add(this);
+                        if (nm.AllConnectionsReady) {
+                            LKernel.Get<RaceCountdown>().Start();
+                            nm.ForEachConnection((c) => c.SendPacket(Commands.BeginRumbling));
+                        }
+
+                    }
+                    break;
+                case Commands.BeginRumbling :
+                    if (nm.NetworkType == NetworkTypes.Client) {
+                        LKernel.Get<RaceCountdown>().Start();
+                    }
+                    break;
                 case Commands.SendPositions:
                     if (nm.NetworkType == NetworkTypes.Client) {
                         NetworkEntity.DeserializeLocations(packet.StringContents, this);
@@ -190,6 +207,7 @@ namespace Ponykart.Networking {
                         NetworkEntity.DeserializeLocations(packet.StringContents, this);
                     }
                     break;
+#endregion
 				case Commands.ServerMessage:
 					Launch.Log(string.Format("Server message: '{0}'", contents));
 					break;

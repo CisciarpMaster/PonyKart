@@ -78,7 +78,7 @@ namespace Ponykart.Core {
 			if (kart != null && lapData[kart.OwnerID].first) {
 				lapData[kart.OwnerID].first = false;
 
-				if (lapData[kart.OwnerID].second >= 3) {
+				if (lapData[kart.OwnerID].second >= 2) {
 					// we have completed three laps, fire the finish event
 					if (OnFinish != null)
 						OnFinish(kart);

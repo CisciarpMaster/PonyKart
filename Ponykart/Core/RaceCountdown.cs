@@ -1,8 +1,9 @@
-﻿//#define ENABLE_COUNTDOWN
+﻿#define ENABLE_COUNTDOWN
 
 using Mogre;
 using Ponykart.Levels;
 using Ponykart.Players;
+using Ponykart.Networking;
 
 namespace Ponykart.Core {
 	/// <summary>
@@ -36,25 +37,29 @@ namespace Ponykart.Core {
 			LevelManager.OnLevelUnload += (ea) => Detach();
 		}
 
+        public void Start() {
+            three = two = one = go = oneSecondAfterGo = false;
+            elapsed = 0;
+
+            foreach (var player in LKernel.Get<PlayerManager>().Players) {
+                // first make sure all of the karts can't be controlled
+#if ENABLE_COUNTDOWN
+                player.IsControlEnabled = false;
+#else
+					player.IsControlEnabled = true;
+#endif
+            }
+
+            LKernel.Get<Root>().FrameStarted += FrameStarted;
+        }
+
 		/// <summary>
 		/// Reset the elapsed time, reset the bools, disable control of all of the players, and hook up to the frame started event.
 		/// </summary>
 		private void OnLevelPostLoad(LevelChangedEventArgs eventArgs) {
 			// only run this on race levels!
-			if (eventArgs.NewLevel.Type == LevelType.Race) {
-				three = two = one = go = oneSecondAfterGo = false;
-				elapsed = 0;
-
-				foreach (var player in LKernel.Get<PlayerManager>().Players) {
-					// first make sure all of the karts can't be controlled
-#if ENABLE_COUNTDOWN
-					player.IsControlEnabled = false;
-#else
-					player.IsControlEnabled = true;
-#endif
-				}
-
-				LKernel.Get<Root>().FrameStarted += FrameStarted;
+			if (eventArgs.NewLevel.Type == LevelType.Race && (!eventArgs.Request.IsMultiplayer || LKernel.Get<NetworkManager>().AllConnectionsReady)) {
+                Start();
 			}
 		}
 

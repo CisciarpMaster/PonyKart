@@ -60,20 +60,24 @@ namespace Ponykart.Players {
                 } else {
                     Networking.NetworkManager netMgr = LKernel.GetG<Networking.NetworkManager>();
                     Players = new Player[netMgr.Players.Count];
-
+                    
+                    var IndexedPlayers = (from player in netMgr.Players select new { id = player.GlobalID, p = player }).ToDictionary((tuple)=>tuple.id, (tuple)=>tuple.p);
+                    int localid = (from id in IndexedPlayers.Keys where IndexedPlayers[id].local select id).First();
                     eventArgs.Request.CharacterNames = FillCharacterString(eventArgs.Request.CharacterNames);
                     if (Options.Get("Controller").Equals("Keyboard", System.StringComparison.OrdinalIgnoreCase))
-                        MainPlayer = new HumanPlayer(eventArgs, 0);
+                        MainPlayer = new HumanPlayer(eventArgs, localid);
                     else if (Options.Get("Controller").Equals("WiiMote", System.StringComparison.OrdinalIgnoreCase))
-                        MainPlayer = new WiiMotePlayer(eventArgs, 0);
+                        MainPlayer = new WiiMotePlayer(eventArgs, localid);
                     else
                         throw new Exception("Illegal Controller type - " + Options.Get("Controller"));
-                    Players[0] = MainPlayer;
-                    (from player in netMgr.Players where player.local select player).First().player = Players[0];
-                    var NonLocalPlayers = (from player in netMgr.Players where player.local == false select player).ToArray();
-                    for (int a = 1; a < netMgr.Players.Count; a++) {
-                        Players[a] = new ComputerPlayer(eventArgs, a);
-                        NonLocalPlayers[a - 1].player = Players[a];
+
+                    for(int i = 0; i < netMgr.Players.Count; i++) { 
+                        if(IndexedPlayers[i].local) {
+                            Players[i] = MainPlayer;
+                        } else { 
+                            Players[i] = new ComputerPlayer(eventArgs, i);
+                        }
+                        IndexedPlayers[i].player = Players[i];
 
                     }
 
