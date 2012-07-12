@@ -186,7 +186,9 @@
     <Compile Include="Handlers\Karts\SelfRighter.cs" />
     <Compile Include="Handlers\MainMenuMultiplayerHandler.cs" />
     <Compile Include="Handlers\UI\CountdownUIHandler.cs" />
+    <Compile Include="Handlers\UI\LapCounterUIHandler.cs" />
     <Compile Include="Handlers\UI\MainMenuUIHandler.cs" />
+    <Compile Include="Handlers\UI\RaceResultUIHandler.cs" />
     <Compile Include="Levels\LevelChangeRequest.cs" />
     <Compile Include="Networking\NetworkEntity.cs" />
     <Compile Include="Networking\PonykartPacket.cs" />
