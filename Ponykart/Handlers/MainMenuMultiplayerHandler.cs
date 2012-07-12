@@ -1,9 +1,9 @@
-﻿using Miyagi.Common.Events;
+﻿using System.Linq;
+using Miyagi.Common.Events;
 using Miyagi.UI.Controls;
 using Ponykart.Levels;
 using Ponykart.Networking;
 using Ponykart.UI;
-using System.Linq;
 
 namespace Ponykart.Handlers {
 	/// <summary>
@@ -77,7 +77,7 @@ namespace Ponykart.Handlers {
 		void OnHostInfo_SelectNext(Button button, MouseButtonEventArgs eventArgs) {
 			netMgr.InitManager(int.Parse(mmm.NetworkHostPortTextBox.Text),
 							   mmm.NetworkHostPasswordTextBox.Text);
-			netMgr.StartThread(1);
+			netMgr.StartThread(100);
             LobbyLabel.Text = "You are now the host. Feel free to proceed through these menus at your leisure. Once you select a character, the round starts.\n";
 		}
 
@@ -89,7 +89,7 @@ namespace Ponykart.Handlers {
 			netMgr.InitManager(int.Parse(mmm.NetworkClientPortTextBox.Text),
 							   mmm.NetworkClientPasswordTextBox.Text,
                                mmm.NetworkClientIPTextBox.Text);
-            netMgr.StartThread(1);
+            netMgr.StartThread(100);
 
 			netMgr.SingleConnection.SendPacket(Commands.Connect, mmm.NetworkClientPasswordTextBox.Text);
             LobbyLabel.Text = "You are now a client. Please wait to continue until the host has connected...\n";
