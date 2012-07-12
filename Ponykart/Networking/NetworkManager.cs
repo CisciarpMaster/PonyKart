@@ -95,9 +95,15 @@ namespace Ponykart.Networking
 
         public List<Connection> ReadyConnections;
 
+        bool ReadyOverride = false;
+
         public bool AllConnectionsReady {
             get {
-                return ReadyConnections.Count == Connections.Count;
+                if (NetworkType == NetworkTypes.Client) { return ReadyOverride; }
+                return ReadyOverride || ReadyConnections.Count == Connections.Count;
+            }
+            set {
+                ReadyOverride = value;
             }
         }
 
@@ -240,12 +246,14 @@ namespace Ponykart.Networking
         }
 
         public void ForEachConnection(Action<Connection> act) {
-            foreach (var c in Connections.Values) {
+            var _Connections = Connections.Values.ToArray();
+            foreach (var c in _Connections) {
                 act(c);
             }
         }
         public void ForEachUDPConnection(Action<ReliableUDPConnection> act) {
-            foreach (var c in Connections.Values) {
+            var _Connections = Connections.Values.ToArray();
+            foreach (var c in _Connections) {
                 act(c.UDPConnection);
             }
         }

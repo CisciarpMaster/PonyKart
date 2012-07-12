@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using Ponykart.Actors;
-using Ponykart.Handlers;
-using Ponykart.Players;
-using Ponykart.Properties;
-using Ponykart.Networking;
 using Ponykart.Core;
+using Ponykart.Handlers;
+using Ponykart.Properties;
+using Ponykart.UI;
+using Miyagi.UI.Controls;
 
 namespace Ponykart.Networking {
 	/// <summary>
@@ -22,6 +20,7 @@ namespace Ponykart.Networking {
         public bool ReadyToSend = false;
         public readonly ReliableUDPConnection UDPConnection;
         public readonly UInt32 Cid;
+        Label LobbyLabel;
         Queue<Message> OutgoingQueue;
         NetworkManager nm;
         /// <summary>
@@ -60,6 +59,10 @@ namespace Ponykart.Networking {
 		/// Creates a connection, given a destination to send to and a connection ID.
 		/// </summary>
 		public Connection(UdpClient sender, IPEndPoint destinationep, UInt32 cid) {
+
+            var LobbyGUI = LKernel.Get<UIMain>().GetGUI("menu lobby gui");
+            LobbyLabel = LobbyGUI.GetControl<Label>("lobby label");
+
             UDPConnection = new ReliableUDPConnection(sender, destinationep, cid, this);
             UDPConnection.OnPacketRecv += (p) => PacketHandler(p.Contents);
             OutgoingQueue = new Queue<Message>();
@@ -95,6 +98,7 @@ namespace Ponykart.Networking {
                             foreach(NetworkEntity ne in nm.Players) {
                                 SendPacket(Commands.NewPlayer, ne.Serialize());
                             }
+                            LobbyLabel.Text += String.Format("Player {0} joined.\n", nm.Players.Count);
 						} else {
 							Launch.Log(string.Format("Client gave bad password: {0} instead of {1}", contents, nm.Password));
 							SendPacket((Int16) Commands.ConnectReject, (string) null);
@@ -104,6 +108,7 @@ namespace Ponykart.Networking {
 					break;
 				case Commands.ConnectAccept:
 					Launch.Log("Server accepted our password.");
+                    LobbyLabel.Text += "Connected.\n";
                     ReadyToSend = true;
 					break;
 				case Commands.ConnectReject:
@@ -197,6 +202,7 @@ namespace Ponykart.Networking {
                     break;
                 case Commands.BeginRumbling :
                     if (nm.NetworkType == NetworkTypes.Client) {
+                        nm.AllConnectionsReady = true;
                         LKernel.Get<RaceCountdown>().Start();
                     }
                     break;

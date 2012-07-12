@@ -39,7 +39,7 @@ namespace Ponykart.Networking {
         /// </summary>
         public string Selection {
             get {
-                return _Selection;
+                return _Selection ?? "Twilight Sparkle";
             }
         }
         #endregion
@@ -146,7 +146,7 @@ namespace Ponykart.Networking {
 
             NetworkEntity target = LKernel.Get<NetworkManager>().Players.Find((e) => e.GlobalID == ID);
             if (target == null) { return false; }
-            if (target.owner != sender) { return false; }
+            if (LKernel.Get<NetworkManager>().NetworkType == NetworkTypes.Host &&  target.owner != sender) { return false; }
             switch (Property) {
                 case "Selection":
                     target._Selection = Value;
