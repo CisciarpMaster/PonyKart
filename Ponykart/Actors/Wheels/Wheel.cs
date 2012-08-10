@@ -295,8 +295,11 @@ namespace Ponykart.Actors {
 				// the wheels with motor force change depending on whether the kart is drifting or not
 				// rear-wheel drive, remember!
 				float _motorForce = GetMotorForceForDriftState(ID, DriftState, DefaultMotorForce);
-				vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
-
+                vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier, IntWheelID);
+                /*
+                 * Here is the new line that makes it accelerate but the max speed need to be increase inorder to make if over jumps.
+                vehicle.ApplyEngineForce(_motorForce * AccelerateMultiplier * (((currentSpeed + kart.MaxSpeed *3.6f) / (kart.MaxSpeed * 3.6f))/2f), IntWheelID);
+                */
 				// if we are trying to accelerate in the opposite direction that we're moving, then brake
 				if ((AccelerateMultiplier > 0f && currentSpeed < -2f) || (AccelerateMultiplier < 0f && currentSpeed > 2f))
 					IsBrakeOn = true;
