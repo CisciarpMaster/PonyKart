@@ -27,6 +27,8 @@ namespace Ponykart.Players {
 			bindings.ReleaseEventsDict[LKey.TurnLeft] += OnStopTurnLeft;
 			bindings.PressEventsDict[LKey.TurnRight] += OnStartTurnRight;
 			bindings.ReleaseEventsDict[LKey.TurnRight] += OnStopTurnRight;
+            bindings.PressEventsDict[LKey.Item] += UseItem;
+            //bindings.ReleaseEventsDict[LKey.=Item] += ; Might need this later
 			//bindings.AxisEvents[LKey.SteeringAxis] += OnSteeringAxisMoved;
 			//bindings.AxisEvents[LKey.AccelerateAxis] += OnAccelerateAxisMoved;
 		}
@@ -240,7 +242,12 @@ namespace Ponykart.Players {
 
 
 		protected override void UseItem() {
-			throw new System.NotImplementedException();
+			//throw new System.NotImplementedException();
+            LThing fired = LKernel.GetG<Spawner>().Spawn("Sphere", Kart.ActualPosition + Kart.Vehicle.ForwardVector * 5);
+            Mogre.Vector3 itemVel = Kart.Vehicle.ForwardVector;
+            itemVel *= Kart.VehicleSpeed + 20.0f;
+            itemVel.y = 7.5f;
+            fired.Body.ApplyCentralImpulse(itemVel);
 		}
 
 
