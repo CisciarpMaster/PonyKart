@@ -243,10 +243,10 @@ namespace Ponykart.Players {
 
 		protected override void UseItem() {
 			//throw new System.NotImplementedException();
-            LThing fired = LKernel.GetG<Spawner>().Spawn("Sphere", Kart.ActualPosition + Kart.Vehicle.ForwardVector * 5);
+            LThing fired = LKernel.GetG<Spawner>().Spawn("appleProp", Kart.ActualPosition + Kart.Vehicle.ForwardVector * 5.0f);
             Mogre.Vector3 itemVel = Kart.Vehicle.ForwardVector;
-            itemVel *= Kart.VehicleSpeed + 20.0f;
-            itemVel.y = 7.5f;
+            itemVel *= Kart.VehicleSpeed + 200.0f;
+            itemVel.y = 30.0f;
             fired.Body.ApplyCentralImpulse(itemVel);
 		}
 

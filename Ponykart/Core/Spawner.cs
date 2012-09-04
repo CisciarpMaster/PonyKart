@@ -155,7 +155,7 @@ namespace Ponykart.Core {
 				if (thingName == "DashJavelin")
 					kart = new DashJavelin(template, definition);
 				else
-					kart = new Kart(template, definition);
+					kart = new TwiCutlass(template, definition);
 				
 				levelManager.CurrentLevel.AddThing(kart);
 

@@ -141,6 +141,7 @@
     <Compile Include="Actors\InstancedGeometryManager.cs" />
     <Compile Include="Actors\Lyra.cs" />
     <Compile Include="Actors\StaticGeometryManager.cs" />
+    <Compile Include="Actors\TwiCutlass.cs" />
     <Compile Include="Actors\Wheels\DriftState.cs" />
     <Compile Include="Actors\Wheels\WheelID.cs" />
     <Compile Include="Core\Animation\DriverAnimationHandler.cs" />

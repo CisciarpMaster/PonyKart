@@ -102,6 +102,7 @@ namespace Ponykart.Players {
 		// it's very important that these are run before any of the "override" methods do anything else
 
 		protected virtual void OnStartAccelerate() {
+
 		}
 		protected virtual void OnStopAccelerate() {
 		}
