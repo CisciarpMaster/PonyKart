@@ -13,6 +13,7 @@ namespace Ponykart.Handlers {
 		}
 
 		void ShootPrimitive(KeyEvent ke) {
+#if Debug
 			if (LKernel.GetG<InputSwallowerManager>().IsSwallowed())
 				return;
 
@@ -35,6 +36,7 @@ namespace Ponykart.Handlers {
 
 				LKernel.GetG<Spawner>().Spawn(type, pos);
 			}
+#endif
 		}
 
 		public void Detach() {

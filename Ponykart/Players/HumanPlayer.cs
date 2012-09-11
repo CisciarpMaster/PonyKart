@@ -1,10 +1,11 @@
 ﻿// comment this out if you want drifting to be disabled for human-controlled karts.
 // useful if you want to send a version out to users while the drifting is broken
-//#define DRIFTING_ENABLED
+#define DRIFTING_ENABLED
 
 using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
+using Ponykart.Items;
 
 namespace Ponykart.Players {
 	public class HumanPlayer : Player {
@@ -242,12 +243,8 @@ namespace Ponykart.Players {
 
 
 		protected override void UseItem() {
-			//throw new System.NotImplementedException();
-            LThing fired = LKernel.GetG<Spawner>().Spawn("appleProp", Kart.ActualPosition + Kart.Vehicle.ForwardVector * 5.0f);
-            Mogre.Vector3 itemVel = Kart.Vehicle.ForwardVector;
-            itemVel *= Kart.VehicleSpeed + 200.0f;
-            itemVel.y = 30.0f;
-            fired.Body.ApplyCentralImpulse(itemVel);
+            LKernel.GetG<ItemManager>().SpawnItem(this, "SmartApple");
+            //LKernel.GetG
 		}
 
 

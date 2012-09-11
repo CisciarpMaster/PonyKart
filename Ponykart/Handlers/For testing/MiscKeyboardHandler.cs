@@ -40,7 +40,6 @@ namespace Ponykart.Handlers {
 				case KeyCode.KC_I:
 					PhysicsMain.DrawLines = !PhysicsMain.DrawLines;
 					break;
-#endif
 				case KeyCode.KC_M:
 					if (LKernel.GetG<SoundMain>().IsMusicEnabled)
 						LKernel.GetG<SoundMain>().DisableMusic();
@@ -100,7 +99,7 @@ namespace Ponykart.Handlers {
 					using (var proc = Process.Start("syncmedia.cmd")) {
 						proc.WaitForExit();
 					}
-
+                    #endif
 					//LKernel.GetG<LuaMain>().Restart();
 					LKernel.Get<WheelFactory>().ReadWheelsFromFiles();
 					LKernel.Get<PhysicsMaterialFactory>().ReadMaterialsFromFiles();

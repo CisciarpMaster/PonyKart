@@ -104,7 +104,7 @@ namespace Ponykart.Actors {
 				if (relSpeed < 0.5f && !idleState) {
 					soundMain.Play3D(revDownSound, ActualPosition, false);
 
-					new SoundCrossfader(fullSound, idleSound, 1.65f);
+					new SoundCrossfader(fullSound, idleSound, 1.65f, 0.5f);
 
 					idleState = true;
 				}
@@ -124,7 +124,7 @@ namespace Ponykart.Actors {
 				if (relSpeed > 0.5f && idleState) {
 					soundMain.Play3D(revUpSound, ActualPosition, false);
 
-					new SoundCrossfader(idleSound, fullSound, 1.45f);
+					new SoundCrossfader(idleSound, fullSound, 1.45f, 0.5f);
 
 					idleState = false;
 				}

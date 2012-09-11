@@ -68,7 +68,7 @@ namespace Ponykart.Actors {
 
 
 		public Kart(ThingBlock block, ThingDefinition def) : base(block, def) {
-			DefaultMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 18f);
+			DefaultMaxSpeed = MaxSpeed = def.GetFloatProperty("maxspeed", 180f);
 			MaxReverseSpeed = def.GetFloatProperty("maxreversespeed", 4f);
 
 			MaxSpeedSquared = MaxSpeed * MaxSpeed;

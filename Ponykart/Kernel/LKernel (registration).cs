@@ -10,6 +10,7 @@ using Ponykart.Properties;
 using Ponykart.Sound;
 using Ponykart.Stuff;
 using Ponykart.UI;
+using Ponykart.Items;
 using PonykartParsers;
 
 namespace Ponykart {
@@ -100,6 +101,10 @@ namespace Ponykart {
 			AddGlobalObject(new RaceCountdown());
 			AddGlobalObject(new LapCounter());
 			AddGlobalObject(new LThingHelperManager());
+
+            //items
+            splash.Increment("Loading items...");
+            AddGlobalObject(new ItemManager());
 
 			// more mogre stuff
 			splash.Increment("Setting up static and instanced geometry managers...");

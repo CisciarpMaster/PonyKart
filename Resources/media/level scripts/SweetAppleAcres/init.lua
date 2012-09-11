@@ -12,7 +12,7 @@ local function onPlayerFinish(kart)
 end
 
 local function decreaseKartSpeed(kart, id)
- 	kart.MaxSpeed = kart.MaxSpeed / 1.4
+ 	kart.MaxSpeed = kart.MaxSpeed / 1.1
 end
 
 function SweetAppleAcres(level)

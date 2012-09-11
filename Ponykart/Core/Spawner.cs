@@ -152,11 +152,12 @@ namespace Ponykart.Core {
 				var definition = database.GetThingDefinition(thingName);
 
 				Kart kart;
-				if (thingName == "DashJavelin")
-					kart = new DashJavelin(template, definition);
-				else
-					kart = new TwiCutlass(template, definition);
-				
+                if (thingName == "DashJavelin")
+                    kart = new DashJavelin(template, definition);
+                else if (thingName == "TwiCutlass")
+                    kart = new TwiCutlass(template, definition);
+                else
+                    kart = new Kart(template, definition);
 				levelManager.CurrentLevel.AddThing(kart);
 
 				Invoke(OnKartCreation, kart);

@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using BulletSharp;
+using Mogre;
+using Ponykart.Actors;
+using Ponykart.Core;
+using Ponykart.Levels;
+using Ponykart.Properties;
+using Ponykart.Players;
+using PonykartParsers;
+
+namespace Ponykart.Items
+{
+    public abstract class Item
+    {
+        //This is the item's physical presence on the map.
+        public LThing Body { get; protected set; }
+        public Player User { get; protected set; }
+        public Item(Player user, string itemName)
+        {
+            User = user;
+            Body = LKernel.GetG<Spawner>().Spawn(itemName, User.Kart.ActualPosition + User.Kart.Vehicle.ForwardVector * 5.0f);
+            OnUse();
+            Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
+        }
+
+        protected virtual void OnUse()
+        {
+        }
+
+        protected virtual void EveryTenth(object o)
+        {
+        }
+    }
+}

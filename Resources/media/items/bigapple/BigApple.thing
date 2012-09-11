@@ -1,5 +1,5 @@
 Physics = Dynamic
-Mass = 400
+Mass = 40
 CollisionGroup = Default
 CollidesWith = Default
 Friction = 0.9
@@ -11,12 +11,12 @@ Model {
 	Mesh = "BrightGreenApple.mesh"
 	Material = "AppleTree"
 	Position = 0, 0.01, 0
-	Scale = 6.0, 6.0, 6.0
+	Scale = 3.0, 3.0, 3.0
 	CastsShadows = Some
 }
 
 Shape {
 	Type = Sphere
 	Position = 0, 0, 0
-	Radius = 0.3
+	Radius = 0.15
 }

@@ -38,9 +38,18 @@ Shape {
 	Position = 0, 0, 0
 }
 
+//Sound 0
 Sound {
 	File = "Generic Kart idle Loop.ogg"
-	//File = "RD_Kart_Idle Loop.ogg"
 	Looping = true
 	MinDistance = 20
+	StartPaused = false
+}
+
+//Sound 1
+Sound {
+	File = "TwiKart.mp3"
+	Looping = true
+	MinDistance = 20
+	StartPaused = false
 }

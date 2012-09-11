@@ -115,7 +115,7 @@ namespace Ponykart.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-5.75")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-10")]
         public float KartGravity {
             get {
                 return ((float)(this["KartGravity"]));

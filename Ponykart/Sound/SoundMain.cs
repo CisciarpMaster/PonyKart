@@ -191,6 +191,7 @@ namespace Ponykart.Sound {
 			ISound music = Engine.Play2D(source, true, startPaused, false);
 			musics.Add(music);
 
+            music.Volume = 0.5f;
 			if (!enableMusic) {
 				music.Paused = true;
 				music.Volume = 0;
