@@ -30,14 +30,12 @@ namespace Ponykart.Actors {
 				}
 			}
 			sgeoms.Clear();
-
 		}
 
 		/// <summary>
 		/// Adds all of the geometry used by a model component to the static geometry.
 		/// This is used by the ModelComponent.
 		/// </summary>
-		/// <param name="name">The name this geometry is identified by</param>
 		public void Add(ModelComponent mc, ThingBlock template, ModelBlock block, ThingDefinition def) {
 			// if the model detail option is low and this model wants imposters, don't even make any static geometry of it
 			if (Options.ModelDetail == ModelDetailOption.Low) {
