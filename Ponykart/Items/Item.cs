@@ -11,7 +11,7 @@ using PonykartParsers;
 
 namespace Ponykart.Items
 {
-    public abstract class Item
+    public abstract class Item : LDisposable
     {
         //This is the item's physical presence on the map.
         public LThing Body { get; protected set; }
@@ -30,6 +30,19 @@ namespace Ponykart.Items
 
         protected virtual void EveryTenth(object o)
         {
+        }
+
+        public void Dispose(bool disposing)
+        {
+            if (IsDisposed)
+                return;
+
+            if (disposing)
+            {
+                Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
+                Body.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

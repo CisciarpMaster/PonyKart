@@ -24,11 +24,17 @@ namespace Ponykart.Items
         {
             base.OnUse();
 
-            Vector3 itemVel = User.Kart.Vehicle.ForwardVector;
-            itemVel *= User.Kart.VehicleSpeed + 10.0f;
-            itemVel.y = 200.0f;
+            //Initial velocity: Forward at player speed + 10, with a good bit of up.
+            //Vector3 itemVel = User.Kart.Vehicle.ForwardVector;
+            //itemVel *= User.Kart.VehicleSpeed + 10.0f;
+            //itemVel.y = 200.0f;
+            //Body.Body.ApplyCentralImpulse(itemVel);
+
+
+            Vector3 itemVel = User.Kart.Body.LinearVelocity * 1.2f;       // using a multiplier is better, because if you add, the apple will go off at a weird angle sometimes
+            itemVel.y = 200f;
             Body.Body.ApplyCentralImpulse(itemVel);
-           
+
             Vector3 vecToPlayer;
             float leastLength = 0;
             foreach (Player p in LKernel.GetG<PlayerManager>().Players)
@@ -66,8 +72,8 @@ namespace Ponykart.Items
                 vecToTarget *= -1;
                 if (Body.Body.LinearVelocity.Length < 30.0f)
                     vecToTarget *= HomingSpeed;
-
                 vecToTarget.y = 0.0f;
+
                 //vecToTarget.y += Body.Body.Gravity.y;
                 Body.Body.ApplyCentralImpulse(vecToTarget);
 
@@ -75,7 +81,7 @@ namespace Ponykart.Items
                 if (age > 10.0f)
                 {
                     isActive = false;
-                    Body.Dispose();
+                    Dispose(true);
                 }
             }
         }
