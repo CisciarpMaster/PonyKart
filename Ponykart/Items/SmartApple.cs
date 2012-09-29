@@ -74,7 +74,9 @@ namespace Ponykart.Items
                     vecToTarget *= HomingSpeed;
                 vecToTarget.y = 0.0f;
 
+               
                 //vecToTarget.y += Body.Body.Gravity.y;
+                vecToTarget *= 1.5f;
                 Body.Body.ApplyCentralImpulse(vecToTarget);
 
                 //after 10 seconds, destroy object

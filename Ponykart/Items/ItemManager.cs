@@ -50,7 +50,7 @@ namespace Ponykart.Items
             if (eventArgs.OldLevel.Type == LevelType.Race)
             {
                 //Clean up any remaining items
-                activeItems.Clear();
+                //activeItems.Clear();
             }
         }
     }

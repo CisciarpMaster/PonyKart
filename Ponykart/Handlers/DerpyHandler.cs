@@ -38,7 +38,7 @@ namespace Ponykart.Handlers {
 		}
 
 		void OnPlayerLap(Kart kart, int newLapCount) {
-			derpy.ChangeAnimation("FlagWave1");
+			derpy.ChangeAnimation("FlagWave2");
 
 			timer.Change(3000, Timeout.Infinite);
 		}

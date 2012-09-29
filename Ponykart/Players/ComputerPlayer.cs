@@ -2,7 +2,7 @@
 using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Physics;
-
+using Ponykart.Stuff;
 namespace Ponykart.Players {
 	public class ComputerPlayer : Player {
 		private Vector3 nextWaypoint;
@@ -10,28 +10,82 @@ namespace Ponykart.Players {
 		public TriggerRegion CurrentRegion { get; private set; }
 		/// <summary> The trigger region we came from </summary>
 		public TriggerRegion PreviousRegion { get; private set; }
-		private LThing axis;
+        private LThing axis;
+        private LThing axis2;
+        private bool stuck = false;
 
+        private int direction = 1;
+        private int reverseCooldown = 0;
 		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id)
 			: base(eventArgs, id, true) {
-#if DEBUG
-			axis = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
-			axis.ModelComponents[0].Node.SetScale(0.1f, 0.1f, 0.1f);
-#endif
+                LKernel.GetG<CollisionReporter>().AddEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Environment, OnCol);
+                #if DEBUG
+			    axis = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
+			    axis.ModelComponents[0].Node.SetScale(0.1f, 0.1f, 0.1f);
+                axis2 = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
+                axis2.ModelComponents[0].Node.SetScale(0.1f, 0.1f, 0.1f);
+                #endif
 
 			Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 		}
+        void OnCol(CollisionReportInfo info)
+        {
+            //may be useful later: info.FirstObject.CheckCollideWith
 
+            //Do nothing if we're not looking at ourselves
+            
+            if(info.SecondObject.GetHashCode() == this.Kart.Body.GetHashCode())
+            {
+                //normalised copy of the velocity vector
+                Vector3 velNorm = this.Kart.Vehicle.ForwardVector.NormalisedCopy;
+                Vector3 contactNorm;
+                //The point of contact
+                //Access only if exists
+                if (info.Position.HasValue)
+                {
+                    contactNorm = info.Position.Value.NormalisedCopy;
+
+                    //1.5707 rad = 90 deg
+                    //I'm separating the space around the kart into four chunks
+                    if (velNorm.DirectionEquals(contactNorm, new Radian(1.5707f)))
+                    {
+                        this.direction = -1;
+                        this.reverseCooldown = 20;
+                    }
+                }
+            }
+        }
 		void EveryTenth(object o) {
 
-			Vector3 vecToTar = nextWaypoint - Kart.ActualPosition;
+
+            Vector3 vecToTar = nextWaypoint - Kart.ActualPosition;
+
+            
 			// not using Y so set it to 0
 			vecToTar.y = 0;
-
+            
 			if (IsControlEnabled) {
+                if (reverseCooldown <= 0)
+                {
+                    direction = 1;
+                }
+                else
+                {
+                    reverseCooldown--;
+                }
 				float steerFactor = SteerTowards(vecToTar);
-				Kart.TurnMultiplier = steerFactor;
-				Kart.Acceleration = 1.0f - (System.Math.Abs(steerFactor) / 3f);
+                Kart.TurnMultiplier = steerFactor * direction;
+				Kart.Acceleration = (1.0f - System.Math.Abs(steerFactor) + 0.15f) * direction;
+
+                //Enable this for hilarity
+                //if (Kart.Acceleration > 0.5f && Kart.VehicleSpeed < 0.1f)
+                //{
+                //    Kart.Acceleration = -0.3f;
+                //    Kart.TurnMultiplier = -1;
+                //}
+
+                //if (Kart.VehicleSpeed < 0.1f)
+                    //Kart.Acceleration = -1;e
 			}
 		}
 
@@ -52,8 +106,8 @@ namespace Ponykart.Players {
 				return -1;
 			else if (result > 1)
 				return 1;
-			else
-				return result;
+            else
+                return result;
 		}
 
 		/// <summary>
@@ -92,7 +146,7 @@ namespace Ponykart.Players {
 
 				// update this axis' position
 #if DEBUG
-				axis.RootNode.Position = nextWaypoint;
+				//axis.RootNode.Position = nextWaypoint;
 				//axis.RootNode.Orientation = nextRegion.Body.Orientation;
 				nextRegion.CycleToNextColor();
 #endif
