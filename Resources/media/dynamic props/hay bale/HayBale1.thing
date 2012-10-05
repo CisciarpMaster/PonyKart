@@ -1,6 +1,6 @@
 Physics = Dynamic
 Mass = 40
-CollisionGroup = Default
+CollisionGroup = Environment
 CollidesWith = Default
 PhysicsMaterial = "HayBale"
 Deactivated = true

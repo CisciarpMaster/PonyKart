@@ -3,6 +3,8 @@ using Ponykart.Actors;
 using Ponykart.Levels;
 using Ponykart.Physics;
 using Ponykart.Stuff;
+using Ponykart.Sound;
+
 namespace Ponykart.Players {
 	public class ComputerPlayer : Player {
 		private Vector3 nextWaypoint;
@@ -47,11 +49,10 @@ namespace Ponykart.Players {
 
                     //1.5707 rad = 90 deg
                     //I'm separating the space around the kart into four chunks
-                    if (velNorm.DirectionEquals(contactNorm, new Radian(1.5707f)))
-                    {
-                        this.direction = -1;
-                        this.reverseCooldown = 20;
-                    }
+                   // if (velNorm.DirectionEquals(contactNorm, new Radian(1.5707f)))
+                   // {
+                        this.OnCollideFront();
+                   // }
                 }
             }
         }
@@ -75,8 +76,10 @@ namespace Ponykart.Players {
                 }
 				float steerFactor = SteerTowards(vecToTar);
                 Kart.TurnMultiplier = steerFactor * direction;
-				Kart.Acceleration = (1.0f - System.Math.Abs(steerFactor) + 0.15f) * direction;
-
+				Kart.Acceleration = (1.0f - System.Math.Abs(steerFactor) + 0.15f);
+                if (Kart.Acceleration < 0.1f)
+                    Kart.Acceleration += 0.2f;
+                Kart.Acceleration *= direction;
                 //Enable this for hilarity
                 //if (Kart.Acceleration > 0.5f && Kart.VehicleSpeed < 0.1f)
                 //{
@@ -181,7 +184,21 @@ namespace Ponykart.Players {
 				}
 			}
 		}
-
+        private void OnCollideFront()
+        {
+            LKernel.GetG<SoundMain>().Play3D("Impact Wood 1.mp3", Kart.ActualPosition, false);
+            direction = -1;
+            reverseCooldown = 20;
+        }
+        private void OnCollideBack()
+        {
+        }
+        private void OnCollideLeft()
+        {
+        }
+        private void OnCollideRight()
+        {
+        }
 		public override void Detach() {
 			Launch.OnEveryUnpausedTenthOfASecondEvent -= EveryTenth;
 			base.Detach();
