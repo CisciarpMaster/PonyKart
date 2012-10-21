@@ -9,6 +9,7 @@ using Ponykart.Properties;
 using Ponykart.Players;
 using Ponykart.Physics;
 using PonykartParsers;
+using Ponykart.Sound;
 
 namespace Ponykart.Items
 {
@@ -39,6 +40,8 @@ namespace Ponykart.Items
                     {
                         p.hasItem = true;
                         p.heldItem = itemName;
+                        LKernel.GetG<SoundMain>().Play3D("Item Get.wav", p.NodePosition, false);                       
+                        //DummyItem dummy = new DummyItem(itemName, p);
                         Dispose(true);
                     }
                 }

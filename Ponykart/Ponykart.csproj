@@ -191,6 +191,7 @@
     <Compile Include="Handlers\UI\MainMenuUIHandler.cs" />
     <Compile Include="Handlers\UI\RaceResultUIHandler.cs" />
     <Compile Include="Items\BigApple.cs" />
+    <Compile Include="Items\DummyItem.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemBox.cs" />
     <Compile Include="Items\ItemManager.cs" />

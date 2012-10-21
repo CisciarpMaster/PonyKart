@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Ponykart.Players;
 using Mogre;
+using Ponykart.Sound;
 namespace Ponykart.Items
 {
     class SmartApple : Item
@@ -12,19 +13,21 @@ namespace Ponykart.Items
         private Player target;
         private bool targetfound = false;
         private float age = 0;
+        private Vector3 origin;
         bool isActive = true;
         private float HomingSpeed = 100;
 
         public SmartApple(Player user)
             : base(user, "SmartApple")
         {
+            origin = user.NodePosition;
             playerManager = LKernel.GetG<PlayerManager>();
         }
 
         protected override void OnUse()
         {
             base.OnUse();
-
+            LKernel.GetG<SoundMain>().Play3D("Apple Firing.mp3", origin, false);
             //Initial velocity: Forward at player speed + 10, with a good bit of up.
             //Vector3 itemVel = User.Kart.Vehicle.ForwardVector;
             //itemVel *= User.Kart.VehicleSpeed + 10.0f;
