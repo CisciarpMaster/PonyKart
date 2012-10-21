@@ -628,8 +628,20 @@
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
 						<Enabled>True</Enabled>
-						<Name>level select back button</Name>
+						<Name>level select roulette button</Name>
 						<Rectangle>512,500,300,40</Rectangle>
+						<SkinName>PKButtonSkin</SkinName>
+						<Text>Roulette</Text>
+						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">
+							<Alignment>MiddleCenter</Alignment>
+							<FontName>Zil</FontName>
+							<ForegroundColour>-1</ForegroundColour>
+						</TextStyle>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.Button">
+						<Enabled>True</Enabled>
+						<Name>level select back button</Name>
+						<Rectangle>512,550,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
 						<Text>Back</Text>
 						<TextStyle Type="Miyagi.UI.Controls.Styles.TextStyle">

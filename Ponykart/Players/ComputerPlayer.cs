@@ -49,10 +49,10 @@ namespace Ponykart.Players {
 
                     //1.5707 rad = 90 deg
                     //I'm separating the space around the kart into four chunks
-                   // if (velNorm.DirectionEquals(contactNorm, new Radian(1.5707f)))
-                   // {
+                   if (velNorm.DirectionEquals(contactNorm, new Radian(1.5707f)))
+                   {
                         this.OnCollideFront();
-                   // }
+                   }
                 }
             }
         }
@@ -77,8 +77,8 @@ namespace Ponykart.Players {
 				float steerFactor = SteerTowards(vecToTar);
                 Kart.TurnMultiplier = steerFactor * direction;
 				Kart.Acceleration = (1.0f - System.Math.Abs(steerFactor) + 0.15f);
-                if (Kart.Acceleration < 0.1f)
-                    Kart.Acceleration += 0.2f;
+                if (Kart.Acceleration < 0.15f)
+                    Kart.Acceleration += 0.25f;
                 Kart.Acceleration *= direction;
                 //Enable this for hilarity
                 //if (Kart.Acceleration > 0.5f && Kart.VehicleSpeed < 0.1f)

@@ -242,9 +242,13 @@ namespace Ponykart.Players {
 		#endregion
 
 
-		protected override void UseItem() {
-            LKernel.GetG<ItemManager>().SpawnItem(this, "SmartApple");
-            //LKernel.GetG
+		protected override void UseItem()
+        {
+            if (hasItem)
+            {
+                LKernel.GetG<ItemManager>().SpawnItem(this, heldItem);
+            }
+            hasItem = false;
 		}
 
 

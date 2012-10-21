@@ -7,6 +7,7 @@ using Ponykart.Levels;
 using Ponykart.Properties;
 using PonykartParsers;
 
+
 namespace Ponykart.Players {
 	/// <summary>
 	/// Abstract class for players - each player controls a kart, and abstracting away the player will help when it comes to things like AI and/or networking
@@ -35,6 +36,8 @@ namespace Ponykart.Players {
 
         public bool IsLocal { get; private set; }
 
+        public bool hasItem = false;
+        public string heldItem;
 
 		public Player(LevelChangedEventArgs eventArgs, int id, bool isComputerControlled) {
 			// don't want to create a player if it's ID isn't valid

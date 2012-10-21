@@ -83,7 +83,8 @@ namespace Ponykart.UI {
 			LevelSelectGui.GetControl<Button>("level select testlevel button").MouseClick += (o, e) => Invoke(OnLevelSelect, o, e, "testlevel");
 			LevelSelectGui.GetControl<Button>("level select SAA button").MouseClick += (o, e) => Invoke(OnLevelSelect, o, e, "SweetAppleAcres");
 			LevelSelectGui.GetControl<Button>("level select WTW button").MouseClick += (o, e) => Invoke(OnLevelSelect, o, e, "WhitetailWoods");
-			LevelSelectGui.GetControl<Button>("level select TestAI button").MouseClick += (o, e) => Invoke(OnLevelSelect, o, e, "TestAI");
+            LevelSelectGui.GetControl<Button>("level select TestAI button").MouseClick += (o, e) => Invoke(OnLevelSelect, o, e, "TestAI");
+            LevelSelectGui.GetControl<Button>("level select roulette button").MouseClick += (o, e) => Invoke(OnLevelSelect, o, e, "roulette");
 			LevelSelectGui.GetControl<Button>("level select back button").MouseClick += (o, e) => Invoke(OnLevelSelect_SelectBack, o, e);
 
 			CharacterSelectGui.GetControl<Button>("character select TS button").MouseClick += (o, e) => Invoke(OnCharacterSelect, o, e, "Twilight Sparkle");

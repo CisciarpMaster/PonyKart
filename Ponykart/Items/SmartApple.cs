@@ -10,6 +10,7 @@ namespace Ponykart.Items
     {
         private PlayerManager playerManager;
         private Player target;
+        private bool targetfound = false;
         private float age = 0;
         bool isActive = true;
         private float HomingSpeed = 100;
@@ -37,26 +38,30 @@ namespace Ponykart.Items
 
             Vector3 vecToPlayer;
             float leastLength = 0;
-            foreach (Player p in LKernel.GetG<PlayerManager>().Players)
+            if (LKernel.GetG<PlayerManager>().Players.Length > 1)
             {
-                if (p != User)
+                foreach (Player p in LKernel.GetG<PlayerManager>().Players)
                 {
-                    vecToPlayer = Body.RootNode.Position - p.Kart.ActualPosition;
-                    //first kart is selected as initial target
-                    if (target == null)
+                    if (p != User)
                     {
-                        target = p;
-                        leastLength = vecToPlayer.SquaredLength;
-                    }
-                    else
-                    {
-                        if (vecToPlayer.SquaredLength < leastLength)
+                        targetfound = true;
+                        vecToPlayer = Body.RootNode.Position - p.Kart.ActualPosition;
+                        //first kart is selected as initial target
+                        if (target == null)
                         {
-                            leastLength = vecToPlayer.SquaredLength;
                             target = p;
+                            leastLength = vecToPlayer.SquaredLength;
                         }
-                    }
+                        else
+                        {
+                            if (vecToPlayer.SquaredLength < leastLength)
+                            {
+                                leastLength = vecToPlayer.SquaredLength;
+                                target = p;
+                            }
+                        }
 
+                    }
                 }
             }
         }
@@ -67,18 +72,20 @@ namespace Ponykart.Items
             if (isActive)
             {
                 age += 0.1f;
-                Vector3 vecToTarget = Body.RootNode.Position - target.Kart.ActualPosition;
-                vecToTarget.Normalise();
-                vecToTarget *= -1;
-                if (Body.Body.LinearVelocity.Length < 30.0f)
-                    vecToTarget *= HomingSpeed;
-                vecToTarget.y = 0.0f;
 
-               
-                //vecToTarget.y += Body.Body.Gravity.y;
-                vecToTarget *= 1.5f;
-                Body.Body.ApplyCentralImpulse(vecToTarget);
+                if (targetfound)
+                {
+                    Vector3 vecToTarget = Body.RootNode.Position - target.Kart.ActualPosition;
+                    vecToTarget.Normalise();
+                    vecToTarget *= -1;
+                    if (Body.Body.LinearVelocity.Length < 30.0f)
+                        vecToTarget *= HomingSpeed;
+                    vecToTarget.y = 0.0f;
 
+                    //vecToTarget.y += Body.Body.Gravity.y;
+                    vecToTarget *= 1.5f;
+                    Body.Body.ApplyCentralImpulse(vecToTarget);
+                }
                 //after 10 seconds, destroy object
                 if (age > 10.0f)
                 {
