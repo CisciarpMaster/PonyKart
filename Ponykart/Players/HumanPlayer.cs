@@ -6,6 +6,8 @@ using Ponykart.Actors;
 using Ponykart.Core;
 using Ponykart.Levels;
 using Ponykart.Items;
+using Ponykart.UI;
+
 
 namespace Ponykart.Players {
 	public class HumanPlayer : Player {
@@ -18,6 +20,8 @@ namespace Ponykart.Players {
 			// hook up to input events
 			bindings = LKernel.Get<KeyBindingManager>();
 
+            LKernel.GetG<GameUIManager>().SetItemLevel(0);
+            
 			bindings.PressEventsDict[LKey.Accelerate] += OnStartAccelerate;
 			bindings.ReleaseEventsDict[LKey.Accelerate] += OnStopAccelerate;
 			bindings.PressEventsDict[LKey.Drift] += OnStartDrift;
@@ -246,7 +250,15 @@ namespace Ponykart.Players {
         {
             if (hasItem)
             {
+                LKernel.GetG<GameUIManager>().SetItemLevel(0);
+                LKernel.GetG<GameUIManager>().SetItemImage("none");
                 LKernel.GetG<ItemManager>().SpawnItem(this, heldItem);
+            }
+            else
+            {
+                Mogre.Vector3 pos = Kart.ActualPosition;
+                pos.y += 5;
+                LKernel.GetG<ItemManager>().RequestBox(pos);
             }
             hasItem = false;
 		}

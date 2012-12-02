@@ -769,6 +769,32 @@
 				<Visible>False</Visible>
 				<ZOrder>50</ZOrder>
 			</GUI>
+			
+			<!-- ingame GUI -->
+			<GUI Type ="Miyagi.UI.GUI">
+				<Controls>
+					<Control Type="Miyagi.UI.Controls.PictureBox">
+						<Enabled>False</Enabled>
+						<Movable>True</Movable>
+						<Name>itembox</Name>
+						<Rectangle>100,20,200,200</Rectangle>
+						<TextureFiltering>Anisotropic</TextureFiltering>
+					</Control>
+					<Control Type="Miyagi.UI.Controls.PictureBox">
+						<Enabled>False</Enabled>
+						<Movable>True</Movable>
+						<Name>itemimage</Name>
+						<Rectangle>100,20,200,200</Rectangle>
+						<TextureFiltering>Anisotropic</TextureFiltering>
+					</Control>
+					<!-- <Control Type="Miyagi.UI.Controls.ProgressBar"> -->
+					<!-- </Control> -->
+						
+				</Controls>
+				<Name>ingame gui</Name>
+				<Visible>True</Visible>
+				<ZOrder>50</ZOrder>
+			</GUI>
 		</GUIs>
 	</Manager>
 </Miyagi>

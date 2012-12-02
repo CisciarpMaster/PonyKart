@@ -10,6 +10,7 @@ using Ponykart.Players;
 using Ponykart.Physics;
 using PonykartParsers;
 using Ponykart.Sound;
+using Ponykart.UI;
 
 namespace Ponykart.Items
 {
@@ -27,7 +28,7 @@ namespace Ponykart.Items
             LKernel.GetG<CollisionReporter>().AddEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Default, OnCol);
             contents = LKernel.GetG<ItemManager>().SpawnItem(null, itemName);
             itemName = _itemName;
-            box = LKernel.GetG<Spawner>().Spawn("ItemBox", spawnpos);
+            this.box = LKernel.GetG<Spawner>().Spawn("Barrel", spawnpos);
         }
 
         void OnCol(CollisionReportInfo info)
@@ -39,12 +40,14 @@ namespace Ponykart.Items
                     if (info.FirstObject.GetHashCode() == p.Kart.Body.GetHashCode())
                     {
                         p.hasItem = true;
+                        LKernel.GetG<GameUIManager>().SetItemLevel(1);
+                        LKernel.GetG<GameUIManager>().SetItemImage(itemName);
                         p.heldItem = itemName;
                         LKernel.GetG<SoundMain>().Play3D("Item Get.wav", p.NodePosition, false);                       
                         //DummyItem dummy = new DummyItem(itemName, p);
-                        Dispose(true);
                     }
                 }
+                Dispose(true);
             }
         }
 
@@ -55,7 +58,7 @@ namespace Ponykart.Items
 
             if (disposing)
             {
-                box.Dispose();
+                this.Dispose();
             }
             base.Dispose(disposing);
         }

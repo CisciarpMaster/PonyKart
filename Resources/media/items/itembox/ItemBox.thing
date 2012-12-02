@@ -7,11 +7,10 @@ LinearDamping = 0.7
 AngularDamping = 0.7
 
 Shape {
-	Type = Box
+	Type = Cylinder
 	Dimensions = 1, 1, 1
 }
 Model {
-	Mesh = "primitives/box.mesh"
+	Mesh = "primitives/cylinder.mesh"
 	Material = "brick"
-	CastsShadows = Some
 }

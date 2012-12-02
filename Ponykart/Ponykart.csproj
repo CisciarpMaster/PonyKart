@@ -207,6 +207,7 @@
     <Compile Include="Players\NetworkPlayer.cs" />
     <Compile Include="Players\WiiMotePlayer.cs" />
     <Compile Include="Sound\SoundCrossfader.cs" />
+    <Compile Include="UI\GameUIManager.cs" />
     <Compile Include="UI\MainMenuManager.cs" />
     <Compile Include="Handlers\UI\SpeedUIHandler.cs" />
     <Compile Include="Handlers\Karts\KartHandler.cs" />
