@@ -777,14 +777,14 @@
 						<Enabled>False</Enabled>
 						<Movable>True</Movable>
 						<Name>itembox</Name>
-						<Rectangle>100,20,200,200</Rectangle>
+						<Rectangle>200, 40, 167, 111</Rectangle>
 						<TextureFiltering>Anisotropic</TextureFiltering>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.PictureBox">
 						<Enabled>False</Enabled>
 						<Movable>True</Movable>
 						<Name>itemimage</Name>
-						<Rectangle>100,20,200,200</Rectangle>
+						<Rectangle>235,45,100,100</Rectangle>
 						<TextureFiltering>Anisotropic</TextureFiltering>
 					</Control>
 					<!-- <Control Type="Miyagi.UI.Controls.ProgressBar"> -->

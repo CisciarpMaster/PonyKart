@@ -16,7 +16,8 @@ namespace Ponykart.Items
 {
     class ItemBox : LDisposable
     {
-        public LThing box { get; protected set; }
+        private LThing box;
+        private GameUIManager ui = LKernel.GetG<GameUIManager>();
         public Item contents;
         protected string itemName;
         public ItemBox(Vector3 spawnpos, string itemName)
@@ -40,25 +41,27 @@ namespace Ponykart.Items
                     if (info.FirstObject.GetHashCode() == p.Kart.Body.GetHashCode())
                     {
                         p.hasItem = true;
-                        LKernel.GetG<GameUIManager>().SetItemLevel(1);
-                        LKernel.GetG<GameUIManager>().SetItemImage(itemName);
+                        ui.SetItemLevel(1);
+                        ui.SetItemImage(itemName);
                         p.heldItem = itemName;
                         LKernel.GetG<SoundMain>().Play3D("Item Get.wav", p.NodePosition, false);                       
                         //DummyItem dummy = new DummyItem(itemName, p);
+                        //LKernel.GetG<CollisionReporter>().RemoveEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Default, OnCol);
+                        Dispose(true);
                     }
                 }
-                Dispose(true);
+                
             }
         }
-
-        public void Dispose(bool disposing)
+        
+        public new void Dispose(bool disposing)
         {
             if (IsDisposed)
                 return;
-
+            this.box.Dispose();
             if (disposing)
             {
-                this.Dispose();
+                //this.Dispose();
             }
             base.Dispose(disposing);
         }

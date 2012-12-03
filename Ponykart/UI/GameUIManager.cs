@@ -27,16 +27,16 @@ namespace Ponykart.UI
 
             inGameUI = uiMain.GetGUI("ingame gui");
             itembox = inGameUI.GetControl<PictureBox>("itembox");
-            itembox.Top = (height / 2);
-            itembox.Bottom = (height / 2);
-            itembox.Left = (width / 2);
-            itembox.Right = (width / 2);
+            //itembox.Top = (height / 2);
+            //itembox.Bottom = (height / 2);
+            //itembox.Left = (width / 2);
+            //itembox.Right = (width / 2);
 
             itemimage = inGameUI.GetControl<PictureBox>("itemimage");
-            itemimage.Top = (height / 2);
-            itemimage.Bottom = (height / 2);
-            itemimage.Left = (width / 2);
-            itemimage.Right = (width / 2);
+            //itemimage.Top = (height / 2);
+            //itemimage.Bottom = (height / 2);
+            //itemimage.Left = (width / 2);
+            //itemimage.Right = (width / 2);
         }
 
         public void SetItemLevel(int level)
