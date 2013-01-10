@@ -21,7 +21,7 @@ namespace Ponykart {
 			// destroy it
 			GetG<Root>().DestroySceneManager(oldMgr);
 			// make our new scene manager
-			SceneManager newMgr = GetG<Root>().CreateSceneManager("OctreeSceneManager", "sceneMgr");
+			SceneManager newMgr = GetG<Root>().CreateSceneManager(SceneType.ST_EXTERIOR_FAR, "sceneMgr");
 
 			// re-add it to the kernel objects
 			GlobalObjects[typeof(SceneManager)] = newMgr;

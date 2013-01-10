@@ -20,7 +20,7 @@ namespace Ponykart.Players {
         private int reverseCooldown = 0;
 		public ComputerPlayer(LevelChangedEventArgs eventArgs, int id)
 			: base(eventArgs, id, true) {
-                LKernel.GetG<CollisionReporter>().AddEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Environment, OnCol);
+                //LKernel.GetG<CollisionReporter>().AddEvent(PonykartCollisionGroups.Karts, PonykartCollisionGroups.Environment, OnCol);
                 #if DEBUG
 			    axis = LKernel.GetG<Core.Spawner>().Spawn("Axis", Kart.RootNode.Position);
 			    axis.ModelComponents[0].Node.SetScale(0.1f, 0.1f, 0.1f);
@@ -36,25 +36,25 @@ namespace Ponykart.Players {
 
             //Do nothing if we're not looking at ourselves
             
-            if(info.SecondObject.GetHashCode() == this.Kart.Body.GetHashCode())
-            {
-                //normalised copy of the velocity vector
-                Vector3 velNorm = this.Kart.Vehicle.ForwardVector.NormalisedCopy;
-                Vector3 contactNorm;
-                //The point of contact
-                //Access only if exists
-                if (info.Position.HasValue)
-                {
-                    contactNorm = info.Position.Value.NormalisedCopy;
+            //if(info.SecondObject.GetHashCode() == this.Kart.Body.GetHashCode())
+            //{
+            //    //normalised copy of the velocity vector
+            //    Vector3 velNorm = this.Kart.Vehicle.ForwardVector.NormalisedCopy;
+            //    Vector3 contactNorm;
+            //    //The point of contact
+            //    //Access only if exists
+            //    if (info.Position.HasValue)
+            //    {
+            //        contactNorm = info.Position.Value.NormalisedCopy;
 
-                    //1.5707 rad = 90 deg
-                    //I'm separating the space around the kart into four chunks
-                   if (velNorm.DirectionEquals(contactNorm, new Radian(1.5707f)))
-                   {
-                        this.OnCollideFront();
-                   }
-                }
-            }
+            //        //1.5707 rad = 90 deg
+            //        //I'm separating the space around the kart into four chunks
+            //       if (velNorm.DirectionEquals(contactNorm, new Radian(1.5707f)))
+            //       {
+            //            this.OnCollideFront();
+            //       }
+            //    }
+            //}
         }
 		void EveryTenth(object o) {
 

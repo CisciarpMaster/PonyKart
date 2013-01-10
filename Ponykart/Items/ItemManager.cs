@@ -18,13 +18,18 @@ namespace Ponykart.Items
         const int ITEMFREQ = 5;
         public List<Item> activeItems = new List<Item>();
         public List<ItemBox> boxes = new List<ItemBox>();
+        public bool spawning = false;
         Random rand = new Random();
+
+        private List<string> itemNames = new List<string>();
+
         public ItemManager() {
 			Launch.Log("[Loading] Creating ItemManager...");
 			//LevelManager.OnLevelLoad += new LevelEvent(OnLevelLoad);
             Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
 			LevelManager.OnLevelUnload += new LevelEvent(OnLevelUnload);
-
+            itemNames.Add("SmartApple");
+            itemNames.Add("SpeedMuffin");
 		}
 
         public Item SpawnItem(Player user, string itemName)
@@ -34,14 +39,14 @@ namespace Ponykart.Items
             //There is probably a better way to do this.
             switch(itemName)
             {
-                case "BigApple":
-                    {
-                        spawnedItem = new BigApple(user);
-                        activeItems.Add(spawnedItem);
-                    }break;
                 case "SmartApple":
                     {
                         spawnedItem = new SmartApple(user);
+                        activeItems.Add(spawnedItem);
+                    } break;
+                case "SpeedMuffin":
+                    {
+                        spawnedItem = new SpeedMuffin(ref user);
                         activeItems.Add(spawnedItem);
                     } break;
                 default:
@@ -56,12 +61,12 @@ namespace Ponykart.Items
         public void RequestBox(Vector3 pos)
         {
             ItemBox box;
-            box = new ItemBox(pos, "SmartApple");
+            box = LKernel.GetG<Spawner>().Spawn<ItemBox>("Barrel", pos, (t, d) => new ItemBox(t, d, GetRandomItem()));
             boxes.Add(box);
         }
         void EveryTenth(object o)
         {
-            if (rand.Next(ITEMFREQ * 10) == 1)
+            if (spawning && rand.Next(ITEMFREQ * 10) == 1)
             {
                 Vector3 spawnpos = LKernel.GetG<PlayerManager>().MainPlayer.NodePosition;
                 spawnpos.y += 2;
@@ -76,6 +81,11 @@ namespace Ponykart.Items
                 activeItems.Clear();
                 boxes.Clear();
             }
+        }
+        private string GetRandomItem()
+        {
+            int r = rand.Next(itemNames.Count);
+            return itemNames[r];
         }
     }
 

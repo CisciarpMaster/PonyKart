@@ -18,7 +18,7 @@ namespace Ponykart.Items
         private float HomingSpeed = 100;
 
         public SmartApple(Player user)
-            : base(user, "SmartApple")
+            : base(ref user, "SmartApple")
         {
             origin = user.NodePosition;
             playerManager = LKernel.GetG<PlayerManager>();

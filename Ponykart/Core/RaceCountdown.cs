@@ -4,6 +4,7 @@ using Mogre;
 using Ponykart.Levels;
 using Ponykart.Players;
 using Ponykart.Networking;
+using Ponykart.Items;
 
 namespace Ponykart.Core {
 	/// <summary>
@@ -89,6 +90,7 @@ namespace Ponykart.Core {
 						// first make sure all of the karts can't be controlled
 						player.IsControlEnabled = true;
 					}
+                    LKernel.GetG<ItemManager>().spawning = true;
 #endif
 
 					Invoke(RaceCountdownState.Go);

@@ -16,10 +16,20 @@ namespace Ponykart.Items
         //This is the item's physical presence on the map.
         public LThing Body { get; protected set; }
         public Player User { get; protected set; }
-        public Item(Player user, string itemName)
+        //public bool HasMesh;
+
+        public Item() { }
+
+        public Item(ref Player user, string itemName)
         {
             User = user;
-            Body = LKernel.GetG<Spawner>().Spawn(itemName, User.Kart.ActualPosition + User.Kart.Vehicle.ForwardVector * 5.0f);
+            try
+            {
+                Body = LKernel.GetG<Spawner>().Spawn(itemName, User.Kart.ActualPosition + User.Kart.Vehicle.ForwardVector * 5.0f);
+            }
+            catch (Exception e)
+            { }
+
             OnUse();
             Launch.OnEveryUnpausedTenthOfASecondEvent += EveryTenth;
         }

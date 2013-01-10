@@ -196,6 +196,7 @@
     <Compile Include="Items\ItemBox.cs" />
     <Compile Include="Items\ItemManager.cs" />
     <Compile Include="Items\SmartApple.cs" />
+    <Compile Include="Items\SpeedMuffin.cs" />
     <Compile Include="Levels\LevelChangeRequest.cs" />
     <Compile Include="Networking\NetworkEntity.cs" />
     <Compile Include="Networking\PonykartPacket.cs" />

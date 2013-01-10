@@ -256,9 +256,9 @@ namespace Ponykart.Players {
             }
             else
             {
-                Mogre.Vector3 pos = Kart.ActualPosition;
-                pos.y += 5;
-                LKernel.GetG<ItemManager>().RequestBox(pos);
+                //Mogre.Vector3 pos = Kart.ActualPosition;
+                //pos.y += 5;
+                //LKernel.GetG<ItemManager>().RequestBox(pos);
             }
             hasItem = false;
 		}

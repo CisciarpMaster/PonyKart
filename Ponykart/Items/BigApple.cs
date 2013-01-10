@@ -12,7 +12,7 @@ namespace Ponykart.Items
     {
         private Vector3 origin;
 
-        public BigApple(Player user) : base(user, "BigApple")
+        public BigApple(Player user) : base(ref user, "BigApple")
         {
             origin = user.NodePosition; 
         }
