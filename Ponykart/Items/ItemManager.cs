@@ -15,7 +15,7 @@ namespace Ponykart.Items
     {
         //This const governs the frequency of itemdrops.
         //On average, an item should drop every n seconds.
-        const int ITEMFREQ = 5;
+        const int ITEMFREQ = 10;
         public List<Item> activeItems = new List<Item>();
         public List<ItemBox> boxes = new List<ItemBox>();
         public bool spawning = false;
