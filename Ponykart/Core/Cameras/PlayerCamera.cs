@@ -1,6 +1,7 @@
 ﻿using BulletSharp;
 using Mogre;
 using Ponykart.Actors;
+using Ponykart.Levels;
 using Ponykart.Physics;
 using Ponykart.Players;
 using Ponykart.Properties;
@@ -14,17 +15,18 @@ namespace Ponykart.Core {
 		Kart followKart;
 		SceneNode kartCamNode;
 		SceneNode kartTargetNode;
+        
 
 		float rayLength;
 		DiscreteDynamicsWorld world;
 
 		public PlayerCamera(string name) : base(name) {
 			var sceneMgr = LKernel.GetG<SceneManager>();
-
+            
 			// make our camera and set some properties
 			Camera = sceneMgr.CreateCamera(name);
 			Camera.NearClipDistance = 0.1f;
-			Camera.FarClipDistance = 700f;
+			Camera.FarClipDistance = 300f;
 			Camera.AutoAspectRatio = true;
 
 			// create the nodes we're going to interpolate
@@ -33,7 +35,6 @@ namespace Ponykart.Core {
 
 			CameraNode.SetAutoTracking(true, TargetNode);
 			CameraNode.SetFixedYawAxis(true);
-
 			CameraNode.AttachObject(Camera);
 
 			// create the fixed nodes that are attached to the kart
@@ -59,7 +60,23 @@ namespace Ponykart.Core {
 				derivedCam = kartCamNode._getDerivedPosition(),
 				derivedTarget = kartTargetNode._getDerivedPosition();
 
+            Mogre.Vector3 axisA = new Mogre.Vector3(0, 1, 0);
+            Quaternion quat1;
+            quat1 = followKart.ActualOrientation.XAxis.GetRotationTo(axisA);
+            Mogre.Radian rollMain = quat1.w;
+            var kartRoll = Math.Sin((rollMain - new Radian(0.7f)) * 2);
+            if ( 0.5f < kartRoll) { 
+                kartRoll = 0.5f; 
+            } else if (-0.5f > kartRoll) { 
+                kartRoll = -0.5f; 
+            }
 
+            var camOr = Camera.Orientation;
+            var Zdiff = kartRoll - Math.Sin(camOr.Roll + new Radian(Math.PI));
+            if (Zdiff > 0 || Zdiff < 0)
+            {
+                Camera.Roll(-0.1f * Math.ASin(Zdiff).ValueRadians);
+            }
 			var callback = CastRay(derivedCam, derivedTarget);
 
 			if (callback.HasHit) {
@@ -78,7 +95,7 @@ namespace Ponykart.Core {
 			CameraNode.Translate(camDisplacement * _cameraTightness * evt.timeSinceLastFrame);
 			TargetNode.Translate(targetDisplacement * _cameraTightness * evt.timeSinceLastFrame);
 
-
+            CameraNode.Roll(10);
 			callback.Dispose();
 			return true;
 		}
