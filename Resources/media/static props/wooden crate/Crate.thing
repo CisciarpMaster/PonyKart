@@ -1,0 +1,18 @@
+Physics = Static
+Mass = 0
+CollisionGroup = Environment
+CollidesWith = Environment
+
+// Crate
+Model {
+	Mesh = "Crate.mesh"
+	Material = "Crate"
+	Position = 0, 0, 0
+	CastsShadows = Many
+}
+// CrateConvex
+Shape {
+	Type = Hull
+	Mesh = "CrateConvex.bullet"
+	Position = 0, 0, 0
+}

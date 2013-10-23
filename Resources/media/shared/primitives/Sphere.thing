@@ -1,0 +1,10 @@
+Physics = Dynamic
+
+Shape {
+	Type = Sphere
+	Radius = 0.5
+}
+Model {
+	Mesh = "primitives/sphere.mesh"
+	Material = "brick"
+}

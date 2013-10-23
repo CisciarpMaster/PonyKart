@@ -1,0 +1,10 @@
+Physics = Dynamic
+
+Shape {
+	Type = Cylinder
+	Dimensions = 1, 1, 1
+}
+Model {
+	Mesh = "primitives/cylinder.mesh"
+	Material = "brick"
+}
