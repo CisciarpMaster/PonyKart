@@ -1,0 +1,9 @@
+[NoBounce]
+
+Bounciness = 0
+
+
+[NoFrictionNoBounce]
+
+Friction = 0
+Bounciness = 0
