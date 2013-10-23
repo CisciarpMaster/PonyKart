@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Asset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>d895cb21-3338-4762-a5a9-cbbd5c575218</Id>
+  <Name>axes</Name>
+  <Mesh>axes.mesh</Mesh>
+  <UserData />
+</Asset>
