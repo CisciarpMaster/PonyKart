@@ -67,7 +67,7 @@ namespace Ponykart {
 			this.LoadingText.Dock = DockStyle.Bottom;
 			this.LoadingText.Location = new Point(0, Picture.Height + 22);
 			this.LoadingText.Name = "LoadingText";
-			this.LoadingText.Size = new Size(Picture.Width - 1, 20);
+//			this.LoadingText.Size = new Size(Picture.Width - 1, 20);
 			this.LoadingText.TabIndex = 0;
 			this.LoadingText.Text = "Loading...";
 			this.LoadingText.UseWaitCursor = true;

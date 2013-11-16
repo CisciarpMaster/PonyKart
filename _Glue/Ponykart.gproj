@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>ee4780b2-7f73-4568-95ec-44764d56080f</Id>
+  <Name>Ponykart</Name>
+  <MediaLocations>
+    <MediaLocation Group="Default" Type="FileSystem" Path="C:\Users\Tux\Documents\Dev\Projects\PonyKart\_Glue" />
+  </MediaLocations>
+  <ProjectFiles>
+    <ProjectFile TypeName="Asset" Path="axes.ga" />
+    <ProjectFile TypeName="World" Path="World1.gw" />
+  </ProjectFiles>
+</Project>

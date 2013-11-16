@@ -1,0 +1,14 @@
+# Build files
+build/
+[Bb]in/
+[Oo]bj/
+tmp/
+
+# Temp files
+*.tmp
+*.bak
+
+# Visual user files
+*.suo
+*.user
+*.sln.docstates
