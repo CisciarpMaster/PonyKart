@@ -38,19 +38,19 @@ namespace Ponykart.Actors {
 
 			Sound = soundMain.Play3D(source, relativePosition, looping, startPaused, sfx);
 
-            if(Sound != null) {
-                Sound.PlaybackSpeed = block.GetFloatProperty("Speed", 1);
-                float volume;
-                if (block.FloatTokens.TryGetValue("volume", out volume))
-                    Sound.Volume = volume;
+			if(Sound != null) {
+				Sound.PlaybackSpeed = block.GetFloatProperty("Speed", 1);
+				float volume;
+				if (block.FloatTokens.TryGetValue("volume", out volume))
+					Sound.Volume = volume;
 
-                Sound.MinDistance = block.GetFloatProperty("mindistance", soundMain.Engine.Default3DSoundMinDistance);
+				Sound.MinDistance = block.GetFloatProperty("mindistance", soundMain.Engine.Default3DSoundMinDistance);
 
-                // TODO: effects, if we end up using any of them
+				// TODO: effects, if we end up using any of them
 
-                Update();
-                Sound.Paused = false;
-            }
+				Update();
+				Sound.Paused = false;
+			}
 
 			soundMain.AddSoundComponent(this);
 		}
@@ -60,8 +60,8 @@ namespace Ponykart.Actors {
 		/// This is called from <see cref="Ponykart.Physics.MogreMotionState"/>.
 		/// </summary>
 		public void Update() {
-            if(Sound == null)
-                return;
+			if(Sound == null)
+				return;
 
 			NeedUpdate = false;
 			owner.SoundsNeedUpdate = false;
@@ -97,10 +97,10 @@ namespace Ponykart.Actors {
 		}
 
 		public void Dispose() {
-            if(Sound != null) {
-                Sound.Stop();
-                Sound.Dispose();
-            }
+			if(Sound != null) {
+				Sound.Stop();
+				Sound.Dispose();
+			}
 			OnUpdate = null;
 		}
 	}

@@ -20,14 +20,14 @@ namespace Ponykart.Sound {
 		/// <param name="duration">How long you want the crossfade to take, in seconds.</param>
 		/// <param name="toFadeInVolume">What volume you want the "fade in" sound to have when it is completed</param>
 		public SoundCrossfader(ISound toFadeOut, ISound toFadeIn, float duration, float toFadeInVolume = 1f) {
-            // NOTE: Sounds will not exist when we're using the null sound driver!
-            //       Make sure that the sound is not null before touching it.
+			// NOTE: Sounds will not exist when we're using the null sound driver!
+			//       Make sure that the sound is not null before touching it.
 
 			this.duration = duration;
 			this.soundToFadeIn = toFadeIn;
 			this.soundToFadeOut = toFadeOut;
-            this.initialFadeOutVolume = toFadeOut == null ? 0.0f : toFadeOut.Volume;
-            this.targetFadeInVolume = toFadeIn == null ? 1.0f : toFadeInVolume;
+			this.initialFadeOutVolume = toFadeOut == null ? 0.0f : toFadeOut.Volume;
+			this.targetFadeInVolume = toFadeIn == null ? 1.0f : toFadeInVolume;
 
 			LKernel.GetG<Root>().FrameEnded += FrameEnded;
 		}
