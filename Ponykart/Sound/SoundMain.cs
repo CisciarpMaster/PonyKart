@@ -13,6 +13,7 @@ using Ponykart.Players;
 namespace Ponykart.Sound {
 	public class SoundMain {
 		public ISoundEngine Engine { get; private set; }
+
 		private IList<ISound> musics;
 		private IList<ISound> sounds;
 		private HashSet<SoundComponent> components;
@@ -46,7 +47,15 @@ namespace Ponykart.Sound {
 			LKernel.GetG<Pauser>().PauseEvent += new PauseEvent(PauseEvent);
 
 			SoundEngineOptionFlag flags = SoundEngineOptionFlag.DefaultOptions | SoundEngineOptionFlag.MuteIfNotFocused | SoundEngineOptionFlag.MultiThreaded;
-			Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
+			
+			try {
+				Engine = new ISoundEngine(SoundOutputDriver.AutoDetect, flags);
+			}
+			catch (System.Exception) {
+				Launch.Log("[Loading] Cannot initialize real SoundOutputDriver!");
+				Engine = new ISoundEngine(SoundOutputDriver.NullDriver, flags);
+			}
+			
 			Engine.Default3DSoundMinDistance = 50f;
 
 			Launch.Log("[Loading] IrrKlang and SoundMain initialised!");
@@ -174,7 +183,7 @@ namespace Ponykart.Sound {
 		/// </summary>
 		/// <param name="filename">The file path of the sound you want to play</param>
 		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
-		/// <returns>The ISound you just created</returns>
+		/// <returns>The ISound you just created, or null if we're using the null sound driver.</returns>
 		public ISound PlayMusic(string filename, bool startPaused = false) {
 			return PlayMusic(GetSource(filename), startPaused);
 		}
@@ -184,14 +193,17 @@ namespace Ponykart.Sound {
 		/// </summary>
 		/// <param name="source">The sound source of the sound you want to play</param>
 		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
-		/// <returns>The ISound you just created</returns>
+		/// <returns>The ISound you just created, or null if we're using the null sound driver.</returns>
 		public ISound PlayMusic(ISoundSource source, bool startPaused = false) {
 			Launch.Log("[Sounds] Creating music: " + source.Name);
 
 			ISound music = Engine.Play2D(source, true, startPaused, false);
+			if(music == null)
+				return null;
+
 			musics.Add(music);
 
-            music.Volume = 0.5f;
+			music.Volume = 0.5f;
 			if (!enableMusic) {
 				music.Paused = true;
 				music.Volume = 0;
@@ -209,7 +221,7 @@ namespace Ponykart.Sound {
 		/// <param name="looping">Make this sound loop?</param>
 		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
-		/// <returns>The ISound you just created</returns>
+		/// <returns>The ISound you just created, or null if we're using the null sound driver.</returns>
 		public ISound Play2D(string filename, bool looping, bool startPaused = false, bool sfx = false) {
 			return Play2D(GetSource(filename), looping, startPaused, sfx);
 		}
@@ -221,11 +233,14 @@ namespace Ponykart.Sound {
 		/// <param name="looping">Make this sound loop?</param>
 		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
-		/// <returns>The ISound you just created</returns>
+		/// <returns>The ISound you just created, or null if we're using the null sound driver.</returns>
 		public ISound Play2D(ISoundSource source, bool looping, bool startPaused = false, bool sfx = false) {
 			Launch.Log("[Sounds] Creating 2D sound: " + source.Name + " Looping: " + looping);
 
 			ISound sound = Engine.Play2D(source, looping, startPaused, sfx);
+			if(sound == null)
+				return null;
+
 			sounds.Add(sound);
 
 			if (!enableSounds) {
@@ -246,7 +261,7 @@ namespace Ponykart.Sound {
 		/// <param name="looping">Make this sound loop?</param>
 		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
-		/// <returns>The ISound you just created</returns>
+		/// <returns>The ISound you just created, or null if we're using the null sound driver.</returns>
 		public ISound Play3D(string filename, Vector3 pos, bool looping, bool startPaused = false, bool sfx = false) {
 			return Play3D(GetSource(filename), pos, looping, startPaused, sfx);
 		}
@@ -259,7 +274,7 @@ namespace Ponykart.Sound {
 		/// <param name="looping">Make this sound loop?</param>
 		/// <param name="startPaused">Should this sound be paused when started? Default is false.</param>
 		/// <param name="sfx">Does this sound have any effects? Default is false.</param>
-		/// <returns>The ISound you just created</returns>
+		/// <returns>The ISound you just created, or null if we're using the null sound driver.</returns>
 		public ISound Play3D(ISoundSource source, Vector3 pos, bool looping, bool startPaused = false, bool sfx = false) {
 			if (pos == null)
 				throw new ArgumentException("Position cannot be null!", "pos");
@@ -267,6 +282,9 @@ namespace Ponykart.Sound {
 			Launch.Log("[Sounds] Creating 3D sound: " + source.Name + " Looping: " + looping);
 
 			ISound sound = Engine.Play3D(source, pos.x, pos.y, pos.z, looping, startPaused, sfx);
+			if(sound == null)
+				return null;
+
 			sounds.Add(sound);
 
 			if (!enableSounds) {
