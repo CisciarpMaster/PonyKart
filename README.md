@@ -1,6 +1,6 @@
 Ponykart
 ========
-This is a git-svn clone fork of Ponykart
+This is a fork of Ponykart, originally git-svn cloned from the ponykart sourceforge svn.
 
 Copy paste from ponykart.net's we ded post:
 ---
