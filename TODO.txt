@@ -1,6 +1,6 @@
 - Fix the random ~"Path not found" errors while entering game
 - Fix the 'framerate issue' or whatever it is that makes this lag without lagging. Like 3 refreshs/s at full FPS.
 - Implement 'powerslide boosts'. Free turbo (=muffin) for a successful slide.
-- Lock the maps that don't work or display a ARE YOU REALLY FUCKING SURE msgbox. To prevent people giving up after the game crashes when they try to play on "Roulette".
+- Display a warning/confirmation msgbox instead of just disabling the buttons for the unfinished levels
 - Maybe DX11 or OpenGL as an option ? Find why they didn't allow it. If possible, add.
-- Maybe Hop/Jump to trigger a slide, instead of just braking. Maybe not. The problem of braking is wasting time, when slides are supposed to give you a boost.
+- Maybe Hop/Jump to trigger a slide, instead of just braking. The problem of braking is wasting time, when slides are supposed to give you a boost.
