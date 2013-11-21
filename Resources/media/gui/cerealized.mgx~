@@ -627,7 +627,7 @@
 						</TextStyle>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>False</Enabled>
+						<Enabled>True</Enabled>
 						<Name>level select roulette button</Name>
 						<Rectangle>512,500,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
