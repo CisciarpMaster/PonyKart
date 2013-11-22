@@ -1,6 +1,13 @@
-- Fix the random ~"Path not found" errors while entering game
-- Fix the 'framerate issue' or whatever it is that makes this lag without lagging. Like 3 refreshs/s at full FPS.
+- Fix the random ArgumentException errors while entering game
+=> It happens at ~random, but always in a call to System.IO.Directory.EnumerateFiles()
+==> We get empty strings from ListResourceLocations(group) and pass them to EnumerateFiles, resulting in ArgumentException
+==> The empty locs mostly appear in the SweetAppleAcres group, but can happen with any of the current calls to EnumerateFiles
+==> Locs are added correctly but sometime it returns an ok list and sometime a list with empty locs
+===> At lines 32-44 we check that no locs are empty, it worked every time
+===> At lines 45-69 we do the exact same thing again, but also try to use them, and sometime we got empty locs and it crashes
+====> Not a concurrency issue, it can crash with a single thread at a time using the ResourceGroupManager.
+===> This looks like a bug in Mogre/Ogre (?)
+- Fix the karts being too 'jittery' for no reason.
 - Implement 'powerslide boosts'. Free turbo (=muffin) for a successful slide.
 - Display a warning/confirmation msgbox instead of just disabling the buttons for the unfinished levels
-- Maybe DX11 or OpenGL as an option ? Find why they didn't allow it. If possible, add.
-- Maybe Hop/Jump to trigger a slide, instead of just braking. The problem of braking is wasting time, when slides are supposed to give you a boost.
+- Maybe Hop/Jump to trigger a slide.
