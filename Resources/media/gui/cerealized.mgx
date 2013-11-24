@@ -567,7 +567,7 @@
 				<Controls>
 					<!-- level selection buttons -->
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
+						<Enabled>False</Enabled>
 						<Name>level select flat button</Name>
 						<Rectangle>512,250,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
@@ -579,7 +579,7 @@
 						</TextStyle>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
+						<Enabled>False</Enabled>
 						<Name>level select testlevel button</Name>
 						<Rectangle>512,300,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
@@ -615,7 +615,7 @@
 						</TextStyle>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
+						<Enabled>False</Enabled>
 						<Name>level select TestAI button</Name>
 						<Rectangle>512,450,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
@@ -627,7 +627,7 @@
 						</TextStyle>
 					</Control>
 					<Control Type="Miyagi.UI.Controls.Button">
-						<Enabled>True</Enabled>
+						<Enabled>False</Enabled>
 						<Name>level select roulette button</Name>
 						<Rectangle>512,500,300,40</Rectangle>
 						<SkinName>PKButtonSkin</SkinName>
