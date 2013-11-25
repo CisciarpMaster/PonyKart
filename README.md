@@ -3,7 +3,7 @@ Ponykart
 This is a fork of Ponykart, originally git-svn cloned from the ponykart sourceforge svn.
 
 
-<h4><a href="github.com/Ponykart/PonyKart/releases">Downloads</a></h4>
+<h4><a href="http://github.com/Ponykart/PonyKart/releases">Downloads</a></h4>
 
 <b>Google group : <a href="https://groups.google.com/forum/#!forum/ponykart">groups.google.com/forum/#!forum/ponykart</a><br/>
 Original site (dead) : <a href="http://ponykart.net">ponykart.net</a></b>
