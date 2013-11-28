@@ -1,0 +1,23 @@
+﻿La génération a démarré 26/11/2013 18:52:39.
+     1>Projet "C:\Users\Tux\Documents\Dev\Projects\Ponykart\Ponykart++\Ponykart++.vcxproj" sur le nœud 2 (Build cible(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Core\Launch.cpp UI\Splash.cpp
+         Splash.cpp
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\ui\splash.cpp(15): error C2864: 'Ponykart::Splash::LoadingPicture' : seules les données membres static const intégrales peuvent être initialisées dans une classe
+         Launch.cpp
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(21): error C2065: 'Splash' : identificateur non déclaré
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(21): error C2146: erreur de syntaxe : absence de ';' avant l'identificateur 'splash'
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(21): error C2065: 'splash' : identificateur non déclaré
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(22): error C2065: 'splash' : identificateur non déclaré
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(22): error C2228: la partie gauche de '.Show' doit avoir un class/struct/union
+                 le type est ''unknown-type''
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(23): error C2065: 'LKernel' : identificateur non déclaré
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(23): error C2228: la partie gauche de '.LoadInitialObjects' doit avoir un class/struct/union
+                 le type est ''unknown-type''
+     1>c:\users\tux\documents\dev\projects\ponykart\ponykart++\core\launch.cpp(23): error C2065: 'splash' : identificateur non déclaré
+         Génération de code en cours...
+     1>Génération du projet "C:\Users\Tux\Documents\Dev\Projects\Ponykart\Ponykart++\Ponykart++.vcxproj" terminée (Build cible(s)) -- ÉCHEC.
+
+ÉCHEC de la build.
+
+Temps écoulé 00:00:00.84

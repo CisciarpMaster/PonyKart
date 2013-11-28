@@ -1,0 +1,4 @@
+- Implement the TODOs in the code
+- Splash should be in it's own thread. We're supposed to return from Splash.show() immediatly. (call go() in a new thrad ?)
+- Splash should show a progress bar and implement void Splash::Increment(string)
+- Getters for set-protected or set-private members should return const references instead of copies, and be inline
