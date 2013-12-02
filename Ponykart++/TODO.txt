@@ -1,4 +1,34 @@
+# General
 - Implement the TODOs in the code
-- Splash should be in it's own thread. We're supposed to return from Splash.show() immediatly. (call go() in a new thrad ?)
-- Splash should show a progress bar and implement void Splash::Increment(string)
+- Convert the CurrentNamingScheme to a newNamingSceme with lowercase first letter for objects/functions/variables
+- Find how to remove errors with vertex_program_ref and fragment_program_ref in the .materials files
+- Make constructors explicit everywhere not doing so wouldn't make sense
+- Rename InitializeOgre() into something more appropriate, since this function does other stuff and the actual Ogre init is mostly done in the Splash
+- Make a simple/small documentation for the code. Or just add comments at the start of some files. <- This.
+- Have a thread for Ogre only, and a thread for everything else if possible. Remember that Ogre can't into multithreads. At all.
+-- Ogre is shit. We're just not going to process the message pump outside of increment()
+
+# Optimisations
 - Getters for set-protected or set-private members should return const references instead of copies, and be inline
+- Remove D3D9 from the active plugins once you're done testing with it
+- Make functions take const args and references and make variables constexpr whenever it makes sense
+- Zip some ressources when it makes sense (big-ish files with good ratio)
+- Delete all the files in ./media that we don't actually need.
+- Index the (unordered_)maps with enums instead of strings when possible.
+- In PhysicsMain::frameEnded, the physics is processed ~at fixed intervals, it's probably causing the physics jitter.
+
+# Compilation
+- Find a decent C++11 compiler that supports <thread> on windows and can compile Ogre.
+-- Mingw has no <thread> support on windows.
+-- Doesn't work with Mingw-w64
+-- Doesn't work with Mingw-builds
+-- Doesn't work with VS2013, and all the previous Visual compilers can't into C++11.
+--- We'll just have to keep using Mingw, but either without threads or linking with a third-part lib on Windows
+---- Actually we don't need threads. We can just call messagePump to process events on a timer, and only renderOneFrame when Increment is called
+- Find a way to build Bullet. Maybe another mingw/visual with static link, or changing the flags
+-- MinGW 4.8.1 with CMake 2.8, WITHOUT the -O3/-DNDEBUG/-g  flags seems to work.
+--- Building with -O1 -DNDEBUG works too.
+- At some point make a big .rar and ship the source, all the precompiled dependencies, MinGW, and a project file configured to use those.
+-- Actually we should maybe move MinGW into the Ponykart++ folder, and add MinGW to the .gitignore.
+-- Or maybe just provide the dependencies's sources with a pregenerated Codeblocks project/CMakeFiles
+- Make two C::B Ponykart++ project files, for Win and Lin

@@ -11,21 +11,33 @@
 
 namespace Ponykart
 {
-	class LKernel // C#-static class : All member variables/functions should be static
+namespace LKernel
+{
+	// Anyone can get those from ogre's interface, but accessing them throught LKernel is faster.
+	extern Ogre::Root* root;
+	extern Ogre::RenderWindow* window;
+	extern Ogre::RenderSystem* renderSystem;
+
+	// Implementation details that are not part of the interface.
+	namespace details
 	{
-	public:
-		static void Initialize();
-		static void LoadInitialObjects(Splash splash);
-		static void* AddGlobalObject(void* object, std::string typeName);
-		template<typename T> static T* AddGlobalObject(T* object);
+		void initOgreResources(); // Basically adds all of the resource locations but doesn't actually load anything.
+		void loadOgreResourceGroups(); // This is where resources are actually loaded into memory.
 
-	private:
-		LKernel();
+		extern std::unordered_map<std::string,void*> globalObjects;
+		extern std::unordered_map<std::string,void*> levelObjects;
+	} // details
 
-	private:
-		static std::unordered_map<std::string,void*> GlobalObjects; // Contain one object of a given type.
-		static std::unordered_map<std::string,void*> LevelObjects;
-	};
-}
+	// Interface
+	inline void log(std::string message) {Ogre::LogManager::getSingleton().logMessage(message);}; // Ogre must be initialized.
+	void initOgreRoot();
+	void initOgreRenderSystem();
+	void initOgreRenderWindow();
+	void loadInitialObjects(Splash& splash);
+	void* addGlobalObject(void* object, std::string typeName);
+	template<typename T> static inline T* addGlobalObject(T* object) {return (T*)addGlobalObject(object,typeid(T).name());}
+	template<typename T> static T* GetG() {return (T*)details::globalObjects[typeid(T).name()];}
+} // LKernel
+} // Ponykart
 
 #endif // LKERNEL_H_INCLUDED

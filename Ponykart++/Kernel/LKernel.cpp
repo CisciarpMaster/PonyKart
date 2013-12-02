@@ -1,21 +1,21 @@
-#include "LKernel.h"
+#include "Kernel/LKernel.h"
 
 using namespace Ponykart;
+using namespace LKernel::details;
 
-std::unordered_map<std::string,void*> LKernel::GlobalObjects = std::unordered_map<std::string,void*>{};
-std::unordered_map<std::string,void*> LKernel::LevelObjects = std::unordered_map<std::string,void*>{};
+// Define the globals
+Ogre::Root* LKernel::root;
+Ogre::RenderWindow* LKernel::window;
+Ogre::RenderSystem* LKernel::renderSystem;
+std::unordered_map<std::string,void*> LKernel::details::globalObjects;
+std::unordered_map<std::string,void*> LKernel::details::levelObjects;
 
-void* LKernel::AddGlobalObject(void* object, std::string type)
+void* LKernel::addGlobalObject(void* object, std::string type)
 {
-	if (GlobalObjects.find(type) != GlobalObjects.end())
+	if (globalObjects.find(type) != globalObjects.end())
 		throw std::string(std::string("Global object already added ") + type);
 
-	GlobalObjects.insert(std::pair<std::string,void*>(type,object));
+	globalObjects.insert(std::pair<std::string,void*>(type,object));
 
 	return object;
-}
-
-template<typename T>  T* LKernel::AddGlobalObject(T* object)
-{
-	return (T*) AddGlobalObject(object, typeid(T));
 }

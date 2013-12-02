@@ -2,24 +2,31 @@
 #define SPLASH_H_INCLUDED
 
 #include <string>
-#include "ExampleApplication.h" // Ogre's ready-to-run class
+#include "Ogre.h"
+#include "OgreTextAreaOverlayElement.h"
 
 namespace Ponykart
 {
 	/// This class manages the splash screen you see when you start up the game.
-	class Splash : ExampleApplication
+	class Splash
 	{
 	public:
-		Splash();
-		void Show();
-		void Increment(std::string text);
+		explicit Splash();
+		~Splash();
+		void updateGUI(); // Render a frame and process the window's message queue
+		void increment(std::string text);
 
 	private:
 		void createScene();
 
 	private:
-		static const int maximum;
-		static const char* const LoadingPicture;
+		Ogre::Overlay* overlay;
+		Ogre::TextAreaOverlayElement* progressText;
+		Ogre::OverlayContainer* progressBG;
+		Ogre::OverlayContainer* progressFG;
+		Ogre::OverlayManager* overlayManager;
+		static int current; // Progress bar state
+		static const int maximum; // Progress bar maximum
 	};
 }
 

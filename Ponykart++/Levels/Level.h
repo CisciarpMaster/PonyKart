@@ -11,23 +11,22 @@ namespace Ponykart
 {
 namespace Levels
 {
-	// Represents a level or world in the game.
-	class Level // TODO: Translate the whole class correctly
-	{
+// Represents a level or world in the game.
+class Level // TODO: Translate the whole class correctly
+{
 public:
-		// Getters
-		std::string getName();
-		LevelType getType();
-		PonykartParsers::MuffinDefinition getDefinition();
-		std::unordered_map<std::string, Actors::LThing> getThings();
-	private:
-		// Set-private members. Getters are public.
-		std::string Name; // The world's name - this serves as its identifier
-		LevelType Type; // The type of this level
-		PonykartParsers::MuffinDefinition Definition;
-		std::unordered_map<std::string, Actors::LThing> Things; // We use the thing's Name as the key
-
-	};
+	// Getters
+	std::string getName();
+	LevelType getType();
+	PonykartParsers::MuffinDefinition* getDefinition();
+	std::unordered_map<std::string, Actors::LThing> getThings();
+private:
+	// Set-private members. Getters are public.
+	std::string Name; // The world's name - this serves as its identifier
+	LevelType Type; // The type of this level
+	PonykartParsers::MuffinDefinition* Definition;
+	std::unordered_map<std::string, Actors::LThing> Things; // We use the thing's Name as the key
+};
 } // Levels
 } // Ponykart
 

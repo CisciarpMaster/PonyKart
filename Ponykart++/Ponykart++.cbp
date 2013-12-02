@@ -16,7 +16,11 @@
 					<Add option="-g" />
 					<Add option="-Wno-strict-aliasing" />
 					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-DDEBUG=1" />
 				</Compiler>
+				<Linker>
+					<Add library="Muffind" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="build/Release/Ponykart++" prefix_auto="1" extension_auto="1" />
@@ -32,6 +36,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="Muffin" />
 				</Linker>
 			</Target>
 			<Target title="FastRelease">
@@ -44,6 +49,9 @@
 					<Add option="-Wno-strict-aliasing" />
 					<Add option="-Wno-unused-local-typedefs" />
 				</Compiler>
+				<Linker>
+					<Add library="Muffin" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
@@ -55,24 +63,42 @@
 			<Add directory="C:/Program Files (x86)/OGRE/include/OIS" />
 			<Add directory="C:/Program Files (x86)/OGRE/include/OGRE" />
 			<Add directory="C:/Users/Tux/Documents/Dev/Projects/Ponykart/PonykartParsers++/" />
+			<Add directory="C:/boost_1_55_0" />
 		</Compiler>
 		<Linker>
 			<Add option="-Wl,--enable-auto-import" />
 			<Add library="OgreMain" />
 			<Add library="OIS" />
+			<Add library="boost_system-mgw48-mt-1_55" />
+			<Add library="boost_thread-mgw48-mt-1_55" />
 			<Add directory="C:/Program Files (x86)/OGRE/lib/release" />
+			<Add directory="C:/Users/Tux/Documents/Dev/Projects/Ponykart/PonykartParsers++/bin/" />
+			<Add directory="C:/boost_1_55_0/stage/lib" />
 		</Linker>
 		<Unit filename="Actors/LThing.h" />
-		<Unit filename="Core/Launch.cpp" />
-		<Unit filename="Core/Launch.h" />
+		<Unit filename="Core/Options.cpp" />
+		<Unit filename="Core/Options.h" />
+		<Unit filename="Core/OptionsEnums.h" />
+		<Unit filename="Core/main.cpp" />
 		<Unit filename="Kernel/LKernel.cpp" />
 		<Unit filename="Kernel/LKernel.h" />
+		<Unit filename="Kernel/LKernelOgreInit.cpp" />
 		<Unit filename="Kernel/LKernelRegistration.cpp" />
+		<Unit filename="Kernel/LKernelStartup.cpp" />
 		<Unit filename="Levels/Level.cpp" />
 		<Unit filename="Levels/Level.h" />
+		<Unit filename="Levels/LevelChangeRequest.h" />
+		<Unit filename="Levels/LevelChangedEventArgs.cpp" />
+		<Unit filename="Levels/LevelChangedEventArgs.h" />
 		<Unit filename="Levels/LevelManager.cpp" />
 		<Unit filename="Levels/LevelManager.h" />
 		<Unit filename="Levels/LevelType.h" />
+		<Unit filename="Physics/CollisionReports/CollisionReporter.cpp" />
+		<Unit filename="Physics/CollisionReports/CollisionReporter.h" />
+		<Unit filename="Physics/CollisionShapeManager.cpp" />
+		<Unit filename="Physics/CollisionShapeManager.h" />
+		<Unit filename="Physics/PhysicsMain.cpp" />
+		<Unit filename="Physics/PhysicsMain.h" />
 		<Unit filename="UI/Splash.cpp" />
 		<Unit filename="UI/Splash.h" />
 		<Extensions>
